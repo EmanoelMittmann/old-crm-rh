@@ -1,11 +1,14 @@
-import Login from './components/pages/Login'
+import React from "react";
+import Routes from './routes/index';
+import { Provider } from "react-redux"
 
-function App() {
-  return (
-    <div className="App">
-      <Login/>
-    </div>
-  );
-}
+import store from "../src/redux/store"
+
+const App = () => (
+   <Provider store={store}>
+      <Routes/>
+   </Provider>
+);
+
 
 export default App;
