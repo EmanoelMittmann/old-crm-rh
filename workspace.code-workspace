@@ -1,0 +1,13 @@
+{
+  "folders": [
+	{
+		"name": "ubistart-rh-feature-RP-1",
+		"path": "."
+	},
+	{
+		"name": "src",
+		"path": "..\\..\\github\\ubistart-rh\\projeto\\src"
+	}
+],
+  "settings": {}
+}
