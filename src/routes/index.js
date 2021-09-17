@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Login from "../components/pages/Login"
 import Home from "../components/pages/Home"
-import PrivateRouteHome from './PrivateRouteHome';
+import PrivateRoute from './PrivateRoute';
 
 
 const Routes = () => {
@@ -13,7 +13,7 @@ const Routes = () => {
                 <Route exact path="/" component={Login}/>
             </Switch>
             <Switch>
-                <PrivateRouteHome path="/home" component={Home}/>
+                <PrivateRoute path="/home" component={Home}/>
             </Switch>
         </BrowserRouter>
     )

@@ -1,13 +1,10 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 
 const Home = () => {
-    const token = useSelector(state => state)
 
     return (
         <div>
-            <h1>TOKEN</h1>
-            <p>{token}</p>
+            <h1>Home</h1>
         </div>
     )
 }

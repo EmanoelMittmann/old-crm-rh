@@ -2,10 +2,12 @@ import { Redirect } from 'react-router';
 import { Route } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
-const PrivateRouteHome = ( { component: Component, ...rest} ) => {
+const PrivateRoute = ( { component: Component, ...rest} ) => {
     const token = useSelector(state => state)
+    const responseAuth = token.responseAuth;
+    
     return(
-        <Route {...rest} render={props => token ? (
+        <Route {...rest} render={props => responseAuth ? (
             <Component {...props} />
         ) : (
             <Redirect to={{ pathname: "/", state: { from: props.location }}}/>
@@ -14,4 +16,4 @@ const PrivateRouteHome = ( { component: Component, ...rest} ) => {
     
 }
 
-export default PrivateRouteHome;
+export default PrivateRoute;

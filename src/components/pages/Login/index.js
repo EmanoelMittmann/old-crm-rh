@@ -1,11 +1,13 @@
 import React from 'react'
+import { useHistory } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import GoogleLogin from 'react-google-login'
+import axios from 'axios'
+
 import DarkButton from '../../atoms/DarkButton/style'
 import teamLogin from '../../../assets/teamLogin.svg'
 import {ContainerLogin, Column1, Column2, ContainerLogo, ImgTeam, TitleLogin} from './style'
 import LogoUbistart from '../../../components/atoms/LogoUbistart'
-import GoogleLogin from 'react-google-login'
-import { useDispatch } from 'react-redux'
-import { useHistory } from "react-router-dom";
 import { loggingIn } from "../../../redux/actions"
 
 
@@ -15,11 +17,21 @@ export const Login = () => {
 
     const Login = async (googleData) => {
         //Sending the data
-        // const token = await axios.post('', { token: googleData.tokenId});
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+        // const responseAuth = await axios.post('localhost:3333/auth', {
+        //      tokenId: googleData.tokenId,
+        //      accessToken: googleData.accessToken,
+        //      googleId: googleData.googleId,
+        //      googleEmail: googleData.profileObj.email,
+        // });
+
+        const responseAuth = true;
+        const authData ={
+            googleData: googleData.tokenId,
+            responseAuth: responseAuth,
+        }
         
-        if(token){
-            dispatch(loggingIn(token));
+        if(responseAuth){
+            dispatch(loggingIn(authData));
             history.push("/home");
         }
 
@@ -42,8 +54,8 @@ export const Login = () => {
                         } disabled={renderProps.disabled} >Entrar</DarkButton>
                     )}
                     buttonText="Logar"
-                    onSuccess={(googleData) => Login()}
-                    onFailure={(googleData) => Login()}
+                    onSuccess={(googleData) => Login(googleData)}
+                    onFailure={(googleData) => Login(googleData)}
                     />
             </Column2>
             

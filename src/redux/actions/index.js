@@ -4,3 +4,4 @@ export const loggingIn = ( payload ) => ({
     type: VALIDTOKEN,
     payload: payload
 });
+
