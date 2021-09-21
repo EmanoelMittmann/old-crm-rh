@@ -2,7 +2,8 @@ import React from 'react'
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import GoogleLogin from 'react-google-login'
-import axios from 'axios'
+
+import api from '../../../api/api';
 
 import DarkButton from '../../atoms/DarkButton/style'
 import teamLogin from '../../../assets/teamLogin.svg'
@@ -11,31 +12,34 @@ import LogoUbistart from '../../../components/atoms/LogoUbistart'
 import { loggingIn } from "../../../redux/actions"
 
 
+
 export const Login = () => {
     const dispatch = useDispatch()
     let history = useHistory();
 
-    const Login = async (googleData) => {
-        //Sending the data
-        // const responseAuth = await axios.post('localhost:3333/auth', {
-        //      tokenId: googleData.tokenId,
-        //      accessToken: googleData.accessToken,
-        //      googleId: googleData.googleId,
-        //      googleEmail: googleData.profileObj.email,
-        // });
+     const Login = async (googleData) => {
+      const responseAuth = await api({
+         method:"post",
+         url:'/auth',
+         data: {
+         tokenId: googleData.tokenId,
+         accessToken: googleData.accessToken,
+         google_id: googleData.googleId,
+         google_email: googleData.profileObj.email,
+        }}); 
 
-        const responseAuth = true;
-        const authData ={
+        //const responseAuth = true;
+             const authData ={
             googleData: googleData.tokenId,
             responseAuth: responseAuth,
-        }
-        
+       }
+
         if(responseAuth){
             dispatch(loggingIn(authData));
             history.push("/home");
         }
 
-    }
+    } 
 
     return (
         <ContainerLogin>
