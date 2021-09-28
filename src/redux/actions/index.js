@@ -3,7 +3,9 @@ import {
     MENUSTATUS,
     HEADERMENUITEMCLICKED,
     iTEMONMOUSEOVER,
-    iTEMONMOUSEOUT
+    iTEMONMOUSEOUT,
+    OPENMODAL,
+    CLOSEMODAL
 } from '../types'
 
 export const loggingIn = (payload) => ({
@@ -29,4 +31,12 @@ export const hideItemDescription = (payload) => ({
 export const settingsMenu = (payload) => ({
     type: MENUSTATUS,
     payload: payload
+})
+
+export const openModal = () => ({
+    type: OPENMODAL,
+})
+
+export const closeModal = () => ({
+    type: CLOSEMODAL,
 })

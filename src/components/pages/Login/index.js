@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import GoogleLogin from 'react-google-login'
 import axios from 'axios'
 
-import DarkButton from '../../atoms/DarkButton/style'
+import DarkButton from '../../atoms/Buttons/DarkButton/style.js'
 import teamLogin from '../../../assets/teamLogin.svg'
 import {ContainerLogin, Column1, Column2, ContainerLogo, ImgTeam, TitleLogin} from './style'
 import LogoUbistart from '../../../components/atoms/LogoUbistart'
@@ -17,7 +17,7 @@ export const Login = () => {
 
     const Login = async (googleData) => {
         const responseAuth = true;
-        const authData ={
+        const authData = {
             googleData: googleData,
             responseAuth: responseAuth,
         }

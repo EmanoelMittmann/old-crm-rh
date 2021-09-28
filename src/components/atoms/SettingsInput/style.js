@@ -18,10 +18,11 @@ export const Input = styled.input`
 `
 
 export const InputLine = styled.div`
+    position: relative;
     display: flex;
     justify-content:space-between;
     width: ${props => props.width};
     height: 45px;
-    border: 1px solid #919EAB52;
+    border: 1.5px solid #919EAB52;
     border-radius: 8px;
 `
