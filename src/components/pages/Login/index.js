@@ -16,17 +16,9 @@ export const Login = () => {
     let history = useHistory();
 
     const Login = async (googleData) => {
-        //Sending the data
-        // const responseAuth = await axios.post('localhost:3333/auth', {
-        //      tokenId: googleData.tokenId,
-        //      accessToken: googleData.accessToken,
-        //      googleId: googleData.googleId,
-        //      googleEmail: googleData.profileObj.email,
-        // });
-
         const responseAuth = true;
         const authData ={
-            googleData: googleData.tokenId,
+            googleData: googleData,
             responseAuth: responseAuth,
         }
         
@@ -50,7 +42,7 @@ export const Login = () => {
                 <GoogleLogin
                     clientId="315430315500-t5r6lcd2f9ma1ahlbdvuk9v1jf7mus0o.apps.googleusercontent.com"
                     render={renderProps => (
-                        <DarkButton width="350px" onClick={renderProps.onClick
+                        <DarkButton width="350px" height="55px" onClick={renderProps.onClick
                         } disabled={renderProps.disabled} >Entrar</DarkButton>
                     )}
                     buttonText="Logar"
