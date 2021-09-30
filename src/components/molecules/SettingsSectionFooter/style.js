@@ -13,5 +13,25 @@ export const PagesBackAndForth = styled.span`
     font-size: 1rem;
     font-weight: 500;
     color: #161C24;
-    margin-right: 13em;
+    margin-right: 2em;
+    padding: 0.5em 0.5em 0.7em 0.5em;
+`
+
+export const ArrowContainer = styled.div`
+    width: 10%;
+    display: flex;
+    margin-right: 2.8em;
+`
+
+export const RightArrowContainer = styled.i`
+    display: block;
+
+    svg{
+        transform: rotate(-180deg);
+    }
+
+`
+
+export const LeftArrowContainer = styled.i`
+    display: block;
 `

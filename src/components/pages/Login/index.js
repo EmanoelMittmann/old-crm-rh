@@ -2,7 +2,8 @@ import React from 'react'
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import GoogleLogin from 'react-google-login'
-import axios from 'axios'
+
+import api from '../../../api/api';
 
 import DarkButton from '../../atoms/Buttons/DarkButton/style.js'
 import teamLogin from '../../../assets/teamLogin.svg'
@@ -11,23 +12,38 @@ import LogoUbistart from '../../../components/atoms/LogoUbistart'
 import { loggingIn } from "../../../redux/actions"
 
 
+
 export const Login = () => {
     const dispatch = useDispatch()
     let history = useHistory();
 
-    const Login = async (googleData) => {
-        const responseAuth = true;
-        const authData = {
-            googleData: googleData,
-            responseAuth: responseAuth,
-        }
+     const accessLogin = async (googleData) => {
+
+      const responseAuth = await api({
+         method:"post",
+         url:'/auth',
+         data: {
+         token_id: googleData.tokenId,
+         access_token: googleData.accessToken,
+         google_id: googleData.googleId,
+         google_email: googleData.profileObj.email,
+        }}); 
+
+        const responseBack = true
         
-        if(responseAuth){
+        const authData ={
+            googleData: googleData,
+            token: responseAuth.data.token,
+            responseBack: true,
+       }
+
+      
+        if(responseBack){
             dispatch(loggingIn(authData));
             history.push("/home");
         }
 
-    }
+    } 
 
     return (
         <ContainerLogin>
@@ -46,8 +62,8 @@ export const Login = () => {
                         } disabled={renderProps.disabled} >Entrar</DarkButton>
                     )}
                     buttonText="Logar"
-                    onSuccess={(googleData) => Login(googleData)}
-                    onFailure={(googleData) => Login(googleData)}
+                    onSuccess={(googleData) => accessLogin(googleData)}
+                    onFailure={(googleData) => accessLogin(googleData)}
                     />
             </Column2>
             

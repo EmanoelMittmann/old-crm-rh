@@ -529,7 +529,8 @@ const SettingsIconContainer = styled.div`
     fill: ${(props) => props.location === '/settings/job' ? "black" : "#B7BDC2"}; 
     cursor: pointer;
     height: 45px;
-    transition: 0.4s fill ease-in-out;
+    transition: 0.3s fill ease-in-out;
+    stroke: ${(props) => props.location === '/settings/job' ? "black" : "#B7BDC2"};
   }
 
   &:hover{
@@ -538,6 +539,7 @@ const SettingsIconContainer = styled.div`
     
     svg{
       fill: black;
+      stroke: black;
     }
   }
 

@@ -11,7 +11,6 @@ const JobActiveContainer = styled.div`
     color: #229A16;
     background-color: #E4F8DD;
     border-radius: 7px;
-    margin-right: 6em;
 `
 
 export default JobActiveContainer;

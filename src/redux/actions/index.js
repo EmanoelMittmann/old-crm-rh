@@ -5,32 +5,37 @@ import {
     iTEMONMOUSEOVER,
     iTEMONMOUSEOUT,
     OPENMODAL,
-    CLOSEMODAL
+    CLOSEMODAL,
+    SETJOBLIST,
+    JOBOPTIONCLICKED,
+    MODALEDITOPEN,
+    MODALREGISTEROPEN,
+    EDITJOBCLICKED,
 } from '../types'
 
 export const loggingIn = (payload) => ({
     type: VALIDTOKEN,
-    payload: payload
+    payload
 });
 
 export const menuItemClicked = (payload) => ({
     type: HEADERMENUITEMCLICKED,
-    payload: payload
+    payload
 })
 
 export const showItemDescription = (payload) => ({
     type: iTEMONMOUSEOVER,
-    payload: payload
+    payload
 })
 
 export const hideItemDescription = (payload) => ({
     type: iTEMONMOUSEOUT,
-    payload: payload
+    payload
 })
 
 export const settingsMenu = (payload) => ({
     type: MENUSTATUS,
-    payload: payload
+    payload
 })
 
 export const openModal = () => ({
@@ -39,4 +44,27 @@ export const openModal = () => ({
 
 export const closeModal = () => ({
     type: CLOSEMODAL,
+})
+
+export const setJobList = ( payload ) => ({
+    type: SETJOBLIST,
+    payload
+})
+
+export const jobOptionClicked = (payload) => ({
+    type: JOBOPTIONCLICKED,
+    payload
+})
+
+export const modalEditOpen = () => ({
+    type: MODALEDITOPEN
+})
+
+export const modalRegisterOpen = () => ({
+    type: MODALREGISTEROPEN
+})
+
+export const editJobClicked = (payload) => ({
+    type: EDITJOBCLICKED,
+    payload
 })

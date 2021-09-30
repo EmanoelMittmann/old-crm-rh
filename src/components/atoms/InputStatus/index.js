@@ -1,15 +1,26 @@
 import React from 'react'
-import {Input, InputLine} from '../SettingsInput/style.js'
+import {InputLine} from '../SettingsInput/style.js'
+import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg'
+import {
+    Img,
+    InputStatusSelect,
+    InputStatusOption,
+    InputStatusOptionPlaceholder
+} from './style.js'
 
 const InputStatus = () => {
     return ( 
-        <InputLine width="230px">
-            <Input 
-                type="text"
-                placeholder="Status"
-                width="150px"
-                padding="0.3em 0 0 1.5em"/>
-        </InputLine>
+        <div>
+            <InputLine width="230px">
+               <InputStatusSelect>
+                    <InputStatusOptionPlaceholder value="status" disabled selected>Status</InputStatusOptionPlaceholder>
+                    <InputStatusOption value="active">Ativo</InputStatusOption>
+                    <InputStatusOption value="disabled">Inativo</InputStatusOption>
+               </InputStatusSelect>
+               <Img src={arrowPointingDown} alt="Lupa"/>
+            </InputLine>
+         
+        </div>
     )
 }
 

@@ -7,8 +7,8 @@ const authentication = (state = inicialState, action) => {
     
     switch (type) {
         case VALIDTOKEN:
-            const userData = JSON.stringify(payload.googleData)
-            localStorage.setItem('googleData', userData)
+            const token = JSON.stringify(payload.token)
+            localStorage.setItem('token', token)
 
         return payload;
         default:

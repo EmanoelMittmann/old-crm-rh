@@ -10,14 +10,20 @@ import FilterTab from '../../atoms/FilterTab'
 import Job from '../../molecules/Job'
 import SettingsSectionFooter from '../../molecules/SettingsSectionFooter'
 import Modal from '../../molecules/Modal'
-import { openModal } from '../../../redux/actions'
+import { openModal, modalRegisterOpen } from '../../../redux/actions'
+
+
 
 export const SettingsSection = () => {
     const dispatch = useDispatch()
-    const modelVisibility = useSelector(state => state.modelVisibility)
+    const state = useSelector(state => state)
 
-    //Aqui será colocado a lógica na troca de página
+    const modelVisibility = state.modelVisibility
+    const token = state.authentication.token
+    const jobList = state.jobs;
+
     const registerJobClickHandler = () => {
+        dispatch(modalRegisterOpen())
         dispatch(openModal())
     }
 
@@ -28,12 +34,12 @@ export const SettingsSection = () => {
                     <ContainerFilterJob>
                         <SettingsInputs/>
                         <DarkButton width="180px" height="40"
-                        onClick={registerJobClickHandler}>
+                        onClick={() => registerJobClickHandler()}>
                             Cadastrar novo
                         </DarkButton>
                     </ContainerFilterJob>
-                    <FilterTab>Cargo</FilterTab>
-                    <Job></Job>
+                    <FilterTab/>   
+                     <Job/>
                 </Main>
             <SettingsSectionFooter/>
             {modelVisibility && <Modal/>}

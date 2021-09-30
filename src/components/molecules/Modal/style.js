@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 export const ModalOverlay = styled.div`
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    min-height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
     z-index: 5;
 `
 
@@ -42,7 +43,7 @@ export const ModalInputLabel = styled.span`
     display: inline-block;
     padding: 0 0.3em 0 0.3em;
     position: absolute;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     color: #454F5B;
     font-weight: 600;
     background: white;

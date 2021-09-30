@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux'
-import { useLocation } from 'react-router-dom';
+
 
 import {
     HomeIcon,
@@ -30,19 +30,20 @@ const NavHome = () => {
     const state = useSelector(state => state);
     let history = useHistory();
     const dispatch = useDispatch();
-    let location = useLocation();
 
     const MenuItemClickHandler = (id) => {
         dispatch(menuItemClicked(id));
 
-        id === 1 && history.push("/home");
-        id === 2 && history.push("/job");
-        id === 3 && history.push("/projects");
-        id === 4 && history.push("/overtime");
-        id === 5 && history.push("/invoice");
-        id === 6 && history.push("/reports");
-        id === 7 && history.push("/serviceOrders");
-        id === 8 && history.push("/settings/job");
+        const routingHandler = route => history.push(route)
+
+        id === 1 && routingHandler("/home");
+        id === 2 && routingHandler("/job");
+        id === 3 && routingHandler("/projects");
+        id === 4 && routingHandler("/overtime");
+        id === 5 && routingHandler("/invoice");
+        id === 6 && routingHandler("/reports");
+        id === 7 && routingHandler("/serviceOrders");
+        id === 8 && routingHandler("/settings/job");
     }
 
     const MenuItemOnMouseOverHandler = (id) => {
@@ -61,6 +62,7 @@ const NavHome = () => {
                     onMouseOver={() => MenuItemOnMouseOverHandler(menuItem.id)}
                     onMouseOut={() => MenuItemOnMouseOutHandler(menuItem.id)}
                     >
+
                         {menuItem.id === 1 && <HomeIcon/>}
                         {menuItem.id === 2 && <JobIcon/>}
                         {menuItem.id === 3 && <ProjectsIcon/>}

@@ -8,6 +8,10 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     margin-top: 2em;
+
+    svg{
+        margin-left: 1em;
+    }
 `
 
 export const Job = styled.h4`

@@ -61,4 +61,4 @@ const settingsStatus = (state = inicialState, action) => {
     }
 }
 
-export default  settingsStatus;
+export default settingsStatus;

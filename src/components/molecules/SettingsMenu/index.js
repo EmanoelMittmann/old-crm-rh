@@ -9,7 +9,6 @@ import Title from '../../atoms/SettingsMenuTitle/style.js'
 
 
 const SettingsMenu = () => {
-
     let history = useHistory();
     const dispatch = useDispatch();
     const state = useSelector(state => state.settingsStatus)
@@ -18,10 +17,11 @@ const SettingsMenu = () => {
     const settingsOptionClickHandler = (id) => {
         dispatch(settingsMenu(id))
 
+        const routingHandler = route => history.push(route)
 
-        id === 1 && history.push("/settings/job");
-        id === 2 && history.push("/settings/loremUm");
-        id === 3 && history.push("/settings/loremDois");
+        id === 1 && routingHandler("/settings/job");
+        id === 2 && routingHandler("/settings/loremUm");
+        id === 3 && routingHandler("/settings/loremDois");
     }  
 
     return (

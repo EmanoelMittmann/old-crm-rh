@@ -11,7 +11,6 @@ const JobDisabledContainer = styled.div`
     color: #CF0418;
     background-color: #FCDBE0;
     border-radius: 7px;
-    margin-right: 6em;
 `
 
 export default JobDisabledContainer;
