@@ -1,19 +1,19 @@
-import { VALIDTOKEN } from "../types"
+import authentication from './authentication.js';
+import settingsStatus from './settingsStatus.js'
+import headerMenu from './headerMenu.js'
+import modelVisibility from './modalVisibility.js'
+import modalFunctionality from './modalFunctionality.js'
+import jobs from './jobs'
+import jobId from './jobId'
 
-const inicialState = false;
+import { combineReducers } from 'redux';
 
-const authentication = (state = inicialState, action) => {
-    const {type, payload} = action;
-    
-    switch (type) {
-        case VALIDTOKEN:
-            const userData = JSON.stringify(payload.googleData)
-            localStorage.setItem('googleData', userData)
-
-        return payload;
-        default:
-            return state;
-    }
-}
-
-export default authentication;
+export const Reducers = combineReducers({
+    authentication,
+    settingsStatus,
+    headerMenu,
+    modelVisibility,
+    jobs,
+    modalFunctionality,
+    jobId
+});

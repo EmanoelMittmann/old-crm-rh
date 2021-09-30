@@ -3,8 +3,10 @@ import { Route } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
 const PrivateRoute = ( { component: Component, ...rest} ) => {
-    const token = useSelector(state => state)
-    const responseAuth = token.responseAuth;
+    const state = useSelector(state => state)
+
+    const responseAuth = true;
+    
     
     return(
         <Route {...rest} render={props => responseAuth ? (

@@ -5,7 +5,7 @@ import GoogleLogin from 'react-google-login'
 
 import api from '../../../api/api';
 
-import DarkButton from '../../atoms/DarkButton/style'
+import DarkButton from '../../atoms/Buttons/DarkButton/style.js'
 import teamLogin from '../../../assets/teamLogin.svg'
 import {ContainerLogin, Column1, Column2, ContainerLogo, ImgTeam, TitleLogin} from './style'
 import LogoUbistart from '../../../components/atoms/LogoUbistart'
@@ -17,24 +17,28 @@ export const Login = () => {
     const dispatch = useDispatch()
     let history = useHistory();
 
-     const Login = async (googleData) => {
+     const accessLogin = async (googleData) => {
+
       const responseAuth = await api({
          method:"post",
          url:'/auth',
          data: {
-         tokenId: googleData.tokenId,
-         accessToken: googleData.accessToken,
+         token_id: googleData.tokenId,
+         access_token: googleData.accessToken,
          google_id: googleData.googleId,
          google_email: googleData.profileObj.email,
         }}); 
 
-        //const responseAuth = true;
-             const authData ={
-            googleData: googleData.tokenId,
-            responseAuth: responseAuth,
+        const responseBack = true
+        
+        const authData ={
+            googleData: googleData,
+            token: responseAuth.data.token,
+            responseBack: true,
        }
 
-        if(responseAuth){
+      
+        if(responseBack){
             dispatch(loggingIn(authData));
             history.push("/home");
         }
@@ -54,12 +58,12 @@ export const Login = () => {
                 <GoogleLogin
                     clientId="315430315500-t5r6lcd2f9ma1ahlbdvuk9v1jf7mus0o.apps.googleusercontent.com"
                     render={renderProps => (
-                        <DarkButton width="350px" onClick={renderProps.onClick
+                        <DarkButton width="350px" height="55px" onClick={renderProps.onClick
                         } disabled={renderProps.disabled} >Entrar</DarkButton>
                     )}
                     buttonText="Logar"
-                    onSuccess={(googleData) => Login(googleData)}
-                    onFailure={(googleData) => Login(googleData)}
+                    onSuccess={(googleData) => accessLogin(googleData)}
+                    onFailure={(googleData) => accessLogin(googleData)}
                     />
             </Column2>
             
