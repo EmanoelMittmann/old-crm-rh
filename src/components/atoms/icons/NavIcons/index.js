@@ -107,7 +107,7 @@ const JobIconContainer = styled.div`
     width: 55px;
 
   svg {
-    fill: ${(props) => props.location === '/job' ? "black" : "#B7BDC2"};
+    fill: ${(props) => props.location === '/professionals' ? "black" : "#B7BDC2"};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
@@ -115,7 +115,7 @@ const JobIconContainer = styled.div`
 
 
   &:hover{
-    background-color: ${(props) => props.location === '/job' ? "white" : "#F4F6F8"};
+    background-color: ${(props) => props.location === '/professionals' ? "white" : "#F4F6F8"};
     border-radius: 10px;
    
     svg{
@@ -125,7 +125,7 @@ const JobIconContainer = styled.div`
 
   &:after{
     content: 'Profissionais';
-    display: ${props => props.location === '/job' ? "none" : props.hover};
+    display: ${props => props.location === '/professionals' ? "none" : props.hover};
     width: 100px;
     height: 35px;
     background-color: white;
@@ -143,7 +143,7 @@ const JobIconContainer = styled.div`
 
   &:before {
     content: "";
-    display: ${props => props.location === '/job' ? "none" : props.hover};
+    display: ${props => props.location === '/professionals' ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -177,7 +177,8 @@ const ProjectsIconContainer = styled.div`
     width: 55px;
 
   svg {
-    fill: ${(props) => props.location === '/projects' ? "black" : "#B7BDC2"};
+    fill: ${(props) => props.location === '/projects' ||
+    props.location === '/registerProject' ? "black" : "#B7BDC2"};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
@@ -185,7 +186,8 @@ const ProjectsIconContainer = styled.div`
 
 
   &:hover{
-    background-color: ${(props) => props.location === '/projects' ? "white" : "#F4F6F8"};
+    background-color: ${(props) => props.location === '/projects' ||
+    props.location === '/registerProject' ? "white" : "#F4F6F8"};
     border-radius: 10px;
    
     svg{
@@ -195,7 +197,8 @@ const ProjectsIconContainer = styled.div`
 
   &:after{
     content: 'Projetos';
-    display: ${props => props.location === '/projects' ? "none" : props.hover};
+    display: ${props => props.location === '/projects' ||
+    props.location === '/registerProject' ? "none" : props.hover};
     width: 70px;
     height: 35px;
     background-color: white;
@@ -213,7 +216,8 @@ const ProjectsIconContainer = styled.div`
 
   &:before {
     content: "";
-    display: ${props => props.location === '/projects' ? "none" : props.hover};
+    display: ${props => props.location === '/projects' ||
+    props.location === '/registerProject' ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -526,15 +530,18 @@ const SettingsIconContainer = styled.div`
     width: 55px;
 
   svg {
-    fill: ${(props) => props.location === '/settings/job' ? "black" : "#B7BDC2"}; 
+    fill: ${(props) => props.isSettings ?
+    "black" : "#B7BDC2"}; 
     cursor: pointer;
     height: 45px;
     transition: 0.3s fill ease-in-out;
-    stroke: ${(props) => props.location === '/settings/job' ? "black" : "#B7BDC2"};
+    stroke: ${(props) =>  props.isSettings ?
+    "black" : "#B7BDC2"};
   }
 
   &:hover{
-    background: ${(props) => props.location === '/settings/job' ? "white" : "#F4F6F8"};
+    background: ${(props) => props.isSettings ?
+    "white" : "#F4F6F8"};
     border-radius: 10px;
     
     svg{
@@ -545,7 +552,7 @@ const SettingsIconContainer = styled.div`
 
   &:after{
     content: 'Configurações';
-    display: ${props => props.location === '/settings/job' ? "none" : props.hover};
+    display: ${props => props.isSettings ? "none" : props.hover};
     width: 120px;
     height: 35px;
     background-color: white;
@@ -563,7 +570,7 @@ const SettingsIconContainer = styled.div`
 
   &:before {
     content: "";
-    display: ${props => props.location === '/settings/job' ? "none" : props.hover};
+    display: ${props => props.isSettings ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -575,12 +582,16 @@ const SettingsIconContainer = styled.div`
 
 export const SettingsIcon = () => {
   const location = useLocation();
-  const state = useSelector(state => state.headerMenu[7])
+  const state = useSelector(state => state.headerMenu[7]);
   const displayDescription = state.descriptionIsAppearing ? "flex" : "none";
+  const url = location.pathname;
+
+ const isSettings = url === '/projectStatus' || url === '/job' ||
+ url === '/projectType' ? true : false
 
     return (
         <SettingsIconContainer 
-        location={location.pathname}
+        isSettings={isSettings}
         hover={displayDescription}>
             <Settings/>
         </SettingsIconContainer>

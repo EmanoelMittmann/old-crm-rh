@@ -1,4 +1,4 @@
-import { SETJOBLIST, JOBOPTIONCLICKED, SETJOBSTATUS, EDITJOB, FILTERJOBLIST } from "../types"
+import { SETJOBLIST, JOBOPTIONCLICKED} from "../types"
 
 const inicialState = []
 

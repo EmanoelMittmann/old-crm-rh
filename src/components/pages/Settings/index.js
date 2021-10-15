@@ -1,5 +1,5 @@
 import React from 'react'
-import SettingsTemplate from '../../templates/Settings'
+import SettingsTemplate from '../../templates/SettingsTemplate'
 
 const Settings = () => {
     return (

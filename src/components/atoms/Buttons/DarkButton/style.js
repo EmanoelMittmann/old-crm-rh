@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const DarkButton = styled.button`
     font-family: 'Poppins', sans-serif;
-    font-size: 15px;
+    font-size: ${props => props.fontSize};
     font-weight: bold;
     box-shadow: 0px 8px 16px #0000003D;
     border-radius: 8px;
@@ -12,6 +12,7 @@ const DarkButton = styled.button`
     color: white;
     border:none;
     cursor: pointer;
+    margin: ${(props) => props.margin};
 `
 
 export default DarkButton;

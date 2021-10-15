@@ -58,7 +58,7 @@ export const Login = () => {
                 <GoogleLogin
                     clientId="315430315500-t5r6lcd2f9ma1ahlbdvuk9v1jf7mus0o.apps.googleusercontent.com"
                     render={renderProps => (
-                        <DarkButton width="350px" height="55px" onClick={renderProps.onClick
+                        <DarkButton fontSize="16px" width="350px" height="55px" onClick={renderProps.onClick
                         } disabled={renderProps.disabled} >Entrar</DarkButton>
                     )}
                     buttonText="Logar"

@@ -1,16 +1,29 @@
 import {
     VALIDTOKEN,
-    MENUSTATUS,
     HEADERMENUITEMCLICKED,
     iTEMONMOUSEOVER,
     iTEMONMOUSEOUT,
     OPENMODAL,
     CLOSEMODAL,
     SETJOBLIST,
+    SETSTATUSLIST,
+    SETPROJECTTYPELIST,
+    SETPROJECTLIST,
     JOBOPTIONCLICKED,
+    STATUSOPTIONCLICKED,
+    PROJECTTYPEOPTIONCLICKED,
+    PROJECTOPTIONCLICKED,
     MODALEDITOPEN,
     MODALREGISTEROPEN,
     EDITJOBCLICKED,
+    EDITSTATUSCLICKED,
+    EDITPROJECTTYPECLICKED,
+    SETSETTINGSPAGES,
+    SETSEARCHNAME,
+    SETFILTERSTATUS,
+    RESETCURRENTPAGE,
+    RESETFILTERSTATUS,
+    SETFILTERORDER
 } from '../types'
 
 export const loggingIn = (payload) => ({
@@ -33,11 +46,6 @@ export const hideItemDescription = (payload) => ({
     payload
 })
 
-export const settingsMenu = (payload) => ({
-    type: MENUSTATUS,
-    payload
-})
-
 export const openModal = () => ({
     type: OPENMODAL,
 })
@@ -51,8 +59,38 @@ export const setJobList = ( payload ) => ({
     payload
 })
 
+export const setStatusList = (payload) => ({
+    type: SETSTATUSLIST,
+    payload
+})
+
+export const setProjectTypeList = (payload) => ({
+    type: SETPROJECTTYPELIST,
+    payload
+})
+
+export const setProjectList = (payload) => ({
+    type: SETPROJECTLIST,
+    payload
+})
+
 export const jobOptionClicked = (payload) => ({
     type: JOBOPTIONCLICKED,
+    payload
+})
+
+export const statusOptionClicked = (payload) => ({
+    type: STATUSOPTIONCLICKED,
+    payload
+})
+
+export const projectTypeOptionClicked = (payload) => ({
+    type: PROJECTTYPEOPTIONCLICKED,
+    payload
+})
+
+export const projectOptionClicked = (payload) => ({
+    type: PROJECTOPTIONCLICKED,
     payload
 })
 
@@ -67,4 +105,44 @@ export const modalRegisterOpen = () => ({
 export const editJobClicked = (payload) => ({
     type: EDITJOBCLICKED,
     payload
+})
+
+export const editStatusClicked = (payload) => ({
+    type: EDITSTATUSCLICKED,
+    payload
+})
+
+export const editProjectTypeClicked = (payload) => ({
+    type: EDITPROJECTTYPECLICKED,
+    payload
+})
+
+export const settingsPages = (payload) => ({
+    type: SETSETTINGSPAGES,
+    payload
+})
+
+export const setSearchName = (payload) => ({
+    type: SETSEARCHNAME,
+    payload
+})
+
+export const setFilterStatus = (payload) => ({
+    type: SETFILTERSTATUS,
+    payload
+})
+
+export const setFilterOrder = (payload) => ({
+    type: SETFILTERORDER,
+    payload
+})
+
+export const resetCurrentPage = (payload) => ({
+    type: RESETCURRENTPAGE,
+    payload
+
+})
+
+export const resetFilterStatus = () => ({
+    type: RESETFILTERSTATUS,
 })
