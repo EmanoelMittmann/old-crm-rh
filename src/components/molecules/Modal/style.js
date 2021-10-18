@@ -28,28 +28,9 @@ export const ModalTitle = styled.h3`
     font-size: 1.3rem;
     font-family: "Poppins", sans-serif;
     font-weight: 700;
-    padding: 1.6em;
+    padding: ${props => props.padding};
 `
 
-export const ModalContainerInput = styled.div`
-    width: 100%;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`
-
-export const ModalInputLabel = styled.span`
-    display: inline-block;
-    padding: 0 0.3em 0 0.3em;
-    position: absolute;
-    font-size: 0.8rem;
-    color: #454F5B;
-    font-weight: 600;
-    background: white;
-    top: -10px;
-    left: 10px;
-`
 export const ModalContainerButtons = styled.div`
     display: flex;
     align-items: center;

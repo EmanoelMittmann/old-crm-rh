@@ -4,15 +4,16 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import PrivateRoute from './PrivateRoute';
 import Login from "../components/pages/Login";
 import Home from "../components/pages/Home";
-import Job from "../components/pages/Job";
+import Professionals from "../components/pages/Professionals";
 import Projects from "../components/pages/Projects"
 import Overtime from '../components/pages/Overtime'
 import Invoice from '../components/pages/Invoice'
 import Reports from '../components/pages/Reports'
 import ServiceOrders from '../components/pages/ServiceOrders'
 import Settings from '../../src/components/pages/Settings';
-import LoremUm from '../components/pages/LoremUm';
-import LoremDois from '../components/pages/LoremDois';
+import Status from '../components/pages/Status';
+import ProjectType from '../components/pages/ProjectType';
+import RegisterProject from '../components/pages/RegisterProject'
 
 const Routes = () => {
     return (
@@ -24,7 +25,7 @@ const Routes = () => {
                 <PrivateRoute path="/home" component={Home}/>
             </Switch>
             <Switch>
-                <Route exact path="/job" component={Job}/>
+                <Route exact path="/professionals" component={Professionals}/>
             </Switch>
             <Switch>
                 <Route exact path="/projects" component={Projects}/>
@@ -42,13 +43,16 @@ const Routes = () => {
                 <Route path="/serviceOrders" component={ServiceOrders}/>
             </Switch>
             <Switch>
-                <Route path="/settings/job" component={Settings}/>
+                <Route path="/job" component={Settings}/>
             </Switch>
             <Switch>
-                <Route path="/settings/loremUm" component={LoremUm}/>
+                <Route path="/projectStatus" component={Status}/>
             </Switch>
             <Switch>
-                <Route path="/settings/loremDois" component={LoremDois}/>
+                <Route path="/projectType" component={ProjectType}/>
+            </Switch>
+            <Switch>
+                <Route path="/registerProject" component={RegisterProject}/>
             </Switch>
             
         </BrowserRouter>

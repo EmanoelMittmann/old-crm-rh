@@ -1,19 +1,35 @@
 import authentication from './authentication.js';
-import settingsStatus from './settingsStatus.js'
 import headerMenu from './headerMenu.js'
 import modelVisibility from './modalVisibility.js'
 import modalFunctionality from './modalFunctionality.js'
-import jobs from './jobs'
-import jobId from './jobId'
+import settingsPagesFilter from './settingsPagesFilter.js'
+import jobs from './jobs.js'
+import status from './status.js'
+import projectType from './projectType'
+import projects from './projects.js';
+import jobId from './jobId.js'
+import statusId from './statusId.js';
+import projectTypeId from './projectTypeId'
+import settingsSearchFilter from './settingsSearchFilter.js'
+import filterStatus from './filterStatus.js';
+import filterOrder from './filterOrder.js'
 
 import { combineReducers } from 'redux';
 
 export const Reducers = combineReducers({
     authentication,
-    settingsStatus,
     headerMenu,
     modelVisibility,
     jobs,
+    status,
+    projectType,
+    projects,
     modalFunctionality,
-    jobId
+    jobId,
+    statusId,
+    projectTypeId,
+    settingsPagesFilter,
+    settingsSearchFilter,
+    filterStatus,
+    filterOrder
 });

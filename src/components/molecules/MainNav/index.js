@@ -2,7 +2,8 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux'
-
+import { Link } from "react-router-dom";
+import { useLocation } from 'react-router';
 
 import {
     HomeIcon,
@@ -30,20 +31,10 @@ const NavHome = () => {
     const state = useSelector(state => state);
     let history = useHistory();
     const dispatch = useDispatch();
+    const location = useLocation()
 
     const MenuItemClickHandler = (id) => {
         dispatch(menuItemClicked(id));
-
-        const routingHandler = route => history.push(route)
-
-        id === 1 && routingHandler("/home");
-        id === 2 && routingHandler("/job");
-        id === 3 && routingHandler("/projects");
-        id === 4 && routingHandler("/overtime");
-        id === 5 && routingHandler("/invoice");
-        id === 6 && routingHandler("/reports");
-        id === 7 && routingHandler("/serviceOrders");
-        id === 8 && routingHandler("/settings/job");
     }
 
     const MenuItemOnMouseOverHandler = (id) => {
@@ -56,26 +47,96 @@ const NavHome = () => {
 
     return(
         <Nav>
-            { state.headerMenu.map((menuItem) => (
-                    <ActiveIconContainer 
-                    onClick={() => MenuItemClickHandler(menuItem.id)}
-                    onMouseOver={() => MenuItemOnMouseOverHandler(menuItem.id)}
-                    onMouseOut={() => MenuItemOnMouseOutHandler(menuItem.id)}
+                <ActiveIconContainer 
+                    onClick={() => MenuItemClickHandler(1)}
+                    onMouseOver={() => MenuItemOnMouseOverHandler(1)}
+                    onMouseOut={() => MenuItemOnMouseOutHandler(1)}
                     >
+                        <Link to="/home">
+                            <HomeIcon/>
+                        </Link> 
 
-                        {menuItem.id === 1 && <HomeIcon/>}
-                        {menuItem.id === 2 && <JobIcon/>}
-                        {menuItem.id === 3 && <ProjectsIcon/>}
-                        {menuItem.id === 4 && <OvertimeIcon/>}
-                        {menuItem.id === 5 && <InvoiceIcon/>}
-                        {menuItem.id === 6 && <ReportsIcon/>}
-                        {menuItem.id === 7 && <ServiceOrdersIcon/>}
-                        {menuItem.id === 8 && <SettingsIcon/>}
-
-                        {menuItem.status === true && <ActiveIcon/>}      
-                    </ActiveIconContainer>
-            ))
-            }
+                    {location.pathname === "/home" && <ActiveIcon/>}    
+                </ActiveIconContainer>
+                <ActiveIconContainer 
+                    onClick={() => MenuItemClickHandler(2)}
+                    onMouseOver={() => MenuItemOnMouseOverHandler(2)}
+                    onMouseOut={() => MenuItemOnMouseOutHandler(2)}
+                    >
+                    <Link to="/professionals">
+                        <JobIcon/>
+                    </Link>
+                    {location.pathname === "/professionals" && <ActiveIcon/>} 
+                </ActiveIconContainer>
+                <ActiveIconContainer 
+                    onClick={() => MenuItemClickHandler(3)}
+                    onMouseOver={() => MenuItemOnMouseOverHandler(3)}
+                    onMouseOut={() => MenuItemOnMouseOutHandler(3)}
+                    >
+                    
+                    <Link to="/projects">
+                        <ProjectsIcon/>
+                    </Link>
+                    {location.pathname === "/projects" && <ActiveIcon/>} 
+                    {location.pathname === "/registerProject" && <ActiveIcon/>} 
+                </ActiveIconContainer>
+                <ActiveIconContainer 
+                    onClick={() => MenuItemClickHandler(4)}
+                    onMouseOver={() => MenuItemOnMouseOverHandler(4)}
+                    onMouseOut={() => MenuItemOnMouseOutHandler(4)}
+                    >
+                    
+                    <Link to="/overtime">
+                        <OvertimeIcon/>
+                    </Link>
+                    {location.pathname === "/overtime" && <ActiveIcon/>} 
+                </ActiveIconContainer>
+                <ActiveIconContainer 
+                    onClick={() => MenuItemClickHandler(5)}
+                    onMouseOver={() => MenuItemOnMouseOverHandler(5)}
+                    onMouseOut={() => MenuItemOnMouseOutHandler(5)}
+                    >
+                    
+                    <Link to="/invoice">
+                        <InvoiceIcon/>
+                    </Link>
+                    {location.pathname === "/invoice" && <ActiveIcon/>} 
+                </ActiveIconContainer>
+                <ActiveIconContainer 
+                    onClick={() => MenuItemClickHandler(6)}
+                    onMouseOver={() => MenuItemOnMouseOverHandler(6)}
+                    onMouseOut={() => MenuItemOnMouseOutHandler(6)}
+                    >
+                    
+                    <Link to="/reports">
+                        <ReportsIcon/>
+                    </Link>
+                    {location.pathname === "/reports" && <ActiveIcon/>}
+                </ActiveIconContainer>
+                <ActiveIconContainer 
+                    onClick={() => MenuItemClickHandler(7)}
+                    onMouseOver={() => MenuItemOnMouseOverHandler(7)}
+                    onMouseOut={() => MenuItemOnMouseOutHandler(7)}
+                    >
+                    
+                    <Link to="/serviceOrders">
+                        <ServiceOrdersIcon/>
+                    </Link>
+                    {location.pathname === "/serviceOrders" && <ActiveIcon/>}
+                </ActiveIconContainer>
+                <ActiveIconContainer 
+                    onClick={() => MenuItemClickHandler(8)}
+                    onMouseOver={() => MenuItemOnMouseOverHandler(8)}
+                    onMouseOut={() => MenuItemOnMouseOutHandler(8)}
+                    >
+                    
+                    <Link to="/job">
+                        <SettingsIcon/>
+                    </Link>
+                    {location.pathname === "/job" && <ActiveIcon/>}
+                    {location.pathname === "/projectStatus" && <ActiveIcon/>}
+                    {location.pathname === "/projectType" && <ActiveIcon/>}
+                </ActiveIconContainer>
         </Nav>
     )
 
