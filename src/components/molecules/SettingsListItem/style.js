@@ -1,6 +1,6 @@
 import styled from "styled-components"
 
-export const JobNameContainer = styled.div`
+export const ListItemContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -10,14 +10,14 @@ export const JobNameContainer = styled.div`
     border-radius: 8px;
 `
 
-export const JobName = styled.span`
+export const ListItemName = styled.span`
     font-size: "Poppins", sans-serif;
     font-weight: 500;
     font-size: 1rem;
     color: black;
     margin-left: 3em;
 `
-export const JobNameOptionsContainer = styled.div`
+export const ListItemDetails = styled.div`
     display: flex;
 `
 

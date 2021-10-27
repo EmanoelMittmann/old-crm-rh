@@ -1,47 +1,30 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router'
+import { useDispatch } from 'react-redux'
 
 import { 
-    setProjectTypeList,
-    setStatusList,
     setProjectList,
-    settingsPages
 } from '../../../redux/actions/index.js'
 import api from '../../../api/api.js'
 import Header from '../../organisms/Header/index.js'
-import SecondaryText from '../../atoms/SecondaryText/style.js'
-import InputWithLabel from '../../atoms/InputWithLabel'
 import PagesContainer from '../../organisms/PagesContainer/styled'
 import { SectionTitle } from '../../atoms/PageTitle/style.js'
 import ArrowBack  from '../../../assets/icons/arrow-back.svg'
-import InputSelect from '../../atoms/InputSelect'
-import InputDate from '../../atoms/InputDate'
-import InputText from '../../atoms/InputText'
 import CancelButton from '../../atoms/Buttons/CancelButton/style.js'
 import DarkButton from '../../atoms/Buttons/DarkButton/style.js'
+import RegisterProjectData from '../../organisms/RegisterProjectData'
+import RegisterProjectTeam from '../../organisms/RegisterProjectTeam'
 import {
     RegisterProjectTitleContainer,
     RegisterProjectContainer,
-    RegisterProjectForm,
-    ContainerInputInitialDate,
-    ContainerInputFinalDate,
-    ContainerInputWithLabel,
-    ContainerInputProjectStatusSelect,
-    ContainerInputProjectTypeSelect,
-    ContainerSecondRow,
-    ContainerFirstRow,
-    ContainerThirdLine,
     RegisterProjectFooter,
     RegisterProjectButtons,
     Img
 } from './style.js'
 
 const RegisterProject = () => {
-    const state = useSelector(state => state);
-    const dispatch = useDispatch();
     const history = useHistory()
+    const dispatch = useDispatch();
 
     const [projectName, setProjectName] = useState("");
     const [projectType, setProjectType] = useState("");
@@ -50,89 +33,44 @@ const RegisterProject = () => {
     const [projectStatus, setProjectStatus] = useState("");
     const [teamCost, setTeamCost] = useState("");
 
-    const calcDaysPassed = (date1, date2) => (date2 - date1) / (1000 * 60 * 60 * 24)
-
     const [inicialYear, inicialMonth, inicialDay] = inicialDate.split('-')
     const [finalYear, finalMonth, finalDay] = finalDate.split('-')
-    
-    const daysPassed = calcDaysPassed(new Date(inicialYear, inicialMonth, inicialDay), new Date(finalYear, finalMonth, finalDay))
-
-    const getProjectTypeList = async () => {
-        const {data} = await api({
-            method:'get',     
-            url:`/projectType`,
-        }); 
-    
-        dispatch(setProjectTypeList(data.data))
-        dispatch(settingsPages(data.meta));
-        return data;
-    }
-
-    const getStatusList = async () => {
-        const {data} = await api({
-            method:'get',     
-            url:`/projectStatus`,
-        }); 
-    
-        dispatch(setStatusList(data.data))
-        dispatch(settingsPages(data.meta));
-        return data;
-    }
-
-    useEffect(() => {
-        getStatusList()
-        getProjectTypeList()
-    },[]);
-    
-
-    const filterProjectsTypesOptions = state.projectType.map(project => (
-        {
-            description: project.name,
-            value: project.id
-        }
-    ))
-
-    const filterProjectsStatusOptions = state.status.map(status => (
-        {
-            description: status.name,
-            value: status.id
-        }
-    ))
 
     const registerProjectClickHandler = async () => {
-    console.log(projectName, projectStatus, projectType, inicialDate, finalDate, teamCost);
+        console.log(projectType);
 
-            try {
-                await api({
-                    method: 'post',
-                    url: '/project',
-                    data: {
-                        name: projectName,
-                        project_status_id: projectStatus,
-                        project_type_id: projectType,
-                        date_start: inicialDate,
-                        date_end: finalDate,
-                        team_cost: teamCost,
-                    }
-                });
-    
-                const {data} = await api({
-                    method: 'get',
-                    url: '/project',
-                });
+        try {
+            await api({
+                method: 'post',
+                url: '/project',
+                data: {
+                    name: projectName,
+                    project_status_id: projectStatus,
+                    project_type_id: projectType,
+                    date_start: inicialDate,
+                    date_end: finalDate,
+                    team_cost: teamCost,
+                }
+            });
 
-                dispatch(setProjectList(data.data))
-                history.push("/projects");
-                console.log(data);
-                return data.data
-            
-            } catch (error) {
-                console.error(error);
-            }
+            const {data} = await api({
+                method: 'get',
+                url: '/project',
+            });
+
+            dispatch(setProjectList(data.data))
+            history.push("/projects");
+            return data.data
+        
+        } catch (error) {
+            console.error(error);
+        }
 
     }
 
-        console.log(state);
+    const calcDaysPassed = (date1, date2) => (date2 - date1) / (1000 * 60 * 60 * 24)
+    
+    const daysPassed = calcDaysPassed(new Date(inicialYear, inicialMonth, inicialDay), new Date(finalYear, finalMonth, finalDay))
 
     return (
         <PagesContainer>
@@ -145,66 +83,17 @@ const RegisterProject = () => {
                 </SectionTitle>
             </RegisterProjectTitleContainer>
             <RegisterProjectContainer>
-                <SecondaryText margin="0 0 2.5em 0">Dados do projeto</SecondaryText>
-                <RegisterProjectForm>
 
-                    <ContainerFirstRow>
-                        <ContainerInputWithLabel>
-                            <InputWithLabel
-                            label="Nome do projeto"
-                            setinputWithLabelValue={setProjectName}
-                            width="95%"
-                            // editValue={displayNameBeingEdited}
-                            />
-                        </ContainerInputWithLabel>
+                <RegisterProjectData
+                    setProjectName={setProjectName}
+                    setProjectType={setProjectType}
+                    setInitialDate={setInitialDate}
+                    setFinalDate={setFinalDate}
+                    setProjectStatus={setProjectStatus}
+                    setTeamCost={setTeamCost}
+                />
 
-                        <ContainerInputProjectTypeSelect>
-                            <InputSelect
-                            setSelectedOption={setProjectType}
-                            options={filterProjectsTypesOptions}
-                            placeholder="Tipo de projeto"
-                            width="200px"
-                            />
-                        </ContainerInputProjectTypeSelect>
-
-                    </ContainerFirstRow>
-
-                    <ContainerSecondRow>
-                        <ContainerInputInitialDate>
-                            <InputDate
-                            setDate={setInitialDate}
-                            placeholder="Data início"
-                            />
-                        </ContainerInputInitialDate>
-
-                        <ContainerInputFinalDate>
-                            <InputDate
-                             setDate={setFinalDate}
-                             placeholder="Final estimado"
-                            />
-                        </ContainerInputFinalDate>
-
-                        <ContainerInputProjectStatusSelect>
-                            <InputSelect
-                            setSelectedOption={setProjectStatus}
-                            options={filterProjectsStatusOptions}
-                            placeholder="Status do projeto"
-                            width="100%"
-                            />
-                        </ContainerInputProjectStatusSelect>
-
-                    </ContainerSecondRow>
-
-                    <ContainerThirdLine>
-                        <InputText
-                            width="260px"
-                            placeholder="Custo estimado de equipe"
-                            setTextValue={setTeamCost}
-                            // defaultValue={editValue}
-                        />
-                    </ContainerThirdLine>
-
-                </RegisterProjectForm>
+                <RegisterProjectTeam/>
 
                 <RegisterProjectFooter>
             

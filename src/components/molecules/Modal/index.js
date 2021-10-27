@@ -200,7 +200,6 @@ const Modal = () => {
     
     const jobName = () => {
         if(state.modalFunctionality.edit !== true) return;
-        console.log(editJob);
 
         const [{name}] = editJob;
         return name;
@@ -227,7 +226,7 @@ const Modal = () => {
                     <InputWithLabel
                     label={displayModalInputLabel(location.pathname)}
                     setinputWithLabelValue={setinputWithLabelValue}
-                    editValue={displayNameBeingEdited}
+                    editValue={displayNameBeingEdited()}
                     width="85%"
                     justify="center"
                     />

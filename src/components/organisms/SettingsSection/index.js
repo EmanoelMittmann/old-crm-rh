@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useLocation } from "react-router-dom";
@@ -24,7 +24,6 @@ import {
 from '../../../redux/actions'
 
 
-
 export const SettingsSection = () => {
     const dispatch = useDispatch()
     const location = useLocation();
@@ -32,7 +31,7 @@ export const SettingsSection = () => {
 
     const displayTitle = route => {
         if(route === "/job") return  "Cadastro de cargos"
-        if(route === "/projectStatus") return "Cadastro de status"
+        if(route === "/projectStatus") return "Cadastro de status do projeto"
         if(route === "/projectType") return "Cadastro de Tipo de Projeto"
     }
 
@@ -42,34 +41,35 @@ export const SettingsSection = () => {
     const lastPage = state.settingsPagesFilter.last_page
     const currentPage = state.settingsPagesFilter.current_page
     const firstPage = state.settingsPagesFilter.first_page
+    let params = {};
 
     const registerJobClickHandler = () => {
         dispatch(modalRegisterOpen())
         dispatch(openModal())
     };
 
-    //Requisição a api para filtros de paginação
+
+    const handleFilterRequest = (pagesFilter) => {
+        if(pagesFilter === "previous") params.page = `${
+            state.settingsPagesFilter.current_page - 1
+        }`
+
+        if(pagesFilter === "next") params.page = `${
+            state.settingsPagesFilter.current_page + 1
+        }`
+
+        if(state.filterStatus !== "" && state.filterStatus !== " ") params.is_active = state.filterStatus
+
+        if(state.settingsSearchFilter !== "") params.search = state.settingsSearchFilter
+
+        if(state.filterOrder !== "") params.orderField = 'name'
+
+        if(state.filterOrder !== "") params.order = state.filterOrder
+    }
 
     const nextPage = async () => {
-        let params;
 
-        if(state.filterOrder === ""){
-            params = {
-                page: `${state.settingsPagesFilter.current_page + 1}`,
-                is_active: state.filterStatus,
-                search: state.settingsSearchFilter,
-            }
-        }
-    
-        if(state.filterOrder !== ""){
-            params = {
-                page: `${state.settingsPagesFilter.current_page + 1}`,
-                is_active: state.filterStatus,
-                search: state.settingsSearchFilter,
-                orderField: 'name',
-                order: state.filterOrder,
-            }
-        }
+        handleFilterRequest("next")
         
         const {data} = await api({
             method:'get',     
@@ -88,25 +88,8 @@ export const SettingsSection = () => {
 
 
     const previousPage = async () => {
-        let params;
 
-        if(state.filterOrder === ""){
-            params = {
-                page: `${state.settingsPagesFilter.current_page - 1}`,
-                is_active: state.filterStatus,
-                search: state.settingsSearchFilter,
-            }
-        }
-    
-        if(state.filterOrder !== ""){
-            params = {
-                page: `${state.settingsPagesFilter.current_page - 1}`,
-                is_active: state.filterStatus,
-                search: state.settingsSearchFilter,
-                orderField: 'name',
-                order: state.filterOrder,
-            }
-        }
+        handleFilterRequest("previous")
 
         const {data} = await api({
             method:'get',     

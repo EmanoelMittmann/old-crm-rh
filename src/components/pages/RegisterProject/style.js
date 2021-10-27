@@ -17,49 +17,13 @@ export const RegisterProjectContainer = styled.div`
     border-radius: 20px;
     padding: 2.5em 3em 2.5em 3em;
 `
-export const RegisterProjectForm = styled.form`
-   display: flex;
-   flex-direction: column;
 
-`
-export const ContainerFirstRow = styled.div`
+export const RegisterProjectButtons = styled.div`
+    width: 250px;
     display: flex;
-    width: 100%;
-    margin-bottom: 2em;
+    justify-content: space-between;
 `
 
-export const ContainerSecondRow = styled.div`
-    display: flex;
-    width: 100%;
-`
-
-export const ContainerInputWithLabel = styled.div`
-    width: 80%;
-   
-`
-
-export const ContainerInputProjectStatusSelect = styled.div`
-    width: 40%;
-`
-
-export const ContainerInputInitialDate = styled.div`
-    width: 22.5%;
-    margin-right: 5em;
-    
-`
-export const ContainerInputFinalDate = styled.div`
-    width: 22.5%;  
-    margin-right: 5em;
-`
-
-export const ContainerInputProjectTypeSelect = styled.div`
-    width: 200px;
-`
-
-export const ContainerThirdLine = styled.div`
-    width: 100%;
-    margin: 2em 0 2em 0;
-`
 export const RegisterProjectFooter = styled.div`
     width: 100%;
     height: 100px;
@@ -69,8 +33,3 @@ export const RegisterProjectFooter = styled.div`
     border-top: 2px solid #F4F6F8;
 `
 
-export const RegisterProjectButtons = styled.div`
-    width: 250px;
-    display: flex;
-    justify-content: space-between;
-`

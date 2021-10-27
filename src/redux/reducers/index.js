@@ -13,6 +13,7 @@ import projectTypeId from './projectTypeId'
 import settingsSearchFilter from './settingsSearchFilter.js'
 import filterStatus from './filterStatus.js';
 import filterOrder from './filterOrder.js'
+import statusColors from './statusColors.js'
 
 import { combineReducers } from 'redux';
 
@@ -31,5 +32,6 @@ export const Reducers = combineReducers({
     settingsPagesFilter,
     settingsSearchFilter,
     filterStatus,
-    filterOrder
+    filterOrder,
+    statusColors,
 });

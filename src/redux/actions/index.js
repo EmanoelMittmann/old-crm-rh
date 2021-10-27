@@ -23,7 +23,8 @@ import {
     SETFILTERSTATUS,
     RESETCURRENTPAGE,
     RESETFILTERSTATUS,
-    SETFILTERORDER
+    SETFILTERORDER,
+    SETSTATUSCOLORS
 } from '../types'
 
 export const loggingIn = (payload) => ({
@@ -145,4 +146,9 @@ export const resetCurrentPage = (payload) => ({
 
 export const resetFilterStatus = () => ({
     type: RESETFILTERSTATUS,
+})
+
+export const setStatusColors = (payload) => ({
+    type: SETSTATUSCOLORS,
+    payload
 })

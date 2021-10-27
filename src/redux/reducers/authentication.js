@@ -9,7 +9,7 @@ const authentication = (state = inicialState, action) => {
         case VALIDTOKEN:
             const token = JSON.stringify(payload.token)
             localStorage.setItem('token', token)
-
+        console.log(payload);
         return payload;
         default:
             return state;

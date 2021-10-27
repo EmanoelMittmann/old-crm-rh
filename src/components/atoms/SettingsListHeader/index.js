@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import api from '../../../api/api'
 import { setJobList, setStatusList, settingsPages, setFilterOrder, setProjectTypeList } from '../../../redux/actions/index.js'
-import { ListHeaderContainer, ListHeaderTitle } from '../../ListHeader/style.js'
+import { ListHeaderContainer, ListHeaderTitle, ListHeaderOrderContainer } from '../../atoms/ListHeader/style.js'
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
 
 const SettingsListHeader = () => {
@@ -12,29 +12,37 @@ const SettingsListHeader = () => {
     const dispatch = useDispatch()
     const location = useLocation();
     const [isAsc, setIsAsc] = useState(true)
+    let params = {}
+
+    const handleFilterRequest = (paramsOrder) => {
+        params.page = 1
+
+        if(state.filterStatus !== "" && state.filterStatus !== " ") params.is_active = state.filterStatus
+
+        if(state.settingsSearchFilter !== "") params.search = state.settingsSearchFilter
+
+        params.orderField = 'name'
+
+        params.order = paramsOrder
+    }
 
     const displayListTitle = route => {
         if(route === "/job") return "Cargo"
-        if(route === "/projectStatus") return "Status"
+        if(route === "/projectStatus") return "Status do projeto"
         if(route === "/projectType") return "Tipo de Projeto"
     }
 
     const orderSettingsList = async () => {
-        const isActive = state.filterStatus
-        const paramsOrder = isAsc ? 'asc' : 'desc'
 
         setIsAsc(!isAsc)
+        const paramsOrder = isAsc ? 'asc' : 'desc'
+        console.log(paramsOrder);
+        handleFilterRequest(paramsOrder)
 
         const {data} = await api({
             method:'get',     
             url:`${location.pathname}`,
-            params: {
-                page: 1,
-                is_active: isActive,
-                orderField: 'name',
-                order: paramsOrder,
-                search: state.settingsSearchFilter,
-            }
+            params: params
         }); 
 
         dispatch(setFilterOrder(paramsOrder))
@@ -43,16 +51,15 @@ const SettingsListHeader = () => {
         if(location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
         dispatch(settingsPages(data.meta));
 
-
         return data;
     }
 
     return (
         <ListHeaderContainer>
-                <ListHeaderTitle onClick={() => orderSettingsList()}>
-                    {displayListTitle(location.pathname)}
-                </ListHeaderTitle>
-                <Arrows onClick={() => orderSettingsList()}/>
+            <ListHeaderTitle onClick={() => orderSettingsList()}>
+                {displayListTitle(location.pathname)}
+            </ListHeaderTitle>
+            <Arrows onClick={() => orderSettingsList()}/>
         </ListHeaderContainer>
     )
 }
