@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 
@@ -8,6 +8,7 @@ import {
     settingsPages
 } from '../../../redux/actions/index.js'
 import api from '../../../api/api.js'
+import { formatFirstLetter } from '../../utils/formatFirstLetter.js'
 import SecondaryText from '../../atoms/SecondaryText/style.js'
 import InputWithLabel from '../../atoms/InputWithLabel'
 import InputSelect from '../../atoms/InputSelect'
@@ -23,32 +24,31 @@ import {
     ContainerSecondRow,
     ContainerFirstRow,
     ContainerThirdLine,
+    ContainerRegisterProjectData
 } from './style.js'
 
-const RegisterProjectData = ({setProjectName, setProjectType, setInitialDate, setFinalDate, setProjectStatus, setTeamCost}) => {
-
+const RegisterProjectData = ({setProjectName, projectName, setProjectType, setInitialDate, setFinalDate, setProjectStatus, setTeamCost}) => {
     const state = useSelector(state => state);
     const dispatch = useDispatch();
 
     const getProjectTypeList = async () => {
         const {data} = await api({
             method:'get',     
-            url:`/projectType`,
+            url:`/projectTypeNoFilter`,
         }); 
-    
-        dispatch(setProjectTypeList(data.data))
-        dispatch(settingsPages(data.meta));
+        const formattedProjectTypeList =  formatFirstLetter(data)
+        dispatch(setProjectTypeList(formattedProjectTypeList))
         return data;
     }
 
     const getStatusList = async () => {
         const {data} = await api({
             method:'get',     
-            url:`/projectStatus`,
+            url:`/projectStatusNoFilter`,
         }); 
-    
-        dispatch(setStatusList(data.data))
-        dispatch(settingsPages(data.meta));
+        const formattedStatusList =  formatFirstLetter(data)
+
+        dispatch(setStatusList(formattedStatusList))
         return data;
     }
 
@@ -72,20 +72,20 @@ const RegisterProjectData = ({setProjectName, setProjectType, setInitialDate, se
         }
     ))
 
-
-
     return (
-        <div>
+        <ContainerRegisterProjectData>
                <SecondaryText margin="0 0 2.5em 0">Dados do projeto</SecondaryText>
                 <RegisterProjectForm>
 
                     <ContainerFirstRow>
                         <ContainerInputWithLabel>
                             <InputWithLabel
+                            placeholder="Projeto..."
                             label="Nome do projeto"
                             setinputWithLabelValue={setProjectName}
                             width="95%"
-                            // editValue={displayNameBeingEdited}
+                            value={projectName}
+
                             />
                         </ContainerInputWithLabel>
 
@@ -128,14 +128,15 @@ const RegisterProjectData = ({setProjectName, setProjectType, setInitialDate, se
 
                     <ContainerThirdLine>
                         <InputText
-                            width="260px"
+                            width="100%"
+                            widthLine="260px"
                             placeholder="Custo estimado de equipe"
                             setTextValue={setTeamCost}
                         />
                     </ContainerThirdLine>
 
                 </RegisterProjectForm>
-        </div>
+        </ContainerRegisterProjectData>
     )
 }
 

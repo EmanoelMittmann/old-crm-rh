@@ -32,6 +32,7 @@ const ProjectsInputs = () => {
         }
     ]
 
+
     return (
         <ProjectsInputsContainer>
             <InputSearch lineWidth="280px" inputWidth="230px"/>

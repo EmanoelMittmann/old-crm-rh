@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
-import { useHistory } from 'react-router'
+import React, { useState, useEffect } from 'react'
+import { useHistory, useLocation } from 'react-router'
 import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { 
     setProjectList,
@@ -23,7 +24,9 @@ import {
 } from './style.js'
 
 const RegisterProject = () => {
+    const state = useSelector(state => state)
     const history = useHistory()
+    const location = useLocation()
     const dispatch = useDispatch();
 
     const [projectName, setProjectName] = useState("");
@@ -32,12 +35,43 @@ const RegisterProject = () => {
     const [finalDate, setFinalDate] = useState("");
     const [projectStatus, setProjectStatus] = useState("");
     const [teamCost, setTeamCost] = useState("");
+    const [payloadTeam, setPayloadTeam] = useState("")
 
     const [inicialYear, inicialMonth, inicialDay] = inicialDate.split('-')
     const [finalYear, finalMonth, finalDay] = finalDate.split('-')
 
-    const registerProjectClickHandler = async () => {
-        console.log(projectType);
+        const editProject = async () => {
+
+            try {
+                await api({
+                    method: 'put',
+                    url: `/project/${location.state?.projectId}`,
+                    data: {
+                        name: projectName,
+                        project_status_id: projectStatus,
+                        project_type_id: projectType,
+                        date_start: inicialDate,
+                        date_end: finalDate,
+                        team_cost: +teamCost,
+                    }
+                });
+    
+                const {data} = await api({
+                    method: 'get',
+                    url: '/project',
+                });
+    
+                dispatch(setProjectList(data.data))
+                history.push("/projects");
+                return data.data
+            
+            } catch (error) {
+                console.error(error);
+            }
+    
+        }
+
+    const registerProject = async () => {
 
         try {
             await api({
@@ -49,7 +83,8 @@ const RegisterProject = () => {
                     project_type_id: projectType,
                     date_start: inicialDate,
                     date_end: finalDate,
-                    team_cost: teamCost,
+                    team_cost: +teamCost,
+                    users: payloadTeam
                 }
             });
 
@@ -68,12 +103,24 @@ const RegisterProject = () => {
 
     }
 
+    const projectBeingEdited = state?.projects.find(project => {
+        return project?.id === location.state?.projectId
+    })
+    
+    const projectHandler = () => {
+        if(projectBeingEdited) return editProject();
+        
+        return registerProject()
+    }
+
+
     const calcDaysPassed = (date1, date2) => (date2 - date1) / (1000 * 60 * 60 * 24)
     
     const daysPassed = calcDaysPassed(new Date(inicialYear, inicialMonth, inicialDay), new Date(finalYear, finalMonth, finalDay))
 
+
     return (
-        <PagesContainer>
+        <PagesContainer padding="0 0 5em 0">
             <Header/>
             <RegisterProjectTitleContainer>
                 <Img src={ArrowBack} alt="Voltar"
@@ -82,9 +129,11 @@ const RegisterProject = () => {
                     Novo Projeto
                 </SectionTitle>
             </RegisterProjectTitleContainer>
+
             <RegisterProjectContainer>
 
                 <RegisterProjectData
+                    projectName={projectName}
                     setProjectName={setProjectName}
                     setProjectType={setProjectType}
                     setInitialDate={setInitialDate}
@@ -93,7 +142,10 @@ const RegisterProject = () => {
                     setTeamCost={setTeamCost}
                 />
 
-                <RegisterProjectTeam/>
+                <RegisterProjectTeam
+                payloadTeam={payloadTeam}
+                setPayloadTeam={setPayloadTeam}
+                />
 
                 <RegisterProjectFooter>
             
@@ -106,7 +158,7 @@ const RegisterProject = () => {
                         width="115px"
                         height="40px"
                         fontSize="0.84rem"
-                        onClick={() => daysPassed >= 0 ? registerProjectClickHandler() : console.log("Data inválida")}
+                        onClick={() => daysPassed >= 0 ? projectHandler() : console.log("Data inválida")}
                         >
                             Cadastrar
                         </DarkButton>

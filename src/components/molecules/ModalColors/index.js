@@ -9,6 +9,7 @@ import CancelButton from '../../atoms/Buttons/CancelButton/style.js'
 import CloseButton from '../../atoms/Buttons/CloseButton'
 import InputSelect from '../../atoms/InputSelect'
 import InputSelectEdit from '../../atoms/InputSelectEdit'
+import InputWithLabel from '../../atoms/InputWithLabel/index.js'
 import { ModalContainerButtons, ModalInputContainer } from './style.js'
 import { 
     setStatusList,
@@ -33,6 +34,7 @@ const ModalColors = () => {
     
     const state = useSelector(state => state)
     let params;
+    let colorId;
 
     if(state.filterOrder !== ""){
         params = {
@@ -125,8 +127,8 @@ const ModalColors = () => {
         }
     }
 
-    const getJobOnChangeInputHandler = (e) => {
-        return setValue(e.target.value); 
+    const CloseButtonClickHandler = () => {
+        dispatch(closeModal())
     }
 
     const cancelButtonClickHandler = () => {
@@ -141,6 +143,7 @@ const ModalColors = () => {
         if(state.modalFunctionality.edit !== true) return;
 
         const [{name}] = editStatus;
+         [{colors_id: colorId}] = editStatus
         return name;
     };
 
@@ -164,32 +167,34 @@ const ModalColors = () => {
 
     //pegar a cor selecionada referente a um status especifico
     //status especifico
-    const [{colors_id: colorId}] = editStatus
 
     //mandar para o input
     // o que o input tem que fazer?
     //se o id da cor do status sendo editado for === uma das options de cores então colocar como selected aquela cor
 
+
     return (
         <div>
             <ModalContainer>
-                <CloseButton/>
+                <CloseButton CloseButtonClickHandler={CloseButtonClickHandler}/>
                 <ModalTitle padding="1.3em 0 1.3em 1.6em">
                     {state.modalFunctionality.edit ? "Editar status do projeto" : "Novo status do projeto"}
                 </ModalTitle>
                         <ModalInputContainer>
-                            <InputLine width="85%" margin="0 0 0.8em 0">
-                                    <DefaultInput
-                                        onChange={(e) => getJobOnChangeInputHandler(e)}
-                                        type="text"
-                                        defaultValue={statusName()}
-                                        width="97%"
-                                        padding="0.3em 0 0 1.5em"/>
-                            </InputLine>
+                        
+                            <InputWithLabel
+                            label="Status"
+                            setinputWithLabelValue={setValue}
+                            editValue={statusName()}
+                            width="100%"
+                            widthContainer="85%"
+                            justify="center"
+                            padding="0 0 0.8em 0"/>
 
                             {state.modalFunctionality.edit ? 
                             (
                                 <InputSelectEdit
+                                label="Status"
                                 colorId={colorId}
                                 setSelectedOption={setSelectedOption}
                                 width="85%"
@@ -200,7 +205,8 @@ const ModalColors = () => {
                                 <InputSelect 
                                 setSelectedOption={setSelectedOption}
                                 placeholder="Color"
-                                width="85%"
+                                width="100%"
+                                lineWidth="85%"
                                 options={state.statusColors}
                                 />
                             )}

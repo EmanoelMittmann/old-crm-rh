@@ -29,6 +29,8 @@ export const ModalTitle = styled.h3`
     font-family: "Poppins", sans-serif;
     font-weight: 700;
     padding: ${props => props.padding};
+    display: flex;
+    align-items: center;
 `
 
 export const ModalContainerButtons = styled.div`

@@ -1,7 +1,12 @@
 import styled from "styled-components";
 
+export const ContainerRegisterProjectTeam = styled.div`
+    border-top: 1.5px solid #919EAB52;
+    padding: 3em 3em 2em 3em;
+    margin-top: 1em;
+`
 export const RegisterProjectTeamForm = styled.div`
-    width: 100%;
+    width: 90%;
     display: flex;
     justify-content: space-between;
 `
@@ -49,6 +54,7 @@ export const ContainerTrashIcon = styled.div`
     padding-right: 1.5em;
 `
 export const ProfilePicture = styled.img`
-    border: 50%;
-    width: 30px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 `

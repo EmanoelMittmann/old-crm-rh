@@ -21,6 +21,10 @@ const Modal = () => {
     const [inputWithLabelValue, setinputWithLabelValue] = useState("")
     const state = useSelector(state => state)
 
+    const CloseButtonClickHandler = () => {
+        dispatch(closeModal())
+    }
+
     const resetFilters = () => {
         dispatch(setFilterOrder(''))
         dispatch(setFilterStatus(''))
@@ -219,7 +223,7 @@ const Modal = () => {
     return (
         <div>
             <ModalContainer>
-                <CloseButton/>
+                <CloseButton CloseButtonClickHandler={CloseButtonClickHandler}/>
                 <ModalTitle padding="1.6em">
                     {displayModalTitle(location.pathname)}
                 </ModalTitle>

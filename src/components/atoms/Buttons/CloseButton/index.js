@@ -4,12 +4,7 @@ import { CloseButtonContainer } from './style.js'
 import { useDispatch } from 'react-redux'
 import { closeModal } from '../../../../redux/actions'
 
-const CloseButton = () => {
-    const dispatch = useDispatch()
-
-    const CloseButtonClickHandler = () => {
-        dispatch(closeModal())
-    }
+const CloseButton = ({CloseButtonClickHandler}) => {
 
     return(
         <CloseButtonContainer onClick={CloseButtonClickHandler}>

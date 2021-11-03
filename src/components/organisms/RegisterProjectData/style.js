@@ -1,5 +1,9 @@
 import styled from "styled-components"
 
+export const ContainerRegisterProjectData = styled.div`
+    padding: 0 3em 0 3em;
+`
+
 export const RegisterProjectForm = styled.form`
    display: flex;
    flex-direction: column;
