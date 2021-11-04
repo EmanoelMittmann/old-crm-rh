@@ -1,12 +1,54 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { ProjectsInputsContainer } from './style.js'
 import InputSearch from '../../atoms/InputSearch'
 import InputSelect from '../../atoms/InputSelect'
+import { useDispatch, useSelector } from 'react-redux'
+
+//VOLTAREMOS.. PARA MAIS UM CAPITULO DUVIDOSO DO LUCAS NO FRONT..
+import { 
+    setFilterStatus,
+    setSearchName
+
+} from '../../../redux/actions/index.js'
 
 const ProjectsInputs = () => {
 
+     //ver como introduzir a funcionalidade do redux
+    const state = useSelector(state => state)
+    const dispatch = useDispatch()
+    const location = useLocation()
+
     const [selectedOption, setSelectedOption] = useState("")
+
+    const filterStatus = async () =>{
+        let params;
+
+        if(state.filterOrder !== ""){
+
+            params ={
+                page:1,
+                is_active:selectedOption,
+                search: state.settingsSearchFilter,
+                orderField: 'name',
+                order: state.filterOrder
+            }
+        }
+
+        if(state.filterOrder ==""){
+            params ={
+                page = 1,
+                is_active: selectedOption,
+                search: state.filterSearchName,
+            }
+        }
+    }
+
+
+    useEffect(() =>{
+        filterStatus()
+        dispatch(setFilterStatus(selectedOption))
+    },[selectedOption]) 
 
     const projectsFilterTypesOptions = [
         {
