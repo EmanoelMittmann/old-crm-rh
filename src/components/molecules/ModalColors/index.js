@@ -195,7 +195,7 @@ const ModalColors = () => {
                             (
                                 <InputSelectEdit
                                 label="Status"
-                                colorId={colorId}
+                                optionId={colorId}
                                 setSelectedOption={setSelectedOption}
                                 width="85%"
                                 options={state.statusColors}

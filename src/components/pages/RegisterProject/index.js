@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router'
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { 
     setProjectList,
@@ -36,9 +35,12 @@ const RegisterProject = () => {
     const [projectStatus, setProjectStatus] = useState("");
     const [teamCost, setTeamCost] = useState("");
     const [payloadTeam, setPayloadTeam] = useState("")
+    const [EditProjectData, setEditProjectData] = useState({})
+    const [EditProjectTeam, setEditProjectTeam] = useState([])
 
     const [inicialYear, inicialMonth, inicialDay] = inicialDate.split('-')
     const [finalYear, finalMonth, finalDay] = finalDate.split('-')
+    const [componentRendered, setComponentRendered] = useState(false)
 
         const editProject = async () => {
 
@@ -113,6 +115,33 @@ const RegisterProject = () => {
         return registerProject()
     }
 
+    const editProjectData = async () => {
+        try{
+            const {data} = await api({
+                method: 'get',
+                url: `/project/${location.state.projectId}`,
+            });
+
+            const [{users}] = data
+            setEditProjectTeam(users)
+           
+           const projectData = data.map(el => {
+               delete el.users
+               return el
+           })
+            setEditProjectData(...projectData)
+            setComponentRendered(true)
+
+        }catch(error){
+
+        }
+    }
+    
+    useEffect(() => {
+        editProjectData()
+        console.log('primeiro renderiza esse');
+    }, [])
+
 
     const calcDaysPassed = (date1, date2) => (date2 - date1) / (1000 * 60 * 60 * 24)
     
@@ -133,7 +162,9 @@ const RegisterProject = () => {
             <RegisterProjectContainer>
 
                 <RegisterProjectData
+                    editData={EditProjectData}
                     projectName={projectName}
+                    componentRendered={componentRendered}
                     setProjectName={setProjectName}
                     setProjectType={setProjectType}
                     setInitialDate={setInitialDate}
@@ -143,6 +174,8 @@ const RegisterProject = () => {
                 />
 
                 <RegisterProjectTeam
+                componentRendered={componentRendered}
+                editData={EditProjectTeam}
                 payloadTeam={payloadTeam}
                 setPayloadTeam={setPayloadTeam}
                 />

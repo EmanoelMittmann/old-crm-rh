@@ -24,7 +24,7 @@ import InputText from '../../atoms/InputText'
 import { ListHeaderContainer, ListHeaderTitle } from '../../atoms/ListHeader/style.js'
 import ModalDelete from '../../molecules/ModalDelete'
 
-const RegisterProjectTeam = ({payloadTeam, setPayloadTeam}) => {
+const RegisterProjectTeam = ({componentRendered, editData, payloadTeam, setPayloadTeam}) => {
     const [hoursMonth, setHoursMonth] = useState('')
     //Todos os possíveis membros do time
     const [allProfessionals, setAllProfessionals] = useState([])
@@ -144,6 +144,15 @@ const RegisterProjectTeam = ({payloadTeam, setPayloadTeam}) => {
     useEffect(() => {
         getAllProfessionals()
     }, [])
+
+    useEffect(() => {
+        if(componentRendered){
+            const newEditData = editData.map((member) => {
+                return {...member, trash_color: '#DCE0E4'}
+            })
+            setTeamMembers(newEditData);
+        }
+    }, [componentRendered])
     
 
     return (
