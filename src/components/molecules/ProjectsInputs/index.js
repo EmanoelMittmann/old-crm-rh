@@ -1,54 +1,35 @@
 import React, { useEffect, useState } from 'react'
+import  {useDispatch} from 'react-redux'
+import { useLocation } from 'react-router'
+import { useSelector} from 'react-redux'
 
-import { ProjectsInputsContainer } from './style.js'
-import InputSearch from '../../atoms/InputSearch'
-import InputSelect from '../../atoms/InputSelect'
-import { useDispatch, useSelector } from 'react-redux'
 
-//VOLTAREMOS.. PARA MAIS UM CAPITULO DUVIDOSO DO LUCAS NO FRONT..
+
+
+
+// TRISTEZA PARA MAIS UM CAPITULO DUVIDOSO DO LUCAS NO FRONT..
 import { 
     setFilterStatus,
+    setProjectList,
+    projectsPages,
     setSearchName
 
 } from '../../../redux/actions/index.js'
+import api from '../../../api/api.js'
+import { ProjectsInputsContainer } from './style.js'
+import InputSearch from '../../atoms/InputSearch'
+import InputSelect from '../../atoms/InputSelect'
 
-const ProjectsInputs = () => {
+
+ export const ProjectsInputs = () => {
 
      //ver como introduzir a funcionalidade do redux
     const state = useSelector(state => state)
     const dispatch = useDispatch()
     const location = useLocation()
 
-    const [selectedOption, setSelectedOption] = useState("")
-
-    const filterStatus = async () =>{
-        let params;
-
-        if(state.filterOrder !== ""){
-
-            params ={
-                page:1,
-                is_active:selectedOption,
-                search: state.settingsSearchFilter,
-                orderField: 'name',
-                order: state.filterOrder
-            }
-        }
-
-        if(state.filterOrder ==""){
-            params ={
-                page = 1,
-                is_active: selectedOption,
-                search: state.filterSearchName,
-            }
-        }
-    }
-
-
-    useEffect(() =>{
-        filterStatus()
-        dispatch(setFilterStatus(selectedOption))
-    },[selectedOption]) 
+    const [selectedOption, setSelectedOption] = useState('');
+    const [searchResult, setSearchResult] = useState('');
 
     const projectsFilterTypesOptions = [
         {
@@ -74,9 +55,52 @@ const ProjectsInputs = () => {
         }
     ]
 
+    console.log(state);
+
+    //Chamar api para filtrar a pesquisa
+
+    const searchList = async () =>{
+        const {data} = await api({
+            method:'get',
+            url:`${location.pathname}`,
+            params:{
+                search: searchResult,
+            }
+        });
+
+        if(location.pathname === "/projects")dispatch(setProjectList(data.data));
+        dispatch(projectsPages(data.meta));
+
+        return data
+    }
+
+    const resetProjectList = async () =>{
+        const {data} = await api({
+            method:'get',
+            url:`${location.pathname}`,
+            params:{
+                page:1
+            }
+        });
+        if(location.pathname === "/projects")dispatch(setProjectList(data.data));
+        dispatch(projectsPages(data.meta));
+
+        return data 
+    }
+
+    useEffect(()=>{
+        searchResult !== '' && searchList()
+        searchResult === '' && resetProjectList()
+        dispatch(setSearchName(searchResult))
+    },[searchResult])
+
     return (
         <ProjectsInputsContainer>
-            <InputSearch lineWidth="280px" inputWidth="230px"/>
+            <InputSearch 
+            lineWidth="280px" 
+            inputWidth="230px"
+            setSearchResult ={setSearchResult}
+            />
             <InputSelect
             options={projectsFilterTypesOptions}
             setSelectedOption={setSelectedOption}
