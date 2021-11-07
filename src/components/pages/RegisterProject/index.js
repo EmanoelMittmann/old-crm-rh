@@ -147,7 +147,6 @@ const RegisterProject = () => {
     
     const daysPassed = calcDaysPassed(new Date(inicialYear, inicialMonth, inicialDay), new Date(finalYear, finalMonth, finalDay))
 
-
     return (
         <PagesContainer padding="0 0 5em 0">
             <Header/>
@@ -168,6 +167,8 @@ const RegisterProject = () => {
                     setProjectName={setProjectName}
                     setProjectType={setProjectType}
                     setInitialDate={setInitialDate}
+                    inicialDate={inicialDate}
+                    finalDate={finalDate}
                     setFinalDate={setFinalDate}
                     setProjectStatus={setProjectStatus}
                     setTeamCost={setTeamCost}
@@ -178,6 +179,7 @@ const RegisterProject = () => {
                 editData={EditProjectTeam}
                 payloadTeam={payloadTeam}
                 setPayloadTeam={setPayloadTeam}
+                projectId={location.state?.projectId}
                 />
 
                 <RegisterProjectFooter>

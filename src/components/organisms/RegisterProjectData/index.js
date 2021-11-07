@@ -27,17 +27,16 @@ import {
     ContainerRegisterProjectData
 } from './style.js'
 
-const RegisterProjectData = ({componentRendered, editData, setProjectName, setProjectType, setInitialDate, setFinalDate, setProjectStatus, setTeamCost}) => {
+const RegisterProjectData = ({inicialDate, finalDate, componentRendered, editData, setProjectName, setProjectType, setInitialDate, setFinalDate, setProjectStatus, setTeamCost}) => {
     const state = useSelector(state => state);
     const dispatch = useDispatch();
-    const [dateStart, setDateStart] = useState("")
-    const [dateEnd, setDateEnd] = useState("")
 
     const getProjectTypeList = async () => {
         const {data} = await api({
             method:'get',     
             url:`/projectTypeNoFilter`,
         }); 
+
         const formattedProjectTypeList =  formatFirstLetter(data)
         dispatch(setProjectTypeList(formattedProjectTypeList))
         return data;
@@ -84,17 +83,15 @@ const RegisterProjectData = ({componentRendered, editData, setProjectName, setPr
 
     
     useEffect(() => {
+        getStatusList()
+        getProjectTypeList()
+        
         if(componentRendered){
-            getStatusList()
-            getProjectTypeList()
-
-            setDateStart(getDate(editData.date_start))
-            setDateEnd(getDate(editData.date_end))
+            setInitialDate(getDate(editData.date_start))
+            setFinalDate(getDate(editData.date_end))
         }
 
     },[componentRendered]);
-
-
 
 
     return (
@@ -138,7 +135,7 @@ const RegisterProjectData = ({componentRendered, editData, setProjectName, setPr
                             <InputDate
                             setDate={setInitialDate}
                             placeholder="Data início"
-                            date={dateStart}
+                            date={inicialDate}
                             />
                         </ContainerInputInitialDate>
 
@@ -146,7 +143,7 @@ const RegisterProjectData = ({componentRendered, editData, setProjectName, setPr
                             <InputDate
                              setDate={setFinalDate}
                              placeholder="Final estimado"
-                             date={dateEnd}
+                             date={finalDate}
                             />
                         </ContainerInputFinalDate>
 

@@ -24,7 +24,7 @@ import InputText from '../../atoms/InputText'
 import { ListHeaderContainer, ListHeaderTitle } from '../../atoms/ListHeader/style.js'
 import ModalDelete from '../../molecules/ModalDelete'
 
-const RegisterProjectTeam = ({componentRendered, editData, payloadTeam, setPayloadTeam}) => {
+const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTeam, setPayloadTeam}) => {
     const [hoursMonth, setHoursMonth] = useState('')
     //Todos os possíveis membros do time
     const [allProfessionals, setAllProfessionals] = useState([])
@@ -38,6 +38,13 @@ const RegisterProjectTeam = ({componentRendered, editData, payloadTeam, setPaylo
     const [teamMemberDeleteId, setTeamMemberDeleteId] = useState(0)
     const [modalIsVisible, setModalIsVisible] = useState(false)
 
+    const [editTeamRealTime, setEditTeamRealTime] = useState(false)
+    const [deleteRealTime, setDeleteRealTime] = useState(false)
+    const [deleteTeamMemberId, setDeleteTeamMemberId] = useState(false)
+
+    //////////////////////Funções usadas nos dois tipos de edição//////////////////////
+
+    const isEditing = projectId ? true : false;
 
     const CloseButtonClickHandler = () => {
         setModalIsVisible(false)
@@ -57,41 +64,11 @@ const RegisterProjectTeam = ({componentRendered, editData, payloadTeam, setPaylo
     }
 
 
-    const setTeamMemberClickHandler = () => {
+    useEffect(() => {
+        getAllProfessionals()
+    }, [])
 
-        // o profissional selecionado é vinculado ao time
-    
-        //Informações do profissional selecionado
-        const newTeamMember = allProfessionals.filter((profes) => {
-            return profes.id == professionalSelected
-        })
-        
-        const [{id, name, avatar, job_id}] = newTeamMember
-
-            const newTeamMembers = [...teamMembers, {
-                user_id: id,
-                name: name,
-                avatar: avatar,
-                job: job_id,
-                hours: +hoursMonth,
-                trash_color: '#DCE0E4'
-            }];
-            
-            //Validação para se o membro do time já existe
-             const memberAlreadyExist = teamMembers.find((member) => {
-                return member.user_id == id
-             })
-
-            if(!memberAlreadyExist){
-                setTeamMembers(newTeamMembers)
-                setPayloadTeam(
-                    [...payloadTeam, {
-                    user_id: Number(id),
-                    workload: Number(hoursMonth)
-                    }]
-                )
-            }
-        }
+    ////////////////////// Funções usadas na edição a nivel de front-end //////////////////////
 
     const trashOnMouseEnterHandler = (currentMemberId) => {
         const newTrashColor = teamMembers.map(member => {
@@ -113,17 +90,137 @@ const RegisterProjectTeam = ({componentRendered, editData, payloadTeam, setPaylo
         return setTeamMembers(newTrashColor)
     }
 
-    const deleteTeamMember = (memberId) => {
-        const newTeamMembers = teamMembers.filter((member) => member.user_id !== memberId)
+    const setTeamMemberClickHandler = () => {
 
-        setTeamMembers(newTeamMembers)
+        // o profissional selecionado é vinculado ao time
+    
+        //Informações do profissional selecionado
+        const newTeamMember = allProfessionals.filter((profes) => {
+            return profes.id == professionalSelected
+        })
+        
+        const [{id, name, avatar, job_id}] = newTeamMember
+
+            const newTeamMembers = [...teamMembers, {
+                user_id: id,
+                name: name,
+                avatar: avatar,
+                job: job_id,
+                workload: +hoursMonth,
+                trash_color: '#DCE0E4'
+            }];
+            
+            //Validação para se o membro do time já existe
+             const memberAlreadyExist = teamMembers.find((member) => {
+                return member.user_id == id
+             })
+
+            if(!memberAlreadyExist){
+                setTeamMembers(newTeamMembers)
+                setPayloadTeam(
+                    [...payloadTeam, {
+                    user_id: Number(id),
+                    workload: Number(hoursMonth)
+                    }]
+                )
+            }
+        }
+
+    const deleteTeamMember = (memberId) => {
+
+        if(!isEditing) {
+            const newTeamMembers = teamMembers.filter((member) => member.user_id !== memberId)
+            setTeamMembers(newTeamMembers)
+        }
+        if(isEditing) {
+            setDeleteTeamMemberId(memberId)
+
+            setDeleteRealTime(true)
+
+        }
     }
 
+
+    useEffect(() => {
+        setDeleteRealTime(false)
+
+        const deleteTeamMember = async () => {
+            await api({
+                method:'delete',     
+                url:`/userProjects`,
+                data: {
+                    user_id: deleteTeamMemberId,
+                    project_id: projectId
+                }
+            });
+
+            const {data} = await api({
+                method:'get',     
+                url:`/userProjects/${projectId}`,
+            });
+
+            const newTeam = data.map((member) => {
+                return {...member, trash_color: '#DCE0E4'}
+            })
+            setTeamMembers(newTeam);
+        }
+
+        deleteTeamMember()
+
+    }, [deleteRealTime])
+
+    ////////////////////// Funções usadas na edição em tempo real //////////////////////
+
+    useEffect(() => {
+        setEditTeamRealTime(false)
+
+        const addTeamMember = async () => {
+            await api({
+                method:'post',     
+                url:`/userProjects`,
+                data: {
+                    user_id: professionalSelected,
+                    workload: hoursMonth,
+                    project_id: projectId
+                }
+            });
+    
+            const {data} = await api({
+                method:'get',     
+                url:`/userProjects/${projectId}`,
+            });
+    
+            const newTeam = data.map((member) => {
+                return {...member, trash_color: '#DCE0E4'}
+            })
+            setTeamMembers(newTeam);
+        }
+
+        addTeamMember()
+
+    }, [editTeamRealTime])
+     
+     useEffect(() => {
+ 
+         if(componentRendered){
+             const newEditData = editData.map((member) => {
+                 return {...member, trash_color: '#DCE0E4'}
+             })
+             setTeamMembers(newEditData);
+         }
+
+ 
+     }, [componentRendered])
+
+    
+    //////////// Verificações para saber qual das duas edições está acontecendo ////////////
+    
+    
     const trashIconClickHandler = (memberId) => {
         setTeamMemberDeleteId(memberId)
         setModalIsVisible(true)
     }
-    
+
     useEffect(() => {
 
         setHoursMonth('')
@@ -139,21 +236,7 @@ const RegisterProjectTeam = ({componentRendered, editData, payloadTeam, setPaylo
         }
         
     }, [professionalSelected])
-    
-    
-    useEffect(() => {
-        getAllProfessionals()
-    }, [])
 
-    useEffect(() => {
-        if(componentRendered){
-            const newEditData = editData.map((member) => {
-                return {...member, trash_color: '#DCE0E4'}
-            })
-            setTeamMembers(newEditData);
-        }
-    }, [componentRendered])
-    
 
     return (
         <ContainerRegisterProjectTeam>
@@ -177,7 +260,7 @@ const RegisterProjectTeam = ({componentRendered, editData, payloadTeam, setPaylo
                     value={hoursMonth}
                     type="number"
                 />
-                <BlueButton width="15%" onClick={() => setTeamMemberClickHandler()}>
+                <BlueButton width="15%" onClick={() => isEditing ? setEditTeamRealTime(true) :  setTeamMemberClickHandler()}>
                     Vincular
                 </BlueButton>
             </RegisterProjectTeamForm>
@@ -205,10 +288,10 @@ const RegisterProjectTeam = ({componentRendered, editData, payloadTeam, setPaylo
                         </ProfessionalName>
                     </ProfessionalInfo>
                     <ProfessionalJob>
-                    Desenvolvedor Frontend
+                        {member.job}
                     </ProfessionalJob>
                     <ProfessionalHours>
-                        {member.hours}
+                        {member.workload}
                     </ProfessionalHours>
                     {modalIsVisible && <ModalDelete
                      deleteHandler={deleteTeamMember}

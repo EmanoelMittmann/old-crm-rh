@@ -109,9 +109,13 @@ export const ProjectsListItem = () => {
             return userId === user.user_id
        })
   
-       const fullName = user.name?.split(' ')
-       const firstName = fullName[0]
-       const lastName = fullName[fullName.length - 1]
+       const fullName = user?.name.split(' ')
+       let firstName;
+       let lastName;
+       if(fullName){
+            firstName = fullName[0]
+            lastName = fullName[fullName.length - 1]
+       }
 
         setUserDetailsInfo({...user, name: `${firstName} 
         ${lastName !== firstName ? lastName : ''}`})
@@ -160,14 +164,27 @@ export const ProjectsListItem = () => {
             })
         
             //project se relaciona com status
-            const projectStatus = state.status.find((status) => {
-                return project.project_status_id === status.id
-            })
+            // const projectStatus = state.status.find((status) => {
+            //     return project.project_status_id === status.id
+            // })
         
-            // status se relaciona com a cor
+            // // status se relaciona com a cor
             const projectStatusColor = state.statusColors.find(color => {
-                return projectStatus?.colors_id === color.id 
+                return project.status.id === color.id 
             })
+
+            const menuPosition = (i, arr) => {
+                let position = 65;
+                arr.map((menu, index) => {
+                    if(index < i){
+                        position = position + 55
+                    }
+
+                })
+                return `${position}px`
+
+            }
+
                 
                 return(
                     <ProjectsListItemContainer key={project.id}>
@@ -182,23 +199,25 @@ export const ProjectsListItem = () => {
                             </ProjectsListItemBeginning>
                             <ProjectsListItemTime>
                                 <ContainerTeamMemberPic>
-                                {project.users.map(user => (
-                                    <TeamMemberPic 
-                                        src={user?.avatar || User}
-                                        onMouseEnter={() => 
-                                            detailsOnMouseEnter(project.id, user.id) 
-                                        }
-                                        onMouseLeave={() =>
-                                            detailsOnMouseLeave(project.id, user.id)
-                                        }
-                                    />
+                                {project.users.map((user, i)=> (
+                                    i < 5 && (
+                                        <TeamMemberPic 
+                                            src={user?.avatar || User}
+                                            onMouseEnter={() => 
+                                                detailsOnMouseEnter(project.id, user.id) 
+                                            }
+                                            onMouseLeave={() =>
+                                                detailsOnMouseLeave(project.id, user.id)
+                                            }
+                                        />
+                                    )
                                 ))}
 
-                                {project.users.map((user) => {
+                                {project.users.map((user, i, arr) => {
                                     return user.id === userDetailsInfo.user_id &&
                                     project.id === projectInfo?.project_id &&
                                     userDetailsIsVisible && 
-                                        <TeamMemberDetails>
+                                        <TeamMemberDetails position={menuPosition(i, arr)}>
                                             <Name>
                                                 {userDetailsInfo.name}
                                             </Name>
@@ -211,7 +230,7 @@ export const ProjectsListItem = () => {
                             </ProjectsListItemTime>
                             <ProjectsListItemStatus>
                                 <StatusLabel
-                                name={projectStatus?.name}
+                                // name={projectStatus?.name}
                                 textColor={projectStatusColor?.text_color}
                                 buttonColor={projectStatusColor?.button_color}
                                 />
