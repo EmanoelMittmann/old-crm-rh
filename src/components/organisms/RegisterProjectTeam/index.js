@@ -56,6 +56,8 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
             url:`/user`,
         }); 
 
+        console.log(data);
+
         const formattedAllProfessionals = formatFirstLetter(data)
 
         setAllProfessionals(formattedAllProfessionals)
@@ -289,6 +291,7 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
                     </ProfessionalInfo>
                     <ProfessionalJob>
                         {member.job}
+                        {console.log(member)}
                     </ProfessionalJob>
                     <ProfessionalHours>
                         {member.workload}
@@ -302,7 +305,7 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
                         <FaTrashAlt 
                         color={member.trash_color}
                         size="16px"
-                        style={{cursor: 'pointer'}}
+                        style={{cursor: 'pointer', transition: 'color ease-in 0.3s'}}
                         onMouseEnter={() => trashOnMouseEnterHandler(member.user_id)}
                         onMouseLeave={() => trashOnMouseLeaveHandler(member.user_id)}
                         onClick={() => trashIconClickHandler(member.user_id)}

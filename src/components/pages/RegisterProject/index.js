@@ -19,7 +19,8 @@ import {
     RegisterProjectContainer,
     RegisterProjectFooter,
     RegisterProjectButtons,
-    Img
+    Img,
+    ContainerArrow
 } from './style.js'
 
 const RegisterProject = () => {
@@ -151,10 +152,11 @@ const RegisterProject = () => {
         <PagesContainer padding="0 0 5em 0">
             <Header/>
             <RegisterProjectTitleContainer>
-                <Img src={ArrowBack} alt="Voltar"
-                onClick={() => history.push("/projects")}/>
+                <ContainerArrow onClick={() => history.push("/projects")}>
+                    <Img src={ArrowBack} alt="Voltar"/>
+                </ContainerArrow>
                 <SectionTitle>
-                    Novo Projeto
+                {projectBeingEdited ? "Edição de projeto" : "Novo Projeto"}
                 </SectionTitle>
             </RegisterProjectTitleContainer>
 
@@ -163,15 +165,19 @@ const RegisterProject = () => {
                 <RegisterProjectData
                     editData={EditProjectData}
                     projectName={projectName}
+                    projectName={projectName}
                     componentRendered={componentRendered}
                     setProjectName={setProjectName}
                     setProjectType={setProjectType}
+                    projectType={projectType}
                     setInitialDate={setInitialDate}
                     inicialDate={inicialDate}
                     finalDate={finalDate}
                     setFinalDate={setFinalDate}
                     setProjectStatus={setProjectStatus}
+                    projectStatus={projectStatus}
                     setTeamCost={setTeamCost}
+                    teamCost={teamCost}
                 />
 
                 <RegisterProjectTeam
@@ -195,7 +201,7 @@ const RegisterProject = () => {
                         fontSize="0.84rem"
                         onClick={() => daysPassed >= 0 ? projectHandler() : console.log("Data inválida")}
                         >
-                            Cadastrar
+                            {projectBeingEdited ? "Atualizar" : "Cadastrar"}
                         </DarkButton>
                     </RegisterProjectButtons>
 

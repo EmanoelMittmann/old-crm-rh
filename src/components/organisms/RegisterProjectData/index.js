@@ -27,7 +27,7 @@ import {
     ContainerRegisterProjectData
 } from './style.js'
 
-const RegisterProjectData = ({inicialDate, finalDate, componentRendered, editData, setProjectName, setProjectType, setInitialDate, setFinalDate, setProjectStatus, setTeamCost}) => {
+const RegisterProjectData = ({projectType, projectStatus, projectName, teamCost, inicialDate, finalDate, componentRendered, editData, setProjectName, setProjectType, setInitialDate, setFinalDate, setProjectStatus, setTeamCost}) => {
     const state = useSelector(state => state);
     const dispatch = useDispatch();
 
@@ -89,6 +89,10 @@ const RegisterProjectData = ({inicialDate, finalDate, componentRendered, editDat
         if(componentRendered){
             setInitialDate(getDate(editData.date_start))
             setFinalDate(getDate(editData.date_end))
+            setProjectName(editData.name)
+            setTeamCost(editData.team_cost)
+            setProjectType(editData.project_type_id)
+            setProjectStatus(editData.project_status_id)
         }
 
     },[componentRendered]);
@@ -106,14 +110,14 @@ const RegisterProjectData = ({inicialDate, finalDate, componentRendered, editDat
                             label="Nome do projeto"
                             setinputWithLabelValue={setProjectName}
                             width="95%"
-                            inputValue={editData.name}
+                            inputValue={projectName}
                             />
                         </ContainerInputWithLabel>
 
                         <ContainerInputProjectTypeSelect>
                             {editData?.id ? (
                                 <InputSelectEdit
-                                optionId={editData.project_type_id}
+                                optionId={projectType}
                                 setSelectedOption={setProjectType}
                                 options={filterProjectsTypesOptions}
                                 width="200px"
@@ -150,7 +154,7 @@ const RegisterProjectData = ({inicialDate, finalDate, componentRendered, editDat
                         <ContainerInputProjectStatusSelect>
                             {editData?.id ? (
                                 <InputSelectEdit
-                                optionId={editData.project_status_id}
+                                optionId={projectStatus}
                                 setSelectedOption={setProjectStatus}
                                 options={filterProjectsStatusOptions}
                                 width="100%"
@@ -173,7 +177,7 @@ const RegisterProjectData = ({inicialDate, finalDate, componentRendered, editDat
                             widthLine="260px"
                             placeholder="Custo estimado de equipe"
                             setTextValue={setTeamCost}
-                            value={editData.team_cost}
+                            value={teamCost}
                         />
                     </ContainerThirdLine>
 

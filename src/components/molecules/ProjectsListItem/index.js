@@ -94,7 +94,7 @@ export const ProjectsListItem = () => {
 
     const editProject = (id) => {
         history.push({
-            pathname: "/registerProject",
+            pathname: "/project",
             state: { projectId: id }
           })
     }
