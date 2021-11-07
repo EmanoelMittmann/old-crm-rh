@@ -1,19 +1,37 @@
-import { VALIDTOKEN } from "../types"
+import authentication from './authentication.js';
+import headerMenu from './headerMenu.js'
+import modelVisibility from './modalVisibility.js'
+import modalFunctionality from './modalFunctionality.js'
+import settingsPagesFilter from './settingsPagesFilter.js'
+import jobs from './jobs.js'
+import status from './status.js'
+import projectType from './projectType'
+import projects from './projects.js';
+import jobId from './jobId.js'
+import statusId from './statusId.js';
+import projectTypeId from './projectTypeId'
+import settingsSearchFilter from './settingsSearchFilter.js'
+import filterStatus from './filterStatus.js';
+import filterOrder from './filterOrder.js'
+import statusColors from './statusColors.js'
 
-const inicialState = false;
+import { combineReducers } from 'redux';
 
-const authentication = (state = inicialState, action) => {
-    const {type, payload: token} = action;
-    
-    switch (type) {
-        case VALIDTOKEN:
-            const userData = JSON.stringify(token)
-            localStorage.setItem('googleData', userData)
-
-        return token;
-        default:
-            return state;
-    }
-}
-
-export default authentication;
+export const Reducers = combineReducers({
+    authentication,
+    headerMenu,
+    modelVisibility,
+    jobs,
+    status,
+    projectType,
+    projects,
+    modalFunctionality,
+    jobId,
+    statusId,
+    projectTypeId,
+    settingsPagesFilter,
+    settingsSearchFilter,
+    filterStatus,
+    filterOrder,
+    statusColors,
+});

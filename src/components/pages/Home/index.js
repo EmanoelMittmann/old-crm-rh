@@ -1,14 +1,29 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import Header from '../../organisms/Header'
+import {
+    SectionTitle,
+    SectionTitleIcon,
+    SectionTitleContainer
+} from '../../atoms/PageTitle/style.js'
+import PagesContainer from '../../organisms/PagesContainer/styled.js'
+import { ReactComponent as HomeIcon } from '../../../assets/icons/home.svg'
 
 const Home = () => {
-    const token = useSelector(state => state)
+
+    useEffect(() => {
+       console.log(JSON.parse(localStorage.getItem('token')));
+    }, [])
 
     return (
-        <div>
-            <h1>TOKEN</h1>
-            <p>{token}</p>
-        </div>
+        <PagesContainer>
+            <Header/>
+            <SectionTitleContainer>
+                <SectionTitleIcon>
+                    <HomeIcon/>
+                </SectionTitleIcon>
+                <SectionTitle>Início</SectionTitle>
+            </SectionTitleContainer>
+        </PagesContainer>
     )
 }
 
