@@ -20,11 +20,13 @@ import {
     EDITPROJECTTYPECLICKED,
     SETSETTINGSPAGES,
     SETSEARCHNAME,
+    SETSEARCHNAMEPROJECT,
     SETFILTERSTATUS,
     RESETCURRENTPAGE,
     RESETFILTERSTATUS,
     SETFILTERORDER,
-    SETPROJECTSPAGES 
+    SETPROJECTSPAGES, 
+    RESETCURRENTPAGEPROJECT
 } from '../types'
 
 export const loggingIn = (payload) => ({
@@ -141,7 +143,6 @@ export const setFilterOrder = (payload) => ({
 export const resetCurrentPage = (payload) => ({
     type: RESETCURRENTPAGE,
     payload
-
 })
 
 export const resetFilterStatus = () => ({
@@ -150,5 +151,15 @@ export const resetFilterStatus = () => ({
 
 export const projectsPages = (payload) => ({
     type: SETPROJECTSPAGES,
+    payload
+})
+
+export const setSearchNameProject = (payload) => ({
+    type: SETSEARCHNAMEPROJECT,
+    payload
+})
+
+export const resetCurrentPageProject = (payload) => ({
+    type: RESETCURRENTPAGEPROJECT,
     payload
 })

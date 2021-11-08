@@ -17,7 +17,7 @@ import {
     setProjectList
 } from '../../../redux/actions'
 
-// ta funfando porem falta coisa em peso
+
 
 export const ProjectsSection = () => { 
     const dispatch = useDispatch()
@@ -52,11 +52,11 @@ const nextPage = async () => {
 
     const { data } = await api({
         method: 'get',
-        url: `${location.pathname}`,
+        url: `/project`,
         params: params
     });
 
-    if (location.pathname === "/projects") dispatch(setProjectList(data.data));
+    dispatch(setProjectList(data.data));
     dispatch(projectsPages(data.meta));
 
     return data;
@@ -85,12 +85,12 @@ const previousPage = async () => {
 
     const { data } = await api({
         method: 'get',
-        url: `${location.pathname}`,
+        url: `/project`,
         params: params
     });
-
-    if (location.pathname === "/projects") dispatch(setProjectList(data.data));
+    dispatch(setProjectList(data.data));
     dispatch(projectsPages(data.meta));
+
 
     return data;
 }

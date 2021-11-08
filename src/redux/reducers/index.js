@@ -12,7 +12,9 @@ import statusId from './statusId.js';
 import projectTypeId from './projectTypeId'
 import settingsSearchFilter from './settingsSearchFilter.js'
 import filterStatus from './filterStatus.js';
-import filterOrder from './filterOrder.js'
+import filterOrder from './filterOrder.js';
+import projectsPagesFilter from './projectsPagesFilter.js';
+import projectsSearchFilter from './projectsSearchFilter.js';
 
 import { combineReducers } from 'redux';
 
@@ -31,5 +33,7 @@ export const Reducers = combineReducers({
     settingsPagesFilter,
     settingsSearchFilter,
     filterStatus,
-    filterOrder
+    filterOrder,
+    projectsPagesFilter,
+    projectsSearchFilter
 });

@@ -4,15 +4,11 @@ import { useLocation } from 'react-router'
 import { useSelector} from 'react-redux'
 
 
-
-
-
 // TRISTEZA PARA MAIS UM CAPITULO DUVIDOSO DO LUCAS NO FRONT..
 import { 
-    setFilterStatus,
     setProjectList,
     projectsPages,
-    setSearchName
+    setSearchNameProject
 
 } from '../../../redux/actions/index.js'
 import api from '../../../api/api.js'
@@ -62,27 +58,27 @@ import InputSelect from '../../atoms/InputSelect'
     const searchList = async () =>{
         const {data} = await api({
             method:'get',
-            url:`${location.pathname}`,
+            url:`/project`,
             params:{
                 search: searchResult,
             }
         });
 
-        if(location.pathname === "/projects")dispatch(setProjectList(data.data));
+        dispatch(setProjectList(data.data));
         dispatch(projectsPages(data.meta));
 
-        return data
+        return data;
     }
 
     const resetProjectList = async () =>{
         const {data} = await api({
             method:'get',
-            url:`${location.pathname}`,
+            url:`/project`,
             params:{
                 page:1
             }
         });
-        if(location.pathname === "/projects")dispatch(setProjectList(data.data));
+        dispatch(setProjectList(data.data));
         dispatch(projectsPages(data.meta));
 
         return data 
@@ -91,7 +87,7 @@ import InputSelect from '../../atoms/InputSelect'
     useEffect(()=>{
         searchResult !== '' && searchList()
         searchResult === '' && resetProjectList()
-        dispatch(setSearchName(searchResult))
+        dispatch(setSearchNameProject(searchResult))
     },[searchResult])
 
     return (

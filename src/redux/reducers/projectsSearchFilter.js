@@ -1,4 +1,4 @@
-import { SETSEARCHNAME } from "../types"
+import { SETSEARCHNAMEPROJECT } from "../types"
 
 const inicialState = ''
 
@@ -6,10 +6,10 @@ const projectsSearchFilter = (state = inicialState, action) => {
     const {type, payload} = action;
     
     switch (type) {
-        case SETSEARCHNAME:
+        case SETSEARCHNAMEPROJECT:
 
                 state = payload
-        
+
         return state;
 
         default:

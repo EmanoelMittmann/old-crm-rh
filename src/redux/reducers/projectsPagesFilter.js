@@ -1,4 +1,4 @@
-import { SETPROJECTSPAGES, RESETCURRENTPAGE } from "../types"
+import { SETPROJECTSPAGES, RESETCURRENTPAGEPROJECT } from "../types"
 
 const inicialState = []
 
@@ -11,7 +11,7 @@ const projectsPagesFilter = (state = inicialState, action) => {
             state = payload;
         
         return state;
-        case RESETCURRENTPAGE:
+        case RESETCURRENTPAGEPROJECT:
             
         return state
         default:
