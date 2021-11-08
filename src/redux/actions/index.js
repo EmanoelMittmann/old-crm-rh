@@ -26,7 +26,9 @@ import {
     RESETFILTERSTATUS,
     SETFILTERORDER,
     SETPROJECTSPAGES, 
-    RESETCURRENTPAGEPROJECT
+    RESETCURRENTPAGEPROJECT,
+    SETFILTERORDERPROJECTS,
+    SETFILTERSTATUSPROJECTS
 } from '../types'
 
 export const loggingIn = (payload) => ({
@@ -161,5 +163,15 @@ export const setSearchNameProject = (payload) => ({
 
 export const resetCurrentPageProject = (payload) => ({
     type: RESETCURRENTPAGEPROJECT,
+    payload
+})
+
+export const setFilterOrderProjects = (payload) => ({
+    type: SETFILTERORDERPROJECTS,
+    payload
+})
+
+export const setFilterStatusProjects = (payload) => ({
+    type: SETFILTERSTATUSPROJECTS,
     payload
 })

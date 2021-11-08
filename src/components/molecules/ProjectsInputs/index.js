@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import  {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router'
-import { useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 
 
 // TRISTEZA PARA MAIS UM CAPITULO DUVIDOSO DO LUCAS NO FRONT..
-import { 
+import {
     setProjectList,
     projectsPages,
-    setSearchNameProject
-
+    setSearchNameProject,
+    setStatusList,
+    setProjectTypeList,
+    setFilterStatusProjects
 } from '../../../redux/actions/index.js'
 import api from '../../../api/api.js'
 import { ProjectsInputsContainer } from './style.js'
@@ -17,9 +19,9 @@ import InputSearch from '../../atoms/InputSearch'
 import InputSelect from '../../atoms/InputSelect'
 
 
- export const ProjectsInputs = () => {
+export const ProjectsInputs = () => {
 
-     //ver como introduzir a funcionalidade do redux
+    //ver como introduzir a funcionalidade do redux
     const state = useSelector(state => state)
     const dispatch = useDispatch()
     const location = useLocation()
@@ -27,17 +29,79 @@ import InputSelect from '../../atoms/InputSelect'
     const [selectedOption, setSelectedOption] = useState('');
     const [searchResult, setSearchResult] = useState('');
 
+    const filterStatus = async () => {
+        let params;
+
+        if (state.filterOrderProjects !== "") {
+
+            params = {
+                page: 1,
+                is_active: selectedOption,
+                search: state.projectsSearchFilter,
+                orderField: 'name',
+                order: state.filterOrderProjects
+            }
+        }
+
+        if (state.filterOrderProjects === "") {
+            params = {
+                page: 1,
+                is_active: selectedOption,
+                search: state.filterSearchNameProjects,
+            }
+        }
+
+        try {
+            const { data } = await api({
+                method: 'get',
+                url: `${location.pathname}`,
+                params: params
+            });
+
+            if (location.pathname === "/project") dispatch(setProjectList(data.data));
+            if (location.pathname === "/projectStatus") dispatch(setStatusList(data.data))
+            if (location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
+            dispatch(projectsPages(data.meta));
+
+
+        } catch (error) {
+            return console.error(error)
+        }
+    }
+
+    useEffect(() => {
+        filterStatus()
+        dispatch(setFilterStatusProjects(selectedOption))
+    }, [selectedOption])
+    
+    
     const projectsFilterTypesOptions = [
         {
-            description: "Tipo 1",
+            description: "TIpo 1",
             value: "1"
         },
 
         {
-            description: "Tipo 2",
+            description: "TIpo 2",
             value: "2"
         }
-    ]
+    ] 
+    /* const projectsFilterTypesOptions = async () => {
+
+                const { data } = await api({
+            method: 'get',
+            url: `/projectType`,
+            params: {
+                search: searchResult,
+            }
+        });
+
+        dispatch(setProjectList(data.data));
+        dispatch(projectsPages(data.meta));
+
+        return data;
+
+    } */
 
     const projectsFilterStatusOptions = [
         {
@@ -55,11 +119,11 @@ import InputSelect from '../../atoms/InputSelect'
 
     //Chamar api para filtrar a pesquisa
 
-    const searchList = async () =>{
-        const {data} = await api({
-            method:'get',
-            url:`/project`,
-            params:{
+    const searchList = async () => {
+        const { data } = await api({
+            method: 'get',
+            url: `/project`,
+            params: {
                 search: searchResult,
             }
         });
@@ -70,44 +134,44 @@ import InputSelect from '../../atoms/InputSelect'
         return data;
     }
 
-    const resetProjectList = async () =>{
-        const {data} = await api({
-            method:'get',
-            url:`/project`,
-            params:{
-                page:1
+    const resetProjectList = async () => {
+        const { data } = await api({
+            method: 'get',
+            url: `/project`,
+            params: {
+                page: 1
             }
         });
         dispatch(setProjectList(data.data));
         dispatch(projectsPages(data.meta));
 
-        return data 
+        return data
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         searchResult !== '' && searchList()
         searchResult === '' && resetProjectList()
         dispatch(setSearchNameProject(searchResult))
-    },[searchResult])
+    }, [searchResult])
 
     return (
         <ProjectsInputsContainer>
-            <InputSearch 
-            lineWidth="280px" 
-            inputWidth="230px"
-            setSearchResult ={setSearchResult}
+            <InputSearch
+                lineWidth="280px"
+                inputWidth="230px"
+                setSearchResult={setSearchResult}
             />
             <InputSelect
-            options={projectsFilterTypesOptions}
-            setSelectedOption={setSelectedOption}
-            placeholder="Tipo"
-            width="220px"
+                options={projectsFilterTypesOptions}
+                setSelectedOption={setSelectedOption}
+                placeholder="Tipo"
+                width="220px"
             />
             <InputSelect
-            options={projectsFilterStatusOptions}
-            setSelectedOption={setSelectedOption}
-            placeholder="Status"
-            width="230px"
+                options={projectsFilterStatusOptions}
+                setSelectedOption={setSelectedOption}
+                placeholder="Status"
+                width="230px"
             />
         </ProjectsInputsContainer>
     )

@@ -32,21 +32,21 @@ export const ProjectsSection = () => {
 const nextPage = async () => {
     let params;
 
-    if (state.filterOrder === "") {
+    if (state.filterOrderProjects === "") {
         params = {
             page: `${state.projectsPagesFilter.current_page + 1}`,
-            is_active: state.filterStatus,
+           // is_active: state.filterStatus,
             search: state.projectsSearchFilter,
         }
     }
 
-    if (state.filterOrder !== "") {
+    if (state.filterOrderProjects !== "") {
         params = {
             page: `${state.projectsPagesFilter.current_page + 1}`,
-            is_active: state.filterStatus,
+          //  is_active: state.filterStatus,
             search: state.projectsSearchFilter,
             orderField: 'name',
-            order: state.filterOrder,
+            order: state.filterOrderProjects,
         }
     }
 
@@ -65,21 +65,21 @@ const nextPage = async () => {
 const previousPage = async () => {
     let params;
 
-    if (state.filterOrder === "") {
+    if (state.filterOrderProjects === "") {
         params = {
             page: `${state.projectsPagesFilter.current_page - 1}`,
-            is_active: state.filterStatus,
+           // is_active: state.filterStatus,
             search: state.projectsSearchFilter,
         }
     }
 
-    if (state.filterOrder !== "") {
+    if (state.filterOrderProjects !== "") {
         params = {
             page: `${state.projectsPagesFilter.current_page - 1}`,
-            is_active: state.filterStatus,
+           // is_active: state.filterStatus,
             search: state.projectsSearchFilter,
             orderField: 'name',
-            order: state.filterOrder,
+            order: state.filterOrderProjects,
         }
     }
 
