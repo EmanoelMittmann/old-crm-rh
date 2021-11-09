@@ -1,24 +1,26 @@
-import React, { useState } from 'react'
+import React from 'react'
 
-import { InputLine } from '../../atoms/DefaultInput/style'
+import { InputLine } from '../DefaultInput/style.js'
 import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg'
 import {
     Img,
     InputSelectContainer,
     InputSelectOption,
-    InputSelectOptionPlaceholder,
-} from './style.js'
+} from '../InputSelect/style.js'
 
-const InputSelect = ({setSelectedOption, options, placeholder, width, lineWidth}) => {
-    return ( 
-        <InputLine width={lineWidth}>
+const InputSelectEdit = ({colorId, setSelectedOption, width, options}) => {
+    return (
+        <InputLine width={width}>
             <InputSelectContainer width={width} onChange={(e) => setSelectedOption(e.target.value)}>
-                <InputSelectOptionPlaceholder
-                value={placeholder}
-                disabled selected>
-                    { placeholder }
-                </InputSelectOptionPlaceholder>
                 {options.map(option => (
+                    colorId === option.id &&
+                    <InputSelectOption selected value={option.id}>
+                    { option.name }
+                    </InputSelectOption>
+                ))}
+
+                {options.map(option => (
+                    colorId !== option.id &&
                     <InputSelectOption value={option.id}>
                     { option.name }
                     </InputSelectOption>
@@ -29,4 +31,4 @@ const InputSelect = ({setSelectedOption, options, placeholder, width, lineWidth}
     )
 }
 
-export default InputSelect;
+export default InputSelectEdit;

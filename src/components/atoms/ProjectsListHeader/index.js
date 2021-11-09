@@ -7,7 +7,7 @@ import {
     ListHeaderTime,
     ListHeaderStatus
 } from './style.js'
-import { ListHeaderContainer, ListHeaderTitle } from '../../ListHeader/style.js'
+import { ListHeaderContainer, ListHeaderTitle } from '../ListHeader/style'
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
 
 const ProjectsListHeader = () => {

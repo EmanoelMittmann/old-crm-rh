@@ -1,9 +1,9 @@
 import React from 'react'
+import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux';
 import GoogleLogin from 'react-google-login'
-
-import api from '../../../api/api';
 
 import DarkButton from '../../atoms/Buttons/DarkButton/style.js'
 import teamLogin from '../../../assets/teamLogin.svg'
@@ -16,33 +16,39 @@ import { loggingIn } from "../../../redux/actions"
 export const Login = () => {
     const dispatch = useDispatch()
     let history = useHistory();
+    const state = useSelector(state => state.authentication)
 
      const accessLogin = async (googleData) => {
+        const api = axios.create({
+            baseURL: 'http://localhost:3333',
+            headers:{ 
+                "Content-Type":"application/json",
+                }
+        })
 
-      const responseAuth = await api({
-         method:"post",
-         url:'/auth',
-         data: {
-         token_id: googleData.tokenId,
-         access_token: googleData.accessToken,
-         google_id: googleData.googleId,
-         google_email: googleData.profileObj.email,
-        }}); 
+        try{
+            const responseAuth = await api({
+                method:"post",
+                url:'/auth',
+                data: {
+                    google_email: googleData.profileObj.email,
+                    google_id: googleData.googleId,
+                    access_token: googleData.accessToken,
+               }}); 
+    
+                dispatch(loggingIn({
+                    googleData: googleData,
+                    token: responseAuth.data.token,
+                    responseValidToken: true,
+                }));
 
-        const responseBack = true
-        
-        const authData ={
-            googleData: googleData,
-            token: responseAuth.data.token,
-            responseBack: true,
-       }
+                history.push("/home");
 
-      
-        if(responseBack){
-            dispatch(loggingIn(authData));
-            history.push("/home");
+
+        }catch(error){
+            console.log(error.message);
         }
-
+        
     } 
 
     return (

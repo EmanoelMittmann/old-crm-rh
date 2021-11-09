@@ -3,13 +3,13 @@ import { Route } from "react-router-dom";
 import { useSelector } from 'react-redux';
 
 const PrivateRoute = ( { component: Component, ...rest} ) => {
-    const state = useSelector(state => state)
+    const token = useSelector(state => state.authentication)
 
-    const responseAuth = true;
-    
+    console.log(token);
+    // const responseAuth = true;
     
     return(
-        <Route {...rest} render={props => responseAuth ? (
+        <Route {...rest} render={props => token.responseValidToken ? (
             <Component {...props} />
         ) : (
             <Redirect to={{ pathname: "/", state: { from: props.location }}}/>

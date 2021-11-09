@@ -10,27 +10,28 @@ const ProjectsInputs = () => {
 
     const projectsFilterTypesOptions = [
         {
-            description: "Tipo 1",
-            value: "1"
+            name: "Tipo 1",
+            id: "1"
         },
 
         {
-            description: "Tipo 2",
-            value: "2"
+            name: "Tipo 2",
+            id: "2"
         }
     ]
 
     const projectsFilterStatusOptions = [
         {
-            description: "Status 1",
-            value: "1"
+            name: "Status 1",
+            id: "1"
         },
 
         {
-            description: "Status 2",
-            value: "2"
+            name: "Status 2",
+            id: "2"
         }
     ]
+
 
     return (
         <ProjectsInputsContainer>
