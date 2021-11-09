@@ -28,7 +28,8 @@ import {
     SETPROJECTSPAGES, 
     RESETCURRENTPAGEPROJECT,
     SETFILTERORDERPROJECTS,
-    SETFILTERSTATUSPROJECTS
+    SETFILTERSTATUSPROJECTS,
+    
 } from '../types'
 
 export const loggingIn = (payload) => ({
@@ -175,3 +176,5 @@ export const setFilterStatusProjects = (payload) => ({
     type: SETFILTERSTATUSPROJECTS,
     payload
 })
+
+

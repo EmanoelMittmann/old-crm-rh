@@ -4,6 +4,7 @@ import { useLocation } from 'react-router'
 import { useSelector } from 'react-redux'
 
 
+
 // TRISTEZA PARA MAIS UM CAPITULO DUVIDOSO DO LUCAS NO FRONT..
 import {
     setProjectList,
@@ -13,6 +14,7 @@ import {
     setProjectTypeList,
     setFilterStatusProjects
 } from '../../../redux/actions/index.js'
+
 import api from '../../../api/api.js'
 import { ProjectsInputsContainer } from './style.js'
 import InputSearch from '../../atoms/InputSearch'
@@ -28,7 +30,10 @@ export const ProjectsInputs = () => {
 
     const [selectedOption, setSelectedOption] = useState('');
     const [searchResult, setSearchResult] = useState('');
+    const[ projectsOptionStatus, setprojectsOptionStatus]= useState([]);
+    const[ projectsOptionTypes, setprojectsOptionTypes]= useState([]);
 
+    
     const filterStatus = async () => {
         let params;
 
@@ -75,45 +80,41 @@ export const ProjectsInputs = () => {
     }, [selectedOption])
     
     
-    const projectsFilterTypesOptions = [
-        {
-            description: "TIpo 1",
-            value: "1"
-        },
+      const projectsFilterTypesOptions = async () =>{
 
-        {
-            description: "TIpo 2",
-            value: "2"
-        }
-    ] 
-    /* const projectsFilterTypesOptions = async () => {
-
-                const { data } = await api({
+      const { data } = await api({
             method: 'get',
             url: `/projectType`,
-            params: {
-                search: searchResult,
-            }
         });
 
-        dispatch(setProjectList(data.data));
-        dispatch(projectsPages(data.meta));
+        setprojectsOptionTypes(data.data)
+
+    console.log(data)
 
         return data;
 
-    } */
+       
+    } 
 
-    const projectsFilterStatusOptions = [
-        {
-            description: "Status 1",
-            value: "1"
-        },
+    const projectsFilterStatusOptions = async () =>{
 
-        {
-            description: "Status 2",
-            value: "2"
-        }
-    ]
+        const { data } = await api({
+              method: 'get',
+              url: `/projectStatus`,
+          });
+  
+          setprojectsOptionStatus(data.data)
+  
+      console.log(data.data)
+  
+          return data;
+    
+      } 
+
+      useEffect(() => {
+          projectsFilterTypesOptions()
+          projectsFilterStatusOptions()
+    },[])
 
     console.log(state);
 
@@ -154,6 +155,8 @@ export const ProjectsInputs = () => {
         dispatch(setSearchNameProject(searchResult))
     }, [searchResult])
 
+   
+
     return (
         <ProjectsInputsContainer>
             <InputSearch
@@ -162,13 +165,13 @@ export const ProjectsInputs = () => {
                 setSearchResult={setSearchResult}
             />
             <InputSelect
-                options={projectsFilterTypesOptions}
+                options={projectsOptionTypes}
                 setSelectedOption={setSelectedOption}
                 placeholder="Tipo"
                 width="220px"
             />
             <InputSelect
-                options={projectsFilterStatusOptions}
+                options={projectsOptionStatus}
                 setSelectedOption={setSelectedOption}
                 placeholder="Status"
                 width="230px"

@@ -11,6 +11,8 @@ import {
 
 const InputSelect = ({setSelectedOption, options, placeholder, width}) => {
 
+    console.log(options)
+
     return ( 
         <InputLine width={width}>
             <InputSelectContainer width={width} onChange={(e) => setSelectedOption(e.target.value)}>
