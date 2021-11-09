@@ -5,9 +5,9 @@ import { useDispatch } from 'react-redux'
 import { 
     setProjectTypeList,
     setStatusList,
-    settingsPages
 } from '../../../redux/actions/index.js'
 import api from '../../../api/api.js'
+import InputSelectEdit from '../../atoms/InputSelectEdit/index.js'
 import { formatFirstLetter } from '../../utils/formatFirstLetter.js'
 import SecondaryText from '../../atoms/SecondaryText/style.js'
 import InputWithLabel from '../../atoms/InputWithLabel'
@@ -27,7 +27,7 @@ import {
     ContainerRegisterProjectData
 } from './style.js'
 
-const RegisterProjectData = ({setProjectName, projectName, setProjectType, setInitialDate, setFinalDate, setProjectStatus, setTeamCost}) => {
+const RegisterProjectData = ({projectType, projectStatus, projectName, teamCost, inicialDate, finalDate, componentRendered, editData, setProjectName, setProjectType, setInitialDate, setFinalDate, setProjectStatus, setTeamCost}) => {
     const state = useSelector(state => state);
     const dispatch = useDispatch();
 
@@ -36,6 +36,7 @@ const RegisterProjectData = ({setProjectName, projectName, setProjectType, setIn
             method:'get',     
             url:`/projectTypeNoFilter`,
         }); 
+
         const formattedProjectTypeList =  formatFirstLetter(data)
         dispatch(setProjectTypeList(formattedProjectTypeList))
         return data;
@@ -51,11 +52,6 @@ const RegisterProjectData = ({setProjectName, projectName, setProjectType, setIn
         dispatch(setStatusList(formattedStatusList))
         return data;
     }
-
-    useEffect(() => {
-        getStatusList()
-        getProjectTypeList()
-    },[]);
     
 
     const filterProjectsTypesOptions = state.projectType.map(project => (
@@ -72,6 +68,36 @@ const RegisterProjectData = ({setProjectName, projectName, setProjectType, setIn
         }
     ))
 
+    const getDate = (inputDate) => {
+        const newDate = new Date(inputDate)
+        const day = newDate.getDate().toString()
+        const newDay = day.length === 1 ? day.padStart(2, '0') : day
+        let month = newDate.getMonth() + 1
+        month = month.toString()
+        const newMonth = month.length === 1 ? month.padStart(2, '0') : month;
+        const year = newDate.getFullYear()
+        const projectDate = `${year}-${newMonth}-${newDay}`
+        
+        return projectDate;
+    }
+
+    
+    useEffect(() => {
+        getStatusList()
+        getProjectTypeList()
+        
+        if(componentRendered){
+            setInitialDate(getDate(editData.date_start))
+            setFinalDate(getDate(editData.date_end))
+            setProjectName(editData.name)
+            setTeamCost(editData.team_cost)
+            setProjectType(editData.project_type_id)
+            setProjectStatus(editData.project_status_id)
+        }
+
+    },[componentRendered]);
+
+
     return (
         <ContainerRegisterProjectData>
                <SecondaryText margin="0 0 2.5em 0">Dados do projeto</SecondaryText>
@@ -84,18 +110,26 @@ const RegisterProjectData = ({setProjectName, projectName, setProjectType, setIn
                             label="Nome do projeto"
                             setinputWithLabelValue={setProjectName}
                             width="95%"
-                            value={projectName}
-
+                            inputValue={projectName}
                             />
                         </ContainerInputWithLabel>
 
                         <ContainerInputProjectTypeSelect>
-                            <InputSelect
-                            setSelectedOption={setProjectType}
-                            options={filterProjectsTypesOptions}
-                            placeholder="Tipo de projeto"
-                            width="200px"
-                            />
+                            {editData?.id ? (
+                                <InputSelectEdit
+                                optionId={projectType}
+                                setSelectedOption={setProjectType}
+                                options={filterProjectsTypesOptions}
+                                width="200px"
+                                />
+                            ) : (
+                                <InputSelect
+                                setSelectedOption={setProjectType}
+                                options={filterProjectsTypesOptions}
+                                placeholder="Tipo de projeto"
+                                width="200px"
+                                />
+                            )}
                         </ContainerInputProjectTypeSelect>
 
                     </ContainerFirstRow>
@@ -105,6 +139,7 @@ const RegisterProjectData = ({setProjectName, projectName, setProjectType, setIn
                             <InputDate
                             setDate={setInitialDate}
                             placeholder="Data início"
+                            date={inicialDate}
                             />
                         </ContainerInputInitialDate>
 
@@ -112,16 +147,26 @@ const RegisterProjectData = ({setProjectName, projectName, setProjectType, setIn
                             <InputDate
                              setDate={setFinalDate}
                              placeholder="Final estimado"
+                             date={finalDate}
                             />
                         </ContainerInputFinalDate>
 
                         <ContainerInputProjectStatusSelect>
-                            <InputSelect
-                            setSelectedOption={setProjectStatus}
-                            options={filterProjectsStatusOptions}
-                            placeholder="Status do projeto"
-                            width="100%"
+                            {editData?.id ? (
+                                <InputSelectEdit
+                                optionId={projectStatus}
+                                setSelectedOption={setProjectStatus}
+                                options={filterProjectsStatusOptions}
+                                width="100%"
+                                />
+                            ) :
+                                <InputSelect
+                                setSelectedOption={setProjectStatus}
+                                options={filterProjectsStatusOptions}
+                                placeholder="Status do projeto"
+                                width="100%"    
                             />
+                            }
                         </ContainerInputProjectStatusSelect>
 
                     </ContainerSecondRow>
@@ -132,6 +177,7 @@ const RegisterProjectData = ({setProjectName, projectName, setProjectType, setIn
                             widthLine="260px"
                             placeholder="Custo estimado de equipe"
                             setTextValue={setTeamCost}
+                            value={teamCost}
                         />
                     </ContainerThirdLine>
 

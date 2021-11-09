@@ -6,7 +6,7 @@ export const RegisterProjectTitleContainer = styled.header`
 `
 
 export const Img = styled.img`
-    margin-right: 1.5em;
+    width: 18px;
 `
 
 export const RegisterProjectContainer = styled.div`
@@ -34,3 +34,20 @@ export const RegisterProjectFooter = styled.div`
     padding: 0 3em 0 3em;
 `
 
+export const ContainerArrow = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    margin-right: 1.5em;
+    border-radius: 50%;
+    transition: ease-in 0.3s;
+
+    &:hover{
+        background-color: white;
+        -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
+        box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
+    }
+`

@@ -17,7 +17,7 @@ const Projects = () => {
     const history = useHistory()
 
     const registerProjectHandler = () => {
-        history.push("/registerProject");
+        history.push("/project");
     }
     
     return (

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router'
-import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { 
     setProjectList,
@@ -20,7 +19,8 @@ import {
     RegisterProjectContainer,
     RegisterProjectFooter,
     RegisterProjectButtons,
-    Img
+    Img,
+    ContainerArrow
 } from './style.js'
 
 const RegisterProject = () => {
@@ -36,9 +36,12 @@ const RegisterProject = () => {
     const [projectStatus, setProjectStatus] = useState("");
     const [teamCost, setTeamCost] = useState("");
     const [payloadTeam, setPayloadTeam] = useState("")
+    const [EditProjectData, setEditProjectData] = useState({})
+    const [EditProjectTeam, setEditProjectTeam] = useState([])
 
     const [inicialYear, inicialMonth, inicialDay] = inicialDate.split('-')
     const [finalYear, finalMonth, finalDay] = finalDate.split('-')
+    const [componentRendered, setComponentRendered] = useState(false)
 
         const editProject = async () => {
 
@@ -113,38 +116,76 @@ const RegisterProject = () => {
         return registerProject()
     }
 
+    const editProjectData = async () => {
+        try{
+            const {data} = await api({
+                method: 'get',
+                url: `/project/${location.state.projectId}`,
+            });
+
+            const [{users}] = data
+            setEditProjectTeam(users)
+           
+           const projectData = data.map(el => {
+               delete el.users
+               return el
+           })
+            setEditProjectData(...projectData)
+            setComponentRendered(true)
+
+        }catch(error){
+
+        }
+    }
+    
+    useEffect(() => {
+        editProjectData()
+        console.log('primeiro renderiza esse');
+    }, [])
+
 
     const calcDaysPassed = (date1, date2) => (date2 - date1) / (1000 * 60 * 60 * 24)
     
     const daysPassed = calcDaysPassed(new Date(inicialYear, inicialMonth, inicialDay), new Date(finalYear, finalMonth, finalDay))
 
-
     return (
         <PagesContainer padding="0 0 5em 0">
             <Header/>
             <RegisterProjectTitleContainer>
-                <Img src={ArrowBack} alt="Voltar"
-                onClick={() => history.push("/projects")}/>
+                <ContainerArrow onClick={() => history.push("/projects")}>
+                    <Img src={ArrowBack} alt="Voltar"/>
+                </ContainerArrow>
                 <SectionTitle>
-                    Novo Projeto
+                {projectBeingEdited ? "Edição de projeto" : "Novo Projeto"}
                 </SectionTitle>
             </RegisterProjectTitleContainer>
 
             <RegisterProjectContainer>
 
                 <RegisterProjectData
+                    editData={EditProjectData}
                     projectName={projectName}
+                    projectName={projectName}
+                    componentRendered={componentRendered}
                     setProjectName={setProjectName}
                     setProjectType={setProjectType}
+                    projectType={projectType}
                     setInitialDate={setInitialDate}
+                    inicialDate={inicialDate}
+                    finalDate={finalDate}
                     setFinalDate={setFinalDate}
                     setProjectStatus={setProjectStatus}
+                    projectStatus={projectStatus}
                     setTeamCost={setTeamCost}
+                    teamCost={teamCost}
                 />
 
                 <RegisterProjectTeam
+                componentRendered={componentRendered}
+                editData={EditProjectTeam}
                 payloadTeam={payloadTeam}
                 setPayloadTeam={setPayloadTeam}
+                projectId={location.state?.projectId}
                 />
 
                 <RegisterProjectFooter>
@@ -160,7 +201,7 @@ const RegisterProject = () => {
                         fontSize="0.84rem"
                         onClick={() => daysPassed >= 0 ? projectHandler() : console.log("Data inválida")}
                         >
-                            Cadastrar
+                            {projectBeingEdited ? "Atualizar" : "Cadastrar"}
                         </DarkButton>
                     </RegisterProjectButtons>
 

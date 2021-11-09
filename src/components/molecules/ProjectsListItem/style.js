@@ -53,7 +53,7 @@ export const TeamMemberPic = styled.img`
     border-radius: 50%;
     width: 40px;
     height: 40px;
-    margin-left: 0.5em;
+    margin-left: 0.7em;
 `
 
 export const ContainerTeamMemberPic = styled.div`
@@ -68,7 +68,7 @@ export const TeamMemberDetails = styled.div`
     font-family: "Poppins", sans-serif;
     font-weight: 500;
     position: absolute;
-    left: 110px;
+    left: ${props => props.position};
     width: 155px;
     height: 50px;
     padding-left: 20px;

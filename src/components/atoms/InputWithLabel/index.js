@@ -4,7 +4,7 @@ import { InputLine } from '../DefaultInput/style'
 import { DefaultInput } from '../DefaultInput/style'
 import {InputWithLabelContainer, Label} from './style.js'
 
-const InputWithLabel = ({value, label, setinputWithLabelValue, editValue, width, widthContainer, justify, padding, placeholder}) => {
+const InputWithLabel = ({inputValue, label, setinputWithLabelValue, editValue, width, widthContainer, justify, padding, placeholder}) => {
     
     return (
         <InputWithLabelContainer padding={padding} justify={justify} widthContainer={widthContainer}>
@@ -15,7 +15,7 @@ const InputWithLabel = ({value, label, setinputWithLabelValue, editValue, width,
                         <DefaultInput
                             onChange={(e) => setinputWithLabelValue(e.target.value)}
                             type="text"
-                            value={value}
+                            value={inputValue}
                             placeholder={placeholder}
                             defaultValue={editValue}
                             width={width}

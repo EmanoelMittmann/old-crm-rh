@@ -8,19 +8,19 @@ import {
     InputSelectOption,
 } from '../InputSelect/style.js'
 
-const InputSelectEdit = ({colorId, setSelectedOption, width, options}) => {
+const InputSelectEdit = ({optionId, setSelectedOption, width, options}) => {
     return (
         <InputLine width={width}>
             <InputSelectContainer width={width} onChange={(e) => setSelectedOption(e.target.value)}>
                 {options.map(option => (
-                    colorId === option.id &&
+                    optionId === option.id &&
                     <InputSelectOption selected value={option.id}>
                     { option.name }
                     </InputSelectOption>
                 ))}
 
                 {options.map(option => (
-                    colorId !== option.id &&
+                    optionId !== option.id &&
                     <InputSelectOption value={option.id}>
                     { option.name }
                     </InputSelectOption>
