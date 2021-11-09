@@ -30,7 +30,7 @@ const ProjectsListHeader = () => {
             </ListHeaderBeginning>
 
             <ListHeaderTime>
-                <ListHeaderTitle>Time</ListHeaderTitle>
+                <ListHeaderTitle margin="0">Time</ListHeaderTitle>
                 <Arrows/>
             </ListHeaderTime>
 

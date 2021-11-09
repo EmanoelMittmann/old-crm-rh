@@ -14,7 +14,7 @@ export const OptionsMenu = styled.div`
     left: -100px;
     top: 40px;
     width: 134px;
-    height: 77px;
+    height: 90px;
     border-radius: 8px; 
     background-color: white;
     z-index: 5;
@@ -25,10 +25,10 @@ export const OptionsMenuItem = styled.button`
     width: 100%;
     text-align: left;
     background-color: transparent;
-    padding: 0.3em 0.5em 0.3em 1.5em;
+    padding: 0.3em 0.5em 0.3em 1.1em;
     border: none;
     font-family: "Poppins", sans-serif;
-    font-size: 1rem;
+    font-size: 0.98rem;
     font-weight: 500;
     color: black;
     cursor: pointer;
