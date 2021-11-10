@@ -1,47 +1,33 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { 
-    setProjectTypeList,
-    setStatusList,
     setProjectList,
-    settingsPages
 } from '../../../redux/actions/index.js'
 import api from '../../../api/api.js'
 import Header from '../../organisms/Header/index.js'
-import SecondaryText from '../../atoms/SecondaryText/style.js'
-import InputWithLabel from '../../atoms/InputWithLabel'
 import PagesContainer from '../../organisms/PagesContainer/styled'
 import { SectionTitle } from '../../atoms/PageTitle/style.js'
 import ArrowBack  from '../../../assets/icons/arrow-back.svg'
-import InputSelect from '../../atoms/InputSelect'
-import InputDate from '../../atoms/InputDate'
-import InputText from '../../atoms/InputText'
 import CancelButton from '../../atoms/Buttons/CancelButton/style.js'
 import DarkButton from '../../atoms/Buttons/DarkButton/style.js'
+import RegisterProjectData from '../../organisms/RegisterProjectData'
+import RegisterProjectTeam from '../../organisms/RegisterProjectTeam'
 import {
     RegisterProjectTitleContainer,
     RegisterProjectContainer,
-    RegisterProjectForm,
-    ContainerInputInitialDate,
-    ContainerInputFinalDate,
-    ContainerInputWithLabel,
-    ContainerInputProjectStatusSelect,
-    ContainerInputProjectTypeSelect,
-    ContainerSecondRow,
-    ContainerFirstRow,
-    ContainerThirdLine,
     RegisterProjectFooter,
     RegisterProjectButtons,
-    Img
+    Img,
+    ContainerArrow
 } from './style.js'
 
 const RegisterProject = () => {
-    const state = useSelector(state => state);
-    const dispatch = useDispatch();
+    const state = useSelector(state => state)
     const history = useHistory()
+    const location = useLocation()
+    const dispatch = useDispatch();
 
     const [projectName, setProjectName] = useState("");
     const [projectType, setProjectType] = useState("");
@@ -49,70 +35,27 @@ const RegisterProject = () => {
     const [finalDate, setFinalDate] = useState("");
     const [projectStatus, setProjectStatus] = useState("");
     const [teamCost, setTeamCost] = useState("");
-
-    const calcDaysPassed = (date1, date2) => (date2 - date1) / (1000 * 60 * 60 * 24)
+    const [payloadTeam, setPayloadTeam] = useState("")
+    const [EditProjectData, setEditProjectData] = useState({})
+    const [EditProjectTeam, setEditProjectTeam] = useState([])
 
     const [inicialYear, inicialMonth, inicialDay] = inicialDate.split('-')
     const [finalYear, finalMonth, finalDay] = finalDate.split('-')
-    
-    const daysPassed = calcDaysPassed(new Date(inicialYear, inicialMonth, inicialDay), new Date(finalYear, finalMonth, finalDay))
+    const [componentRendered, setComponentRendered] = useState(false)
 
-    const getProjectTypeList = async () => {
-        const {data} = await api({
-            method:'get',     
-            url:`/projectType`,
-        }); 
-    
-        dispatch(setProjectTypeList(data.data))
-        dispatch(settingsPages(data.meta));
-        return data;
-    }
-
-    const getStatusList = async () => {
-        const {data} = await api({
-            method:'get',     
-            url:`/projectStatus`,
-        }); 
-    
-        dispatch(setStatusList(data.data))
-        dispatch(settingsPages(data.meta));
-        return data;
-    }
-
-    useEffect(() => {
-        getStatusList()
-        getProjectTypeList()
-    },[]);
-    
-
-    const filterProjectsTypesOptions = state.projectType.map(project => (
-        {
-            description: project.name,
-            value: project.id
-        }
-    ))
-
-    const filterProjectsStatusOptions = state.status.map(status => (
-        {
-            description: status.name,
-            value: status.id
-        }
-    ))
-
-    const registerProjectClickHandler = async () => {
-    console.log(projectName, projectStatus, projectType, inicialDate, finalDate, teamCost);
+        const editProject = async () => {
 
             try {
                 await api({
-                    method: 'post',
-                    url: '/project',
+                    method: 'put',
+                    url: `/project/${location.state?.projectId}`,
                     data: {
                         name: projectName,
                         project_status_id: projectStatus,
                         project_type_id: projectType,
                         date_start: inicialDate,
                         date_end: finalDate,
-                        team_cost: teamCost,
+                        team_cost: +teamCost,
                     }
                 });
     
@@ -120,91 +63,130 @@ const RegisterProject = () => {
                     method: 'get',
                     url: '/project',
                 });
-
+    
                 dispatch(setProjectList(data.data))
                 history.push("/projects");
-                console.log(data);
                 return data.data
             
             } catch (error) {
                 console.error(error);
             }
+    
+        }
+
+    const registerProject = async () => {
+
+        try {
+            await api({
+                method: 'post',
+                url: '/project',
+                data: {
+                    name: projectName,
+                    project_status_id: projectStatus,
+                    project_type_id: projectType,
+                    date_start: inicialDate,
+                    date_end: finalDate,
+                    team_cost: +teamCost,
+                    users: payloadTeam
+                }
+            });
+
+            const {data} = await api({
+                method: 'get',
+                url: '/project',
+            });
+
+            dispatch(setProjectList(data.data))
+            history.push("/projects");
+            return data.data
+        
+        } catch (error) {
+            console.error(error);
+        }
 
     }
 
-        console.log(state);
+    const projectBeingEdited = state?.projects.find(project => {
+        return project?.id === location.state?.projectId
+    })
+    
+    const projectHandler = () => {
+        if(projectBeingEdited) return editProject();
+        
+        return registerProject()
+    }
+
+    const editProjectData = async () => {
+        try{
+            const {data} = await api({
+                method: 'get',
+                url: `/project/${location.state.projectId}`,
+            });
+
+            const [{users}] = data
+            setEditProjectTeam(users)
+           
+           const projectData = data.map(el => {
+               delete el.users
+               return el
+           })
+            setEditProjectData(...projectData)
+            setComponentRendered(true)
+
+        }catch(error){
+
+        }
+    }
+    
+    useEffect(() => {
+        editProjectData()
+        console.log('primeiro renderiza esse');
+    }, [])
+
+
+    const calcDaysPassed = (date1, date2) => (date2 - date1) / (1000 * 60 * 60 * 24)
+    
+    const daysPassed = calcDaysPassed(new Date(inicialYear, inicialMonth, inicialDay), new Date(finalYear, finalMonth, finalDay))
 
     return (
-        <PagesContainer>
+        <PagesContainer padding="0 0 5em 0">
             <Header/>
             <RegisterProjectTitleContainer>
-                <Img src={ArrowBack} alt="Voltar"
-                onClick={() => history.push("/projects")}/>
+                <ContainerArrow onClick={() => history.push("/projects")}>
+                    <Img src={ArrowBack} alt="Voltar"/>
+                </ContainerArrow>
                 <SectionTitle>
-                    Novo Projeto
+                {projectBeingEdited ? "Edição de projeto" : "Novo Projeto"}
                 </SectionTitle>
             </RegisterProjectTitleContainer>
+
             <RegisterProjectContainer>
-                <SecondaryText margin="0 0 2.5em 0">Dados do projeto</SecondaryText>
-                <RegisterProjectForm>
 
-                    <ContainerFirstRow>
-                        <ContainerInputWithLabel>
-                            <InputWithLabel
-                            label="Nome do projeto"
-                            setinputWithLabelValue={setProjectName}
-                            width="95%"
-                            // editValue={displayNameBeingEdited}
-                            />
-                        </ContainerInputWithLabel>
+                <RegisterProjectData
+                    editData={EditProjectData}
+                    projectName={projectName}
+                    projectName={projectName}
+                    componentRendered={componentRendered}
+                    setProjectName={setProjectName}
+                    setProjectType={setProjectType}
+                    projectType={projectType}
+                    setInitialDate={setInitialDate}
+                    inicialDate={inicialDate}
+                    finalDate={finalDate}
+                    setFinalDate={setFinalDate}
+                    setProjectStatus={setProjectStatus}
+                    projectStatus={projectStatus}
+                    setTeamCost={setTeamCost}
+                    teamCost={teamCost}
+                />
 
-                        <ContainerInputProjectTypeSelect>
-                            <InputSelect
-                            setSelectedOption={setProjectType}
-                            options={filterProjectsTypesOptions}
-                            placeholder="Tipo de projeto"
-                            width="200px"
-                            />
-                        </ContainerInputProjectTypeSelect>
-
-                    </ContainerFirstRow>
-
-                    <ContainerSecondRow>
-                        <ContainerInputInitialDate>
-                            <InputDate
-                            setDate={setInitialDate}
-                            placeholder="Data início"
-                            />
-                        </ContainerInputInitialDate>
-
-                        <ContainerInputFinalDate>
-                            <InputDate
-                             setDate={setFinalDate}
-                             placeholder="Final estimado"
-                            />
-                        </ContainerInputFinalDate>
-
-                        <ContainerInputProjectStatusSelect>
-                            <InputSelect
-                            setSelectedOption={setProjectStatus}
-                            options={filterProjectsStatusOptions}
-                            placeholder="Status do projeto"
-                            width="100%"
-                            />
-                        </ContainerInputProjectStatusSelect>
-
-                    </ContainerSecondRow>
-
-                    <ContainerThirdLine>
-                        <InputText
-                            width="260px"
-                            placeholder="Custo estimado de equipe"
-                            setTextValue={setTeamCost}
-                            // defaultValue={editValue}
-                        />
-                    </ContainerThirdLine>
-
-                </RegisterProjectForm>
+                <RegisterProjectTeam
+                componentRendered={componentRendered}
+                editData={EditProjectTeam}
+                payloadTeam={payloadTeam}
+                setPayloadTeam={setPayloadTeam}
+                projectId={location.state?.projectId}
+                />
 
                 <RegisterProjectFooter>
             
@@ -217,9 +199,9 @@ const RegisterProject = () => {
                         width="115px"
                         height="40px"
                         fontSize="0.84rem"
-                        onClick={() => daysPassed >= 0 ? registerProjectClickHandler() : console.log("Data inválida")}
+                        onClick={() => daysPassed >= 0 ? projectHandler() : console.log("Data inválida")}
                         >
-                            Cadastrar
+                            {projectBeingEdited ? "Atualizar" : "Cadastrar"}
                         </DarkButton>
                     </RegisterProjectButtons>
 

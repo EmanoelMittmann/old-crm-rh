@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const InputWithLabelContainer = styled.div`
-   width: 100%;
+   width: ${props => props.widthContainer};
    display: flex;
    justify-content: ${props => props.justify};
+   padding: ${props => props.padding};
 `
 
 export const Label = styled.span`

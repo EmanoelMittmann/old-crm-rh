@@ -11,6 +11,7 @@ export const ListHeaderContainer = styled.div`
 
     svg{
         margin-left: 1em;
+        cursor: pointer;
     }
 `
 
@@ -18,5 +19,8 @@ export const ListHeaderTitle = styled.h4`
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     color: black;
-    margin-left: 3em;
+    margin-left: ${props => props.margin ? props.margin : '3em'};
+    width: ${props => props.width};
+    cursor: pointer;
 `
+

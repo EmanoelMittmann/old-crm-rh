@@ -17,7 +17,7 @@ import {
     setProjectList 
 }from '../../../redux/actions/index.js'
 
-import { ListHeaderContainer, ListHeaderTitle } from '../../ListHeader/style.js'
+import { ListHeaderContainer, ListHeaderTitle } from '../ListHeader/style'
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
 
 const ProjectsListHeader = () => {
@@ -72,7 +72,7 @@ const ProjectsListHeader = () => {
             </ListHeaderBeginning>
 
             <ListHeaderTime>
-                <ListHeaderTitle>Time</ListHeaderTitle>
+                <ListHeaderTitle margin="0">Time</ListHeaderTitle>
                 <Arrows/>
             </ListHeaderTime>
 

@@ -7,7 +7,8 @@ import api from '../../../api/api.js';
 import ProjectsListHeader from '../../atoms/ProjectsListHeader'
 import ProjectsInputs from '../../molecules/ProjectsInputs/index.js'
 import ProjectsListItem from '../../molecules/ProjectsListItem'
-import { ProjectsSectionContainer } from './style.js'
+import { ProjectsSectionContainer, ContainerFooter } from './style.js'
+import Footer from '../Footer'
 
 import Footer from '../Footer'
 
@@ -99,14 +100,17 @@ const previousPage = async () => {
         <ProjectsSectionContainer>
             <ProjectsInputs />
             <ProjectsListHeader />
-            <ProjectsListItem />
-            <Footer
+            <ProjectsListItem /> 
+            <ContainerFooter>
+        <Footer
                 previousPage={previousPage}
                 nextPage={nextPage}
                 lastPage={lastPage}
                 currentPage={currentPage}
                 firstPage={firstPage}
-            />
+                />
+            </ContainerFooter>
+
         </ProjectsSectionContainer>
     )
 

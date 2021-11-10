@@ -3,7 +3,7 @@ import styled from "styled-components"
 export const ListHeaderProjeto = styled.div`
     display: flex;
     align-items: center;
-    width: 25%;
+    width: 20%;
 `
 
 export const ListHeaderType = styled.div`
@@ -21,7 +21,7 @@ export const ListHeaderBeginning = styled.div`
 export const ListHeaderTime = styled.div`
     display: flex;
     align-items: center;
-    width: 17.5%;
+    width: 20%;
 `
 
 export const ListHeaderStatus = styled.div`

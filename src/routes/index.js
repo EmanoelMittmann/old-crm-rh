@@ -52,7 +52,7 @@ const Routes = () => {
                 <Route path="/projectType" component={ProjectType}/>
             </Switch>
             <Switch>
-                <Route path="/registerProject" component={RegisterProject}/>
+                <Route path="/project" component={RegisterProject}/>
             </Switch>
             
         </BrowserRouter>

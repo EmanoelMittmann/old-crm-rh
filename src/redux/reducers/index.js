@@ -17,6 +17,7 @@ import projectsPagesFilter from './projectsPagesFilter.js';
 import projectsSearchFilter from './projectsSearchFilter.js';
 import filterOrderProjects from './filterOrderProjects';
 import  filterStatusProjects  from './filterStatusProjects';
+import statusColors from './statusColors.js'
 import { combineReducers } from 'redux';
 
 
@@ -41,5 +42,6 @@ export const Reducers = combineReducers({
     projectsSearchFilter,
     filterOrderProjects,
     filterStatusProjects,
-   
+    statusColors,
+
 });

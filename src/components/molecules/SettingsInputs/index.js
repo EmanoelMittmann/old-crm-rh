@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import { useLocation } from 'react-router'
+import { useHistory, useLocation } from 'react-router'
 import { useSelector } from 'react-redux'
 
 import {
@@ -18,40 +18,35 @@ import { SettingsInputsContainer } from './style.js'
 
 export const SettingsInputs = () => {
     const state = useSelector(state => state)
+    const history = useHistory()
     const dispatch = useDispatch()
     const location = useLocation()
     const [selectedOption, setSelectedOption] = useState('');
     const [searchResult, setSearchResult] = useState('')
-    //Chamando api para filtrar status
 
-    const filterStatus = async () => {
+    let params = {}
 
-        let params;
-    
-        if(state.filterOrder !== ""){
+    const handleFilterRequest = () => {
+        params.page = 1
 
+        if(selectedOption !== " " && selectedOption !== "") params.is_active = selectedOption
 
-            params = {
-                page: 1,
-                is_active: selectedOption,
-                search: state.settingsSearchFilter,
-                orderField: 'name',
-                order: state.filterOrder
-            }
-        }
+        if(state.settingsSearchFilter !== "" && searchResult !== "") params.search = searchResult
 
-        if(state.filterOrder === ""){
-            params = {
-                page: 1,
-                is_active: selectedOption,
-                search: state.filterSearchName,
-            }
-        }
+        if(state.filterOrder !== "" && searchResult !== "") params.orderField = 'name'
+
+        if(state.filterOrder !== "" && searchResult !== "") params.order = state.filterOrder
+
+    }
 
         
 
 
+    const filterStatus = async () => {
+        
         try {
+            handleFilterRequest()
+
             const {data} = await api({
                 method:'get',     
                 url:`${location.pathname}`,
@@ -63,8 +58,10 @@ export const SettingsInputs = () => {
             if(location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
             dispatch(settingsPages(data.meta));
 
-        } catch (error){
-            return console.error(error)
+        } catch (err){
+            if(err.request.status === 401){
+                history.push("/");
+            }
         }
     }
 
@@ -75,65 +72,47 @@ export const SettingsInputs = () => {
 
    const settingsFilterStatusOptions = [
         {    
-            description: "Todos",
-            value: ""
+            name: "Todos",
+            id: ""
         },
 
         {
-            description: "Ativo",
-            value: 1,
+            name: "Ativo",
+            id: 1,
         },
 
         {
-            description: "Inativo",
-            value: 0
+            name: "Inativo",
+            id: 0
         }
    ]
 
-   console.log(state);
-
-   // Chamando api para filtrar a pesquisa
-
     const searchList = async () => {
-        const {data} = await api({
-            method:'get',     
-            url:`${location.pathname}`,
-            params: {
-                is_active: selectedOption,
-                search: searchResult,
-            }
-        }); 
-
-        if(location.pathname === "/job") dispatch(setJobList(data.data));
-        if(location.pathname === "/projectStatus") dispatch(setStatusList(data.data))
-        if(location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
-        dispatch(settingsPages(data.meta));
-
-        return data;
-    }
-
-    const resetSettingsList = async () => {
-        const {data} = await api({
-            method:'get',     
-            url:`${location.pathname}`,
-            params: {
-                page: 1,
-                is_active: selectedOption,
-            }
-        }); 
+        
+        try{
+            handleFilterRequest()
     
-        if(location.pathname === "/job") dispatch(setJobList(data.data));
-        if(location.pathname === "/projectStatus") dispatch(setStatusList(data.data))
-        if(location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
-        dispatch(settingsPages(data.meta));
+            const {data} = await api({
+                method:'get',     
+                url:`${location.pathname}`,
+                params: params
+            }); 
     
-        return data;
-    }
+            if(location.pathname === "/job") dispatch(setJobList(data.data));
+            if(location.pathname === "/projectStatus") dispatch(setStatusList(data.data))
+            if(location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
+            dispatch(settingsPages(data.meta));
+          
 
+        }catch(err){
+            if(err.request.status === 401){
+                history.push("/");
+            }
+        }
+    }
     
     useEffect(() => {
-        searchResult !== '' && searchList()
-        searchResult === '' && resetSettingsList()
+        searchList()
         dispatch(setSearchName(searchResult))
     }, [searchResult])
 

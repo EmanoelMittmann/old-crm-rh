@@ -44,7 +44,7 @@ const SettingsSidebar = () => {
                     <SettingsOption
                     clicked={location.pathname === "/projectStatus" ? true : false}
                     >
-                        Status
+                        Status do projeto
                     </SettingsOption>
                 </Link>
 
@@ -56,7 +56,7 @@ const SettingsSidebar = () => {
                     <SettingsOption
                     clicked={location.pathname === "/projectType" ? true : false}
                     >
-                        Projeto
+                        Tipo de projeto
                     </SettingsOption>
                 </Link>
 
