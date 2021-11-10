@@ -6,6 +6,7 @@ import {
     setProjectList,
 } from '../../../redux/actions/index.js'
 import api from '../../../api/api.js'
+import ModalDelete from '../../molecules/ModalDelete/index.js'
 import Header from '../../organisms/Header/index.js'
 import PagesContainer from '../../organisms/PagesContainer/styled'
 import { SectionTitle } from '../../atoms/PageTitle/style.js'
@@ -38,10 +39,13 @@ const RegisterProject = () => {
     const [payloadTeam, setPayloadTeam] = useState("")
     const [EditProjectData, setEditProjectData] = useState({})
     const [EditProjectTeam, setEditProjectTeam] = useState([])
+    const [cancelRegisterProject, setCancelRegisterProject] = useState(false)
+    const [modalWarningIsVisible, setModalWarningIsVisible] = useState(false)
 
     const [inicialYear, inicialMonth, inicialDay] = inicialDate.split('-')
     const [finalYear, finalMonth, finalDay] = finalDate.split('-')
     const [componentRendered, setComponentRendered] = useState(false)
+
 
         const editProject = async () => {
 
@@ -143,6 +147,13 @@ const RegisterProject = () => {
         console.log('primeiro renderiza esse');
     }, [])
 
+   const CloseButtonClickHandler = () => {
+        setModalWarningIsVisible(false)
+   }
+
+   const redButtonClickHandler = () => {
+        history.push("/projects")
+   }
 
     const calcDaysPassed = (date1, date2) => (date2 - date1) / (1000 * 60 * 60 * 24)
     
@@ -150,6 +161,12 @@ const RegisterProject = () => {
 
     return (
         <PagesContainer padding="0 0 5em 0">
+            {modalWarningIsVisible && <ModalDelete
+            CloseButtonClickHandler={CloseButtonClickHandler}
+            redButtonClickHandler={redButtonClickHandler}
+            title={componentRendered ? "Cancelar alterações" : "Cancelar cadastro"}
+            message={componentRendered ? "Tem certeza que deseja cancelar as alterações?" : "Tem certeza que deseja cancelar a operação?"}
+            />}
             <Header/>
             <RegisterProjectTitleContainer>
                 <ContainerArrow onClick={() => history.push("/projects")}>
@@ -191,7 +208,9 @@ const RegisterProject = () => {
                 <RegisterProjectFooter>
             
                     <RegisterProjectButtons>
-                        <CancelButton onClick={() => history.push("/projects")}>
+                        <CancelButton 
+                        onClick={() => setModalWarningIsVisible(true)}
+                        >
                             Cancelar
                         </CancelButton>
 

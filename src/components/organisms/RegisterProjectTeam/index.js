@@ -43,11 +43,18 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
     const [deleteTeamMemberId, setDeleteTeamMemberId] = useState(false)
 
     //////////////////////Funções usadas nos dois tipos de edição//////////////////////
+   
 
     const isEditing = projectId ? true : false;
 
+    
     const CloseButtonClickHandler = () => {
         setModalIsVisible(false)
+    }
+    
+    const redButtonClickHandler = (id) => {
+        deleteTeamMember(id)
+        CloseButtonClickHandler()
     }
 
     const getAllProfessionals = async () => {
@@ -105,7 +112,7 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
             user_id: id,
             name: name,
             avatar: avatar,
-            job: job,
+            job_name: job.name,
             workload: +hoursMonth,
             trash_color: '#DCE0E4'
         }];
@@ -190,6 +197,7 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
                 method:'get',     
                 url:`/userProjects/${projectId}`,
             });
+            console.log(data);
     
             const newTeam = data.map((member) => {
                 return {...member, trash_color: '#DCE0E4'}
@@ -208,8 +216,8 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
                  return {...member, trash_color: '#DCE0E4'}
              })
              setTeamMembers(newEditData);
+             console.log(editData);
          }
-
  
      }, [componentRendered])
 
@@ -285,11 +293,11 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
                             <ProfilePicture src={member?.avatar || User}/>
                         </ProfessionalProfilePicture>
                         <ProfessionalName>
-                            {member.name}
+                            {member?.name}
                         </ProfessionalName>
                     </ProfessionalInfo>
                     <ProfessionalJob>
-                        {member.job.name}
+                        {member.job_name}
                     </ProfessionalJob>
                     <ProfessionalHours>
                         {member.workload}
@@ -297,7 +305,10 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
                     {modalIsVisible && <ModalDelete
                      deleteHandler={deleteTeamMember}
                      id={teamMemberDeleteId}
+                     redButtonClickHandler={() => redButtonClickHandler(teamMemberDeleteId)}
                      CloseButtonClickHandler={CloseButtonClickHandler}
+                     title="Excluir profissional"
+                     message="Tem certeza que deseja excluir profissional?"
                      />}
                     <ContainerTrashIcon >
                         <FaTrashAlt 
