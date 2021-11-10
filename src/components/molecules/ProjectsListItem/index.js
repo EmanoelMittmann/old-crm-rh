@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
+import { BsThreeDots } from "react-icons/bs";
+import { TeamMemberPic } from '../../atoms/TeamMemberPic/style.js';
 
 import {
     ProjectListOptions,
@@ -11,7 +13,6 @@ import {
     ProjectsListItemTime,
     ProjectsListItemStatus,
     ContainerIconOptions,
-    TeamMemberPic,
     ContainerTeamMemberPic,
     TeamMemberDetails,
     Name,
@@ -24,6 +25,8 @@ import StatusLabel from '../../atoms/StatusLabel'
 import MenuOptions from '../../atoms/MenuOptions/index.js';
 import { setProjectList, setStatusColors, setStatusList } from '../../../redux/actions';
 import api from '../../../api/api';
+import { ModalProjectStatus } from '../ModalProjectStatus/index.js';
+import ModalProjectTeam from '../ModalProjectTeam/index.js';
 
 export const ProjectsListItem = () => {
     const history = useHistory()
@@ -35,6 +38,8 @@ export const ProjectsListItem = () => {
     const [userProjects, setUserProjects] = useState([])
     const [userDetailsInfo, setUserDetailsInfo] = useState({})
     const [projectInfo, setProjectInfo]= useState('')
+    const [statusModalIsVisible, setStatusModalIsVisible] = useState(false)
+    const [teamModalIsVisible, setTeamModalIsVisible] = useState(false)
 
     const getProjectsList = async () => {
         
@@ -53,21 +58,6 @@ export const ProjectsListItem = () => {
         }
     }
 
-    const getStatusColor = async () => {
-        try{
-            const {data} = await api({
-                method: 'get',
-                url: '/color'
-            })
-
-            dispatch(setStatusColors(data))
-
-        } catch(err){
-            if(err.request.status === 401){
-                history.push("/");
-            }
-        }
-    }
 
     const saveStatus = async () => {
         try {
@@ -146,7 +136,6 @@ export const ProjectsListItem = () => {
 
     useEffect(() => {
         getUserProjects()
-        getStatusColor()
         saveStatus()
         getProjectsList()
     }, [])
@@ -159,25 +148,17 @@ export const ProjectsListItem = () => {
             const date = new Date(project.date_start)
             const projectDate = new Intl.DateTimeFormat('pt-BR').format(date)
         
-            const projectTypeName = state.projectType.map((type) => {
-                if(project.project_type_id === type.id) return type.name
-            })
-        
             //project se relaciona com status
-            // const projectStatus = state.status.find((status) => {
-            //     return project.project_status_id === status.id
-            // })
-        
-            // // status se relaciona com a cor
-            const projectStatusColor = state.statusColors.find(color => {
-                return project.status.id === color.id 
+            const projectStatus = state.status.find((status) => {
+                return project.project_status_id === status.id
             })
 
+
             const menuPosition = (i, arr) => {
-                let position = 65;
+                let position = 46;
                 arr.map((menu, index) => {
                     if(index < i){
-                        position = position + 55
+                        position = position + 46
                     }
 
                 })
@@ -185,6 +166,23 @@ export const ProjectsListItem = () => {
 
             }
 
+            //Lógica dos modais
+            const openModalEditProjectStatus = () => {
+                setStatusModalIsVisible(true)
+                setMenuOptionsisVisible(false)
+            }
+
+            const closeModalEditProjectStatus = () => {
+                setStatusModalIsVisible(false)
+            }
+
+            const openProjectTeamModal = () => {
+                setTeamModalIsVisible(true)
+            }
+
+            const closeProjectTeamModal = () => {
+                setTeamModalIsVisible(false)
+            }
                 
                 return(
                     <ProjectsListItemContainer key={project.id}>
@@ -199,10 +197,11 @@ export const ProjectsListItem = () => {
                             </ProjectsListItemBeginning>
                             <ProjectsListItemTime>
                                 <ContainerTeamMemberPic>
-                                {project.users.map((user, i)=> (
+                                {project.users.map((user, i, arr)=> (
                                     i < 5 && (
                                         <TeamMemberPic 
                                             src={user?.avatar || User}
+                                            size="35px"
                                             onMouseEnter={() => 
                                                 detailsOnMouseEnter(project.id, user.id) 
                                             }
@@ -212,6 +211,16 @@ export const ProjectsListItem = () => {
                                         />
                                     )
                                 ))}
+
+                                {project.users.length > 4 &&
+                                    <BsThreeDots
+                                    color="black"
+                                    size="1.4em"
+                                    style={{cursor: 'pointer', margin: '0.7em'}}
+                                    onClick={openProjectTeamModal}
+                                    /> 
+                                    
+                                }
 
                                 {project.users.map((user, i, arr) => {
                                     return user.id === userDetailsInfo.user_id &&
@@ -230,9 +239,9 @@ export const ProjectsListItem = () => {
                             </ProjectsListItemTime>
                             <ProjectsListItemStatus>
                                 <StatusLabel
-                                // name={projectStatus?.name}
-                                textColor={projectStatusColor?.text_color}
-                                buttonColor={projectStatusColor?.button_color}
+                                name={projectStatus?.name}
+                                textColor={projectStatus.color.text_color}
+                                buttonColor={projectStatus.color.button_color}
                                 />
                             </ProjectsListItemStatus>
                             <ProjectListOptions optionsColor={menuOptionsisVisible && project.id == idProjectClicked ? "#407BFF" : "#B7BDC2"}>
@@ -241,11 +250,20 @@ export const ProjectsListItem = () => {
                                 </ContainerIconOptions>
                             {menuOptionsisVisible && project.id == idProjectClicked &&
                                 <MenuOptions
-                                chosenOption={editProject}
+                                firstChosenOption={editProject}
+                                secondChosenOption={openModalEditProjectStatus}
                                 id={idProjectClicked}
                                 />
                             }
                             </ProjectListOptions>
+                            {statusModalIsVisible && <ModalProjectStatus 
+                            CloseButtonClickHandler={closeModalEditProjectStatus}
+                            statusId={project.project_status_id}
+                            />}
+                            {teamModalIsVisible && <ModalProjectTeam
+                            CloseButtonClickHandler={closeProjectTeamModal}
+                            users={project.users}
+                            />}
                     </ProjectsListItemContainer>
                 )
             })}

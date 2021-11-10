@@ -9,7 +9,7 @@ export const ProjectsListItemContainer = styled.div`
 
 export const ProjectsListItemProject = styled.div`
     display: flex;
-    width: 25%;
+    width: 20%;
     padding-left: 3em;
 `
 
@@ -24,8 +24,8 @@ export const ProjectsListItemBeginning = styled.div`
     `
 
 export const ProjectsListItemTime = styled.div`
-    width: 17.5%;
-    padding-left: 3em;
+    width: 20%;
+    padding-left: 0em;
     display: flex;
     position: relative;
 `
@@ -36,7 +36,7 @@ export const ProjectsListItemStatus = styled.div`
 `
 export const ProjectListOptions = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     width: 10%;
 
     svg {
@@ -49,16 +49,10 @@ export const ContainerIconOptions = styled.div`
     cursor: pointer;
 `
 
-export const TeamMemberPic = styled.img`
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    margin-left: 0.7em;
-`
-
 export const ContainerTeamMemberPic = styled.div`
     position: relative;
     display: flex;
+    align-items: flex-end;
 `
 
 export const TeamMemberDetails = styled.div`

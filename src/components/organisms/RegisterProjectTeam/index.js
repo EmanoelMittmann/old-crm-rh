@@ -54,14 +54,12 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
         const {data} = await api({
             method:'get',     
             url:`/user`,
-        }); 
-
-        console.log(data);
+        });
 
         const formattedAllProfessionals = formatFirstLetter(data)
 
         setAllProfessionals(formattedAllProfessionals)
-    
+
         return data;
     }
 
@@ -101,17 +99,18 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
             return profes.id == professionalSelected
         })
         
-        const [{id, name, avatar, job_id}] = newTeamMember
-
-            const newTeamMembers = [...teamMembers, {
-                user_id: id,
-                name: name,
-                avatar: avatar,
-                job: job_id,
-                workload: +hoursMonth,
-                trash_color: '#DCE0E4'
-            }];
-            
+        const [{id, name, avatar, job}] = newTeamMember
+        
+        const newTeamMembers = [...teamMembers, {
+            user_id: id,
+            name: name,
+            avatar: avatar,
+            job: job,
+            workload: +hoursMonth,
+            trash_color: '#DCE0E4'
+        }];
+        
+        console.log(newTeamMembers);
             //Validação para se o membro do time já existe
              const memberAlreadyExist = teamMembers.find((member) => {
                 return member.user_id == id
@@ -290,8 +289,7 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
                         </ProfessionalName>
                     </ProfessionalInfo>
                     <ProfessionalJob>
-                        {member.job}
-                        {console.log(member)}
+                        {member.job.name}
                     </ProfessionalJob>
                     <ProfessionalHours>
                         {member.workload}
