@@ -31,7 +31,8 @@ import {
     SETFILTERSTATUSPROJECTS,
     SETSTATUSCOLORS,
     SETPROJECTTYPELISTPROJECTS,
-    SETSTATUSLISTPROJECTS
+    SETSTATUSLISTPROJECTS,
+    SETFILTERTYPESPROJECTS
 
 } from '../types'
 
@@ -194,5 +195,10 @@ export const setStatusListProjects = (payload) => ({
 
 export const setTypeListProjects = (payload) => ({
     type: SETPROJECTTYPELISTPROJECTS,
+    payload
+})
+
+export const setFilterTypesProjects = (payload) => ({
+    type: SETFILTERTYPESPROJECTS,
     payload
 })

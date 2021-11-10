@@ -12,7 +12,8 @@ import {
     setSearchNameProject,
     setTypeListProjects,
     setStatusListProjects,
-    setFilterStatusProjects
+    setFilterStatusProjects,
+    setFilterTypesProjects 
 } from '../../../redux/actions/index.js'
 
 import api from '../../../api/api.js'
@@ -66,7 +67,8 @@ export const ProjectsInputs = () => {
 
             const {data} = await api({
                 method: 'get',
-                url: `/project`
+                url: `/project`,
+                params:params
             });
 
             dispatch(projectsPages(data.meta));
@@ -76,16 +78,17 @@ export const ProjectsInputs = () => {
         }
     }
 
+    
+
     useEffect(() => {
         filterStatus()
-        dispatch(setStatusListProjects(selectedOptionStatus))
+        dispatch(setFilterStatusProjects(selectedOptionStatus))
     }, [selectedOptionStatus])
 
 
-
     useEffect(() => {
         filterStatus()
-        dispatch(setTypeListProjects(selectedOptionTypes))
+        dispatch(setFilterTypesProjects(selectedOptionTypes))
     }, [selectedOptionTypes])
 
 
@@ -133,22 +136,27 @@ export const ProjectsInputs = () => {
 
     const searchList = async () => {
 
+        try{
         handleFilterRequestProject()
+
         const { data } = await api({
             method: 'get',
             url: `/project`,
-            params: {
-                search: searchResult,
-            }
+           params:params
         });
 
         dispatch(setProjectList(data.data));
         dispatch(projectsPages(data.meta));
 
         return data;
+    }catch(err){
+        if(err.request.status === 401){
+            return console.error(err)
+        } 
     }
+  }
 
-    const resetProjectList = async () => {
+    /* const resetProjectList = async () => {
         const { data } = await api({
             method: 'get',
             url: `/project`,
@@ -160,11 +168,10 @@ export const ProjectsInputs = () => {
         dispatch(projectsPages(data.meta));
 
         return data
-    }
+    } */
 
     useEffect(() => {
         searchResult !== '' && searchList()
-        searchResult === '' && resetProjectList()
         dispatch(setSearchNameProject(searchResult))
     }, [searchResult])
 

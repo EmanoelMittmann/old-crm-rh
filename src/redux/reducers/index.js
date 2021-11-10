@@ -21,6 +21,7 @@ import statusColors from './statusColors.js'
 import { combineReducers } from 'redux';
 import projectStatusProjects from './projectStatusProjects.js';
 import projectTypeProjects from './projectTypeProjects.js';
+import filterTypesProjects from './filterTypesProjects.js';
 
 
 
@@ -47,6 +48,8 @@ export const Reducers = combineReducers({
     filterStatusProjects,
     statusColors,
     projectStatusProjects,
-    projectTypeProjects
+    projectTypeProjects,
+    filterTypesProjects
+    
 
 });
