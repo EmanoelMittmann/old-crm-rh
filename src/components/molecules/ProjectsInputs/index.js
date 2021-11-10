@@ -10,8 +10,8 @@ import {
     setProjectList,
     projectsPages,
     setSearchNameProject,
-    setStatusList,
-    setProjectTypeList,
+    setTypeListProjects,
+    setStatusListProjects,
     setFilterStatusProjects
 } from '../../../redux/actions/index.js'
 
@@ -28,46 +28,48 @@ export const ProjectsInputs = () => {
     const dispatch = useDispatch()
     const location = useLocation()
 
-    const [selectedOption, setSelectedOption] = useState('');
+    const [selectedOptionStatus, setSelectedOptionStatus] = useState('');
+    const [selectedOptionTypes, setSelectedOptionTypes] = useState('');  
     const [searchResult, setSearchResult] = useState('');
     const[ projectsOptionStatus, setprojectsOptionStatus]= useState([]);
     const[ projectsOptionTypes, setprojectsOptionTypes]= useState([]);
 
-    
+
+    let params ={}
+
+    const handleFilterRequestProject = () =>{
+    params.page = 1
+
+    if(state.projectStatusProjects!== "" && selectedOptionStatus !== "") 
+    params.project_status_id = selectedOptionStatus 
+
+    console.log(selectedOptionStatus)
+
+    if(state.projectTypeProjects !== "" && selectedOptionTypes!== "") 
+    params.project_type_id = selectedOptionTypes
+
+    if(state.projectsSearchFilter !== "" && searchResult !== "") 
+    params.search = searchResult
+
+    if(state.filterOrder !== "" && searchResult !== "")
+    params.orderField = 'name'
+
+    if(state.filterOrder !== "" && searchResult !== "") 
+    params.order = state.filterOrder
+
+    }
+
     const filterStatus = async () => {
-        let params;
-
-        if (state.filterOrderProjects !== "") {
-
-            params = {
-                page: 1,
-                is_active: selectedOption,
-                search: state.projectsSearchFilter,
-                orderField: 'name',
-                order: state.filterOrderProjects
-            }
-        }
-
-        if (state.filterOrderProjects === "") {
-            params = {
-                page: 1,
-                is_active: selectedOption,
-                search: state.filterSearchNameProjects,
-            }
-        }
 
         try {
-            const { data } = await api({
+            handleFilterRequestProject()
+
+            const {data} = await api({
                 method: 'get',
-                url: `${location.pathname}`,
-                params: params
+                url: `/project`
             });
 
-            if (location.pathname === "/project") dispatch(setProjectList(data.data));
-            if (location.pathname === "/projectStatus") dispatch(setStatusList(data.data))
-            if (location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
             dispatch(projectsPages(data.meta));
-
 
         } catch (error) {
             return console.error(error)
@@ -76,15 +78,24 @@ export const ProjectsInputs = () => {
 
     useEffect(() => {
         filterStatus()
-        dispatch(setFilterStatusProjects(selectedOption))
-    }, [selectedOption])
-    
+        dispatch(setStatusListProjects(selectedOptionStatus))
+    }, [selectedOptionStatus])
+
+
+
+    useEffect(() => {
+        filterStatus()
+        dispatch(setTypeListProjects(selectedOptionTypes))
+    }, [selectedOptionTypes])
+
+
     
       const projectsFilterTypesOptions = async () =>{
 
       const { data } = await api({
             method: 'get',
             url: `/projectType`,
+            
         });
 
         setprojectsOptionTypes(data.data)
@@ -121,6 +132,8 @@ export const ProjectsInputs = () => {
     //Chamar api para filtrar a pesquisa
 
     const searchList = async () => {
+
+        handleFilterRequestProject()
         const { data } = await api({
             method: 'get',
             url: `/project`,
@@ -155,8 +168,6 @@ export const ProjectsInputs = () => {
         dispatch(setSearchNameProject(searchResult))
     }, [searchResult])
 
-   
-
     return (
         <ProjectsInputsContainer>
             <InputSearch
@@ -166,13 +177,13 @@ export const ProjectsInputs = () => {
             />
             <InputSelect
                 options={projectsOptionTypes}
-                setSelectedOption={setSelectedOption}
+                setSelectedOption={setSelectedOptionTypes}
                 placeholder="Tipo"
                 width="220px"
             />
             <InputSelect
                 options={projectsOptionStatus}
-                setSelectedOption={setSelectedOption}
+                setSelectedOption={setSelectedOptionStatus}
                 placeholder="Status"
                 width="230px"
             />

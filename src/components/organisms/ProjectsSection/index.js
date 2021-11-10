@@ -10,7 +10,6 @@ import ProjectsListItem from '../../molecules/ProjectsListItem'
 import { ProjectsSectionContainer, ContainerFooter } from './style.js'
 import Footer from '../Footer'
 
-import Footer from '../Footer'
 
 
 import {
@@ -28,28 +27,28 @@ export const ProjectsSection = () => {
     const lastPage = state.projectsPagesFilter.last_page
     const currentPage = state.projectsPagesFilter.current_page
     const firstPage = state.projectsPagesFilter.first_page
+ let params;
+ 
+ const handleFilterRequestProject = (pagesFilter) => {
+     if(pagesFilter === "previous") params.page = `${
+         state.projectsPagesFilter.current_page - 1
+     }`
 
+     if(pagesFilter === "next") params.page = `${
+         state.projectsPagesFilter.current_page + 1
+     }`
 
+     if(state.filterStatus !== "" && state.filterStatus !== " ") params.is_active = state.filterStatus
+
+     if(state.projectsSearchFilter !== "") params.search = state.projectsSearchFilter
+
+     if(state.filterOrder !== "") params.orderField = 'name'
+
+     if(state.filterOrder !== "") params.order = state.filterOrder
+ }
 const nextPage = async () => {
-    let params;
-
-    if (state.filterOrderProjects === "") {
-        params = {
-            page: `${state.projectsPagesFilter.current_page + 1}`,
-           // is_active: state.filterStatus,
-            search: state.projectsSearchFilter,
-        }
-    }
-
-    if (state.filterOrderProjects !== "") {
-        params = {
-            page: `${state.projectsPagesFilter.current_page + 1}`,
-          //  is_active: state.filterStatus,
-            search: state.projectsSearchFilter,
-            orderField: 'name',
-            order: state.filterOrderProjects,
-        }
-    }
+   
+    handleFilterRequestProject("next")
 
     const { data } = await api({
         method: 'get',
@@ -64,25 +63,8 @@ const nextPage = async () => {
 }
 
 const previousPage = async () => {
-    let params;
-
-    if (state.filterOrderProjects === "") {
-        params = {
-            page: `${state.projectsPagesFilter.current_page - 1}`,
-           // is_active: state.filterStatus,
-            search: state.projectsSearchFilter,
-        }
-    }
-
-    if (state.filterOrderProjects !== "") {
-        params = {
-            page: `${state.projectsPagesFilter.current_page - 1}`,
-           // is_active: state.filterStatus,
-            search: state.projectsSearchFilter,
-            orderField: 'name',
-            order: state.filterOrderProjects,
-        }
-    }
+    
+    handleFilterRequestProject("previous")
 
     const { data } = await api({
         method: 'get',

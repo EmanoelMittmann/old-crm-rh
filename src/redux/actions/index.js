@@ -29,7 +29,9 @@ import {
     RESETCURRENTPAGEPROJECT,
     SETFILTERORDERPROJECTS,
     SETFILTERSTATUSPROJECTS,
-    SETSTATUSCOLORS
+    SETSTATUSCOLORS,
+    SETPROJECTTYPELISTPROJECTS,
+    SETSTATUSLISTPROJECTS
 
 } from '../types'
 
@@ -75,6 +77,8 @@ export const setProjectTypeList = (payload) => ({
     type: SETPROJECTTYPELIST,
     payload
 })
+
+
 
 export const setProjectList = (payload) => ({
     type: SETPROJECTLIST,
@@ -183,3 +187,12 @@ export const setStatusColors = (payload) => ({
     payload
 })
 
+export const setStatusListProjects = (payload) => ({
+    type: SETSTATUSLISTPROJECTS,
+    payload
+})
+
+export const setTypeListProjects = (payload) => ({
+    type: SETPROJECTTYPELISTPROJECTS,
+    payload
+})
