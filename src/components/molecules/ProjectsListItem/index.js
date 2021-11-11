@@ -240,8 +240,8 @@ export const ProjectsListItem = () => {
                             <ProjectsListItemStatus>
                                 <StatusLabel
                                 name={projectStatus?.name}
-                                textColor={projectStatus.color.text_color}
-                                buttonColor={projectStatus.color.button_color}
+                                textColor={projectStatus?.color.text_color}
+                                buttonColor={projectStatus?.color.button_color}
                                 />
                             </ProjectsListItemStatus>
                             <ProjectListOptions optionsColor={menuOptionsisVisible && project.id == idProjectClicked ? "#407BFF" : "#B7BDC2"}>
@@ -259,6 +259,7 @@ export const ProjectsListItem = () => {
                             {statusModalIsVisible && <ModalProjectStatus 
                             CloseButtonClickHandler={closeModalEditProjectStatus}
                             statusId={project.project_status_id}
+                            projectId={project.id}
                             />}
                             {teamModalIsVisible && <ModalProjectTeam
                             CloseButtonClickHandler={closeProjectTeamModal}
