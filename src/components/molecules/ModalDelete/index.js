@@ -10,13 +10,7 @@ import {
     ModalTitle
 } from '../Modal/style.js'
 
-const ModalDelete = ({CloseButtonClickHandler, deleteHandler, id}) => {
-
-    const redButtonClickHandler = () => {
-        deleteHandler(id)
-        CloseButtonClickHandler()
-    }
-
+const ModalDelete = ({CloseButtonClickHandler, redButtonClickHandler, title, message}) => {
 
     return (
         <div>
@@ -24,9 +18,9 @@ const ModalDelete = ({CloseButtonClickHandler, deleteHandler, id}) => {
                 <CloseButton CloseButtonClickHandler={CloseButtonClickHandler}/>
                 <ModalTitle padding="1.6em 1.6em 0.7em 1.6em">
                 <IconInfoImg src={IconInfo} alt="Info"/>
-                    Excluir profissional
+                    {title}
                 </ModalTitle>
-                   <ModalDeleteMessage>Tem certeza que deseja excluir profissional?</ModalDeleteMessage>
+                   <ModalDeleteMessage>{message}</ModalDeleteMessage>
                 <ModalContainerButtons>
                     <CancelButton onClick={CloseButtonClickHandler}>Cancelar</CancelButton>
                     <RedButton

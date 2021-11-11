@@ -261,6 +261,7 @@ export const ProjectsListItem = () => {
                             {statusModalIsVisible && <ModalProjectStatus 
                             CloseButtonClickHandler={closeModalEditProjectStatus}
                             statusId={project.project_status_id}
+                            projectId={project.id}
                             />}
                             {teamModalIsVisible && <ModalProjectTeam
                             CloseButtonClickHandler={closeProjectTeamModal}
