@@ -13,7 +13,8 @@ import {
     setTypeListProjects,
     setStatusListProjects,
     setFilterStatusProjects,
-    setFilterTypesProjects 
+    setFilterTypesProjects,
+    setProjectListProjects
 } from '../../../redux/actions/index.js'
 
 import api from '../../../api/api.js'
@@ -30,36 +31,37 @@ export const ProjectsInputs = () => {
     const location = useLocation()
 
     const [selectedOptionStatus, setSelectedOptionStatus] = useState('');
-    const [selectedOptionTypes, setSelectedOptionTypes] = useState('');  
+    const [selectedOptionTypes, setSelectedOptionTypes] = useState('');
     const [searchResult, setSearchResult] = useState('');
-    const[ projectsOptionStatus, setprojectsOptionStatus]= useState([]);
-    const[ projectsOptionTypes, setprojectsOptionTypes]= useState([]);
+    const [projectsOptionStatus, setprojectsOptionStatus] = useState([]);
+    const [projectsOptionTypes, setprojectsOptionTypes] = useState([]);
+    const [selectedOption, setSelectedOption] = useState('');
 
 
-    let params ={}
+    let params = {}
 
-    const handleFilterRequestProject = () =>{
-    params.page = 1
-   
+    const handleFilterRequestProject = () => {
+        params.page = 1
 
-    if(state.projectStatusProjects !== "" && selectedOptionStatus !== "") 
-    params.status_id = selectedOptionStatus
 
-    console.log(selectedOptionStatus)
+        if (state.projectStatusProjects !== "" && selectedOptionStatus !== "")
+            params.status_id = selectedOptionStatus
 
-    if(state.projectTypeProjects!== "" && selectedOptionTypes!== "") 
-    params.type_id = selectedOptionTypes
+        if (state.projectTypeProjects !== "" && selectedOptionTypes !== "")
+            params.type_id = selectedOptionTypes
 
-     console.log(selectedOptionTypes)
 
-    if(state.projectsSearchFilter !== "" && searchResult !== "") 
-    params.search = searchResult
+        if (state.projectsSearchFilter !== "" && searchResult !== "")
+            params.search = searchResult
 
-    if(state.filterOrder !== "" && searchResult !== "")
-    params.orderField = 'name'
+        if (state.filterOrder !== "" && searchResult !== "")
+            params.orderField = 'name'
 
-    if(state.filterOrder !== "" && searchResult !== "") 
-    params.order = state.filterOrder
+        if (state.filterOrder !== "" && searchResult !== "")
+            params.order = state.filterOrder
+
+        if (selectedOption !== " " && selectedOption !== "")
+            params.is_active = selectedOption
 
     }
 
@@ -68,30 +70,30 @@ export const ProjectsInputs = () => {
         try {
             handleFilterRequestProject()
 
-            const {data} = await api({
+            const { data } = await api({
                 method: 'get',
                 url: `/project`,
-                params:params
+                params: params
             });
-           dispatch(setProjectList(data.data))
-         //  console.log(data)
+
+            dispatch(setProjectList(data.data))
+            dispatch(projectsPages(data.meta))
+
+
+            //  console.log(data)
         } catch (error) {
             return console.error(error)
         }
     }
 
-    
+
 
     useEffect(() => {
         filterStatus()
         dispatch(setStatusListProjects(selectedOptionStatus))
     }, [selectedOptionStatus])
 
-  /*   setTypeListProjects,
-    setStatusListProjects, 
-    setFilterStatusProjects,
-    setFilterTypesProjects 
-    */
+
 
     useEffect(() => {
         filterStatus()
@@ -99,45 +101,48 @@ export const ProjectsInputs = () => {
     }, [selectedOptionTypes])
 
 
-    
-      const projectsFilterTypesOptions = async () =>{
 
-      const { data } = await api({
+    const projectsFilterTypesOptions = async () => {
+
+        const { data } = await api({
             method: 'get',
             url: `/projectType`,
-            params:params
-            
+            params: params
+
         });
-        dispatch(setProjectList(data.data))
+
         setprojectsOptionTypes(data.data)
 
 
         return data;
 
-       
-    } 
 
-    const projectsFilterStatusOptions = async () =>{
+    }
+
+    const projectsFilterStatusOptions = async () => {
 
         const { data } = await api({
-              method: 'get',
-              url: `/projectStatus`,
-              params:params
-          });
-          
-          dispatch(setProjectList(data.data))
-          setprojectsOptionStatus(data.data)
-  
-      console.log(data.data)
-  
-          return data;
-    
-      } 
+            method: 'get',
+            url: `/projectStatus`,
+            params: params
+        });
+        setprojectsOptionStatus(data.data)
 
-      useEffect(() => {
-          projectsFilterTypesOptions()
-          projectsFilterStatusOptions()
-    },[])
+        return data;
+
+    }
+
+    const projectsFilterStatusOptionsAll = [
+        {
+            name: "Todos",
+            id: ""
+        },
+    ]
+
+    useEffect(() => {
+        projectsFilterTypesOptions()
+        projectsFilterStatusOptions()
+    }, [])
 
     console.log(state);
 
@@ -145,40 +150,26 @@ export const ProjectsInputs = () => {
 
     const searchList = async () => {
 
-        try{
-        handleFilterRequestProject()
+        try {
+            handleFilterRequestProject()
 
-        const { data } = await api({
-            method: 'get',
-            url: `/project`,
-           params:params
-        });
+            const { data } = await api({
+                method: 'get',
+                url: `/project`,
+                params: params
+            });
 
-        dispatch(setProjectList(data.data));
-        dispatch(projectsPages(data.meta));
+            dispatch(setProjectList(data.data));
+            dispatch(projectsPages(data.meta));
 
-        return data;
-    }catch(err){
-        if(err.request.status === 401){
-            return console.error(err)
-        } 
-    }
-  }
 
-    /* const resetProjectList = async () => {
-        const { data } = await api({
-            method: 'get',
-            url: `/project`,
-            params: {
-                page: 1
+            return data;
+        } catch (err) {
+            if (err.request.status === 401) {
+                return console.error(err)
             }
-        });
-        dispatch(setProjectList(data.data));
-        dispatch(projectsPages(data.meta));
-
-        return data
-    } */
-
+        }
+    }
 
     useEffect(() => {
         searchResult !== '' && searchList()
@@ -193,7 +184,7 @@ export const ProjectsInputs = () => {
                 setSearchResult={setSearchResult}
             />
             <InputSelect
-                options={projectsOptionTypes} 
+                options={projectsOptionTypes}
                 setSelectedOption={setSelectedOptionTypes}
                 placeholder="Tipo"
                 width="220px"

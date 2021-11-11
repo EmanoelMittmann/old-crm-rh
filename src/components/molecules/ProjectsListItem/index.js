@@ -50,7 +50,8 @@ export const ProjectsListItem = () => {
             }); 
     
             dispatch(setProjectList(data.data))
-          
+    
+
         }catch(err){
             if(err.request?.status === 401){
                 history.push("/");
@@ -147,11 +148,12 @@ export const ProjectsListItem = () => {
             
            const date = new Date(project.date_start)
            const projectDate = new Intl.DateTimeFormat('pt-BR').format(date)
-
+          
+         
             //project se relaciona com status
 
             const projectStatus = state.status.find((status) => {
-                return project?.project_status_id === status.id
+                return project.project_status_id === status.id
                
             })
 
@@ -195,7 +197,7 @@ export const ProjectsListItem = () => {
                                 {project.project_type.name}
                             </ProjectsListItemType>
                             <ProjectsListItemBeginning>
-                               {{projectDate}}
+                               {projectDate}
                             </ProjectsListItemBeginning>
                             <ProjectsListItemTime>
                                 <ContainerTeamMemberPic>

@@ -27,7 +27,7 @@ export const ProjectsSection = () => {
     const lastPage = state.projectsPagesFilter.last_page
     const currentPage = state.projectsPagesFilter.current_page
     const firstPage = state.projectsPagesFilter.first_page
- let params;
+    let params={};
  
  const handleFilterRequestProject = (pagesFilter) => {
      if(pagesFilter === "previous") params.page = `${
