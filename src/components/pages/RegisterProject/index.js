@@ -23,6 +23,7 @@ import {
     Img,
     ContainerArrow
 } from './style.js'
+import ArrowRegister from '../../atoms/ArrowRegister/index.js'
 
 const RegisterProject = () => {
     const state = useSelector(state => state)
@@ -159,6 +160,10 @@ const RegisterProject = () => {
     
     const daysPassed = calcDaysPassed(new Date(inicialYear, inicialMonth, inicialDay), new Date(finalYear, finalMonth, finalDay))
 
+    const goBackClickHandler = () => {
+        history.push("/projects")
+    }
+
     return (
         <PagesContainer padding="0 0 5em 0">
             {modalWarningIsVisible && <ModalDelete
@@ -169,9 +174,7 @@ const RegisterProject = () => {
             />}
             <Header/>
             <RegisterProjectTitleContainer>
-                <ContainerArrow onClick={() => history.push("/projects")}>
-                    <Img src={ArrowBack} alt="Voltar"/>
-                </ContainerArrow>
+                <ArrowRegister clickHandler={goBackClickHandler}/>
                 <SectionTitle>
                 {projectBeingEdited ? "Edição de projeto" : "Novo Projeto"}
                 </SectionTitle>

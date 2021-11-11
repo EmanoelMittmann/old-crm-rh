@@ -11,8 +11,14 @@ import {
 import Header from '../../organisms/Header'
 import PagesContainer from '../../organisms/PagesContainer/styled.js'
 import { ReactComponent as JobIcon } from '../../../assets/icons/job.svg'
+import { useHistory } from "react-router-dom";
 
 const Professionals = () => {
+    const history = useHistory()
+
+      const handleRegister = () => {
+        return history.push("/professional");
+      }
     
     return (
         <PagesContainer>
@@ -25,6 +31,7 @@ const Professionals = () => {
                     <SectionTitle>Profissionais</SectionTitle>
                 </SectionTitleContainer>
                 <DarkButton 
+                onClick={handleRegister}
                 width="200px"
                 height="42px"
                 margin="0 5% 0 0">

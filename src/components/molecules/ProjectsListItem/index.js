@@ -128,6 +128,7 @@ export const ProjectsListItem = () => {
             });
 
             setUserProjects(data)
+           
 
         }catch(error){
             console.log(error);
