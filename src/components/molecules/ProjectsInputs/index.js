@@ -40,14 +40,17 @@ export const ProjectsInputs = () => {
 
     const handleFilterRequestProject = () =>{
     params.page = 1
+   
 
-    if(state.projectStatusProjects!== "" && selectedOptionStatus !== "") 
-    params.project_status_id = selectedOptionStatus 
+    if(state.projectStatusProjects !== "" && selectedOptionStatus !== "") 
+    params.status_id = selectedOptionStatus
 
     console.log(selectedOptionStatus)
 
-    if(state.projectTypeProjects !== "" && selectedOptionTypes!== "") 
-    params.project_type_id = selectedOptionTypes
+    if(state.projectTypeProjects!== "" && selectedOptionTypes!== "") 
+    params.type_id = selectedOptionTypes
+
+     console.log(selectedOptionTypes)
 
     if(state.projectsSearchFilter !== "" && searchResult !== "") 
     params.search = searchResult
@@ -70,9 +73,8 @@ export const ProjectsInputs = () => {
                 url: `/project`,
                 params:params
             });
-
-            dispatch(projectsPages(data.meta));
-
+           dispatch(setProjectList(data.data))
+         //  console.log(data)
         } catch (error) {
             return console.error(error)
         }
@@ -82,13 +84,18 @@ export const ProjectsInputs = () => {
 
     useEffect(() => {
         filterStatus()
-        dispatch(setFilterStatusProjects(selectedOptionStatus))
+        dispatch(setStatusListProjects(selectedOptionStatus))
     }, [selectedOptionStatus])
 
+  /*   setTypeListProjects,
+    setStatusListProjects, 
+    setFilterStatusProjects,
+    setFilterTypesProjects 
+    */
 
     useEffect(() => {
         filterStatus()
-        dispatch(setFilterTypesProjects(selectedOptionTypes))
+        dispatch(setTypeListProjects(selectedOptionTypes))
     }, [selectedOptionTypes])
 
 
@@ -98,12 +105,12 @@ export const ProjectsInputs = () => {
       const { data } = await api({
             method: 'get',
             url: `/projectType`,
+            params:params
             
         });
-
+        dispatch(setProjectList(data.data))
         setprojectsOptionTypes(data.data)
 
-    console.log(data)
 
         return data;
 
@@ -115,8 +122,10 @@ export const ProjectsInputs = () => {
         const { data } = await api({
               method: 'get',
               url: `/projectStatus`,
+              params:params
           });
-  
+          
+          dispatch(setProjectList(data.data))
           setprojectsOptionStatus(data.data)
   
       console.log(data.data)
@@ -170,6 +179,7 @@ export const ProjectsInputs = () => {
         return data
     } */
 
+
     useEffect(() => {
         searchResult !== '' && searchList()
         dispatch(setSearchNameProject(searchResult))
@@ -183,7 +193,7 @@ export const ProjectsInputs = () => {
                 setSearchResult={setSearchResult}
             />
             <InputSelect
-                options={projectsOptionTypes}
+                options={projectsOptionTypes} 
                 setSelectedOption={setSelectedOptionTypes}
                 placeholder="Tipo"
                 width="220px"

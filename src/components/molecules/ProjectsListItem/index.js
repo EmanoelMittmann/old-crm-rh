@@ -145,12 +145,14 @@ export const ProjectsListItem = () => {
         <div>
              {state.projects.map((project) => {
             
-            const date = new Date(project.date_start)
-            const projectDate = new Intl.DateTimeFormat('pt-BR').format(date)
-        
+           const date = new Date(project.date_start)
+           const projectDate = new Intl.DateTimeFormat('pt-BR').format(date)
+
             //project se relaciona com status
+
             const projectStatus = state.status.find((status) => {
-                return project.project_status_id === status.id
+                return project?.project_status_id === status.id
+               
             })
 
 
@@ -193,7 +195,7 @@ export const ProjectsListItem = () => {
                                 {project.project_type.name}
                             </ProjectsListItemType>
                             <ProjectsListItemBeginning>
-                                {projectDate}
+                               {{projectDate}}
                             </ProjectsListItemBeginning>
                             <ProjectsListItemTime>
                                 <ContainerTeamMemberPic>

@@ -21,7 +21,7 @@ const InputSelect = ({setSelectedOption, options, placeholder, width, lineWidth}
                 </InputSelectOptionPlaceholder>
                 {options.map(option => (
                     <InputSelectOption value={option.id}>
-                    { option.name }
+                    { option.name}
                     </InputSelectOption>
                 ))}
             </InputSelectContainer>
