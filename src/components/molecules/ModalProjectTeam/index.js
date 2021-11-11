@@ -22,7 +22,7 @@ const ModalProjectTeam = ({CloseButtonClickHandler, users}) => {
                 </ModalTitle>
                 <ContainerTeam>
                     {users.map(user => {
-                        return <TeamMemberPic key={user.id} size="45px" src={user?.avatar || User}/>
+                        return <TeamMemberPic  margin="0 0.7em 0 0" key={user.id} size="45px" src={user?.avatar || User}/>
                     })}
                 </ContainerTeam>
             </ModalContainer>

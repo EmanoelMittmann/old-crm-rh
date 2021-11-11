@@ -14,6 +14,7 @@ import Settings from '../../src/components/pages/Settings';
 import Status from '../components/pages/Status';
 import ProjectType from '../components/pages/ProjectType';
 import RegisterProject from '../components/pages/RegisterProject'
+import RegisterProfessional from '../components/pages/RegisterProfessional';
 
 const Routes = () => {
     return (
@@ -53,6 +54,9 @@ const Routes = () => {
             </Switch>
             <Switch>
                 <Route path="/project" component={RegisterProject}/>
+            </Switch>
+            <Switch>
+                <Route path="/professional" component={RegisterProfessional}/>
             </Switch>
             
         </BrowserRouter>

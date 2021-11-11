@@ -11,8 +11,8 @@ export const OptionsMenu = styled.div`
     align-items: center;
     justify-content: center;
     position: absolute;
-    left: -100px;
-    top: 40px;
+    left: -140px;
+    top: ${props => props.positionMenu};
     width: 134px;
     height: 90px;
     border-radius: 8px; 
@@ -25,7 +25,8 @@ export const OptionsMenuItem = styled.button`
     width: 100%;
     text-align: left;
     background-color: transparent;
-    padding: 0.3em 0.5em 0.3em 1.1em;
+    /* padding: 0.3em 0.5em 0.3em 1.7em; */
+    padding: ${props => props.padding};
     border: none;
     font-family: "Poppins", sans-serif;
     font-size: 0.98rem;
