@@ -2,7 +2,7 @@ import { SETFILTERSTATUSPROJECTS, RESETFILTERSTATUSPROJECTS } from "../types"
 
 const inicialState = ''
 
-const filterStatus = (state = inicialState, action) => {
+const filterStatusProjects = (state = inicialState, action) => {
     const {type, payload} = action;
     
     switch (type) {
@@ -17,4 +17,4 @@ const filterStatus = (state = inicialState, action) => {
     }
 }
 
-export default filterStatus;
+export default filterStatusProjects;

@@ -76,7 +76,7 @@ export const ProjectsInputs = () => {
                 params: params
             });
 
-            dispatch(setProjectList(data.data))
+            dispatch(setProjectList(data.data));
             dispatch(projectsPages(data.meta))
 
 
@@ -104,6 +104,8 @@ export const ProjectsInputs = () => {
 
     const projectsFilterTypesOptions = async () => {
 
+        handleFilterRequestProject()
+
         const { data } = await api({
             method: 'get',
             url: `/projectType`,
@@ -112,6 +114,7 @@ export const ProjectsInputs = () => {
         });
 
         setprojectsOptionTypes(data.data)
+        dispatch(projectsPages(data.meta))
 
 
         return data;
@@ -121,12 +124,15 @@ export const ProjectsInputs = () => {
 
     const projectsFilterStatusOptions = async () => {
 
+        handleFilterRequestProject()
+
         const { data } = await api({
             method: 'get',
             url: `/projectStatus`,
             params: params
         });
         setprojectsOptionStatus(data.data)
+        dispatch(projectsPages(data.meta))
 
         return data;
 

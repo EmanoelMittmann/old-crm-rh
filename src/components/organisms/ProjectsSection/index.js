@@ -38,13 +38,17 @@ export const ProjectsSection = () => {
          state.projectsPagesFilter.current_page + 1
      }`
 
-     if(state.filterStatus !== "" && state.filterStatus !== " ") params.is_active = state.filterStatus
+     if(state.filterStatusProjects !== "" && state.filterStatusProjects!== "") 
+     params.is_active = state.filterStatusProjects
 
-     if(state.projectsSearchFilter !== "") params.search = state.projectsSearchFilter
+     if(state.projectsSearchFilter !== "") 
+     params.search = state.projectsSearchFilter
 
-     if(state.filterOrder !== "") params.orderField = 'name'
+     if(state.filterOrder !== "") 
+     params.orderField = 'name'
 
-     if(state.filterOrder !== "") params.order = state.filterOrder
+     if(state.filterOrder !== "") 
+     params.order = state.filterOrder
  }
 const nextPage = async () => {
    
