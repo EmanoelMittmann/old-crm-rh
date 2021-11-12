@@ -16,9 +16,12 @@ export const DefaultInput = styled.input`
         opacity: 0.7;
     }
 
-    /* &::-webkit-calendar-picker-indicator {
-        width: 40px;
-    } */
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover, 
+    &:-webkit-autofill:focus, 
+    &:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    }
      
      &::-webkit-datetime-edit, &::-webkit-inner-spin-button, &::-webkit-clear-button {
         display: ${props => props.displayDate};

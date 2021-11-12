@@ -5,23 +5,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { 
     setProjectList,
 } from '../../../redux/actions/index.js'
+import RegisterFooter from '../../molecules/RegisterFooter/index.js'
 import api from '../../../api/api.js'
 import ModalDelete from '../../molecules/ModalDelete/index.js'
 import Header from '../../organisms/Header/index.js'
 import PagesContainer from '../../organisms/PagesContainer/styled'
 import { SectionTitle } from '../../atoms/PageTitle/style.js'
-import ArrowBack  from '../../../assets/icons/arrow-back.svg'
-import CancelButton from '../../atoms/Buttons/CancelButton/style.js'
-import DarkButton from '../../atoms/Buttons/DarkButton/style.js'
 import RegisterProjectData from '../../organisms/RegisterProjectData'
 import RegisterProjectTeam from '../../organisms/RegisterProjectTeam'
 import {
     RegisterProjectTitleContainer,
     RegisterProjectContainer,
-    RegisterProjectFooter,
-    RegisterProjectButtons,
-    Img,
-    ContainerArrow
 } from './style.js'
 import ArrowRegister from '../../atoms/ArrowRegister/index.js'
 
@@ -164,6 +158,14 @@ const RegisterProject = () => {
         history.push("/projects")
     }
 
+    const footerCancelButtonHandler = () => {
+        return setModalWarningIsVisible(true)
+    }
+
+    const footerRegisterButtonHandler = () => {
+        return daysPassed >= 0 ? projectHandler() : console.log("Data inválida")
+    }
+
     return (
         <PagesContainer padding="0 0 5em 0">
             {modalWarningIsVisible && <ModalDelete
@@ -208,26 +210,11 @@ const RegisterProject = () => {
                 projectId={location.state?.projectId}
                 />
 
-                <RegisterProjectFooter>
-            
-                    <RegisterProjectButtons>
-                        <CancelButton 
-                        onClick={() => setModalWarningIsVisible(true)}
-                        >
-                            Cancelar
-                        </CancelButton>
-
-                        <DarkButton
-                        width="115px"
-                        height="40px"
-                        fontSize="0.84rem"
-                        onClick={() => daysPassed >= 0 ? projectHandler() : console.log("Data inválida")}
-                        >
-                            {projectBeingEdited ? "Atualizar" : "Cadastrar"}
-                        </DarkButton>
-                    </RegisterProjectButtons>
-
-                </RegisterProjectFooter>
+                <RegisterFooter
+                cancelButtonHandler={footerCancelButtonHandler}
+                registerButtonHandler={footerRegisterButtonHandler}
+                buttonDescription={projectBeingEdited ? "Atualizar" : "Cadastrar"}
+                />
 
             </RegisterProjectContainer>
         </PagesContainer>
