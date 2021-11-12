@@ -23,7 +23,7 @@ import User from '../../../assets/user.png'
 import {ReactComponent as OptionsIcon} from '../../../assets/icons/options.svg'
 import StatusLabel from '../../atoms/StatusLabel'
 import MenuOptions from '../../atoms/MenuOptions/index.js';
-import { setProjectList, setStatusColors, setStatusList } from '../../../redux/actions';
+import { projectsPages, setProjectList, setStatusColors, setStatusList } from '../../../redux/actions';
 import api from '../../../api/api';
 import { ModalProjectStatus } from '../ModalProjectStatus/index.js';
 import ModalProjectTeam from '../ModalProjectTeam/index.js';
@@ -50,7 +50,9 @@ export const ProjectsListItem = () => {
             }); 
     
             dispatch(setProjectList(data.data))
-          
+            dispatch(projectsPages(data.meta));
+    
+
         }catch(err){
             if(err.request?.status === 401){
                 history.push("/");
@@ -58,9 +60,29 @@ export const ProjectsListItem = () => {
         }
     }
 
+    let params = {}
 
+    const handleFilterRequestProject = () => {
+        params.page = state.projectsPagesFilter.current_page
+
+        if(state.filterStatus !== "" && state.filterStatus !== " ") 
+        params.is_active = state.filterStatus
+
+        if (state.projectsSearchFilter !== "")
+            params.search = state.projectsSearchFilter
+
+        if (state.filterOrder !== "" )
+            params.orderField = 'name'
+
+        if (state.filterOrder !== "")
+            params.order = state.filterOrder
+
+    }
+   
     const saveStatus = async () => {
         try {
+
+            handleFilterRequestProject()
 
             const {data} = await api({
                 method: 'get',
@@ -122,6 +144,8 @@ export const ProjectsListItem = () => {
     const getUserProjects = async () => {
         try{
 
+            handleFilterRequestProject()
+
             const {data} = await api({
                 method: 'get',
                 url: '/userProjects',
@@ -145,12 +169,15 @@ export const ProjectsListItem = () => {
         <div>
              {state.projects.map((project) => {
             
-            const date = new Date(project.date_start)
-            const projectDate = new Intl.DateTimeFormat('pt-BR').format(date)
-        
+           const date = new Date(project.date_start)
+           const projectDate = new Intl.DateTimeFormat('pt-BR').format(date)
+          
+         
             //project se relaciona com status
+
             const projectStatus = state.status.find((status) => {
                 return project.project_status_id === status.id
+               
             })
 
 
@@ -193,7 +220,7 @@ export const ProjectsListItem = () => {
                                 {project.project_type.name}
                             </ProjectsListItemType>
                             <ProjectsListItemBeginning>
-                                {projectDate}
+                               {projectDate}
                             </ProjectsListItemBeginning>
                             <ProjectsListItemTime>
                                 <ContainerTeamMemberPic>
