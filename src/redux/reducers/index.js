@@ -12,10 +12,20 @@ import statusId from './statusId.js';
 import projectTypeId from './projectTypeId'
 import settingsSearchFilter from './settingsSearchFilter.js'
 import filterStatus from './filterStatus.js';
-import filterOrder from './filterOrder.js'
+import filterOrder from './filterOrder.js';
+import projectsPagesFilter from './projectsPagesFilter.js';
+import projectsSearchFilter from './projectsSearchFilter.js';
+import filterOrderProjects from './filterOrderProjects';
+import  filterStatusProjects  from './filterStatusProjects';
 import statusColors from './statusColors.js'
-
 import { combineReducers } from 'redux';
+import projectStatusProjects from './projectStatusProjects.js';
+import projectTypeProjects from './projectTypeProjects.js';
+import filterTypesProjects from './filterTypesProjects.js';
+import projectList from './projectsList';
+
+
+
 
 export const Reducers = combineReducers({
     authentication,
@@ -33,5 +43,15 @@ export const Reducers = combineReducers({
     settingsSearchFilter,
     filterStatus,
     filterOrder,
+    projectsPagesFilter,
+    projectsSearchFilter,
+    filterOrderProjects,
+    filterStatusProjects,
     statusColors,
+    projectStatusProjects,
+    projectTypeProjects,
+    filterTypesProjects,
+    projectList
+    
+
 });

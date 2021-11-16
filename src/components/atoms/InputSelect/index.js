@@ -10,6 +10,7 @@ import {
 } from './style.js'
 
 const InputSelect = ({setSelectedOption, options, placeholder, width, lineWidth}) => {
+
     return ( 
         <InputLine width={lineWidth}>
             <InputSelectContainer width={width} onChange={(e) => setSelectedOption(e.target.value)}>
