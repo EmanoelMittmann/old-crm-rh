@@ -229,6 +229,7 @@ export const ProjectsListItem = () => {
                                         <TeamMemberPic 
                                             src={user?.avatar || User}
                                             size="35px"
+                                            margin="0 0.7em 0 0"
                                             onMouseEnter={() => 
                                                 detailsOnMouseEnter(project.id, user.id) 
                                             }
@@ -277,8 +278,12 @@ export const ProjectsListItem = () => {
                                 </ContainerIconOptions>
                             {menuOptionsisVisible && project.id == idProjectClicked &&
                                 <MenuOptions
+                                positionMenu="40px"
                                 firstChosenOption={editProject}
+                                firstOptionDescription="Editar Projeto"
                                 secondChosenOption={openModalEditProjectStatus}
+                                secondOptionDescription="Editar Status"
+                                padding="0.3em 0.5em 0.3em 1.1em"
                                 id={idProjectClicked}
                                 />
                             }
