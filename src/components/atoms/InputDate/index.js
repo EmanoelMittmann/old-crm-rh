@@ -5,11 +5,11 @@ import { InputLine } from '../DefaultInput/style'
 import dateRange from '../../../assets/icons/date-range.svg'
 import { DefaultInput } from '../DefaultInput/style.js'
 
-const InputDate = ({date, setDate, placeholder}) => {
+const InputDate = ({date, setDate, placeholder, margin}) => {
     const [onFocus, setOnFocus] = useState(false)
 
     return (
-        <InputLine width="260px">
+        <InputLine width="260px" margin={margin}>
             <DefaultInput 
              displayDate={onFocus || date !== "" ? "block" : "none"}
             width="70px"

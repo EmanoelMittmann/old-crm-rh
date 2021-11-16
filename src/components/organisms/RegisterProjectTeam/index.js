@@ -112,7 +112,7 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
             user_id: id,
             name: name,
             avatar: avatar,
-            job_name: job.name,
+            job_name: job?.name,
             workload: +hoursMonth,
             trash_color: '#DCE0E4'
         }];

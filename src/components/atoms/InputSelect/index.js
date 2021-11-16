@@ -20,8 +20,8 @@ const InputSelect = ({setSelectedOption, options, placeholder, width, lineWidth}
                     { placeholder }
                 </InputSelectOptionPlaceholder>
                 {options.map(option => (
-                    <InputSelectOption value={option.id}>
-                    { option.name}
+                    <InputSelectOption value={`${option.id ? option.id : option.initials}`}>
+                    { option.name }
                     </InputSelectOption>
                 ))}
             </InputSelectContainer>
