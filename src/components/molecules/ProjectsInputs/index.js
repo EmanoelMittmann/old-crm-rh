@@ -150,8 +150,6 @@ export const ProjectsInputs = () => {
         projectsFilterStatusOptions()
     }, [])
 
-    console.log(state);
-
     //Chamar api para filtrar a pesquisa
 
     const searchList = async () => {

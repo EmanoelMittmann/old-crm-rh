@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory, useLocation } from 'react-router'
+import { useHistory, useLocation, useParams } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { 
@@ -19,7 +19,7 @@ import {
 } from './style.js'
 import ArrowRegister from '../../atoms/ArrowRegister/index.js'
 
-const RegisterProject = () => {
+const RegisterProject = (props) => {
     const state = useSelector(state => state)
     const history = useHistory()
     const location = useLocation()
@@ -40,14 +40,14 @@ const RegisterProject = () => {
     const [inicialYear, inicialMonth, inicialDay] = inicialDate.split('-')
     const [finalYear, finalMonth, finalDay] = finalDate.split('-')
     const [componentRendered, setComponentRendered] = useState(false)
-
+    const { id } = useParams();
 
         const editProject = async () => {
 
             try {
                 await api({
                     method: 'put',
-                    url: `/project/${location.state?.projectId}`,
+                    url: `/project/${id}`,
                     data: {
                         name: projectName,
                         project_status_id: projectStatus,
@@ -106,7 +106,7 @@ const RegisterProject = () => {
     }
 
     const projectBeingEdited = state?.projects.find(project => {
-        return project?.id === location.state?.projectId
+        return project?.id === id
     })
     
     const projectHandler = () => {
@@ -119,7 +119,7 @@ const RegisterProject = () => {
         try{
             const {data} = await api({
                 method: 'get',
-                url: `/project/${location.state.projectId}`,
+                url: `/project/${id}`,
             });
 
             const [{users}] = data
@@ -138,8 +138,7 @@ const RegisterProject = () => {
     }
     
     useEffect(() => {
-        editProjectData()
-        console.log('primeiro renderiza esse');
+        editProjectData();
     }, [])
 
    const CloseButtonClickHandler = () => {
@@ -207,7 +206,7 @@ const RegisterProject = () => {
                 editData={EditProjectTeam}
                 payloadTeam={payloadTeam}
                 setPayloadTeam={setPayloadTeam}
-                projectId={location.state?.projectId}
+                projectId={id}
                 />
 
                 <RegisterFooter

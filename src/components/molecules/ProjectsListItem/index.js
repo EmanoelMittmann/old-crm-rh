@@ -106,8 +106,7 @@ export const ProjectsListItem = () => {
 
     const editProject = (id) => {
         history.push({
-            pathname: "/project",
-            state: { projectId: id }
+            pathname: `/project/${id}`
           })
     }
 
@@ -151,6 +150,7 @@ export const ProjectsListItem = () => {
                 url: '/userProjects',
             });
 
+            console.log(data)
             setUserProjects(data)
            
 
