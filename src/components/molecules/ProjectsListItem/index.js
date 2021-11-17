@@ -33,6 +33,7 @@ export const ProjectsListItem = () => {
     const state = useSelector(state => state)
     const dispatch = useDispatch()
     const [idProjectClicked, setIdProjectClicked] = useState(0)
+    const [idProjectStatusClicked, setIdProjectStatusClicked] = useState(0)
     const [menuOptionsisVisible, setMenuOptionsisVisible] = useState(false)
     const [userDetailsIsVisible, setUserDetailsIsVisible] = useState(false)
     const [userProjects, setUserProjects] = useState([])
@@ -99,15 +100,15 @@ export const ProjectsListItem = () => {
     }
 
 
-    const menuOptionsClicked = (projectId) => {
+    const menuOptionsClicked = (projectId, statusId) => {
         setMenuOptionsisVisible(!menuOptionsisVisible)
         setIdProjectClicked(projectId)
+        setIdProjectStatusClicked(statusId)
     }
 
     const editProject = (id) => {
         history.push({
-            pathname: "/project",
-            state: { projectId: id }
+            pathname: `/project/${id}`
           })
     }
 
@@ -151,6 +152,7 @@ export const ProjectsListItem = () => {
                 url: '/userProjects',
             });
 
+            console.log(data)
             setUserProjects(data)
            
 
@@ -274,9 +276,10 @@ export const ProjectsListItem = () => {
                                 />
                             </ProjectsListItemStatus>
                             <ProjectListOptions optionsColor={menuOptionsisVisible && project.id == idProjectClicked ? "#407BFF" : "#B7BDC2"}>
-                                <ContainerIconOptions onClick={() => menuOptionsClicked(project.id)}>
+                                <ContainerIconOptions onClick={() => menuOptionsClicked(project.id, project.project_status_id)}>
                                     <OptionsIcon/>
                                 </ContainerIconOptions>
+                                {console.log(project.id, idProjectClicked)}
                             {menuOptionsisVisible && project.id == idProjectClicked &&
                                 <MenuOptions
                                 positionMenu="40px"
@@ -291,8 +294,8 @@ export const ProjectsListItem = () => {
                             </ProjectListOptions>
                             {statusModalIsVisible && <ModalProjectStatus 
                             CloseButtonClickHandler={closeModalEditProjectStatus}
-                            statusId={project.project_status_id}
-                            projectId={project.id}
+                            statusId={idProjectStatusClicked}
+                            projectId={idProjectClicked}
                             />}
                             {teamModalIsVisible && <ModalProjectTeam
                             CloseButtonClickHandler={closeProjectTeamModal}
