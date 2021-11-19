@@ -106,7 +106,7 @@ const RegisterProject = (props) => {
     }
 
     const projectBeingEdited = state?.projects.find(project => {
-        return project?.id === id
+        return project?.id == id
     })
     
     const projectHandler = () => {
@@ -129,7 +129,8 @@ const RegisterProject = (props) => {
                delete el.users
                return el
            })
-            setEditProjectData(...projectData)
+ 
+            setEditProjectData(...data)
             setComponentRendered(true)
 
         }catch(error){
@@ -138,7 +139,7 @@ const RegisterProject = (props) => {
     }
     
     useEffect(() => {
-        editProjectData();
+        id && editProjectData();
     }, [])
 
    const CloseButtonClickHandler = () => {

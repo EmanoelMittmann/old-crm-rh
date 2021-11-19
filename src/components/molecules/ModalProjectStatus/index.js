@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { setProjectList } from '../../../redux/actions/index.js'
+import { setProjectList, projectsPages } from '../../../redux/actions/index.js'
 import api from '../../../api/api.js'
 import CloseButton from '../../atoms/Buttons/CloseButton/index.js'
 import SaveButton from '../../atoms/Buttons/SaveButton/style.js'
@@ -18,6 +18,7 @@ import { formatFirstLetter } from '../../utils/formatFirstLetter.js'
 import { useHistory } from 'react-router'
 
 export const ModalProjectStatus = ({CloseButtonClickHandler, statusId, projectId}) => {
+    const state = useSelector(state => state)
     const history = useHistory()
     const dispatch = useDispatch()
     const [statusOptions, setStatusOptions] = useState([])
@@ -26,8 +27,9 @@ export const ModalProjectStatus = ({CloseButtonClickHandler, statusId, projectId
     const getProjectTypeList = async () => {
         const {data} = await api({
             method:'get',     
-            url:`/projectStatus`,
+            url:`/projectStatus`
         }); 
+
         const newStatusOptions = formatFirstLetter(data.data)
         setStatusOptions(newStatusOptions); 
         return data;
@@ -50,14 +52,15 @@ export const ModalProjectStatus = ({CloseButtonClickHandler, statusId, projectId
             const {data} = await api({
                 method:'get',     
                 url:`/project`,
+                params: {
+                    page: state.projectsPagesFilter.current_page
+                }
             }); 
     
             dispatch(setProjectList(data.data))
+            dispatch(projectsPages(data.meta));
             
         }catch(err){
-            if(err.request?.status === 401){
-                history.push("/");
-            }
         }
         
 

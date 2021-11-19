@@ -44,8 +44,8 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
 
     //////////////////////Funções usadas nos dois tipos de edição//////////////////////
    
-
     const isEditing = projectId ? true : false;
+    console.log(isEditing)
 
     
     const CloseButtonClickHandler = () => {
@@ -173,7 +173,7 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
             setTeamMembers(newTeam);
         }
 
-        deleteTeamMember()
+        isEditing && deleteTeamMember()
 
     }, [deleteRealTime])
 
@@ -197,7 +197,6 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
                 method:'get',     
                 url:`/userProjects/${projectId}`,
             });
-            console.log(data);
     
             const newTeam = data.map((member) => {
                 return {...member, trash_color: '#DCE0E4'}
@@ -205,7 +204,7 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
             setTeamMembers(newTeam);
         }
 
-        addTeamMember()
+        isEditing && addTeamMember();
 
     }, [editTeamRealTime])
      
@@ -297,7 +296,7 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
                         </ProfessionalName>
                     </ProfessionalInfo>
                     <ProfessionalJob>
-                        {member.job_name}
+                        {member.job_name || member.job}
                     </ProfessionalJob>
                     <ProfessionalHours>
                         {member.workload}

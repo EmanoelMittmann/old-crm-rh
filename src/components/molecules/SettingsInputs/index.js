@@ -57,9 +57,7 @@ export const SettingsInputs = () => {
             dispatch(settingsPages(data.meta));
 
         } catch (err){
-            if(err.request.status === 401){
-                history.push("/");
-            }
+           
         }
     }
 
@@ -103,9 +101,7 @@ export const SettingsInputs = () => {
           
 
         }catch(err){
-            if(err.request.status === 401){
-                history.push("/");
-            }
+           
         }
     }
     

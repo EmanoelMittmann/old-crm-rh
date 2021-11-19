@@ -47,43 +47,19 @@ export const ProjectsListItem = () => {
         try{
             const {data} = await api({
                 method:'get',     
-                url:`/project`,
+                url:`/project`
             }); 
-    
             dispatch(setProjectList(data.data))
             dispatch(projectsPages(data.meta));
     
 
         }catch(err){
-            if(err.request?.status === 401){
-                history.push("/");
-            }
+
         }
     }
 
-    let params = {}
-
-    const handleFilterRequestProject = () => {
-        params.page = state.projectsPagesFilter.current_page
-
-        if(state.filterStatus !== "" && state.filterStatus !== " ") 
-        params.is_active = state.filterStatus
-
-        if (state.projectsSearchFilter !== "")
-            params.search = state.projectsSearchFilter
-
-        if (state.filterOrder !== "" )
-            params.orderField = 'name'
-
-        if (state.filterOrder !== "")
-            params.order = state.filterOrder
-
-    }
-   
     const saveStatus = async () => {
         try {
-
-            handleFilterRequestProject()
 
             const {data} = await api({
                 method: 'get',
@@ -93,9 +69,6 @@ export const ProjectsListItem = () => {
             dispatch(setStatusList(data.data))
             
         } catch (err) {
-            if(err.request.status === 401){
-                history.push("/");
-            }
         }
     }
 
@@ -110,6 +83,7 @@ export const ProjectsListItem = () => {
         history.push({
             pathname: `/project/${id}`
           })
+        return getUserProjects();
     }
 
 
@@ -145,8 +119,6 @@ export const ProjectsListItem = () => {
     const getUserProjects = async () => {
         try{
 
-            handleFilterRequestProject()
-
             const {data} = await api({
                 method: 'get',
                 url: '/userProjects',
@@ -157,12 +129,10 @@ export const ProjectsListItem = () => {
            
 
         }catch(error){
-            console.log(error);
         }
     }
 
     useEffect(() => {
-        getUserProjects()
         saveStatus()
         getProjectsList()
     }, [])
@@ -279,7 +249,6 @@ export const ProjectsListItem = () => {
                                 <ContainerIconOptions onClick={() => menuOptionsClicked(project.id, project.project_status_id)}>
                                     <OptionsIcon/>
                                 </ContainerIconOptions>
-                                {console.log(project.id, idProjectClicked)}
                             {menuOptionsisVisible && project.id == idProjectClicked &&
                                 <MenuOptions
                                 positionMenu="40px"

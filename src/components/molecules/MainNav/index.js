@@ -27,9 +27,6 @@ import {
 } from "../../../redux/actions/index"
 
 const NavHome = () => {
-
-    const state = useSelector(state => state);
-    let history = useHistory();
     const dispatch = useDispatch();
     const location = useLocation()
 

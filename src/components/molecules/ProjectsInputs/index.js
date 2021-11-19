@@ -43,21 +43,19 @@ export const ProjectsInputs = () => {
     const handleFilterRequestProject = () => {
         params.page = 1
 
-
-        if (state.projectStatusProjects !== "" && selectedOptionStatus !== "")
+        if (selectedOptionStatus !== "")
             params.status_id = selectedOptionStatus
 
-        if (state.projectTypeProjects !== "" && selectedOptionTypes !== "")
+        if (selectedOptionTypes !== "")
             params.type_id = selectedOptionTypes
 
-
-        if (state.projectsSearchFilter !== "" && searchResult !== "")
+        if (searchResult !== "")
             params.search = searchResult
 
-        if (state.filterOrder !== "" && searchResult !== "")
+        if (state.filterOrder !== "" )
             params.orderField = 'name'
 
-        if (state.filterOrder !== "" && searchResult !== "")
+        if (state.filterOrder !== "")
             params.order = state.filterOrder
 
         if (selectedOption !== " " && selectedOption !== "")
@@ -65,7 +63,46 @@ export const ProjectsInputs = () => {
 
     }
 
-    const filterStatus = async () => {
+    const projectsFilterTypesOptions = async () => {
+
+        const { data } = await api({
+            method: 'get',
+            url: `/projectType`,
+
+        });
+
+        setprojectsOptionTypes(data.data)
+        dispatch(projectsPages(data.meta))
+
+
+        return data;
+
+
+    }
+
+    const projectsFilterStatusOptions = async () => {
+
+
+        const { data } = await api({
+            method: 'get',
+            url: `/projectStatus`,
+        });
+
+        setprojectsOptionStatus(data.data)
+        dispatch(projectsPages(data.meta))
+
+        return data;
+
+    }
+
+    useEffect(() => {
+        projectsFilterTypesOptions()
+        projectsFilterStatusOptions()
+    }, [])
+
+    //Chamar api para filtrar a pesquisa
+
+    const filterProjects = async () => {
 
         try {
             handleFilterRequestProject()
@@ -82,103 +119,25 @@ export const ProjectsInputs = () => {
 
             //  console.log(data)
         } catch (error) {
-            return console.error(error)
         }
     }
 
 
+    useEffect(() => {
+        searchResult !== '' && filterProjects()
+        dispatch(setSearchNameProject(searchResult))
+    }, [searchResult])
 
     useEffect(() => {
-        filterStatus()
+        filterProjects()
         dispatch(setStatusListProjects(selectedOptionStatus))
     }, [selectedOptionStatus])
 
-
-
     useEffect(() => {
-        filterStatus()
+        filterProjects()
         dispatch(setTypeListProjects(selectedOptionTypes))
     }, [selectedOptionTypes])
 
-
-
-    const projectsFilterTypesOptions = async () => {
-
-        handleFilterRequestProject()
-
-        const { data } = await api({
-            method: 'get',
-            url: `/projectType`,
-            params: params
-
-        });
-
-        setprojectsOptionTypes(data.data)
-        dispatch(projectsPages(data.meta))
-
-
-        return data;
-
-
-    }
-
-    const projectsFilterStatusOptions = async () => {
-
-        handleFilterRequestProject()
-
-        const { data } = await api({
-            method: 'get',
-            url: `/projectStatus`,
-            params: params
-        });
-        setprojectsOptionStatus(data.data)
-        dispatch(projectsPages(data.meta))
-
-        return data;
-
-    }
-
-    const projectsFilterStatusOptionsAll = [
-        {
-            name: "Todos",
-            id: ""
-        },
-    ]
-
-    useEffect(() => {
-        projectsFilterTypesOptions()
-        projectsFilterStatusOptions()
-    }, [])
-
-    //Chamar api para filtrar a pesquisa
-
-    const searchList = async () => {
-
-        try {
-            handleFilterRequestProject()
-
-            const { data } = await api({
-                method: 'get',
-                url: `/project`,
-                params: params
-            });
-
-            dispatch(setProjectList(data.data));
-            dispatch(projectsPages(data.meta));
-
-
-            return data;
-        } catch (err) {
-            if (err.request.status === 401) {
-                return console.error(err)
-            }
-        }
-    }
-
-    useEffect(() => {
-        searchResult !== '' && searchList()
-        dispatch(setSearchNameProject(searchResult))
-    }, [searchResult])
 
     return (
         <ProjectsInputsContainer>
