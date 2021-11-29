@@ -53,6 +53,7 @@ const RegisterProfessional = () => {
     const [limitValue, setLimitValue] = useState('')
 
 
+
     const goBackClickHandler = () => {
         history.push('/professionals')
     }
@@ -84,39 +85,12 @@ const RegisterProfessional = () => {
         }
    }, [email])
 
-   const provaFinal = {
-    name: name,
-    CPF: CPF,
-    RG: RG,
-    birthDate: birthDate,
-    CNPJ:CNPJ,
-    corporateName: corporateName,
-    CEP: CEP,
-    street: street,
-    addressNumber: addressNumber,
-    addressDetails: addressDetails,
-    neighborhood: neighborhood,
-    city: city, 
-    UF: UF,
-    email: email,
-    phoneNumber: phoneNumber,
-    validEmail: validEmail,
-    extraHour: extraHour,
-    inicialDate: inicialDate,
-    job: job,
-    type: type,
-    hoursWeek: hoursWeek,
-    hoursMonth: hoursMonth,
-    fixedSalary: fixedSalary,
-    divider: divider,
-    fixedValue: fixedValue,
-    overtime: overtime,
-    limit: limit,
-    limitValue: limitValue
-}
 
     const extraHourBoolean = extraHour === 'extraHourActivated' ? true : false
     const limitedExtraHoursBoolean = limit === 'limitOvertime' ? true : false
+    const overtimeFormat = overtime.replace(',', '.').replace('R$', '')
+
+    console.log(fixedSalary)
 
    const addProfessional = async () => {
         await api({
@@ -124,6 +98,7 @@ const RegisterProfessional = () => {
             url:`/user`,
             data: {
                 // avatar: "profile picture url",
+                extra_hour_value: +overtimeFormat,
                 user_type_id: "2",
                 name: name,
                 email: email,
@@ -143,13 +118,13 @@ const RegisterProfessional = () => {
                 house_number: +addressNumber,
                 start_date: inicialDate,
                 weekly_hours: +hoursWeek,
-                fixed_payment_value: fixedSalary,
+                fixed_payment_value: +fixedSalary,
                 job_type: "FULLTIME",
                 extra_hour_activated: extraHourBoolean,
                 variable1: +divider,
                 variable2: +fixedValue,
                 limited_extra_hours: limitedExtraHoursBoolean,
-                extra_hour_limit: limitValue              
+                extra_hour_limit: +limitValue              
             }
         });
     }
@@ -159,7 +134,6 @@ const RegisterProfessional = () => {
     }
 
     const footerRegisterButtonHandler = () => {
-        console.log(provaFinal)
         addProfessional()
     }
 

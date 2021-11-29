@@ -16,7 +16,6 @@ const OvertimePayCalc = ({setDivider, divider, setFixedValue, fixedValue, setOve
 
     const formatOvertime = () => {
         const format = overtimeCalc && 'R$' + overtimeCalc.toFixed(2).toString().replace('.', ',')
-        console.log(format);
         setOvertime(format)
     }
 
