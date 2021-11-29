@@ -141,6 +141,7 @@ export const ProjectsListItem = () => {
     return (
         <div>
              {state.projects.map((project) => {
+            console.log(state.projects)
             
            const date = new Date(project.date_start)
            const projectDate = new Intl.DateTimeFormat('pt-BR').format(date)

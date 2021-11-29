@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
-import { Img, PlaceHolder } from './style.js'
+import { PlaceHolder } from './style.js'
 import { InputLine } from '../DefaultInput/style'
-import dateRange from '../../../assets/icons/date-range.svg'
 import { DefaultInput } from '../DefaultInput/style.js'
 
 const InputDate = ({date, setDate, placeholder, margin}) => {
@@ -11,7 +10,7 @@ const InputDate = ({date, setDate, placeholder, margin}) => {
     return (
         <InputLine width="260px" margin={margin}>
             <DefaultInput 
-             displayDate={onFocus || date !== "" ? "block" : "none"}
+            displayDate={onFocus || date !== "" ? "block" : "none"}
             width="70px"
             type="date"
             onFocus={(e) => setOnFocus(true)}

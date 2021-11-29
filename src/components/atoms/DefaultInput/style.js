@@ -4,7 +4,7 @@ export const DefaultInput = styled.input`
     font-size: 1rem;
     font-weight: 500;
     font-family: 'Poppins', sans-serif;
-    width: ${props => props.width};
+    width: ${props => props.width ? props.width : "100%"};
     height: 40px;
     padding: ${props => props.padding};
     outline: none;
@@ -14,6 +14,7 @@ export const DefaultInput = styled.input`
     &::placeholder {
         color: #919EAB;
         opacity: 0.7;
+        text-align: ${props => props.placeholderPosition ? props.placeholderPosition : "left"};
     }
 
     &:-webkit-autofill,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { InputLine } from '../../atoms/DefaultInput/style'
 import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg'
@@ -10,7 +10,7 @@ import {
     InputSelectOptionPlaceholder,
 } from '../InputSelect/style.js'
 
-const InputSelect = ({setSelectedOption, options, placeholder, width, lineWidth, label, reset}) => {
+const InputSelectWithLabel = ({setSelectedOption, options, placeholder, width, lineWidth, label, reset}) => {
     return ( 
         <InputLine width={lineWidth}>
             {label && <Label>{label}</Label>}
@@ -33,4 +33,4 @@ const InputSelect = ({setSelectedOption, options, placeholder, width, lineWidth,
     )
 }
 
-export default InputSelect;
+export default InputSelectWithLabel;

@@ -12,7 +12,7 @@ import Header from '../../organisms/Header/index.js'
 import PagesContainer from '../../organisms/PagesContainer/styled'
 import { SectionTitle } from '../../atoms/PageTitle/style.js'
 import RegisterProjectData from '../../organisms/RegisterProjectData'
-import RegisterProjectTeam from '../../organisms/RegisterProjectTeam'
+import AttachmentTeam from '../../organisms/Attachment/Team'
 import {
     RegisterProjectTitleContainer,
     RegisterProjectContainer,
@@ -202,7 +202,7 @@ const RegisterProject = (props) => {
                     teamCost={teamCost}
                 />
 
-                <RegisterProjectTeam
+                <AttachmentTeam
                 componentRendered={componentRendered}
                 editData={EditProjectTeam}
                 payloadTeam={payloadTeam}

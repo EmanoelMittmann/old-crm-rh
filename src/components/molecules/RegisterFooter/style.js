@@ -7,7 +7,6 @@ export const ContainerRegisterFooter = styled.div`
     align-items: center;
     justify-content: flex-end;
     border-top: 2px solid #F4F6F8;
-    margin-top: 2em;
     padding: 0 3em 0 3em;
 `
 

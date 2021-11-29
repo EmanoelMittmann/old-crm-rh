@@ -1,5 +1,9 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
+import MaskedInput from 'react-text-mask'
+import axios from 'axios'
 
+import { cleanMask } from '../../utils/cleanMask'
+import { DefaultInput, InputLine } from '../../atoms/DefaultInput/style.js';
 import { 
     ContainerRegisterProfessionalsData,
     RegisterProfessionalsForm,
@@ -12,6 +16,30 @@ import InputDate from '../../atoms/InputDate/index.js';
 import InputSelect from '../../atoms/InputSelect/index.js';
 
 const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBirthDate, setCNPJ, setCorporateName, setCEP, setStreet, setAddressNumber, setAddressDetails, setNeighborhood, setCity, setUF, setPhoneNumber}) => {
+    console.log(personalData);
+
+   const inputRef = useRef(null);
+   console.log(personalData);
+
+    const getUserLocation = async () => {
+        const response = axios.get(`https://viacep.com.br/ws/${personalData.CEP}/json/`, {transformRequest: (data, headers)=>{
+        delete headers.common;
+        return data;
+        }});
+        response.then(data => {
+            const {uf, localidade} = data.data;
+            setUF(uf);
+            setCity(localidade);
+        })
+    }
+
+    useEffect(() => {
+        inputRef.current?.focus();
+    }, []);
+
+    useEffect(() => {
+        personalData.CEP.length === 8 && getUserLocation(personalData.CEP)
+    }, [personalData.CEP])
 
     const optionsUF = [
         {name: "Acre", initials: "AC"},
@@ -56,18 +84,32 @@ const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBi
                             widthContainer="50%" 
                             placeholder="Nome..."
                             padding="0 2em 0 0"
-                            // editValue={}
-                            // justify={}
                             />
-                            <InputText
-                            setTextValue={setCPF}
-                            value={personalData.CPF}
+                            <MaskedInput
+                            mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/ ,/\d/]}
                             placeholder="CPF"
-                            width="100%"
-                            widthLine="25%"
-                            margin="0 2em 0 0"
-                            type="number"
-                            // editValue={}
+                            onChange={(e) => {
+                                const value = cleanMask(e.target.value)
+                                setCPF(value)
+                            }}
+                            guide={false}
+                            keepCharPositions={true}
+                            render={(maskRef, maskProps) => (
+                                <InputLine  widthLine="23%" margin="0 2em 0 0">
+                                    <DefaultInput
+                                    padding="0.3em 1.2em 0 1.2em"
+                                    ref={
+                                        node => {
+                                        if(node){
+                                            maskRef(node);
+                                            inputRef.current = node;
+                                        }}
+                                    }
+                                    {...maskProps}
+                                    />
+                                </InputLine>
+                                
+                            )}
                             />
                             <InputText
                             setTextValue={setRG}
@@ -76,7 +118,6 @@ const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBi
                             width="100%"
                             widthLine="25%"
                             type="number"
-                            // editValue={}
                             />
                     </ContainerRow>
                     <ContainerRow>
@@ -86,26 +127,62 @@ const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBi
                          date={personalData.birthDate}
                          margin="0 2em 0 0"
                         />
-                        <InputText
-                        setTextValue={setPhoneNumber}
-                        value={personalData.phoneNumber}
-                        placeholder="Número"
-                        width="100%"
-                        widthLine="23%"
-                        type="number"
-                        margin="0 2em 0 0"
-                        // editValue={}
-                        />
-                        <InputText
-                         setTextValue={setCNPJ}
-                         value={personalData.CNPJ}
-                         placeholder="CNPJ"
-                         width="100%"
-                         widthLine="23%"
-                         margin="0 2em 0 0"
-                         type="number"
-                          // editValue={}
-                        />
+                         <MaskedInput
+                            mask={['(', /[1-9]/, /\d/, ')', ' ', /\d/, ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/ ,/\d/]}
+                            placeholder="Celular"
+                            keepCharPositions={true}
+                            guide={false}
+                            onChange={(e) => {
+                                const value = cleanMask(e.target.value)
+                                setPhoneNumber(value)
+                            }}
+                            render={(maskRef, maskProps) => (
+                                <InputLine  widthLine="23%" margin="0 2em 0 0">
+                                    <DefaultInput
+                                    padding="0.3em 1.2em 0 1.2em"
+                                    ref={
+                                        node => {
+                                        if(node){
+                                            maskRef(node);
+                                            inputRef.current = node;
+                                        }}
+                                    }
+                                    {...maskProps}
+                                    />
+                                </InputLine>
+                                
+                            )}
+                            />
+                         <MaskedInput
+                            mask={[/[1-9]/, /\d/, '.', ' ', /\d/, /\d/, /\d/,'.', 
+                            /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/,]}
+                            placeholder="CNPJ"
+                            keepCharPositions={true}
+                            onChange={(e) => {
+                                const value = cleanMask(e.target.value)
+                                setCNPJ(value)
+                            }}
+                            guide={false}
+                            render={(maskRef, maskProps) => (
+                                <InputLine  widthLine="23%" margin="0 2em 0 0">
+                                    <DefaultInput
+                                    padding="0.3em 1.2em 0 1.2em"
+                                     width="100%"
+                                     widthLine="23%"
+                                     margin="0 2em 0 0"
+                                    ref={
+                                        node => {
+                                        if(node){
+                                            maskRef(node);
+                                            inputRef.current = node;
+                                        }}
+                                    }
+                                    {...maskProps}
+                                    />
+                                </InputLine>
+                                
+                            )}
+                            />
                         <InputText
                          setTextValue={setCorporateName}
                          value={personalData.corporateName}
@@ -116,15 +193,36 @@ const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBi
                         />
                     </ContainerRow>
                     <ContainerRow>
-                        <InputText
-                         setTextValue={setCEP}
-                         value={personalData.CEP}
-                         placeholder="CEP"
-                         type="number"
-                         width="100%"
-                         widthLine="260px"
-                         margin="0 2em 0 0"
-                        />
+                         <MaskedInput
+                            mask={[/\d/, /\d/, /\d/, /\d/, /\d/,'-', 
+                            /\d/, /\d/, /\d/]}
+                            placeholder="CEP"
+                            onChange={(e) => {
+                                const value = cleanMask(e.target.value)
+                                setCEP(value)
+                            }}
+                            keepCharPositions={true}
+                            guide={false}
+                            render={(maskRef, maskProps) => (
+                                <InputLine  widthLine="23%" margin="0 2em 0 0">
+                                    <DefaultInput
+                                    padding="0.3em 1.2em 0 1.2em"
+                                    width="100%"
+                                    widthLine="23%"
+                                    margin="0 2em 0 0"
+                                    ref={
+                                        node => {
+                                        if(node){
+                                            maskRef(node);
+                                            inputRef.current = node;
+                                        }}
+                                    }
+                                    {...maskProps}
+                                    />
+                                </InputLine>
+                                
+                            )}
+                            />
                          <InputText
                          setTextValue={setStreet}
                          value={personalData.street}
@@ -168,6 +266,7 @@ const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBi
                          margin="0 2em 0 0"
                         />
                         <InputSelect
+                        value={personalData.UF}
                         setSelectedOption={setUF}
                         options={optionsUF}
                         placeholder="UF"
