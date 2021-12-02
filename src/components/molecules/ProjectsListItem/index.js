@@ -142,7 +142,6 @@ export const ProjectsListItem = () => {
     return (
         <div>
              {state.projects.map((project) => {
-            console.log(state.projects)
             
            const projectDate = formatDate(project.date_start)
           

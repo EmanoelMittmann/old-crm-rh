@@ -10,34 +10,30 @@ import {
 import { ListHeaderContainer, ListHeaderTitle } from '../ListHeader/style'
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
 
-const ProfessionalsListHeader = () => {
+const ProfessionalsListHeader = ({sortByName}) => {
 
     return (
             <ListHeaderContainer>
     
                 <ListHeaderName>
                     <ListHeaderTitle margin="0">Nome</ListHeaderTitle>
-                    <Arrows/>
+                    <Arrows onClick={sortByName}/>
                 </ListHeaderName>
     
                 <ListHeaderJob>
                     <ListHeaderTitle margin="0">Cargo</ListHeaderTitle>
-                    <Arrows/>
                 </ListHeaderJob>
     
                 <ListHeaderEmail>
                     <ListHeaderTitle margin="0" >E-mail</ListHeaderTitle>
-                    <Arrows/>
                 </ListHeaderEmail>
     
                 <ListHeaderPhoneNumbers>
                     <ListHeaderTitle margin="0">Telefone</ListHeaderTitle>
-                    <Arrows/>
                 </ListHeaderPhoneNumbers>
     
                 <ListHeaderPlace>
                     <ListHeaderTitle margin="0">Local</ListHeaderTitle>
-                    <Arrows/>
                 </ListHeaderPlace>
             </ListHeaderContainer>
     )
