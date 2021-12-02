@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router'
 
 import api from '../../../api/api'
 import Footer from '../Footer'
@@ -8,7 +9,7 @@ import ProfessionalsListHeader from '../../atoms/ProfessionalsListHeader'
 import ProfessionalsListItem from '../../molecules/ProfessionalsListItem'
 
 const ProfessionalsSection = () => {
-
+    const location = useLocation()
     const [professionals, setProfessionals] = useState([])
 
     const getProfessionals = async () => {
@@ -17,13 +18,15 @@ const ProfessionalsSection = () => {
             url:`/professionals`,
         })
 
-        console.log(data)
         setProfessionals(data);
     }
-
+    
     useEffect(() => {
         getProfessionals()
+        location.state && setProfessionals(location.state.professionals) 
     },[])
+
+
 
 
     return (

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 
-import AttachmentProject from '../../organisms/Attachment/Project'
+import AttachmentProject from '../../organisms/Attachment/Project';
 import EmploymentContract from '../../molecules/EmploymentContract'
 import InputText from '../../atoms/InputText';
 import SecondaryText from '../../atoms/SecondaryText/style'
@@ -17,7 +17,8 @@ import RegisterProfessionalsData from '../../organisms/RegisterProfessionalsData
 import {
     RegisterProfessionalTitleContainer,
     RegisterProfessionalContainer,
-    ContainerProfessionalsLoginData
+    ContainerProfessionalsLoginData,
+    ContainerTable
 } from './style.js'
 
 const RegisterProfessional = () => {
@@ -51,13 +52,11 @@ const RegisterProfessional = () => {
     const [overtime, setOvertime] = useState('')
     const [limit, setLimit] = useState('')
     const [limitValue, setLimitValue] = useState('')
-
-
+    const [requestWorked, setRequestWorked] = useState('')
 
     const goBackClickHandler = () => {
         history.push('/professionals')
     }
-
 
     const personalData = {
         name: name,
@@ -90,10 +89,8 @@ const RegisterProfessional = () => {
     const limitedExtraHoursBoolean = limit === 'limitOvertime' ? true : false
     const overtimeFormat = overtime.replace(',', '.').replace('R$', '')
 
-    console.log(fixedSalary)
-
    const addProfessional = async () => {
-        await api({
+        const response = await api({
             method:'post',     
             url:`/user`,
             data: {
@@ -124,18 +121,35 @@ const RegisterProfessional = () => {
                 variable1: +divider,
                 variable2: +fixedValue,
                 limited_extra_hours: limitedExtraHoursBoolean,
-                extra_hour_limit: +limitValue              
+                extra_hour_limit: +limitValue,
+                projects: []             
             }
         });
+
+        setRequestWorked(response.status)
     }
 
     const footerCancelButtonHandler = () => {
-
+        history.push('/professionals')
     }
 
-    const footerRegisterButtonHandler = () => {
+    const footerRegisterButtonHandler = async () => {
         addProfessional()
+
+        const {data} = await api({
+            method:'get',     
+            url:`/professionals`,
+        })
+
+        if(requestWorked === 200) {
+            history.push({
+                pathname: '/professionals',
+                state: { professionals: data }
+            })
+        }
+
     }
+
 
     return (
         <PagesContainer padding="0 0 5em 0">
@@ -200,7 +214,7 @@ const RegisterProfessional = () => {
                 setExtraHour={setExtraHour}
                 />
 
-                {'extraHourActivated' === extraHour &&                 <OvertimePayCalc
+                {'extraHourActivated' === extraHour && <OvertimePayCalc
                 divider={divider}
                 setDivider={setDivider}
                 fixedValue={fixedValue}
@@ -213,7 +227,7 @@ const RegisterProfessional = () => {
                 setLimitValue={setLimitValue}
                 />}
 
-                {/* <AttachmentProject/> */}
+                <AttachmentProject/>
 
                 <RegisterFooter
                 cancelButtonHandler={footerCancelButtonHandler}

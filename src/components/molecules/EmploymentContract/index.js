@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import MaskedInput from 'react-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
+import { TextRequired } from '../../atoms/TextRequired'
 import api from '../../../api/api'
 import { cleanMask } from '../../utils/cleanMask.js'
 import SecondaryText from '../../atoms/SecondaryText/style.js'
@@ -10,12 +11,13 @@ import InputText from '../../atoms/InputText';
 import InputSelect from '../../atoms/InputSelect/index.js'
 import InputSelectWithLabel from '../../atoms/InputSelectWithLabel';
 import { DefaultInput, InputLine } from '../../atoms/DefaultInput/style';
-import { ContainerEmploymentContract, EmploymentContractInputs } from './style'
+import { ContainerEmploymentContract, EmploymentContractInputs, ContainerTextRequiredWeek, ContainerTextRequiredMonth } from './style'
 
 const EmploymentContract = ({setInicialDate, inicialDate , setJob, job, setType, type, setHoursWeek, hoursWeek, setHoursMonth, hoursMonth, setFixedSalary, fixedSalary}) => {
-    console.log(fixedSalary);
 
     const [jobOptions, setJobOptions] = useState([])
+    const [invalidHoursWeek, setInvalidHoursWeek] = useState(false)
+    const [invalidHoursMonth, setInvalidHoursMonth] = useState(false)
 
     const inputRef = useRef(null);
 
@@ -59,6 +61,19 @@ const EmploymentContract = ({setInicialDate, inicialDate , setJob, job, setType,
 
     }, [])
 
+    useEffect(() => {
+
+        setInvalidHoursWeek(hoursWeek > 44);
+
+    }, [hoursWeek])
+
+    useEffect(() => {
+
+        setInvalidHoursMonth(hoursMonth > 176);
+
+    }, [hoursMonth])
+
+
     return (
         <ContainerEmploymentContract>
             <SecondaryText margin="0 0 2.5em 0">Contrato de trabalho</SecondaryText>
@@ -89,21 +104,28 @@ const EmploymentContract = ({setInicialDate, inicialDate , setJob, job, setType,
                 lineWidth="30%"
                 />
 
-                <InputText
-                setTextValue={setHoursWeek}
-                value={hoursWeek}
-                widthLine="20%"
-                placeholder="Horas/semana"
-                margin="0 2em 0 2em"
-                />
+                <ContainerTextRequiredWeek>
+                    <InputText
+                    invalid={invalidHoursWeek}
+                    setTextValue={setHoursWeek}
+                    value={hoursWeek}
+                    widthLine="100%"
+                    placeholder="Horas/semana"
+                    />
 
+                    {invalidHoursWeek && <TextRequired>Horas/semana excedida</TextRequired>}
+                </ContainerTextRequiredWeek>
+
+                <ContainerTextRequiredMonth>
                 <InputText
+                invalid={invalidHoursMonth}
                 setTextValue={setHoursMonth}
                 value={hoursMonth}
-                widthLine="20%"
+                widthLine="100%"
                 placeholder="Horas/mês"
-                margin="0 2em 0 0"
                 />
+                   {invalidHoursMonth && <TextRequired>Horas/mês excedida</TextRequired>}
+                </ContainerTextRequiredMonth>
 
                 <MaskedInput
                 mask={fixedSalaryAmount}

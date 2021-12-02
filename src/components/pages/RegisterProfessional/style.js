@@ -18,5 +18,4 @@ export const ContainerProfessionalsLoginData = styled.div`
     padding: 2.5em 3em 3em 3em;
     border-top: 1.5px solid #919EAB52;
     border-bottom: 1.5px solid #919EAB52;
-
 `

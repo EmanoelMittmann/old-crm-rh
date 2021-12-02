@@ -19,6 +19,7 @@ import {
     WorkLoad
 } from './style.js'
 
+import { formatDate } from '../../utils/formatDate.js';
 import User from '../../../assets/user.png'
 import {ReactComponent as OptionsIcon} from '../../../assets/icons/options.svg'
 import StatusLabel from '../../atoms/StatusLabel'
@@ -143,15 +144,12 @@ export const ProjectsListItem = () => {
              {state.projects.map((project) => {
             console.log(state.projects)
             
-           const date = new Date(project.date_start)
-           const projectDate = new Intl.DateTimeFormat('pt-BR').format(date)
+           const projectDate = formatDate(project.date_start)
           
-         
             //project se relaciona com status
 
             const projectStatus = state.status.find((status) => {
                 return project.project_status_id === status.id
-               
             })
 
 

@@ -1,13 +1,16 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import MaskedInput from 'react-text-mask'
 import axios from 'axios'
 
+import { TextRequired } from '../../atoms/TextRequired'
+import api from '../../../api/api'
 import { cleanMask } from '../../utils/cleanMask'
 import { DefaultInput, InputLine } from '../../atoms/DefaultInput/style.js';
 import { 
     ContainerRegisterProfessionalsData,
     RegisterProfessionalsForm,
     ContainerRow,
+    ContainerTextRequired
 } from './style.js'
 import SecondaryText from '../../atoms/SecondaryText/style';
 import InputWithLabel from '../../atoms/InputWithLabel/index.js';
@@ -16,10 +19,9 @@ import InputDate from '../../atoms/InputDate/index.js';
 import InputSelect from '../../atoms/InputSelect/index.js';
 
 const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBirthDate, setCNPJ, setCorporateName, setCEP, setStreet, setAddressNumber, setAddressDetails, setNeighborhood, setCity, setUF, setPhoneNumber}) => {
-    console.log(personalData);
 
    const inputRef = useRef(null);
-   console.log(personalData);
+   const [validCPF, setValidCPF] = useState(true);
 
     const getUserLocation = async () => {
         const response = axios.get(`https://viacep.com.br/ws/${personalData.CEP}/json/`, {transformRequest: (data, headers)=>{
@@ -71,6 +73,20 @@ const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBi
         {name: "Tocantins", initials: "TO"}
     ]
 
+    const validateCpf = async (cpf) => {
+
+        const {data} = await api({
+            method:'post',     
+            url:`/user/validateCpf`,
+            data: {
+                cpf: cpf
+            }
+        })
+        
+        setValidCPF(data)
+    }
+    
+
     return (
         <ContainerRegisterProfessionalsData>
              <SecondaryText margin="0 0 2.5em 0">Dados pessoais</SecondaryText>
@@ -85,32 +101,41 @@ const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBi
                             placeholder="Nome..."
                             padding="0 2em 0 0"
                             />
-                            <MaskedInput
-                            mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/ ,/\d/]}
-                            placeholder="CPF"
-                            onChange={(e) => {
-                                const value = cleanMask(e.target.value)
-                                setCPF(value)
-                            }}
-                            guide={false}
-                            keepCharPositions={true}
-                            render={(maskRef, maskProps) => (
-                                <InputLine  widthLine="23%" margin="0 2em 0 0">
-                                    <DefaultInput
-                                    padding="0.3em 1.2em 0 1.2em"
-                                    ref={
-                                        node => {
-                                        if(node){
-                                            maskRef(node);
-                                            inputRef.current = node;
-                                        }}
-                                    }
-                                    {...maskProps}
-                                    />
-                                </InputLine>
+                            <ContainerTextRequired>
+                                <MaskedInput
+                                mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/ ,/\d/]}
+                                placeholder="CPF"
+                                onChange={(e) => {
+                                    const value = cleanMask(e.target.value)
+                                    value !== '' && validateCpf(value)
+                                    setCPF(value)
+                                }}
+                                guide={false}
+                                keepCharPositions={true}
+                                render={(maskRef, maskProps) => (
+                                    <InputLine borderColor={validCPF === false && "red"} widthLine="23%" margin="0 2em 0 0">
+                                        <DefaultInput
+                                        placeholderColor={validCPF === false && "red"}
+                                        padding="0.3em 1.2em 0 1.2em"
+                                        ref={
+                                            node => {
+                                            if(node){
+                                                maskRef(node);
+                                                inputRef.current = node;
+                                            }}
+                                        }
+                                        {...maskProps}
+                                        />
+                                    </InputLine>
                                 
-                            )}
-                            />
+                                )}
+                                />
+                                {validCPF === false &&
+                                    <TextRequired>
+                                        CPF Existente
+                                    </TextRequired>
+                                }
+                            </ContainerTextRequired>
                             <InputText
                             setTextValue={setRG}
                             value={personalData.RG}

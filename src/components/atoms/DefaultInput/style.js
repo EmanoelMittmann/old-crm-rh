@@ -10,9 +10,10 @@ export const DefaultInput = styled.input`
     outline: none;
     border:none;
     color: black;
+    border-radius: 8px;
 
     &::placeholder {
-        color: #919EAB;
+        color: ${props => props.placeholderColor ? props.placeholderColor : "#919EAB"};
         opacity: 0.7;
         text-align: ${props => props.placeholderPosition ? props.placeholderPosition : "left"};
     }
@@ -45,7 +46,7 @@ export const InputLine = styled.div`
     justify-content:space-between;
     width: ${props => props.width};
     height: 45px;
-    border: 1.5px solid #919EAB52;
+    border: ${props => `1.5px solid ${props.borderColor ? props.borderColor : "#919EAB52"}`};
     border-radius: 8px;
     margin: ${props => props.margin};
 `

@@ -20,3 +20,6 @@ export const ContainerRow = styled.div`
     }
 `
 
+export const ContainerTextRequired = styled.div`
+    display: block;
+`

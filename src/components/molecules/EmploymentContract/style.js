@@ -14,3 +14,15 @@ export const EmploymentContractInputs = styled.div`
         margin-bottom: 3em;
     }
 `
+
+export const ContainerTextRequiredWeek = styled.div`
+    display: block;
+    width: 20%;
+    margin: 0 2em 0 2em;
+`
+
+export const ContainerTextRequiredMonth = styled.div`
+    display: block;
+    width: 20%;
+    margin: 0 2em 0 0;
+`
