@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import MaskedInput from 'react-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
-import { TextRequired } from '../../atoms/TextRequired'
 import api from '../../../api/api'
+import { getDate } from '../../utils/getDate'
+import { TextRequired } from '../../atoms/TextRequired'
 import { cleanMask } from '../../utils/cleanMask.js'
 import SecondaryText from '../../atoms/SecondaryText/style.js'
 import InputDate from '../../atoms/InputDate';
@@ -13,7 +14,7 @@ import InputSelectWithLabel from '../../atoms/InputSelectWithLabel';
 import { DefaultInput, InputLine } from '../../atoms/DefaultInput/style';
 import { ContainerEmploymentContract, EmploymentContractInputs, ContainerTextRequiredWeek, ContainerTextRequiredMonth } from './style'
 
-const EmploymentContract = ({setInicialDate, inicialDate , setJob, job, setType, type, setHoursWeek, hoursWeek, setHoursMonth, hoursMonth, setFixedSalary, fixedSalary}) => {
+const EmploymentContract = ({setInicialDate, inicialDate , setJob, job, setType, type, setHoursWeek, hoursWeek, setHoursMonth, hoursMonth, setFixedSalary, fixedSalary, componentRendered, editData}) => {
 
     const [jobOptions, setJobOptions] = useState([])
     const [invalidHoursWeek, setInvalidHoursWeek] = useState(false)
@@ -73,6 +74,20 @@ const EmploymentContract = ({setInicialDate, inicialDate , setJob, job, setType,
 
     }, [hoursMonth])
 
+    useEffect(() => {
+        
+        if(componentRendered && editData){
+            setInicialDate(getDate(editData.start_date))
+            setJob(editData.job_id)
+            setType(editData.job_type)
+            setHoursWeek(editData.weekly_hours)
+            // setHoursMonth(editData)
+            setFixedSalary(editData.fixed_payment_value)
+
+        }
+        
+    }, [componentRendered])
+
 
     return (
         <ContainerEmploymentContract>
@@ -128,6 +143,7 @@ const EmploymentContract = ({setInicialDate, inicialDate , setJob, job, setType,
                 </ContainerTextRequiredMonth>
 
                 <MaskedInput
+                defaultValue={fixedSalary}
                 mask={fixedSalaryAmount}
                 placeholder="Valor pagamento fixo"
                 onChange={(e) => {

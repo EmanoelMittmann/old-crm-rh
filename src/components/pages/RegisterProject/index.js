@@ -7,7 +7,7 @@ import {
 } from '../../../redux/actions/index.js'
 import RegisterFooter from '../../molecules/RegisterFooter/index.js'
 import api from '../../../api/api.js'
-import ModalDelete from '../../molecules/ModalDelete/index.js'
+import ModalRed from '../../molecules/ModalRed/index.js'
 import Header from '../../organisms/Header/index.js'
 import PagesContainer from '../../organisms/PagesContainer/styled'
 import { SectionTitle } from '../../atoms/PageTitle/style.js'
@@ -168,7 +168,7 @@ const RegisterProject = (props) => {
 
     return (
         <PagesContainer padding="0 0 5em 0">
-            {modalWarningIsVisible && <ModalDelete
+            {modalWarningIsVisible && <ModalRed
             CloseButtonClickHandler={CloseButtonClickHandler}
             redButtonClickHandler={redButtonClickHandler}
             title={componentRendered ? "Cancelar alterações" : "Cancelar cadastro"}

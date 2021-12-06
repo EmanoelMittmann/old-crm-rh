@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 
@@ -7,6 +7,7 @@ import {
     setStatusList,
 } from '../../../redux/actions/index.js'
 import api from '../../../api/api.js'
+import { getDate } from '../../utils/getDate.js'
 import InputSelectEdit from '../../atoms/InputSelectEdit/index.js'
 import { formatFirstLetter } from '../../utils/formatFirstLetter.js'
 import SecondaryText from '../../atoms/SecondaryText/style.js'
@@ -67,19 +68,6 @@ const RegisterProjectData = ({projectType, projectStatus, projectName, teamCost,
             id: status.id
         }
     ))
-
-    const getDate = (inputDate) => {
-        const newDate = new Date(inputDate)
-        const day = newDate.getDate().toString()
-        const newDay = day.length === 1 ? day.padStart(2, '0') : day
-        let month = newDate.getMonth() + 1
-        month = month.toString()
-        const newMonth = month.length === 1 ? month.padStart(2, '0') : month;
-        const year = newDate.getFullYear()
-        const projectDate = `${year}-${newMonth}-${newDay}`
-        
-        return projectDate;
-    }
 
     
     useEffect(() => {

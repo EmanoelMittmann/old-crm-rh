@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
 
+import ModalRed from '../../molecules/ModalRed'
 import MenuOptions from '../../atoms/MenuOptions'
 import {ReactComponent as OptionsIcon} from '../../../assets/icons/options.svg'
 import { TeamMemberPic } from '../../atoms/TeamMemberPic/style.js'
@@ -19,6 +20,8 @@ const ProfessionalsListItem = ({professional}) => {
     const history = useHistory();
     const [optionClicked, setOptionClicked] = useState(false);
     const [menuOptionsisVisible, setMenuOptionsisVisible] = useState(false);
+    const [openModal, setOpenModal] = useState(false)
+    const [modalMessage, setModalMessage] = useState('')
 
     const menuOptionsClicked = (professionalId) => {
         setMenuOptionsisVisible(!menuOptionsisVisible)
@@ -27,17 +30,21 @@ const ProfessionalsListItem = ({professional}) => {
  
     const editProfessional = () => {
         history.push({
-            pathname: "/professional",
-            state: { professionalId: professional.id }
+            pathname: `/professional/${professional.id}`
           })
     }
 
     const disableProfessional = () => {
+        setOpenModal(true)
+        setMenuOptionsisVisible(false)
 
+        const name = professional.id === optionClicked  ? professional.name : "esse profissional"
+        setModalMessage(`Deseja realmente inativar ${name}?`)
     }
 
+
     return (
-        <ContainerProfessionalsListItem>
+        <ContainerProfessionalsListItem key={professional.id}>
             <ProfessionalProfile>
                     <TeamMemberPic margin="0 1.5em 0 0" width="45px" height="45px" src={professional.avatar || "https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"}/>
                     {professional.name}
@@ -71,6 +78,7 @@ const ProfessionalsListItem = ({professional}) => {
                     id={optionClicked}
                     />
                 }
+                {openModal && <ModalRed CloseButtonClickHandler={() => setOpenModal(false)} redButtonClickHandler={() => setOpenModal(false)} title="Inativar" message={modalMessage}/>}
         </ContainerProfessionalsListItem>
     )
 }

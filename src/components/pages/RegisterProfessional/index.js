@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 import AttachmentProject from '../../organisms/Attachment/Project';
 import EmploymentContract from '../../molecules/EmploymentContract'
@@ -18,7 +18,6 @@ import {
     RegisterProfessionalTitleContainer,
     RegisterProfessionalContainer,
     ContainerProfessionalsLoginData,
-    ContainerTable
 } from './style.js'
 
 const RegisterProfessional = () => {
@@ -53,6 +52,10 @@ const RegisterProfessional = () => {
     const [limit, setLimit] = useState('')
     const [limitValue, setLimitValue] = useState('')
     const [requestWorked, setRequestWorked] = useState('')
+    const [editData, setEditData] = useState(undefined)
+    const [componentRendered, setComponentRendered] = useState(false)
+
+    const { id } = useParams();
 
     const goBackClickHandler = () => {
         history.push('/professionals')
@@ -134,7 +137,8 @@ const RegisterProfessional = () => {
     }
 
     const footerRegisterButtonHandler = async () => {
-        addProfessional()
+
+        id ? updateProfessional() : addProfessional()
 
         const {data} = await api({
             method:'get',     
@@ -149,6 +153,75 @@ const RegisterProfessional = () => {
         }
 
     }
+
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>Edit Professional<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    const getEditUserData = async () => {
+        try{
+            const {data} = await api({
+                method: 'get',
+                url: `/user/${id}`,
+            });
+
+            setEditData(...data)
+            setComponentRendered(true)
+            
+        }catch(error){
+
+        }
+    }
+
+    const updateProfessional = async () => {
+        const response = await api({
+            method:'put',     
+            url:`/user/${id}`,
+            data: {
+                // avatar: "profile picture url",
+                extra_hour_value: +overtimeFormat,
+                user_type_id: "2",
+                name: name,
+                email: email,
+                job_id: job,
+                razao_social: corporateName,
+                cpf: CPF,
+                rg: RG,
+                cnpj: CNPJ,
+                cep: CEP,
+                uf: UF,
+                telephone_number: +phoneNumber,
+                birth_date: birthDate,
+                street_name: street,
+                neighbourhood_name: neighborhood,
+                city_name: city,
+                complement: addressDetails,
+                house_number: +addressNumber,
+                start_date: inicialDate,
+                weekly_hours: +hoursWeek,
+                fixed_payment_value: +fixedSalary,
+                job_type: "FULLTIME",
+                extra_hour_activated: extraHourBoolean,
+                variable1: +divider,
+                variable2: +fixedValue,
+                limited_extra_hours: limitedExtraHoursBoolean,
+                extra_hour_limit: +limitValue,
+                projects: []             
+            }
+        });
+
+        setRequestWorked(response.status)
+    }
+
+    useEffect(() => {
+        getEditUserData()
+    }, [])
+
+    useEffect(() => {
+
+        if(componentRendered && editData){
+            setEmail(editData.email)
+        }
+
+    }, [componentRendered])
 
 
     return (
@@ -166,6 +239,8 @@ const RegisterProfessional = () => {
 
                 <RegisterProfessionalsData
                 personalData={personalData}
+                editData={editData}
+                componentRendered={componentRendered}
                 setName={setName}
                 setCPF={setCPF}
                 setRG={setRG}
@@ -207,11 +282,15 @@ const RegisterProfessional = () => {
                 hoursMonth={hoursMonth}
                 setFixedSalary={setFixedSalary} 
                 fixedSalary={fixedSalary}
+                editData={editData}
+                componentRendered={componentRendered}
                 />
 
                 <ProfessionalsExtraHour
                 extraHour={extraHour}
                 setExtraHour={setExtraHour}
+                componentRendered={componentRendered}
+                editData={editData}
                 />
 
                 {'extraHourActivated' === extraHour && <OvertimePayCalc
@@ -225,6 +304,8 @@ const RegisterProfessional = () => {
                 setLimit={setLimit}
                 limitValue={limitValue}
                 setLimitValue={setLimitValue}
+                componentRendered={componentRendered}
+                editData={editData}
                 />}
 
                 <AttachmentProject/>

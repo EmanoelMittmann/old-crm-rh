@@ -57,8 +57,7 @@ const ProfessionalsSection = () => {
             url:`/professionals`,
             params: params
         })
-
-        console.log(data);
+        
         setProfessionals(data.data);
         setProfessionalMeta(data.meta)
     }

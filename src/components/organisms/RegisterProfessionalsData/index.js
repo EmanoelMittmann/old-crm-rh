@@ -2,8 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import MaskedInput from 'react-text-mask'
 import axios from 'axios'
 
-import { TextRequired } from '../../atoms/TextRequired'
 import api from '../../../api/api'
+import { getDate } from '../../utils/getDate'
+import { TextRequired } from '../../atoms/TextRequired'
 import { cleanMask } from '../../utils/cleanMask'
 import { DefaultInput, InputLine } from '../../atoms/DefaultInput/style.js';
 import { 
@@ -18,10 +19,11 @@ import InputText from '../../atoms/InputText/index.js';
 import InputDate from '../../atoms/InputDate/index.js';
 import InputSelect from '../../atoms/InputSelect/index.js';
 
-const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBirthDate, setCNPJ, setCorporateName, setCEP, setStreet, setAddressNumber, setAddressDetails, setNeighborhood, setCity, setUF, setPhoneNumber}) => {
+const RegisterProfessionalsData = ({personalData, editData, setName, setCPF, setRG,  setBirthDate, setCNPJ, setCorporateName, setCEP, setStreet, setAddressNumber, setAddressDetails, setNeighborhood, setCity, setUF, setPhoneNumber, componentRendered}) => {
 
    const inputRef = useRef(null);
    const [validCPF, setValidCPF] = useState(true);
+   const [editName, setEditName] = useState("")
 
     const getUserLocation = async () => {
         const response = axios.get(`https://viacep.com.br/ws/${personalData.CEP}/json/`, {transformRequest: (data, headers)=>{
@@ -85,7 +87,29 @@ const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBi
         
         setValidCPF(data)
     }
+
     
+    useEffect(() => {
+        if(componentRendered && editData){
+            console.log(editData.birth_date);
+            setName(editData.name)
+            setCPF(editData.cpf)
+            setRG(editData.rg)
+            setBirthDate(getDate(editData.birth_date))
+            setCNPJ(editData.cnpj)
+            setCorporateName(editData.razao_social)
+            setCEP(editData.cep)
+            setStreet(editData.street_name)
+            setAddressNumber(editData.house_number)
+            setAddressDetails(editData.complement)
+            setNeighborhood(editData.neighbourhood_name)
+            setCity(editData.city_name)
+            setUF(editData.uf)
+            setPhoneNumber(editData.telephone_number)
+
+        }
+        
+    }, [componentRendered])
 
     return (
         <ContainerRegisterProfessionalsData>
@@ -100,9 +124,11 @@ const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBi
                             widthContainer="50%" 
                             placeholder="Nome..."
                             padding="0 2em 0 0"
+                            editValue={editName}
                             />
                             <ContainerTextRequired>
                                 <MaskedInput
+                                defaultValue={personalData.CPF}
                                 mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/ ,/\d/]}
                                 placeholder="CPF"
                                 onChange={(e) => {
@@ -136,7 +162,7 @@ const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBi
                                     </TextRequired>
                                 }
                             </ContainerTextRequired>
-                            <InputText
+                            <InputText 
                             setTextValue={setRG}
                             value={personalData.RG}
                             placeholder="RG"
@@ -153,6 +179,7 @@ const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBi
                          margin="0 2em 0 0"
                         />
                          <MaskedInput
+                            defaultValue={personalData.phoneNumber}
                             mask={['(', /[1-9]/, /\d/, ')', ' ', /\d/, ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/ ,/\d/]}
                             placeholder="Celular"
                             keepCharPositions={true}
@@ -179,6 +206,7 @@ const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBi
                             )}
                             />
                          <MaskedInput
+                            defaultValue={personalData.CNPJ}
                             mask={[/[1-9]/, /\d/, '.', ' ', /\d/, /\d/, /\d/,'.', 
                             /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/,]}
                             placeholder="CNPJ"
@@ -219,6 +247,7 @@ const RegisterProfessionalsData = ({personalData, setName, setCPF, setRG,  setBi
                     </ContainerRow>
                     <ContainerRow>
                          <MaskedInput
+                            defaultValue={personalData.CEP}
                             mask={[/\d/, /\d/, /\d/, /\d/, /\d/,'-', 
                             /\d/, /\d/, /\d/]}
                             placeholder="CEP"

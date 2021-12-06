@@ -8,7 +8,7 @@ import {
     ContainerRadioButtons,
 } from './style.js'
 
-const ProfessionalsExtraHour = ({extraHour, setExtraHour}) => {
+const ProfessionalsExtraHour = ({extraHour, setExtraHour, componentRendered, editData}) => {
 
     const radioColor = state => state === extraHour ? "#919EAB" : "black";
     const [componentJustRendered, setComponentJustRendered] = useState(false);
@@ -17,9 +17,22 @@ const ProfessionalsExtraHour = ({extraHour, setExtraHour}) => {
         setComponentJustRendered(true)
     }, [])
 
-    const attributeChecked = {
-        ...(componentJustRendered && {checked: true})
+    const overtimeNotAllowed = {
+        ...(componentJustRendered && (editData === undefined || editData?.extra_hour_activated === 0) && {checked: true})
     }
+
+    const overtimeAllowed = {
+        ...(componentJustRendered && editData?.extra_hour_activated === 1 && {checked: true})
+    }
+
+    if(componentJustRendered && editData?.extra_hour_activated === 1){
+        setExtraHour('extraHourActivated')
+    }
+
+    if(componentJustRendered && (editData === undefined || editData?.extra_hour_activated === 0)){
+        setExtraHour('extraHourDisabled')
+    }
+
 
    return (
         <ContainerRegisterExtraHours>
@@ -29,14 +42,16 @@ const ProfessionalsExtraHour = ({extraHour, setExtraHour}) => {
                 setComponentJustRendered(false)
             }}>
                 <InputRadio
+                {...overtimeAllowed}
                 color={radioColor('extraHourDisabled')} 
                 type="radio"
                 name="extraHour"
                 value="extraHourActivated"
                 id="extraHourActivated"/>
                 <LabelInputRadio color={radioColor('extraHourDisabled')} for="extraHourActivated">Permitir hora extra</LabelInputRadio>
+
                 <InputRadio
-                {...attributeChecked}
+                {...overtimeNotAllowed}
                 color={radioColor('extraHourActivated')}
                 type="radio"
                 name="extraHour"

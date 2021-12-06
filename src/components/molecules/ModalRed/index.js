@@ -10,7 +10,7 @@ import {
     ModalTitle
 } from '../Modal/style.js'
 
-const ModalDelete = ({CloseButtonClickHandler, redButtonClickHandler, title, message}) => {
+const ModalRed = ({CloseButtonClickHandler, redButtonClickHandler, title, message}) => {
 
     return (
         <div>
@@ -37,4 +37,4 @@ const ModalDelete = ({CloseButtonClickHandler, redButtonClickHandler, title, mes
     )
 }
 
-export default ModalDelete;
+export default ModalRed;

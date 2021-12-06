@@ -23,7 +23,7 @@ import SecondaryText from '../../../atoms/SecondaryText/style'
 import InputSelectWithLabel from '../../../atoms/InputSelectWithLabel'
 import InputText from '../../../atoms/InputText'
 import { ListHeaderContainer, ListHeaderTitle } from '../../../atoms/ListHeader/style.js'
-import ModalDelete from '../../../molecules/ModalDelete'
+import ModalRed from '../../../molecules/ModalRed'
 
 const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, setPayloadTeam}) => {
     const [hoursMonth, setHoursMonth] = useState('')
@@ -302,7 +302,7 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
                     <ProfessionalHours>
                         {member.workload}
                     </ProfessionalHours>
-                    {modalIsVisible && <ModalDelete
+                    {modalIsVisible && <ModalRed
                      deleteHandler={deleteTeamMember}
                      id={teamMemberDeleteId}
                      redButtonClickHandler={() => redButtonClickHandler(teamMemberDeleteId)}

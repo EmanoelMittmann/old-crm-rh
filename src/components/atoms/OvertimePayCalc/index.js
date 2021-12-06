@@ -8,7 +8,7 @@ import { InputRadio, LabelInputRadio } from '../InputRadio/style'
 import { OvertimePay, OvertimePayCalcLabel, ContainerOvertimePayInput, ContainerHourlyPayRate, HourlyPayRate, ContainerOvertimePayCalcLabel, LimitOvertime, ContainerLimitOvertimeButton, ContainerLimitOvertimeButtons, ContainerLimitOvertime } from './style'
 import { DefaultInput, InputLine } from '../DefaultInput/style';
 
-const OvertimePayCalc = ({setDivider, divider, setFixedValue, fixedValue, setOvertime, overtime, setLimit, limit, setLimitValue, limitValue}) => {
+const OvertimePayCalc = ({setDivider, divider, setFixedValue, fixedValue, setOvertime, overtime, setLimit, limit, setLimitValue, limitValue, componentRendered, editData}) => {
     const [componentJustRendered, setComponentJustRendered] = useState(false);
 
     const overtimeCalc = fixedValue > 0 && divider > 0 && fixedValue/divider
@@ -50,8 +50,30 @@ const OvertimePayCalc = ({setDivider, divider, setFixedValue, fixedValue, setOve
         console.log('entrou');
     }, [])
 
-    const attributeChecked = {
-        ...(componentJustRendered && {checked: true})
+    useEffect(() => {
+        
+        if(editData && componentRendered){
+            setDivider(editData.variable1)
+            setFixedValue(editData.fixed_payment_value)
+            setLimit(editData.limited_extra_hours)
+            setLimitValue(editData.extra_hour_limit) 
+        }
+    }, [componentRendered])
+
+    const limitAllowed = {
+        ...(componentJustRendered && editData?.limited_extra_hours === 1 && {checked: true})
+    }
+
+    const limitNotAllowed = {
+        ...(componentJustRendered && (editData === undefined || editData?.limited_extra_hours === 0) && {checked: true})
+    }
+
+    if(componentJustRendered && editData?.limited_extra_hours === 1){
+        setLimit('limitOvertime')
+    }
+
+    if(componentJustRendered && (editData === undefined || editData?.limited_extra_hours === 0)){
+        setLimit('noLimitOvertime')
     }
 
     return (
@@ -62,7 +84,7 @@ const OvertimePayCalc = ({setDivider, divider, setFixedValue, fixedValue, setOve
                         Variável 1 (divisor)
                     </OvertimePayCalcLabel>
                     <InputLine width="90%">
-                        <DefaultInput id="divider" placeholderPosition="right" 
+                        <DefaultInput value={divider} id="divider" placeholderPosition="right" 
                         onChange={(e) => setDivider(e.target.value)} placeholder="Horas" padding="0.3em 1.2em 0 1.2em"/>
                     </InputLine>
                 </ContainerOvertimePayInput>
@@ -71,6 +93,7 @@ const OvertimePayCalc = ({setDivider, divider, setFixedValue, fixedValue, setOve
                         Variável 2 (valor fixo)
                     </OvertimePayCalcLabel>
                     <MaskedInput
+                    defaultValue={fixedValue}
                     mask={fixedValueMask}
                     placeholder="R$"
                     onChange={(e) => {
@@ -105,7 +128,7 @@ const OvertimePayCalc = ({setDivider, divider, setFixedValue, fixedValue, setOve
                         Valor hora extra
                      </OvertimePayCalcLabel>
                      <MaskedInput
-                        value={overtime}
+                        defaultValue={overtime}
                         mask={hourlyPayRate}
                         placeholder="R$"
                         onChange={(e) => {
@@ -145,6 +168,7 @@ const OvertimePayCalc = ({setDivider, divider, setFixedValue, fixedValue, setOve
                     }}>
                         <ContainerLimitOvertimeButton>
                             <InputRadio
+                            {...limitAllowed}
                             type="radio"
                             name="extraHour"
                             value="limitOvertime"
@@ -154,8 +178,8 @@ const OvertimePayCalc = ({setDivider, divider, setFixedValue, fixedValue, setOve
                     
                         <ContainerLimitOvertimeButton>
                             <InputRadio
+                            {...limitNotAllowed}
                             margin="0 0 0 3em"
-                            {...attributeChecked}
                             type="radio"
                             name="extraHour"
                             value="noLimitOvertime"
