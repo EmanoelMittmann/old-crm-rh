@@ -1,30 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import { FaTrashAlt } from 'react-icons/fa';
 
-
-import api from '../../../api/api.js'
-import User from '../../../assets/user.png'
 import {
-    RegisterProjectTeamForm,
-    RegisterProjectTeamProfessional,
+    AttachmentContainer,
+    AttachmentForm,
+    AttachmentTableLine,
+    ContainerTrashIcon
+} from '../style'
+import {
     ProfessionalInfo,
-    ProfessionalProfilePicture,
     ProfessionalName,
     ProfessionalJob,
     ProfessionalHours,
     ProfilePicture,
-    ContainerTrashIcon,
-    ContainerRegisterProjectTeam
+    ProfessionalProfilePicture
 } from './style.js'
-import { formatFirstLetter } from '../../utils/formatFirstLetter.js';
-import { BlueButton } from '../../atoms/Buttons/BlueButton/style.js'
-import SecondaryText from '../../atoms/SecondaryText/style.js'
-import InputSelectWithLabel from '../../atoms/InputSelectWithLabel'
-import InputText from '../../atoms/InputText'
-import { ListHeaderContainer, ListHeaderTitle } from '../../atoms/ListHeader/style.js'
-import ModalDelete from '../../molecules/ModalDelete'
+import api from '../../../../api/api'
+import User from '../../../../assets/user.png'
+import { formatFirstLetter } from '../../../utils/formatFirstLetter.js';
+import { BlueButton } from '../../../atoms/Buttons/BlueButton/style.js'
+import SecondaryText from '../../../atoms/SecondaryText/style'
+import InputSelectWithLabel from '../../../atoms/InputSelectWithLabel'
+import InputText from '../../../atoms/InputText'
+import { ListHeaderContainer, ListHeaderTitle } from '../../../atoms/ListHeader/style.js'
+import ModalDelete from '../../../molecules/ModalDelete'
 
-const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTeam, setPayloadTeam}) => {
+const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, setPayloadTeam}) => {
     const [hoursMonth, setHoursMonth] = useState('')
     //Todos os possíveis membros do time
     const [allProfessionals, setAllProfessionals] = useState([])
@@ -44,8 +45,8 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
 
     //////////////////////Funções usadas nos dois tipos de edição//////////////////////
    
-
     const isEditing = projectId ? true : false;
+    console.log(isEditing)
 
     
     const CloseButtonClickHandler = () => {
@@ -173,7 +174,7 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
             setTeamMembers(newTeam);
         }
 
-        deleteTeamMember()
+        isEditing && deleteTeamMember()
 
     }, [deleteRealTime])
 
@@ -197,7 +198,6 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
                 method:'get',     
                 url:`/userProjects/${projectId}`,
             });
-            console.log(data);
     
             const newTeam = data.map((member) => {
                 return {...member, trash_color: '#DCE0E4'}
@@ -205,7 +205,7 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
             setTeamMembers(newTeam);
         }
 
-        addTeamMember()
+        isEditing && addTeamMember();
 
     }, [editTeamRealTime])
      
@@ -248,10 +248,10 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
 
 
     return (
-        <ContainerRegisterProjectTeam>
+        <AttachmentContainer>
             <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
 
-            <RegisterProjectTeamForm>
+            <AttachmentForm>
                 <InputSelectWithLabel
                 setSelectedOption={setProfessionalSelected}
                 options={allProfessionals}
@@ -272,7 +272,7 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
                 <BlueButton width="15%" onClick={() => isEditing ? setEditTeamRealTime(true) :  setTeamMemberClickHandler()}>
                     Vincular
                 </BlueButton>
-            </RegisterProjectTeamForm>
+            </AttachmentForm>
 
             <ListHeaderContainer>
                 <ListHeaderTitle width="37.5%">
@@ -287,7 +287,7 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
             </ListHeaderContainer>
 
             {teamMembers.map((member) => (
-                <RegisterProjectTeamProfessional key={member.user_id}>
+                <AttachmentTableLine key={member.user_id}>
                     <ProfessionalInfo>
                         <ProfessionalProfilePicture>
                             <ProfilePicture src={member?.avatar || User}/>
@@ -297,7 +297,7 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
                         </ProfessionalName>
                     </ProfessionalInfo>
                     <ProfessionalJob>
-                        {member.job_name}
+                        {member.job_name || member.job}
                     </ProfessionalJob>
                     <ProfessionalHours>
                         {member.workload}
@@ -310,7 +310,7 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
                      title="Excluir profissional"
                      message="Tem certeza que deseja excluir profissional?"
                      />}
-                    <ContainerTrashIcon >
+                    <ContainerTrashIcon>
                         <FaTrashAlt 
                         color={member.trash_color}
                         size="16px"
@@ -320,11 +320,11 @@ const RegisterProjectTeam = ({projectId, componentRendered, editData, payloadTea
                         onClick={() => trashIconClickHandler(member.user_id)}
                         />
                     </ContainerTrashIcon>
-                </RegisterProjectTeamProfessional>
+                </AttachmentTableLine>
             ))}
 
-        </ContainerRegisterProjectTeam>
+        </AttachmentContainer>
     )
 }
 
-export default RegisterProjectTeam;
+export default AttachmentTeam;

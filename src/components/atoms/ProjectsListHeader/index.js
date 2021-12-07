@@ -23,7 +23,6 @@ import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
 const ProjectsListHeader = () => {
     const state = useSelector(state => state)
     const dispatch = useDispatch()
-    const location = useLocation();
     const [isAsc, setIsAsc] = useState(true)
 
 
@@ -38,7 +37,6 @@ const ProjectsListHeader = () => {
             url:`/project`,
             params: {
                 page: 1,
-             //   is_active: isActive,
                 orderField: 'name',
                 order: paramsOrder,
                 search: state.projectsSearchFilter,
@@ -57,28 +55,25 @@ const ProjectsListHeader = () => {
         <ListHeaderContainer>
 
             <ListHeaderProjeto>
-                <ListHeaderTitle onCLick={()=> orderProjectsList}>Projeto</ListHeaderTitle>
+                <ListHeaderTitle onCLick={()=> orderProjectsList()}>Projeto</ListHeaderTitle>
                 <Arrows onClick={() => orderProjectsList()}/>
             </ListHeaderProjeto>
 
             <ListHeaderType>
                 <ListHeaderTitle>Tipo</ListHeaderTitle>
-                <Arrows/>
             </ListHeaderType>
 
             <ListHeaderBeginning>
-                <ListHeaderTitle onCLick={()=> orderProjectsList}>Início</ListHeaderTitle>
+                <ListHeaderTitle onCLick={()=> orderProjectsList()}>Início</ListHeaderTitle>
                 <Arrows onClick={() => orderProjectsList()}/>
             </ListHeaderBeginning>
 
             <ListHeaderTime>
                 <ListHeaderTitle margin="0">Time</ListHeaderTitle>
-                <Arrows/>
             </ListHeaderTime>
 
             <ListHeaderStatus>
                 <ListHeaderTitle>Status</ListHeaderTitle>
-                <Arrows/>
             </ListHeaderStatus>
         </ListHeaderContainer>
     )

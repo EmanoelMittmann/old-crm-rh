@@ -39,7 +39,7 @@ const ProfessionalsListItem = ({professional}) => {
     return (
         <ContainerProfessionalsListItem>
             <ProfessionalProfile>
-                    <TeamMemberPic margin="0 1.5em 0 0" width="45px" height="45px" src={professional.avatar}/>
+                    <TeamMemberPic margin="0 1.5em 0 0" width="45px" height="45px" src={professional.avatar || "https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"}/>
                     {professional.name}
                 </ProfessionalProfile>
                 <Professionalnfo>
@@ -49,10 +49,10 @@ const ProfessionalsListItem = ({professional}) => {
                     {professional.email}
                 </ProfessionalEmail>
                 <ProfessionalPhoneNumber>
-                    {professional.phone_number}
+                    {professional.telephone}
                 </ProfessionalPhoneNumber>
                 <Professionalnfo>
-                    {professional.place}
+                    {professional.local}
                 </Professionalnfo>
                 <ProfessionalsListOptions optionsColor={
                 professional.id == optionClicked && menuOptionsisVisible ? "#407BFF" : "#B7BDC2"}>

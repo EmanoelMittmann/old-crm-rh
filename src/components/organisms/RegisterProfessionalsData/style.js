@@ -14,5 +14,12 @@ export const ContainerRow = styled.div`
     justify-content: space-between;
     width: 100%;
     margin-bottom: 2em;
+
+    &:last-child {
+        margin-bottom: 3em;
+    }
 `
 
+export const ContainerTextRequired = styled.div`
+    display: block;
+`

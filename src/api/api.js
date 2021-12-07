@@ -13,4 +13,17 @@ api.interceptors.request.use((config) => {
     //@TODO - Fazer redirecionamento correto
 )
 
+api.interceptors.response.use(
+    function (response) {
+      return response
+    },
+    function (error) {
+      if (error?.response?.status === 401 || error?.response?.status === 403) {
+        localStorage.removeItem('token')
+        window.location.href = '/'
+      }
+      return Promise.reject(error)
+    }
+  )
+
 export default api;

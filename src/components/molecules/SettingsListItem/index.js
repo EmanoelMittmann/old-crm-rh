@@ -45,9 +45,6 @@ const SettingsListItem = () => {
             dispatch(settingsPages(data.meta));
 
         }catch(err){
-            if(err.request.status === 401){
-                history.push("/");
-            }
 
         }
     
@@ -128,7 +125,6 @@ const SettingsListItem = () => {
                     dispatch(setJobList(data.data))
                     
                   } catch (error) {
-                    console.error(error);
                   }
             }
 
@@ -154,7 +150,6 @@ const SettingsListItem = () => {
                     dispatch(setStatusList(data.data))
                     
                   } catch (error) {
-                    console.error(error);
                   }
             }
 
@@ -180,7 +175,6 @@ const SettingsListItem = () => {
                     dispatch(setProjectTypeList(data.data))
                     
                   } catch (error) {
-                    console.error(error);
                   }
             }
 

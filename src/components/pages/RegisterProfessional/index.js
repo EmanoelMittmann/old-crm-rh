@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from "react-router-dom";
 
+import AttachmentProject from '../../organisms/Attachment/Project';
+import EmploymentContract from '../../molecules/EmploymentContract'
+import InputText from '../../atoms/InputText';
+import SecondaryText from '../../atoms/SecondaryText/style'
+import OvertimePayCalc from '../../atoms/OvertimePayCalc'
+import ProfessionalsExtraHour from '../../molecules/ProfessionalsExtraHour'
 import RegisterFooter from '../../molecules/RegisterFooter'
 import api from '../../../api/api'
 import ArrowRegister from '../../atoms/ArrowRegister';
@@ -10,9 +16,10 @@ import { SectionTitle } from '../../atoms/PageTitle/style.js'
 import RegisterProfessionalsData from '../../organisms/RegisterProfessionalsData'
 import {
     RegisterProfessionalTitleContainer,
-    RegisterProfessionalContainer
+    RegisterProfessionalContainer,
+    ContainerProfessionalsLoginData,
+    ContainerTable
 } from './style.js'
-import ProfessionalsLoginData from '../../atoms/ProfessionalsLoginData';
 
 const RegisterProfessional = () => {
     const history = useHistory()
@@ -33,11 +40,23 @@ const RegisterProfessional = () => {
     const [email, setEmail] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
     const [validEmail, setValidEmail] = useState(false)
+    const [extraHour, setExtraHour] = useState('extraHourDisabled')
+    const [inicialDate, setInicialDate] = useState('');
+    const [job, setJob] = useState('');
+    const [type, setType] = useState('');
+    const [hoursWeek, setHoursWeek] = useState('');
+    const [hoursMonth, setHoursMonth] = useState('');
+    const [fixedSalary, setFixedSalary] = useState('');
+    const [divider, setDivider] = useState('')
+    const [fixedValue, setFixedValue] = useState('')
+    const [overtime, setOvertime] = useState('')
+    const [limit, setLimit] = useState('')
+    const [limitValue, setLimitValue] = useState('')
+    const [requestWorked, setRequestWorked] = useState('')
 
     const goBackClickHandler = () => {
         history.push('/professionals')
     }
-
 
     const personalData = {
         name: name,
@@ -66,40 +85,71 @@ const RegisterProfessional = () => {
    }, [email])
 
 
+    const extraHourBoolean = extraHour === 'extraHourActivated' ? true : false
+    const limitedExtraHoursBoolean = limit === 'limitOvertime' ? true : false
+    const overtimeFormat = overtime.replace(',', '.').replace('R$', '')
+
    const addProfessional = async () => {
-        await api({
+        const response = await api({
             method:'post',     
             url:`/user`,
             data: {
+                // avatar: "profile picture url",
+                extra_hour_value: +overtimeFormat,
+                user_type_id: "2",
                 name: name,
-                email: "email@ubistart.com",
+                email: email,
+                job_id: job,
                 razao_social: corporateName,
                 cpf: CPF,
                 rg: RG,
                 cnpj: CNPJ,
                 cep: CEP,
                 uf: UF,
+                telephone_number: +phoneNumber,
                 birth_date: birthDate,
                 street_name: street,
                 neighbourhood_name: neighborhood,
                 city_name: city,
                 complement: addressDetails,
-                house_number: 465
-                // job_id: "1",
-                // user_type_id: "1",
-                // avatar: "profile picture url",
-                
+                house_number: +addressNumber,
+                start_date: inicialDate,
+                weekly_hours: +hoursWeek,
+                fixed_payment_value: +fixedSalary,
+                job_type: "FULLTIME",
+                extra_hour_activated: extraHourBoolean,
+                variable1: +divider,
+                variable2: +fixedValue,
+                limited_extra_hours: limitedExtraHoursBoolean,
+                extra_hour_limit: +limitValue,
+                projects: []             
             }
         });
+
+        setRequestWorked(response.status)
     }
 
     const footerCancelButtonHandler = () => {
+        history.push('/professionals')
+    }
+
+    const footerRegisterButtonHandler = async () => {
+        addProfessional()
+
+        const {data} = await api({
+            method:'get',     
+            url:`/professionals`,
+        })
+
+        if(requestWorked === 200) {
+            history.push({
+                pathname: '/professionals',
+                state: { professionals: data }
+            })
+        }
 
     }
 
-    const footerRegisterButtonHandler = () => {
-
-    }
 
     return (
         <PagesContainer padding="0 0 5em 0">
@@ -132,10 +182,52 @@ const RegisterProfessional = () => {
                 setUF={setUF}
                 />
 
-                <ProfessionalsLoginData
-                email={email}
-                setEmail={setEmail}
+                <ContainerProfessionalsLoginData>
+                    <SecondaryText margin="0 0 2.5em 0">Dados de login</SecondaryText>
+                    <InputText
+                    setTextValue={setEmail}
+                    width="100%"
+                    widthLine="400px"
+                    placeholder="exemplo@ubistart.com"
+                    value={email}
+                    type="email"
+                    />
+                </ContainerProfessionalsLoginData>
+
+                <EmploymentContract
+                setInicialDate={setInicialDate}
+                inicialDate={inicialDate}
+                setJob={setJob}
+                job={job}
+                setType={setType}
+                type={type}
+                setHoursWeek={setHoursWeek}
+                hoursWeek={hoursWeek}
+                setHoursMonth={setHoursMonth}
+                hoursMonth={hoursMonth}
+                setFixedSalary={setFixedSalary} 
+                fixedSalary={fixedSalary}
                 />
+
+                <ProfessionalsExtraHour
+                extraHour={extraHour}
+                setExtraHour={setExtraHour}
+                />
+
+                {'extraHourActivated' === extraHour && <OvertimePayCalc
+                divider={divider}
+                setDivider={setDivider}
+                fixedValue={fixedValue}
+                setFixedValue={setFixedValue}
+                overtime={overtime}
+                setOvertime={setOvertime}
+                limit={limit}
+                setLimit={setLimit}
+                limitValue={limitValue}
+                setLimitValue={setLimitValue}
+                />}
+
+                <AttachmentProject/>
 
                 <RegisterFooter
                 cancelButtonHandler={footerCancelButtonHandler}

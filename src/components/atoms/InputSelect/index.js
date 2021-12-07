@@ -9,11 +9,15 @@ import {
     InputSelectOptionPlaceholder,
 } from './style.js'
 
-const InputSelect = ({setSelectedOption, options, placeholder, width, lineWidth}) => {
+const InputSelect = ({setSelectedOption, options, placeholder, width, lineWidth, value}) => {
+
+    const attributeValue = {
+        ...(value && {value: value})
+    }
 
     return ( 
         <InputLine width={lineWidth}>
-            <InputSelectContainer width={width} onChange={(e) => setSelectedOption(e.target.value)}>
+            <InputSelectContainer {...attributeValue} width={width} onChange={(e) => setSelectedOption(e.target.value)}>
                 <InputSelectOptionPlaceholder
                 value={placeholder}
                 disabled selected>

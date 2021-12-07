@@ -13,3 +13,9 @@ export const RegisterProfessionalContainer = styled.div`
     padding: 2.5em 0 0.5em 0;
     min-height: 75vh;
 `
+export const ContainerProfessionalsLoginData = styled.div`
+    width: 100%;
+    padding: 2.5em 3em 3em 3em;
+    border-top: 1.5px solid #919EAB52;
+    border-bottom: 1.5px solid #919EAB52;
+`

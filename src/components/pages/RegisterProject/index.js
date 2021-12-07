@@ -12,7 +12,7 @@ import Header from '../../organisms/Header/index.js'
 import PagesContainer from '../../organisms/PagesContainer/styled'
 import { SectionTitle } from '../../atoms/PageTitle/style.js'
 import RegisterProjectData from '../../organisms/RegisterProjectData'
-import RegisterProjectTeam from '../../organisms/RegisterProjectTeam'
+import AttachmentTeam from '../../organisms/Attachment/Team'
 import {
     RegisterProjectTitleContainer,
     RegisterProjectContainer,
@@ -106,7 +106,7 @@ const RegisterProject = (props) => {
     }
 
     const projectBeingEdited = state?.projects.find(project => {
-        return project?.id === id
+        return project?.id == id
     })
     
     const projectHandler = () => {
@@ -129,7 +129,8 @@ const RegisterProject = (props) => {
                delete el.users
                return el
            })
-            setEditProjectData(...projectData)
+ 
+            setEditProjectData(...data)
             setComponentRendered(true)
 
         }catch(error){
@@ -138,7 +139,7 @@ const RegisterProject = (props) => {
     }
     
     useEffect(() => {
-        editProjectData();
+        id && editProjectData();
     }, [])
 
    const CloseButtonClickHandler = () => {
@@ -201,7 +202,7 @@ const RegisterProject = (props) => {
                     teamCost={teamCost}
                 />
 
-                <RegisterProjectTeam
+                <AttachmentTeam
                 componentRendered={componentRendered}
                 editData={EditProjectTeam}
                 payloadTeam={payloadTeam}
