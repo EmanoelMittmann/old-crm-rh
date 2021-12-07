@@ -81,7 +81,7 @@ const EmploymentContract = ({setInicialDate, inicialDate , setJob, job, setType,
             setJob(editData.job_id)
             setType(editData.job_type)
             setHoursWeek(editData.weekly_hours)
-            // setHoursMonth(editData)
+            setHoursMonth(editData.weekly_hours * 3)
             setFixedSalary(editData.fixed_payment_value)
 
         }

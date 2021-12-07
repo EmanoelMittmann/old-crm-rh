@@ -51,7 +51,6 @@ const RegisterProfessional = () => {
     const [overtime, setOvertime] = useState('')
     const [limit, setLimit] = useState('')
     const [limitValue, setLimitValue] = useState('')
-    const [requestWorked, setRequestWorked] = useState('')
     const [editData, setEditData] = useState(undefined)
     const [componentRendered, setComponentRendered] = useState(false)
 
@@ -129,7 +128,17 @@ const RegisterProfessional = () => {
             }
         });
 
-        setRequestWorked(response.status)
+        const {data} = await api({
+            method:'get',     
+            url:`/professionals`,
+        })
+
+        if(response.status === 200) {
+            history.push({
+                pathname: '/professionals',
+                state: { professionals: data }
+            })
+        }
     }
 
     const footerCancelButtonHandler = () => {
@@ -139,18 +148,6 @@ const RegisterProfessional = () => {
     const footerRegisterButtonHandler = async () => {
 
         id ? updateProfessional() : addProfessional()
-
-        const {data} = await api({
-            method:'get',     
-            url:`/professionals`,
-        })
-
-        if(requestWorked === 200) {
-            history.push({
-                pathname: '/professionals',
-                state: { professionals: data }
-            })
-        }
 
     }
 
@@ -203,12 +200,21 @@ const RegisterProfessional = () => {
                 variable1: +divider,
                 variable2: +fixedValue,
                 limited_extra_hours: limitedExtraHoursBoolean,
-                extra_hour_limit: +limitValue,
-                projects: []             
+                extra_hour_limit: +limitValue,          
             }
         });
 
-        setRequestWorked(response.status)
+        const {data} = await api({
+            method:'get',     
+            url:`/professionals`,
+        })
+
+        if(response.status === 200) {
+            history.push({
+                pathname: '/professionals',
+                state: { professionals: data }
+            })
+        }
     }
 
     useEffect(() => {
@@ -231,7 +237,7 @@ const RegisterProfessional = () => {
                 <ArrowRegister
                 clickHandler={goBackClickHandler}/>
                 <SectionTitle>
-                    Novo profissional
+                {id ? "Edição de profissional" : "Novo profissional"}
                 </SectionTitle>
             </RegisterProfessionalTitleContainer>
 

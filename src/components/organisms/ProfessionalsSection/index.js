@@ -64,7 +64,8 @@ const ProfessionalsSection = () => {
 
     useEffect(() => {
         getProfessionals()
-        location.state && setProfessionals(location.state.professionals) 
+
+        location.state && setProfessionals(location.state.professionals.data) 
     },[])
 
     useEffect(() => {
@@ -98,7 +99,7 @@ const ProfessionalsSection = () => {
         <ProfessionalsSectionContainer>
             <ProfessionalsInputs setSearchResult={setSearchResult} setJobSelected={setJobSelected}/>
             <ProfessionalsListHeader sortByName={sortByName}/>
-            {professionals.map((professional) => {
+            {professionals?.map((professional) => {
                 return <ProfessionalsListItem key={professional.id} professional={professional}/>
             })}
             <Footer

@@ -34,12 +34,16 @@ const ProfessionalsListItem = ({professional}) => {
           })
     }
 
-    const disableProfessional = () => {
+    const openModaldisableProfessional = () => {
         setOpenModal(true)
         setMenuOptionsisVisible(false)
 
         const name = professional.id === optionClicked  ? professional.name : "esse profissional"
         setModalMessage(`Deseja realmente inativar ${name}?`)
+    }
+
+    const disableProfessional = () => {
+
     }
 
 
@@ -73,12 +77,16 @@ const ProfessionalsListItem = ({professional}) => {
                     firstOptionDescription="Editar"
                     secondOptionDescription="Inativar"
                     firstChosenOption={editProfessional}
-                    secondChosenOption={disableProfessional}
+                    secondChosenOption={openModaldisableProfessional}
                     padding="0.3em 0.5em 0.3em 1.7em"
                     id={optionClicked}
                     />
                 }
-                {openModal && <ModalRed CloseButtonClickHandler={() => setOpenModal(false)} redButtonClickHandler={() => setOpenModal(false)} title="Inativar" message={modalMessage}/>}
+                {openModal && <ModalRed 
+                CloseButtonClickHandler={() => setOpenModal(false)}
+                // redButtonClickHandler={() => }
+                title="Inativar"
+                message={modalMessage}/>}
         </ContainerProfessionalsListItem>
     )
 }
