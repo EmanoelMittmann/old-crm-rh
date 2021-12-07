@@ -15,26 +15,50 @@ import InputText from '../../../atoms/InputText'
 import { ContainerTable } from './style'
 
 
-const AttachmentProject = () => {
+const AttachmentProject = ({hoursMonth, id}) => {
     const [projects, setProjects] = useState([])
     const [projectSelected, setProjectSelected] = useState('')
+    const [tableContent, setTableContent] = useState([])
+
+     const calcPercentage = (projectHours) => Math.floor((100 * projectHours)/hoursMonth)
+
+
+    const getTableContent = async () => {
+        const {data} = await api({
+            method:'get',     
+            url:`/userProjects/user/${id}`
+        })
+
+        const content = data.map((project) => {
+            const [{id, name, date_start, workload}] = data
+            console.log(id, name, formatDate(date_start), workload);
+            return {
+                id: id,
+                firstRow: name,
+                secondRow: formatDate(date_start),
+                thirdRow: workload,
+                fourthRow: calcPercentage(workload)
+            }
+        })
+
+        setTableContent(content);
+    
+    }
+
 
     const getProjects = async () => {
         const {data} = await api({
             method:'get',     
-            url:`/project`,
+            url:'/project'
         })
 
-        const newProjects = data?.data.map((project) => {
-            return {...project, date_start: formatDate(project.date_start)}
-        })
-
-        setProjects(newProjects);
+        setProjects(data.data);
     }
 
     
     useEffect(() => {
         getProjects()
+        id && getTableContent()
     }, [])
 
 
@@ -65,7 +89,7 @@ const AttachmentProject = () => {
 
             </AttachmentForm>
 
-            <Table rows={projects}/>
+            <Table rows={tableContent}/>
 
         </AttachmentContainer>
     )

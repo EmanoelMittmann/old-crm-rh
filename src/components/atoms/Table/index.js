@@ -16,11 +16,11 @@ const Table = ({rows}) => {
                 </tr>
 
                 {rows.map((row) => (
-                    <tr>
-                        <td>{row.name}</td>
-                        <td>{row.date_start}</td>
-                        <td>120</td>
-                        <td>50</td>
+                    <tr key={row.id}>
+                        <td>{row.firstRow}</td>
+                        <td>{row.secondRow}</td>
+                        <td>{row.thirdRow}</td>
+                        <td>{row.fourthRow}</td>
                         <td><BsThreeDotsVertical color="#919EAB"/></td>
                     </tr>
                 ))}
