@@ -229,7 +229,6 @@ const RegisterProfessional = () => {
 
     }, [componentRendered])
 
-
     return (
         <PagesContainer padding="0 0 5em 0">
             <Header/>
@@ -318,6 +317,7 @@ const RegisterProfessional = () => {
                 id={id}
                 hoursMonth={hoursMonth}
                 limitValue={limitValue}
+                componentRendered={componentRendered}
                 />
 
                 <RegisterFooter

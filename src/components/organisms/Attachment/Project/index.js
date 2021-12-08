@@ -13,18 +13,21 @@ import { BlueButton } from '../../../atoms/Buttons/BlueButton/style.js'
 import SecondaryText from '../../../atoms/SecondaryText/style'
 import InputText from '../../../atoms/InputText'
 import { ContainerTable } from './style'
+import { FaHorseHead } from 'react-icons/fa'
 
 
-const AttachmentProject = ({hoursMonth, id, limitValue}) => {
+const AttachmentProject = ({hoursMonth, id, limitValue, componentRendered}) => {
     const [projects, setProjects] = useState([])
-    const [projectSelected, setProjectSelected] = useState('')
+    const [projectSelected, setProjectSelected] = useState(null)
     const [tableContent, setTableContent] = useState([])
     const [hoursMonthProject, setHoursMonthProject] = useState('')
+    const [hoursMonthContract, setHoursMonthContract] = useState('')
+    const [reset, setReset] = useState(true)
 
-    const calcPercentage = (projectHours) => Math.trunc((100 * projectHours)/hoursMonth)
+    const calcPercentage = (projectHours) => Math.trunc((100 * projectHours)/hoursMonthContract)
     const resetInputs = () => {
         setHoursMonthProject('')
-        setProjectSelected('')
+        setReset(true)
     }
 
     const getTableContent = async () => {
@@ -33,10 +36,9 @@ const AttachmentProject = ({hoursMonth, id, limitValue}) => {
             url:`/userProjects/user/${id}`
         })
 
-        console.log(data);
-
         const content = data.map((project) => {
         const {id, name, date_start, workload} = project
+    
            
             return {
                 id: id,
@@ -46,7 +48,6 @@ const AttachmentProject = ({hoursMonth, id, limitValue}) => {
                 fourthRow: calcPercentage(workload)
             }
         })
-        console.log('esse aqui depois');
 
         setTableContent(content);
     
@@ -62,6 +63,7 @@ const AttachmentProject = ({hoursMonth, id, limitValue}) => {
         })
 
         setProjects(data.data);
+        
     }
 
     
@@ -81,7 +83,6 @@ const AttachmentProject = ({hoursMonth, id, limitValue}) => {
                 extra_hours_limit: limitValue
             }
         })
-        console.log(data);
 
         getTableContent()
         resetInputs()
@@ -89,21 +90,54 @@ const AttachmentProject = ({hoursMonth, id, limitValue}) => {
 
     const addProjectRegistering = async () => {
 
-        //getting the project that will be linked to the professional
-        const {data} = await api({
-            method:'get',     
-            url: `/project/${projectSelected}`
-        })
+        try{
+            //getting the project that will be linked to the professional
+            const {data} = await api({
+                method:'get',     
+                url: `/project/${projectSelected}`
+            })
 
-        const [{name, date_start}] = data
+            const [{id: idProject, name, date_start}] = data
+            console.log(hoursMonthContract);
+            console.log(idProject);
 
-        setTableContent([...tableContent, {
-            firstRow: name,
-            secondRow: formatDate(date_start),
-            thirdRow: hoursMonthProject,
-            fourthRow: calcPercentage(hoursMonthProject)
-        }]);
+            //Validação para se o profissional já existe
+            const projectAlreadyExist = tableContent.find((project) => {
+                return idProject == project.id
+            })
+
+            if(!projectAlreadyExist){
+                setTableContent([...tableContent, {
+                    id: idProject,
+                    firstRow: name,
+                    secondRow: formatDate(date_start),
+                    thirdRow: hoursMonthProject,
+                    fourthRow: calcPercentage(hoursMonthProject)
+                }]);
+
+                resetInputs()
+            }
+            
+        }catch(error){
+            console.log(error);
+        }
     }
+
+    useEffect(() => {
+        if(componentRendered && hoursMonth){
+             setHoursMonthContract(hoursMonth)
+        }
+    }, [hoursMonth])
+    //////////////////////////////////////////////////////
+
+
+    useEffect(() => {
+        
+        if(projectSelected !== null){
+            setReset(false)
+        }
+        
+    }, [projectSelected])
 
     return (
         <AttachmentContainer>
@@ -117,6 +151,7 @@ const AttachmentProject = ({hoursMonth, id, limitValue}) => {
                 width="100%"
                 lineWidth="52%"
                 label="Selecionar projetos"
+                reset={reset}
                 />
                 <InputText
                     width="100%"
