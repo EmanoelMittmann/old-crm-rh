@@ -91,7 +91,6 @@ const RegisterProfessionalsData = ({personalData, editData, setName, setCPF, set
     
     useEffect(() => {
         if(componentRendered && editData){
-            console.log(editData.birth_date);
             setName(editData.name)
             setCPF(editData.cpf)
             setRG(editData.rg)

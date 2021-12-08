@@ -16,7 +16,7 @@ const Table = ({rows}) => {
                 </tr>
 
                 {rows.map((row) => (
-                    <tr key={row.id}>
+                    <tr>
                         <td>{row.firstRow}</td>
                         <td>{row.secondRow}</td>
                         <td>{row.thirdRow}</td>

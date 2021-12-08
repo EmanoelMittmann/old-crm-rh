@@ -314,7 +314,11 @@ const RegisterProfessional = () => {
                 editData={editData}
                 />}
 
-                <AttachmentProject id={id} hoursMonth={hoursMonth}/>
+                <AttachmentProject 
+                id={id}
+                hoursMonth={hoursMonth}
+                limitValue={limitValue}
+                />
 
                 <RegisterFooter
                 cancelButtonHandler={footerCancelButtonHandler}

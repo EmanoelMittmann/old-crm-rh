@@ -47,7 +47,6 @@ const OvertimePayCalc = ({setDivider, divider, setFixedValue, fixedValue, setOve
 
     useEffect(() => {
         setComponentJustRendered(true)
-        console.log('entrou');
     }, [])
 
     useEffect(() => {

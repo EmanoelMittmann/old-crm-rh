@@ -93,7 +93,7 @@ const ProfessionalsSection = () => {
         getProfessionals()
     }
 
-
+    
 
     return (
         <ProfessionalsSectionContainer>
