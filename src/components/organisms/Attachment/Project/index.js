@@ -12,8 +12,8 @@ import Table from '../../../atoms/Table'
 import { BlueButton } from '../../../atoms/Buttons/BlueButton/style.js'
 import SecondaryText from '../../../atoms/SecondaryText/style'
 import InputText from '../../../atoms/InputText'
-import { ContainerTable } from './style'
-import { FaHorseHead } from 'react-icons/fa'
+import ModalEditAttachment from '../../../molecules/ModalEditAttachment'
+import ModalRed from '../../../molecules/ModalRed'
 
 
 const AttachmentProject = ({hoursMonth, id, limitValue, componentRendered}) => {
@@ -23,11 +23,21 @@ const AttachmentProject = ({hoursMonth, id, limitValue, componentRendered}) => {
     const [hoursMonthProject, setHoursMonthProject] = useState('')
     const [hoursMonthContract, setHoursMonthContract] = useState('')
     const [reset, setReset] = useState(true)
+    const [openModalDelete, setOpenModalDelete] = useState(false)
+    const [openModalEdit, setOpenModalEdit] = useState(false)
+    const [projectClicked, setProjectClicked] = useState('')
+    const [hoursMonthEdit, setHoursMonthEdit] = useState('')
 
     const calcPercentage = (projectHours) => Math.trunc((100 * projectHours)/hoursMonthContract)
     const resetInputs = () => {
         setHoursMonthProject('')
         setReset(true)
+    }
+
+    const deleteProject = (projectId) => {
+        const newProjects = tableContent.filter((project) => project.id !== projectClicked)
+        setTableContent(newProjects)
+        setOpenModalDelete(false)
     }
 
     const getTableContent = async () => {
@@ -139,6 +149,32 @@ const AttachmentProject = ({hoursMonth, id, limitValue, componentRendered}) => {
         
     }, [projectSelected])
 
+    const editHours = () => {
+
+        const editedProject = tableContent.map((row) => {
+            if(row.id == projectClicked){
+                return {...row, thirdRow: hoursMonthEdit}
+            }
+
+            if(row.id !== projectClicked){
+                return row;
+            }
+            
+        })
+
+        setTableContent(editedProject)
+        setOpenModalEdit(false)
+
+    }
+
+    useEffect(() => {
+        const projectArr = tableContent.filter(project => project.id == projectClicked)
+        const [project] = projectArr
+        setHoursMonthEdit(project.thirdRow)
+    }, [openModalEdit])
+
+
+
     return (
         <AttachmentContainer>
             <SecondaryText margin="0 0 2.5em 0">Vincular Projetos</SecondaryText>
@@ -169,8 +205,30 @@ const AttachmentProject = ({hoursMonth, id, limitValue, componentRendered}) => {
 
             </AttachmentForm>
 
-            <Table rows={tableContent}/>
+            <Table 
+            rows={tableContent}
+            setOpenModalDelete={setOpenModalDelete}
+            setOpenModalEdit={setOpenModalEdit}
+            projectClicked={projectClicked}
+            setProjectClicked={setProjectClicked}
+             />
 
+            {openModalDelete && <ModalRed 
+                CloseButtonClickHandler={() => setOpenModalDelete(false)}
+                redButtonClickHandler={() => deleteProject()}
+                title="Inativar"
+                message="Deseja realmente excluir projeto?"/>
+            }
+            {openModalEdit && <ModalEditAttachment
+            CloseButtonClickHandler={() => {
+                setOpenModalEdit(false)
+            }}
+            setValue={setHoursMonthEdit}
+            value={hoursMonthEdit}
+            // editValue={}
+            saveHandler={editHours}
+            />
+            }
         </AttachmentContainer>
     )
 }
