@@ -24,11 +24,16 @@ export const Styles = styled.div`
        border-right: 0;
      }
 
-     &:nth-child(3){
-      padding-left: 0;
-       display: flex;
-       justify-content: center;
+     &:nth-child(4){
+       text-align: center;
+       padding: 0;
      }
+
+     &:nth-child(3){
+      text-align: center;
+      padding: 0;
+     }
+
    }
   
    th {

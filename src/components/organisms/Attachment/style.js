@@ -6,7 +6,7 @@ export const AttachmentContainer = styled.div`
     margin-top: 1em;
 `
 export const AttachmentForm = styled.div`
-    width: 90%;
+    width: 95%;
     display: flex;
     justify-content: space-between;
 `

@@ -3,7 +3,7 @@ import { Styles, Total } from './style'
 import { BsThreeDotsVertical } from "react-icons/bs";
 import MenuOptions from '../MenuOptions/index'
 
-const Table = ({rows, setOpenModalDelete, setOpenModalEdit, projectClicked, setProjectClicked}) => {
+const Table = ({rows, setOpenModalDelete, setOpenModalEdit, projectClicked, setProjectClicked, totalHours, totalOvertime, totalPercentage}) => {
 
     const [menuOptionsisVisible, setMenuOptionsisVisible] = useState(false)
     
@@ -31,6 +31,7 @@ const Table = ({rows, setOpenModalDelete, setOpenModalEdit, projectClicked, setP
                     <th>Projeto</th>
                     <th>Início do projeto</th>
                     <th>Horas mensais</th>
+                    <th>Horas extras</th>
                     <th>%</th>
                     <th></th>
                 </tr>
@@ -41,13 +42,14 @@ const Table = ({rows, setOpenModalDelete, setOpenModalEdit, projectClicked, setP
                         <td>{row.secondRow}</td>
                         <td>{row.thirdRow}</td>
                         <td>{row.fourthRow}</td>
+                        <td>{row.fifthRow}</td>
                         <td onClick={() => projectClickedHandler(row.id)}>
                             <BsThreeDotsVertical color="#919EAB"/>
                         </td>
                         {
                         menuOptionsisVisible && row.id == projectClicked &&
                         <MenuOptions
-                        positionMenu="13px"
+                        positionMenu="25px"
                         firstOptionDescription="Editar"
                         secondOptionDescription="Excluir"
                         firstChosenOption={editHandler}
@@ -62,8 +64,10 @@ const Table = ({rows, setOpenModalDelete, setOpenModalEdit, projectClicked, setP
                 <tr>
                     <td></td>
                     <td>TOTAL</td>
-                    <Total>120</Total>
-                    <Total>50</Total>
+                    <Total>{totalHours}</Total>
+                    <Total>{totalOvertime}</Total>
+                    <Total>{totalPercentage}</Total>
+                    <td></td>
                 </tr>
 
             </table>

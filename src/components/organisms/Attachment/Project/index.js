@@ -27,12 +27,43 @@ const AttachmentProject = ({hoursMonth, id, limitValue, componentRendered}) => {
     const [openModalEdit, setOpenModalEdit] = useState(false)
     const [projectClicked, setProjectClicked] = useState('')
     const [hoursMonthEdit, setHoursMonthEdit] = useState('')
+    const [overtime, setOvertime] = useState('')
+    const [overtimeEdit, setOvertimeEdit] = useState('')
+    const [totalHours, setTotalHours] = useState(0)
+    const [totalOvertime, setTotalOvertime] = useState(0)
+    const [totalPercentage, setTotalPercentage] = useState(0)
 
     const calcPercentage = (projectHours) => Math.trunc((100 * projectHours)/hoursMonthContract)
     const resetInputs = () => {
         setHoursMonthProject('')
+        setOvertime('')
         setReset(true)
     }
+
+    const calcTotalHours = () => {
+        const allWorkload = tableContent?.map(project => {
+            return project.thirdRow
+        })
+    
+        const totalWorkload = allWorkload?.reduce(function(acc, hours) {
+            return +acc + +hours;
+        });
+
+        return totalWorkload;
+    }
+
+    const calcTotalOvertime = () => {
+        const allOvertime = tableContent?.map(project => {
+            return project.fourthRow
+        })
+    
+        const totalOvertime = allOvertime?.reduce(function(acc, overtime) {
+            return +acc + +overtime;
+        });
+
+        return totalOvertime;
+    }
+
 
     const deleteProject = (projectId) => {
         const newProjects = tableContent.filter((project) => project.id !== projectClicked)
@@ -55,7 +86,8 @@ const AttachmentProject = ({hoursMonth, id, limitValue, componentRendered}) => {
                 firstRow: name,
                 secondRow: formatDate(date_start),
                 thirdRow: workload,
-                fourthRow: calcPercentage(workload)
+                fourthRow: overtime,
+                fifthRow: calcPercentage(workload)
             }
         })
 
@@ -108,8 +140,6 @@ const AttachmentProject = ({hoursMonth, id, limitValue, componentRendered}) => {
             })
 
             const [{id: idProject, name, date_start}] = data
-            console.log(hoursMonthContract);
-            console.log(idProject);
 
             //Validação para se o profissional já existe
             const projectAlreadyExist = tableContent.find((project) => {
@@ -122,7 +152,8 @@ const AttachmentProject = ({hoursMonth, id, limitValue, componentRendered}) => {
                     firstRow: name,
                     secondRow: formatDate(date_start),
                     thirdRow: hoursMonthProject,
-                    fourthRow: calcPercentage(hoursMonthProject)
+                    fourthRow: overtime,
+                    fifthRow: calcPercentage(hoursMonthProject)
                 }]);
 
                 resetInputs()
@@ -153,7 +184,7 @@ const AttachmentProject = ({hoursMonth, id, limitValue, componentRendered}) => {
 
         const editedProject = tableContent.map((row) => {
             if(row.id == projectClicked){
-                return {...row, thirdRow: hoursMonthEdit}
+                return {...row, thirdRow: hoursMonthEdit, fourthRow: overtimeEdit}
             }
 
             if(row.id !== projectClicked){
@@ -170,9 +201,18 @@ const AttachmentProject = ({hoursMonth, id, limitValue, componentRendered}) => {
     useEffect(() => {
         const projectArr = tableContent.filter(project => project.id == projectClicked)
         const [project] = projectArr
-        setHoursMonthEdit(project.thirdRow)
+        setHoursMonthEdit(project?.thirdRow)
+        setOvertimeEdit(project?.fourthRow)
+
     }, [openModalEdit])
 
+    useEffect(() => {
+        if(tableContent.length > 0){
+            setTotalHours(calcTotalHours())
+            setTotalOvertime(calcTotalOvertime)
+            setTotalPercentage(calcPercentage(calcTotalHours()))
+        } 
+    }, [tableContent])
 
 
     return (
@@ -185,21 +225,33 @@ const AttachmentProject = ({hoursMonth, id, limitValue, componentRendered}) => {
                 options={projects}
                 placeholder="Time"
                 width="100%"
-                lineWidth="52%"
+                lineWidth="40%"
                 label="Selecionar projetos"
                 reset={reset}
                 />
                 <InputText
                     width="100%"
-                    widthLine="25%"
+                    widthLine="20%"
                     placeholder="Horas/mês"
                     setTextValue={setHoursMonthProject}
                     value={hoursMonthProject}
                     type="number"
+                    margin="0 2em 0 2em"
                 />
+
+                <InputText
+                    width="100%"
+                    widthLine="20%"
+                    placeholder="Horas extras"
+                    setTextValue={setOvertime}
+                    value={overtime}
+                    type="number"
+                    margin="0 2em 0 0"
+                />
+
                 <BlueButton onClick={() => {
                     id ? addProjectEditing() : addProjectRegistering()
-                }} width="15%">
+                }} width="13%">
                     Vincular
                 </BlueButton>
 
@@ -211,6 +263,9 @@ const AttachmentProject = ({hoursMonth, id, limitValue, componentRendered}) => {
             setOpenModalEdit={setOpenModalEdit}
             projectClicked={projectClicked}
             setProjectClicked={setProjectClicked}
+            totalHours={totalHours}
+            totalOvertime={totalOvertime}
+            totalPercentage={totalPercentage}
              />
 
             {openModalDelete && <ModalRed 
@@ -223,10 +278,11 @@ const AttachmentProject = ({hoursMonth, id, limitValue, componentRendered}) => {
             CloseButtonClickHandler={() => {
                 setOpenModalEdit(false)
             }}
-            setValue={setHoursMonthEdit}
-            value={hoursMonthEdit}
-            // editValue={}
+            setWorkload={setHoursMonthEdit}
+            workload={hoursMonthEdit}
             saveHandler={editHours}
+            setOvertime={setOvertimeEdit}
+            overtime={overtimeEdit}
             />
             }
         </AttachmentContainer>
