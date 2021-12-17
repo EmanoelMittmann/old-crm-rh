@@ -16,9 +16,13 @@ export const AttachmentTableLine= styled.div`
     width: 100%;
     min-height: 60px;
     border-bottom: 1.5px solid #EFF2F4;
+
+    &:last-child{
+        border-bottom: none;
+    }
 `
 
-export const ContainerTrashIcon = styled.div`
+export const ContainerIcon = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;

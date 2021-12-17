@@ -88,6 +88,22 @@ const EmploymentContract = ({setInicialDate, inicialDate , setJob, job, setType,
         
     }, [componentRendered])
 
+    useEffect(() => {
+
+        if(type === "FULLTIME"){
+            setHoursWeek(8)
+            setHoursMonth(8 * 5 * 4)
+        }
+        if(type === "PARTTIME"){
+            setHoursWeek(4)
+            setHoursMonth(4 * 5 * 4)
+        }
+        if(type === "FREELANCER"){
+            setHoursWeek(0)
+            setHoursMonth(0)
+        }
+    }, [type])
+
 
     return (
         <ContainerEmploymentContract>

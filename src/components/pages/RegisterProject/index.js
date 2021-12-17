@@ -116,26 +116,21 @@ const RegisterProject = (props) => {
     }
 
     const editProjectData = async () => {
-        try{
-            const {data} = await api({
-                method: 'get',
-                url: `/project/${id}`,
-            });
+        const {data} = await api({
+            method: 'get',
+            url: `/project/${id}`,
+        });
 
-            const [{users}] = data
-            setEditProjectTeam(users)
-           
-           const projectData = data.map(el => {
-               delete el.users
-               return el
-           })
- 
-            setEditProjectData(...data)
-            setComponentRendered(true)
 
-        }catch(error){
+        const response = await api({
+            method: 'get',
+            url: `/userProjects/project/${id}`,
+        });
 
-        }
+        setEditProjectTeam(response.data)
+        setEditProjectData(...data)
+        setComponentRendered(true)
+
     }
     
     useEffect(() => {

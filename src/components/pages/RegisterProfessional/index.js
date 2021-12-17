@@ -53,6 +53,8 @@ const RegisterProfessional = () => {
     const [limitValue, setLimitValue] = useState('')
     const [editData, setEditData] = useState(undefined)
     const [componentRendered, setComponentRendered] = useState(false)
+    const [tableContent, setTableContent] = useState([])
+    const [projects, setProjects] = useState([])
 
     const { id } = useParams();
 
@@ -76,6 +78,18 @@ const RegisterProfessional = () => {
         UF: UF,
         phoneNumber: phoneNumber
     }   
+
+    useEffect(() => {
+        const newProjects = tableContent.map((project) => {
+            return {
+                project_id: project.id,
+                workload: +project.thirdRow
+            }
+        })
+
+        setProjects(newProjects)
+
+    }, [tableContent])
 
    useEffect(() => {
        //Validação do email
@@ -124,7 +138,7 @@ const RegisterProfessional = () => {
                 variable2: +fixedValue,
                 limited_extra_hours: limitedExtraHoursBoolean,
                 extra_hour_limit: +limitValue,
-                projects: []             
+                projects: projects             
             }
         });
 
@@ -219,6 +233,7 @@ const RegisterProfessional = () => {
 
     useEffect(() => {
         getEditUserData()
+        console.log('primeiro aqui')
     }, [])
 
     useEffect(() => {
@@ -314,6 +329,8 @@ const RegisterProfessional = () => {
                 />}
 
                 <AttachmentProject 
+                tableContent={tableContent}
+                setTableContent={setTableContent}
                 id={id}
                 hoursMonth={hoursMonth}
                 limitValue={limitValue}

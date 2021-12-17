@@ -3,15 +3,14 @@ import { Styles, Total } from './style'
 import { BsThreeDotsVertical } from "react-icons/bs";
 import MenuOptions from '../MenuOptions/index'
 
-const Table = ({rows, setOpenModalDelete, setOpenModalEdit, projectClicked, setProjectClicked, totalHours, totalOvertime, totalPercentage}) => {
+const Table = ({rows, setOpenModalDelete, setOpenModalEdit, rowClicked, setRowClicked, totalHours, totalOvertime, totalPercentage}) => {
 
     const [menuOptionsisVisible, setMenuOptionsisVisible] = useState(false)
     
 
     const projectClickedHandler = (project) => {
         setMenuOptionsisVisible(!menuOptionsisVisible)
-        setProjectClicked(project)
-        console.log('entrou');
+        setRowClicked(project)
     }
 
     const deleteHandler = () => {
@@ -47,7 +46,7 @@ const Table = ({rows, setOpenModalDelete, setOpenModalEdit, projectClicked, setP
                             <BsThreeDotsVertical color="#919EAB"/>
                         </td>
                         {
-                        menuOptionsisVisible && row.id == projectClicked &&
+                        menuOptionsisVisible && row.id == rowClicked &&
                         <MenuOptions
                         positionMenu="25px"
                         firstOptionDescription="Editar"
@@ -55,7 +54,7 @@ const Table = ({rows, setOpenModalDelete, setOpenModalEdit, projectClicked, setP
                         firstChosenOption={editHandler}
                         secondChosenOption={deleteHandler}
                         padding="0.3em 0.5em 0.3em 1.7em"
-                        id={projectClicked}
+                        id={rowClicked}
                         />
                         }
                         </tr>

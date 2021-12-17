@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
 
+import api from '../../../api/api'
 import ModalRed from '../../molecules/ModalRed'
 import MenuOptions from '../../atoms/MenuOptions'
 import {ReactComponent as OptionsIcon} from '../../../assets/icons/options.svg'
@@ -42,7 +43,18 @@ const ProfessionalsListItem = ({professional}) => {
         setModalMessage(`Deseja realmente inativar ${name}?`)
     }
 
-    const disableProfessional = () => {
+    const disableProfessional = async () => {
+        try{
+            await api({
+                method:'put',     
+                url:`/user/updateStatus/${optionClicked}`
+            })
+
+            setOpenModal(false)
+
+        }catch(error){
+            console.log(error);
+        }
 
     }
 
@@ -84,7 +96,7 @@ const ProfessionalsListItem = ({professional}) => {
                 }
                 {openModal && <ModalRed 
                 CloseButtonClickHandler={() => setOpenModal(false)}
-                // redButtonClickHandler={() => }
+                redButtonClickHandler={() => disableProfessional()}
                 title="Inativar"
                 message={modalMessage}/>}
         </ContainerProfessionalsListItem>
