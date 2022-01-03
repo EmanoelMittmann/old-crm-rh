@@ -220,6 +220,7 @@ const AttachmentProject = ({hoursMonth, id, componentRendered, tableContent, set
     }
 
     const editHoursWhenEditing = async () => {
+      
         await api({
             method:'put',     
             url: `/userProjects/user/${id}`,
@@ -230,8 +231,8 @@ const AttachmentProject = ({hoursMonth, id, componentRendered, tableContent, set
             }
         })
 
-        setOpenModalEdit(false)
         getTableContent()
+        setOpenModalEdit(false)
     }
 
     useEffect(() => {
@@ -263,8 +264,7 @@ const AttachmentProject = ({hoursMonth, id, componentRendered, tableContent, set
                 width="100%"
                 lineWidth="40%"
                 label="Selecionar projetos"
-                reset={reset}
-                />
+                reset={reset}></InputSelectWithLabel>
                 <InputText
                     width="100%"
                     widthLine="20%"

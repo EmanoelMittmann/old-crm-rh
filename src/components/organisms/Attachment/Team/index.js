@@ -57,16 +57,11 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
     //////////////////////Funções usadas nos dois tipos de edição//////////////////////
    
     const isEditing = projectId ? true : false;
-    console.log(isEditing)
+   
 
     
     const CloseButtonClickHandler = () => {
         setModalIsVisible(false)
-    }
-    
-    const redButtonClickHandler = (id) => {
-        deleteTeamMember(id)
-        CloseButtonClickHandler()
     }
 
     const getAllProfessionals = async () => {
@@ -74,6 +69,8 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
             method:'get',     
             url:`/user`,
         });
+
+        console.log(data)
 
         const formattedAllProfessionals = formatFirstLetter(data)
 
@@ -126,30 +123,20 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
             }
         }
 
-    const deleteTeamMember = (memberId) => {
 
+    const redButtonClickHandler = async () => {
         if(!isEditing) {
-            const newTeamMembers = teamMembers.filter((member) => member.user_id !== memberId)
+            const newTeamMembers = teamMembers.filter((member) => member.user_id !== professionalClicked)
             setTeamMembers(newTeamMembers)
         }
+
+
         if(isEditing) {
-            setDeleteTeamMemberId(memberId)
-
-            setDeleteRealTime(true)
-
-        }
-    }
-
-
-    useEffect(() => {
-        setDeleteRealTime(false)
-
-        const deleteTeamMember = async () => {
             await api({
                 method:'delete',     
                 url:`/userProjects/project/${projectId}`,
                 data: {
-                    user_id: deleteTeamMemberId,
+                    user_id: professionalClicked,
                 }
             });
 
@@ -158,18 +145,20 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
                 url:`/userProjects/project/${projectId}`,
             });
 
+
             setTeamMembers(data);
         }
 
-        isEditing && deleteTeamMember()
+        CloseButtonClickHandler()
+    }
 
-    }, [deleteRealTime])
+
 
     ////////////////////// Funções usadas na edição em tempo real //////////////////////
 
         const addTeamMember = async () => {
             
-            await api({
+            const projectUsers = await api({
                 method:'post',     
                 url:`/userProjects/project/${projectId}`,
                 data: {
@@ -178,16 +167,16 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
                     extra_hours_limit: overtime
                 }
             });
-            
-          
-                const {data} = await api({
-                    method:'get',     
-                    url:`/userProjects/project/${projectId}`,
-                });
 
+            const {data} = await api({
+                method:'get',     
+                url:`/userProjects/project/${projectId}`,
+            });
+
+            console.log(data)
                 
             setTeamMembers(data);
-            
+        
         }
 
     
@@ -206,6 +195,7 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
     const professionalClickHandler = (memberId) => {
         setMenuOptionsisVisible(!menuOptionsisVisible)
         setProfessionalClicked(memberId)
+        console.log(memberId);
     }
 
     const professionalMenuDelete = () => {
@@ -221,16 +211,24 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
 
     
     const editHoursWhenEditing = async () => {
+        
         await api({
             method:'put',     
             url: `/userProjects/project/${projectId}`,
             data: {
                 user_id: professionalClicked,
 	            workload: hoursMonthEdit,
-                extra_hour_limit: overtimeEdit
+                extra_hours_limit: overtimeEdit
             }
         })
 
+        const {data} = await api({
+            method:'get',     
+            url:`/userProjects/project/${projectId}`,
+        });
+
+       
+        setTeamMembers(data);
         setOpenModalEdit(false)
     }
 
@@ -247,7 +245,7 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
             
         })
 
-        console.log(editedTeamMembers);
+       
         setTeamMembers(editedTeamMembers)
         setOpenModalEdit(false)
 
@@ -345,7 +343,7 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
                         </ProfessionalName>
                     </ProfessionalInfo>
                     <ProfessionalJob>
-                        {member.job.name}
+                        {member?.job?.name || member?.job_name}
                     </ProfessionalJob>
                     <ProfessionalHours>
                         {member.workload}
@@ -354,9 +352,8 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
                         {member.extra_hour_limit}
                     </ProfessionalHours>
                     {modalIsVisible && <ModalRed
-                     deleteHandler={deleteTeamMember}
                      id={teamMemberDeleteId}
-                     redButtonClickHandler={() => redButtonClickHandler(teamMemberDeleteId)}
+                     redButtonClickHandler={redButtonClickHandler}
                      CloseButtonClickHandler={CloseButtonClickHandler}
                      title="Excluir profissional"
                      message="Tem certeza que deseja excluir profissional?"
@@ -367,6 +364,7 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
                         onClick={() => professionalClickHandler(member.id)}
                         />
                     </ContainerIcon>
+                    {console.log(member.id, professionalClicked)}
                     {menuOptionsisVisible && member.id == professionalClicked &&
                         <MenuOptions
                         positionMenu="25px"
@@ -375,7 +373,7 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
                         firstChosenOption={editHandler}
                         secondChosenOption={professionalMenuDelete}
                         padding="0.3em 0.5em 0.3em 1.7em"
-                        id={professionalClicked}
+                        id={member.id}
                         />
                     }
 
