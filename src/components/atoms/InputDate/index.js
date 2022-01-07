@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState} from 'react'
 
 import { PlaceHolder } from './style.js'
 import { InputLine } from '../DefaultInput/style'
 import { DefaultInput } from '../DefaultInput/style.js'
 
-const InputDate = ({date, setDate, placeholder, margin}) => {
+const InputDate = ({date, setDate, placeholder, margin, width}) => {
     const [onFocus, setOnFocus] = useState(false)
 
     return (
-        <InputLine width="260px" margin={margin}>
+        <InputLine width={width ? width : "260px"} margin={margin}>
             <DefaultInput 
             displayDate={onFocus || date !== "" ? "block" : "none"}
             width="70px"

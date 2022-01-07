@@ -7,7 +7,7 @@ import {
 } from '../../../redux/actions/index.js'
 import RegisterFooter from '../../molecules/RegisterFooter/index.js'
 import api from '../../../api/api.js'
-import ModalDelete from '../../molecules/ModalDelete/index.js'
+import ModalRed from '../../molecules/ModalRed/index.js'
 import Header from '../../organisms/Header/index.js'
 import PagesContainer from '../../organisms/PagesContainer/styled'
 import { SectionTitle } from '../../atoms/PageTitle/style.js'
@@ -116,26 +116,21 @@ const RegisterProject = (props) => {
     }
 
     const editProjectData = async () => {
-        try{
-            const {data} = await api({
-                method: 'get',
-                url: `/project/${id}`,
-            });
+        const {data} = await api({
+            method: 'get',
+            url: `/project/${id}`,
+        });
 
-            const [{users}] = data
-            setEditProjectTeam(users)
-           
-           const projectData = data.map(el => {
-               delete el.users
-               return el
-           })
- 
-            setEditProjectData(...data)
-            setComponentRendered(true)
 
-        }catch(error){
+        const response = await api({
+            method: 'get',
+            url: `/userProjects/project/${id}`,
+        });
 
-        }
+        setEditProjectTeam(response.data)
+        setEditProjectData(...data)
+        setComponentRendered(true)
+
     }
     
     useEffect(() => {
@@ -168,7 +163,7 @@ const RegisterProject = (props) => {
 
     return (
         <PagesContainer padding="0 0 5em 0">
-            {modalWarningIsVisible && <ModalDelete
+            {modalWarningIsVisible && <ModalRed
             CloseButtonClickHandler={CloseButtonClickHandler}
             redButtonClickHandler={redButtonClickHandler}
             title={componentRendered ? "Cancelar alterações" : "Cancelar cadastro"}

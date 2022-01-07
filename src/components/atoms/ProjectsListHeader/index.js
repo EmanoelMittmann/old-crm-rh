@@ -1,5 +1,4 @@
 import React,{ useState} from 'react'
-import { useLocation } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 
 import api from '../../../api/api'

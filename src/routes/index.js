@@ -59,7 +59,10 @@ const Routes = () => {
                 <Route path="/project/:id" component={RegisterProject}/>
             </Switch>
             <Switch>
-                <Route path="/professional" component={RegisterProfessional}/>
+                <Route exact path="/professional" component={RegisterProfessional}/>
+            </Switch>
+            <Switch>
+                <Route path="/professional/:id" component={RegisterProfessional}/>
             </Switch>
             
         </BrowserRouter>

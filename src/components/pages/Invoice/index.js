@@ -8,6 +8,8 @@ import {
 import Header from '../../organisms/Header'
 import PagesContainer from '../../organisms/PagesContainer/styled.js'
 import { ReactComponent as InvoiceIcon } from '../../../assets/icons/invoice.svg'
+import { ContainerInvoice } from './style'
+import InvoiceSection from '../../organisms/InvoiceSection/index.js'
 
 const Invoice = () => {
     
@@ -20,6 +22,9 @@ const Invoice = () => {
             </SectionTitleIcon>
             <SectionTitle>Notas fiscais</SectionTitle>
         </SectionTitleContainer>
+        <ContainerInvoice>
+            <InvoiceSection/>
+        </ContainerInvoice>
     </PagesContainer>
     )
 }

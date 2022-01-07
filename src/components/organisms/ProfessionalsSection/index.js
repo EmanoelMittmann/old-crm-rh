@@ -57,15 +57,15 @@ const ProfessionalsSection = () => {
             url:`/professionals`,
             params: params
         })
-
-        console.log(data);
+        
         setProfessionals(data.data);
         setProfessionalMeta(data.meta)
     }
 
     useEffect(() => {
         getProfessionals()
-        location.state && setProfessionals(location.state.professionals) 
+
+        location.state && setProfessionals(location.state.professionals.data) 
     },[])
 
     useEffect(() => {
@@ -93,13 +93,13 @@ const ProfessionalsSection = () => {
         getProfessionals()
     }
 
-
+    
 
     return (
         <ProfessionalsSectionContainer>
             <ProfessionalsInputs setSearchResult={setSearchResult} setJobSelected={setJobSelected}/>
             <ProfessionalsListHeader sortByName={sortByName}/>
-            {professionals.map((professional) => {
+            {professionals?.map((professional) => {
                 return <ProfessionalsListItem key={professional.id} professional={professional}/>
             })}
             <Footer

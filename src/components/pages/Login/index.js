@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from 'react-redux'
@@ -10,8 +10,6 @@ import teamLogin from '../../../assets/teamLogin.svg'
 import {ContainerLogin, Column1, Column2, ContainerLogo, ImgTeam, TitleLogin} from './style'
 import LogoUbistart from '../../../components/atoms/LogoUbistart'
 import { loggingIn } from "../../../redux/actions"
-
-
 
 export const Login = () => {
     const dispatch = useDispatch()
@@ -50,6 +48,13 @@ export const Login = () => {
         }
         
     } 
+
+    useEffect(() => {
+        const token = JSON.parse(localStorage.getItem('token'))
+        if(token) history.push('/home')
+      
+    }, [])
+
 
     return (
         <ContainerLogin>
