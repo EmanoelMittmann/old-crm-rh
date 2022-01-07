@@ -43,13 +43,13 @@ const ProfessionalsListItem = ({professional}) => {
                     {professional.name}
                 </ProfessionalProfile>
                 <Professionalnfo>
-                    {professional.job}
+                    {professional.job.name}
                 </Professionalnfo>
                 <ProfessionalEmail>
                     {professional.email}
                 </ProfessionalEmail>
                 <ProfessionalPhoneNumber>
-                    {professional.telephone}
+                    {professional.telephone_number}
                 </ProfessionalPhoneNumber>
                 <Professionalnfo>
                     {professional.local}

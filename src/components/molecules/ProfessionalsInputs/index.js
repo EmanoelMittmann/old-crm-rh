@@ -1,29 +1,33 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
+import api from '../../../api/api'
 import { ProfessionalsInputsContainer } from './style.js'
 import InputSearch from '../../atoms/InputSearch'
 import InputSelect from '../../atoms/InputSelect'
 
-const ProfessionalsInputs = () => {
-    const options = [
-        {
-            name: "Status 1",
-            id: "1"
-        },
+const ProfessionalsInputs = ({setJobSelected, setSearchResult}) => {
+    const [jobs, setJobs] = useState([])
 
-        {
-            name: "Status 2",
-            id: "2"
-        }
-    ]
+    const getJobs = async () => {
+        const {data} = await api({
+            method:'get',     
+            url:`/job`,
+        })
+
+        setJobs(data.data);
+    }
+    
+    useEffect(() => {
+        getJobs()
+    },[])
 
     return (
         <ProfessionalsInputsContainer>
-            <InputSearch lineWidth="280px" inputWidth="230px"/>
+            <InputSearch setSearchResult={setSearchResult} lineWidth="280px" inputWidth="230px"/>
             <InputSelect
-            options={options}
-            // setSelectedOption={}
-            placeholder="Tipo"
+            options={jobs}
+            setSelectedOption={setJobSelected}
+            placeholder="Cargo"
             width="220px"
             />
         </ProfessionalsInputsContainer>
