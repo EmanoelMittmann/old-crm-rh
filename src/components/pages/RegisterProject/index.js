@@ -23,7 +23,7 @@ const RegisterProject = (props) => {
     const state = useSelector(state => state)
     const history = useHistory()
     const location = useLocation()
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
     const [projectName, setProjectName] = useState("");
     const [projectType, setProjectType] = useState("");
@@ -106,7 +106,7 @@ const RegisterProject = (props) => {
     }
 
     const projectBeingEdited = state?.projects.find(project => {
-        return project?.id == id
+        return project?.id === id
     })
     
     const projectHandler = () => {
@@ -181,7 +181,6 @@ const RegisterProject = (props) => {
 
                 <RegisterProjectData
                     editData={EditProjectData}
-                    projectName={projectName}
                     projectName={projectName}
                     componentRendered={componentRendered}
                     setProjectName={setProjectName}
