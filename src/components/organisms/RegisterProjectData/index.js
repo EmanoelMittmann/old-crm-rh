@@ -96,7 +96,7 @@ const RegisterProjectData = ({projectType, projectStatus, projectName, teamCost,
                             <InputWithLabel
                             placeholder="Projeto..."
                             label="Nome do projeto"
-                            setinputWithLabelValue={setProjectName}
+                            setInputWithLabelValue={setProjectName}
                             width="95%"
                             inputValue={projectName}
                             />

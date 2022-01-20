@@ -117,7 +117,7 @@ const RegisterProfessionalsData = ({personalData, editData, setName, setCPF, set
                     <ContainerRow>
                             <InputWithLabel
                             inputValue={personalData.name}
-                            setinputWithLabelValue={setName}
+                            setInputWithLabelValue={setName}
                             label="Nome"
                             width="100%"
                             widthContainer="50%" 

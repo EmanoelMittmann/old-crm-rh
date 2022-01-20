@@ -22,7 +22,7 @@ const ModalEditAttachment = ({CloseButtonClickHandler, saveHandler, setWorkload,
                 <ContainerInputs>
                     <InputWithLabel
                     inputValue={workload}
-                    setinputWithLabelValue={setWorkload}
+                    setInputWithLabelValue={setWorkload}
                     label="Horas Mensais"
                     width="100%"
                     widthContainer="80%"
@@ -30,7 +30,7 @@ const ModalEditAttachment = ({CloseButtonClickHandler, saveHandler, setWorkload,
                     />
                      <InputWithLabel
                     inputValue={overtime}
-                    setinputWithLabelValue={setOvertime}
+                    setInputWithLabelValue={setOvertime}
                     label="Horas extras"
                     width="100%"
                     widthContainer="80%"
