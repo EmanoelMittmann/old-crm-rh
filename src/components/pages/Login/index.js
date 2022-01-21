@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom"
 import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux';
 import GoogleLogin from 'react-google-login'
 
 import DarkButton from '../../atoms/Buttons/DarkButton/style.js'
@@ -13,8 +12,7 @@ import { loggingIn } from "../../../redux/actions"
 
 export const Login = () => {
     const dispatch = useDispatch()
-    let history = useHistory();
-    const state = useSelector(state => state.authentication)
+    let history = useHistory()
 
      const accessLogin = async (googleData) => {
         const api = axios.create({
@@ -32,28 +30,39 @@ export const Login = () => {
                     google_email: googleData.profileObj.email,
                     google_id: googleData.googleId,
                     access_token: googleData.accessToken,
-               }}); 
-    
+               }}) 
+
                 dispatch(loggingIn({
                     googleData: googleData,
                     token: responseAuth.data.token,
+                    user: responseAuth.data.data[0],
                     responseValidToken: true,
-                }));
+                }))
 
-                history.push("/home");
+                const user_type = responseAuth.data.data[0].user_type_id
+                user_type === 1 ? history.push("/home") : history.push("/timeSending")
 
 
         }catch(error){
-            console.log(error.message);
+            console.log(error.message)
         }
         
     } 
 
     useEffect(() => {
-        const token = JSON.parse(localStorage.getItem('token'))
-        if(token) history.push('/home')
+        const token = JSON.parse(localStorage.getItem('@UbiRH/token'))
+
+        function isAdmin() {
+            const user = JSON.parse(localStorage.getItem('@UbiRH/user'))
+
+            if(user.user_type_id === 1 ) return history.push('/home') 
+            if(token && user.user_type_id === 2 ) return history.push('/timeSending') 
+        }
+
+        if(token) return isAdmin() 
+        return
       
-    }, [])
+    }, [history])
 
 
     return (
