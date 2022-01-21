@@ -18,7 +18,7 @@ import CloseButton from '../../atoms/Buttons/CloseButton'
 const Modal = () => {
     const dispatch = useDispatch()
     const location = useLocation();
-    const [inputWithLabelValue, setinputWithLabelValue] = useState("")
+    const [inputWithLabelValue, setInputWithLabelValue] = useState("")
     const state = useSelector(state => state)
 
     const CloseButtonClickHandler = () => {
@@ -229,7 +229,7 @@ const Modal = () => {
                 </ModalTitle>
                     <InputWithLabel
                     label={displayModalInputLabel(location.pathname)}
-                    setinputWithLabelValue={setinputWithLabelValue}
+                    setInputWithLabelValue={setInputWithLabelValue}
                     editValue={displayNameBeingEdited()}
                     width="85%"
                     justify="center"

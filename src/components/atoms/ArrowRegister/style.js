@@ -12,6 +12,7 @@ export const ContainerArrow = styled.div`
 
     &:hover{
         background-color: white;
+        cursor: pointer;
         -webkit-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
         -moz-box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);
         box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.2);

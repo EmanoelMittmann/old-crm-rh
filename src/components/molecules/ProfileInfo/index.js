@@ -3,11 +3,11 @@ import {ContainerProfileInfo} from './style'
 import { ReactComponent as NotificationIcon } from '../../../assets/icons/notification.svg'
 import UserPhoto from '../../../components/atoms/UserPhoto'
 
-const ProfileInfo = () => {
+const ProfileInfo = ({photo}) => {
     return (
         <ContainerProfileInfo>
             <NotificationIcon/>
-            <UserPhoto/>
+            <UserPhoto photo={photo}/>
         </ContainerProfileInfo>
     )
 }

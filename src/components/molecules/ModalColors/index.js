@@ -184,7 +184,7 @@ const ModalColors = () => {
                         
                             <InputWithLabel
                             label="Status"
-                            setinputWithLabelValue={setValue}
+                            setInputWithLabelValue={setValue}
                             editValue={statusName()}
                             width="100%"
                             widthContainer="85%"

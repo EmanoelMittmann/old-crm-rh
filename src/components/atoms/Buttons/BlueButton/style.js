@@ -13,4 +13,8 @@ export const BlueButton = styled.button`
     text-align: center;
     color: #FFFFFF;
     border: none;
+
+    &:hover {
+        cursor: pointer;
+    }
 `
