@@ -1,11 +1,4 @@
-import styled from "styled-components";
-
-export const RegisterProjectsContainer = styled.div`
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-`
+import styled from "styled-components"
 
 export const ProjectsContainer = styled.div`
     width: 100%;
