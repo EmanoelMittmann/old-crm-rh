@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom"
 
-import AttachmentProject from '../../organisms/Attachment/Project';
-import EmploymentContract from '../../molecules/EmploymentContract'
-import InputText from '../../atoms/InputText';
-import SecondaryText from '../../atoms/SecondaryText/style'
+import api from '../../../api/api'
+
+import ArrowRegister from '../../atoms/ArrowRegister'
+import InputText from '../../atoms/InputText'
 import OvertimePayCalc from '../../atoms/OvertimePayCalc'
+import SecondaryText from '../../atoms/SecondaryText/style'
+import { SectionTitle } from '../../atoms/PageTitle/style.js'
+
+import EmploymentContract from '../../molecules/EmploymentContract'
 import ProfessionalsExtraHour from '../../molecules/ProfessionalsExtraHour'
 import RegisterFooter from '../../molecules/RegisterFooter'
-import api from '../../../api/api'
-import ArrowRegister from '../../atoms/ArrowRegister';
-import PagesContainer from '../../organisms/PagesContainer/styled'
-import Header from '../../organisms/Header/index.js'
-import { SectionTitle } from '../../atoms/PageTitle/style.js'
+
+import AttachmentProject from '../../organisms/Attachment/Project'
 import RegisterProfessionalsData from '../../organisms/RegisterProfessionalsData'
 import {
     RegisterProfessionalTitleContainer,
@@ -140,7 +141,7 @@ const RegisterProfessional = () => {
                 extra_hour_limit: +limitValue,
                 projects: projects             
             }
-        });
+        })
 
         const {data} = await api({
             method:'get',     
@@ -178,7 +179,7 @@ const RegisterProfessional = () => {
             setComponentRendered(true)
             
         }catch(error){
-
+            console.error(error)
         }
     }
 
@@ -216,7 +217,7 @@ const RegisterProfessional = () => {
                 limited_extra_hours: limitedExtraHoursBoolean,
                 extra_hour_limit: +limitValue,          
             }
-        });
+        })
 
         const {data} = await api({
             method:'get',     
@@ -242,11 +243,10 @@ const RegisterProfessional = () => {
             setEmail(editData.email)
         }
 
-    }, [componentRendered])
+    }, [componentRendered, editData])
 
     return (
-        <PagesContainer padding="0 0 5em 0">
-            <Header/>
+        <>
             <RegisterProfessionalTitleContainer>
                 <ArrowRegister
                 clickHandler={goBackClickHandler}/>
@@ -345,8 +345,8 @@ const RegisterProfessional = () => {
 
             </RegisterProfessionalContainer>
 
-        </PagesContainer>
+        </>
     )
 }
 
-export default RegisterProfessional;
+export default RegisterProfessional
