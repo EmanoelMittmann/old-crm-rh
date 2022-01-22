@@ -22,49 +22,25 @@ const Routes = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route exact path="/" component={Login}/>
-                <PrivateRoute path="/home" component={Home} pageTitle="Início"/>
-                <PrivateRoute 
-                    exact path="/professionals" 
-                    component={Professionals} 
-                    pageTitle="Profissionais"
-                    button="Cadastrar novo"
-                    buttonPath="/professional"
-                 />
-                <PrivateRoute 
-                    exact path="/projects" 
-                    component={Projects} 
-                    pageTitle="Projetos"
-                    button="Cadastrar novo"
-                    buttonPath="/project"
-                />
-                <PrivateRoute path="/overtime" component={Overtime} pageTitle="Horas extras" />
-                <PrivateRoute path="/invoice" component={Invoice} pageTitle="Notas fiscais" />
-                <PrivateRoute path="/reports" component={Reports} pageTitle="Relatórios" />
-                <PrivateRoute path="/serviceOrders" component={ServiceOrders} pageTitle="Ordens de serviço" />
-                <PrivateRoute path="/job" component={Settings} pageTitle="Configurações" />
-                <PrivateRoute path="/projectStatus" component={Status} pageTitle="Configurações" />
-                <PrivateRoute path="/projectType" component={ProjectType} pageTitle="Configurações" />
-                <PrivateRoute exact path="/project" component={RegisterProject} registerPage />
-                <PrivateRoute path="/project/:id" component={RegisterProject} registerPage />
-                <PrivateRoute exact path="/professional" component={RegisterProfessional} registerPage />
-                <PrivateRoute path="/professional/:id" component={RegisterProfessional} registerPage />
+                <Route exact path="/" component={Login} />
+                <PrivateRoute path="/home" component={Home} />
+                <PrivateRoute exact path="/professionals" component={Professionals} />
+                <PrivateRoute exact path="/projects" component={Projects} />
+                <PrivateRoute path="/overtime" component={Overtime} />
+                <PrivateRoute path="/invoice" component={Invoice} />
+                <PrivateRoute path="/reports" component={Reports} />
+                <PrivateRoute path="/serviceOrders" component={ServiceOrders} />
+                <PrivateRoute path="/job" component={Settings} />
+                <PrivateRoute path="/projectStatus" component={Status} />
+                <PrivateRoute path="/projectType" component={ProjectType} />
+                <PrivateRoute exact path="/project" component={RegisterProject} />
+                <PrivateRoute path="/project/:id" component={RegisterProject} />
+                <PrivateRoute exact path="/professional" component={RegisterProfessional} />
+                <PrivateRoute path="/professional/:id" component={RegisterProfessional} />
 
                 {/* Profissional */}
-                <PrivateRoute 
-                    path="/timeSending" 
-                    component={TimeSending} 
-                    pageTitle="Lançamento de horas"
-                    button="Novo lançamento"
-                    buttonPath="/"
-                />
-                <PrivateRoute 
-                    path="/InvoiceSending" 
-                    component={InvoiceSending} 
-                    pageTitle="Notas fiscais"
-                    button="Enviar NF"
-                    buttonPath="/"
-                />
+                <PrivateRoute path="/timeSending" component={TimeSending}  />
+                <PrivateRoute path="/InvoiceSending" component={InvoiceSending}  />
             </Switch>
         </BrowserRouter>
     )
