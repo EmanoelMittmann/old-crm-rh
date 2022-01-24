@@ -5,7 +5,7 @@ const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
-    const token = JSON.parse(localStorage.getItem('token'))
+    const token = JSON.parse(localStorage.getItem('@UbiRH/token'))
     const auth = token ? `Bearer ${token}` : '';
     config.headers.common['Authorization'] = auth
     return config
@@ -19,11 +19,13 @@ api.interceptors.response.use(
     },
     function (error) {
       if (error?.response?.status === 401 || error?.response?.status === 403) {
-        localStorage.removeItem('token')
+        localStorage.removeItem('@UbiRH/token')
+        localStorage.removeItem('@UbiRH/user')
+        localStorage.removeItem('@UbiRH/user_photo')
         window.location.href = '/'
       }
       return Promise.reject(error)
     }
 )
 
-export default api;
+export default api
