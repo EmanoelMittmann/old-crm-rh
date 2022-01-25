@@ -1,7 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link } from "react-router-dom"
 import { useLocation } from 'react-router'
+
+import { LocalStorageKeys } from '../../../settings/LocalStorageKeys'
+import { userTypes } from '../../../models/userTypes'
+
+import {
+    menuItemClicked,
+    showItemDescription,
+    hideItemDescription
+} from "../../../redux/actions/index"
 
 import {
     HomeIcon,
@@ -13,17 +22,13 @@ import {
     ServiceOrdersIcon,
     SettingsIcon
 } from '../../atoms/icons/NavIcons/index'
+
 import {
     Nav,
     ActiveIconContainer,
     ActiveIcon
 } from './style.js'
-import {
-    menuItemClicked,
-    showItemDescription,
-    hideItemDescription
-} from "../../../redux/actions/index"
-import { useEffect } from 'react'
+
 
 const NavHome = () => {
     const dispatch = useDispatch()
@@ -43,9 +48,8 @@ const NavHome = () => {
     }
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem('@UbiRH/user'));
-        console.log(user)
-        if(user.user_type_id === 1 ) {
+        const user = JSON.parse(localStorage.getItem(LocalStorageKeys.USER))
+        if(user.user_type_id === userTypes.ADMIN ) {
             return setIsAdmin(true)
         }
         return

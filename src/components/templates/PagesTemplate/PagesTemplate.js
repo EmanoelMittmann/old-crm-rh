@@ -23,14 +23,17 @@ export const PagesTemplate = (props) => {
             </SectionTitleIcon>
             <SectionTitle>{name}</SectionTitle>
         </SectionTitleContainer>
+
         {hasButton ? 
           <DarkButton 
-          onClick={(button) => {return history.push(`${buttonPath}`)}}
-          width="200px"
-          height="42px"
-          margin="0 5% 0 0">
-              {buttonText}
-          </DarkButton> : <></>}
+            onClick={() => history.push(buttonPath)}
+            width="200px"
+            height="42px"
+            margin="0 5% 0 0"
+          >
+            {buttonText}
+          </DarkButton> : <></>
+        }
     </Container>
       {props.children}
     </PagesContainer>

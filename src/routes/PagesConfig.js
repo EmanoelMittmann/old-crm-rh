@@ -119,7 +119,7 @@ export const templates = [
     buttonPath: "/",
     icon: <InvoiceIcon/>,
     isRegisterPage: false,
-    path: "InvoiceSending"
+    path: "/InvoiceSending"
   },
 ]
 
