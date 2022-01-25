@@ -95,7 +95,9 @@ export const Login = () => {
                             height="55px" 
                             onClick={renderProps.onClick} 
                             disabled={renderProps.disabled} 
-                        >Entrar</DarkButton>
+                        >
+                            Entrar
+                        </DarkButton>
                     )}
                     buttonText="Logar"
                     onSuccess={(googleData) => accessLogin(googleData)}
