@@ -1,18 +1,21 @@
 import React, { useEffect } from 'react'
-import axios from "axios";
+import axios from "axios"
 import { useHistory } from "react-router-dom"
 import { useDispatch } from 'react-redux'
 import GoogleLogin from 'react-google-login'
+import { LocalStorageKeys } from '../../../settings/LocalStorageKeys'
+import { userTypes } from '../../../models/userTypes'
+import { loggingIn } from "../../../redux/actions"
 
 import DarkButton from '../../atoms/Buttons/DarkButton/style.js'
-import teamLogin from '../../../assets/teamLogin.svg'
-import {ContainerLogin, Column1, Column2, ContainerLogo, ImgTeam, TitleLogin} from './style'
 import LogoUbistart from '../../../components/atoms/LogoUbistart'
-import { loggingIn } from "../../../redux/actions"
+import teamLogin from '../../../assets/teamLogin.svg'
+
+import {ContainerLogin, Column1, Column2, ContainerLogo, ImgTeam, TitleLogin} from './style'
 
 export const Login = () => {
     const dispatch = useDispatch()
-    let history = useHistory()
+    const history = useHistory()
 
      const accessLogin = async (googleData) => {
         const api = axios.create({
@@ -22,6 +25,10 @@ export const Login = () => {
                 }
         })
 
+        api.interceptors.response.use((config) => {
+            return config
+        }, (error) => error.message)
+
         try{
             const responseAuth = await api({
                 method:"post",
@@ -30,7 +37,7 @@ export const Login = () => {
                     google_email: googleData.profileObj.email,
                     google_id: googleData.googleId,
                     access_token: googleData.accessToken,
-               }}) 
+               }})
 
                 dispatch(loggingIn({
                     googleData: googleData,
@@ -40,28 +47,23 @@ export const Login = () => {
                 }))
 
                 const user_type = responseAuth.data.data[0].user_type_id
-                user_type === 1 ? history.push("/home") : history.push("/timeSending")
+                history.push(user_type === userTypes.ADMIN ? "/home" : "/timeSending")
 
-
-        }catch(error){
-            console.log(error.message)
-        }
+        } catch(error) {
         
+        }
     } 
 
     useEffect(() => {
-        const token = JSON.parse(localStorage.getItem('@UbiRH/token'))
+        const token = JSON.parse(localStorage.getItem(LocalStorageKeys.TOKEN))
 
         function isAdmin() {
-            const user = JSON.parse(localStorage.getItem('@UbiRH/user'))
+            const user = JSON.parse(localStorage.getItem(LocalStorageKeys.USER))
 
-            if(user.user_type_id === 1 ) return history.push('/home') 
-            if(token && user.user_type_id === 2 ) return history.push('/timeSending') 
+            history.push(user.user_type_id === userTypes.ADMIN ? "/home" : "/timeSending")
         }
 
         if(token) return isAdmin() 
-        return
-      
     }, [history])
 
 
