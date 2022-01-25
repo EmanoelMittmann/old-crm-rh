@@ -1,35 +1,32 @@
 import React, { useState, useEffect } from 'react'
-import { useHistory, useLocation, useParams } from 'react-router'
+import { useHistory, useParams } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { 
-    setProjectList,
-} from '../../../redux/actions/index.js'
-import RegisterFooter from '../../molecules/RegisterFooter/index.js'
 import api from '../../../api/api.js'
-import ModalRed from '../../molecules/ModalRed/index.js'
-import Header from '../../organisms/Header/index.js'
-import PagesContainer from '../../organisms/PagesContainer/styled'
+
+import { setProjectList } from '../../../redux/actions/index.js'
+
+import ArrowRegister from '../../atoms/ArrowRegister/index.js'
 import { SectionTitle } from '../../atoms/PageTitle/style.js'
+import RegisterFooter from '../../molecules/RegisterFooter/index.js'
+import ModalRed from '../../molecules/ModalRed/index.js'
 import RegisterProjectData from '../../organisms/RegisterProjectData'
 import AttachmentTeam from '../../organisms/Attachment/Team'
 import {
     RegisterProjectTitleContainer,
     RegisterProjectContainer,
 } from './style.js'
-import ArrowRegister from '../../atoms/ArrowRegister/index.js'
 
 const RegisterProject = (props) => {
     const state = useSelector(state => state)
     const history = useHistory()
-    const location = useLocation()
     const dispatch = useDispatch()
 
-    const [projectName, setProjectName] = useState("");
-    const [projectType, setProjectType] = useState("");
-    const [inicialDate, setInitialDate] = useState("");
-    const [finalDate, setFinalDate] = useState("");
-    const [projectStatus, setProjectStatus] = useState("");
+    const [projectName, setProjectName] = useState("")
+    const [projectType, setProjectType] = useState("")
+    const [inicialDate, setInitialDate] = useState("")
+    const [finalDate, setFinalDate] = useState("")
+    const [projectStatus, setProjectStatus] = useState("")
     const [teamCost, setTeamCost] = useState("");
     const [payloadTeam, setPayloadTeam] = useState("")
     const [EditProjectData, setEditProjectData] = useState({})
@@ -40,7 +37,7 @@ const RegisterProject = (props) => {
     const [inicialYear, inicialMonth, inicialDay] = inicialDate.split('-')
     const [finalYear, finalMonth, finalDay] = finalDate.split('-')
     const [componentRendered, setComponentRendered] = useState(false)
-    const { id } = useParams();
+    const { id } = useParams()
 
         const editProject = async () => {
 
@@ -56,12 +53,12 @@ const RegisterProject = (props) => {
                         date_end: finalDate,
                         team_cost: +teamCost,
                     }
-                });
+                })
     
                 const {data} = await api({
                     method: 'get',
                     url: '/project',
-                });
+                })
     
                 dispatch(setProjectList(data.data))
                 history.push("/projects");
@@ -88,12 +85,12 @@ const RegisterProject = (props) => {
                     team_cost: +teamCost,
                     users: payloadTeam
                 }
-            });
+            })
 
             const {data} = await api({
                 method: 'get',
                 url: '/project',
-            });
+            })
 
             dispatch(setProjectList(data.data))
             history.push("/projects");
@@ -119,13 +116,13 @@ const RegisterProject = (props) => {
         const {data} = await api({
             method: 'get',
             url: `/project/${id}`,
-        });
+        })
 
 
         const response = await api({
             method: 'get',
             url: `/userProjects/project/${id}`,
-        });
+        })
 
         setEditProjectTeam(response.data)
         setEditProjectData(...data)
@@ -162,18 +159,17 @@ const RegisterProject = (props) => {
     }
 
     return (
-        <PagesContainer padding="0 0 5em 0">
+        <>
             {modalWarningIsVisible && <ModalRed
             CloseButtonClickHandler={CloseButtonClickHandler}
             redButtonClickHandler={redButtonClickHandler}
             title={componentRendered ? "Cancelar alterações" : "Cancelar cadastro"}
             message={componentRendered ? "Tem certeza que deseja cancelar as alterações?" : "Tem certeza que deseja cancelar a operação?"}
             />}
-            <Header/>
             <RegisterProjectTitleContainer>
                 <ArrowRegister clickHandler={goBackClickHandler}/>
                 <SectionTitle>
-                {projectBeingEdited ? "Edição de projeto" : "Novo Projeto"}
+                {id ? "Edição de projeto" : "Novo Projeto"}
                 </SectionTitle>
             </RegisterProjectTitleContainer>
 
@@ -207,12 +203,12 @@ const RegisterProject = (props) => {
                 <RegisterFooter
                 cancelButtonHandler={footerCancelButtonHandler}
                 registerButtonHandler={footerRegisterButtonHandler}
-                buttonDescription={projectBeingEdited ? "Atualizar" : "Cadastrar"}
+                buttonDescription={id ? "Atualizar" : "Cadastrar"}
                 />
 
             </RegisterProjectContainer>
-        </PagesContainer>
+        </>
     )
 }
 
-export default RegisterProject;
+export default RegisterProject

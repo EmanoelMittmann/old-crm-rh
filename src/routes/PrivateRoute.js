@@ -1,13 +1,32 @@
-import { Redirect } from 'react-router';
-import { Route } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import React,{ useState, useEffect } from 'react'
+import { Redirect } from 'react-router'
+import { Route } from "react-router-dom"
+
+import { templates, noTemplate } from './PagesConfig'
+import { PagesTemplate } from '../components/templates/PagesTemplate/PagesTemplate'
 
 const PrivateRoute = ( { component: Component, ...rest} ) => {  
-    const token = JSON.parse(localStorage.getItem('token'))
+    const [template, setTemplate] = useState({})
+    const token = JSON.parse(localStorage.getItem('@UbiRH/token'))
+    const path = rest.path
+
+    function handleTemplate(path) {
+        return templates.find(obj => {
+          return obj.path === path
+        })
+      }
     
+    useEffect(() => {
+        const result = handleTemplate(path)
+        result ? setTemplate(result) 
+        : setTemplate(noTemplate)
+      },[path, setTemplate])
+
     return(
         <Route {...rest} render={props => token ? (
-            <Component {...props} />
+            <PagesTemplate template={template}>
+                <Component {...props} />
+            </PagesTemplate>
         ) : (
             <Redirect to={{ pathname: "/", state: { from: props.location }}}/>
         )}/>
@@ -15,4 +34,4 @@ const PrivateRoute = ( { component: Component, ...rest} ) => {
     
 }
 
-export default PrivateRoute;
+export default PrivateRoute
