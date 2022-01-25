@@ -145,10 +145,10 @@ const RegisterProfessional = () => {
             }
         })
 
-        // const {data} = await api({
-        //     method:'get',     
-        //     url:`/professionals`,
-        // })
+        const {data} = await api({
+            method:'get',     
+            url:`/professionals`,
+        })
 
         if(response.status === 200) {
             toast.success(<DefaultToast text="Cadastrado efetuado!"/>)
@@ -222,16 +222,16 @@ const RegisterProfessional = () => {
             }
         })
 
-        // const {data} = await api({
-        //     method:'get',     
-        //     url:`/professionals`,
-        // })
+        const {data} = await api({
+            method:'get',     
+            url:`/professionals`,
+        })
 
         if(response.status === 200) {
             toast.success(<DefaultToast text="Edição efetuada!"/>)
             history.push({
                 pathname: '/professionals',
-                // state: { professionals: data }
+                state: { professionals: data }
             })
         }
     }

@@ -82,7 +82,7 @@ const ModalColors = () => {
             dispatch(settingsPages(data.meta));
             resetFilters()
             
-            return data.data && toast.success(<DefaultToast text ="Status do Projeto cadastrado!"/>)
+            return data.data && toast.success(<DefaultToast text="Status do Projeto cadastrado!"/>)
         
         } catch (error) {
             return error
@@ -109,7 +109,7 @@ const ModalColors = () => {
             dispatch(setStatusList(data.data))
             dispatch(settingsPages(data.meta))
             
-            return data.data && toast.success(<DefaultToast text ="Status do Projeto atualizado!"/>)
+            return data.data && toast.success(<DefaultToast text="Status do Projeto atualizado!"/>)
 
         } catch (error) {
             return error

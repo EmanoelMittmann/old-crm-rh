@@ -92,13 +92,11 @@ const Modal = () => {
                         url: '/job',
                     })
 
-                    
                     dispatch(setJobList(data.data))
                     dispatch(settingsPages(data.meta))
                     resetFilters()
 
-                    return data.data && toast.success(<DefaultToast text ="Cargo cadastrado!"/>)
-
+                    return data.data && toast.success(<DefaultToast text="Cargo cadastrado!"/>)
                     
                   } catch (error) {
                     return error.message
@@ -125,7 +123,7 @@ const Modal = () => {
                     dispatch(settingsPages(data.meta))
                     resetFilters()
 
-                    return data.data && toast.success(<DefaultToast text ="Tipo de Projeto cadastrado!"/>)
+                    return data.data && toast.success(<DefaultToast text="Tipo de Projeto cadastrado!"/>)
                     
                   } catch (error) {
                     return error.message
@@ -163,7 +161,7 @@ const Modal = () => {
                     dispatch(setJobList(data.data))
                     dispatch(settingsPages(data.meta))
 
-                    return data.data && toast.success(<DefaultToast text ="Cargo atualizado!"/>)
+                    return data.data && toast.success(<DefaultToast text="Cargo atualizado!"/>)
                     
                   } catch (error) {
                     return error.message
@@ -189,7 +187,7 @@ const Modal = () => {
                     dispatch(setProjectTypeList(data.data))
                     dispatch(settingsPages(data.meta))
 
-                    return data.data && toast.success(<DefaultToast text ="Tipo do projeto atualizado!"/>)
+                    return data.data && toast.success(<DefaultToast text="Tipo do projeto atualizado!"/>)
                     
                   } catch (error) {
                     return error.message
