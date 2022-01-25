@@ -8,6 +8,7 @@ import InputText from '../../atoms/InputText'
 import OvertimePayCalc from '../../atoms/OvertimePayCalc'
 import SecondaryText from '../../atoms/SecondaryText/style'
 import { SectionTitle } from '../../atoms/PageTitle/style.js'
+import { DefaultToast } from '../../atoms/Toast/DefaultToast'
 
 import EmploymentContract from '../../molecules/EmploymentContract'
 import ProfessionalsExtraHour from '../../molecules/ProfessionalsExtraHour'
@@ -20,6 +21,7 @@ import {
     RegisterProfessionalContainer,
     ContainerProfessionalsLoginData,
 } from './style.js'
+import { toast } from 'react-toastify'
 
 const RegisterProfessional = () => {
     const history = useHistory()
@@ -143,15 +145,16 @@ const RegisterProfessional = () => {
             }
         })
 
-        const {data} = await api({
-            method:'get',     
-            url:`/professionals`,
-        })
+        // const {data} = await api({
+        //     method:'get',     
+        //     url:`/professionals`,
+        // })
 
         if(response.status === 200) {
+            toast.success(<DefaultToast text="Cadastrado efetuado!"/>)
             history.push({
                 pathname: '/professionals',
-                state: { professionals: data }
+                // state: { professionals: data }
             })
         }
     }
@@ -219,15 +222,16 @@ const RegisterProfessional = () => {
             }
         })
 
-        const {data} = await api({
-            method:'get',     
-            url:`/professionals`,
-        })
+        // const {data} = await api({
+        //     method:'get',     
+        //     url:`/professionals`,
+        // })
 
         if(response.status === 200) {
+            toast.success(<DefaultToast text="Edição efetuada!"/>)
             history.push({
                 pathname: '/professionals',
-                state: { professionals: data }
+                // state: { professionals: data }
             })
         }
     }

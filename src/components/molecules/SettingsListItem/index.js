@@ -1,15 +1,15 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React,{ useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router'
-import { useHistory } from 'react-router'
+import { toast } from 'react-toastify'
+
+import api from '../../../api/api'
 
 import SettingsOptions from '../../atoms/icons/SettingsOptions'
-import api from '../../../api/api'
-import { ListItemContainer, ListItemName, ListItemDetails } from './style.js'
 import StatusActive from '../../atoms/StatusActive'
 import StatusDisabled from '../../atoms/StatusDisabled'
+import { DefaultToast } from '../../atoms/Toast/DefaultToast'
+
 import {
     jobOptionClicked,
     statusOptionClicked,
@@ -25,11 +25,13 @@ import {
     editProjectTypeClicked
 } from '../../../redux/actions'
 
+import { ListItemContainer, ListItemName, ListItemDetails } from './style.js'
+
+
 const SettingsListItem = () => {
     const state = useSelector(state => state)
     const dispatch = useDispatch()
     const location = useLocation()
-    const history = useHistory()
 
     const getSettingsList = async () => {
 
@@ -37,22 +39,22 @@ const SettingsListItem = () => {
             const {data} = await api({
                 method:'get',     
                 url:`${location.pathname}`,
-            }); 
+            }) 
         
             if(location.pathname === "/job") dispatch(setJobList(data.data));
             if(location.pathname === "/projectStatus") dispatch(setStatusList(data.data))
             if(location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
-            dispatch(settingsPages(data.meta));
+            dispatch(settingsPages(data.meta))
 
         }catch(err){
-
+            
         }
     
     }
 
     useEffect(() => {
         getSettingsList()
-    }, []);
+    }, [])
 
     //Lógica do Options
 
@@ -114,17 +116,20 @@ const SettingsListItem = () => {
                         data: {
                             id: info.id
                         }
-                    });
+                    })
 
                     const {data} = await api({
                         method: 'get',
                         url: '/job',
                         params: params
-                    });
+                    })
 
                     dispatch(setJobList(data.data))
+                    return toast.success(<DefaultToast text ="Status alterado!"/>)
+
                     
                   } catch (error) {
+                    
                   }
             }
 
@@ -139,17 +144,19 @@ const SettingsListItem = () => {
                         data: {
                             id: info.id
                         }
-                    });
+                    })
 
                     const {data} = await api({
                         method: 'get',
                         url: '/projectStatus',
                         params: params
-                    });
+                    })
 
                     dispatch(setStatusList(data.data))
-                    
+                    return toast.success(<DefaultToast text ="Status alterado!"/>)
+
                   } catch (error) {
+                    
                   }
             }
 
@@ -164,15 +171,17 @@ const SettingsListItem = () => {
                         data: {
                             id: info.id
                         }
-                    });
+                    })
 
                     const {data} = await api({
                         method: 'get',
                         url: '/projectType',
                         params: params
-                    });
+                    })
 
                     dispatch(setProjectTypeList(data.data))
+                    return toast.success(<DefaultToast text ="Status alterado!"/>)
+
                     
                   } catch (error) {
                   }
@@ -244,4 +253,4 @@ return (
 )
 }
 
-export default SettingsListItem;
+export default SettingsListItem
