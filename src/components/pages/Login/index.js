@@ -3,11 +3,15 @@ import axios from "axios"
 import { useHistory } from "react-router-dom"
 import { useDispatch } from 'react-redux'
 import GoogleLogin from 'react-google-login'
+import { toast } from 'react-toastify'
+
 import { LocalStorageKeys } from '../../../settings/LocalStorageKeys'
 import { userTypes } from '../../../models/userTypes'
+
 import { loggingIn } from "../../../redux/actions"
 
 import DarkButton from '../../atoms/Buttons/DarkButton/style.js'
+import ExpiresToast from '../../atoms/Toast/ExpiresToast.js'
 import LogoUbistart from '../../../components/atoms/LogoUbistart'
 import teamLogin from '../../../assets/teamLogin.svg'
 
@@ -27,7 +31,7 @@ export const Login = () => {
 
         api.interceptors.response.use((config) => {
             return config
-        }, (error) => error.message)
+        }, (error) => toast.error(error.message))
 
         try{
             const responseAuth = await api({
@@ -46,8 +50,13 @@ export const Login = () => {
                     responseValidToken: true,
                 }))
 
+                const expires = new Date(responseAuth.data.token.expires_at).toLocaleString({ timeZone: 'UTC' })
+                toast.warn(<ExpiresToast date={expires} />)
+
                 const user_type = responseAuth.data.data[0].user_type_id
                 history.push(user_type === userTypes.ADMIN ? "/home" : "/timeSending")
+
+
 
         } catch(error) {
         
@@ -80,8 +89,15 @@ export const Login = () => {
                 <GoogleLogin
                     clientId="315430315500-t5r6lcd2f9ma1ahlbdvuk9v1jf7mus0o.apps.googleusercontent.com"
                     render={renderProps => (
-                        <DarkButton fontSize="16px" width="350px" height="55px" onClick={renderProps.onClick
-                        } disabled={renderProps.disabled} >Entrar</DarkButton>
+                        <DarkButton 
+                            fontSize="16px" 
+                            width="350px" 
+                            height="55px" 
+                            onClick={renderProps.onClick} 
+                            disabled={renderProps.disabled} 
+                        >
+                            Entrar
+                        </DarkButton>
                     )}
                     buttonText="Logar"
                     onSuccess={(googleData) => accessLogin(googleData)}

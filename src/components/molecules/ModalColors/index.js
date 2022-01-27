@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useLocation } from 'react-router'
+import { toast } from 'react-toastify'
 
 import api from '../../../api/api.js'
-import {InputLine, DefaultInput} from '../../atoms/DefaultInput/style.js'
-import SaveButton from '../../atoms/Buttons/SaveButton/style.js'
-import CancelButton from '../../atoms/Buttons/CancelButton/style.js'
-import CloseButton from '../../atoms/Buttons/CloseButton'
-import InputSelect from '../../atoms/InputSelect'
-import InputSelectEdit from '../../atoms/InputSelectEdit'
-import InputWithLabel from '../../atoms/InputWithLabel/index.js'
-import { ModalContainerButtons, ModalInputContainer } from './style.js'
+
 import { 
     setStatusList,
     settingsPages,
@@ -20,6 +13,16 @@ import {
     setSearchName,
     setStatusColors,
 } from '../../../redux/actions/index.js'
+
+import SaveButton from '../../atoms/Buttons/SaveButton/style.js'
+import CancelButton from '../../atoms/Buttons/CancelButton/style.js'
+import CloseButton from '../../atoms/Buttons/CloseButton'
+import InputSelect from '../../atoms/InputSelect'
+import InputSelectEdit from '../../atoms/InputSelectEdit'
+import InputWithLabel from '../../atoms/InputWithLabel/index.js'
+import { DefaultToast } from '../../atoms/Toast/DefaultToast.js'
+
+import { ModalContainerButtons, ModalInputContainer } from './style.js'
 import {
     ModalOverlay,
     ModalContainer,
@@ -28,13 +31,12 @@ import {
 
 const ModalColors = () => {
     const dispatch = useDispatch()
-    const location = useLocation();
     const [value, setValue] = useState("")
     const [selectedOption, setSelectedOption] = useState("")
     
     const state = useSelector(state => state)
-    let params;
-    let colorId;
+    let params
+    let colorId
 
     if(state.filterOrder !== ""){
         params = {
@@ -80,8 +82,10 @@ const ModalColors = () => {
             dispatch(settingsPages(data.meta));
             resetFilters()
             
+            return data.data && toast.success(<DefaultToast text="Status do Projeto cadastrado!"/>)
+        
         } catch (error) {
-            console.error(error);
+            return error
         }
     }
 
@@ -103,18 +107,18 @@ const ModalColors = () => {
             });
             
             dispatch(setStatusList(data.data))
-            dispatch(settingsPages(data.meta));
+            dispatch(settingsPages(data.meta))
             
-            console.log(data.data);
+            return data.data && toast.success(<DefaultToast text="Status do Projeto atualizado!"/>)
 
         } catch (error) {
-            console.error(error);
+            return error
         }
     }
     console.log(state.status);
 
     const saveButtonClickHandler = (e) => {
-        if (value.length == 0) return;
+        if (value.length === 0) return
 
         if(state.modalFunctionality.register){
             saveStatus()
@@ -144,7 +148,7 @@ const ModalColors = () => {
 
         const [{name}] = editStatus;
          [{colors_id: colorId}] = editStatus
-        return name;
+        return name
     };
 
     const getStatusColor = async () => {
@@ -222,4 +226,4 @@ const ModalColors = () => {
     )
 }
 
-export default ModalColors;
+export default ModalColors

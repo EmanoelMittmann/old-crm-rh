@@ -1,19 +1,23 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router'
+import { toast } from 'react-toastify'
 
 import api from '../../../api/api.js'
 import { setJobList, setProjectTypeList, settingsPages, setFilterOrder, setFilterStatus, setSearchName, closeModal } from '../../../redux/actions/index.js'
+
+import InputWithLabel  from '../../atoms/InputWithLabel'
+import SaveButton from '../../atoms/Buttons/SaveButton/style.js'
+import CancelButton from '../../atoms/Buttons/CancelButton/style.js'
+import CloseButton from '../../atoms/Buttons/CloseButton'
+import { DefaultToast } from '../../atoms/Toast/DefaultToast'
+
 import {
     ModalOverlay,
     ModalContainer,
     ModalTitle,
     ModalContainerButtons
 } from './style.js'
-import InputWithLabel  from '../../atoms/InputWithLabel'
-import SaveButton from '../../atoms/Buttons/SaveButton/style.js'
-import CancelButton from '../../atoms/Buttons/CancelButton/style.js'
-import CloseButton from '../../atoms/Buttons/CloseButton'
 
 const Modal = () => {
     const dispatch = useDispatch()
@@ -81,21 +85,21 @@ const Modal = () => {
                         data: {
                             name: inputWithLabelValue,
                         }
-                    });
+                    })
 
                     const {data} = await api({
                         method: 'get',
                         url: '/job',
-                    });
+                    })
 
                     dispatch(setJobList(data.data))
-                    dispatch(settingsPages(data.meta));
+                    dispatch(settingsPages(data.meta))
                     resetFilters()
 
-                    return data.data
+                    return data.data && toast.success(<DefaultToast text="Cargo cadastrado!"/>)
                     
                   } catch (error) {
-                    return console.error(error);
+                    return error.message
                   }
 
             }
@@ -108,19 +112,21 @@ const Modal = () => {
                         data: {
                             name: inputWithLabelValue,
                         }
-                    });
+                    })
 
                     const {data} = await api({
                         method: 'get',
                         url: '/projectType',
-                    });
+                    })
                     ///resetar aqui o order
                     dispatch(setProjectTypeList(data.data))
-                    dispatch(settingsPages(data.meta));
+                    dispatch(settingsPages(data.meta))
                     resetFilters()
+
+                    return data.data && toast.success(<DefaultToast text="Tipo de Projeto cadastrado!"/>)
                     
                   } catch (error) {
-                    console.error(error);
+                    return error.message
                   }
             }
 
@@ -153,10 +159,12 @@ const Modal = () => {
                     });
                    
                     dispatch(setJobList(data.data))
-                    dispatch(settingsPages(data.meta));
+                    dispatch(settingsPages(data.meta))
+
+                    return data.data && toast.success(<DefaultToast text="Cargo atualizado!"/>)
                     
                   } catch (error) {
-                    console.error(error);
+                    return error.message
                   }
             }
 
@@ -177,10 +185,12 @@ const Modal = () => {
                     });
 
                     dispatch(setProjectTypeList(data.data))
-                    dispatch(settingsPages(data.meta));
+                    dispatch(settingsPages(data.meta))
+
+                    return data.data && toast.success(<DefaultToast text="Tipo do projeto atualizado!"/>)
                     
                   } catch (error) {
-                    console.error(error);
+                    return error.message
                   }
             }
 
@@ -244,4 +254,4 @@ const Modal = () => {
     )
 }
 
-export default Modal;
+export default Modal
