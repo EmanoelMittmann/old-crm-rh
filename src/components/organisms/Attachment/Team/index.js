@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { BsThreeDotsVertical } from "react-icons/bs";
 
+import { checkArraysDifference } from '../../../utils/checkArraysDifference'
+
 import {
     AttachmentContainer,
     AttachmentForm,
@@ -46,7 +48,7 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
     const [deleteRealTime, setDeleteRealTime] = useState(false)
     const [deleteTeamMemberId, setDeleteTeamMemberId] = useState(false)
 
-    const [menuOptionsisVisible, setMenuOptionsisVisible] = useState(false)
+    const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false)
     const [professionalClicked, setProfessionalClicked] = useState('')
     const [openModalEdit, setOpenModalEdit] = useState(false)
     const [hoursMonthEdit, setHoursMonthEdit] = useState('')
@@ -56,9 +58,7 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
 
     //////////////////////Funções usadas nos dois tipos de edição//////////////////////
    
-    const isEditing = projectId ? true : false;
-   
-
+    const isEditing = projectId ? true : false
     
     const CloseButtonClickHandler = () => {
         setModalIsVisible(false)
@@ -68,22 +68,17 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
         const {data} = await api({
             method:'get',     
             url:`/user`,
-        });
+        })
+        console.log("team:", teamMembers)
+        const validMembers = checkArraysDifference(data, teamMembers)
+        const formattedProfessionals = formatFirstLetter(validMembers)
 
-        console.log(data)
+        console.log("Selecionados", editData)
+        console.log("Todos:", data)
+        console.log("Filtrados:", formattedProfessionals)
 
-        const formattedAllProfessionals = formatFirstLetter(data)
-
-        setAllProfessionals(formattedAllProfessionals)
-
-        return data;
+        return setAllProfessionals(formattedProfessionals)
     }
-
-
-    useEffect(() => {
-        getAllProfessionals()
-    }, [])
-
     ////////////////////// Funções usadas na edição a nivel de front-end //////////////////////
 
     const setTeamMemberClickHandler = () => {
@@ -91,10 +86,11 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
         // o profissional selecionado é vinculado ao time
     
         //Informações do profissional selecionado
-        const newTeamMember = allProfessionals.filter((profes) => {
-            return profes.id == professionalSelected
+        const newTeamMember = allProfessionals.filter((professional) => {
+            return professional.id === professionalSelected
         })
         
+        console.log(newTeamMember)
         const [{id, name, avatar, job}] = newTeamMember
         
         const newTeamMembers = [...teamMembers, {
@@ -106,10 +102,9 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
             extra_hour_limit: +overtime,
         }];
         
-        console.log(newTeamMembers);
             //Validação para se o membro do time já existe
              const memberAlreadyExist = teamMembers.find((member) => {
-                return member.user_id == id
+                return member.user_id === id
              })
 
             if(!memberAlreadyExist){
@@ -138,53 +133,47 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
                 data: {
                     user_id: professionalClicked,
                 }
-            });
+            })
 
             const {data} = await api({
                 method:'get',     
                 url:`/userProjects/project/${projectId}`,
-            });
+            })
 
 
-            setTeamMembers(data);
+            setTeamMembers(data)
         }
 
         CloseButtonClickHandler()
     }
 
-
-
     ////////////////////// Funções usadas na edição em tempo real //////////////////////
 
-        const addTeamMember = async () => {
-            
-            const projectUsers = await api({
-                method:'post',     
-                url:`/userProjects/project/${projectId}`,
-                data: {
-                    user_id: professionalSelected,
-                    workload: hoursMonth,
-                    extra_hours_limit: overtime
-                }
-            });
-
-            const {data} = await api({
-                method:'get',     
-                url:`/userProjects/project/${projectId}`,
-            });
-
-            console.log(data)
-                
-            setTeamMembers(data);
+    const addTeamMember = async () => {
         
-        }
+        const projectUsers = await api({
+            method:'post',     
+            url:`/userProjects/project/${projectId}`,
+            data: {
+                user_id: professionalSelected,
+                workload: hoursMonth,
+                extra_hours_limit: overtime
+            }   
+        })
 
-    
+        const {data} = await api({
+            method:'get',     
+            url:`/userProjects/project/${projectId}`,
+        });
+
+        return setTeamMembers(data) && getAllProfessionals()
+        
+    }
      
      useEffect(() => {
  
          if(componentRendered){
-             setTeamMembers(editData);
+             setTeamMembers(editData)
          }
  
      }, [componentRendered])
@@ -193,7 +182,7 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
     //////////// Verificações para saber qual das duas edições está acontecendo //////////
     
     const professionalClickHandler = (memberId) => {
-        setMenuOptionsisVisible(!menuOptionsisVisible)
+        setMenuOptionsIsVisible(!menuOptionsIsVisible)
         setProfessionalClicked(memberId)
         console.log(memberId);
     }
@@ -201,15 +190,14 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
     const professionalMenuDelete = () => {
         setTeamMemberDeleteId(professionalClicked)
         setModalIsVisible(true)
-        setMenuOptionsisVisible(false)
+        setMenuOptionsIsVisible(false)
     }
 
     const editHandler = () => {
         setOpenModalEdit(true)
-        setMenuOptionsisVisible(false)
+        setMenuOptionsIsVisible(false)
     }
 
-    
     const editHoursWhenEditing = async () => {
         
         await api({
@@ -235,14 +223,10 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
     const editHoursWhenRegistering = () => {
 
         const editedTeamMembers = teamMembers.map((professional) => {
-            if(professional.id == professionalClicked){
+            if(professional.id === professionalClicked){
                 return {...professional, workload: hoursMonthEdit, extra_hour_limit: overtimeEdit}
             }
-
-            if(professional.id !== professionalClicked){
-                return professional;
-            }
-            
+            return professional
         })
 
        
@@ -257,8 +241,12 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
         setOvertime('')
         setReset(true)
 
-        console.log(teamMembers);
-  
+        const fetchData = async () => {
+            await getAllProfessionals()
+        }
+        
+        return fetchData()
+          
     }, [teamMembers])
 
 
@@ -273,7 +261,7 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
     /////////////////////////ver isso
 
     useEffect(() => {
-        const teamArr = teamMembers.filter(professional => professional.id == professionalClicked)
+        const teamArr = teamMembers.filter(professional => professional.id === professionalClicked)
         const [team] = teamArr
         setHoursMonthEdit(team?.workload)
         setOvertimeEdit(team?.extra_hour_limit)
@@ -286,13 +274,13 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
 
             <AttachmentForm>
                 <InputSelectWithLabel
-                setSelectedOption={setProfessionalSelected}
-                options={allProfessionals}
-                placeholder="Time"
-                width="100%"
-                lineWidth="40%"
-                label="Selecionar time"
-                reset={reset}
+                    setSelectedOption={setProfessionalSelected}
+                    options={allProfessionals}
+                    placeholder="Time"
+                    width="100%"
+                    lineWidth="40%"
+                    label="Selecionar time"
+                    reset={reset}
                 />
                 <InputText
                     width="100%"
@@ -312,7 +300,7 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
                     type="number"
                     margin="0 2em 0 0"
                 />
-                <BlueButton width="13%" onClick={() => isEditing ? addTeamMember() :  setTeamMemberClickHandler()}>
+                <BlueButton width="13%" onClick={() => isEditing ? addTeamMember() : setTeamMemberClickHandler()}>
                     Vincular
                 </BlueButton>
             </AttachmentForm>
@@ -332,8 +320,8 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
                 </ListHeaderTitle>
             </ListHeaderContainer>
 
-            {teamMembers.map((member) => (
-                <AttachmentTableLine key={member.id}>
+            {teamMembers.map((member, index) => (
+                <AttachmentTableLine key={index}>
                     <ProfessionalInfo>
                         <ProfessionalProfilePicture>
                             <ProfilePicture src={member?.avatar || User}/>
@@ -364,8 +352,8 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
                         onClick={() => professionalClickHandler(member.id)}
                         />
                     </ContainerIcon>
-                    {console.log(member.id, professionalClicked)}
-                    {menuOptionsisVisible && member.id == professionalClicked &&
+                    {/* {console.log(member.id, professionalClicked)} */}
+                    {menuOptionsIsVisible && member.id === professionalClicked &&
                         <MenuOptions
                         positionMenu="25px"
                         firstOptionDescription="Editar"
