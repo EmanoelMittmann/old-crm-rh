@@ -1,27 +1,22 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { useLocation } from "react-router-dom";
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
-import api from '../../../api/api.js';
+import api from '../../../api/api.js'
+
 import ProjectsListHeader from '../../atoms/ProjectsListHeader'
 import ProjectsInputs from '../../molecules/ProjectsInputs/index.js'
 import ProjectsListItem from '../../molecules/ProjectsListItem'
-import { ProjectsSectionContainer, ContainerMainContent } from './style.js'
 import Footer from '../Footer'
 
-
-
+import { ProjectsSectionContainer, ContainerMainContent } from './style.js'
 import {
     projectsPages,
     setProjectList
 } from '../../../redux/actions'
 
 
-
 export const ProjectsSection = () => { 
     const dispatch = useDispatch()
-    const location = useLocation();
     const state = useSelector(state => state)
     
     const lastPage = state.projectsPagesFilter.last_page
@@ -58,12 +53,12 @@ const nextPage = async () => {
         method: 'get',
         url: `/project`,
         params: params
-    });
+    })
 
     dispatch(setProjectList(data.data));
     dispatch(projectsPages(data.meta));
 
-    return data;
+    return data
 }
 
 const previousPage = async () => {
@@ -74,12 +69,12 @@ const previousPage = async () => {
         method: 'get',
         url: `/project`,
         params: params
-    });
+    })
     dispatch(setProjectList(data.data));
     dispatch(projectsPages(data.meta));
 
 
-    return data;
+    return data
 }
 
     return (
@@ -100,4 +95,4 @@ const previousPage = async () => {
     )
 
 }
-export default ProjectsSection;
+export default ProjectsSection
