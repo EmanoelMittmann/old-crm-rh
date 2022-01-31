@@ -1,13 +1,8 @@
 import React from 'react'
-import { format } from 'date-fns'
+import { formatDate } from '../../utils/formatDate'
 import { Main, Container } from './style'
 
 function ListItem({data}) {
-
-  function formatData(data) {
-    const newDate = format(data, 'dd/MM/yyyy')
-    return newDate
-  }
 
   return ( 
     data ? data.map((item, index) => 
@@ -16,13 +11,13 @@ function ListItem({data}) {
           {item.id}
         </Container>
         <Container>
-          {formatData(new Date(item.created_at), {timeZone: 'UTC'})}
+          {formatDate(new Date(item.created_at), {timeZone: 'UTC'})}
         </Container>
         <Container>
           {item.file.name}
         </Container>
       </Main >
-    ) : <></>
+    ) : <Main>Loading...</Main>
   ) 
 }
 
