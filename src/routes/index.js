@@ -17,6 +17,7 @@ import RegisterProject from '../components/pages/RegisterProject'
 import RegisterProfessional from '../components/pages/RegisterProfessional'
 import TimeSending from '../components/pages/TimeSending'
 import InvoiceSending from '../components/pages/InvoiceSending/InvoiceSending'
+import InvoiceUpload from '../components/pages/InvoiceUpload'
 
 const Routes = () => {
     return (
@@ -39,7 +40,8 @@ const Routes = () => {
                 <PrivateRoute path="/professional/:id" component={RegisterProfessional} />
 
                 <PrivateRoute path="/timeSending" component={TimeSending}  />
-                <PrivateRoute path="/InvoiceSending" component={InvoiceSending}  />
+                <PrivateRoute path="/invoiceSending" component={InvoiceSending}  />
+                <PrivateRoute path="/invoiceUpload" component={InvoiceUpload}  />
             </Switch>
         </BrowserRouter>
     )
