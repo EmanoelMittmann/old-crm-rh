@@ -10,12 +10,13 @@ const InputDate = ({date, setDate, placeholder, margin, width}) => {
     return (
         <InputLine width={width ? width : "260px"} margin={margin}>
             <DefaultInput 
-            displayDate={onFocus || date !== "" ? "block" : "none"}
-            width="70px"
-            type="date"
-            onFocus={(e) => setOnFocus(true)}
-            onChange={(e) => setDate(e.target.value)}
-            value={date}
+                displayDate={onFocus || date !== "" ? "block" : "none"}
+                width="70px"
+                type="date"
+                onFocus={(e) => setOnFocus(true)}
+                onChange={(e) => setDate(e.target.value)}
+                value={date}
+                max="2999-12-31"
             ></DefaultInput>
             {!onFocus && date === "" && <PlaceHolder>{placeholder}</PlaceHolder>}
         </InputLine>
