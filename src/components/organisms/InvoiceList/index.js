@@ -7,11 +7,13 @@ import Footer from '../../organisms/Footer'
 const headers = [
   {
     name: "#",
-    order: true
+    order: true,
+    field: "id"
   },
   {
     name: "Data lançamento",
-    order: true
+    order: true,
+    field: "created_at"
   },
   {
     name: "Arquivo",
@@ -19,12 +21,14 @@ const headers = [
   }
 ]
 
-function InvoiceList({data, meta, nextPage, previousPage}) {
+function InvoiceList({data, meta, nextPage, previousPage, sortById}) {
   return ( 
     <>
-      <ListHeader data={headers}/>
+      <ListHeader 
+        data={headers}
+        fnOrder={sortById}  
+      />
       <ListItem data={data}/>
-
       <Footer
         previousPage={previousPage}
         nextPage={nextPage}
