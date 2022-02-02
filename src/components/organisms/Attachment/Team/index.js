@@ -69,13 +69,12 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
             method:'get',     
             url:`/user`,
         })
-        console.log("team:", teamMembers)
-        const validMembers = checkArraysDifference(data, teamMembers)
+        const validMembers = checkArraysDifference({
+            completeArray: data, 
+            comparisonArray: teamMembers, 
+            key: "id"
+        })
         const formattedProfessionals = formatFirstLetter(validMembers)
-
-        console.log("Selecionados", editData)
-        console.log("Todos:", data)
-        console.log("Filtrados:", formattedProfessionals)
 
         return setAllProfessionals(formattedProfessionals)
     }
@@ -90,7 +89,6 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
             return professional.id === professionalSelected
         })
         
-        console.log(newTeamMember)
         const [{id, name, avatar, job}] = newTeamMember
         
         const newTeamMembers = [...teamMembers, {
@@ -184,7 +182,6 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
     const professionalClickHandler = (memberId) => {
         setMenuOptionsIsVisible(!menuOptionsIsVisible)
         setProfessionalClicked(memberId)
-        console.log(memberId);
     }
 
     const professionalMenuDelete = () => {
@@ -352,7 +349,6 @@ const AttachmentTeam = ({projectId, componentRendered, editData, payloadTeam, se
                         onClick={() => professionalClickHandler(member.id)}
                         />
                     </ContainerIcon>
-                    {/* {console.log(member.id, professionalClicked)} */}
                     {menuOptionsIsVisible && member.id === professionalClicked &&
                         <MenuOptions
                         positionMenu="25px"

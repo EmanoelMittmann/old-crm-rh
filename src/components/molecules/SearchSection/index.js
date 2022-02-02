@@ -1,22 +1,16 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import InputSearch from '../../atoms/InputSearch'
 import InputDate from '../../atoms/InputDate'
+import useDebounce from '../../../hooks/debounce'
 import { Main } from './style.js'
 
 function SearchSection({fnSearch, fnDateStart, fnDateEnd, start, end}) {
-  const timeoutRef = useRef(null)
-
-  function debounce(...args) {
-    window.clearTimeout(timeoutRef.current)
-    timeoutRef.current = window.setTimeout(() => {
-      fnSearch(...args)
-    }, 400)
-  }
+  const debouncedChange = useDebounce(fnSearch, 400)
 
   return ( 
     <Main>
       <InputSearch 
-        setSearchResult={debounce} 
+        setSearchResult={debouncedChange} 
         lineWidth="280px" 
         inputWidth="230px"
       />

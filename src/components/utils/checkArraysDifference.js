@@ -1,10 +1,10 @@
-// primeiro parâmetro é o array que contem todos os itens e o segundo parâmetro é o array com itens para comparação;
+// primeiro parâmetro é o array que contem todos os itens, o segundo parâmetro é o array com itens para comparação e o terceiro parâmetro é a chave que eu desejo comparar;
 import differenceBy from 'lodash.differenceby'
 
-export function checkArraysDifference(array1, array2) {  
-  if ( !array2.length) {
-    return array1 
+export function checkArraysDifference({completeArray, comparisonArray, key}) {  
+  if (!comparisonArray.length) {
+    return completeArray 
   }
 
-  return differenceBy(array1, array2, "id") 
+  return differenceBy(completeArray, comparisonArray, key) 
 }

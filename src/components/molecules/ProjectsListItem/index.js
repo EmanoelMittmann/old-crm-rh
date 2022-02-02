@@ -222,11 +222,11 @@ export const ProjectsListItem = () => {
                                     
                                 }
 
-                                {project.users.map((user, i, arr) => {
+                                {project.users.map((user, index, arr) => {
                                     return user.id === userDetailsInfo.user_id &&
                                     project.id === projectInfo?.project_id &&
                                     userDetailsIsVisible && 
-                                        <TeamMemberDetails key={i} position={menuPosition(i, arr)}>
+                                        <TeamMemberDetails key={index} position={menuPosition(index, arr)}>
                                             <Name>
                                                 {userDetailsInfo.name}
                                             </Name>
