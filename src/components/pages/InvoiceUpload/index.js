@@ -34,7 +34,6 @@ function InvoiceUpload() {
     }
 
     const data = new FormData()
-    console.log(fileData.file)
     data.append('param_name_file', fileData.file[0])
 
     api.post('fiscalNotes/uploadFiles', data, {
