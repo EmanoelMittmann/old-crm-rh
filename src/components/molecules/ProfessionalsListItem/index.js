@@ -30,9 +30,7 @@ const ProfessionalsListItem = ({professional}) => {
     }
  
     const editProfessional = () => {
-        history.push({
-            pathname: `/professional/${professional.id}`
-          })
+        history.push(`/professional/${professional.id}`)
     }
 
     const openModaldisableProfessional = () => {

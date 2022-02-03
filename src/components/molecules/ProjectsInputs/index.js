@@ -30,13 +30,12 @@ export const ProjectsInputs = () => {
     const dispatch = useDispatch()
     const location = useLocation()
 
-    const [selectedOptionStatus, setSelectedOptionStatus] = useState('');
-    const [selectedOptionTypes, setSelectedOptionTypes] = useState('');
-    const [searchResult, setSearchResult] = useState('');
-    const [projectsOptionStatus, setprojectsOptionStatus] = useState([]);
-    const [projectsOptionTypes, setprojectsOptionTypes] = useState([]);
-    const [selectedOption, setSelectedOption] = useState('');
-
+    const [selectedOptionStatus, setSelectedOptionStatus] = useState('')
+    const [selectedOptionTypes, setSelectedOptionTypes] = useState('')
+    const [searchResult, setSearchResult] = useState('')
+    const [projectsOptionStatus, setProjectsOptionStatus] = useState([])
+    const [projectsOptionTypes, setProjectsOptionTypes] = useState([])
+    const [selectedOption, setSelectedOption] = useState('')
 
     let params = {}
 
@@ -69,15 +68,14 @@ export const ProjectsInputs = () => {
             method: 'get',
             url: `/projectType`,
 
-        });
+        })
 
-        setprojectsOptionTypes(data.data)
+        data.data.push({ name: "Todos"})
+
+        setProjectsOptionTypes(data.data)
         dispatch(projectsPages(data.meta))
 
-
-        return data;
-
-
+        return data
     }
 
     const projectsFilterStatusOptions = async () => {
@@ -86,13 +84,14 @@ export const ProjectsInputs = () => {
         const { data } = await api({
             method: 'get',
             url: `/projectStatus`,
-        });
+        })
 
-        setprojectsOptionStatus(data.data)
+        data.data.push({ name: "Todos"})
+
+        setProjectsOptionStatus(data.data)
         dispatch(projectsPages(data.meta))
 
-        return data;
-
+        return data
     }
 
     useEffect(() => {
@@ -109,7 +108,7 @@ export const ProjectsInputs = () => {
 
             const { data } = await api({
                 method: 'get',
-                url: `/project`,
+                url: `/project`,    
                 params: params
             });
 
@@ -124,18 +123,18 @@ export const ProjectsInputs = () => {
 
 
     useEffect(() => {
-        searchResult !== '' && filterProjects()
         dispatch(setSearchNameProject(searchResult))
+        return filterProjects()
     }, [searchResult])
 
     useEffect(() => {
-        filterProjects()
         dispatch(setStatusListProjects(selectedOptionStatus))
+        return filterProjects()
     }, [selectedOptionStatus])
 
     useEffect(() => {
-        filterProjects()
         dispatch(setTypeListProjects(selectedOptionTypes))
+        return filterProjects()
     }, [selectedOptionTypes])
 
 

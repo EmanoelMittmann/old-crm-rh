@@ -198,6 +198,7 @@ export const ProjectsListItem = () => {
                                 {project.users.map((user, i, arr)=> (
                                     i < 5 && (
                                         <TeamMemberPic 
+                                            key={i}
                                             src={user?.avatar || User}
                                             size="35px"
                                             margin="0 0.7em 0 0"
@@ -221,11 +222,11 @@ export const ProjectsListItem = () => {
                                     
                                 }
 
-                                {project.users.map((user, i, arr) => {
+                                {project.users.map((user, index, arr) => {
                                     return user.id === userDetailsInfo.user_id &&
                                     project.id === projectInfo?.project_id &&
                                     userDetailsIsVisible && 
-                                        <TeamMemberDetails position={menuPosition(i, arr)}>
+                                        <TeamMemberDetails key={index} position={menuPosition(index, arr)}>
                                             <Name>
                                                 {userDetailsInfo.name}
                                             </Name>
@@ -247,7 +248,7 @@ export const ProjectsListItem = () => {
                                 <ContainerIconOptions onClick={() => menuOptionsClicked(project.id, project.project_status_id)}>
                                     <OptionsIcon/>
                                 </ContainerIconOptions>
-                            {menuOptionsisVisible && project.id == idProjectClicked &&
+                            {menuOptionsisVisible && project.id === idProjectClicked &&
                                 <MenuOptions
                                 positionMenu="40px"
                                 firstChosenOption={editProject}

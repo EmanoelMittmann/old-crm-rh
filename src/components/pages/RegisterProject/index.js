@@ -39,7 +39,7 @@ const RegisterProject = (props) => {
     const [componentRendered, setComponentRendered] = useState(false)
     const { id } = useParams()
 
-        const editProject = async () => {
+    const editProject = async () => {
 
             try {
                 await api({
@@ -68,7 +68,7 @@ const RegisterProject = (props) => {
                 console.error(error);
             }
     
-        }
+    }
 
     const registerProject = async () => {
 
@@ -97,42 +97,32 @@ const RegisterProject = (props) => {
             return data.data
         
         } catch (error) {
-            console.error(error);
+            console.error(error)
         }
 
     }
 
-    const projectBeingEdited = state?.projects.find(project => {
-        return project?.id === id
-    })
-    
     const projectHandler = () => {
-        if(projectBeingEdited) return editProject();
-        
-        return registerProject()
-    }
-
-    const editProjectData = async () => {
-        const {data} = await api({
-            method: 'get',
-            url: `/project/${id}`,
-        })
-
-
-        const response = await api({
-            method: 'get',
-            url: `/userProjects/project/${id}`,
-        })
-
-        setEditProjectTeam(response.data)
-        setEditProjectData(...data)
-        setComponentRendered(true)
-
+        id ? editProject() :  registerProject()
     }
     
     useEffect(() => {
-        id && editProjectData();
-    }, [])
+        const editProjectData = async () => {
+            const {data} = await api({
+                method: 'get',
+                url: `/project/${id}`,
+            })
+    
+            const response = await api({
+                method: 'get',
+                url: `/userProjects/project/${id}`,
+            })
+            setEditProjectTeam(response.data)
+            setEditProjectData(...data)
+            setComponentRendered(true)
+        }
+        id && editProjectData()
+    }, [id])
 
    const CloseButtonClickHandler = () => {
         setModalWarningIsVisible(false)
@@ -141,19 +131,18 @@ const RegisterProject = (props) => {
    const redButtonClickHandler = () => {
         history.push("/projects")
    }
-
-    const calcDaysPassed = (date1, date2) => (date2 - date1) / (1000 * 60 * 60 * 24)
-    
-    const daysPassed = calcDaysPassed(new Date(inicialYear, inicialMonth, inicialDay), new Date(finalYear, finalMonth, finalDay))
-
-    const goBackClickHandler = () => {
+   
+   const goBackClickHandler = () => {
         history.push("/projects")
     }
-
+    
     const footerCancelButtonHandler = () => {
         return setModalWarningIsVisible(true)
     }
 
+    const calcDaysPassed = (date1, date2) => (date2 - date1) / (1000 * 60 * 60 * 24)
+    const daysPassed = calcDaysPassed(new Date(inicialYear, inicialMonth, inicialDay), new Date(finalYear, finalMonth, finalDay))
+    
     const footerRegisterButtonHandler = () => {
         return daysPassed >= 0 ? projectHandler() : console.log("Data inválida")
     }
@@ -191,19 +180,18 @@ const RegisterProject = (props) => {
                     setTeamCost={setTeamCost}
                     teamCost={teamCost}
                 />
-
                 <AttachmentTeam
-                componentRendered={componentRendered}
-                editData={EditProjectTeam}
-                payloadTeam={payloadTeam}
-                setPayloadTeam={setPayloadTeam}
-                projectId={id}
+                    componentRendered={componentRendered}
+                    editData={EditProjectTeam}
+                    payloadTeam={payloadTeam}
+                    setPayloadTeam={setPayloadTeam}
+                    projectId={id}
                 />
 
                 <RegisterFooter
-                cancelButtonHandler={footerCancelButtonHandler}
-                registerButtonHandler={footerRegisterButtonHandler}
-                buttonDescription={id ? "Atualizar" : "Cadastrar"}
+                    cancelButtonHandler={footerCancelButtonHandler}
+                    registerButtonHandler={footerRegisterButtonHandler}
+                    buttonDescription={id ? "Atualizar" : "Cadastrar"}
                 />
 
             </RegisterProjectContainer>

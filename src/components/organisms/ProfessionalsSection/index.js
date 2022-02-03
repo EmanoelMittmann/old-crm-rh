@@ -36,7 +36,7 @@ const ProfessionalsSection = () => {
             params.page = professionalMeta.first_page
         }
 
-        if(jobSelected !== ""){
+        if(jobSelected !== "") {     
             params.job_id = jobSelected
             params.page = professionalMeta.first_page
         }
@@ -58,30 +58,16 @@ const ProfessionalsSection = () => {
             params: params
         })
         
-        setProfessionals(data.data);
+        setProfessionals(data.data)
         setProfessionalMeta(data.meta)
     }
 
     useEffect(() => {
+        handleFilterRequest()
         getProfessionals()
-
         location.state && setProfessionals(location.state.professionals.data) 
-    },[])
 
-    useEffect(() => {
-        handleFilterRequest()
-        getProfessionals()
-    }, [searchResult])
-
-    useEffect(() => {
-        handleFilterRequest()
-        getProfessionals()
-    }, [jobSelected])
-
-    useEffect(() => {
-        handleFilterRequest()
-        getProfessionals()
-    }, [order])
+    }, [searchResult, jobSelected, order])
 
     const nextPage = () => {
         handleFilterRequest("next")
@@ -92,9 +78,7 @@ const ProfessionalsSection = () => {
         handleFilterRequest("previous")
         getProfessionals()
     }
-
-    
-
+ 
     return (
         <ProfessionalsSectionContainer>
             <ProfessionalsInputs setSearchResult={setSearchResult} setJobSelected={setJobSelected}/>
@@ -113,5 +97,5 @@ const ProfessionalsSection = () => {
     )
 }
 
-export default ProfessionalsSection;
+export default ProfessionalsSection
 

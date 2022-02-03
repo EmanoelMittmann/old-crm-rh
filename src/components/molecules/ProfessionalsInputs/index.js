@@ -13,8 +13,8 @@ const ProfessionalsInputs = ({setJobSelected, setSearchResult}) => {
             method:'get',     
             url:`/job`,
         })
-
-        setJobs(data.data);
+        data.data.push({ name: "Todos" }) 
+        setJobs(data.data)
     }
     
     useEffect(() => {
