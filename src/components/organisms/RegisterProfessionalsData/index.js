@@ -55,8 +55,7 @@ const RegisterProfessionalsData = ({ data }) => {
 
     useEffect(() => {
         inputRef.current?.focus()
-        console.log(errors)
-    }, [errors])
+    }, [])
 
     return (
         <ContainerRegisterProfessionalsData>
@@ -71,6 +70,7 @@ const RegisterProfessionalsData = ({ data }) => {
                             widthContainer="50%" 
                             placeholder="Nome..."
                             padding="0 2em 0 0"
+                            errorMessage={errors.name}
                         />
                         <MaskedInput
                             id="CPF"

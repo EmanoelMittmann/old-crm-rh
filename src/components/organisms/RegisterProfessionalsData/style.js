@@ -13,7 +13,7 @@ export const ContainerRow = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 2em;
+    margin-bottom: 1.5em;
 
     &:last-child {
         margin-bottom: 3em;

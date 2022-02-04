@@ -40,8 +40,8 @@ const RegisterProfessional = () => {
     }
 
     const schema = Yup.object().shape({
-        name: Yup.string().required,
-        CPF: Yup.number().required,
+        name: Yup.string().required('Campo obrigatório'),
+        CPF: Yup.number().required(),
     })
 
     const formik = useFormik({
@@ -64,7 +64,7 @@ const RegisterProfessional = () => {
         onSubmit: values => {
           console.table(JSON.stringify(values))
         },
-        validationSchema: {schema}
+        validationSchema: schema
     })
 
     const handleCEP = async () => {
