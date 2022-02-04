@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
 import MaskedInput from 'react-text-mask'
-import axios from 'axios'
 
-import api from '../../../api/api'
-import { getDate } from '../../utils/getDate'
 import { TextRequired } from '../../atoms/TextRequired'
 import { cleanMask } from '../../utils/cleanMask'
+
 import { DefaultInput, InputLine } from '../../atoms/DefaultInput/style.js';
 import { 
     ContainerRegisterProfessionalsData,
@@ -19,127 +17,73 @@ import InputText from '../../atoms/InputText/index.js';
 import InputDate from '../../atoms/InputDate/index.js';
 import InputSelect from '../../atoms/InputSelect/index.js';
 
-const RegisterProfessionalsData = ({personalData, editData, setName, setCPF, setRG,  setBirthDate, setCNPJ, setCorporateName, setCEP, setStreet, setAddressNumber, setAddressDetails, setNeighborhood, setCity, setUF, setPhoneNumber, componentRendered}) => {
+const optionsUF = [
+    {id: "Acre", name: "AC"},
+    {id: "Alagoas", name: "AL"},
+    {id: "Amapá", name: "AP"},
+    {id: "Amazonas", name: "AM"},
+    {id: "Bahia", name: "BA"},
+    {id: "Ceará", name: "CE"},
+    {id: "Distrito Federal", name: "DF"},
+    {id: "Espírito Santo", name: "ES"},
+    {id: "Goiás", name: "GO"},
+    {id: "Maranhão", name: "MA"},
+    {id: "Mato Grosso", name: "MT"},
+    {id: "Mato Grosso do Sul", name: "MS"},
+    {id: "Minas Gerais", name: "MG"},
+    {id: "Pará", name: "PA"},
+    {id: "Paraíba", name: "PB"},
+    {id: "Paraná", name: "PR"},
+    {id: "Pernambuco", name: "PE"},
+    {id: "Piauí", name: "PI"},
+    {id: "Rio de Janeiro", name: "RJ"},
+    {id: "Rio Grande do Norte", name: "RN"},
+    {id: "Rio Grande do Sul", name: "RS"},
+    {id: "Rondônia", name: "RO"},
+    {id: "Roraima", name: "RR"},
+    {id: "Santa Catarina", name: "SC"},
+    {id: "São Paulo", name: "SP"},
+    {id: "Sergipe", name: "SE"},
+    {id: "Tocantins", name: "TO"}
+]
+
+const RegisterProfessionalsData = ({ data }) => {
 
    const inputRef = useRef(null);
-   const [validCPF, setValidCPF] = useState(true);
-   const [editName, setEditName] = useState("")
-
-    const getUserLocation = async () => {
-        const response = axios.get(`https://viacep.com.br/ws/${personalData.CEP}/json/`, {transformRequest: (data, headers)=>{
-        delete headers.common;
-        return data;
-        }});
-        response.then(data => {
-            const {uf, localidade} = data.data;
-            setUF(uf);
-            setCity(localidade);
-        })
-    }
+   const [validCPF, setValidCPF] = useState(true)
+   const { values, handleChange, errors} = data
 
     useEffect(() => {
-        inputRef.current?.focus();
-    }, []);
-
-    useEffect(() => {
-        personalData.CEP.length === 8 && getUserLocation(personalData.CEP)
-    }, [personalData.CEP])
-
-    const optionsUF = [
-        {name: "Acre", initials: "AC"},
-        {name: "Alagoas", initials: "AL"},
-        {name: "Amapá", initials: "AP"},
-        {name: "Amazonas", initials: "AM"},
-        {name: "Bahia", initials: "BA"},
-        {name: "Ceará", initials: "CE"},
-        {name: "Distrito Federal", initials: "DF"},
-        {name: "Espírito Santo", initials: "ES"},
-        {name: "Goiás", initials: "GO"},
-        {name: "Maranhão", initials: "MA"},
-        {name: "Mato Grosso", initials: "MT"},
-        {name: "Mato Grosso do Sul", initials: "MS"},
-        {name: "Minas Gerais", initials: "MG"},
-        {name: "Pará", initials: "PA"},
-        {name: "Paraíba", initials: "PB"},
-        {name: "Paraná", initials: "PR"},
-        {name: "Pernambuco", initials: "PE"},
-        {name: "Piauí", initials: "PI"},
-        {name: "Rio de Janeiro", initials: "RJ"},
-        {name: "Rio Grande do Norte", initials: "RN"},
-        {name: "Rio Grande do Sul", initials: "RS"},
-        {name: "Rondônia", initials: "RO"},
-        {name: "Roraima", initials: "RR"},
-        {name: "Santa Catarina", initials: "SC"},
-        {name: "São Paulo", initials: "SP"},
-        {name: "Sergipe", initials: "SE"},
-        {name: "Tocantins", initials: "TO"}
-    ]
-
-    const validateCpf = async (cpf) => {
-
-        const {data} = await api({
-            method:'post',     
-            url:`/user/validateCpf`,
-            data: {
-                cpf: cpf
-            }
-        })
-        
-        setValidCPF(data)
-    }
-
-    
-    useEffect(() => {
-        if(componentRendered && editData){
-            setName(editData.name)
-            setCPF(editData.cpf)
-            setRG(editData.rg)
-            setBirthDate(getDate(editData.birth_date))
-            setCNPJ(editData.cnpj)
-            setCorporateName(editData.razao_social)
-            setCEP(editData.cep)
-            setStreet(editData.street_name)
-            setAddressNumber(editData.house_number)
-            setAddressDetails(editData.complement)
-            setNeighborhood(editData.neighbourhood_name)
-            setCity(editData.city_name)
-            setUF(editData.uf)
-            setPhoneNumber(editData.telephone_number)
-
-        }
-        
-    }, [componentRendered])
+        inputRef.current?.focus()
+        console.log(errors)
+    }, [errors])
 
     return (
         <ContainerRegisterProfessionalsData>
              <SecondaryText margin="0 0 2.5em 0">Dados pessoais</SecondaryText>
                 <RegisterProfessionalsForm>
                     <ContainerRow>
-                            <InputWithLabel
-                            inputValue={personalData.name}
-                            setInputWithLabelValue={setName}
+                        <InputWithLabel
+                            inputValue={values.name}
+                            onChange={handleChange('name')}
                             label="Nome"
                             width="100%"
                             widthContainer="50%" 
                             placeholder="Nome..."
                             padding="0 2em 0 0"
-                            editValue={editName}
-                            />
-                            <ContainerTextRequired>
-                                <MaskedInput
-                                defaultValue={personalData.CPF}
-                                mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/ ,/\d/]}
-                                placeholder="CPF"
-                                onChange={(e) => {
-                                    const value = cleanMask(e.target.value)
-                                    value !== '' && validateCpf(value)
-                                    setCPF(value)
-                                }}
-                                guide={false}
-                                keepCharPositions={true}
-                                render={(maskRef, maskProps) => (
-                                    <InputLine borderColor={validCPF === false && "red"} widthLine="23%" margin="0 2em 0 0">
-                                        <DefaultInput
+                        />
+                        <MaskedInput
+                            id="CPF"
+                            name="CPF"
+                            value={values.CPF}
+                            mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/ ,/\d/]}
+                            placeholder="CPF"
+                            onChange={handleChange('CPF')}
+                            guide={false}
+                            keepCharPositions={true}
+                            render={(maskRef, maskProps) => (
+                                <InputLine borderColor={validCPF === false && "red"} widthLine="23%" margin="0 2em 0 0">
+                                    <DefaultInput
                                         placeholderColor={validCPF === false && "red"}
                                         padding="0.3em 1.2em 0 1.2em"
                                         ref={
@@ -150,186 +94,162 @@ const RegisterProfessionalsData = ({personalData, editData, setName, setCPF, set
                                             }}
                                         }
                                         {...maskProps}
-                                        />
-                                    </InputLine>
-                                
-                                )}
-                                />
-                                {validCPF === false &&
-                                    <TextRequired>
-                                        CPF Existente
-                                    </TextRequired>
-                                }
-                            </ContainerTextRequired>
-                            <InputText 
-                            setTextValue={setRG}
-                            value={personalData.RG}
+                                    />
+                                </InputLine>
+                            
+                            )} />
+                        <InputText 
+                            onChange={handleChange('RG')}
+                            value={values.RG}
                             placeholder="RG"
                             width="100%"
                             widthLine="25%"
                             type="number"
-                            />
+                        />
                     </ContainerRow>
                     <ContainerRow>
                         <InputDate
-                         setDate={setBirthDate}
-                         placeholder="Data nascimento"
-                         date={personalData.birthDate}
-                         margin="0 2em 0 0"
+                            onChange={handleChange('birthDate')}
+                            placeholder="Data nascimento"
+                            value={values.birthDate}
+                            margin="0 2em 0 0"
                         />
-                         <MaskedInput
-                            defaultValue={personalData.phoneNumber}
+                        <MaskedInput
+                            value={values.phoneNumber}
                             mask={['(', /[1-9]/, /\d/, ')', ' ', /\d/, ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/ ,/\d/]}
                             placeholder="Celular"
                             keepCharPositions={true}
                             guide={false}
-                            onChange={(e) => {
-                                const value = cleanMask(e.target.value)
-                                setPhoneNumber(value)
-                            }}
+                            onChange={handleChange('phoneNumber')}
                             render={(maskRef, maskProps) => (
                                 <InputLine  widthLine="23%" margin="0 2em 0 0">
                                     <DefaultInput
-                                    padding="0.3em 1.2em 0 1.2em"
-                                    ref={
-                                        node => {
-                                        if(node){
-                                            maskRef(node);
-                                            inputRef.current = node;
-                                        }}
-                                    }
-                                    {...maskProps}
+                                        padding="0.3em 1.2em 0 1.2em"
+                                        ref={
+                                            node => {
+                                            if(node){
+                                                maskRef(node);
+                                                inputRef.current = node;
+                                            }}
+                                        }
+                                        {...maskProps}
                                     />
-                                </InputLine>
-                                
-                            )}
-                            />
-                         <MaskedInput
-                            defaultValue={personalData.CNPJ}
+                                </InputLine> 
+                            )} />
+                        <MaskedInput
+                            value={values.CNPJ}
                             mask={[/[1-9]/, /\d/, '.', ' ', /\d/, /\d/, /\d/,'.', 
                             /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/,]}
                             placeholder="CNPJ"
                             keepCharPositions={true}
-                            onChange={(e) => {
-                                const value = cleanMask(e.target.value)
-                                setCNPJ(value)
-                            }}
+                            onChange={handleChange('CNPJ')}
                             guide={false}
                             render={(maskRef, maskProps) => (
                                 <InputLine  widthLine="23%" margin="0 2em 0 0">
                                     <DefaultInput
-                                    padding="0.3em 1.2em 0 1.2em"
-                                     width="100%"
-                                     widthLine="23%"
-                                     margin="0 2em 0 0"
-                                    ref={
-                                        node => {
-                                        if(node){
-                                            maskRef(node);
-                                            inputRef.current = node;
-                                        }}
-                                    }
-                                    {...maskProps}
+                                        padding="0.3em 1.2em 0 1.2em"
+                                        width="100%"
+                                        widthLine="23%"
+                                        margin="0 2em 0 0"
+                                        ref={
+                                            node => {
+                                            if(node){
+                                                maskRef(node);
+                                                inputRef.current = node;
+                                            }}
+                                        }
+                                        {...maskProps}
                                     />
                                 </InputLine>
-                                
-                            )}
-                            />
+                            )} />
                         <InputText
-                         setTextValue={setCorporateName}
-                         value={personalData.corporateName}
-                         placeholder="Razão Social"
-                         width="100%"
-                         widthLine="30%"
-                        // editValue={}
+                            onChange={handleChange('corporateName')}
+                            value={values.corporateName}
+                            placeholder="Razão Social"
+                            width="100%"
+                            widthLine="30%"
                         />
                     </ContainerRow>
                     <ContainerRow>
-                         <MaskedInput
-                            defaultValue={personalData.CEP}
+                        <MaskedInput
+                            value={values.CEP}
                             mask={[/\d/, /\d/, /\d/, /\d/, /\d/,'-', 
                             /\d/, /\d/, /\d/]}
                             placeholder="CEP"
-                            onChange={(e) => {
-                                const value = cleanMask(e.target.value)
-                                setCEP(value)
-                            }}
+                            onChange={handleChange('CEP')}
                             keepCharPositions={true}
                             guide={false}
                             render={(maskRef, maskProps) => (
                                 <InputLine  widthLine="23%" margin="0 2em 0 0">
                                     <DefaultInput
-                                    padding="0.3em 1.2em 0 1.2em"
-                                    width="100%"
-                                    widthLine="23%"
-                                    margin="0 2em 0 0"
-                                    ref={
-                                        node => {
-                                        if(node){
-                                            maskRef(node);
-                                            inputRef.current = node;
-                                        }}
-                                    }
-                                    {...maskProps}
+                                        padding="0.3em 1.2em 0 1.2em"
+                                        width="100%"
+                                        widthLine="23%"
+                                        margin="0 2em 0 0"
+                                        ref={
+                                            node => {
+                                            if(node){
+                                                maskRef(node);
+                                                inputRef.current = node;
+                                            }}
+                                        }
+                                        {...maskProps}
                                     />
                                 </InputLine>
-                                
-                            )}
-                            />
-                         <InputText
-                         setTextValue={setStreet}
-                         value={personalData.street}
-                         placeholder="Rua"
-                         width="100%"
-                         widthLine="40%"
-                         margin="0 2em 0 0"
+                            )} />
+                        <InputText
+                            onChange={handleChange('street')}
+                            value={values.street}
+                            placeholder="Rua"
+                            width="100%"
+                            widthLine="40%"
+                            margin="0 2em 0 0"
                         />
-                         <InputText
-                         setTextValue={setAddressNumber}
-                         value={personalData.addressNumber}
-                         placeholder="Número"
-                         type="number"
-                         width="100%"
-                         widthLine="17%"
-                         margin="0 2em 0 0"
+                        <InputText
+                            onChange={handleChange('addressNumber')}
+                            value={values.addressNumber}
+                            placeholder="Número"
+                            type="number"
+                            width="100%"
+                            widthLine="17%"
+                            margin="0 2em 0 0"
                         />
-                         <InputText
-                         setTextValue={setAddressDetails}
-                         value={personalData.addressDetails}
-                         placeholder="Complemento"
-                         width="100%"
-                         widthLine="19%"
+                        <InputText
+                            onChange={handleChange('addressDetails')}
+                            value={values.addressDetails}
+                            placeholder="Complemento"
+                            width="100%"
+                            widthLine="19%"
                         />
                     </ContainerRow>
                     <ContainerRow>
                         <InputText
-                         setTextValue={setNeighborhood}
-                         value={personalData.neighborhood}
-                         placeholder="Bairro"
-                         width="100%"
-                         widthLine="50%"
-                         margin="0 2em 0 0"
+                            onChange={handleChange('neighborhood')}
+                            value={values.neighborhood}
+                            placeholder="Bairro"
+                            width="100%"
+                            widthLine="50%"
+                            margin="0 2em 0 0"
                         />
-                         <InputText
-                         setTextValue={setCity}
-                         value={personalData.city}
-                         placeholder="Cidade"
-                         width="100%"
-                         widthLine="38%"
-                         margin="0 2em 0 0"
+                        <InputText
+                            onChange={handleChange('city')}
+                            value={values.city}
+                            placeholder="Cidade"
+                            width="100%"
+                            widthLine="38%"
+                            margin="0 2em 0 0"
                         />
                         <InputSelect
-                        value={personalData.UF}
-                        setSelectedOption={setUF}
-                        options={optionsUF}
-                        placeholder="UF"
-                        width="230px"
+                            value={values.UF}
+                            onChange={handleChange('UF')}
+                            options={optionsUF}
+                            placeholder="UF"
+                            width="230px"
                         />    
                     </ContainerRow>
-                    
              </RegisterProfessionalsForm>
         </ContainerRegisterProfessionalsData>
     )
 }
 
-export default RegisterProfessionalsData;
+export default RegisterProfessionalsData

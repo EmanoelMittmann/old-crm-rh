@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from "react-router-dom"
-
+import { useFormik, ErrorMessage } from 'formik'
+import * as Yup from 'yup'
 import api from '../../../api/api'
 
 import ArrowRegister from '../../atoms/ArrowRegister'
@@ -22,333 +23,104 @@ import {
     ContainerProfessionalsLoginData,
 } from './style.js'
 import { toast } from 'react-toastify'
+import InputWithLabel from '../../atoms/InputWithLabel'
+import { cleanMask } from '../../utils/cleanMask'
+import { useMemo } from 'react'
+import axios from 'axios'
+import { useCallback } from 'react'
 
-const RegisterProfessional = () => {
+const RegisterProfessional = () => {    
     const history = useHistory()
+    const { id } = useParams()
 
-    const [name, setName] = useState('');
-    const [CPF, setCPF] = useState('');
-    const [RG, setRG] = useState('');
-    const [birthDate, setBirthDate] = useState('')
-    const [CNPJ, setCNPJ] = useState('')
-    const [corporateName, setCorporateName] = useState('')
-    const [CEP, setCEP] = useState('')
-    const [street, setStreet] = useState('')
-    const [addressNumber, setAddressNumber] = useState('')
-    const [addressDetails, setAddressDetails] = useState('')
-    const [neighborhood, setNeighborhood] = useState('')
-    const [city, setCity] = useState('')
-    const [UF, setUF] = useState('')
-    const [email, setEmail] = useState('')
-    const [phoneNumber, setPhoneNumber] = useState('')
-    const [validEmail, setValidEmail] = useState(false)
-    const [extraHour, setExtraHour] = useState('extraHourDisabled')
-    const [inicialDate, setInicialDate] = useState('');
-    const [job, setJob] = useState('');
-    const [type, setType] = useState('');
-    const [hoursWeek, setHoursWeek] = useState('');
-    const [hoursMonth, setHoursMonth] = useState('');
-    const [fixedSalary, setFixedSalary] = useState('');
-    const [divider, setDivider] = useState('')
-    const [fixedValue, setFixedValue] = useState('')
-    const [overtime, setOvertime] = useState('')
-    const [limit, setLimit] = useState('')
-    const [limitValue, setLimitValue] = useState('')
-    const [editData, setEditData] = useState(undefined)
-    const [componentRendered, setComponentRendered] = useState(false)
-    const [tableContent, setTableContent] = useState([])
-    const [projects, setProjects] = useState([])
 
-    const { id } = useParams();
-
+    
     const goBackClickHandler = () => {
         history.push('/professionals')
     }
 
-    const personalData = {
-        name: name,
-        CPF: CPF,
-        RG: RG,
-        birthDate: birthDate,
-        CNPJ: CNPJ,
-        corporateName: corporateName,
-        CEP: CEP,
-        street: street,
-        addressNumber: addressNumber,
-        addressDetails: addressDetails,
-        neighborhood: neighborhood,
-        city: city,
-        UF: UF,
-        phoneNumber: phoneNumber
-    }   
+    const schema = Yup.object().shape({
+        name: Yup.string().required,
+        CPF: Yup.number().required,
+    })
 
-    useEffect(() => {
-        const newProjects = tableContent.map((project) => {
-            return {
-                project_id: project.id,
-                workload: +project.thirdRow
-            }
-        })
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            CPF: cleanMask(''),
+            RG: '',
+            birthDate: '',
+            CNPJ: cleanMask(''),
+            corporateName: '',
+            CEP: cleanMask(''),
+            street: '',
+            addressNumber: '',
+            addressDetails: '',
+            neighborhood: '',
+            city: '',
+            UF: '',
+            phoneNumber: cleanMask('')
+        },
+        onSubmit: values => {
+          console.table(JSON.stringify(values))
+        },
+        validationSchema: {schema}
+    })
 
-        setProjects(newProjects)
+    const handleCEP = async () => {
+       await axios.get(`https://viacep.com.br/ws/${formik.values.CEP}/json/`, 
+            {transformRequest: (data, headers) => {
+                delete headers.common;
+                return data;
+            }})
+            .then(data => {
+                const {uf, localidade} = data.data
+                formik.setFieldValue('city', localidade)
+                formik.setFieldValue('UF', uf)
+            })
+            .catch(error => {console.log("Erro", error)})
+    }
 
-    }, [tableContent])
+    const validateCpf = async (cpf) => {
 
-   useEffect(() => {
-       //Validação do email
-        const emailDomainIndex = email.indexOf('@')
-        const emailDomain = email.slice(emailDomainIndex)
-        if(emailDomain === '@ubistart.com'){
-            setValidEmail(true)
-        }
-   }, [email])
-
-
-    const extraHourBoolean = extraHour === 'extraHourActivated' ? true : false
-    const limitedExtraHoursBoolean = limit === 'limitOvertime' ? true : false
-    const overtimeFormat = overtime.replace(',', '.').replace('R$', '')
-
-   const addProfessional = async () => {
-        const response = await api({
+        const {data} = await api({
             method:'post',     
-            url:`/user`,
+            url:`/user/validateCpf`,
             data: {
-                // avatar: "profile picture url",
-                extra_hour_value: +overtimeFormat,
-                user_type_id: "2",
-                name: name,
-                email: email,
-                job_id: job,
-                razao_social: corporateName,
-                cpf: CPF,
-                rg: RG,
-                cnpj: CNPJ,
-                cep: CEP,
-                uf: UF,
-                telephone_number: +phoneNumber,
-                birth_date: birthDate,
-                street_name: street,
-                neighbourhood_name: neighborhood,
-                city_name: city,
-                complement: addressDetails,
-                house_number: +addressNumber,
-                start_date: inicialDate,
-                weekly_hours: +hoursWeek,
-                fixed_payment_value: +fixedSalary,
-                job_type: "FULLTIME",
-                extra_hour_activated: extraHourBoolean,
-                variable1: +divider,
-                variable2: +fixedValue,
-                limited_extra_hours: limitedExtraHoursBoolean,
-                extra_hour_limit: +limitValue,
-                projects: projects             
+                cpf: cpf
             }
         })
-
-        const {data} = await api({
-            method:'get',     
-            url:`/professionals`,
-        })
-
-        if(response.status === 200) {
-            toast.success(<DefaultToast text="Cadastrado efetuado!"/>)
-            history.push({
-                pathname: '/professionals',
-                // state: { professionals: data }
-            })
-        }
-    }
-
-    const footerCancelButtonHandler = () => {
-        history.push('/professionals')
-    }
-
-    const footerRegisterButtonHandler = async () => {
-
-        id ? updateProfessional() : addProfessional()
-
-    }
-
-    // >>>>>>>>>>>>>>>>>>>>>>>>>>Edit Professional<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-    const getEditUserData = async () => {
-        try{
-            const {data} = await api({
-                method: 'get',
-                url: `/user/${id}`,
-            });
-
-            setEditData(...data)
-            setComponentRendered(true)
-            
-        }catch(error){
-            console.error(error)
-        }
-    }
-
-    const updateProfessional = async () => {
-        const response = await api({
-            method:'put',     
-            url:`/user/${id}`,
-            data: {
-                // avatar: "profile picture url",
-                extra_hour_value: +overtimeFormat,
-                user_type_id: "2",
-                name: name,
-                email: email,
-                job_id: job,
-                razao_social: corporateName,
-                cpf: CPF,
-                rg: RG,
-                cnpj: CNPJ,
-                cep: CEP,
-                uf: UF,
-                telephone_number: +phoneNumber,
-                birth_date: birthDate,
-                street_name: street,
-                neighbourhood_name: neighborhood,
-                city_name: city,
-                complement: addressDetails,
-                house_number: +addressNumber,
-                start_date: inicialDate,
-                weekly_hours: +hoursWeek,
-                fixed_payment_value: +fixedSalary,
-                job_type: "FULLTIME",
-                extra_hour_activated: extraHourBoolean,
-                variable1: +divider,
-                variable2: +fixedValue,
-                limited_extra_hours: limitedExtraHoursBoolean,
-                extra_hour_limit: +limitValue,          
-            }
-        })
-
-        const {data} = await api({
-            method:'get',     
-            url:`/professionals`,
-        })
-
-        if(response.status === 200) {
-            toast.success(<DefaultToast text="Edição efetuada!"/>)
-            history.push({
-                pathname: '/professionals',
-                state: { professionals: data }
-            })
-        }
+        
+        // setValidCPF(data)
     }
 
     useEffect(() => {
-        getEditUserData()
-        console.log('primeiro aqui')
-    }, [])
+        console.log(formik.values)
 
-    useEffect(() => {
-
-        if(componentRendered && editData){
-            setEmail(editData.email)
-        }
-
-    }, [componentRendered, editData])
+        // if(formik.values.CEP !== '' && formik.values.CEP.length > 8) return getCity
+    },[formik])
 
     return (
         <>
             <RegisterProfessionalTitleContainer>
                 <ArrowRegister
-                clickHandler={goBackClickHandler}/>
+                    clickHandler={goBackClickHandler}/>
                 <SectionTitle>
-                {id ? "Edição de profissional" : "Novo profissional"}
+                    {id ? "Edição de profissional" : "Novo profissional"}
                 </SectionTitle>
             </RegisterProfessionalTitleContainer>
-
             <RegisterProfessionalContainer>
-
-                <RegisterProfessionalsData
-                personalData={personalData}
-                editData={editData}
-                componentRendered={componentRendered}
-                setName={setName}
-                setCPF={setCPF}
-                setRG={setRG}
-                setBirthDate={setBirthDate}
-                setPhoneNumber={setPhoneNumber}
-                setCNPJ={setCNPJ}
-                setCorporateName={setCorporateName}
-                setCEP={setCEP}
-                setStreet={setStreet}
-                setAddressNumber={setAddressNumber}
-                setAddressDetails={setAddressDetails}
-                setNeighborhood={setNeighborhood}
-                setCity={setCity}
-                setUF={setUF}
-                />
-
-                <ContainerProfessionalsLoginData>
-                    <SecondaryText margin="0 0 2.5em 0">Dados de login</SecondaryText>
-                    <InputText
-                    setTextValue={setEmail}
-                    width="100%"
-                    widthLine="400px"
-                    placeholder="exemplo@ubistart.com"
-                    value={email}
-                    type="email"
+                <form onSubmit={formik.handleSubmit}>
+                    <RegisterProfessionalsData 
+                        data={formik}
                     />
-                </ContainerProfessionalsLoginData>
-
-                <EmploymentContract
-                setInicialDate={setInicialDate}
-                inicialDate={inicialDate}
-                setJob={setJob}
-                job={job}
-                setType={setType}
-                type={type}
-                setHoursWeek={setHoursWeek}
-                hoursWeek={hoursWeek}
-                setHoursMonth={setHoursMonth}
-                hoursMonth={hoursMonth}
-                setFixedSalary={setFixedSalary} 
-                fixedSalary={fixedSalary}
-                editData={editData}
-                componentRendered={componentRendered}
-                />
-
-                <ProfessionalsExtraHour
-                extraHour={extraHour}
-                setExtraHour={setExtraHour}
-                componentRendered={componentRendered}
-                editData={editData}
-                />
-
-                {'extraHourActivated' === extraHour && <OvertimePayCalc
-                divider={divider}
-                setDivider={setDivider}
-                fixedValue={fixedValue}
-                setFixedValue={setFixedValue}
-                overtime={overtime}
-                setOvertime={setOvertime}
-                limit={limit}
-                setLimit={setLimit}
-                limitValue={limitValue}
-                setLimitValue={setLimitValue}
-                componentRendered={componentRendered}
-                editData={editData}
-                />}
-
-                <AttachmentProject 
-                tableContent={tableContent}
-                setTableContent={setTableContent}
-                id={id}
-                hoursMonth={hoursMonth}
-                limitValue={limitValue}
-                componentRendered={componentRendered}
-                />
-
                 <RegisterFooter
-                cancelButtonHandler={footerCancelButtonHandler}
-                registerButtonHandler={footerRegisterButtonHandler}
-                buttonDescription="Cadastrar"
+                    cancelButtonHandler={() => {}}
+                    registerButtonHandler={() => {}}
+                    buttonDescription="Cadastrar"
                 />
-
+                </form>
             </RegisterProfessionalContainer>
-
         </>
     )
 }
