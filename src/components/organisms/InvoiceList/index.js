@@ -21,14 +21,17 @@ const headers = [
   }
 ]
 
-function InvoiceList({data, meta, nextPage, previousPage, sortById}) {
+function InvoiceList({data, meta, nextPage, previousPage, sortById, fnDownload}) {
   return ( 
     <>
       <ListHeader 
         data={headers}
         fnOrder={sortById}  
       />
-      <ListItem data={data}/>
+      <ListItem 
+        data={data}
+        downloadFile={fnDownload}  
+      />
       <Footer
         previousPage={previousPage}
         nextPage={nextPage}

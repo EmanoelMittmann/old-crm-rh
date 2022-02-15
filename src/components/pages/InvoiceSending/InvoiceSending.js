@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../../api/api'
 import { toast } from 'react-toastify'
+import { saveAs } from 'file-saver'
 
 import { Container } from '../../atoms/Container'
 import { DefaultToast } from '../../atoms/Toast/DefaultToast'
@@ -92,6 +93,18 @@ const InvoiceSending = (props) => {
       orderField: field
     })
   }
+
+  async function downloadFile(id, name) {
+    await api({
+      method:'get',     
+      url:`fiscalNotes/downloadFiles/${id}`,
+      responseType: 'blob'
+    })
+    .then(response => {
+      const file = response.data
+      saveAs(file, name)
+    })
+  }
   
   useEffect(() => {
     handleFilterRequest()
@@ -114,6 +127,7 @@ const InvoiceSending = (props) => {
         nextPage={nextPage}  
         previousPage={previousPage}
         sortById={sortByField}
+        fnDownload={downloadFile}
       />
     </Container>
   )
