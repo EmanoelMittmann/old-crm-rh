@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.4",
     "connected-react-router": "^6.9.1",
+    "file-saver": "^2.0.5",
     "filesize": "^8.0.7",
     "history": "4.10.1",
     "lodash.differenceby": "^4.8.0",
