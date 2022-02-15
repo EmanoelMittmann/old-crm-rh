@@ -36,26 +36,14 @@ function InvoiceUpload() {
     const data = new FormData()
     data.append('param_name_file', fileData.file[0])
 
-    api.post('fiscalNotes/uploadFiles', data, {
+    api.post('fiscalNotesProfissionals', data, {
       headers: {
         'Content-Type': 'multipart/form-data'
       },
     })
-    .then((response) => {
-      const obj = {
-        user_id: 7,
-        created_at: getDate(new Date()),
-        file_id: response.data
-      }
-
-      api.post('fiscalNotes', obj)
-      .then(() => {
-        toast.success(<DefaultToast text="Nota fiscal enviada!" />)
-        return history.push("/invoiceSending")
-      })
-      .catch(err => {
-        return toast.error(<DefaultToast text="Não foi possível completar o upload!" />)
-      })
+    .then(() => {
+      toast.success(<DefaultToast text="Nota fiscal enviada!" />)
+      return history.push("/invoiceSending")
     })
     .catch(err => {
       return toast.error(<DefaultToast text="Não foi possível completar o upload!" />)
