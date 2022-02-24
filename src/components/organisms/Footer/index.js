@@ -10,8 +10,7 @@ import {
 from './style.js'
 import { ReactComponent as Arrow } from '../../../assets/icons/arrow.svg'
 
-const Footer = ({previousPage, nextPage, currentPage, firstPage, lastPage}
-) => {
+const Footer = ({previousPage, nextPage, currentPage, firstPage, lastPage}) => {
 
     const RightArrowClickHandler = (e) => {
         if(currentPage === lastPage) return;
@@ -40,5 +39,5 @@ const Footer = ({previousPage, nextPage, currentPage, firstPage, lastPage}
     )
 }
 
-export default Footer;
+export default Footer
 

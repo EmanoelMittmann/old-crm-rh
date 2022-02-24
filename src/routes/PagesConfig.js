@@ -116,10 +116,10 @@ export const templates = [
     name: "Notas fiscais",
     hasButton: true,
     buttonText: "Enviar NF",
-    buttonPath: "/",
+    buttonPath: "/invoiceUpload",
     icon: <InvoiceIcon/>,
     isRegisterPage: false,
-    path: "/InvoiceSending"
+    path: "/invoiceSending"
   },
 ]
 
