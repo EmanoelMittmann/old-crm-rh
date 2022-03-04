@@ -148,13 +148,13 @@ export const ProjectsInputs = () => {
             <InputSelect
                 options={projectsOptionTypes}
                 setSelectedOption={setSelectedOptionTypes}
-                placeholder="Tipo"
+                placeHolder="Tipo"
                 width="220px"
             />
             <InputSelect
                 options={projectsOptionStatus}
                 setSelectedOption={setSelectedOptionStatus}
-                placeholder="Status"
+                placeHolder="Status"
                 width="230px"
             />
         </ProjectsInputsContainer>

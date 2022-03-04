@@ -25,10 +25,10 @@ const ProfessionalsInputs = ({setJobSelected, setSearchResult}) => {
         <ProfessionalsInputsContainer>
             <InputSearch setSearchResult={setSearchResult} lineWidth="280px" inputWidth="230px"/>
             <InputSelect
-            options={jobs}
-            setSelectedOption={setJobSelected}
-            placeholder="Cargo"
-            width="220px"
+                options={jobs}
+                setSelectedOption={setJobSelected}
+                placeHolder="Cargo"
+                width="220px"
             />
         </ProfessionalsInputsContainer>
     )

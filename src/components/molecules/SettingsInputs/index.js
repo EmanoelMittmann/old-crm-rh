@@ -120,7 +120,7 @@ export const SettingsInputs = () => {
             <InputSelect
             options={settingsFilterStatusOptions}
             setSelectedOption={setSelectedOption}
-            placeholder="Status"
+            placeHolder="Status"
             width="220px"
             />
         </SettingsInputsContainer>
