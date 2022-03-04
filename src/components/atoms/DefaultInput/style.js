@@ -22,14 +22,25 @@ export const DefaultInput = styled.input`
     &:-webkit-autofill:hover, 
     &:-webkit-autofill:focus, 
     &:-webkit-autofill:active  {
-    -webkit-box-shadow: 0 0 0 30px white inset !important;
+        -webkit-box-shadow: 0 0 0 30px white inset !important;
     }
-     
-     &::-webkit-datetime-edit, &::-webkit-inner-spin-button, &::-webkit-clear-button {
+    
+    &::-webkit-datetime-edit-text,
+    &::-webkit-datetime-edit-month-field,  
+    &::-webkit-datetime-edit-day-field,  
+    &::-webkit-datetime-edit-year-field {
+        color: #919EAB;
+    }  
+
+    &::-webkit-datetime-edit, &::-webkit-inner-spin-button, &::-webkit-clear-button {
         display: ${props => props.displayDate};
         position: absolute;
-        left: 70px;
+        left: 50px;
         top: 9px;
+    }
+
+    ::-webkit-calendar-picker-indicator {
+        margin-left: -1em;
     }
 
     &::-webkit-search-decoration,
