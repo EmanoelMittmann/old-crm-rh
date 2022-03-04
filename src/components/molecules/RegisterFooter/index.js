@@ -3,7 +3,8 @@ import CancelButton from '../../atoms/Buttons/CancelButton/style'
 import DarkButton from '../../atoms/Buttons/DarkButton/style'
 import { ContainerRegisterFooter, ContainerButtonsRegisterFooter } from './style'
 
-const RegisterFooter = ({cancelButtonHandler, registerButtonHandler, buttonDescription, type}) => {
+
+const RegisterFooter = ({cancelButtonHandler, registerButtonHandler, buttonDescription, type, disabled}) => {
     return (
         <ContainerRegisterFooter>
             <ContainerButtonsRegisterFooter>
@@ -19,6 +20,7 @@ const RegisterFooter = ({cancelButtonHandler, registerButtonHandler, buttonDescr
                     fontSize="0.84rem"
                     onClick={() => registerButtonHandler()}
                     type={type}
+                    disabled={disabled}
                 >
                     {buttonDescription}
                 </DarkButton>
