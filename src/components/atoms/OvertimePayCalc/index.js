@@ -1,35 +1,28 @@
 import React, { useEffect, useRef, useState } from 'react'
 import MaskedInput from 'react-text-mask'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
-
 import { cleanMask } from '../../utils/cleanMask'
-import InputText from '../InputText'
 import { InputRadio, LabelInputRadio } from '../InputRadio/style'
-import { OvertimePay, OvertimePayCalcLabel, ContainerOvertimePayInput, ContainerHourlyPayRate, HourlyPayRate, ContainerOvertimePayCalcLabel, LimitOvertime, ContainerLimitOvertimeButton, ContainerLimitOvertimeButtons, ContainerLimitOvertime } from './style'
-import { DefaultInput, InputLine } from '../DefaultInput/style';
+import { DefaultInput, InputLine } from '../DefaultInput/style'
+import InputWithLabel from '../InputWithLabel'
 
-const OvertimePayCalc = ({setDivider, divider, setFixedValue, fixedValue, setOvertime, overtime, setLimit, limit, setLimitValue, limitValue, componentRendered, editData}) => {
+import { 
+    OvertimePay, 
+    OvertimePayCalcLabel, 
+    ContainerOvertimePayInput, 
+    ContainerHourlyPayRate, 
+    ContainerOvertimePayCalcLabel, 
+    LimitOvertime, 
+    ContainerLimitOvertimeButton, 
+    ContainerLimitOvertimeButtons, 
+    ContainerLimitOvertime 
+} from './style'
+
+const OvertimePayCalc = ({ data }) => {
     const [componentJustRendered, setComponentJustRendered] = useState(false);
+    const inputRef = useRef(null)
 
-    const overtimeCalc = fixedValue > 0 && divider > 0 && fixedValue/divider
-    const inputRef = useRef(null);
-
-    const formatOvertime = () => {
-        const format = overtimeCalc && 'R$' + overtimeCalc.toFixed(2).toString().replace('.', ',')
-        setOvertime(format)
-    }
-
-    useEffect(() => {
-        overtimeCalc && formatOvertime()
-    }, [divider]);
-
-    useEffect(() => {
-        overtimeCalc && formatOvertime()
-    }, [fixedValue]);
-
-    useEffect(() => {
-        inputRef.current?.focus();
-    }, []);
+    const {values, handleChange, setFieldValue, handleBlur, errors, touched} = data
 
     const fixedValueMask = createNumberMask({
         prefix: 'R$',
@@ -49,90 +42,47 @@ const OvertimePayCalc = ({setDivider, divider, setFixedValue, fixedValue, setOve
         setComponentJustRendered(true)
     }, [])
 
-    useEffect(() => {
-        
-        if(editData && componentRendered){
-            setDivider(editData.variable1)
-            setFixedValue(editData.fixed_payment_value)
-            setLimit(editData.limited_extra_hours)
-            setLimitValue(editData.extra_hour_limit) 
-        }
-    }, [componentRendered])
-
     const limitAllowed = {
-        ...(componentJustRendered && editData?.limited_extra_hours === 1 && {checked: true})
+        ...(componentJustRendered && values.limited_extra_hours === 1 && {checked: true})
     }
 
     const limitNotAllowed = {
-        ...(componentJustRendered && (editData === undefined || editData?.limited_extra_hours === 0) && {checked: true})
-    }
-
-    if(componentJustRendered && editData?.limited_extra_hours === 1){
-        setLimit('limitOvertime')
-    }
-
-    if(componentJustRendered && (editData === undefined || editData?.limited_extra_hours === 0)){
-        setLimit('noLimitOvertime')
+        ...(componentJustRendered && (values === undefined || values.limited_extra_hours === 0) && {checked: true})
     }
 
     return (
         <ContainerOvertimePayCalcLabel>
             <OvertimePay>
                 <ContainerOvertimePayInput>
-                    <OvertimePayCalcLabel for="divider">
+                    <OvertimePayCalcLabel for="variable1">
                         Variável 1 (divisor)
                     </OvertimePayCalcLabel>
                     <InputLine width="90%">
-                        <DefaultInput value={divider} id="divider" placeholderPosition="right" 
-                        onChange={(e) => setDivider(e.target.value)} placeholder="Horas" padding="0.3em 1.2em 0 1.2em"/>
+                        <DefaultInput
+                            defaultValue={values.hours_month} 
+                            value={values.variable1} 
+                            id="variable1" 
+                            placeholderPosition="right" 
+                            onChange={handleChange('variable1')} 
+                            placeholder="Horas" 
+                            padding="0.3em 1.2em 0 1.2em" 
+                            type="number"
+                        />
                     </InputLine>
                 </ContainerOvertimePayInput>
                 <ContainerOvertimePayInput>
-                    <OvertimePayCalcLabel for="hours">
+                    <OvertimePayCalcLabel for="variable2">
                         Variável 2 (valor fixo)
                     </OvertimePayCalcLabel>
                     <MaskedInput
-                    defaultValue={fixedValue}
-                    mask={fixedValueMask}
-                    placeholder="R$"
-                    onChange={(e) => {
-                        const value = cleanMask(e.target.value)
-                        const newValue = value.slice(0, -2)
-                        setFixedValue(newValue)
-                    }}
-                    keepCharPositions={true}
-                    guide={false}
-                    render={(maskRef, maskProps) => (
-                        <InputLine  widthLine="23%" margin="0 2em 0 0">
-                            <DefaultInput
-                            padding="0.3em 1.2em 0 1.2em"
-                            width="100%"
-                            widthLine="23%"
-                            margin="0 2em 0 0"
-                            ref={
-                                node => {
-                                if(node){
-                                    maskRef(node);
-                                    inputRef.current = node;
-                                }}
-                            }
-                            {...maskProps}
-                            />
-                        </InputLine>
-                    )}
-                    />
-                </ContainerOvertimePayInput>
-                <ContainerHourlyPayRate>
-                     <OvertimePayCalcLabel for="hours">
-                        Valor hora extra
-                     </OvertimePayCalcLabel>
-                     <MaskedInput
-                        defaultValue={overtime}
-                        mask={hourlyPayRate}
+                        id="variable2"
+                        defaultValue={values.fixed_payment_value}
+                        mask={fixedValueMask}
                         placeholder="R$"
                         onChange={(e) => {
-                            const newValue = e.target.value.replace('.', '').replace('R$', '')
-                            setOvertime(newValue)
+                            const value = cleanMask(e.target.value)
+                            const newValue = value.slice(0, -2)
+                            setFieldValue('variable2', newValue)
                         }}
                         keepCharPositions={true}
                         guide={false}
@@ -146,11 +96,45 @@ const OvertimePayCalc = ({setDivider, divider, setFixedValue, fixedValue, setOve
                                 ref={
                                     node => {
                                     if(node){
-                                        maskRef(node);
-                                        inputRef.current = node;
+                                        maskRef(node)
+                                        inputRef.current = node
                                     }}
                                 }
-                                {...maskProps}
+                                    {...maskProps}
+                                />
+                            </InputLine>
+                        )}
+                    />
+                </ContainerOvertimePayInput>
+                <ContainerHourlyPayRate>
+                     <OvertimePayCalcLabel for="hours">
+                        Valor hora extra
+                     </OvertimePayCalcLabel>
+                     <MaskedInput
+                        mask={hourlyPayRate}
+                        value={values.extra_hour_value}
+                        placeholder="R$"
+                        onChange={(e) => {
+                            const newValue = e.target.value
+                            setFieldValue('extra_hour_value', newValue)
+                        }}
+                        keepCharPositions={true}
+                        guide={false}
+                        render={(maskRef, maskProps) => (
+                            <InputLine  widthLine="23%" margin="0 2em 0 0">
+                                <DefaultInput
+                                    padding="0.3em 1.2em 0 1.2em"
+                                    width="100%"
+                                    widthLine="23%"
+                                    margin="0 2em 0 0"
+                                    ref={
+                                        node => {
+                                        if(node){
+                                            maskRef(node)
+                                            inputRef.current = node
+                                        }}
+                                    }
+                                    {...maskProps}
                                 />
                             </InputLine>
                         )}
@@ -162,46 +146,49 @@ const OvertimePayCalc = ({setDivider, divider, setFixedValue, fixedValue, setOve
 
                 <ContainerLimitOvertime>
                     <ContainerLimitOvertimeButtons onChange={(e) => {
-                        setLimit(e.target.value)
-                        setComponentJustRendered(false)
+                       e.target.value === 'limitOvertime' ? setFieldValue('limited_extra_hours', 1) : setFieldValue('limited_extra_hours', 0)
+                       setComponentJustRendered(false)
                     }}>
                         <ContainerLimitOvertimeButton>
                             <InputRadio
-                            {...limitAllowed}
-                            type="radio"
-                            name="extraHour"
-                            value="limitOvertime"
-                            id="limitOvertime"/>
-                            <LabelInputRadio for="limitOvertime">Sim</LabelInputRadio>
+                                {...limitAllowed}
+                                type="radio"
+                                name="extraHour"
+                                value="limitOvertime"
+                                id="limitOvertime"
+                            />
+                            <LabelInputRadio for="limitOvertime"> Sim </LabelInputRadio>
                         </ContainerLimitOvertimeButton>
                     
                         <ContainerLimitOvertimeButton>
                             <InputRadio
-                            {...limitNotAllowed}
-                            margin="0 0 0 3em"
-                            type="radio"
-                            name="extraHour"
-                            value="noLimitOvertime"
-                            id="noLimitOvertime"
+                                {...limitNotAllowed}
+                                margin="0 0 0 3em"
+                                type="radio"
+                                name="extraHour"
+                                value="noLimitOvertime"
+                                id="noLimitOvertime"
                             />
-                            <LabelInputRadio for="noLimitOvertime">Não</LabelInputRadio>
+                            <LabelInputRadio for="noLimitOvertime"> Não </LabelInputRadio>
                         </ContainerLimitOvertimeButton>
                     </ContainerLimitOvertimeButtons>
                         {
-                        limit === 'limitOvertime' &&
-                        <InputText
-                        setTextValue={setLimitValue}
-                        editValue={limitValue}
-                        widthLine="300px"
-                        placeholder="Limite de horas"
-                        margin="0 0 0 3em"
+                        values.limited_extra_hours !== 0 &&
+                        <InputWithLabel
+                            name="extra_hour_limit"
+                            value={values.extra_hour_limit}
+                            onChange={handleChange('extra_hour_limit')}
+                            label="Limite de horas"
+                            widthLine="300px"
+                            padding="0 0 0 3em"
+                            type="number"
+                            handleBlur={data.setFieldTouched}
                         />
                         }
                 </ContainerLimitOvertime>
-
             </LimitOvertime>
         </ContainerOvertimePayCalcLabel>
     )
 }
 
-export default OvertimePayCalc;
+export default OvertimePayCalc

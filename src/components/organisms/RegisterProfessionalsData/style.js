@@ -11,6 +11,7 @@ export const RegisterProfessionalsForm = styled.form`
 `
 export const ContainerRow = styled.div`
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     width: 100%;
     margin-bottom: 1.5em;
@@ -18,8 +19,4 @@ export const ContainerRow = styled.div`
     &:last-child {
         margin-bottom: 3em;
     }
-`
-
-export const ContainerTextRequired = styled.div`
-    display: block;
 `

@@ -1,26 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react'
-import MaskedInput from 'react-text-mask'
+import React from 'react'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
-import api from '../../../api/api'
-import { getDate } from '../../utils/getDate'
-import { TextRequired } from '../../atoms/TextRequired'
-import { cleanMask } from '../../utils/cleanMask.js'
 import SecondaryText from '../../atoms/SecondaryText/style.js'
-import InputDate from '../../atoms/InputDate';
-import InputText from '../../atoms/InputText';
+import InputMasked from '../../atoms/InputMasked'
 import InputSelect from '../../atoms/InputSelect/index.js'
-import InputSelectWithLabel from '../../atoms/InputSelectWithLabel';
-import { DefaultInput, InputLine } from '../../atoms/DefaultInput/style';
-import { ContainerEmploymentContract, EmploymentContractInputs, ContainerTextRequiredWeek, ContainerTextRequiredMonth } from './style'
+import InputWithLabel from '../../atoms/InputWithLabel'
+import { ContainerEmploymentContract, EmploymentContractInputs } from './style'
 
-const EmploymentContract = ({setInicialDate, inicialDate , setJob, job, setType, type, setHoursWeek, hoursWeek, setHoursMonth, hoursMonth, setFixedSalary, fixedSalary, componentRendered, editData}) => {
+import { typeOptions } from '../../pages/RegisterProfessional/optionsType'
 
-    const [jobOptions, setJobOptions] = useState([])
-    const [invalidHoursWeek, setInvalidHoursWeek] = useState(false)
-    const [invalidHoursMonth, setInvalidHoursMonth] = useState(false)
-
-    const inputRef = useRef(null);
+const EmploymentContract = ({ data, jobs }) => {
 
     const fixedSalaryAmount = createNumberMask({
         prefix: 'R$',
@@ -28,168 +17,105 @@ const EmploymentContract = ({setInicialDate, inicialDate , setJob, job, setType,
         thousandsSeparatorSymbol: '.'
     })
 
-    useEffect(() => {
-        inputRef.current?.focus();
-    }, []);
-
-    const typeOptions = [
-        {
-            id: "FULLTIME",
-            name: "Full Time"
-        },
-        {
-            id: "PARTTIME",
-            name: "Part Time"
-        },
-        {
-            id: "FREELANCER",
-            name: "Horista"
+    const { values, handleChange, setFieldValue, errors, touched, setFieldTouched} = data
+    
+    function handleType(e) {
+        if(e.target.value === "FULLTIME"){
+            setFieldValue('job_type', e.target.value)
+            setFieldValue('weekly_hours', 40)
+            // setFieldValue('month_hours', 160)
         }
-    ]
-
-    const optionsJob = async () => {
-        const {data} = await api({
-            method:'get',     
-            url:`/job`,
-        })
-
-        setJobOptions(data.data);
+        if(e.target.value === "PARTTIME"){
+            setFieldValue('job_type', e.target.value)
+            setFieldValue('weekly_hours',20)
+            // setFieldValue('month_hours', 80)
+        }
+        if(e.target.value === "FREELANCER"){
+            setFieldValue('job_type', e.target.value)
+            setFieldValue('weekly_hours',0)
+            // setFieldValue('month_hours', 0)
+        }
+        return true
     }
-
-    useEffect(() => {
-
-        optionsJob()
-
-    }, [])
-
-    useEffect(() => {
-
-        setInvalidHoursWeek(hoursWeek > 44);
-
-    }, [hoursWeek])
-
-    useEffect(() => {
-
-        setInvalidHoursMonth(hoursMonth > 176);
-
-    }, [hoursMonth])
-
-    useEffect(() => {
-        
-        if(componentRendered && editData){
-            setInicialDate(getDate(editData.start_date))
-            setJob(editData.job_id)
-            setType(editData.job_type)
-            setHoursWeek(editData.weekly_hours)
-            setHoursMonth(editData.weekly_hours * 3)
-            setFixedSalary(editData.fixed_payment_value)
-
-        }
-        
-    }, [componentRendered])
-
-    useEffect(() => {
-
-        if(type === "FULLTIME"){
-            setHoursWeek(8)
-            setHoursMonth(8 * 5 * 4)
-        }
-        if(type === "PARTTIME"){
-            setHoursWeek(4)
-            setHoursMonth(4 * 5 * 4)
-        }
-        if(type === "FREELANCER"){
-            setHoursWeek(0)
-            setHoursMonth(0)
-        }
-    }, [type])
-
 
     return (
         <ContainerEmploymentContract>
             <SecondaryText margin="0 0 2.5em 0">Contrato de trabalho</SecondaryText>
             <EmploymentContractInputs>
-                <InputDate
-                setDate={setInicialDate}
-                date={inicialDate}
-                placeholder="Data Início"
-                margin="0 2em 0 0"
+                <InputWithLabel
+                    onChange={handleChange('start_date')}
+                    type="date"
+                    label="Data Início"
+                    padding="0 2em 0 0"
+                    value={values.start_date}
+                    width="100%"
+                    widthContainer="40%"
+                    error={errors.start_date}
+                    touched={touched.start_date}
+                    handleBlur={setFieldTouched}
+                    name="start_date"
                 />
                 <InputSelect
-                setSelectedOption={setJob}
-                value={job}
-                options={jobOptions}
-                placeholder="Cargo"
-                width="100%"
-                lineWidth="100%"
+                    onChange={handleChange('job_id')}
+                    value={values.job_id}
+                    options={jobs}
+                    placeHolder="Cargo"
+                    width="100%"
+                    lineWidth="60%"
                 />
             </EmploymentContractInputs>
-
             <EmploymentContractInputs>
-                <InputSelectWithLabel
-                setSelectedOption={setType}
-                label="Tipo"
-                width="100%"
-                options={typeOptions}
-                padding="0 2em 0 0"
-                lineWidth="30%"
+                <InputSelect
+                    onChange={handleType}
+                    placeHolder="Tipo"
+                    width="100%"
+                    options={typeOptions}
+                    value={values.job_type}
+                    padding="0em 0 0 1em" 
+                    lineWidth="30%"
                 />
-
-                <ContainerTextRequiredWeek>
-                    <InputText
-                    invalid={invalidHoursWeek}
-                    setTextValue={setHoursWeek}
-                    value={hoursWeek}
-                    widthLine="100%"
-                    placeholder="Horas/semana"
-                    />
-
-                    {invalidHoursWeek && <TextRequired>Horas/semana excedida</TextRequired>}
-                </ContainerTextRequiredWeek>
-
-                <ContainerTextRequiredMonth>
-                <InputText
-                invalid={invalidHoursMonth}
-                setTextValue={setHoursMonth}
-                value={hoursMonth}
-                widthLine="100%"
-                placeholder="Horas/mês"
+                <InputWithLabel
+                    onChange={handleChange('weekly_hours')}
+                    value={values.weekly_hours}
+                    widthContainer="20%"
+                    label="Horas/semana"
+                    type="number"
+                    error={errors.weekly_hours}
+                    touched={touched.weekly_hours}
+                    handleBlur={setFieldTouched}
+                    name="weekly_hours"
+                    padding="0em 0 0 1em" 
                 />
-                   {invalidHoursMonth && <TextRequired>Horas/mês excedida</TextRequired>}
-                </ContainerTextRequiredMonth>
-
-                <MaskedInput
-                defaultValue={fixedSalary}
-                mask={fixedSalaryAmount}
-                placeholder="Valor pagamento fixo"
-                onChange={(e) => {
-                    const value = cleanMask(e.target.value)
-                    const newValue = value.slice(0, -2)
-                    setFixedSalary(newValue)
-                }}
-                guide={false}
-                keepCharPositions={true}
-                render={(maskRef, maskProps) => (
-                    <InputLine width="30%">
-                        <DefaultInput
-                        padding="0.3em 1.2em 0 1.2em"
-                        ref={
-                            node => {
-                            if(node){
-                                maskRef(node);
-                                inputRef.current = node;
-                            }}
-                        }
-                        {...maskProps}
-                        />
-                    </InputLine>
-                    
-                )}
+                <InputWithLabel
+                    onChange={handleChange('month_hours')}
+                    value={values.month_hours}
+                    width="100%"
+                    label="Horas/mês"
+                    type="number"
+                    error={errors.month_hours}
+                    touched={touched.month_hours}
+                    handleBlur={setFieldTouched}
+                    name="month_hours"
+                    widthContainer="20%"
+                    padding="0em 0 0 1em" 
                 />
-                
+                <InputMasked
+                    mask={fixedSalaryAmount}
+                    label="Valor pagamento fixo"
+                    id="fixed_payment_value"
+                    name="fixed_payment_value"
+                    value={values.fixed_payment_value}
+                    onChange={handleChange('fixed_payment_value')}
+                    error={errors.fixed_payment_value}
+                    touched={touched.fixed_payment_value}
+                    width="100%"
+                    padding="0em 0 0 1em"  
+                    widthContainer="30%"
+                    handleBlur={setFieldTouched}
+                />                
             </EmploymentContractInputs>
         </ContainerEmploymentContract>
     )
 }
 
-export default EmploymentContract;
+export default EmploymentContract

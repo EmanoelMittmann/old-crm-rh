@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const ContainerOvertimePayCalcLabel = styled.div`
     width: 100%;
@@ -24,7 +24,7 @@ export const ContainerHourlyPayRate = styled.div`
     width: 30%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: flex-start;
 `
 export const HourlyPayRate = styled.span`
     display: flex;

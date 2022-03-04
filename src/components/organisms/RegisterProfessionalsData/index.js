@@ -1,254 +1,233 @@
-import React, { useEffect, useRef, useState } from 'react'
-import MaskedInput from 'react-text-mask'
-
-import { TextRequired } from '../../atoms/TextRequired'
-import { cleanMask } from '../../utils/cleanMask'
-
-import { DefaultInput, InputLine } from '../../atoms/DefaultInput/style.js';
+import React from 'react'
 import { 
     ContainerRegisterProfessionalsData,
     RegisterProfessionalsForm,
     ContainerRow,
-    ContainerTextRequired
 } from './style.js'
-import SecondaryText from '../../atoms/SecondaryText/style';
-import InputWithLabel from '../../atoms/InputWithLabel/index.js';
-import InputText from '../../atoms/InputText/index.js';
-import InputDate from '../../atoms/InputDate/index.js';
-import InputSelect from '../../atoms/InputSelect/index.js';
+import SecondaryText from '../../atoms/SecondaryText/style'
+import InputWithLabel from '../../atoms/InputWithLabel/index.js'
+import InputSelect from '../../atoms/InputSelect/index.js'
+import InputMasked from '../../atoms/InputMasked/index.js'
 
 const optionsUF = [
-    {id: "Acre", name: "AC"},
-    {id: "Alagoas", name: "AL"},
-    {id: "Amapá", name: "AP"},
-    {id: "Amazonas", name: "AM"},
-    {id: "Bahia", name: "BA"},
-    {id: "Ceará", name: "CE"},
-    {id: "Distrito Federal", name: "DF"},
-    {id: "Espírito Santo", name: "ES"},
-    {id: "Goiás", name: "GO"},
-    {id: "Maranhão", name: "MA"},
-    {id: "Mato Grosso", name: "MT"},
-    {id: "Mato Grosso do Sul", name: "MS"},
-    {id: "Minas Gerais", name: "MG"},
-    {id: "Pará", name: "PA"},
-    {id: "Paraíba", name: "PB"},
-    {id: "Paraná", name: "PR"},
-    {id: "Pernambuco", name: "PE"},
-    {id: "Piauí", name: "PI"},
-    {id: "Rio de Janeiro", name: "RJ"},
-    {id: "Rio Grande do Norte", name: "RN"},
-    {id: "Rio Grande do Sul", name: "RS"},
-    {id: "Rondônia", name: "RO"},
-    {id: "Roraima", name: "RR"},
-    {id: "Santa Catarina", name: "SC"},
-    {id: "São Paulo", name: "SP"},
-    {id: "Sergipe", name: "SE"},
-    {id: "Tocantins", name: "TO"}
+    {name: "Acre", id: "AC"},
+    {name: "Alagoas", id: "AL"},
+    {name: "Amapá", id: "AP"},
+    {name: "Amazonas", id: "AM"},
+    {name: "Bahia", id: "BA"},
+    {name: "Ceará", id: "CE"},
+    {name: "Distrito Federal", id: "DF"},
+    {name: "Espírito Santo", id: "ES"},
+    {name: "Goiás", id: "GO"},
+    {name: "Maranhão", id: "MA"},
+    {name: "Mato Grosso", id: "MT"},
+    {name: "Mato Grosso do Sul", id: "MS"},
+    {name: "Minas Gerais", id: "MG"},
+    {name: "Pará", id: "PA"},
+    {name: "Paraíba", id: "PB"},
+    {name: "Paraná", id: "PR"},
+    {name: "Pernambuco", id: "PE"},
+    {name: "Piauí", id: "PI"},
+    {name: "Rio de Janeiro", id: "RJ"},
+    {name: "Rio Grande do Norte", id: "RN"},
+    {name: "Rio Grande do Sul", id: "RS"},
+    {name: "Rondônia", id: "RO"},
+    {name: "Roraima", id: "RR"},
+    {name: "Santa Catarina", id: "SC"},
+    {name: "São Paulo", id: "SP"},
+    {name: "Sergipe", id: "SE"},
+    {name: "Tocantins", id: "TO"}
 ]
 
 const RegisterProfessionalsData = ({ data }) => {
+   const { values, handleChange, errors, touched, setFieldTouched} = data
 
-   const inputRef = useRef(null);
-   const [validCPF, setValidCPF] = useState(true)
-   const { values, handleChange, errors} = data
-
-    useEffect(() => {
-        inputRef.current?.focus()
-    }, [])
-
-    return (
+   return (
         <ContainerRegisterProfessionalsData>
-             <SecondaryText margin="0 0 2.5em 0">Dados pessoais</SecondaryText>
-                <RegisterProfessionalsForm>
+            <SecondaryText margin="0 0 2.5em 0">Dados pessoais</SecondaryText>
+            <RegisterProfessionalsForm>
                     <ContainerRow>
                         <InputWithLabel
-                            inputValue={values.name}
+                            value={values.name}
                             onChange={handleChange('name')}
                             label="Nome"
+                            name="name"
                             width="100%"
-                            widthContainer="50%" 
-                            placeholder="Nome..."
+                            widthContainer="60%" 
+                            placeHolder="Nome..."
                             padding="0 2em 0 0"
-                            errorMessage={errors.name}
+                            error={errors.name}
+                            touched={touched.name}
+                            handleBlur={setFieldTouched}
                         />
-                        <MaskedInput
-                            id="CPF"
-                            name="CPF"
-                            value={values.CPF}
-                            mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/ ,/\d/]}
-                            placeholder="CPF"
-                            onChange={handleChange('CPF')}
-                            guide={false}
-                            keepCharPositions={true}
-                            render={(maskRef, maskProps) => (
-                                <InputLine borderColor={validCPF === false && "red"} widthLine="23%" margin="0 2em 0 0">
-                                    <DefaultInput
-                                        placeholderColor={validCPF === false && "red"}
-                                        padding="0.3em 1.2em 0 1.2em"
-                                        ref={
-                                            node => {
-                                            if(node){
-                                                maskRef(node);
-                                                inputRef.current = node;
-                                            }}
-                                        }
-                                        {...maskProps}
-                                    />
-                                </InputLine>
-                            
-                            )} />
-                        <InputText 
-                            onChange={handleChange('RG')}
-                            value={values.RG}
-                            placeholder="RG"
+                        <InputWithLabel
+                            onChange={handleChange('birth_date')}
+                            label="Data nascimento"
+                            value={values.birth_date}
                             width="100%"
-                            widthLine="25%"
+                            widthContainer="40%"
+                            type="date"
+                            error={errors.birth_date}
+                            touched={touched.birth_date}
+                            handleBlur={setFieldTouched}
+                            name="birth_date"
+                        />
+                    </ContainerRow>
+                    <ContainerRow>
+                        <InputMasked
+                            id="cpf"
+                            name="cpf"
+                            value={values.cpf}
+                            mask={[/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/ ,/\d/]}
+                            label="CPF"
+                            onChange={handleChange('cpf')}
+                            error={errors.cpf}
+                            touched={touched.cpf}
+                            width="100%"
+                            padding="0em 2em 0 0em" 
+                            widthContainer="30%"
+                            handleBlur={setFieldTouched}
+                        />
+                        <InputWithLabel 
+                            onChange={handleChange('rg')}
+                            value={values.rg}
+                            label="RG"
+                            width="100%"
+                            widthContainer="30%"
+                            padding="0em 2em 0 0em"
+                            error={errors.rg}
+                            touched={touched.rg}
+                            handleBlur={setFieldTouched}
+                            name="rg"
                             type="number"
                         />
-                    </ContainerRow>
-                    <ContainerRow>
-                        <InputDate
-                            onChange={handleChange('birthDate')}
-                            placeholder="Data nascimento"
-                            value={values.birthDate}
-                            margin="0 2em 0 0"
-                        />
-                        <MaskedInput
-                            value={values.phoneNumber}
+                        <InputMasked
+                            value={values.telephone_number}
                             mask={['(', /[1-9]/, /\d/, ')', ' ', /\d/, ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/ ,/\d/]}
-                            placeholder="Celular"
-                            keepCharPositions={true}
-                            guide={false}
-                            onChange={handleChange('phoneNumber')}
-                            render={(maskRef, maskProps) => (
-                                <InputLine  widthLine="23%" margin="0 2em 0 0">
-                                    <DefaultInput
-                                        padding="0.3em 1.2em 0 1.2em"
-                                        ref={
-                                            node => {
-                                            if(node){
-                                                maskRef(node);
-                                                inputRef.current = node;
-                                            }}
-                                        }
-                                        {...maskProps}
-                                    />
-                                </InputLine> 
-                            )} />
-                        <MaskedInput
-                            value={values.CNPJ}
-                            mask={[/[1-9]/, /\d/, '.', ' ', /\d/, /\d/, /\d/,'.', 
-                            /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/,]}
-                            placeholder="CNPJ"
-                            keepCharPositions={true}
-                            onChange={handleChange('CNPJ')}
-                            guide={false}
-                            render={(maskRef, maskProps) => (
-                                <InputLine  widthLine="23%" margin="0 2em 0 0">
-                                    <DefaultInput
-                                        padding="0.3em 1.2em 0 1.2em"
-                                        width="100%"
-                                        widthLine="23%"
-                                        margin="0 2em 0 0"
-                                        ref={
-                                            node => {
-                                            if(node){
-                                                maskRef(node);
-                                                inputRef.current = node;
-                                            }}
-                                        }
-                                        {...maskProps}
-                                    />
-                                </InputLine>
-                            )} />
-                        <InputText
-                            onChange={handleChange('corporateName')}
-                            value={values.corporateName}
-                            placeholder="Razão Social"
+                            label="Celular"
+                            onChange={handleChange('telephone_number')}
+                            error={errors.telephone_number}
+                            touched={touched.telephone_number}
                             width="100%"
-                            widthLine="30%"
+                            widthContainer="40%"
+                            handleBlur={setFieldTouched}
+                            name="telephone_number"
                         />
                     </ContainerRow>
                     <ContainerRow>
-                        <MaskedInput
-                            value={values.CEP}
+                        <InputMasked
+                            value={values.cnpj}
+                            mask={[/[1-9]/, /\d/, '.', /\d/, /\d/, /\d/,'.', 
+                            /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/,]}
+                            label="CNPJ"
+                            onChange={handleChange('cnpj')}
+                            error={errors.cnpj}
+                            touched={touched.cnpj}
+                            padding="0em 2em 0 0em"
+                            width="100%"
+                            widthContainer="30%"
+                            handleBlur={setFieldTouched}
+                            name="cnpj"
+                        />
+                        <InputWithLabel
+                            onChange={handleChange('razao_social')}
+                            value={values.razao_social}
+                            label="Razão Social"
+                            width="100%"
+                            widthContainer="70%"
+                            error={errors.razao_social}
+                            touched={touched.razao_social}
+                            handleBlur={setFieldTouched}
+                            name="razao_social"
+                        />
+                    </ContainerRow>
+                    <ContainerRow>
+                        <InputMasked 
+                            value={values.cep}
+                            onChange={handleChange('cep')}
+                            label="CEP"
                             mask={[/\d/, /\d/, /\d/, /\d/, /\d/,'-', 
                             /\d/, /\d/, /\d/]}
-                            placeholder="CEP"
-                            onChange={handleChange('CEP')}
-                            keepCharPositions={true}
-                            guide={false}
-                            render={(maskRef, maskProps) => (
-                                <InputLine  widthLine="23%" margin="0 2em 0 0">
-                                    <DefaultInput
-                                        padding="0.3em 1.2em 0 1.2em"
-                                        width="100%"
-                                        widthLine="23%"
-                                        margin="0 2em 0 0"
-                                        ref={
-                                            node => {
-                                            if(node){
-                                                maskRef(node);
-                                                inputRef.current = node;
-                                            }}
-                                        }
-                                        {...maskProps}
-                                    />
-                                </InputLine>
-                            )} />
-                        <InputText
-                            onChange={handleChange('street')}
-                            value={values.street}
-                            placeholder="Rua"
+                            padding="0em 2em 0 0em"
                             width="100%"
-                            widthLine="40%"
-                            margin="0 2em 0 0"
+                            widthContainer="23%"
+                            error={errors.cep}
+                            touched={touched.cep}
+                            handleBlur={setFieldTouched}
+                            name="cep"
                         />
-                        <InputText
-                            onChange={handleChange('addressNumber')}
-                            value={values.addressNumber}
-                            placeholder="Número"
+                        <InputWithLabel
+                            onChange={handleChange('street_name')}
+                            value={values.street_name}
+                            label="Rua"
+                            width="100%"
+                            widthContainer="40%"
+                            padding="0 2em 0 0"
+                            error={errors.street_name}
+                            touched={touched.street_name}
+                            handleBlur={setFieldTouched}
+                            name="street_name"
+                        />
+                        <InputWithLabel
+                            onChange={handleChange('house_number')}
+                            value={values.house_number}
+                            label="Número"
                             type="number"
                             width="100%"
-                            widthLine="17%"
-                            margin="0 2em 0 0"
+                            widthContainer="17%"
+                            padding="0 2em 0 0"
+                            error={errors.house_number}
+                            touched={touched.house_number}
+                            handleBlur={setFieldTouched}
+                            name="house_number"
                         />
-                        <InputText
-                            onChange={handleChange('addressDetails')}
-                            value={values.addressDetails}
-                            placeholder="Complemento"
+                        <InputWithLabel
+                            onChange={handleChange('complement')}
+                            value={values.complement}
+                            label="Complemento"
                             width="100%"
-                            widthLine="19%"
+                            widthContainer="19%"
+                            error={errors.complement}
+                            touched={touched.complement}
+                            handleBlur={setFieldTouched}
+                            name="complement"
                         />
                     </ContainerRow>
                     <ContainerRow>
-                        <InputText
-                            onChange={handleChange('neighborhood')}
-                            value={values.neighborhood}
-                            placeholder="Bairro"
+                        <InputWithLabel
+                            onChange={handleChange('neighbourhood_name')}
+                            value={values.neighbourhood_name}
+                            label="Bairro"
                             width="100%"
-                            widthLine="50%"
-                            margin="0 2em 0 0"
+                            widthContainer="50%"
+                            padding="0 2em 0 0"
+                            error={errors.neighbourhood_name}
+                            touched={touched.neighbourhood_name}
+                            handleBlur={setFieldTouched}
+                            name="neighbourhood_name"
                         />
-                        <InputText
-                            onChange={handleChange('city')}
-                            value={values.city}
-                            placeholder="Cidade"
+                        <InputWithLabel
+                            value={values.city_name}
+                            onChange={handleChange('city_name')}
+                            label="Cidade"
                             width="100%"
-                            widthLine="38%"
-                            margin="0 2em 0 0"
+                            widthContainer="38%" 
+                            padding="0 2.4em 0 0"
+                            error={errors.city_name}
+                            touched={touched.city_name}
+                            handleBlur={setFieldTouched}
+                            name="city_name"
                         />
                         <InputSelect
-                            value={values.UF}
-                            onChange={handleChange('UF')}
+                            value={values.uf}
+                            onChange={handleChange('uf')}
                             options={optionsUF}
                             placeholder="UF"
                             width="230px"
                         />    
                     </ContainerRow>
-             </RegisterProfessionalsForm>
-        </ContainerRegisterProfessionalsData>
+            </RegisterProfessionalsForm>
+        </ContainerRegisterProfessionalsData>   
     )
 }
 
