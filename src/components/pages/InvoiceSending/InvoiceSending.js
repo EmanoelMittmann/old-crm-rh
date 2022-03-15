@@ -5,7 +5,8 @@ import { saveAs } from 'file-saver'
 
 import { Container } from '../../atoms/Container'
 import { DefaultToast } from '../../atoms/Toast/DefaultToast'
-import SearchSection from '../../molecules/SearchSection'
+import InputDate from '../../atoms/InputDate'
+import { SearchSection } from '../../molecules/SearchSection'
 import InvoiceList from '../../organisms/InvoiceList'
 
 const InvoiceSending = (props) => {
@@ -13,7 +14,7 @@ const InvoiceSending = (props) => {
   const [meta, setMeta] = useState({})
   const [search, setSearch] = useState("")
   const [order, setOrder] = useState({order: "", field: ""})
-  const [initialDate, setInicialDate] = useState("")
+  const [initialDate, setInitialDate] = useState("")
   const [finalDate, setFinalDate] = useState("")
   let params = {}
 
@@ -44,11 +45,11 @@ const InvoiceSending = (props) => {
       params.page = meta.first_page
     }
 
-    if(finalDate !== "") {
+    if(finalDate !== "" && finalDate > '1000-01-01') {
       finalDate < initialDate 
         ? toast.warn(<DefaultToast text="Período final precisa ser maior que o período inicial" />,{
           toastId: "finalDate"
-          }) 
+        }) 
         : params.date_end = finalDate
         params.page = meta.first_page
     }
@@ -114,13 +115,18 @@ const InvoiceSending = (props) => {
 
   return (
     <Container>
-      <SearchSection 
-        fnSearch={setSearch} 
-        fnDateStart={setInicialDate} 
-        fnDateEnd={setFinalDate}
-        start={initialDate}
-        end={finalDate}
-      />
+      <SearchSection fnSearch={setSearch}>
+        <InputDate 
+          placeholder="Período inicial" 
+          onChange={(e) => setInitialDate(e.target.value)} 
+          date={initialDate}
+        />
+        <InputDate 
+          placeholder="Período final" 
+          onChange={(e) => setFinalDate(e.target.value)} 
+          date={finalDate}
+        />
+      </SearchSection>
       <InvoiceList
         data={data}
         meta={meta}
