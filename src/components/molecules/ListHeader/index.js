@@ -1,5 +1,5 @@
 import React from 'react'
-import { Main, Container, Title } from './style'
+import { Main, Container, Title, LastContainer } from './style'
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
 
 function ListHeader({data, fnOrder}) {
@@ -7,7 +7,13 @@ function ListHeader({data, fnOrder}) {
   return (  
     <Main>
       {data.map((item, index) => 
-        <Container key={index}>
+        item.endContainer 
+          ? <LastContainer>
+              <Title>
+                {item.name}
+              </Title>
+            </LastContainer>
+          : <Container key={index}>
           <Title>
             {item.name}
           </Title>
