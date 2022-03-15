@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 export const Main = styled.form`
-    width: 840px;
+    width: ${props => props.width};
     display: flex;
-    justify-content: space-between;
+    gap: 1em;
 `
