@@ -17,6 +17,7 @@ const InputDate = ({value, onChange, placeholder, margin, width}) => {
                 onChange={onChange}
                 value={value}
                 max="2999-12-31"
+                padding="0 1.5em"
             ></DefaultInput>
             {!onFocus && value === "" && <PlaceHolder>{placeholder}</PlaceHolder>}
         </InputLine>
