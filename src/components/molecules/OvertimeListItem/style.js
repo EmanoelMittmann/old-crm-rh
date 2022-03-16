@@ -8,7 +8,6 @@ export const Main = styled.div`
     height: 50px;
     align-items: center;
 `
-
 export const Container = styled.div`
     display: flex;
     align-items: center;

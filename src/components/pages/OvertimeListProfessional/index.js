@@ -17,7 +17,7 @@ const OvertimeListProfessional = (props) => {
   const [projects, setProjects] = useState([])
   const [projectParams, setProjectParams] = useState('')
   const [search, setSearch] = useState("")
-  const [order, setOrder] = useState({order: "", field: ""})
+  const [order, setOrder] = useState({order: "desc", field: ""})
   const [initialDate, setInitialDate] = useState("")
   const [finalDate, setFinalDate] = useState("")
   let params = {}
@@ -114,12 +114,7 @@ const OvertimeListProfessional = (props) => {
   }
 
   const sortByField = (field) => {
-    order.order === "" ? 
-      setOrder({
-        order: "desc", 
-        orderField: field
-      }) 
-    : order.order === "desc" ? 
+    order.order === "desc" ? 
       setOrder({
         order: "asc", 
         orderField: field

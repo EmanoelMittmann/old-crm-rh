@@ -1,7 +1,7 @@
 import React from 'react'
 import { Badge } from '../../atoms/Badge'
 import { formatDate } from '../../utils/formatDate'
-import { Main, Container, Button, StatusContainer } from './style'
+import { Main, Container, StatusContainer } from './style'
 
 export function OvertimeListItem({ data, status }) {
 
@@ -21,7 +21,7 @@ export function OvertimeListItem({ data, status }) {
           {item.project.name}
         </Container>
         <StatusContainer>
-       {item.status.name}
+          <Badge status={item.status} /> 
         </StatusContainer>
       </Main >
     ) : <Main>Loading...</Main>
