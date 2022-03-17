@@ -12,13 +12,29 @@ export const Professionalnfo = styled.div`
     padding-left: 5em;
 `
 
+export const ProfessionalStatus = styled.div`
+    display: flex;
+    width: 15%;
+    padding-left: 4.5em;
+`
+
+export const Badge = styled.div`
+    min-width: 30px;
+    padding: 0 .8em;
+    border-radius: 7px;
+    text-align: center;
+    font-size: .9rem;
+    font-weight: 500;
+    background-color: ${props => props.bg};
+    color: ${props => props.color};
+`
+
 export const ProfessionalProfile = styled.div`
     display: flex;
     align-items: center;
     width: 18%;
     padding-left: 1em;
 `
-
 
 export const ProfessionalEmail = styled.div`
     display: flex;
@@ -31,7 +47,6 @@ export const ProfessionalPhoneNumber = styled.div`
     width: 15%;
     padding-left: 5em;
 `
-///////////////////////
 
 export const ProfessionalsListOptions = styled.div`
     display: flex;
