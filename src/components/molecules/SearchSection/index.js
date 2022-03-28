@@ -4,28 +4,17 @@ import InputDate from '../../atoms/InputDate'
 import useDebounce from '../../../hooks/debounce'
 import { Main } from './style.js'
 
-function SearchSection({fnSearch, fnDateStart, fnDateEnd, start, end}) {
+export function SearchSection({fnSearch, width, children}) {
   const debouncedChange = useDebounce(fnSearch, 400)
 
   return ( 
-    <Main>
+    <Main width={width || '840px'}>
       <InputSearch 
         setSearchResult={debouncedChange} 
         lineWidth="280px" 
         inputWidth="230px"
       />
-      <InputDate 
-        placeholder="Período inicial" 
-        setDate={fnDateStart} 
-        date={start}
-      />
-      <InputDate 
-        placeholder="Período final" 
-        setDate={fnDateEnd} 
-        date={end}
-      /> 
+      { children }
     </Main>
   )
 }
-
-export default SearchSection

@@ -6,13 +6,14 @@ export const InputSelectContainer = styled.select`
     font-family: 'Poppins', sans-serif;
     width: ${props => props.width};
     height: 40px;
-    padding: 0.3em 0 0 1.5em;
+    padding: 0.3em 2em 0 1em;
     outline: none;
     border:none;
     color: rgba(145, 158, 171, 0.67);
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    text-overflow: ellipsis;
 
 `
 
@@ -26,9 +27,9 @@ export const InputSelectOption = styled.option`
 `
 
 export const InputSelectOptionPlaceholder = styled.option`
-     color: white;
-     display: none;
-     font-size: 1rem;
+    color: white;
+    display: none;
+    font-size: 1rem;
     font-weight: 500;
 `
 export const Img = styled.img`

@@ -72,9 +72,7 @@ function ReleaseHours() {
 
   useEffect(() => {
     if(!projects.length) getAllProjects()
-
-    return console.log(values)
-  },[values])
+  },[])
 
   return (
     <>
