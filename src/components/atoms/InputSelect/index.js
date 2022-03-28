@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { InputLine } from '../../atoms/DefaultInput/style'
 import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg'
@@ -9,7 +9,7 @@ import {
     InputSelectOptionPlaceholder,
 } from './style.js'
 
-const InputSelect = ({setSelectedOption, options, placeholder, width, lineWidth, value}) => {
+const InputSelect = ({ onChange, options, placeHolder, width, lineWidth, value }) => {
 
     const attributeValue = {
         ...(value && {value: value})
@@ -17,15 +17,20 @@ const InputSelect = ({setSelectedOption, options, placeholder, width, lineWidth,
 
     return ( 
         <InputLine width={lineWidth}>
-            <InputSelectContainer {...attributeValue} width={width} onChange={(e) => setSelectedOption(e.target.value)}>
-                <InputSelectOptionPlaceholder
-                value={placeholder}
-                disabled selected>
-                    { placeholder }
+            <InputSelectContainer 
+                {...attributeValue} 
+                width={width} 
+                onChange={onChange}
+            >
+                <InputSelectOptionPlaceholder disabled selected >
+                    { placeHolder }
                 </InputSelectOptionPlaceholder>
-                {options.map((option, index) => (
-                    <InputSelectOption key={index} value={`${option.id ? option.id : ""}`}>
-                    { option.name }
+                {options?.map((option, index) => (
+                    <InputSelectOption 
+                        key={index} 
+                        value={`${option.id ? option.id : ""}`}
+                    >
+                        { option.name }
                     </InputSelectOption>
                 ))}
             </InputSelectContainer>
@@ -34,4 +39,4 @@ const InputSelect = ({setSelectedOption, options, placeholder, width, lineWidth,
     )
 }
 
-export default InputSelect;
+export default InputSelect

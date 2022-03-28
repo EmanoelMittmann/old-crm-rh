@@ -14,8 +14,8 @@ const InputSelectWithLabel = ({setSelectedOption, options, placeholder, width, l
     return ( 
         <InputLine width={lineWidth}>
             {label && <Label>{label}</Label>}
-            <InputSelectContainer width={width} onChange={(e) => setSelectedOption(e.target.value)}>
-                {reset && 
+            <InputSelectContainer width={width} onChange={setSelectedOption}>
+                { reset && 
                     <InputSelectOptionPlaceholder
                     value={placeholder}
                     disabled selected>
@@ -23,8 +23,8 @@ const InputSelectWithLabel = ({setSelectedOption, options, placeholder, width, l
                     </InputSelectOptionPlaceholder>
                 }
                 {options.map(option => (
-                    <InputSelectOption value={option.id}>
-                    { option.name }
+                    <InputSelectOption key={option.id} value={option.id}>
+                        { option.name }
                     </InputSelectOption>
                 ))}
             </InputSelectContainer>
@@ -33,4 +33,4 @@ const InputSelectWithLabel = ({setSelectedOption, options, placeholder, width, l
     )
 }
 
-export default InputSelectWithLabel;
+export default InputSelectWithLabel

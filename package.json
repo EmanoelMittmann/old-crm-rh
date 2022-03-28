@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.4",
     "connected-react-router": "^6.9.1",
+    "formik": "^2.2.9",
     "file-saver": "^2.0.5",
     "filesize": "^8.0.7",
     "history": "4.10.1",
@@ -30,7 +31,8 @@
     "text-mask-addons": "^3.8.0",
     "uuid": "^8.3.2",
     "vanilla-masker": "^1.2.0",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
