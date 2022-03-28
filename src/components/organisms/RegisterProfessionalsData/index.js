@@ -222,7 +222,7 @@ const RegisterProfessionalsData = ({ data }) => {
                             value={values.uf}
                             onChange={handleChange('uf')}
                             options={optionsUF}
-                            placeholder="UF"
+                            placeHolder="UF"
                             width="230px"
                         />    
                     </ContainerRow>

@@ -106,7 +106,7 @@ export const templates = [
     name: "Lançamento de horas",
     hasButton: true,
     buttonText: "Novo lançamento",
-    buttonPath: "/",
+    buttonPath: "/releaseHours",
     icon: <OvertimeIcon/>,
     isRegisterPage: false,
     path: "/timeSending"
