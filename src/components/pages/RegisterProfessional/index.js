@@ -29,12 +29,15 @@ import { messages } from '../../../settings/YupValidates'
 const RegisterProfessional = () => {    
     const [jobs, setJobs] = useState([])
     const [allProjects, setAllProjects] = useState([])
+    const [projects, setProjects] = useState([])
+
     const [uniqueCpf, setUniqueCpf] = useState('')
     const [cpfValid, setCpfValid] = useState(false)
     const [uniqueCEP, setUniqueCEP] = useState('')
     const [extraHour, setExtraHour] = useState('')
     const history = useHistory()
     const { id } = useParams()
+    const attachment = {projects, setProjects}
 
     const schema = Yup.object().shape({
         name: Yup.string().required(messages.required),
@@ -78,7 +81,7 @@ const RegisterProfessional = () => {
         job_id: Yup.number().required(messages.required),
         job_type: Yup.string().required(messages.required),
         weekly_hours: Yup.number().required(messages.required).max(44, "Horas/semana excedida"),
-        month_hours: Yup.number().required(messages.required).max(176, "Horas/mês excedida"),
+        mounth_hours: Yup.number().required(messages.required).max(176, "Horas/mês excedida"),
         fixed_payment_value: Yup.string().required(messages.required),
     })
 
@@ -103,7 +106,7 @@ const RegisterProfessional = () => {
             job_id: '',
             job_type: '',
             weekly_hours: '',
-            month_hours: '',
+            mounth_hours: '',
             fixed_payment_value: cleanMask(''),
             extra_hour_activated: 1,
             variable1: '',
@@ -160,7 +163,7 @@ const RegisterProfessional = () => {
                 if(logradouro) setFieldValue('street_name', logradouro)
                 if(bairro) setFieldValue('neighbourhood_name', bairro)
             })
-            .catch(error => {console.log("Erro", error)})
+            .catch(error => {toast.error(<DefaultToast text={error.message}/>)})
     }
 
     const validateCpf = async (cpf) => {
@@ -220,7 +223,7 @@ const RegisterProfessional = () => {
                 setFieldValue('job_id', data.job_id)
                 setFieldValue('job_type', data.job_type)
                 setFieldValue('weekly_hours', data.weekly_hours)
-                setFieldValue('month_hours', data.month_hours)
+                setFieldValue('mounth_hours', data.mounth_hours)
                 setFieldValue('fixed_payment_value', "R$" + data.fixed_payment_value + ",00")
                 setFieldValue('extra_hour_activated', data.extra_hour_activated)
                 setFieldValue('variable1', data.variable1)
@@ -234,6 +237,13 @@ const RegisterProfessional = () => {
             })
             .catch((error) => {
                 new Error(error.message)
+            })
+
+            api({
+                method: 'get',
+                url: `/userProjects/user/${id}`,
+            }).then( response => {
+                setProjects(response.data)
             })
         }
         
@@ -260,7 +270,7 @@ const RegisterProfessional = () => {
                 </SectionTitle>
             </RegisterProfessionalTitleContainer>
             <RegisterProfessionalContainer>
-                <form onSubmit={formik.handleSubmit}>
+                <form id="professional" onSubmit={formik.handleSubmit}>
                     <RegisterProfessionalsData data={formik} />
                     <ContainerProfessionalsLoginData>
                         <SecondaryText margin="0 0 2em 0">Dados de login</SecondaryText>
@@ -288,19 +298,19 @@ const RegisterProfessional = () => {
                     { values.extra_hour_activated !== 0 ?
                         <OvertimePayCalc data={formik} /> : <></>
                     }
-                    <AttachmentProject 
-                        allProjects={allProjects}
-                        setTableContent={() => {}}
-                        hoursMonth=''
-                        limitValue=''
-                    />
-                    <RegisterFooter
-                        cancelButtonHandler={goBackClickHandler}
-                        registerButtonHandler={() => {}}
-                        buttonDescription="Cadastrar"
-                        type="submit"
-                    />
                 </form>
+                <AttachmentProject 
+                    allOptions={allProjects}
+                    attachment={attachment}
+                    data={formik}
+                />
+                <RegisterFooter
+                    cancelButtonHandler={goBackClickHandler}
+                    registerButtonHandler={() => {}}
+                    buttonDescription="Cadastrar"
+                    type="submit"
+                    form="professional"
+                />
             </RegisterProfessionalContainer>
         </>
     )
