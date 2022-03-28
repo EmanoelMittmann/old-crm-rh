@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useLayoutEffect} from 'react'
+import { useParams } from 'react-router-dom'
 
 import {
     AttachmentContainer,
@@ -7,43 +8,46 @@ import {
 
 import api from '../../../../api/api'
 import { formatDate } from '../../../utils/formatDate'
-import InputSelectWithLabel from '../../../atoms/InputSelectWithLabel'
+import { checkArraysDifference } from '../../../utils/checkArraysDifference'
+
 import Table from '../../../atoms/Table'
 import { BlueButton } from '../../../atoms/Buttons/BlueButton/style.js'
+import InputSelectWithLabel from '../../../atoms/InputSelectWithLabel'
+import InputWithLabel from '../../../atoms/InputWithLabel'
 import SecondaryText from '../../../atoms/SecondaryText/style'
-import InputText from '../../../atoms/InputText'
 import ModalEditAttachment from '../../../molecules/ModalEditAttachment'
 import ModalRed from '../../../molecules/ModalRed'
-import InputWithLabel from '../../../atoms/InputWithLabel'
-import { checkArraysDifference } from '../../../utils/checkArraysDifference'
-import { formatFirstLetter } from '../../../utils/formatFirstLetter'
-import { useParams } from 'react-router-dom'
 
 
-const AttachmentProject = ({hoursMonth, componentRendered, tableContent, setTableContent, allProjects}) => {
+const AttachmentProject = ({ attachment, allOptions, data}) => {
+    const { values } = data
     const [ rows, setRows] = useState([])
+    
     const [projectSelected, setProjectSelected] = useState(null)
     const [hoursMonthProject, setHoursMonthProject] = useState('')
-    const [hoursMonthContract, setHoursMonthContract] = useState('')
+    const [overtime, setOvertime] = useState('')
     const [reset, setReset] = useState(true)
+    
     const [openModalDelete, setOpenModalDelete] = useState(false)
     const [openModalEdit, setOpenModalEdit] = useState(false)
     const [projectClicked, setProjectClicked] = useState('')
     const [hoursMonthEdit, setHoursMonthEdit] = useState('')
-    const [overtime, setOvertime] = useState('')
     const [overtimeEdit, setOvertimeEdit] = useState('')
+
     const [totalHours, setTotalHours] = useState(0)
     const [totalOvertime, setTotalOvertime] = useState(0)
     const [totalPercentage, setTotalPercentage] = useState(0)
 
-    const [projects, setProjects] = useState([])
-    const [projectsOption, setProjectsOption] = useState([])
+    const [options, setOptions] = useState([])
 
     const { id } = useParams()
 
-    const calcPercentage = (projectHours) => Math.trunc((100 * projectHours)/hoursMonthContract)
+    const {projects, setProjects } = attachment
+
+    const calcPercentage = (projectHours) => Math.trunc((100 * projectHours)/values.mounth_hours)
 
     const resetInputs = () => {
+        setProjectSelected(null)
         setHoursMonthProject('')
         setOvertime('')
         setReset(true)
@@ -56,212 +60,124 @@ const AttachmentProject = ({hoursMonth, componentRendered, tableContent, setTabl
     }
 
     const calcTotalHours = () => {
-        const allWorkload = tableContent?.map(project => {
+        const allWorkload = rows?.map(project => {
             return project.thirdRow
         })
-    
-        const totalWorkload = allWorkload?.reduce(function(acc, hours) {
-            return +acc + +hours;
-        });
-
-        return totalWorkload;
+        const totalWorkload = allWorkload.reduce(function(acc, hours) {
+            return +acc + +hours
+        })
+        setTotalHours(totalWorkload)
     }
 
     const calcTotalOvertime = () => {
-        const allOvertime = tableContent?.map(project => {
+        const allOvertime = rows?.map(project => {
             return project.fourthRow
         })
-    
-        const totalOvertime = allOvertime?.reduce(function(acc, overtime) {
-            return +acc + +overtime;
-        });
-
-        return totalOvertime;
+        const totalOvertime = allOvertime.reduce(function(acc, overtime) {
+            return +acc + +overtime
+        })
+        return setTotalOvertime(totalOvertime)
     }
 
-    const deleteProjectWhenRegistering = () => {
-        const newProjects = tableContent.filter((project) => project.id !== projectClicked)
-        setTableContent(newProjects)
-        setOpenModalDelete(false)
+    const calcTotalPercentage = () => {
+        const allPercentage = rows?.map(project => {
+            return project.fifthRow
+        })
+        const totalPercentage = allPercentage.reduce(function(acc, overtime) {
+            return +acc + +overtime
+        })
+        return setTotalPercentage(totalPercentage)
     }
 
-    const deleteProjectWhenEditing = async () => {
-        const {data} = await api({
-            method:'delete',     
-            url:`/user/${id}`,
-            data: {
-                project_id: projectClicked
-            }
-        })
-
-        setOpenModalDelete(false)
-        resetTotal()
-        getTableContent()
+    function handleRows() {
+        setRows([])
+        if(id) {
+            projects.map( project => {
+                const addProjectRows = {
+                    id : project.id,
+                    firstRow: project.name, 
+                    secondRow: formatDate(project.date_start),
+                    thirdRow: project.workload,
+                    fourthRow: project.extra_hour_limit,
+                    fifthRow: calcPercentage(project.workload),
+                }
+                setRows(oldState => [...oldState, addProjectRows])
+            })
+        }
+        else {
+            projects.map( project => {
+                const data = allOptions.find(item => item.id == project.id)
+                const addProjectRows = {
+                    id : data.id,
+                    firstRow: data.name, 
+                    secondRow: formatDate(data.date_start),
+                    thirdRow: project.workload,
+                    fourthRow: project.extra_hour_limit,
+                    fifthRow: calcPercentage(project.workload),
+                }
+                setRows(oldState => [...oldState, addProjectRows])
+            })
+        }
     }
 
-    const getTableContent = async () => {
+    function addProject() {
+        if(!projectSelected) return
 
-        const { data } = await api({
-            method:'get',     
-            url:'/userProjects/user/' + id
-        })
-        console.log("Projetos do user:", data)
+        const selected = allOptions.find(project => project.id == projectSelected)
+        console.log({selected})
+        console.log({projectSelected})
+        
+        setProjects(oldState => [...oldState, {
+            id: selected.id,
+            workload: hoursMonthProject,
+            extra_hour_limit: overtime
+        }])
 
-        const content = data.map((project) => {
-        const {id, name, date_start, workload, extra_hour_limit} = project
-    
-            return {
-                id: id,
-                firstRow: name,
-                secondRow: formatDate(date_start),
-                thirdRow: workload,
-                fourthRow: extra_hour_limit,
-                fifthRow: calcPercentage(workload)
-            }
-        })
-
-        setRows(content)
-
-        const getValidProjects = checkArraysDifference({
-            completeArray: allProjects,
-            comparisonArray: data,
-            key: "id"
-        })
-
-        setProjectsOption(getValidProjects)
-    }
-    
-    useEffect(() => {        
-        getTableContent()
-    }, [allProjects])
-
-    useEffect(() => {
-        console.log("Rows", rows)
-    },[ rows])
-
-    const addProjectWhenEditing = async () => {
-        await api({
-            method:'post',     
-            url:`/userProjects/user/${id}`,
-            data: {
-                project_id: projectSelected,
-                workload: hoursMonthProject,
-                extra_hours_limit: overtime
-            }
-        })
-
-        getTableContent()
         resetInputs()
     }
 
-    const addProjectWhenRegistering = async () => {
-
-        try{
-            //getting the project that will be linked to the professional
-            const {data} = await api({
-                method:'get',     
-                url: `/project/${projectSelected}`
-            })
-
-            const [{id: idProject, name, date_start}] = data
-
-            //Validação para se o profissional já existe
-            const projectAlreadyExist = tableContent.find((project) => {
-                return idProject == project.id
-            })
-
-            if(!projectAlreadyExist){
-                setTableContent([...tableContent, {
-                    id: idProject,
-                    firstRow: name,
-                    secondRow: formatDate(date_start),
-                    thirdRow: hoursMonthProject,
-                    fourthRow: overtime,
-                    fifthRow: calcPercentage(hoursMonthProject)
-                }]);
-
-                resetInputs()
+    function editProject() {
+        const edited = projects.map((project) => {
+            if(project.id == projectClicked){
+                return {...project, workload: hoursMonthEdit, extra_hour_limit: overtimeEdit}
             }
-            
-        }catch(error){
-            console.log(error);
-        }
-    }
-
-    useEffect(() => {
-        if(componentRendered && hoursMonth){
-             setHoursMonthContract(hoursMonth)
-        }
-    }, [hoursMonth])
-    //////////////////////////////////////////////////////
-
-    useEffect(() => {
-        
-        if(projectSelected !== null){
-            setReset(false)
-        }
-        
-    }, [projectSelected])
-
-    const editHoursWhenRegistering = () => {
-
-        const editedProject = tableContent.map((row) => {
-            if(row.id == projectClicked){
-                return {...row, thirdRow: hoursMonthEdit, fourthRow: overtimeEdit}
-            }
-
-            if(row.id !== projectClicked){
-                return row;
-            }
-            
-        })
-
-        setTableContent(editedProject)
-        setOpenModalEdit(false)
-
-    }
-
-    const editHoursWhenEditing = async () => {
-      
-        await api({
-            method:'put',     
-            url: `/userProjects/user/${id}`,
-            data: {
-                project_id : projectClicked,
-                workload: hoursMonthEdit,
-                extra_hours_limit: overtimeEdit  
+            if(project.id !== projectClicked){
+                return project
             }
         })
-
-        getTableContent()
+        console.log({edited})
+        setProjects(edited)
         setOpenModalEdit(false)
     }
 
-    useEffect(() => {
-        // const projectArr = tableContent.filter(project => project.id == projectClicked)
-        // const [project] = projectArr
-        // setHoursMonthEdit(project?.thirdRow)
-        // setOvertimeEdit(project?.fourthRow)
-
-    }, [openModalEdit])
-
-    // useEffect(() => {
-    //     if(tableContent.length > 0){
-    //         setTotalHours(calcTotalHours())
-    //         setTotalOvertime(calcTotalOvertime())
-    //         setTotalPercentage(calcPercentage(calcTotalHours()))
-    //     } 
-    // }, [tableContent])
-
-    const getProjectsContent = async () => {
-        const {data} = await api({
-            method:'get',     
-            url:`/userProjects/user/${id}`
-        })
-        console.log(data.data)
-        setProjects(data.data)
+    function removeProject() {
+        const data = projects.filter((project) => project.id !== projectClicked)
+        setProjects(data)
+        setOpenModalDelete(false)
     }
 
+    useLayoutEffect(() => {
+        const optionsValid = checkArraysDifference({
+            completeArray: allOptions,
+            comparisonArray: projects, 
+            key: 'id'
+        })
+        setOptions(optionsValid)
+        handleRows()
+
+        if(!projects.length) {
+
+        }
+    },[allOptions, projects])
+
+    useEffect(() => {
+        if(!rows.length) {
+            return resetTotal()
+        }
+        calcTotalHours()
+        calcTotalOvertime()
+        calcTotalPercentage()
+    },[rows])
 
     return (
         <AttachmentContainer>
@@ -269,13 +185,14 @@ const AttachmentProject = ({hoursMonth, componentRendered, tableContent, setTabl
 
             <AttachmentForm>
                 <InputSelectWithLabel
-                    setSelectedOption={setProjectSelected}
-                    options={projectsOption}
+                    setSelectedOption={e => setProjectSelected(e.target.value)}
+                    options={options}
                     placeholder="Time"
                     width="100%"
                     lineWidth="40%"
                     label="Selecionar projetos"
-                    reset={reset}></InputSelectWithLabel>
+                    reset={reset} 
+                />
                 <InputWithLabel
                     width="100%"
                     widthContainer="25%"
@@ -283,10 +200,9 @@ const AttachmentProject = ({hoursMonth, componentRendered, tableContent, setTabl
                     onChange={e => setHoursMonthProject(e.target.value)}
                     value={hoursMonthProject}
                     type="number"
-                    handleBlur={() => {}}
                     padding="0 2em 0 2em"
+                    handleBlur={() => {}}
                 />
-
                 <InputWithLabel
                     width="100%"
                     widthContainer="25%"
@@ -297,13 +213,9 @@ const AttachmentProject = ({hoursMonth, componentRendered, tableContent, setTabl
                     padding="0 2em 0 0"
                     handleBlur={() => {}}
                 />
-
-                <BlueButton onClick={() => {
-                    id ? addProjectWhenEditing() : addProjectWhenRegistering()
-                }} width="13%">
+                <BlueButton onClick={() => addProject()} width="13%">
                     Vincular
                 </BlueButton>
-
             </AttachmentForm>
 
             <Table 
@@ -317,20 +229,21 @@ const AttachmentProject = ({hoursMonth, componentRendered, tableContent, setTabl
                 totalPercentage={totalPercentage}
              />
 
-            {openModalDelete && <ModalRed 
+            { openModalDelete && <ModalRed 
                 CloseButtonClickHandler={() => setOpenModalDelete(false)}
-                redButtonClickHandler={() => id ? deleteProjectWhenEditing() : deleteProjectWhenRegistering()}
-                title="Inativar"
-                message="Deseja realmente excluir projeto?"/>
+                redButtonClickHandler={removeProject}
+                title="Remover"
+                message="Deseja realmente remover o projeto?"
+                />
             }
-            {openModalEdit && 
+            { openModalEdit && 
                 <ModalEditAttachment
                     CloseButtonClickHandler={() => {
                         setOpenModalEdit(false)
                     }}
                     setWorkload={setHoursMonthEdit}
                     workload={hoursMonthEdit}
-                    saveHandler={id ? editHoursWhenEditing : editHoursWhenRegistering}
+                    saveHandler={editProject}
                     setOvertime={setOvertimeEdit}
                     overtime={overtimeEdit}
                 />
