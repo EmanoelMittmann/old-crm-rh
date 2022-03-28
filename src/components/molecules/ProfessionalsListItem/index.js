@@ -13,7 +13,9 @@ import {
     Professionalnfo,
     ProfessionalProfile,
     ProfessionalsListOptions,
-    ContainerIconOptions
+    ContainerIconOptions,
+    ProfessionalStatus,
+    Badge
 } from './style.js'
 
 const ProfessionalsListItem = ({professional}) => {
@@ -38,7 +40,8 @@ const ProfessionalsListItem = ({professional}) => {
         setMenuOptionsisVisible(false)
 
         const name = professional.id === optionClicked  ? professional.name : "esse profissional"
-        setModalMessage(`Deseja realmente inativar ${name}?`)
+        const status = professional.is_active === 1 ? 'inativar' : 'ativar'
+        setModalMessage(`Deseja realmente ${status} ${name}?`)
     }
 
     const disableProfessional = async () => {
@@ -47,58 +50,61 @@ const ProfessionalsListItem = ({professional}) => {
                 method:'put',     
                 url:`/user/updateStatus/${optionClicked}`
             })
-
             setOpenModal(false)
-
-        }catch(error){
+            window.location.reload()
+        } catch(error){
             console.log(error);
         }
-
     }
-
 
     return (
         <ContainerProfessionalsListItem key={professional.id}>
             <ProfessionalProfile>
-                    <TeamMemberPic margin="0 1.5em 0 0" width="45px" height="45px" src={professional.avatar || "https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"}/>
-                    {professional.name}
-                </ProfessionalProfile>
-                <Professionalnfo>
-                    {professional.job.name}
-                </Professionalnfo>
-                <ProfessionalEmail>
-                    {professional.email}
-                </ProfessionalEmail>
-                <ProfessionalPhoneNumber>
-                    {professional.telephone_number}
-                </ProfessionalPhoneNumber>
-                <Professionalnfo>
-                    {professional.local}
-                </Professionalnfo>
-                <ProfessionalsListOptions optionsColor={
-                professional.id == optionClicked && menuOptionsisVisible ? "#407BFF" : "#B7BDC2"}>
-                    <ContainerIconOptions onClick={() => menuOptionsClicked(professional.id)}>
-                        <OptionsIcon/>
-                    </ContainerIconOptions>
-                </ProfessionalsListOptions>
-                {menuOptionsisVisible && professional.id == optionClicked &&
-                    <MenuOptions
+                <TeamMemberPic margin="0 1.5em 0 0" width="45px" height="45px" src={professional.avatar}/>
+                {professional.name}
+            </ProfessionalProfile>
+            <Professionalnfo>
+                {professional.job.name}
+            </Professionalnfo>
+            <ProfessionalEmail>
+                {professional.email}
+            </ProfessionalEmail>
+            <ProfessionalPhoneNumber>
+                {professional.telephone_number}
+            </ProfessionalPhoneNumber>
+            <Professionalnfo>
+                {professional.local}
+            </Professionalnfo>
+            <ProfessionalStatus>
+                { professional.is_active === 1 
+                    ? <Badge bg='#E4F8DD' color='#229A16' > Ativo </Badge> 
+                    : <Badge bg='#FFE2E1' color='#BB2B3F' > Inativo </Badge> }
+            </ProfessionalStatus>
+            <ProfessionalsListOptions optionsColor={
+                professional.id == optionClicked && menuOptionsisVisible ? "#407BFF" : "#B7BDC2" }>
+                <ContainerIconOptions onClick={() => menuOptionsClicked(professional.id)}>
+                    <OptionsIcon/>
+                </ContainerIconOptions>
+            </ProfessionalsListOptions>
+            { menuOptionsisVisible && professional.id == optionClicked &&
+                <MenuOptions
                     positionMenu="13px"
                     firstOptionDescription="Editar"
-                    secondOptionDescription="Inativar"
+                    secondOptionDescription={professional.is_active === 1 ? "Inativar" : "Ativar"}
                     firstChosenOption={editProfessional}
                     secondChosenOption={openModaldisableProfessional}
                     padding="0.3em 0.5em 0.3em 1.7em"
                     id={optionClicked}
-                    />
-                }
-                {openModal && <ModalRed 
-                CloseButtonClickHandler={() => setOpenModal(false)}
-                redButtonClickHandler={() => disableProfessional()}
-                title="Inativar"
-                message={modalMessage}/>}
+                /> }
+            { openModal && 
+                <ModalRed 
+                    CloseButtonClickHandler={() => setOpenModal(false)}
+                    redButtonClickHandler={() => disableProfessional()}
+                    title={professional.is_active === 1 ? "Inativar" : "Ativar"}
+                    message={modalMessage}
+                /> }
         </ContainerProfessionalsListItem>
     )
 }
 
-export default ProfessionalsListItem;
+export default ProfessionalsListItem

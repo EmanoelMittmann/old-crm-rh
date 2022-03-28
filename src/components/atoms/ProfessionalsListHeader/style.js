@@ -34,3 +34,10 @@ export const ListHeaderPlace = styled.div`
     width: 20%;
     padding-left: 5em;
 `
+
+export const ListHeaderStatus = styled.div`
+    display: flex;
+    align-items: center;
+    width: 18%;
+    padding-left: 5em;
+`
