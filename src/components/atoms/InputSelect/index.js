@@ -9,14 +9,14 @@ import {
     InputSelectOptionPlaceholder,
 } from './style.js'
 
-const InputSelect = ({ onChange, options, placeHolder, width, lineWidth, value }) => {
+const InputSelect = ({ onChange, options, placeHolder, width, lineWidth, value, margin }) => {
 
     const attributeValue = {
         ...(value && {value: value})
     }
 
     return ( 
-        <InputLine width={lineWidth}>
+        <InputLine width={lineWidth} margin={margin}>
             <InputSelectContainer 
                 {...attributeValue} 
                 width={width} 
