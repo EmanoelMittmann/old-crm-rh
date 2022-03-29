@@ -35,6 +35,7 @@ const Routes = () => {
                 <PrivateRoute path="/job" component={Settings} />
                 <PrivateRoute path="/projectStatus" component={Status} />
                 <PrivateRoute path="/projectType" component={ProjectType} />
+                <PrivateRoute path="/occupation" component={Settings} />
                 <PrivateRoute exact path="/project" component={RegisterProject} />
                 <PrivateRoute path="/project/:id" component={RegisterProject} />
                 <PrivateRoute exact path="/professional" component={RegisterProfessional} />

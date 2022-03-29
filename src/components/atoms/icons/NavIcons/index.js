@@ -586,13 +586,16 @@ export const SettingsIcon = () => {
   const displayDescription = state.descriptionIsAppearing ? "flex" : "none";
   const url = location.pathname;
 
- const isSettings = url === '/projectStatus' || url === '/job' ||
- url === '/projectType' ? true : false
+  const isSettings = url === '/projectStatus' 
+    || url === '/job' 
+    || url === '/projectType'
+    || url === '/occupation' ? true : false
 
     return (
         <SettingsIconContainer 
-        isSettings={isSettings}
-        hover={displayDescription}>
+          isSettings={isSettings}
+          hover={displayDescription}
+        >
             <Settings/>
         </SettingsIconContainer>
     )
