@@ -22,7 +22,10 @@ import {
     modalEditOpen,
     editJobClicked,
     editStatusClicked,
-    editProjectTypeClicked
+    editProjectTypeClicked,
+    setOccupationList,
+    occupationOptionClicked,
+    editOccupationClicked
 } from '../../../redux/actions'
 
 import { ListItemContainer, ListItemName, ListItemDetails } from './style.js'
@@ -44,6 +47,7 @@ const SettingsListItem = () => {
             if(location.pathname === "/job") dispatch(setJobList(data.data));
             if(location.pathname === "/projectStatus") dispatch(setStatusList(data.data))
             if(location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
+            if(location.pathname === "/occupation") dispatch(setOccupationList(data.data))
             dispatch(settingsPages(data.meta))
 
         }catch(err){
@@ -54,9 +58,7 @@ const SettingsListItem = () => {
 
     useEffect(() => {
         getSettingsList()
-    }, [])
-
-    //Lógica do Options
+    }, [location.pathname])
 
     const openOptions = (info) => {
     
@@ -68,6 +70,9 @@ const SettingsListItem = () => {
         }
         if(location.pathname === "/projectType") {
             dispatch(projectTypeOptionClicked(info.id))
+        }
+        if(location.pathname === "/occupation") {
+            dispatch(occupationOptionClicked(info.id))
         }
     }
 
@@ -82,14 +87,15 @@ const SettingsListItem = () => {
         if(location.pathname === "/projectType") {
             dispatch(editProjectTypeClicked(info.id))
         }
+        if(location.pathname === "/occupation") {
+            dispatch(editOccupationClicked(info.id))
+        }
 
             dispatch(modalEditOpen())
             dispatch(openModal())
     }
 
-
     let params = {};
-
 
     const handleFilterRequest = () => {
         params.page = state.settingsPagesFilter.current_page
@@ -187,7 +193,33 @@ const SettingsListItem = () => {
                   }
             }
 
-            
+            const updateOccupationStatus = async () => {
+                try {
+
+                    handleFilterRequest()
+
+                    await api({
+                        method: 'put',
+                        url: `/occupation/updateStatus`,
+                        data: {
+                            id: info.id
+                        }
+                    })
+
+                    const {data} = await api({
+                        method: 'get',
+                        url: '/occupation',
+                        params: params
+                    })
+
+                    dispatch(setStatusList(data.data))
+                    return toast.success(<DefaultToast text ="Status alterado!"/>)
+
+                  } catch (error) {
+                    
+                  }
+            }
+
             if(location.pathname === "/job") {
                 updateStatusJob()
             }
@@ -197,60 +229,76 @@ const SettingsListItem = () => {
             if(location.pathname === "/projectType") {
                 updateStatusProjectType()
             }
+            if(location.pathname === "/occupation") {
+                updateOccupationStatus()
+            }
     }
 
-
-return (
-    <div>
-        {location.pathname === "/job" &&
-        
-            state.jobs.map(job => (
-                <ListItemContainer>
-                    <ListItemName>{job.name}</ListItemName>
-                    <ListItemDetails>
-                        {job.is_active ? <StatusActive/> : <StatusDisabled/>}
-                        <SettingsOptions info={job}
-                        editListItem={editListItem}
-                        toggleStatusOptions={toggleStatusOptions}
-                        openOptions={openOptions}
-                        />
-                    </ListItemDetails>
-                </ListItemContainer>
-            )) 
-        }
-        {location.pathname === "/projectStatus" && 
-            state.status.map(status => (
-                <ListItemContainer>
-                    <ListItemName>{status.name}</ListItemName>
-                    <ListItemDetails>
-                        {status.is_active ? <StatusActive/> : <StatusDisabled/>}
-                        <SettingsOptions info={status}
-                        editListItem={editListItem}
-                        toggleStatusOptions={toggleStatusOptions}
-                        openOptions={openOptions}
-                        />
-                    </ListItemDetails>
-                </ListItemContainer>
-            )) 
-        }
-        {location.pathname === "/projectType" && 
-            state.projectType.map(project => (
-                <ListItemContainer>
-                    <ListItemName>{project.name}</ListItemName>
-                    <ListItemDetails>
-                        {project.is_active ? <StatusActive/> : <StatusDisabled/>}
-                        <SettingsOptions info={project}
-                        editListItem={editListItem}
-                        toggleStatusOptions={toggleStatusOptions}
-                        openOptions={openOptions}
-                        />
-                    </ListItemDetails>
-                </ListItemContainer>
-            )) 
-        }
-        
-    </div>
-)
+    return (
+        <div>
+            {location.pathname === "/job" &&
+                state.jobs.map(job => (
+                    <ListItemContainer>
+                        <ListItemName>{job.name}</ListItemName>
+                        <ListItemDetails>
+                            {job.is_active ? <StatusActive/> : <StatusDisabled/>}
+                            <SettingsOptions info={job}
+                                editListItem={editListItem}
+                                toggleStatusOptions={toggleStatusOptions}
+                                openOptions={openOptions}
+                            />
+                        </ListItemDetails>
+                    </ListItemContainer>
+                )) 
+            }
+            {location.pathname === "/projectStatus" && 
+                state.status.map(status => (
+                    <ListItemContainer>
+                        <ListItemName>{status.name}</ListItemName>
+                        <ListItemDetails>
+                            {status.is_active ? <StatusActive/> : <StatusDisabled/>}
+                            <SettingsOptions info={status}
+                                editListItem={editListItem}
+                                toggleStatusOptions={toggleStatusOptions}
+                                openOptions={openOptions}
+                            />
+                        </ListItemDetails>
+                    </ListItemContainer>
+                )) 
+            }
+            {location.pathname === "/projectType" && 
+                state.projectType.map(project => (
+                    <ListItemContainer>
+                        <ListItemName>{project.name}</ListItemName>
+                        <ListItemDetails>
+                            {project.is_active ? <StatusActive/> : <StatusDisabled/>}
+                            <SettingsOptions info={project}
+                                editListItem={editListItem}
+                                toggleStatusOptions={toggleStatusOptions}
+                                openOptions={openOptions}
+                            />
+                        </ListItemDetails>
+                    </ListItemContainer>
+                )) 
+            }
+            {location.pathname === "/occupation" && 
+                state.occupation.map(occupation => (
+                    <ListItemContainer>
+                        <ListItemName>{occupation.name}</ListItemName>
+                        <ListItemDetails>
+                            {occupation.is_active ? <StatusActive/> : <StatusDisabled/>}
+                            <SettingsOptions 
+                                info={occupation}
+                                editListItem={editListItem}
+                                toggleStatusOptions={toggleStatusOptions}
+                                openOptions={openOptions}
+                            />
+                        </ListItemDetails>
+                    </ListItemContainer>
+                )) 
+            }
+        </div>
+    )
 }
 
 export default SettingsListItem
