@@ -18,6 +18,7 @@ import {
     EDITJOBCLICKED,
     EDITSTATUSCLICKED,
     EDITPROJECTTYPECLICKED,
+    EDITOCCUPATIONCLICKED,
     SETSETTINGSPAGES,
     SETSEARCHNAME,
     SETSEARCHNAMEPROJECT,
@@ -33,8 +34,9 @@ import {
     SETPROJECTTYPELISTPROJECTS,
     SETSTATUSLISTPROJECTS,
     SETFILTERTYPESPROJECTS,
-    SETPROJECTLISTPROJECTS
-
+    SETPROJECTLISTPROJECTS,
+    SETOCCUPATIONLIST,
+    OCCUPATIONOPTIONCLICKED
 } from '../types'
 
 export const loggingIn = (payload) => ({
@@ -80,7 +82,20 @@ export const setProjectTypeList = (payload) => ({
     payload
 })
 
+export const setOccupationList = (payload) => ({
+    type: SETOCCUPATIONLIST,
+    payload
+})
 
+export const occupationOptionClicked = (payload) => ({
+    type: OCCUPATIONOPTIONCLICKED,
+    payload
+})
+
+export const editOccupationClicked = (payload) => ({
+    type: EDITOCCUPATIONCLICKED,
+    payload
+})
 
 export const setProjectList = (payload) => ({
     type: SETPROJECTLIST,
