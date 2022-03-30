@@ -212,7 +212,7 @@ const SettingsListItem = () => {
                         params: params
                     })
 
-                    dispatch(setStatusList(data.data))
+                    dispatch(setOccupationList(data.data))
                     return toast.success(<DefaultToast text ="Status alterado!"/>)
 
                   } catch (error) {
