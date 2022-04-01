@@ -1,10 +1,33 @@
 import React from 'react'
+import { LocalStorageKeys } from '../../../settings/LocalStorageKeys'
 
 import ListHeader from '../../molecules/ListHeader'
 import ListItem from '../../molecules/ListItem'
 import Footer from '../../organisms/Footer'
 
-const headers = [
+const admin = [
+  {
+    name: "Profissional",
+    order: true,
+    field: "name"
+  },
+  {
+    name: "Envio",
+    order: true,
+    field: "created_at"
+  },
+  {
+    name: "Prazo envio",
+    order: false
+  },
+  {
+    name: "NF",
+    order: true,
+    field: "file_id"
+  }
+]
+
+const profissional = [
   {
     name: "#",
     order: true,
@@ -21,16 +44,18 @@ const headers = [
   }
 ]
 
-function InvoiceList({data, meta, nextPage, previousPage, sortById, fnDownload}) {
+function InvoiceList({ data, meta, nextPage, previousPage, sortById, fnDownload }) {
+  const user = JSON.parse(localStorage.getItem(LocalStorageKeys.USER))
+
   return ( 
     <>
       <ListHeader 
-        data={headers}
-        fnOrder={sortById}  
+        data={user.user_type_id === 1 ? admin : profissional}
+        fnOrder={sortById}
       />
       <ListItem 
         data={data}
-        downloadFile={fnDownload}  
+        downloadFile={fnDownload}
       />
       <Footer
         previousPage={previousPage}
