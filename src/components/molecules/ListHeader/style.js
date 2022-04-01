@@ -6,7 +6,7 @@ export const Main = styled.div`
     background-color: #F4F6F8;
     border-radius: 8px;
     display: grid;
-    grid-template-columns: .5fr 1fr 2fr 1fr;
+    grid-template-columns: ${props => props.template};
     padding-left: 3em;
     align-items: center;
     margin-top: 2em;
