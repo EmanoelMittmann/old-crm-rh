@@ -26,7 +26,7 @@ const admin = ((data, downloadFile) => data.map((item, index) =>  {
   )
 }))
 
-const profissional = ((data, downloadFile) => data.map((item, index) =>  {
+const professional = ((data, downloadFile) => data.map((item, index) =>  {
   return (
     <Main template=".5fr 1fr 2fr 1fr" key={index}>
       <Container>
@@ -65,7 +65,7 @@ function ListItem({ data, downloadFile}) {
     admin(data, downloadFile)
   )
   return (
-    profissional(data, downloadFile)
+    professional(data, downloadFile)
   ) 
 }
 

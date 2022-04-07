@@ -27,7 +27,7 @@ const admin = [
   }
 ]
 
-const profissional = [
+const professional = [
   {
     name: "#",
     order: true,
@@ -50,7 +50,7 @@ function InvoiceList({ data, meta, nextPage, previousPage, sortById, fnDownload 
   return ( 
     <>
       <ListHeader 
-        data={user.user_type_id === 1 ? admin : profissional}
+        data={user.user_type_id === 1 ? admin : professional}
         fnOrder={sortById}
       />
       <ListItem 

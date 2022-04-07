@@ -24,17 +24,21 @@ import {
 }
 from '../../../redux/actions'
 
+const handleDisplayTitle = {
+    job: 'Cadastro de Cargos',
+    projectStatus: 'Cadastro de Status do Projeto',
+    projectType: 'Cadastro de Tipos de Projeto',
+    occupation: 'Cadastro de Novas Funções'
+}
 
 export const SettingsSection = () => {
     const dispatch = useDispatch()
     const location = useLocation()
     const state = useSelector(state => state)
+    let path = location.pathname.slice(1);
 
     const displayTitle = route => {
-        if(route === "/job") return  "Cadastro de cargos"
-        if(route === "/projectStatus") return "Cadastro de status do projeto"
-        if(route === "/projectType") return "Cadastro de Tipo de Projeto"
-        if(route === "/occupation") return "Cadastro de Nova Função"
+        return handleDisplayTitle[route]
     }
 
     const modelVisibility = state.modelVisibility
@@ -110,7 +114,7 @@ export const SettingsSection = () => {
         <Container>
             <Main>
                 <SecondaryText margin="2em 0 2em 0">
-                    {displayTitle(location.pathname)}
+                    {displayTitle(path)}
                 </SecondaryText>
                 <ContainerFilterJob>
                     <SettingsInputs/>

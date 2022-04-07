@@ -7,17 +7,25 @@ import { setJobList, setStatusList, settingsPages, setFilterOrder, setProjectTyp
 import { ListHeaderContainer, ListHeaderTitle, ListHeaderOrderContainer } from '../../atoms/ListHeader/style.js'
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
 
+const handleDisplayTitle = {
+    job: 'Cargo',
+    projectStatus: 'Status do projeto',
+    projectType: 'Tipo de Projeto',
+    occupation: 'Funções'
+}
+
 const SettingsListHeader = () => {
     const state = useSelector(state => state)
     const dispatch = useDispatch()
     const location = useLocation()
     const [isAsc, setIsAsc] = useState(true)
     let params = {}
+    let path = location.pathname.slice(1);
 
     const handleFilterRequest = (paramsOrder) => {
         params.page = 1
         
-        if(state.filterStatus !== "" && state.filterStatus !== " ") params.is_active = state.filterStatus
+        if(!state.filterStatus.trim()) params.is_active = state.filterStatus
 
         if(state.settingsSearchFilter !== "") params.search = state.settingsSearchFilter
 
@@ -27,10 +35,7 @@ const SettingsListHeader = () => {
     }
 
     const displayListTitle = route => {
-        if(route === "/job") return "Cargo"
-        if(route === "/projectStatus") return "Status do projeto"
-        if(route === "/projectType") return "Tipo de Projeto"
-        if(route === "/occupation") return "Funções"
+        return handleDisplayTitle[route]
     }
 
     const orderSettingsList = async () => {
@@ -58,7 +63,7 @@ const SettingsListHeader = () => {
     return (
         <ListHeaderContainer>
             <ListHeaderTitle onClick={() => orderSettingsList()}>
-                {displayListTitle(location.pathname)}
+                {displayListTitle(path)}
             </ListHeaderTitle>
             <Arrows onClick={() => orderSettingsList()}/>
         </ListHeaderContainer>
