@@ -9,7 +9,7 @@ import { ContainerEmploymentContract, EmploymentContractInputs } from './style'
 
 import { typeOptions } from '../../pages/RegisterProfessional/optionsType'
 
-const EmploymentContract = ({ data, jobs }) => {
+const EmploymentContract = ({ data, jobs, occupations }) => {
 
     const fixedSalaryAmount = createNumberMask({
         prefix: 'R$',
@@ -23,17 +23,17 @@ const EmploymentContract = ({ data, jobs }) => {
         if(e.target.value === "FULLTIME"){
             setFieldValue('job_type', e.target.value)
             setFieldValue('weekly_hours', 40)
-            // setFieldValue('month_hours', 160)
+            setFieldValue('mounth_hours', 160)
         }
         if(e.target.value === "PARTTIME"){
             setFieldValue('job_type', e.target.value)
             setFieldValue('weekly_hours',20)
-            // setFieldValue('month_hours', 80)
+            setFieldValue('mounth_hours', 80)
         }
         if(e.target.value === "FREELANCER"){
             setFieldValue('job_type', e.target.value)
             setFieldValue('weekly_hours',0)
-            // setFieldValue('month_hours', 0)
+            setFieldValue('mounth_hours', 0)
         }
         return true
     }
@@ -61,7 +61,16 @@ const EmploymentContract = ({ data, jobs }) => {
                     options={jobs}
                     placeHolder="Cargo"
                     width="100%"
-                    lineWidth="60%"
+                    lineWidth="30%"
+                    margin="0 2em 0 0"
+                />
+                <InputSelect
+                    onChange={handleChange('occupation_id')}
+                    value={values.occupation_id}
+                    options={occupations}
+                    placeHolder="Função"
+                    width="100%"
+                    lineWidth="30%"
                 />
             </EmploymentContractInputs>
             <EmploymentContractInputs>
@@ -87,15 +96,15 @@ const EmploymentContract = ({ data, jobs }) => {
                     padding="0em 0 0 1em" 
                 />
                 <InputWithLabel
-                    onChange={handleChange('month_hours')}
-                    value={values.month_hours}
+                    onChange={handleChange('mounth_hours')}
+                    value={values.mounth_hours}
                     width="100%"
                     label="Horas/mês"
                     type="number"
-                    error={errors.month_hours}
-                    touched={touched.month_hours}
+                    error={errors.mounth_hours}
+                    touched={touched.mounth_hours}
                     handleBlur={setFieldTouched}
-                    name="month_hours"
+                    name="mounth_hours"
                     widthContainer="20%"
                     padding="0em 0 0 1em" 
                 />

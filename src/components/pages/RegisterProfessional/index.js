@@ -28,6 +28,7 @@ import { messages } from '../../../settings/YupValidates'
 
 const RegisterProfessional = () => {    
     const [jobs, setJobs] = useState([])
+    const [occupations, setOccupations] = useState([])
     const [allProjects, setAllProjects] = useState([])
     const [uniqueCpf, setUniqueCpf] = useState('')
     const [cpfValid, setCpfValid] = useState(false)
@@ -78,7 +79,7 @@ const RegisterProfessional = () => {
         job_id: Yup.number().required(messages.required),
         job_type: Yup.string().required(messages.required),
         weekly_hours: Yup.number().required(messages.required).max(44, "Horas/semana excedida"),
-        month_hours: Yup.number().required(messages.required).max(176, "Horas/mês excedida"),
+        mounth_hours: Yup.number().required(messages.required).max(176, "Horas/mês excedida"),
         fixed_payment_value: Yup.string().required(messages.required),
     })
 
@@ -101,9 +102,10 @@ const RegisterProfessional = () => {
             email: '',
             start_date: '',
             job_id: '',
+            occupation_id: '',
             job_type: '',
             weekly_hours: '',
-            month_hours: '',
+            mounth_hours: '',
             fixed_payment_value: cleanMask(''),
             extra_hour_activated: 1,
             variable1: '',
@@ -184,6 +186,14 @@ const RegisterProfessional = () => {
         setJobs(response.data.data)
     },[])
 
+    const optionsOccupation = useCallback( async () => {
+        const response = await api({
+            method:'get',     
+            url:`/occupation`,
+        })
+        setOccupations(response.data.data)
+    },[])
+
     const getAllProjects = useCallback( async () => {
         const {data} = await api({
             method:'get',     
@@ -195,6 +205,7 @@ const RegisterProfessional = () => {
 
     useEffect(() => {
         if(!jobs.length) optionsJob()
+        if(!occupations.length) optionsOccupation()
         if(!allProjects.length) getAllProjects()
         if(id) {
             api({
@@ -218,9 +229,10 @@ const RegisterProfessional = () => {
                 setFieldValue('email', data.email)
                 setFieldValue('start_date', getDate(data.start_date))
                 setFieldValue('job_id', data.job_id)
+                setFieldValue('occupation_id', data.occupation_id)
                 setFieldValue('job_type', data.job_type)
                 setFieldValue('weekly_hours', data.weekly_hours)
-                setFieldValue('month_hours', data.month_hours)
+                setFieldValue('mounth_hours', data.mounth_hours)
                 setFieldValue('fixed_payment_value', "R$" + data.fixed_payment_value + ",00")
                 setFieldValue('extra_hour_activated', data.extra_hour_activated)
                 setFieldValue('variable1', data.variable1)
@@ -278,7 +290,7 @@ const RegisterProfessional = () => {
                             type="email"
                         />
                     </ContainerProfessionalsLoginData>
-                    <EmploymentContract data={formik} jobs={jobs}/>
+                    <EmploymentContract data={formik} jobs={jobs} occupations={occupations} />
                     <ProfessionalsExtraHour
                         extraHour={extraHour}
                         setExtraHour={setExtraHour}

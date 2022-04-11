@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom"
 import { useDispatch } from 'react-redux'
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 
 import './style.css'
 import { Sidebar, SettingsOption } from './style.js'
@@ -9,7 +9,7 @@ import { resetFilterStatus, setFilterOrder, setFilterStatus, setSearchName} from
 import Title from '../../atoms/SettingsMenuTitle/style.js'
 
 const SettingsSidebar = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const location = useLocation() 
 
     const resetFilters = () => {
@@ -25,82 +25,56 @@ const SettingsSidebar = () => {
                 <Title>Cadastros</Title>
 
                 <Link
-                to="/job"
-                className="settings-menu-link"
-                onClick={() => resetFilters()}
+                    to="/job"
+                    className="settings-menu-link"
+                    onClick={() => resetFilters()}
                 >
                     <SettingsOption 
-                    clicked={location.pathname === "/job" ? true : false}
+                        clicked={location.pathname === "/job" ? true : false}
                     >
                        Cargos
                     </SettingsOption>
                 </Link>
 
                 <Link
-                to="/projectStatus"
-                className="settings-menu-link"
-                onClick={() => resetFilters()}
+                    to="/projectStatus"
+                    className="settings-menu-link"
+                    onClick={() => resetFilters()}
                 >
                     <SettingsOption
-                    clicked={location.pathname === "/projectStatus" ? true : false}
+                        clicked={location.pathname === "/projectStatus" ? true : false}
                     >
                         Status do projeto
                     </SettingsOption>
                 </Link>
 
                 <Link
-                to="/projectType"
-                className="settings-menu-link"
-                onClick={() => resetFilters()}
+                    to="/projectType"
+                    className="settings-menu-link"
+                    onClick={() => resetFilters()}
                 >
                     <SettingsOption
-                    clicked={location.pathname === "/projectType" ? true : false}
+                        clicked={location.pathname === "/projectType" ? true : false}
                     >
                         Tipo de projeto
                     </SettingsOption>
                 </Link>
 
-                <Title>Cadastros</Title>
-
                 <Link
-                to=""
-                className="settings-menu-link"
-                onClick={() => resetFilters()}
-                >
-                    <SettingsOption 
-                    clicked={location.pathname === "" ? true : false}
-                    >
-                       Lorem um
-                    </SettingsOption>
-                </Link>
-
-                <Link
-                to=""
-                className="settings-menu-link"
-                onClick={() => resetFilters()}
+                    to="/occupation"
+                    className="settings-menu-link"
+                    onClick={() => resetFilters()}
                 >
                     <SettingsOption
-                    clicked={location.pathname === "" ? true : false}
+                        clicked={location.pathname === "/occupation" ? true : false}
                     >
-                        Lorem dois
+                        Funções
                     </SettingsOption>
                 </Link>
-
-                <Link
-                to=""
-                className="settings-menu-link"
-                onClick={() => resetFilters()}
-                >
-                    <SettingsOption
-                    clicked={location.pathname === "" ? true : false}
-                    >
-                        Lorem três
-                    </SettingsOption>
-                </Link>
-        
+                
         </Sidebar>
     )
 }
 
-export default SettingsSidebar;
+export default SettingsSidebar
 

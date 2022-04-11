@@ -3,21 +3,29 @@ import { useLocation } from 'react-router'
 import { useDispatch, useSelector } from 'react-redux'
 
 import api from '../../../api/api'
-import { setJobList, setStatusList, settingsPages, setFilterOrder, setProjectTypeList } from '../../../redux/actions/index.js'
+import { setJobList, setStatusList, settingsPages, setFilterOrder, setProjectTypeList, setOccupationList } from '../../../redux/actions/index.js'
 import { ListHeaderContainer, ListHeaderTitle, ListHeaderOrderContainer } from '../../atoms/ListHeader/style.js'
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
+
+const handleDisplayTitle = {
+    job: 'Cargo',
+    projectStatus: 'Status do projeto',
+    projectType: 'Tipo de Projeto',
+    occupation: 'Funções'
+}
 
 const SettingsListHeader = () => {
     const state = useSelector(state => state)
     const dispatch = useDispatch()
-    const location = useLocation();
+    const location = useLocation()
     const [isAsc, setIsAsc] = useState(true)
     let params = {}
+    let path = location.pathname.slice(1);
 
     const handleFilterRequest = (paramsOrder) => {
         params.page = 1
-
-        if(state.filterStatus !== "" && state.filterStatus !== " ") params.is_active = state.filterStatus
+        
+        if(!state.filterStatus.trim()) params.is_active = state.filterStatus
 
         if(state.settingsSearchFilter !== "") params.search = state.settingsSearchFilter
 
@@ -27,42 +35,40 @@ const SettingsListHeader = () => {
     }
 
     const displayListTitle = route => {
-        if(route === "/job") return "Cargo"
-        if(route === "/projectStatus") return "Status do projeto"
-        if(route === "/projectType") return "Tipo de Projeto"
+        return handleDisplayTitle[route]
     }
 
     const orderSettingsList = async () => {
 
         setIsAsc(!isAsc)
         const paramsOrder = isAsc ? 'asc' : 'desc'
-        console.log(paramsOrder);
         handleFilterRequest(paramsOrder)
 
         const {data} = await api({
             method:'get',     
             url:`${location.pathname}`,
             params: params
-        }); 
+        }) 
 
         dispatch(setFilterOrder(paramsOrder))
-        if(location.pathname === "/job") dispatch(setJobList(data.data));
+        if(location.pathname === "/job") dispatch(setJobList(data.data))
         if(location.pathname === "/projectStatus") dispatch(setStatusList(data.data))
         if(location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
-        dispatch(settingsPages(data.meta));
+        if(location.pathname === "/occupation") dispatch(setOccupationList(data.data))
+        dispatch(settingsPages(data.meta))
 
-        return data;
+        return data
     }
 
     return (
         <ListHeaderContainer>
             <ListHeaderTitle onClick={() => orderSettingsList()}>
-                {displayListTitle(location.pathname)}
+                {displayListTitle(path)}
             </ListHeaderTitle>
             <Arrows onClick={() => orderSettingsList()}/>
         </ListHeaderContainer>
     )
 }
 
-export default SettingsListHeader;
+export default SettingsListHeader
 
