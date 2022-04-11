@@ -212,7 +212,7 @@ const SettingsListItem = () => {
                         params: params
                     })
 
-                    dispatch(setStatusList(data.data))
+                    dispatch(setOccupationList(data.data))
                     return toast.success(<DefaultToast text ="Status alterado!"/>)
 
                   } catch (error) {
@@ -237,8 +237,8 @@ const SettingsListItem = () => {
     return (
         <div>
             {location.pathname === "/job" &&
-                state.jobs.map(job => (
-                    <ListItemContainer>
+                state.jobs.map((job, index) => (
+                    <ListItemContainer key={index}>
                         <ListItemName>{job.name}</ListItemName>
                         <ListItemDetails>
                             {job.is_active ? <StatusActive/> : <StatusDisabled/>}
@@ -252,8 +252,8 @@ const SettingsListItem = () => {
                 )) 
             }
             {location.pathname === "/projectStatus" && 
-                state.status.map(status => (
-                    <ListItemContainer>
+                state.status.map((status, index) => (
+                    <ListItemContainer key={index}>
                         <ListItemName>{status.name}</ListItemName>
                         <ListItemDetails>
                             {status.is_active ? <StatusActive/> : <StatusDisabled/>}
@@ -267,8 +267,8 @@ const SettingsListItem = () => {
                 )) 
             }
             {location.pathname === "/projectType" && 
-                state.projectType.map(project => (
-                    <ListItemContainer>
+                state.projectType.map((project, index) => (
+                    <ListItemContainer key={index}>
                         <ListItemName>{project.name}</ListItemName>
                         <ListItemDetails>
                             {project.is_active ? <StatusActive/> : <StatusDisabled/>}
@@ -282,8 +282,8 @@ const SettingsListItem = () => {
                 )) 
             }
             {location.pathname === "/occupation" && 
-                state.occupation.map(occupation => (
-                    <ListItemContainer>
+                state.occupation.map((occupation, index) => (
+                    <ListItemContainer key={index}>
                         <ListItemName>{occupation.name}</ListItemName>
                         <ListItemDetails>
                             {occupation.is_active ? <StatusActive/> : <StatusDisabled/>}
