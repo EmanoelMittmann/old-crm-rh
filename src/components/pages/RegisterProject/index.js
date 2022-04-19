@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router'
-import { useDispatch, useSelector } from 'react-redux'
 
 import api from '../../../api/api.js'
-
-import { setProjectList } from '../../../redux/actions/index.js'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { handleErrorMessages } from '../../utils/handleErrorMessages'
 
 import ArrowRegister from '../../atoms/ArrowRegister/index.js'
 import { SectionTitle } from '../../atoms/PageTitle/style.js'
@@ -16,184 +16,186 @@ import {
     RegisterProjectTitleContainer,
     RegisterProjectContainer,
 } from './style.js'
+import { messages } from '../../../settings/YupValidates.js'
+import { formatFirstLetter } from '../../utils/formatFirstLetter.js'
+import { getDate } from '../../utils/getDate.js'
+import { DefaultToast } from '../../atoms/Toast/DefaultToast.js'
+import { toast } from 'react-toastify'
 
 const RegisterProject = (props) => {
-    const state = useSelector(state => state)
     const history = useHistory()
-    const dispatch = useDispatch()
 
-    const [projectName, setProjectName] = useState("")
-    const [projectType, setProjectType] = useState("")
-    const [inicialDate, setInitialDate] = useState("")
-    const [finalDate, setFinalDate] = useState("")
-    const [projectStatus, setProjectStatus] = useState("")
-    const [teamCost, setTeamCost] = useState("");
+    const [typeOptions, setTypeOptions] = useState([])
+    const [statusOptions, setStatusOptions] = useState([])
+    const [team, setTeam] = useState([])
+    const [allUsers, setAllUsers] = useState([])
+
     const [payloadTeam, setPayloadTeam] = useState("")
     const [EditProjectData, setEditProjectData] = useState({})
     const [EditProjectTeam, setEditProjectTeam] = useState([])
     const [cancelRegisterProject, setCancelRegisterProject] = useState(false)
     const [modalWarningIsVisible, setModalWarningIsVisible] = useState(false)
 
-    const [inicialYear, inicialMonth, inicialDay] = inicialDate.split('-')
-    const [finalYear, finalMonth, finalDay] = finalDate.split('-')
     const [componentRendered, setComponentRendered] = useState(false)
     const { id } = useParams()
 
-    const editProject = async () => {
-
-            try {
-                await api({
-                    method: 'put',
-                    url: `/project/${id}`,
-                    data: {
-                        name: projectName,
-                        project_status_id: projectStatus,
-                        project_type_id: projectType,
-                        date_start: inicialDate,
-                        date_end: finalDate,
-                        team_cost: +teamCost,
-                    }
-                })
-    
-                const {data} = await api({
-                    method: 'get',
-                    url: '/project',
-                })
-    
-                dispatch(setProjectList(data.data))
-                history.push("/projects");
-                return data.data
-            
-            } catch (error) {
-                console.error(error);
+    const schema = Yup.object().shape({
+        name: Yup.string().required(messages.required),
+        date_start: Yup.string().required(messages.required).test('Data válida', 'Insira uma data menor que a data final', () => validDate()),
+        date_end: Yup.string().required(messages.required).test('Data válida', 'Insira uma data maior que a data inicial', () => validDate()),
+        date_end_performed: Yup.string().test('Data válida', 'Insira uma data maior que a data inicial', () => {
+            if(values.date_start !== ''){
+                if(values.date_start > values.date_end_performed) {
+                    return false
+                }
+                return true
             }
-    
-    }
+            return true
+        }),
+        project_status_id: Yup.number().required(messages.required),
+        project_type_id: Yup.number().required(messages.required),
+        team_cost: Yup.string().required(messages.required)
+    })
 
-    const registerProject = async () => {
-
-        try {
+    const formik = useFormik({
+        initialValues: {
+           name: '',
+           date_start: '',
+           date_end: '',
+           date_end_performed: '',
+           project_status_id: 0,
+           project_type_id: 0,
+           team_cost: '',
+        },
+        onSubmit: async (values) => {
             await api({
-                method: 'post',
-                url: '/project',
+                method: id ? 'put' : 'post',
+                url: id ? `/project/${id}` : '/project',
                 data: {
-                    name: projectName,
-                    project_status_id: projectStatus,
-                    project_type_id: projectType,
-                    date_start: inicialDate,
-                    date_end: finalDate,
-                    team_cost: +teamCost,
-                    users: payloadTeam
+                    ...values,
+                    team_cost: values.team_cost.replace('R$', '').replace('.', '').replace(',','.'),
                 }
             })
-
-            const {data} = await api({
-                method: 'get',
-                url: '/project',
+            .then(response => {
+                toast.success(<DefaultToast text="Projeto salvo!" />)
+                goBackClickHandler()
             })
+            .catch(error => {
+                toast.error(<DefaultToast text="Há erros de validação!" />)
+                const errors = error.response.data.errors
+                setErrors(handleErrorMessages(errors))
+            })
+        },
+        validationSchema: schema,
+        isValidating: false,
+        enableReinitialize: true
+    })
 
-            dispatch(setProjectList(data.data))
-            history.push("/projects");
-            return data.data
-        
-        } catch (error) {
-            console.error(error)
+    const { values, setFieldValue, setErrors } = formik
+
+    function validDate() {
+        if(values.date_end !== '' && values.date_start !== ''){
+            if(values.date_start > values.date_end) {
+                return false
+            }
+
+            return true
         }
-
+        return true
     }
 
-    const projectHandler = () => {
-        id ? editProject() :  registerProject()
+    const getProjectTypeOption = async () => {
+        const { data } = await api({
+            method:'get',     
+            url:`/projectTypeNoFilter`,
+        }) 
+
+        const formattedOptions =  formatFirstLetter(data)
+        setTypeOptions(formattedOptions)
     }
-    
+
+    const getStatusOptions = async () => {
+        const {data} = await api({
+            method:'get',     
+            url:`/projectStatusNoFilter`,
+        })
+
+        const formattedStatusOptions = formatFirstLetter(data)
+        setStatusOptions(formattedStatusOptions)
+    }
+
     useEffect(() => {
-        const editProjectData = async () => {
-            const {data} = await api({
+        if(!typeOptions.length) getProjectTypeOption() 
+        if(!typeOptions.length) getStatusOptions()
+        if(id) {
+            api({
                 method: 'get',
                 url: `/project/${id}`,
-            })
-    
-            const response = await api({
-                method: 'get',
-                url: `/userProjects/project/${id}`,
-            })
-            setEditProjectTeam(response.data)
-            setEditProjectData(...data)
-            setComponentRendered(true)
-        }
-        id && editProjectData()
-    }, [id])
+            }).then((response) => {
+                const data = response.data[0]
+                setTeam(data.users)
+                setFieldValue('name', data.name)
+                setFieldValue('date_start', getDate(data.date_start))
+                setFieldValue('date_end', getDate(data.date_end))
+                setFieldValue('date_end_performed', getDate(data.date_end_performed))
+                setFieldValue('project_status_id', data.project_status_id)
+                setFieldValue('project_type_id', data.project_type_id)
+                setFieldValue('team_cost', "R$" + data.team_cost.toString().replace('.', ','))
+            })}
+    },[])
 
-   const CloseButtonClickHandler = () => {
+    const goBackClickHandler = () => {
+        history.push("/projects")
+    }
+
+    const CloseButtonClickHandler = () => {
         setModalWarningIsVisible(false)
-   }
-
-   const redButtonClickHandler = () => {
-        history.push("/projects")
-   }
-   
-   const goBackClickHandler = () => {
-        history.push("/projects")
     }
     
     const footerCancelButtonHandler = () => {
         return setModalWarningIsVisible(true)
     }
 
-    const calcDaysPassed = (date1, date2) => (date2 - date1) / (1000 * 60 * 60 * 24)
-    const daysPassed = calcDaysPassed(new Date(inicialYear, inicialMonth, inicialDay), new Date(finalYear, finalMonth, finalDay))
-    
-    const footerRegisterButtonHandler = () => {
-        return daysPassed >= 0 ? projectHandler() : console.log("Data inválida")
-    }
-
     return (
         <>
-            {modalWarningIsVisible && <ModalRed
-            CloseButtonClickHandler={CloseButtonClickHandler}
-            redButtonClickHandler={redButtonClickHandler}
-            title={componentRendered ? "Cancelar alterações" : "Cancelar cadastro"}
-            message={componentRendered ? "Tem certeza que deseja cancelar as alterações?" : "Tem certeza que deseja cancelar a operação?"}
-            />}
+            { modalWarningIsVisible && 
+                <ModalRed
+                    CloseButtonClickHandler={CloseButtonClickHandler}
+                    redButtonClickHandler={goBackClickHandler}
+                    title={id ? "Cancelar alterações" : "Cancelar cadastro"}
+                    message={id ? "Tem certeza que deseja cancelar as alterações?" : "Tem certeza que deseja cancelar a operação?"}
+                /> 
+            }
             <RegisterProjectTitleContainer>
                 <ArrowRegister clickHandler={goBackClickHandler}/>
                 <SectionTitle>
-                {id ? "Edição de projeto" : "Novo Projeto"}
+                    {id ? "Edição de projeto" : "Novo Projeto"}
                 </SectionTitle>
             </RegisterProjectTitleContainer>
 
             <RegisterProjectContainer>
+                <form onSubmit={formik.handleSubmit}>
+                    <RegisterProjectData 
+                        data={formik} 
+                        typeOptions={typeOptions}
+                        statusOptions={statusOptions}
+                    />
 
-                <RegisterProjectData
-                    editData={EditProjectData}
-                    projectName={projectName}
-                    componentRendered={componentRendered}
-                    setProjectName={setProjectName}
-                    setProjectType={setProjectType}
-                    projectType={projectType}
-                    setInitialDate={setInitialDate}
-                    inicialDate={inicialDate}
-                    finalDate={finalDate}
-                    setFinalDate={setFinalDate}
-                    setProjectStatus={setProjectStatus}
-                    projectStatus={projectStatus}
-                    setTeamCost={setTeamCost}
-                    teamCost={teamCost}
-                />
-                <AttachmentTeam
-                    componentRendered={componentRendered}
-                    editData={EditProjectTeam}
-                    payloadTeam={payloadTeam}
-                    setPayloadTeam={setPayloadTeam}
-                    projectId={id}
-                />
+                    {/* <AttachmentTeam
+                        componentRendered={componentRendered}
+                        editData={EditProjectTeam}
+                        payloadTeam={payloadTeam}
+                        setPayloadTeam={setPayloadTeam}
+                        projectId={id}
+                    /> */}
 
-                <RegisterFooter
-                    cancelButtonHandler={footerCancelButtonHandler}
-                    registerButtonHandler={footerRegisterButtonHandler}
-                    buttonDescription={id ? "Atualizar" : "Cadastrar"}
-                />
-
+                    <RegisterFooter
+                        cancelButtonHandler={footerCancelButtonHandler}
+                        registerButtonHandler={() => {}}
+                        buttonDescription={id ? "Atualizar" : "Cadastrar"}
+                        type="submit"
+                    />
+                </form>
             </RegisterProjectContainer>
         </>
     )
