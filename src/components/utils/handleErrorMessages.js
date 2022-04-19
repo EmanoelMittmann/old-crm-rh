@@ -1,8 +1,16 @@
-import { toast } from 'react-toastify'
 import { messages } from '../../i18n/messages'
 
-export const handleErrorMessages = (error, type = "error", defaultMessage = "Erro desconhecido") => 
-Object.values(error).map((value) => {
+export const handleErrorMessages = (error, defaultMessage = "Inválido") => {
+  let obj = {}
 
-  return toast[type](messages[value] || defaultMessage)
-})
+  const message = Object.values(error).map((value) => {
+    return messages[value] || defaultMessage
+  })
+
+  const keys = Object.keys(error).map((value) => {
+    return value
+  })
+
+  keys.forEach((key, index) => obj[key] = message[index])
+  return obj
+}
