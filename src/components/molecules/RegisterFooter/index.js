@@ -10,6 +10,7 @@ const RegisterFooter = ({cancelButtonHandler, registerButtonHandler, buttonDescr
             <ContainerButtonsRegisterFooter>
                 <CancelButton 
                     onClick={() => cancelButtonHandler()}
+                    type="button"
                 >
                     Cancelar
                 </CancelButton>
