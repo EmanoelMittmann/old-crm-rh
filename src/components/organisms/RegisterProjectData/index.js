@@ -1,24 +1,11 @@
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
-
-import { 
-    setProjectTypeList,
-    setStatusList,
-} from '../../../redux/actions/index.js'
-import api from '../../../api/api.js'
-import { getDate } from '../../utils/getDate.js'
-import InputSelectEdit from '../../atoms/InputSelectEdit/index.js'
-import { formatFirstLetter } from '../../utils/formatFirstLetter.js'
+import React, { useRef } from 'react'
 import SecondaryText from '../../atoms/SecondaryText/style.js'
 import InputWithLabel from '../../atoms/InputWithLabel'
 import InputSelect from '../../atoms/InputSelect'
-import InputDate from '../../atoms/InputDate'
-import InputText from '../../atoms/InputText'
+import InputMasked from '../../atoms/InputMasked'
+import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 import {
     RegisterProjectForm,
-    ContainerInputInitialDate,
-    ContainerInputFinalDate,
     ContainerInputWithLabel,
     ContainerInputProjectStatusSelect,
     ContainerInputProjectTypeSelect,
@@ -28,150 +15,114 @@ import {
     ContainerRegisterProjectData
 } from './style.js'
 
-const RegisterProjectData = ({projectType, projectStatus, projectName, teamCost, inicialDate, finalDate, componentRendered, editData, setProjectName, setProjectType, setInitialDate, setFinalDate, setProjectStatus, setTeamCost}) => {
-    const state = useSelector(state => state);
-    const dispatch = useDispatch();
+const RegisterProjectData = ({ data, typeOptions, statusOptions }) => {
+   const { values, handleChange, errors, touched, setFieldTouched, setFieldValue} = data
+   const inputRef = useRef(null)
 
-    const getProjectTypeList = async () => {
-        const {data} = await api({
-            method:'get',     
-            url:`/projectTypeNoFilter`,
-        }); 
-
-        const formattedProjectTypeList =  formatFirstLetter(data)
-        dispatch(setProjectTypeList(formattedProjectTypeList))
-        return data;
-    }
-
-    const getStatusList = async () => {
-        const {data} = await api({
-            method:'get',     
-            url:`/projectStatusNoFilter`,
-        }); 
-        const formattedStatusList =  formatFirstLetter(data)
-
-        dispatch(setStatusList(formattedStatusList))
-        return data;
-    }
-    
-
-    const filterProjectsTypesOptions = state.projectType.map(project => (
-        {
-            name: project.name,
-            id: project.id
-        }
-    ))
-
-    const filterProjectsStatusOptions = state.status.map(status => (
-        {
-            name: status.name,
-            id: status.id
-        }
-    ))
-
-    
-    useEffect(() => {
-        getStatusList()
-        getProjectTypeList()
-        
-        if(componentRendered){
-            setInitialDate(getDate(editData.date_start))
-            setFinalDate(getDate(editData.date_end))
-            setProjectName(editData.name)
-            setTeamCost(editData.team_cost)
-            setProjectType(editData.project_type_id)
-            setProjectStatus(editData.project_status_id)
-        }
-
-    },[componentRendered]);
-
+    const team_cost_mask = createNumberMask({
+        prefix: 'R$',
+        thousandsSeparatorSymbol: '.',
+        allowDecimal: true,
+        decimalSymbol : ',',
+        decimalLimit: 2
+    })
 
     return (
         <ContainerRegisterProjectData>
-               <SecondaryText margin="0 0 2.5em 0">Dados do projeto</SecondaryText>
-                <RegisterProjectForm>
-
-                    <ContainerFirstRow>
-                        <ContainerInputWithLabel>
-                            <InputWithLabel
-                            placeholder="Projeto..."
+            <SecondaryText margin="0 0 2.5em 0">Dados do projeto</SecondaryText>
+            <RegisterProjectForm>
+                <ContainerFirstRow>
+                    <ContainerInputWithLabel>
+                        <InputWithLabel
+                            placeHolder="Projeto..."
                             label="Nome do projeto"
-                            setInputWithLabelValue={setProjectName}
-                            width="95%"
-                            inputValue={projectName}
-                            />
-                        </ContainerInputWithLabel>
-
-                        <ContainerInputProjectTypeSelect>
-                            {editData?.id ? (
-                                <InputSelectEdit
-                                optionId={projectType}
-                                setSelectedOption={setProjectType}
-                                options={filterProjectsTypesOptions}
-                                width="200px"
-                                />
-                            ) : (
-                                <InputSelect
-                                setSelectedOption={setProjectType}
-                                options={filterProjectsTypesOptions}
-                                placeholder="Tipo de projeto"
-                                width="200px"
-                                />
-                            )}
-                        </ContainerInputProjectTypeSelect>
-
-                    </ContainerFirstRow>
-
-                    <ContainerSecondRow>
-                        <ContainerInputInitialDate>
-                            <InputDate
-                            setDate={setInitialDate}
-                            placeholder="Data início"
-                            date={inicialDate}
-                            />
-                        </ContainerInputInitialDate>
-
-                        <ContainerInputFinalDate>
-                            <InputDate
-                             setDate={setFinalDate}
-                             placeholder="Final estimado"
-                             date={finalDate}
-                            />
-                        </ContainerInputFinalDate>
-
-                        <ContainerInputProjectStatusSelect>
-                            {editData?.id ? (
-                                <InputSelectEdit
-                                optionId={projectStatus}
-                                setSelectedOption={setProjectStatus}
-                                options={filterProjectsStatusOptions}
-                                width="100%"
-                                />
-                            ) :
-                                <InputSelect
-                                setSelectedOption={setProjectStatus}
-                                options={filterProjectsStatusOptions}
-                                placeholder="Status do projeto"
-                                width="100%"    
-                            />
-                            }
-                        </ContainerInputProjectStatusSelect>
-
-                    </ContainerSecondRow>
-
-                    <ContainerThirdLine>
-                        <InputText
-                            width="100%"
-                            widthLine="260px"
-                            placeholder="Custo estimado de equipe"
-                            setTextValue={setTeamCost}
-                            value={teamCost}
+                            value={values.name}
+                            onChange={handleChange('name')}
+                            name="name"
+                            widthContainer="95%" 
+                            error={errors.name}
+                            touched={touched.name}
+                            handleBlur={setFieldTouched}
                         />
-                    </ContainerThirdLine>
+                    </ContainerInputWithLabel>
+                    <ContainerInputProjectTypeSelect>
+                        <InputSelect
+                            value={values.project_type_id}
+                            onChange={handleChange('project_type_id')}
+                            options={typeOptions}
+                            placeHolder="Tipo de projeto"
+                            width="100%"
+                        />
+                    </ContainerInputProjectTypeSelect>
+                </ContainerFirstRow>
 
-                </RegisterProjectForm>
+                <ContainerSecondRow>
+                    <InputWithLabel
+                        onChange={handleChange('date_start')}
+                        label="Data início"
+                        value={values.date_start}
+                        type="date"
+                        error={errors.date_start}
+                        touched={touched.date_start}
+                        handleBlur={setFieldTouched}
+                        name="date_start"
+                        widthContainer="30%"
+                        padding="0 3em 0 0"
+                    />
+                    <InputWithLabel
+                        onChange={handleChange('date_end')}
+                        label="Data final estimado"
+                        value={values.date_end}
+                        type="date"
+                        error={errors.date_end}
+                        touched={touched.date_end}
+                        handleBlur={setFieldTouched}
+                        name="date_end"
+                        widthContainer="30%"
+                        padding="0 3em 0 0"
+                    />
+                    <ContainerInputProjectStatusSelect>
+                        <InputSelect
+                            value={values.project_status_id}
+                            onChange={handleChange('project_status_id')}
+                            options={statusOptions}
+                            placeHolder="Status do projeto"
+                            width="100%"    
+                        />
+                    </ContainerInputProjectStatusSelect>
+                </ContainerSecondRow>
+
+                <ContainerThirdLine>
+                    <InputMasked
+                        mask={team_cost_mask}
+                        label="Custo estimado de equipe"
+                        id="team_cost"
+                        name="team_cost"
+                        value={values.team_cost}
+                        onChange={handleChange('team_cost')}
+                        error={errors.team_cost}
+                        touched={touched.team_cost}
+                        width="100%"
+                        padding="0 3em 0 0"  
+                        widthContainer="30%"
+                        handleBlur={setFieldTouched}
+                    />
+                    <InputWithLabel
+                        onChange={handleChange('date_end_performed')}
+                        label="Data final realizado"
+                        value={values.date_end_performed}
+                        type="date"
+                        error={errors.date_end_performed}
+                        touched={touched.date_end_performed}
+                        handleBlur={setFieldTouched}
+                        name="date_end_performed"
+                        widthContainer="30%"
+                        padding="0 3em 0 0"
+                    />
+                </ContainerThirdLine>
+            </RegisterProjectForm>
         </ContainerRegisterProjectData>
     )
 }
 
-export default RegisterProjectData;
+export default RegisterProjectData
