@@ -98,7 +98,7 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
                     firstRow: project.name, 
                     secondRow: formatDate(project.date_start),
                     thirdRow: project.workload,
-                    fourthRow: project.extra_hour_limit,
+                    fourthRow: project.extra_hours_limit,
                     fifthRow: calcPercentage(project.workload),
                 }
                 setRows(oldState => [...oldState, addProjectRows])
@@ -112,7 +112,7 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
                     firstRow: data.name, 
                     secondRow: formatDate(data.date_start),
                     thirdRow: project.workload,
-                    fourthRow: project.extra_hour_limit,
+                    fourthRow: project.extra_hours_limit,
                     fifthRow: calcPercentage(project.workload),
                 }
                 setRows(oldState => [...oldState, addProjectRows])
@@ -128,7 +128,7 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
             setProjects(oldState => [...oldState, {
                 id: selected.id,
                 workload: hoursMonthProject,
-                extra_hour_limit: overtime
+                extra_hours_limit: overtime
             }])
             resetInputs()
             return
@@ -142,7 +142,7 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
         if(!id) {
             const edited = projects.map((project) => {
                 if(project.id == projectClicked){
-                    return {...project, workload: hoursMonthEdit, extra_hour_limit: overtimeEdit}
+                    return {...project, workload: hoursMonthEdit, extra_hours_limit: overtimeEdit}
                 }
                 if(project.id !== projectClicked){
                     return project

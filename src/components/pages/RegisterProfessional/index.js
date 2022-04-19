@@ -25,12 +25,10 @@ import { cleanMask } from '../../utils/cleanMask'
 import {getDate} from '../../utils/getDate'
 import { messages } from '../../../settings/YupValidates'
 
-
 const RegisterProfessional = () => {    
     const [jobs, setJobs] = useState([])
     const [allProjects, setAllProjects] = useState([])
     const [projects, setProjects] = useState([])
-
     const [uniqueCpf, setUniqueCpf] = useState('')
     const [cpfValid, setCpfValid] = useState(false)
     const [uniqueCEP, setUniqueCEP] = useState('')
@@ -117,7 +115,6 @@ const RegisterProfessional = () => {
             user_type_id: 2,
         },
         onSubmit: async (values) => {
-            console.log({projects})
             await api({
                 method: id ? 'put' : 'post',     
                 url: id ? `/user/${id}` : '/user',
@@ -199,14 +196,14 @@ const RegisterProfessional = () => {
         setAllProjects(data.data)        
     },[])
 
-    async function addProject(id_project, workload, extra_hours_limit) {
-        await api({
+    function addProject(id_project, workload, extra_hours_limit) {
+        api({
             method:'post',     
             url:`/userProjects/user/${id}`,
             data: {
                 id: id_project,
                 workload: workload,
-                extra_hour_limit: extra_hours_limit
+                extra_hours_limit: extra_hours_limit
             }
         }).then( async (response) => {
             toast.success(<DefaultToast text="Projeto vinculado." />,{
@@ -227,8 +224,8 @@ const RegisterProfessional = () => {
         })
     }
 
-    async function removeProject(project) {
-        await api({
+    function removeProject(project) {
+        api({
             method:'delete',     
             url:`/userProjects/user/${id}`,
             data: {
@@ -254,8 +251,8 @@ const RegisterProfessional = () => {
         })
     }
 
-    async function editProject(project, workload, extra_hours_limit) {
-        await api({
+    function editProject(project, workload, extra_hours_limit) {
+        api({
             method:'put',     
             url:`/userProjects/user/${id}`,
             data: {
