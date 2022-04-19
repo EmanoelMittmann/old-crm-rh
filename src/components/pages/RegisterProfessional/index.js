@@ -118,7 +118,7 @@ const RegisterProfessional = () => {
             await api({
                 method: id ? 'put' : 'post',     
                 url: id ? `/user/${id}` : '/user',
-                data: { 
+                data: !id ? { 
                     ...values, 
                     extra_hour_value: parseFloat(values.extra_hour_value.replace('R$', '').replace(',', '.')),
                     fixed_payment_value: values.fixed_payment_value.replace('R$', '').replace('.', '').replace(',00', ''),
@@ -128,8 +128,17 @@ const RegisterProfessional = () => {
                     cep: cleanMask(values.cep),
                     rg: values.rg.toString(),
                     projects: projects,
-                    occupation_id: 1
-                }
+                } 
+                : {
+                    ...values, 
+                    extra_hour_value: parseFloat(values.extra_hour_value.replace('R$', '').replace(',', '.')),
+                    fixed_payment_value: values.fixed_payment_value.replace('R$', '').replace('.', '').replace(',00', ''),
+                    telephone_number: values.telephone_number.toString().replace('(', '').replace(')', '').replace(' ', '').replace(' ', '').replace('-', ''),
+                    cpf: cleanMask(values.cpf),
+                    cnpj: cleanMask(values.cnpj),
+                    cep: cleanMask(values.cep),
+                    rg: values.rg.toString(),
+                },
             })
             .then(result => {
                 toast.success(<DefaultToast text="Profissional cadastrado." />,{
