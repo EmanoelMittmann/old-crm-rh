@@ -42,7 +42,7 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
 
     const { id } = useParams()
 
-    const {projects, setProjects } = attachment
+    const { projects, setProjects, addProject, removeProject, editProject } = attachment
 
     const calcPercentage = (projectHours) => Math.trunc((100 * projectHours)/values.mounth_hours)
 
@@ -120,39 +120,50 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
         }
     }
 
-    function addProject() {
+    function handleAddProject() {
         if(!projectSelected) return
-
         const selected = allOptions.find(project => project.id == projectSelected)
-        console.log({selected})
-        console.log({projectSelected})
-        
-        setProjects(oldState => [...oldState, {
-            id: selected.id,
-            workload: hoursMonthProject,
-            extra_hour_limit: overtime
-        }])
 
+        if(!id) {
+            setProjects(oldState => [...oldState, {
+                id: selected.id,
+                workload: hoursMonthProject,
+                extra_hour_limit: overtime
+            }])
+            resetInputs()
+            return
+        }
+        
+        addProject(selected.id, hoursMonthProject, overtime)
         resetInputs()
     }
 
-    function editProject() {
-        const edited = projects.map((project) => {
-            if(project.id == projectClicked){
-                return {...project, workload: hoursMonthEdit, extra_hour_limit: overtimeEdit}
-            }
-            if(project.id !== projectClicked){
-                return project
-            }
-        })
-        console.log({edited})
-        setProjects(edited)
+    function handleEditProject() {
+        if(!id) {
+            const edited = projects.map((project) => {
+                if(project.id == projectClicked){
+                    return {...project, workload: hoursMonthEdit, extra_hour_limit: overtimeEdit}
+                }
+                if(project.id !== projectClicked){
+                    return project
+                }
+            })
+            setProjects(edited)
+            setOpenModalEdit(false)
+            return
+        }
+        editProject(projectClicked, hoursMonthEdit, overtimeEdit)
         setOpenModalEdit(false)
     }
 
-    function removeProject() {
-        const data = projects.filter((project) => project.id !== projectClicked)
-        setProjects(data)
+    function handleRemoveProject() {
+        if(!id) {
+            const data = projects.filter((project) => project.id !== projectClicked)
+            setProjects(data)
+            setOpenModalDelete(false)
+            return 
+        }
+        removeProject(projectClicked)
         setOpenModalDelete(false)
     }
 
@@ -213,7 +224,7 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
                     padding="0 2em 0 0"
                     handleBlur={() => {}}
                 />
-                <BlueButton onClick={() => addProject()} width="13%">
+                <BlueButton onClick={() => handleAddProject()} width="13%">
                     Vincular
                 </BlueButton>
             </AttachmentForm>
@@ -231,7 +242,7 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
 
             { openModalDelete && <ModalRed 
                 CloseButtonClickHandler={() => setOpenModalDelete(false)}
-                redButtonClickHandler={removeProject}
+                redButtonClickHandler={handleRemoveProject}
                 title="Remover"
                 message="Deseja realmente remover o projeto?"
                 />
@@ -243,7 +254,7 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
                     }}
                     setWorkload={setHoursMonthEdit}
                     workload={hoursMonthEdit}
-                    saveHandler={editProject}
+                    saveHandler={handleEditProject}
                     setOvertime={setOvertimeEdit}
                     overtime={overtimeEdit}
                 />

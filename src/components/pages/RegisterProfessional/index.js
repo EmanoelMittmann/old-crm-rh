@@ -37,7 +37,7 @@ const RegisterProfessional = () => {
     const [extraHour, setExtraHour] = useState('')
     const history = useHistory()
     const { id } = useParams()
-    const attachment = {projects, setProjects}
+    const attachment = {projects, setProjects, addProject, removeProject, editProject}
 
     const schema = Yup.object().shape({
         name: Yup.string().required(messages.required),
@@ -117,18 +117,21 @@ const RegisterProfessional = () => {
             user_type_id: 2,
         },
         onSubmit: async (values) => {
+            console.log({projects})
             await api({
                 method: id ? 'put' : 'post',     
                 url: id ? `/user/${id}` : '/user',
                 data: { 
                     ...values, 
                     extra_hour_value: parseFloat(values.extra_hour_value.replace('R$', '').replace(',', '.')),
-                    fixed_payment_value: values.fixed_payment_value.replace('R$', '').replace('.', ''),
+                    fixed_payment_value: values.fixed_payment_value.replace('R$', '').replace('.', '').replace(',00', ''),
                     telephone_number: values.telephone_number.toString().replace('(', '').replace(')', '').replace(' ', '').replace(' ', '').replace('-', ''),
                     cpf: cleanMask(values.cpf),
                     cnpj: cleanMask(values.cnpj),
                     cep: cleanMask(values.cep),
-                    rg: values.rg.toString()
+                    rg: values.rg.toString(),
+                    projects: projects,
+                    occupation_id: 1
                 }
             })
             .then(result => {
@@ -148,7 +151,7 @@ const RegisterProfessional = () => {
         isValidating: false,
         enableReinitialize: true
     })
-    const { values, handleChange, setFieldValue, setFieldArrayValue} = formik
+    const { values, handleChange, setFieldValue} = formik
 
     const handleCEP =  async (cep) => {
        await axios.get(`https://viacep.com.br/ws/${cep}/json/`, 
@@ -195,6 +198,90 @@ const RegisterProfessional = () => {
 
         setAllProjects(data.data)        
     },[])
+
+    async function addProject(id_project, workload, extra_hours_limit) {
+        await api({
+            method:'post',     
+            url:`/userProjects/user/${id}`,
+            data: {
+                id: id_project,
+                workload: workload,
+                extra_hour_limit: extra_hours_limit
+            }
+        }).then( async (response) => {
+            toast.success(<DefaultToast text="Projeto vinculado." />,{
+                toastId: "post"
+            }) 
+            await api({
+                method:'get',     
+                url:`/userProjects/user/${id}`
+            })
+            .then( response => {
+                setProjects(response.data)
+            })
+        })
+        .catch( error => {
+            toast.error(<DefaultToast text="Erro ao vincular projeto." />,{
+                toastId: "post"
+            }) 
+        })
+    }
+
+    async function removeProject(project) {
+        await api({
+            method:'delete',     
+            url:`/userProjects/user/${id}`,
+            data: {
+                project_id: project
+            }
+        })
+        .then( async (response) => {
+            toast.success(<DefaultToast text="Projeto removido." />,{
+                toastId: "delete"
+            }) 
+            await api({
+                method:'get',     
+                url:`/userProjects/user/${id}`
+            })
+            .then( response => {
+                setProjects(response.data)
+            })
+        })
+        .catch( error => {
+            toast.error(<DefaultToast text="Erro ao remover projeto." />,{
+                toastId: "delete"
+            }) 
+        })
+    }
+
+    async function editProject(project, workload, extra_hours_limit) {
+        await api({
+            method:'put',     
+            url:`/userProjects/user/${id}`,
+            data: {
+                id: project,
+                workload: workload,
+                extra_hours_limit: extra_hours_limit
+            }
+        })
+        .then( async (response) => {
+            toast.success(<DefaultToast text="Projeto atualizado." />,{
+                toastId: "put"
+            }) 
+            await api({
+                method:'get',     
+                url:`/userProjects/user/${id}`
+            })
+            .then( response => {
+                setProjects(response.data)
+            })
+        })
+        .catch( error => {
+            toast.error(<DefaultToast text="Erro ao atualizar projeto." />,{
+                toastId: "put"
+            }) 
+        })
+    }
 
     useEffect(() => {
         if(!jobs.length) optionsJob()
