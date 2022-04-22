@@ -11,4 +11,5 @@ export const Section = styled.section`
     width: 91.2%;
     background-color: white;
     border-radius: 20px;
+    margin-bottom: 3em;
 `

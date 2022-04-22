@@ -1,6 +1,5 @@
 import React from 'react'
 import InputSearch from '../../atoms/InputSearch'
-import InputDate from '../../atoms/InputDate'
 import useDebounce from '../../../hooks/debounce'
 import { Main } from './style.js'
 
