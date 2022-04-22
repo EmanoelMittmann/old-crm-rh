@@ -1,7 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-
-import { setProjectList, projectsPages } from '../../../redux/actions/index.js'
+import React, { useState } from 'react'
 import api from '../../../api/api.js'
 import CloseButton from '../../atoms/Buttons/CloseButton/index.js'
 import SaveButton from '../../atoms/Buttons/SaveButton/style.js'
@@ -14,31 +11,11 @@ import {
     ModalOverlay
 } from '../Modal/style.js'
 import { ContainerInputSelect } from './style.js'
-import { formatFirstLetter } from '../../utils/formatFirstLetter.js'
-import { useHistory } from 'react-router'
 
-export const ModalProjectStatus = ({CloseButtonClickHandler, statusId, projectId}) => {
-    const state = useSelector(state => state)
-    const history = useHistory()
-    const dispatch = useDispatch()
-    const [statusOptions, setStatusOptions] = useState([])
+
+export const ModalProjectStatus = ({CloseButtonClickHandler, statusId, projectId, options}) => {
     const [selectedOption, setSelectedOption] = useState('')
-
-    const getProjectTypeList = async () => {
-        const {data} = await api({
-            method:'get',     
-            url:`/projectStatus`
-        }); 
-
-        const newStatusOptions = formatFirstLetter(data.data)
-        setStatusOptions(newStatusOptions); 
-        return data;
-    }
-
-    console.log(projectId, statusId, +selectedOption);
-
     const updateStatusProject = async () => {
-
         try{
             await api({
                 method:'patch',     
@@ -46,32 +23,12 @@ export const ModalProjectStatus = ({CloseButtonClickHandler, statusId, projectId
                 data: {
                     project_status_id: +selectedOption
                 }
-    
-            }); 
-
-            const {data} = await api({
-                method:'get',     
-                url:`/project`,
-                params: {
-                    page: state.projectsPagesFilter.current_page
-                }
-            }); 
-    
-            dispatch(setProjectList(data.data))
-            dispatch(projectsPages(data.meta));
-            
+            }) 
         }catch(err){
         }
-        
-
+        window.location.reload()
         CloseButtonClickHandler()
     }
-
-
-    useEffect(() => {
-        getProjectTypeList()
-    }, [])
-
 
     return (
         <div>
@@ -84,7 +41,7 @@ export const ModalProjectStatus = ({CloseButtonClickHandler, statusId, projectId
                     <InputSelectEdit
                     optionId={statusId}
                     setSelectedOption={setSelectedOption}
-                    options={statusOptions}
+                    options={options}
                     width="350px"
                     />
                 </ContainerInputSelect>
