@@ -11,11 +11,9 @@ import { ContainerTeam } from './style.js'
 import { TeamMemberPic } from '../../atoms/TeamMemberPic/style.js';
 
 const ModalProjectTeam = ({CloseButtonClickHandler, users}) => {
-    console.log(users);
-
     return (
         <div>
-             <ModalContainer>
+            <ModalContainer>
                 <CloseButton CloseButtonClickHandler={CloseButtonClickHandler}/>
                 <ModalTitle padding="1.6em">
                     Team
