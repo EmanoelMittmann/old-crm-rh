@@ -17,15 +17,21 @@ const InputSelectWithLabel = ({setSelectedOption, options, placeholder, width, l
             <InputSelectContainer width={width} onChange={setSelectedOption}>
                 { reset && 
                     <InputSelectOptionPlaceholder
-                    value={placeholder}
-                    disabled selected>
+                        value={placeholder}
+                        selected
+                    >
                         { placeholder }
                     </InputSelectOptionPlaceholder>
                 }
-                {options.map(option => (
-                    <InputSelectOption key={option.id} value={option.id}>
-                        { option.name }
+                { !options.length ? 
+                    <InputSelectOption disabled>
+                        Sem { placeholder }
                     </InputSelectOption>
+                    :
+                    options.map(option => (
+                        <InputSelectOption key={option.id} value={option.id}>
+                            { option.name }
+                        </InputSelectOption>
                 ))}
             </InputSelectContainer>
             <Img src={arrowPointingDown} alt="Lupa"/>

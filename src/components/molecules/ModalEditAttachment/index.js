@@ -21,25 +21,31 @@ const ModalEditAttachment = ({CloseButtonClickHandler, saveHandler, setWorkload,
                 </ModalTitle>
                 <ContainerInputs>
                     <InputWithLabel
-                    inputValue={workload}
-                    setInputWithLabelValue={setWorkload}
-                    label="Horas Mensais"
-                    width="100%"
-                    widthContainer="80%"
-                    padding="0em 0 1em 0"
+                        inputValue={workload}
+                        onChange={ e => setWorkload(e.target.value)}
+                        label="Horas Mensais"
+                        width="100%"
+                        widthContainer="80%"
+                        padding="0em 0 1em 0"
+                        handleBlur={() => {}}
                     />
-                     <InputWithLabel
-                    inputValue={overtime}
-                    setInputWithLabelValue={setOvertime}
-                    label="Horas extras"
-                    width="100%"
-                    widthContainer="80%"
+                    <InputWithLabel
+                        inputValue={overtime}
+                        onChange={e => setOvertime(e.target.value)}
+                        label="Horas extras"
+                        width="100%"
+                        widthContainer="80%"
+                        handleBlur={() => {}}
                     />
                 </ContainerInputs>
                 <ContainerButtons>
-                    <CancelButton onClick={CloseButtonClickHandler}>Cancelar</CancelButton>
+                    <CancelButton onClick={CloseButtonClickHandler}>
+                        Cancelar
+                    </CancelButton>
                     <SaveButton 
-                    onClick={saveHandler} margin="0 3.5em 0 1.7em">
+                        onClick={saveHandler} 
+                        margin="0 3.5em 0 1.7em"
+                    >
                         Salvar
                     </SaveButton>
                 </ContainerButtons>
@@ -49,4 +55,4 @@ const ModalEditAttachment = ({CloseButtonClickHandler, saveHandler, setWorkload,
     )
 }
 
-export default ModalEditAttachment;
+export default ModalEditAttachment

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ModalContainer = styled.div`
-    position: absolute;
+    position: fixed;
     top: 55%;
     left: 49.5%;
     transform: translate(-50%, -50%);
