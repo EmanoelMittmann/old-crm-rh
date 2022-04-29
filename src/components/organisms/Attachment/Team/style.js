@@ -4,29 +4,36 @@ export const ProfessionalInfo = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 21.8%;
+    width: 40%;
 `
 
 export const ProfessionalName = styled.span`
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 21.8%;
-  
+    width: 75%;
 `
 export const ProfessionalJob = styled.span`
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 21.8%;
-   
+    width: 32%;
 `
 export const ProfessionalHours = styled.span`
     display: flex;
     align-items: center;
+    width: 25.2%;  
+`
+
+export const ProfessionalOvertime = styled.span`
+    display: flex;
+    align-items: center;
+    width: 21.9%;  
+`
+
+export const ProfessionalStatus = styled.span`
+    display: flex;
+    align-items: center;
     justify-content: center;
-    width: 21.8%;
-   
+    width: 1%; 
 `
 
 export const ProfessionalProfilePicture = styled.div`
