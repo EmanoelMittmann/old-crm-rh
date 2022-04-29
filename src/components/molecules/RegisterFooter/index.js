@@ -4,7 +4,7 @@ import DarkButton from '../../atoms/Buttons/DarkButton/style'
 import { ContainerRegisterFooter, ContainerButtonsRegisterFooter } from './style'
 
 
-const RegisterFooter = ({cancelButtonHandler, registerButtonHandler, buttonDescription, type, disabled}) => {
+const RegisterFooter = ({cancelButtonHandler, registerButtonHandler, buttonDescription, type, disabled, form}) => {
     return (
         <ContainerRegisterFooter>
             <ContainerButtonsRegisterFooter>
@@ -22,6 +22,7 @@ const RegisterFooter = ({cancelButtonHandler, registerButtonHandler, buttonDescr
                     onClick={() => registerButtonHandler()}
                     type={type}
                     disabled={disabled}
+                    form={form}
                 >
                     {buttonDescription}
                 </DarkButton>

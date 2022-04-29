@@ -25,17 +25,18 @@ import { cleanMask } from '../../utils/cleanMask'
 import {getDate} from '../../utils/getDate'
 import { messages } from '../../../settings/YupValidates'
 
-
 const RegisterProfessional = () => {    
     const [jobs, setJobs] = useState([])
     const [occupations, setOccupations] = useState([])
     const [allProjects, setAllProjects] = useState([])
+    const [projects, setProjects] = useState([])
     const [uniqueCpf, setUniqueCpf] = useState('')
     const [cpfValid, setCpfValid] = useState(false)
     const [uniqueCEP, setUniqueCEP] = useState('')
     const [extraHour, setExtraHour] = useState('')
     const history = useHistory()
     const { id } = useParams()
+    const attachment = {projects, setProjects, addProject, removeProject, editProject}
 
     const schema = Yup.object().shape({
         name: Yup.string().required(messages.required),
@@ -119,16 +120,27 @@ const RegisterProfessional = () => {
             await api({
                 method: id ? 'put' : 'post',     
                 url: id ? `/user/${id}` : '/user',
-                data: { 
+                data: !id ? { 
                     ...values, 
                     extra_hour_value: parseFloat(values.extra_hour_value.replace('R$', '').replace(',', '.')),
-                    fixed_payment_value: values.fixed_payment_value.replace('R$', '').replace('.', ''),
+                    fixed_payment_value: values.fixed_payment_value.replace('R$', '').replace('.', '').replace(',00', ''),
                     telephone_number: values.telephone_number.toString().replace('(', '').replace(')', '').replace(' ', '').replace(' ', '').replace('-', ''),
                     cpf: cleanMask(values.cpf),
                     cnpj: cleanMask(values.cnpj),
                     cep: cleanMask(values.cep),
-                    rg: values.rg.toString()
-                }
+                    rg: values.rg.toString(),
+                    projects: projects,
+                } 
+                : {
+                    ...values, 
+                    extra_hour_value: parseFloat(values.extra_hour_value.replace('R$', '').replace(',', '.')),
+                    fixed_payment_value: values.fixed_payment_value.replace('R$', '').replace('.', '').replace(',00', ''),
+                    telephone_number: values.telephone_number.toString().replace('(', '').replace(')', '').replace(' ', '').replace(' ', '').replace('-', ''),
+                    cpf: cleanMask(values.cpf),
+                    cnpj: cleanMask(values.cnpj),
+                    cep: cleanMask(values.cep),
+                    rg: values.rg.toString(),
+                },
             })
             .then(result => {
                 toast.success(<DefaultToast text="Profissional cadastrado." />,{
@@ -147,7 +159,7 @@ const RegisterProfessional = () => {
         isValidating: false,
         enableReinitialize: true
     })
-    const { values, handleChange, setFieldValue, setFieldArrayValue} = formik
+    const { values, handleChange, setFieldValue} = formik
 
     const handleCEP =  async (cep) => {
        await axios.get(`https://viacep.com.br/ws/${cep}/json/`, 
@@ -162,7 +174,7 @@ const RegisterProfessional = () => {
                 if(logradouro) setFieldValue('street_name', logradouro)
                 if(bairro) setFieldValue('neighbourhood_name', bairro)
             })
-            .catch(error => {console.log("Erro", error)})
+            .catch(error => {toast.error(<DefaultToast text={error.message}/>)})
     }
 
     const validateCpf = async (cpf) => {
@@ -202,6 +214,90 @@ const RegisterProfessional = () => {
 
         setAllProjects(data.data)        
     },[])
+
+    function addProject(id_project, workload, extra_hours_limit) {
+        api({
+            method:'post',     
+            url:`/userProjects/user/${id}`,
+            data: {
+                id: id_project,
+                workload: workload,
+                extra_hours_limit: extra_hours_limit
+            }
+        }).then( async (response) => {
+            toast.success(<DefaultToast text="Projeto vinculado." />,{
+                toastId: "post"
+            }) 
+            await api({
+                method:'get',     
+                url:`/userProjects/user/${id}`
+            })
+            .then( response => {
+                setProjects(response.data)
+            })
+        })
+        .catch( error => {
+            toast.error(<DefaultToast text="Erro ao vincular projeto." />,{
+                toastId: "post"
+            }) 
+        })
+    }
+
+    function removeProject(project) {
+        api({
+            method:'delete',     
+            url:`/userProjects/user/${id}`,
+            data: {
+                project_id: project
+            }
+        })
+        .then( async (response) => {
+            toast.success(<DefaultToast text="Projeto removido." />,{
+                toastId: "delete"
+            }) 
+            await api({
+                method:'get',     
+                url:`/userProjects/user/${id}`
+            })
+            .then( response => {
+                setProjects(response.data)
+            })
+        })
+        .catch( error => {
+            toast.error(<DefaultToast text="Erro ao remover projeto." />,{
+                toastId: "delete"
+            }) 
+        })
+    }
+
+    function editProject(project, workload, extra_hours_limit) {
+        api({
+            method:'put',     
+            url:`/userProjects/user/${id}`,
+            data: {
+                id: project,
+                workload: workload,
+                extra_hours_limit: extra_hours_limit
+            }
+        })
+        .then( async (response) => {
+            toast.success(<DefaultToast text="Projeto atualizado." />,{
+                toastId: "put"
+            }) 
+            await api({
+                method:'get',     
+                url:`/userProjects/user/${id}`
+            })
+            .then( response => {
+                setProjects(response.data)
+            })
+        })
+        .catch( error => {
+            toast.error(<DefaultToast text="Erro ao atualizar projeto." />,{
+                toastId: "put"
+            }) 
+        })
+    }
 
     useEffect(() => {
         if(!jobs.length) optionsJob()
@@ -247,6 +343,13 @@ const RegisterProfessional = () => {
             .catch((error) => {
                 new Error(error.message)
             })
+
+            api({
+                method: 'get',
+                url: `/userProjects/user/${id}`,
+            }).then( response => {
+                setProjects(response.data)
+            })
         }
         
         return () => {
@@ -272,7 +375,7 @@ const RegisterProfessional = () => {
                 </SectionTitle>
             </RegisterProfessionalTitleContainer>
             <RegisterProfessionalContainer>
-                <form onSubmit={formik.handleSubmit}>
+                <form id="professional" onSubmit={formik.handleSubmit}>
                     <RegisterProfessionalsData data={formik} />
                     <ContainerProfessionalsLoginData>
                         <SecondaryText margin="0 0 2em 0">Dados de login</SecondaryText>
@@ -300,19 +403,19 @@ const RegisterProfessional = () => {
                     { values.extra_hour_activated !== 0 ?
                         <OvertimePayCalc data={formik} /> : <></>
                     }
-                    <AttachmentProject 
-                        allProjects={allProjects}
-                        setTableContent={() => {}}
-                        hoursMonth=''
-                        limitValue=''
-                    />
-                    <RegisterFooter
-                        cancelButtonHandler={goBackClickHandler}
-                        registerButtonHandler={() => {}}
-                        buttonDescription="Cadastrar"
-                        type="submit"
-                    />
                 </form>
+                <AttachmentProject 
+                    allOptions={allProjects}
+                    attachment={attachment}
+                    data={formik}
+                />
+                <RegisterFooter
+                    cancelButtonHandler={goBackClickHandler}
+                    registerButtonHandler={() => {}}
+                    buttonDescription="Cadastrar"
+                    type="submit"
+                    form="professional"
+                />
             </RegisterProfessionalContainer>
         </>
     )

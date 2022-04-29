@@ -1,5 +1,4 @@
 import React from 'react'
-
 import CloseButton from '../../atoms/Buttons/CloseButton/index.js'
 import SaveButton from '../../atoms/Buttons/SaveButton/style.js'
 import CancelButton from '../../atoms/Buttons/CancelButton/style.js'
@@ -55,4 +54,4 @@ const ModalEditAttachment = ({CloseButtonClickHandler, saveHandler, setWorkload,
     )
 }
 
-export default ModalEditAttachment;
+export default ModalEditAttachment
