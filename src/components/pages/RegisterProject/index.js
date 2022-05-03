@@ -148,13 +148,15 @@ const RegisterProject = (props) => {
                 url: `/project/${id}`,
             }).then(async (response) => {
                 const data = response.data[0]
-                setFieldValue('name', data.name)
-                setFieldValue('date_start', getDate(data.date_start))
-                setFieldValue('date_end', getDate(data.date_end))
-                setFieldValue('date_end_performed', getDate(data.date_end_performed))
-                setFieldValue('project_status_id', data.project_status_id)
-                setFieldValue('project_type_id', data.project_type_id)
-                setFieldValue('team_cost', "R$" + data.team_cost.toString().replace('.', ','))
+                Object.entries(data).forEach(([property, value]) => {
+                    if(property.includes('date')) {
+                        setFieldValue(property, getDate(value))
+                    }
+                    else if(property.includes('team_cost')) {
+                        setFieldValue(property, "R$" + String(value).replace('.', ','))
+                    }
+                    else { setFieldValue(property, value) }
+                })
             })
             getTeam()
         }
