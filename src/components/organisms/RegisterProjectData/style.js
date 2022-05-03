@@ -22,28 +22,18 @@ export const ContainerSecondRow = styled.div`
 
 export const ContainerInputWithLabel = styled.div`
     width: 80%;
-   
 `
 
 export const ContainerInputProjectStatusSelect = styled.div`
     width: 40%;
 `
 
-export const ContainerInputInitialDate = styled.div`
-    width: 22.5%;
-    margin-right: 5em;
-    
-`
-export const ContainerInputFinalDate = styled.div`
-    width: 22.5%;  
-    margin-right: 5em;
-`
-
 export const ContainerInputProjectTypeSelect = styled.div`
-    width: 200px;
+    width: 250px;
 `
 
 export const ContainerThirdLine = styled.div`
+    display: flex;
     width: 100%;
     margin: 2em 0 2em 0;
 `

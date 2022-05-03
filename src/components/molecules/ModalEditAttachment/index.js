@@ -1,5 +1,4 @@
 import React from 'react'
-
 import CloseButton from '../../atoms/Buttons/CloseButton/index.js'
 import SaveButton from '../../atoms/Buttons/SaveButton/style.js'
 import CancelButton from '../../atoms/Buttons/CancelButton/style.js'
@@ -21,27 +20,27 @@ const ModalEditAttachment = ({CloseButtonClickHandler, saveHandler, setWorkload,
                 </ModalTitle>
                 <ContainerInputs>
                     <InputWithLabel
-                        inputValue={workload}
-                        onChange={ e => setWorkload(e.target.value)}
+                        value={workload}
+                        onChange={e => setWorkload(e.target.value)}
                         label="Horas Mensais"
                         width="100%"
                         widthContainer="80%"
                         padding="0em 0 1em 0"
                         handleBlur={() => {}}
+                        error={() => {}}
                     />
-                    <InputWithLabel
-                        inputValue={overtime}
+                     <InputWithLabel
+                        value={overtime}
                         onChange={e => setOvertime(e.target.value)}
                         label="Horas extras"
                         width="100%"
                         widthContainer="80%"
                         handleBlur={() => {}}
+                        error={() => {}}
                     />
                 </ContainerInputs>
                 <ContainerButtons>
-                    <CancelButton onClick={CloseButtonClickHandler}>
-                        Cancelar
-                    </CancelButton>
+                    <CancelButton onClick={CloseButtonClickHandler}>Cancelar</CancelButton>
                     <SaveButton 
                         onClick={saveHandler} 
                         margin="0 3.5em 0 1.7em"

@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useHistory, useParams } from 'react-router'
-import { useDispatch, useSelector } from 'react-redux'
-
 import api from '../../../api/api.js'
-
-import { setProjectList } from '../../../redux/actions/index.js'
-
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import { handleErrorMessages } from '../../utils/handleErrorMessages'
 import ArrowRegister from '../../atoms/ArrowRegister/index.js'
 import { SectionTitle } from '../../atoms/PageTitle/style.js'
 import RegisterFooter from '../../molecules/RegisterFooter/index.js'
@@ -16,184 +14,292 @@ import {
     RegisterProjectTitleContainer,
     RegisterProjectContainer,
 } from './style.js'
+import { messages } from '../../../settings/YupValidates.js'
+import { formatFirstLetter } from '../../utils/formatFirstLetter.js'
+import { getDate } from '../../utils/getDate.js'
+import { DefaultToast } from '../../atoms/Toast/DefaultToast.js'
+import { toast } from 'react-toastify'
 
 const RegisterProject = (props) => {
-    const state = useSelector(state => state)
     const history = useHistory()
-    const dispatch = useDispatch()
-
-    const [projectName, setProjectName] = useState("")
-    const [projectType, setProjectType] = useState("")
-    const [inicialDate, setInitialDate] = useState("")
-    const [finalDate, setFinalDate] = useState("")
-    const [projectStatus, setProjectStatus] = useState("")
-    const [teamCost, setTeamCost] = useState("");
-    const [payloadTeam, setPayloadTeam] = useState("")
-    const [EditProjectData, setEditProjectData] = useState({})
-    const [EditProjectTeam, setEditProjectTeam] = useState([])
+    const [typeOptions, setTypeOptions] = useState([])
+    const [statusOptions, setStatusOptions] = useState([])
+    const [team, setTeam] = useState([])
+    const [teamPayload, setTeamPayload] = useState([])
+    const [allUsers, setAllUsers] = useState([])
     const [cancelRegisterProject, setCancelRegisterProject] = useState(false)
     const [modalWarningIsVisible, setModalWarningIsVisible] = useState(false)
-
-    const [inicialYear, inicialMonth, inicialDay] = inicialDate.split('-')
-    const [finalYear, finalMonth, finalDay] = finalDate.split('-')
-    const [componentRendered, setComponentRendered] = useState(false)
     const { id } = useParams()
 
-    const editProject = async () => {
-
-            try {
-                await api({
-                    method: 'put',
-                    url: `/project/${id}`,
-                    data: {
-                        name: projectName,
-                        project_status_id: projectStatus,
-                        project_type_id: projectType,
-                        date_start: inicialDate,
-                        date_end: finalDate,
-                        team_cost: +teamCost,
-                    }
-                })
-    
-                const {data} = await api({
-                    method: 'get',
-                    url: '/project',
-                })
-    
-                dispatch(setProjectList(data.data))
-                history.push("/projects");
-                return data.data
-            
-            } catch (error) {
-                console.error(error);
+    const schema = Yup.object().shape({
+        name: Yup.string().required(messages.required),
+        date_start: Yup.string().required(messages.required).test('Data válida', 'Insira uma data menor que a data final', () => validDate()),
+        date_end: Yup.string().required(messages.required).test('Data válida', 'Insira uma data maior que a data inicial', () => validDate()),
+        date_end_performed: Yup.string().test('Data válida', 'Insira uma data maior que a data inicial', () => {
+            if(values.date_start !== '' && values.date_end_performed !== ''){
+                if(values.date_start > values.date_end_performed) {
+                    return false
+                }
+                return true
             }
-    
-    }
+            return true
+        }),
+        project_status_id: Yup.number().required(messages.required),
+        project_type_id: Yup.number().required(messages.required),
+        team_cost: Yup.string().required(messages.required)
+    })
 
-    const registerProject = async () => {
-
-        try {
+    const formik = useFormik({
+        initialValues: {
+           name: '',
+           date_start: '',
+           date_end: '',
+           date_end_performed: '',
+           project_status_id: 0,
+           project_type_id: 0,
+           team_cost: '',
+        },
+        onSubmit: async (values) => {
             await api({
-                method: 'post',
-                url: '/project',
-                data: {
-                    name: projectName,
-                    project_status_id: projectStatus,
-                    project_type_id: projectType,
-                    date_start: inicialDate,
-                    date_end: finalDate,
-                    team_cost: +teamCost,
-                    users: payloadTeam
+                method: id ? 'put' : 'post',
+                url: id ? `/project/${id}` : '/project',
+                data: id ? {
+                    ...values,
+                    team_cost: values.team_cost.replace('R$', '').replace('.', '').replace(',','.'),
+                } : {
+                    ...values,
+                    users: teamPayload,
+                    team_cost: values.team_cost.replace('R$', '').replace('.', '').replace(',','.'),
                 }
             })
-
-            const {data} = await api({
-                method: 'get',
-                url: '/project',
+            .then(response => {
+                toast.success(<DefaultToast text="Projeto salvo!" />)
+                goBackClickHandler()
             })
+            .catch(error => {
+                toast.error(<DefaultToast text="Há erros de validação!" />)
+                const errors = error.response.data.errors
+                setErrors(handleErrorMessages(errors))
+            })
+        },
+        validationSchema: schema,
+        isValidating: false,
+        enableReinitialize: true
+    })
+    const { values, setFieldValue, setErrors } = formik
 
-            dispatch(setProjectList(data.data))
-            history.push("/projects");
-            return data.data
-        
-        } catch (error) {
-            console.error(error)
+    function validDate() {
+        if(values.date_end !== '' && values.date_start !== ''){
+            if(values.date_start > values.date_end) {
+                return false
+            }
+
+            return true
         }
-
+        return true
     }
 
-    const projectHandler = () => {
-        id ? editProject() :  registerProject()
+    const getProjectTypeOption = useCallback(async () => {
+        const { data } = await api({
+            method:'get',     
+            url:`/projectTypeNoFilter`,
+        }) 
+
+        const formattedOptions =  formatFirstLetter(data)
+        setTypeOptions(formattedOptions)
+    },[])
+
+    const getStatusOptions = useCallback(async () => {
+        const {data} = await api({
+            method:'get',     
+            url:`/projectStatusNoFilter`,
+        })
+
+        const formattedStatusOptions = formatFirstLetter(data)
+        setStatusOptions(formattedStatusOptions)
+    }, [])
+
+    const getAllProfessionals = useCallback(async () => {
+        const {data} = await api({
+            method:'get',     
+            url:`/user`,
+        })
+        const formattedProfessionals = formatFirstLetter(data)
+        setAllUsers(formattedProfessionals)
+    }, [])
+
+    const getTeam = () => {
+        api({
+            method: 'get',
+            url: `/userProjects/project/${id}`,
+        }).then( response => {
+            const members = response.data
+            setTeam(members)
+        })
     }
-    
+
     useEffect(() => {
-        const editProjectData = async () => {
-            const {data} = await api({
+        if(!typeOptions.length) getProjectTypeOption() 
+        if(!typeOptions.length) getStatusOptions()
+        if(!allUsers.length) getAllProfessionals()
+        if(id) {
+            api({
                 method: 'get',
                 url: `/project/${id}`,
+            }).then(async (response) => {
+                const data = response.data[0]
+                Object.entries(data).forEach(([property, value]) => {
+                    if(property.includes('date')) {
+                        setFieldValue(property, getDate(value))
+                    }
+                    else if(property.includes('team_cost')) {
+                        setFieldValue(property, "R$" + String(value).replace('.', ','))
+                    }
+                    else { setFieldValue(property, value) }
+                })
             })
-    
-            const response = await api({
-                method: 'get',
-                url: `/userProjects/project/${id}`,
-            })
-            setEditProjectTeam(response.data)
-            setEditProjectData(...data)
-            setComponentRendered(true)
+            getTeam()
         }
-        id && editProjectData()
-    }, [id])
 
-   const CloseButtonClickHandler = () => {
+        return () => {
+            setStatusOptions([])
+            setTypeOptions([])
+            setAllUsers([])
+        }
+    },[])
+
+    useEffect(() => {
+        setTeamPayload([])
+        handlePayloadTeam()
+    },[team])
+
+    const goBackClickHandler = () => {
+        history.push("/projects")
+    }
+
+    const CloseButtonClickHandler = () => {
         setModalWarningIsVisible(false)
-   }
-
-   const redButtonClickHandler = () => {
-        history.push("/projects")
-   }
-   
-   const goBackClickHandler = () => {
-        history.push("/projects")
     }
     
     const footerCancelButtonHandler = () => {
         return setModalWarningIsVisible(true)
     }
-
-    const calcDaysPassed = (date1, date2) => (date2 - date1) / (1000 * 60 * 60 * 24)
-    const daysPassed = calcDaysPassed(new Date(inicialYear, inicialMonth, inicialDay), new Date(finalYear, finalMonth, finalDay))
     
-    const footerRegisterButtonHandler = () => {
-        return daysPassed >= 0 ? projectHandler() : console.log("Data inválida")
+    function handlePayloadTeam() {
+        team.map(user => {
+            setTeamPayload(oldState => [...oldState, { 
+                user_id: user.id,
+                workload: user.workload, 
+                extra_hours_limit: user.extra_hours_limit
+            }])
+        })
     }
+
+    function addMember(user_id, workload, extra_hours_limit) {
+        api({
+            method:'post',     
+            url:`/userProjects/project/${id}`,
+            data: {
+                user_id: user_id,
+                workload: workload,
+                extra_hours_limit: extra_hours_limit
+            }
+        })
+        .then( async (response) => {
+            toast.success(<DefaultToast text="Profissional adicionado." />,{
+                toastId: "post"
+            }) 
+            getTeam()
+        })
+        .catch( error => {
+            toast.error(<DefaultToast text="Erro ao adicionar profissional." />,{
+                toastId: "post"
+            }) 
+        })
+    }
+
+    function removerMember(user_id) {
+        api({
+            method:'delete',     
+            url:`/userProjects/project/${id}`,
+            data: {
+                user_id: user_id
+            }
+        })
+        .then( async (response) => {
+            toast.success(<DefaultToast text="Profissional removido." />,{
+                toastId: "delete"
+            }) 
+            getTeam()
+        })
+        .catch( error => {
+            toast.error(<DefaultToast text="Erro ao remover profissional." />,{
+                toastId: "delete"
+            }) 
+        })
+    }
+
+    function editMember(user_id, workload, extra_hours_limit) {
+        api({
+            method:'put',     
+            url:`/userProjects/project/${id}`,
+            data: {
+                user_id: user_id,
+                workload: workload,
+                extra_hours_limit: extra_hours_limit
+            }
+        })
+        .then( async (response) => {
+            toast.success(<DefaultToast text="Profissional atualizado." />,{
+                toastId: "put"
+            }) 
+            getTeam()
+        })
+        .catch( error => {
+            toast.error(<DefaultToast text="Erro ao atualizar profissional." />,{
+                toastId: "put"
+            }) 
+        })
+    }
+
+    const attachment = {team, setTeam, getTeam, addMember, removerMember, editMember}
 
     return (
         <>
-            {modalWarningIsVisible && <ModalRed
-            CloseButtonClickHandler={CloseButtonClickHandler}
-            redButtonClickHandler={redButtonClickHandler}
-            title={componentRendered ? "Cancelar alterações" : "Cancelar cadastro"}
-            message={componentRendered ? "Tem certeza que deseja cancelar as alterações?" : "Tem certeza que deseja cancelar a operação?"}
-            />}
+            { modalWarningIsVisible && 
+                <ModalRed
+                    CloseButtonClickHandler={CloseButtonClickHandler}
+                    redButtonClickHandler={goBackClickHandler}
+                    title={id ? "Cancelar alterações" : "Cancelar cadastro"}
+                    message={id ? "Tem certeza que deseja cancelar as alterações?" : "Tem certeza que deseja cancelar a operação?"}
+                /> 
+            }
             <RegisterProjectTitleContainer>
                 <ArrowRegister clickHandler={goBackClickHandler}/>
                 <SectionTitle>
-                {id ? "Edição de projeto" : "Novo Projeto"}
+                    {id ? "Edição de projeto" : "Novo Projeto"}
                 </SectionTitle>
             </RegisterProjectTitleContainer>
 
             <RegisterProjectContainer>
-
-                <RegisterProjectData
-                    editData={EditProjectData}
-                    projectName={projectName}
-                    componentRendered={componentRendered}
-                    setProjectName={setProjectName}
-                    setProjectType={setProjectType}
-                    projectType={projectType}
-                    setInitialDate={setInitialDate}
-                    inicialDate={inicialDate}
-                    finalDate={finalDate}
-                    setFinalDate={setFinalDate}
-                    setProjectStatus={setProjectStatus}
-                    projectStatus={projectStatus}
-                    setTeamCost={setTeamCost}
-                    teamCost={teamCost}
-                />
+                <form id="register">
+                    <RegisterProjectData 
+                        data={formik} 
+                        typeOptions={typeOptions}
+                        statusOptions={statusOptions}
+                    />
+                </form>
                 <AttachmentTeam
-                    componentRendered={componentRendered}
-                    editData={EditProjectTeam}
-                    payloadTeam={payloadTeam}
-                    setPayloadTeam={setPayloadTeam}
-                    projectId={id}
+                    allOptions={allUsers}
+                    attachment={attachment}
                 />
-
                 <RegisterFooter
                     cancelButtonHandler={footerCancelButtonHandler}
-                    registerButtonHandler={footerRegisterButtonHandler}
+                    registerButtonHandler={formik.handleSubmit}
                     buttonDescription={id ? "Atualizar" : "Cadastrar"}
+                    type="submit"
+                    form="register"
                 />
-
             </RegisterProjectContainer>
         </>
     )

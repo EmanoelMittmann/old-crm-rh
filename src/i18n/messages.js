@@ -1,3 +1,4 @@
 export const messages = {
-  hasValidationErrors: 'Opa, há erros de validação.',
-  }
+  required: "Campo obrigatório",
+  failUnique: "cadastrado já existe"
+}
