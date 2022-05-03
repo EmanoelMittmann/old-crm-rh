@@ -312,7 +312,6 @@ const RegisterProfessional = () => {
             }).then((response) => {
                 const data = response.data[0]
                 Object.entries(data).forEach(([property, value]) => {
-                    console.log(property, value)
                     if(property.includes('date')) {
                         setFieldValue(property, getDate(value))
                     }
@@ -361,10 +360,6 @@ const RegisterProfessional = () => {
         }
 
     },[id])
-
-    useEffect(() => {
-        console.log({values})
-    },[values])
 
     useEffect(() => {
         if(values.variable1 > 0 && values.variable2 > 0) {
