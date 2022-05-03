@@ -1,4 +1,4 @@
 export const messages = {
   required: "Campo obrigatório",
-  failUnique: "cadastrado já existe"
+  failUnique: "Já cadastrado"
 }
