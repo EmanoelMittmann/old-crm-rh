@@ -24,6 +24,7 @@ import {
 import { cleanMask } from '../../utils/cleanMask'
 import {getDate} from '../../utils/getDate'
 import { messages } from '../../../settings/YupValidates'
+import { handleErrorMessages } from '../../utils/handleErrorMessages'
 
 const RegisterProfessional = () => {    
     const [jobs, setJobs] = useState([])
@@ -41,7 +42,6 @@ const RegisterProfessional = () => {
     const schema = Yup.object().shape({
         name: Yup.string().required(messages.required),
         cpf: Yup.string().required(messages.required).min(14, "CPF inválido").test('Verificar CPF', 'CPF Usado', () => {
-            if(id) setCpfValid(true)
             if(values.cpf.length === 14 && values.cpf !== uniqueCpf) {
                     setUniqueCpf(values.cpf)
                     validateCpf(values.cpf)
@@ -152,6 +152,8 @@ const RegisterProfessional = () => {
                 toast.error(<DefaultToast text="Há erros de validação." />,{
                     toastId: "post"
                 })
+                const errors = error.response.data.errors
+                setErrors(handleErrorMessages(errors))
             })
             
         },
@@ -159,7 +161,7 @@ const RegisterProfessional = () => {
         isValidating: false,
         enableReinitialize: true
     })
-    const { values, handleChange, setFieldValue} = formik
+    const { values, handleChange, setFieldValue, setErrors} = formik
 
     const handleCEP =  async (cep) => {
        await axios.get(`https://viacep.com.br/ws/${cep}/json/`, 
@@ -309,36 +311,36 @@ const RegisterProfessional = () => {
                 url: `/user/${id}`,
             }).then((response) => {
                 const data = response.data[0]
-                setFieldValue('name', data.name)
-                setFieldValue('id', id)
-                setFieldValue('rg', data.rg)
-                setFieldValue('birth_date', getDate(data.birth_date))
-                setFieldValue('cnpj', data.cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1 $2 $3/$4-$5"))
-                setFieldValue('razao_social', data.razao_social)
-                setFieldValue('street_name', data.street_name)
-                setFieldValue('house_number', data.house_number)
-                setFieldValue('complement', data.complement)
-                setFieldValue('neighbourhood_name', data.neighbourhood_name)
-                setFieldValue('city_name', data.city_name)
-                setFieldValue('uf', data.uf)
-                setFieldValue('telephone_number', parseInt(data.telephone_number))
-                setFieldValue('email', data.email)
-                setFieldValue('start_date', getDate(data.start_date))
-                setFieldValue('job_id', data.job_id)
-                setFieldValue('occupation_id', data.occupation_id)
-                setFieldValue('job_type', data.job_type)
-                setFieldValue('weekly_hours', data.weekly_hours)
-                setFieldValue('mounth_hours', data.mounth_hours)
-                setFieldValue('fixed_payment_value', "R$" + data.fixed_payment_value + ",00")
-                setFieldValue('extra_hour_activated', data.extra_hour_activated)
-                setFieldValue('variable1', data.variable1)
-                setFieldValue('variable2', data.variable2)
-                setFieldValue('limited_extra_hours', data.limited_extra_hours)
-                setFieldValue('extra_hour_limit', data.extra_hour_limit)
-                setFieldValue('user_type_id', data.user_type_id)
-                setFieldValue('cep', data.cep.replace(/^(\d{5})(\d{3})+?$/, "$1-$2"))
-                setFieldValue('cpf', data.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4"))
-                setFieldValue('extra_hour_value', data.extra_hour_value.replace('.', ','))
+                Object.entries(data).forEach(([property, value]) => {
+                    if(property.includes('date')) {
+                        setFieldValue(property, getDate(value))
+                    }
+                    else if(property.includes('cnpj')) {
+                        setFieldValue(property, value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1 $2 $3/$4-$5"))
+                    }
+                    else if(property.includes('telephone_number')) {
+                        setFieldValue(property, parseInt(value))
+                    }
+                    else if(property.includes('fixed_payment_value')) {
+                        setFieldValue(property, `R$${value},00`)
+                    }
+                    else if(property.includes('cep')) {
+                        let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2")
+                        setUniqueCEP(data)
+                        setFieldValue(property, data)
+                    }
+                    else if(property.includes('cpf')) {
+                        let data = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")
+                        setUniqueCpf(data)
+                        setFieldValue(property, data)
+                    }
+                    else if(property.includes('extra_hours_value')) {
+                        setFieldValue(property, value.replace('.', ','))
+                    }
+                    else {
+                        setFieldValue(property, value)
+                    }
+                })
             })
             .catch((error) => {
                 new Error(error.message)
