@@ -15,10 +15,11 @@ import {
     LimitOvertime, 
     ContainerLimitOvertimeButton, 
     ContainerLimitOvertimeButtons, 
-    ContainerLimitOvertime 
+    ContainerLimitOvertime,
 } from './style'
 
 const OvertimePayCalc = ({ data }) => {
+    
     const [componentJustRendered, setComponentJustRendered] = useState(false);
     const inputRef = useRef(null)
 
@@ -68,8 +69,10 @@ const OvertimePayCalc = ({ data }) => {
                             padding="0.3em 1.2em 0 1.2em" 
                             type="number"
                         />
+                        
                     </InputLine>
                 </ContainerOvertimePayInput>
+                
                 <ContainerOvertimePayInput>
                     <OvertimePayCalcLabel for="variable2">
                         Variável 2 (valor fixo)

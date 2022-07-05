@@ -115,33 +115,6 @@ const RegisterProfessionalsData = ({ data }) => {
                         />
                     </ContainerRow>
                     <ContainerRow>
-                        <InputMasked
-                            value={values.cnpj}
-                            mask={[/[1-9]/, /\d/, '.', /\d/, /\d/, /\d/,'.', 
-                            /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/,]}
-                            label="CNPJ"
-                            onChange={handleChange('cnpj')}
-                            error={errors.cnpj}
-                            touched={touched.cnpj}
-                            padding="0em 2em 0 0em"
-                            width="100%"
-                            widthContainer="30%"
-                            handleBlur={setFieldTouched}
-                            name="cnpj"
-                        />
-                        <InputWithLabel
-                            onChange={handleChange('razao_social')}
-                            value={values.razao_social}
-                            label="Razão Social"
-                            width="100%"
-                            widthContainer="70%"
-                            error={errors.razao_social}
-                            touched={touched.razao_social}
-                            handleBlur={setFieldTouched}
-                            name="razao_social"
-                        />
-                    </ContainerRow>
-                    <ContainerRow>
                         <InputMasked 
                             value={values.cep}
                             onChange={handleChange('cep')}
