@@ -1,11 +1,13 @@
-import React from 'react'
+import { useState } from 'react'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
 import SecondaryText from '../../atoms/SecondaryText/style.js'
 import InputMasked from '../../atoms/InputMasked'
 import InputSelect from '../../atoms/InputSelect/index.js'
 import InputWithLabel from '../../atoms/InputWithLabel'
-import { ContainerEmploymentContract, EmploymentContractInputs } from './style'
+import { LabelInputRadio } from '../../atoms/InputRadio/style.js'
+import { InputRadio } from '../../atoms/InputRadio/style.js'
+import { ContainerEmploymentContract, EmploymentContractInputs, ContainerCommission, Commissioncontract, LimitOvertime, } from './style'
 
 import { typeOptions } from '../../pages/RegisterProfessional/optionsType'
 
@@ -16,6 +18,15 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
         suffix: ',00' ,
         thousandsSeparatorSymbol: '.'
     })
+    const [componentJustRendered, setComponentJustRendered] = useState(false);
+
+    const limitAllowed = {
+        ...(componentJustRendered && values.limited_commission === 1 && {checked: true})
+    }
+
+    const limitNotAllowed = {
+        ...(componentJustRendered && (values === undefined || values.limited_commission === 0) && {checked: true})
+    }
 
     const { values, handleChange, setFieldValue, errors, touched, setFieldTouched} = data
     
@@ -121,8 +132,34 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
                     padding="0em 0 0 1em"  
                     widthContainer="30%"
                     handleBlur={setFieldTouched}
-                />                
-            </EmploymentContractInputs>
+                />
+             </EmploymentContractInputs>
+
+           <Commissioncontract>Comissão</Commissioncontract>
+            <LimitOvertime>       
+                <ContainerCommission>
+                            <InputRadio
+                                {...limitAllowed}
+                                type="radio"
+                                name="Commission"
+                                value="limitComission"
+                                id="limitComission"
+                            />
+                            <LabelInputRadio for="limitComission"> Sim </LabelInputRadio>
+                        </ContainerCommission>
+                    
+                        <ContainerCommission>
+                            <InputRadio
+                                {...limitNotAllowed}
+                                margin="0 0 0 3em"
+                                type="radio"
+                                name="Commission"
+                                value="nolimitComission"
+                                id="nolimitComission"
+                            />
+                            <LabelInputRadio for="nolimitComission"> Não </LabelInputRadio>
+                        </ContainerCommission>
+                    </LimitOvertime> 
         </ContainerEmploymentContract>
     )
 }

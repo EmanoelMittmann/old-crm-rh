@@ -15,7 +15,7 @@ import {
     LimitOvertime, 
     ContainerLimitOvertimeButton, 
     ContainerLimitOvertimeButtons, 
-    ContainerLimitOvertime 
+    ContainerLimitOvertime ,
 } from './style'
 
 const OvertimePayCalc = ({ data }) => {
