@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useCallback } from 'react'
 import { useHistory, useParams } from "react-router-dom"
 import axios from 'axios'
@@ -82,6 +83,7 @@ const RegisterProfessional = () => {
         weekly_hours: Yup.number().required(messages.required).max(44, "Horas/semana excedida"),
         mounth_hours: Yup.number().required(messages.required).max(176, "Horas/mês excedida"),
         fixed_payment_value: Yup.string().required(messages.required),
+        commission : Yup.boolean().required(messages.required)
     })
 
     const formik = useFormik({
@@ -115,6 +117,8 @@ const RegisterProfessional = () => {
             limited_extra_hours: 1,
             extra_hour_limit: '',
             user_type_id: 2,
+            commission:1,
+            password:"123"
         },
         onSubmit: async (values) => {
             await api({
@@ -129,7 +133,7 @@ const RegisterProfessional = () => {
                     cnpj: cleanMask(values.cnpj),
                     cep: cleanMask(values.cep),
                     rg: values.rg.toString(),
-                    projects: projects,
+                    projects: projects,   
                 } 
                 : {
                     ...values, 
@@ -406,6 +410,7 @@ const RegisterProfessional = () => {
                         <OvertimePayCalc data={formik} /> : <></>
                     }
                 </form>
+
                 <AttachmentProject 
                     allOptions={allProjects}
                     attachment={attachment}
