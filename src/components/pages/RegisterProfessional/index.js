@@ -58,9 +58,12 @@ const RegisterProfessional = () => {
         cnpj: Yup.string().required(messages.required).min(18, 'CNPJ Inválido'),
         razao_social: Yup.string().required(messages.required),
         cep: Yup.string().required(messages.required).min(9, 'CEP Inválido').test('CEP válido', 'CEP não encontrado', () => {
-            if(values.cep.length === 9 && values.cep !== uniqueCEP) {
+            if(values.cep.length === 9 && values.cep !== uniqueCEP && values.country == "Brazil") {
                     setUniqueCEP(values.cep)
                     handleCEP(values.cep)
+            }
+            else{
+                setUniqueCEP(values.cep)
             }
             return true
         }),
@@ -98,6 +101,7 @@ const RegisterProfessional = () => {
             complement: '',
             neighbourhood_name: '',
             city_name: '',
+            country:'',
             uf: '',
             telephone_number: cleanMask(''),
             email: '',
@@ -378,23 +382,7 @@ const RegisterProfessional = () => {
             </RegisterProfessionalTitleContainer>
             <RegisterProfessionalContainer>
                 <form id="professional" onSubmit={formik.handleSubmit}>
-                    <RegisterProfessionalsData data={formik} />
-                    <ContainerProfessionalsLoginData>
-                        <SecondaryText margin="0 0 2em 0">Dados de login</SecondaryText>
-                        <InputWithLabel
-                            name="email"
-                            padding="0 2em 0 0"
-                            error={formik.errors.email}
-                            touched={formik.touched.email}
-                            handleBlur={formik.setFieldTouched}
-                            onChange={handleChange('email')}
-                            width="100%"
-                            widthContainer="45%"
-                            label="E-mail G Suit"
-                            value={values.email}
-                            type="email"
-                        />
-                    </ContainerProfessionalsLoginData>
+                    <RegisterProfessionalsData data={formik}/>
                     <EmploymentContract data={formik} jobs={jobs} occupations={occupations} />
                     <ProfessionalsExtraHour
                         extraHour={extraHour}
