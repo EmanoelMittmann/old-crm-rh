@@ -51,9 +51,13 @@ const optionsBank = [
 ]
 
 
+
 const RegisterProfessionalsData = ({ data }) => {
     const { values, handleChange, errors, touched, setFieldTouched } = data
 
+    useEffect(() =>{
+        console.log(values)
+    },[values])
 
     return (
         <ContainerRegisterProfessionalsData>
@@ -396,7 +400,7 @@ const RegisterProfessionalsData = ({ data }) => {
                             </SecondaryText>
                         </ContainerRowBank>
                         <ContainerRowBank>
-                            <SecondaryText margin="0 0 2em 0">Agência
+                            <SecondaryText margin="0 0 2em 0">
                                 <InputWithLabel
                                     value={values.professional_data.agency}
                                     padding="0 2em 0 0"
@@ -410,7 +414,6 @@ const RegisterProfessionalsData = ({ data }) => {
                                     type="text"
                                 />
                             </SecondaryText>
-                            <SecondaryText margin="0 0 2em 0">Conta
                                 <InputWithLabel
                                     value={values.professional_data.account_number}
                                     onChange={handleChange('professional_data.account_number')}
@@ -422,7 +425,6 @@ const RegisterProfessionalsData = ({ data }) => {
                                     name="professional_data.account_number"
                                     type="text"
                                 />
-                            </SecondaryText>
                         </ContainerRowBank>
                     </ProfessionalBank>
                 </ProfessionalData>
