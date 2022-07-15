@@ -51,8 +51,6 @@ const optionsBank = [
 ]
 
 
-
-
 const RegisterProfessionalsData = ({ data }) => {
     const { values, handleChange, errors, touched, setFieldTouched } = data
 
