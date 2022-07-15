@@ -28,10 +28,6 @@ const RegisterProfessionalsData = ({ data }) => {
 
   }, [values.country])
 
-  useEffect(() => {
-    console.log(values)
-  }, [values])
-
   return (
     <ContainerRegisterProfessionalsData>
       <SecondaryText margin="0 0 2.5em 0">Dados pessoais</SecondaryText>
@@ -102,6 +98,7 @@ const RegisterProfessionalsData = ({ data }) => {
             type="number"
             name="telephone_number"
             value={values.telephone_number}
+            
           />
         </ContainerRow>
         <ContainerRow>
