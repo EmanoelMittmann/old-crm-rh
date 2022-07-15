@@ -29,11 +29,15 @@ export const ContainerTextRequiredMonth = styled.div`
 
 `
 
-export const LimitOvertime = styled.div`
+export const CommissionApproval = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
 
+`
+export const FullcCommissionAllowance = styled.form`
+    width: 100%;
+    display: flex;
 `
 
 export const Commissioncontract = styled.div`
@@ -45,8 +49,5 @@ export const Commissioncontract = styled.div`
 export const ContainerCommission = styled.div`
     display: flex;
     margin-bottom: 70px;
-`
-export const ContainerLimitCommssionButtons = styled.div`
-    display: flex;
 `
 
