@@ -46,4 +46,7 @@ export const ContainerCommission = styled.div`
     display: flex;
     margin-bottom: 70px;
 `
+export const ContainerLimitCommssionButtons = styled.div`
+    display: flex;
+`
 

@@ -20,12 +20,14 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
     })
     const [componentJustRendered, setComponentJustRendered] = useState(false);
 
+   
+    
     const limitAllowed = {
-        ...(componentJustRendered && values.limited_commission === 1 && {checked: true})
+        ...(componentJustRendered && values.commission === 1 && {checked: true})
     }
 
     const limitNotAllowed = {
-        ...(componentJustRendered && (values === undefined || values.limited_commission === 0) && {checked: true})
+        ...(componentJustRendered && (values === undefined || values.commission === 0) && {checked: true})
     }
 
     const { values, handleChange, setFieldValue, errors, touched, setFieldTouched} = data

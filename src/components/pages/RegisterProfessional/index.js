@@ -79,6 +79,7 @@ const RegisterProfessional = () => {
             razao_social: Yup.string(),
             fantasy_name: Yup.string(),
             company_city_name: Yup.string(),
+            company_street_name: Yup.string(),
             company_neighborhood_name: Yup.string(),
             company_complement: Yup.string(),
             company_house_number: Yup.string(),
@@ -142,7 +143,7 @@ const RegisterProfessional = () => {
             limited_extra_hours: 1,
             extra_hour_limit: '',
             user_type_id: 2,
-            limited_commission: '1',
+            commission: 1,
             professional_data: {
                 cnpj: cleanMask(''),
                 razao_social: '',
@@ -189,7 +190,7 @@ const RegisterProfessional = () => {
                         fixed_payment_value: values.fixed_payment_value.replace('R$', '').replace('.', '').replace(',00', ''),
                         telephone_number: values.telephone_number.toString().replace('(', '').replace(')', '').replace(' ', '').replace(' ', '').replace('-', ''),
                         cpf: cleanMask(values.cpf),
-                        cnpj: cleanMask(values.professional_datacnpj),
+                        cnpj: cleanMask(values.professional_data.cnpj),
                         cep: cleanMask(values.cep),
                         company_cep: cleanMask(values.professional_data.company_cep),
                         company_bank: cleanMask(values.professional_data.company_bank),
@@ -232,7 +233,7 @@ const RegisterProfessional = () => {
                 if (logradouro) setFieldValue('street_name', logradouro)
                 if (bairro) setFieldValue('neighbourhood_name', bairro)
 
-                console.log(data.data);
+    
             })
             .catch(error => { toast.error(<DefaultToast text={error.message} />) })
     }

@@ -116,7 +116,6 @@ export const ProjectsInputs = () => {
             dispatch(projectsPages(data.meta))
 
 
-            //  console.log(data)
         } catch (error) {
         }
     }

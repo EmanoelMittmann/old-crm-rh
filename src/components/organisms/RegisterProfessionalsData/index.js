@@ -13,6 +13,7 @@ import InputWithLabel from '../../atoms/InputWithLabel/index.js'
 import InputSelect from '../../atoms/InputSelect/index.js'
 import InputMasked from '../../atoms/InputMasked/index.js'
 import InputBank from '../../atoms/InputBank/index.js'
+import { useEffect } from 'react'
 
 const optionsUF = [
     { name: "Acre", id: "AC" },
@@ -54,6 +55,7 @@ const optionsBank = [
 
 const RegisterProfessionalsData = ({ data }) => {
     const { values, handleChange, errors, touched, setFieldTouched } = data
+
 
     return (
         <ContainerRegisterProfessionalsData>
@@ -320,7 +322,7 @@ const RegisterProfessionalsData = ({ data }) => {
                     </ContainerRow>
                     <ContainerRow>
                         <InputWithLabel
-                            onChange={handleChange('professiona_data.company_neighborhood_name')}
+                            onChange={handleChange('professional_data.company_neighborhood_name')}
                             value={values.professional_data.company_neighborhood_name}
                             label="Bairro"
                             width="100%"
@@ -378,7 +380,7 @@ const RegisterProfessionalsData = ({ data }) => {
                                     onChange={handleChange('professional_data.bank')}
                                     placeHolder="Escolha o Banco"
                                     padding="0em 2em 0 0em"
-                                    width="230px"
+                                    width="220px"
                                     name="professional_data.bank"
                                 />
                             </SecondaryText>
@@ -389,7 +391,7 @@ const RegisterProfessionalsData = ({ data }) => {
                                     options={optionsBank}
                                     placeHolder="Tipo da conta"
                                     padding="0em 2em 0 0em"
-                                    width="230px"
+                                    width="220px"
                                     name="professional_data.account_type"
 
                                 />
@@ -402,7 +404,7 @@ const RegisterProfessionalsData = ({ data }) => {
                                     padding="0 2em 0 0"
                                     onChange={handleChange('professional_data.agency')}
                                     label="Agência"
-                                    width="230px"
+                                    width="100%"
                                     error={errors.agency}
                                     touched={touched.agency}
                                     handleBlur={setFieldTouched}
@@ -415,7 +417,7 @@ const RegisterProfessionalsData = ({ data }) => {
                                     value={values.professional_data.account_number}
                                     onChange={handleChange('professional_data.account_number')}
                                     label="Número da conta"
-                                    width="230px"
+                                    width="100%"
                                     error={errors.account_number}
                                     touched={touched.account_number}
                                     handleBlur={setFieldTouched}
