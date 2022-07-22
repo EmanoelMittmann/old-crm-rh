@@ -4,12 +4,9 @@ import { useHistory } from "react-router-dom"
 import { useDispatch } from 'react-redux'
 import GoogleLogin from 'react-google-login'
 import { toast } from 'react-toastify'
-
 import { LocalStorageKeys } from '../../../settings/LocalStorageKeys'
 import { userTypes } from '../../../models/userTypes'
-
 import { loggingIn } from "../../../redux/actions"
-
 import DarkButton from '../../atoms/Buttons/DarkButton/style.js'
 import ExpiresToast from '../../atoms/Toast/ExpiresToast.js'
 import LogoUbistart from '../../../components/atoms/LogoUbistart'
