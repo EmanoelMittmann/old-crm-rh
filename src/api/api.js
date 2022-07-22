@@ -2,7 +2,7 @@ import axios from "axios"
 import { LocalStorageKeys } from "../settings/LocalStorageKeys"
 
 const api = axios.create({
-    baseURL: 'http://127.0.0.1:3333',
+    baseURL: 'https://ubistart-rh-backend.herokuapp.com',
 })
 
 api.interceptors.request.use((config) => {
