@@ -15,44 +15,44 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
 
     const fixedSalaryAmount = createNumberMask({
         prefix: 'R$',
-        suffix: ',00' ,
+        suffix: ',00',
         thousandsSeparatorSymbol: '.'
     })
 
-    const { values, handleChange, setFieldValue, errors, touched, setFieldTouched} = data
+    const { values, handleChange, setFieldValue, errors, touched, setFieldTouched } = data
 
-    
+
     const [componentJustRenderedCommission, setComponentJustRenderedComission] = useState(false);
-    
+
     useEffect(() => {
         setComponentJustRenderedComission(true)
     }, [])
 
-    
+
 
     const limitAllowed = {
-        ...(componentJustRenderedCommission && values.commission === 1 && {checked: true})
+        ...(componentJustRenderedCommission && values.commission === 1 && { checked: true })
     }
 
     const limitNotAllowed = {
-        ...(componentJustRenderedCommission && (values === undefined || values.commission === 0) && {checked: true})
+        ...(componentJustRenderedCommission && (values === undefined || values.commission === 0) && { checked: true })
     }
-   
-    
+
+
     function handleType(e) {
-        if(e.target.value === "FULLTIME"){
+        if (e.target.value === "FULLTIME") {
             setFieldValue('job_type', e.target.value)
             setFieldValue('weekly_hours', 40)
             setFieldValue('mounth_hours', 160)
         }
-        if(e.target.value === "PARTTIME"){
+        if (e.target.value === "PARTTIME") {
             setFieldValue('job_type', e.target.value)
-            setFieldValue('weekly_hours',20)
+            setFieldValue('weekly_hours', 20)
             setFieldValue('mounth_hours', 80)
         }
-        if(e.target.value === "FREELANCER"){
+        if (e.target.value === "FREELANCER") {
             setFieldValue('job_type', e.target.value)
-            setFieldValue('weekly_hours',0)
+            setFieldValue('weekly_hours', 0)
             setFieldValue('mounth_hours', 0)
         }
         return true
@@ -100,7 +100,7 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
                     width="100%"
                     options={typeOptions}
                     value={values.job_type}
-                    padding="0em 0 0 1em" 
+                    padding="0em 0 0 1em"
                     lineWidth="30%"
                 />
                 <InputWithLabel
@@ -113,7 +113,7 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
                     touched={touched.weekly_hours}
                     handleBlur={setFieldTouched}
                     name="weekly_hours"
-                    padding="0em 0 0 1em" 
+                    padding="0em 0 0 1em"
                 />
                 <InputWithLabel
                     onChange={handleChange('mounth_hours')}
@@ -126,7 +126,7 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
                     handleBlur={setFieldTouched}
                     name="mounth_hours"
                     widthContainer="20%"
-                    padding="0em 0 0 1em" 
+                    padding="0em 0 0 1em"
                 />
                 <InputMasked
                     mask={fixedSalaryAmount}
@@ -138,42 +138,42 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
                     error={errors.fixed_payment_value}
                     touched={touched.fixed_payment_value}
                     width="100%"
-                    padding="0em 0 0 1em"  
+                    padding="0em 0 0 1em"
                     widthContainer="30%"
                     handleBlur={setFieldTouched}
                 />
-             </EmploymentContractInputs>
+            </EmploymentContractInputs>
 
-             <Commissioncontract>Comissão</Commissioncontract>
+            <Commissioncontract>Comissão</Commissioncontract>
             <FullcCommissionAllowance onChange={(e) => {
-                       e.target.value === 'limitComission' ? setFieldValue('commission', 1) : setFieldValue('commission', 0)
-                       setComponentJustRenderedComission(false)
-                    }}>
-            <CommissionApproval>
-                <ContainerCommission>
-                            <InputRadio
-                                {...limitAllowed}
-                                type="radio"
-                                name="Commission"
-                                value="limitComission"
-                                id="limitComission"
-                            />
-                            <LabelInputRadio for="limitComission"> Sim </LabelInputRadio>
-                        </ContainerCommission>
+                e.target.value === 'limitComission' ? setFieldValue('commission', 1) : setFieldValue('commission', 0)
+                setComponentJustRenderedComission(false)
+            }}>
+                <CommissionApproval>
+                    <ContainerCommission>
+                        <InputRadio
+                            {...limitAllowed}
+                            type="radio"
+                            name="Commission"
+                            value="limitComission"
+                            id="limitComission"
+                        />
+                        <LabelInputRadio for="limitComission"> Sim </LabelInputRadio>
+                    </ContainerCommission>
 
-                        <ContainerCommission>
-                            <InputRadio
-                                {...limitNotAllowed}
-                                margin="0 0 0 3em"
-                                type="radio"
-                                name="Commission"
-                                value="nolimitComission"
-                                id="nolimitComission"
-                            />
-                            <LabelInputRadio for="nolimitComission"> Não </LabelInputRadio>
-                        </ContainerCommission>
-                    </CommissionApproval>
-                </FullcCommissionAllowance>
+                    <ContainerCommission>
+                        <InputRadio
+                            {...limitNotAllowed}
+                            margin="0 0 0 3em"
+                            type="radio"
+                            name="Commission"
+                            value="nolimitComission"
+                            id="nolimitComission"
+                        />
+                        <LabelInputRadio for="nolimitComission"> Não </LabelInputRadio>
+                    </ContainerCommission>
+                </CommissionApproval>
+            </FullcCommissionAllowance>
         </ContainerEmploymentContract>
     )
 }
