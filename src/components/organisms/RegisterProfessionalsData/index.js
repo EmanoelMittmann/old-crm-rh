@@ -12,7 +12,7 @@ import SecondaryText from '../../atoms/SecondaryText/style'
 import InputWithLabel from '../../atoms/InputWithLabel/index.js'
 import InputSelect from '../../atoms/InputSelect/index.js'
 import InputMasked from '../../atoms/InputMasked/index.js'
-import InputBank from '../../atoms/InputBank/index.js'
+import SelectBank from '../../atoms/SelectBank/index.js'
 import { useEffect } from 'react'
 
 const optionsUF = [
@@ -377,7 +377,7 @@ const RegisterProfessionalsData = ({ data }) => {
                         <SecondaryText margin="0 0 2em 0">Dados bancários</SecondaryText>
                         <ContainerRowBank>
                             <SecondaryText margin="0 0 2em 0">Banco
-                                <InputBank
+                                <SelectBank
                                     value={values.professional_data.bank}
                                     onChange={handleChange('professional_data.bank')}
                                     placeHolder="Escolha o Banco"
