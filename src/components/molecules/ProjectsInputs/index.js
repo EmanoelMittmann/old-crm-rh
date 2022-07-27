@@ -115,8 +115,6 @@ export const ProjectsInputs = () => {
             dispatch(setProjectList(data.data));
             dispatch(projectsPages(data.meta))
 
-
-            //  console.log(data)
         } catch (error) {
         }
     }

@@ -57,13 +57,15 @@ const RegisterProfessional = () => {
         birth_date: Yup.string().required(messages.required),
         cnpj: Yup.string().required(messages.required).min(18, 'CNPJ Inválido'),
         razao_social: Yup.string().required(messages.required),
-        cep: Yup.string().required(messages.required).min(9, 'CEP Inválido').test('CEP válido', 'CEP não encontrado', () => {
-            if(values.cep.length === 9 && values.cep !== uniqueCEP) {
-                    setUniqueCEP(values.cep)
-                    handleCEP(values.cep)
-            }
-            return true
-        }),
+        cep: Yup.string().required(messages.required).min(4-9, 'CEP Inválido').test('CEP válido', 'CEP não encontrado', () => {
+                if(values.cep.length === 9 && values.cep !== uniqueCEP && values.country == "Brazil") {
+                        setUniqueCEP(values.cep)
+                        handleCEP(values.cep)
+                }
+                handleCEP(values.cep)
+                return true
+            }),
+
         street_name: Yup.string().required(messages.required),
         house_number: Yup.number().required(messages.required),
         complement: Yup.string(),
@@ -98,6 +100,7 @@ const RegisterProfessional = () => {
             complement: '',
             neighbourhood_name: '',
             city_name: '',
+            country:'',
             uf: '',
             telephone_number: cleanMask(''),
             email: '',
@@ -161,7 +164,7 @@ const RegisterProfessional = () => {
         isValidating: false,
         enableReinitialize: true
     })
-    const { values, handleChange, setFieldValue, setErrors} = formik
+    const { values, handleChange, setFieldValue, setFieldError, setErrors} = formik
 
     const handleCEP =  async (cep) => {
        await axios.get(`https://viacep.com.br/ws/${cep}/json/`, 
@@ -170,6 +173,7 @@ const RegisterProfessional = () => {
                 return data
             }})
             .then(data => {
+                if(data.data.erro) return setFieldError("cep","Cep Invalido!")
                 const { bairro, localidade, logradouro, uf } = data.data
                 if(localidade) setFieldValue('city_name', localidade)
                 if(uf) setFieldValue('uf', uf)
@@ -378,23 +382,7 @@ const RegisterProfessional = () => {
             </RegisterProfessionalTitleContainer>
             <RegisterProfessionalContainer>
                 <form id="professional" onSubmit={formik.handleSubmit}>
-                    <RegisterProfessionalsData data={formik} />
-                    <ContainerProfessionalsLoginData>
-                        <SecondaryText margin="0 0 2em 0">Dados de login</SecondaryText>
-                        <InputWithLabel
-                            name="email"
-                            padding="0 2em 0 0"
-                            error={formik.errors.email}
-                            touched={formik.touched.email}
-                            handleBlur={formik.setFieldTouched}
-                            onChange={handleChange('email')}
-                            width="100%"
-                            widthContainer="45%"
-                            label="E-mail G Suit"
-                            value={values.email}
-                            type="email"
-                        />
-                    </ContainerProfessionalsLoginData>
+                    <RegisterProfessionalsData data={formik}/>
                     <EmploymentContract data={formik} jobs={jobs} occupations={occupations} />
                     <ProfessionalsExtraHour
                         extraHour={extraHour}
