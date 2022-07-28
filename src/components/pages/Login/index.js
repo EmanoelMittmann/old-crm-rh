@@ -4,12 +4,9 @@ import { useHistory } from "react-router-dom"
 import { useDispatch } from 'react-redux'
 import GoogleLogin from 'react-google-login'
 import { toast } from 'react-toastify'
-
 import { LocalStorageKeys } from '../../../settings/LocalStorageKeys'
 import { userTypes } from '../../../models/userTypes'
-
 import { loggingIn } from "../../../redux/actions"
-
 import DarkButton from '../../atoms/Buttons/DarkButton/style.js'
 import ExpiresToast from '../../atoms/Toast/ExpiresToast.js'
 import LogoUbistart from '../../../components/atoms/LogoUbistart'
@@ -23,7 +20,7 @@ export const Login = () => {
 
      const accessLogin = async (googleData) => {
         const api = axios.create({
-            baseURL: 'http://localhost:3333',
+            baseURL: 'https://ubistart-rh-backend.herokuapp.com',
             headers:{ 
                 "Content-Type":"application/json",
                 }
@@ -87,7 +84,7 @@ export const Login = () => {
             <Column2>
             <TitleLogin>Faça seu login</TitleLogin>
                 <GoogleLogin
-                    clientId="315430315500-t5r6lcd2f9ma1ahlbdvuk9v1jf7mus0o.apps.googleusercontent.com"
+                    clientId="201717717152-mf8l6h5bgdmvc336k1valsflre7gifgv.apps.googleusercontent.com"
                     render={renderProps => (
                         <DarkButton 
                             fontSize="16px" 
