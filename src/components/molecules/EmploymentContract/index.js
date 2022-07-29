@@ -1,6 +1,5 @@
-import { useState, useEffect } from 'react'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
-
+import React, { useEffect, useState } from 'react'
 import SecondaryText from '../../atoms/SecondaryText/style.js'
 import InputMasked from '../../atoms/InputMasked'
 import InputSelect from '../../atoms/InputSelect/index.js'
@@ -19,9 +18,7 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
         thousandsSeparatorSymbol: '.'
     })
 
-    const { values, handleChange, setFieldValue, errors, touched, setFieldTouched } = data
-
-
+    const { values, handleChange, setFieldValue, errors, touched, setFieldTouched} = data
     const [componentJustRenderedCommission, setComponentJustRenderedComission] = useState(false);
 
     useEffect(() => {
@@ -29,15 +26,14 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
     }, [])
 
 
-
     const limitAllowed = {
-        ...(componentJustRenderedCommission && values.commission === 1 && { checked: true })
+        ...(componentJustRenderedCommission && values.commission === 1 && {checked: true})
     }
 
     const limitNotAllowed = {
-        ...(componentJustRenderedCommission && (values === undefined || values.commission === 0) && { checked: true })
+        ...(componentJustRenderedCommission && (values === undefined || values.commission === 0) && {checked: true})
     }
-
+    
 
     function handleType(e) {
         if (e.target.value === "FULLTIME") {
@@ -141,39 +137,41 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
                     padding="0em 0 0 1em"
                     widthContainer="30%"
                     handleBlur={setFieldTouched}
-                />
+                />                
+
             </EmploymentContractInputs>
 
             <Commissioncontract>Comissão</Commissioncontract>
             <FullcCommissionAllowance onChange={(e) => {
-                e.target.value === 'limitComission' ? setFieldValue('commission', 1) : setFieldValue('commission', 0)
-                setComponentJustRenderedComission(false)
-            }}>
-                <CommissionApproval>
-                    <ContainerCommission>
-                        <InputRadio
-                            {...limitAllowed}
-                            type="radio"
-                            name="Commission"
-                            value="limitComission"
-                            id="limitComission"
-                        />
-                        <LabelInputRadio for="limitComission"> Sim </LabelInputRadio>
-                    </ContainerCommission>
 
-                    <ContainerCommission>
-                        <InputRadio
-                            {...limitNotAllowed}
-                            margin="0 0 0 3em"
-                            type="radio"
-                            name="Commission"
-                            value="nolimitComission"
-                            id="nolimitComission"
-                        />
-                        <LabelInputRadio for="nolimitComission"> Não </LabelInputRadio>
-                    </ContainerCommission>
-                </CommissionApproval>
-            </FullcCommissionAllowance>
+                       e.target.value === 'limitComission' ? setFieldValue('commission', 1) : setFieldValue('commission', 0)
+                       setComponentJustRenderedComission(false)
+                    }}>
+            <CommissionApproval>
+                <ContainerCommission>
+                            <InputRadio
+                                {...limitAllowed}
+                                type="radio"
+                                name="Commission"
+                                value="limitComission"
+                                id="limitComission"
+                            />
+                            <LabelInputRadio for="limitComission"> Sim </LabelInputRadio>
+                        </ContainerCommission>
+
+                        <ContainerCommission>
+                            <InputRadio
+                                {...limitNotAllowed}
+                                margin="0 0 0 3em"
+                                type="radio"
+                                name="Commission"
+                                value="nolimitComission"
+                                id="nolimitComission"
+                            />
+                            <LabelInputRadio for="nolimitComission"> Não </LabelInputRadio>
+                        </ContainerCommission>
+                    </CommissionApproval>
+                </FullcCommissionAllowance>
         </ContainerEmploymentContract>
     )
 }
