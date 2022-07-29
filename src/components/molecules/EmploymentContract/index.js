@@ -1,13 +1,13 @@
-import { useState } from 'react'
-import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 
+import createNumberMask from 'text-mask-addons/dist/createNumberMask'
+import React, { useEffect, useState } from 'react'
 import SecondaryText from '../../atoms/SecondaryText/style.js'
 import InputMasked from '../../atoms/InputMasked'
 import InputSelect from '../../atoms/InputSelect/index.js'
 import InputWithLabel from '../../atoms/InputWithLabel'
 import { LabelInputRadio } from '../../atoms/InputRadio/style.js'
 import { InputRadio } from '../../atoms/InputRadio/style.js'
-import { ContainerEmploymentContract, EmploymentContractInputs, ContainerCommission, Commissioncontract, LimitOvertime, } from './style'
+import { ContainerEmploymentContract, EmploymentContractInputs, ContainerCommission, Commissioncontract, FullcCommissionAllowance, CommissionApproval } from './style'
 
 import { typeOptions } from '../../pages/RegisterProfessional/optionsType'
 
@@ -18,17 +18,23 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
         suffix: ',00' ,
         thousandsSeparatorSymbol: '.'
     })
-    const [componentJustRendered, setComponentJustRendered] = useState(false);
+
+    const { values, handleChange, setFieldValue, errors, touched, setFieldTouched} = data
+
+    const [componentJustRenderedCommission, setComponentJustRenderedComission] = useState(false);
+    useEffect(() => {
+        setComponentJustRenderedComission(true)
+    }, [])
+
+    
 
     const limitAllowed = {
-        ...(componentJustRendered && values.limited_commission === 1 && {checked: true})
+        ...(componentJustRenderedCommission && values.commission === 1 && {checked: true})
     }
 
     const limitNotAllowed = {
-        ...(componentJustRendered && (values === undefined || values.limited_commission === 0) && {checked: true})
+        ...(componentJustRenderedCommission && (values === undefined || values.commission === 0) && {checked: true})
     }
-
-    const { values, handleChange, setFieldValue, errors, touched, setFieldTouched} = data
     
     function handleType(e) {
         if(e.target.value === "FULLTIME"){
@@ -132,11 +138,15 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
                     padding="0em 0 0 1em"  
                     widthContainer="30%"
                     handleBlur={setFieldTouched}
-                />
-             </EmploymentContractInputs>
+                />                
+            </EmploymentContractInputs>
 
-           <Commissioncontract>Comissão</Commissioncontract>
-            <LimitOvertime>       
+            <Commissioncontract>Comissão</Commissioncontract>
+            <FullcCommissionAllowance onChange={(e) => {
+                       e.target.value === 'limitComission' ? setFieldValue('commission', 1) : setFieldValue('commission', 0)
+                       setComponentJustRenderedComission(false)
+                    }}>
+            <CommissionApproval>
                 <ContainerCommission>
                             <InputRadio
                                 {...limitAllowed}
@@ -147,7 +157,7 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
                             />
                             <LabelInputRadio for="limitComission"> Sim </LabelInputRadio>
                         </ContainerCommission>
-                    
+
                         <ContainerCommission>
                             <InputRadio
                                 {...limitNotAllowed}
@@ -159,7 +169,8 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
                             />
                             <LabelInputRadio for="nolimitComission"> Não </LabelInputRadio>
                         </ContainerCommission>
-                    </LimitOvertime> 
+                    </CommissionApproval>
+                </FullcCommissionAllowance>
         </ContainerEmploymentContract>
     )
 }
