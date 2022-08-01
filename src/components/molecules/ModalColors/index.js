@@ -115,7 +115,6 @@ const ModalColors = () => {
             return error
         }
     }
-    console.log(state.status);
 
     const saveButtonClickHandler = (e) => {
         if (value.length === 0) return
