@@ -10,7 +10,7 @@ import { ContainerEmploymentContract, EmploymentContractInputs, ContainerCommiss
 
 import { typeOptions } from '../../pages/RegisterProfessional/optionsType'
 
-const EmploymentContract = ({ data, jobs, occupations }) => {
+const EmploymentContract = ({ data, jobs}) => {
 
     const fixedSalaryAmount = createNumberMask({
         prefix: 'R$',
@@ -27,11 +27,11 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
 
 
     const limitAllowed = {
-        ...(componentJustRenderedCommission && values.commission === 1 && {checked: true})
+        ...(componentJustRenderedCommission && values.commission === true && {checked: true})
     }
 
     const limitNotAllowed = {
-        ...(componentJustRenderedCommission && (values === undefined || values.commission === 0) && {checked: true})
+        ...(componentJustRenderedCommission && (values === undefined || values.commission === false) && {checked: true})
     }
     
 
@@ -53,6 +53,9 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
         }
         return true
     }
+    useEffect(() => {
+        console.log(values)
+    },[values])
 
     return (
         <ContainerEmploymentContract>
@@ -77,16 +80,8 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
                     options={jobs}
                     placeHolder="Cargo"
                     width="100%"
-                    lineWidth="30%"
+                    lineWidth="50%"
                     margin="0 2em 0 0"
-                />
-                <InputSelect
-                    onChange={handleChange('occupation_id')}
-                    value={values.occupation_id}
-                    options={occupations}
-                    placeHolder="Função"
-                    width="100%"
-                    lineWidth="30%"
                 />
             </EmploymentContractInputs>
             <EmploymentContractInputs>
@@ -97,12 +92,12 @@ const EmploymentContract = ({ data, jobs, occupations }) => {
                     options={typeOptions}
                     value={values.job_type}
                     padding="0em 0 0 1em"
-                    lineWidth="30%"
+                    lineWidth="40%"
                 />
                 <InputWithLabel
                     onChange={handleChange('weekly_hours')}
                     value={values.weekly_hours}
-                    widthContainer="20%"
+                    widthContainer="30%"
                     label="Horas/semana"
                     type="number"
                     error={errors.weekly_hours}
