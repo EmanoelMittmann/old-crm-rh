@@ -13,6 +13,7 @@
     "filesize": "^8.0.7",
     "formik": "^2.2.9",
     "history": "4.10.1",
+    "jwt-decode": "^3.1.2",
     "lodash.differenceby": "^4.8.0",
     "qs": "^6.10.1",
     "react": "^17.0.2",
