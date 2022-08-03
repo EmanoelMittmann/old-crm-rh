@@ -62,7 +62,6 @@ export const Login = () => {
       console.log(error.message);
     }
   };
-
   const handlePushCredentialInGoogle = () => {
     try {
       window.google.accounts.id.initialize({

@@ -1,19 +1,23 @@
+import { LocalStorageKeys } from "../../settings/LocalStorageKeys"
+
 import { VALIDTOKEN } from "../types"
 
-const inicialState = false;
+const inicialState = false
 
 const authentication = (state = inicialState, action) => {
-    const {type, payload} = action;
+    const {type, payload} = action
     
     switch (type) {
         case VALIDTOKEN:
-            const token = JSON.stringify(payload.token)
-            localStorage.setItem('token', token)
-
-        return payload;
+            const token = JSON.stringify(payload.token.token)
+            const user = JSON.stringify(payload.user)
+            localStorage.setItem(LocalStorageKeys.TOKEN, token)
+            localStorage.setItem(LocalStorageKeys.USER, user)
+                   
+        return payload
         default:
-            return state;
+            return state
     }
 }
 
-export default authentication;
+export default authentication

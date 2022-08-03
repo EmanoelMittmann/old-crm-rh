@@ -580,21 +580,28 @@ const SettingsIconContainer = styled.div`
   }
 `;
 
+const handleIsSettings = {
+  projectStatus: true,
+  job: true,
+  projectType: true,
+  occupation: true
+}
+
 export const SettingsIcon = () => {
   const location = useLocation();
   const state = useSelector(state => state.headerMenu[7]);
   const displayDescription = state.descriptionIsAppearing ? "flex" : "none";
-  const url = location.pathname;
+  const url = location.pathname.slice(1);
 
- const isSettings = url === '/projectStatus' || url === '/job' ||
- url === '/projectType' ? true : false
+  const isSettings = handleIsSettings[url] || false
 
     return (
-        <SettingsIconContainer 
+      <SettingsIconContainer 
         isSettings={isSettings}
-        hover={displayDescription}>
-            <Settings/>
-        </SettingsIconContainer>
+        hover={displayDescription}
+      >
+        <Settings/>
+      </SettingsIconContainer>
     )
 };
 

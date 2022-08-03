@@ -38,4 +38,8 @@ export const OptionsMenuItem = styled.button`
     font-weight: 500;
     color: black;
     cursor: pointer;
+
+    &:hover{
+        backdrop-filter: brightness(0.98);  
+    }
 `

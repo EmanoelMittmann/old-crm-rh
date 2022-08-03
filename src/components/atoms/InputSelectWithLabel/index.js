@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { InputLine } from '../../atoms/DefaultInput/style'
 import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg'
@@ -10,22 +10,28 @@ import {
     InputSelectOptionPlaceholder,
 } from '../InputSelect/style.js'
 
-const InputSelect = ({setSelectedOption, options, placeholder, width, lineWidth, label, reset}) => {
+const InputSelectWithLabel = ({setSelectedOption, options, placeholder, width, lineWidth, label, reset}) => {
     return ( 
         <InputLine width={lineWidth}>
             {label && <Label>{label}</Label>}
-            <InputSelectContainer width={width} onChange={(e) => setSelectedOption(e.target.value)}>
-                {reset && 
+            <InputSelectContainer width={width} onChange={setSelectedOption}>
+                { reset && 
                     <InputSelectOptionPlaceholder
-                    value={placeholder}
-                    disabled selected>
+                        value={placeholder}
+                        selected
+                    >
                         { placeholder }
                     </InputSelectOptionPlaceholder>
                 }
-                {options.map(option => (
-                    <InputSelectOption value={option.id}>
-                    { option.name }
+                { !options.length ? 
+                    <InputSelectOption disabled>
+                        Sem { placeholder }
                     </InputSelectOption>
+                    :
+                    options.map(option => (
+                        <InputSelectOption key={option.id} value={option.id}>
+                            { option.name }
+                        </InputSelectOption>
                 ))}
             </InputSelectContainer>
             <Img src={arrowPointingDown} alt="Lupa"/>
@@ -33,4 +39,4 @@ const InputSelect = ({setSelectedOption, options, placeholder, width, lineWidth,
     )
 }
 
-export default InputSelect;
+export default InputSelectWithLabel

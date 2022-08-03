@@ -9,7 +9,8 @@ import {
     settingsPages,
     setProjectTypeList,
     setFilterStatus,
-    setSearchName
+    setSearchName,
+    setOccupationList
 } from '../../../redux/actions/index.js'
 import api from '../../../api/api.js'
 import InputSearch from '../../atoms/InputSearch'
@@ -36,12 +37,10 @@ export const SettingsInputs = () => {
         if(state.filterOrder !== "" && searchResult !== "") params.orderField = 'name'
 
         if(state.filterOrder !== "" && searchResult !== "") params.order = state.filterOrder
-
     }
 
 
     const filterStatus = async () => {
-        
         try {
             handleFilterRequest()
 
@@ -54,12 +53,12 @@ export const SettingsInputs = () => {
             if(location.pathname === "/job") dispatch(setJobList(data.data));
             if(location.pathname === "/projectStatus") dispatch(setStatusList(data.data))
             if(location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
+            if(location.pathname === "/occupation") dispatch(setOccupationList(data.data))
+
             dispatch(settingsPages(data.meta));
 
         } catch (err){
-            if(err.request.status === 401){
-                history.push("/");
-            }
+           return err.message
         }
     }
 
@@ -73,15 +72,13 @@ export const SettingsInputs = () => {
             name: "Todos",
             id: ""
         },
-
         {
             name: "Ativo",
             id: 1,
         },
-
         {
             name: "Inativo",
-            id: 0
+            id: '0'
         }
    ]
 
@@ -99,13 +96,11 @@ export const SettingsInputs = () => {
             if(location.pathname === "/job") dispatch(setJobList(data.data));
             if(location.pathname === "/projectStatus") dispatch(setStatusList(data.data))
             if(location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
+            if(location.pathname === "/occupation") dispatch(setOccupationList(data.data))
             dispatch(settingsPages(data.meta));
-          
 
         }catch(err){
-            if(err.request.status === 401){
-                history.push("/");
-            }
+           return err.message
         }
     }
     
@@ -117,15 +112,15 @@ export const SettingsInputs = () => {
     return (
         <SettingsInputsContainer>
             <InputSearch 
-            lineWidth="250px" 
-            inputWidth="200px" 
-            setSearchResult={setSearchResult}
+                lineWidth="250px" 
+                inputWidth="200px" 
+                setSearchResult={setSearchResult}
             />
             <InputSelect
-            options={settingsFilterStatusOptions}
-            setSelectedOption={setSelectedOption}
-            placeholder="Status"
-            width="220px"
+                options={settingsFilterStatusOptions}
+                onChange={e => setSelectedOption(e.target.value)}
+                placeHolder="Status"
+                width="220px"
             />
         </SettingsInputsContainer>
     )

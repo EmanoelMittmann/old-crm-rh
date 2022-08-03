@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom"
 
-import api from '../../../api/api.js';
+import api from '../../../api/api.js'
 import { Container, Main, ContainerFilterJob, SettingsSectionFooterContainer } from './style.js'
 import { SettingsInputs } from '../../molecules/SettingsInputs/index.js'
 import SecondaryText from '../../atoms/SecondaryText/style.js'
@@ -12,42 +12,47 @@ import SettingsListHeader from '../../atoms/SettingsListHeader'
 import SettingsListItem from '../../molecules/SettingsListItem'
 import Footer from '../Footer'
 import Modal from '../../molecules/Modal'
-import ModalColors from '../../molecules/ModalColors/index.js';
+import ModalColors from '../../molecules/ModalColors/index.js'
 import {
     openModal,
     modalRegisterOpen,
     setJobList,
     setStatusList,
     setProjectTypeList,
-    settingsPages 
+    settingsPages,
+    setOccupationList
 }
 from '../../../redux/actions'
 
+const handleDisplayTitle = {
+    job: 'Cadastro de Cargos',
+    projectStatus: 'Cadastro de Status do Projeto',
+    projectType: 'Cadastro de Tipos de Projeto',
+    occupation: 'Cadastro de Novas Funções'
+}
 
 export const SettingsSection = () => {
     const dispatch = useDispatch()
-    const location = useLocation();
+    const location = useLocation()
     const state = useSelector(state => state)
+    let path = location.pathname.slice(1);
 
     const displayTitle = route => {
-        if(route === "/job") return  "Cadastro de cargos"
-        if(route === "/projectStatus") return "Cadastro de status do projeto"
-        if(route === "/projectType") return "Cadastro de Tipo de Projeto"
+        return handleDisplayTitle[route]
     }
 
     const modelVisibility = state.modelVisibility
     const token = state.authentication.token
-    const jobList = state.jobs;
+    const jobList = state.jobs
     const lastPage = state.settingsPagesFilter.last_page
     const currentPage = state.settingsPagesFilter.current_page
     const firstPage = state.settingsPagesFilter.first_page
-    let params = {};
+    let params = {}
 
     const registerJobClickHandler = () => {
         dispatch(modalRegisterOpen())
         dispatch(openModal())
-    };
-
+    }
 
     const handleFilterRequest = (pagesFilter) => {
         if(pagesFilter === "previous") params.page = `${
@@ -75,17 +80,16 @@ export const SettingsSection = () => {
             method:'get',     
             url: `${location.pathname}`,
             params: params
-        }); 
+        }) 
 
-        if(location.pathname === "/job") dispatch(setJobList(data.data));
+        if(location.pathname === "/job") dispatch(setJobList(data.data))
         if(location.pathname === "/projectStatus") dispatch(setStatusList(data.data))
         if(location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
-        dispatch(settingsPages(data.meta));
+        if(location.pathname === "/occupation") dispatch(setOccupationList(data.data))
+        dispatch(settingsPages(data.meta))
         
-        return data;
+        return data
     }
-
-
 
     const previousPage = async () => {
 
@@ -95,40 +99,44 @@ export const SettingsSection = () => {
             method:'get',     
             url:`${location.pathname}`,
             params: params
-        }); 
+        }) 
     
-        if(location.pathname === "/job") dispatch(setJobList(data.data));
+        if(location.pathname === "/job") dispatch(setJobList(data.data))
         if(location.pathname === "/projectStatus") dispatch(setStatusList(data.data))
         if(location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
-        dispatch(settingsPages(data.meta));
+        if(location.pathname === "/occupation") dispatch(setOccupationList(data.data))
+        dispatch(settingsPages(data.meta))
     
-        return data;
+        return data
     }
-
 
     return (
         <Container>
-                <Main>
-                    <SecondaryText margin="2em 0 2em 0">
-                        {displayTitle(location.pathname)}
-                    </SecondaryText>
-                    <ContainerFilterJob>
-                        <SettingsInputs/>
-                        <DarkButton width="180px" height="40" fontSize="15px"
-                        onClick={() => registerJobClickHandler()}>
-                            Cadastrar novo
-                        </DarkButton>
-                    </ContainerFilterJob>
-                    <SettingsListHeader/>   
-                     <SettingsListItem/>
-                </Main>
+            <Main>
+                <SecondaryText margin="2em 0 2em 0">
+                    {displayTitle(path)}
+                </SecondaryText>
+                <ContainerFilterJob>
+                    <SettingsInputs/>
+                    <DarkButton 
+                        width="180px" 
+                        height="40" 
+                        fontSize="15px"
+                        onClick={() => registerJobClickHandler()}
+                    >
+                        Cadastrar novo
+                    </DarkButton>
+                </ContainerFilterJob>
+                <SettingsListHeader />   
+                <SettingsListItem />
+            </Main>
             <SettingsSectionFooterContainer>
                 <Footer
-                previousPage={previousPage}
-                nextPage={nextPage}
-                lastPage={lastPage}
-                currentPage={currentPage}
-                firstPage={firstPage}
+                    previousPage={previousPage}
+                    nextPage={nextPage}
+                    lastPage={lastPage}
+                    currentPage={currentPage}
+                    firstPage={firstPage}
                 />
             </SettingsSectionFooterContainer>
             {modelVisibility && location.pathname !== "/projectStatus" && <Modal/>}

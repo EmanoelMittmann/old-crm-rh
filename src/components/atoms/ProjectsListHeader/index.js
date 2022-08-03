@@ -1,5 +1,4 @@
 import React from 'react'
-
 import {
     ListHeaderProjeto,
     ListHeaderType,
@@ -10,36 +9,38 @@ import {
 import { ListHeaderContainer, ListHeaderTitle } from '../ListHeader/style'
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
 
-const ProjectsListHeader = () => {
+const fields = {
+    NAME: 'name',
+    DATA_START: 'date_start',
+}
+
+const ProjectsListHeader = ({ fnOrder }) => {
+
     return (
         <ListHeaderContainer>
-
             <ListHeaderProjeto>
-                <ListHeaderTitle>Projeto</ListHeaderTitle>
-                <Arrows/>
+                <ListHeaderTitle onClick={() => fnOrder(fields.NAME)}>Projeto</ListHeaderTitle>
+                <Arrows onClick={() => fnOrder(fields.NAME)}/>
             </ListHeaderProjeto>
 
             <ListHeaderType>
                 <ListHeaderTitle>Tipo</ListHeaderTitle>
-                <Arrows/>
             </ListHeaderType>
 
             <ListHeaderBeginning>
-                <ListHeaderTitle>Início</ListHeaderTitle>
-                <Arrows/>
+                <ListHeaderTitle onClick={()=> fnOrder(fields.DATA_START)}>Início</ListHeaderTitle>
+                <Arrows onClick={() => fnOrder(fields.DATA_START)}/>
             </ListHeaderBeginning>
 
             <ListHeaderTime>
-                <ListHeaderTitle>Time</ListHeaderTitle>
-                <Arrows/>
+                <ListHeaderTitle margin="0">Time</ListHeaderTitle>
             </ListHeaderTime>
 
             <ListHeaderStatus>
                 <ListHeaderTitle>Status</ListHeaderTitle>
-                <Arrows/>
             </ListHeaderStatus>
         </ListHeaderContainer>
     )
 }
 
-export default ProjectsListHeader;
+export default ProjectsListHeader

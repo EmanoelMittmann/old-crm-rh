@@ -1,11 +1,12 @@
-import axios from "axios";
+import axios from "axios"
+import { LocalStorageKeys } from "../settings/LocalStorageKeys"
 
 const api = axios.create({
-    baseURL: 'http://localhost:3333',
+    baseURL: 'https://ubistart-rh-backend.herokuapp.com',
 })
 
 api.interceptors.request.use((config) => {
-    const token = JSON.parse(localStorage.getItem('token'))
+    const token = JSON.parse(localStorage.getItem(LocalStorageKeys.TOKEN))
     const auth = token ? `Bearer ${token}` : '';
     config.headers.common['Authorization'] = auth
     return config
@@ -13,4 +14,18 @@ api.interceptors.request.use((config) => {
     //@TODO - Fazer redirecionamento correto
 )
 
-export default api;
+api.interceptors.response.use(
+    function (response) {
+      return response
+    },
+    function (error) {
+      if (error?.response?.status === 401 || error?.response?.status === 403) {
+        localStorage.removeItem(LocalStorageKeys.TOKEN)
+        localStorage.removeItem(LocalStorageKeys.USER)
+        window.location.href = '/'
+      }
+      return Promise.reject(error)
+    }
+)
+
+export default api

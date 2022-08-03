@@ -1,7 +1,4 @@
 import React from 'react'
-
-import api from '../../../api/api.js'
-import { setJobList, setStatusList, setSearchName, settingsPages, setProjectList } from '../../../redux/actions/index.js'
 import { DefaultInput, InputLine } from '../DefaultInput/style.js'
 import { Img } from './style.js'
 import SearchIcon from '../../../assets/icons/search.svg'

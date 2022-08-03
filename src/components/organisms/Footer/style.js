@@ -30,8 +30,16 @@ export const LeftArrowContainer = styled.i`
         transform: rotate(-180deg);
     }
 
+    &:hover {
+        cursor: pointer;
+    }
+    
 `
 
 export const RightArrowContainer = styled.i`
     display: block;
+
+    &:hover {
+        cursor: pointer;
+    }
 `

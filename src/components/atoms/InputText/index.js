@@ -1,14 +1,14 @@
 import React from 'react'
 import { DefaultInput, InputLine } from '../DefaultInput/style.js'
 
-const InputText = ({setTextValue, editValue, width, widthLine, placeholder, value, type}) => {
+const InputText = ({onChange, editValue, width, widthLine, placeholder, value, type, margin,invalid}) => {
 
     return (
-            <InputLine width={widthLine}>
-
+            <InputLine borderColor={invalid === true && "red"}  width={widthLine} margin={margin}>
                 <DefaultInput
                 value={value}
-                onChange={(e) => setTextValue(e.target.value)}
+                placeholderColor={invalid === true && "red"}
+                onChange={onChange}
                 type={type ? type : "text"}
                 defaultValue={editValue}
                 width={width}

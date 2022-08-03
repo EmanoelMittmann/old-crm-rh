@@ -18,13 +18,25 @@ import {
     EDITJOBCLICKED,
     EDITSTATUSCLICKED,
     EDITPROJECTTYPECLICKED,
+    EDITOCCUPATIONCLICKED,
     SETSETTINGSPAGES,
     SETSEARCHNAME,
+    SETSEARCHNAMEPROJECT,
     SETFILTERSTATUS,
     RESETCURRENTPAGE,
     RESETFILTERSTATUS,
     SETFILTERORDER,
-    SETSTATUSCOLORS
+    SETPROJECTSPAGES, 
+    RESETCURRENTPAGEPROJECT,
+    SETFILTERORDERPROJECTS,
+    SETFILTERSTATUSPROJECTS,
+    SETSTATUSCOLORS,
+    SETPROJECTTYPELISTPROJECTS,
+    SETSTATUSLISTPROJECTS,
+    SETFILTERTYPESPROJECTS,
+    SETPROJECTLISTPROJECTS,
+    SETOCCUPATIONLIST,
+    OCCUPATIONOPTIONCLICKED
 } from '../types'
 
 export const loggingIn = (payload) => ({
@@ -67,6 +79,21 @@ export const setStatusList = (payload) => ({
 
 export const setProjectTypeList = (payload) => ({
     type: SETPROJECTTYPELIST,
+    payload
+})
+
+export const setOccupationList = (payload) => ({
+    type: SETOCCUPATIONLIST,
+    payload
+})
+
+export const occupationOptionClicked = (payload) => ({
+    type: OCCUPATIONOPTIONCLICKED,
+    payload
+})
+
+export const editOccupationClicked = (payload) => ({
+    type: EDITOCCUPATIONCLICKED,
     payload
 })
 
@@ -141,14 +168,58 @@ export const setFilterOrder = (payload) => ({
 export const resetCurrentPage = (payload) => ({
     type: RESETCURRENTPAGE,
     payload
-
 })
 
 export const resetFilterStatus = () => ({
     type: RESETFILTERSTATUS,
 })
 
+export const projectsPages = (payload) => ({
+    type: SETPROJECTSPAGES,
+    payload
+})
+
+export const setSearchNameProject = (payload) => ({
+    type: SETSEARCHNAMEPROJECT,
+    payload
+})
+
+export const resetCurrentPageProject = (payload) => ({
+    type: RESETCURRENTPAGEPROJECT,
+    payload
+})
+
+export const setFilterOrderProjects = (payload) => ({
+    type: SETFILTERORDERPROJECTS,
+    payload
+})
+
+export const setFilterStatusProjects = (payload) => ({
+    type: SETFILTERSTATUSPROJECTS,
+    payload
+})
+
 export const setStatusColors = (payload) => ({
     type: SETSTATUSCOLORS,
+    payload
+})
+
+export const setStatusListProjects = (payload) => ({
+    type: SETSTATUSLISTPROJECTS,
+    payload
+})
+
+export const setTypeListProjects = (payload) => ({
+    type: SETPROJECTTYPELISTPROJECTS,
+    payload
+})
+
+export const setFilterTypesProjects = (payload) => ({
+    type: SETFILTERTYPESPROJECTS,
+    payload
+})
+
+export const setProjectListProjects = (payload) => ({
+    type: SETPROJECTLISTPROJECTS,
     payload
 })

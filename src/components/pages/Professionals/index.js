@@ -1,28 +1,16 @@
 import React from 'react'
 
-import {
-    SectionTitle,
-    SectionTitleIcon,
-    SectionTitleContainer
-} from '../../atoms/PageTitle/style.js'
-import Header from '../../organisms/Header'
-import PagesContainer from '../../organisms/PagesContainer/styled.js'
-import { ReactComponent as JobIcon } from '../../../assets/icons/job.svg'
+import ProfessionalsSection from '../../organisms/ProfessionalsSection'
 
-const Professionals = () => {
-    
-    return (
-        <PagesContainer>
-            <Header/>
-            <SectionTitleContainer>
-                <SectionTitleIcon>
-                    <JobIcon/>
-                </SectionTitleIcon>
-                <SectionTitle>Profissionais</SectionTitle>
-            </SectionTitleContainer>
-        </PagesContainer>
+import { ProjectsContainer } from './style.js'
+
+const Professionals = () => {    
+    return (        
+        <ProjectsContainer>
+            <ProfessionalsSection/>
+        </ProjectsContainer>
     )
 }
 
-export default Professionals;
+export default Professionals
 

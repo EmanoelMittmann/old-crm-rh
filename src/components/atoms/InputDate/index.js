@@ -1,24 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState} from 'react'
 
-import { Img, PlaceHolder } from './style.js'
+import { PlaceHolder } from './style.js'
 import { InputLine } from '../DefaultInput/style'
-import dateRange from '../../../assets/icons/date-range.svg'
 import { DefaultInput } from '../DefaultInput/style.js'
 
-const InputDate = ({setDate, placeholder}) => {
+const InputDate = ({value, onChange, placeholder, margin, width}) => {
     const [onFocus, setOnFocus] = useState(false)
 
     return (
-        <InputLine width="260px">
-            {/* <Img src={dateRange} alt="Calendário"/> */}
+        <InputLine width={width ? width : "260px"} margin={margin}>
             <DefaultInput 
-            displayDate={onFocus ? "block" : "none"}
-            width="70px"
-            type="date"
-            onFocus={(e) => setOnFocus(true)}
-            onChange={(e) => setDate(e.target.value)}
+                displayDate={onFocus || value !== "" ? "block" : "none"}
+                width="70px"
+                type="date"
+                onFocus={(e) => setOnFocus(true)}
+                onChange={onChange}
+                value={value}
+                max="2999-12-31"
+                padding="0 1.5em"
             ></DefaultInput>
-            {!onFocus && <PlaceHolder>{placeholder}</PlaceHolder>}
+            {!onFocus && value === "" && <PlaceHolder>{placeholder}</PlaceHolder>}
         </InputLine>
     )
 }
