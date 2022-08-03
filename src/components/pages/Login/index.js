@@ -46,8 +46,8 @@ export const Login = () => {
         url: '/auth',
         data: {
           google_email: decodeJwt.email,
-          google_id: decodeJwt.sub, // -> min code
-          access_token: googleData.credential, // -> jwt
+          google_id: decodeJwt.sub,
+          access_token: googleData.credential,
         },
       });
       dispatch(
@@ -62,7 +62,7 @@ export const Login = () => {
       console.log(error.message);
     }
   };
-  console.log(process.env.REACT_APP_URL_API);
+
   const handlePushCredentialInGoogle = () => {
     try {
       window.google.accounts.id.initialize({
@@ -81,8 +81,6 @@ export const Login = () => {
     if (typeof window === 'undefined' || !window.google || !buttonref.current) {
       return;
     }
-    //1018198549743-sqmjjrkih351agf8du7pn3gk3rv04gli.apps.googleusercontent.com
-    //43809446729-7f0a2m81rs1haaksbk0a07i2o9hrjgo7.apps.googleusercontent.com
     handlePushCredentialInGoogle();
   }, [handleSign, window.google, buttonref.current]);
 
@@ -98,23 +96,6 @@ export const Login = () => {
         <TitleLogin>Faça seu login</TitleLogin>
 
         {!user && <div ref={buttonref}></div>}
-        {/* <GoogleLogin
-          clientId="1018198549743-sqmjjrkih351agf8du7pn3gk3rv04gli.apps.googleusercontent.com"
-          render={(renderProps) => (
-            <DarkButton
-              fontSize="16px"
-              width="350px"
-              height="55px"
-              onClick={renderProps.onClick}
-              disabled={renderProps.disabled}
-            >
-              Entrar
-            </DarkButton>
-          )}
-          buttonText="Logar"
-          onSuccess={(googleData) => accessLogin(googleData)}
-          onFailure={(googleData) => accessLogin(googleData)}
-        /> */}
       </Column2>
     </ContainerLogin>
   );
