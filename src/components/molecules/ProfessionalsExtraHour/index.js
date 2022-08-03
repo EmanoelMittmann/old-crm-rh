@@ -17,18 +17,18 @@ const ProfessionalsExtraHour = ({extraHour, setExtraHour,  setFieldValue, data})
     }, [])
 
     const overtimeNotAllowed = {
-        ...(componentJustRendered && (data === undefined || data?.extra_hour_activated === 0) && {checked: true})
+        ...(componentJustRendered && (data === undefined || data?.extra_hour_activated === false) && {checked: true})
     }
 
     const overtimeAllowed = {
-        ...(componentJustRendered && data?.extra_hour_activated === 1 && {checked: true})
+        ...(componentJustRendered && data?.extra_hour_activated === true && {checked: true})
     }
 
-    if(componentJustRendered && data?.extra_hour_activated === 1){
+    if(componentJustRendered && data?.extra_hour_activated === true){
         setExtraHour('extraHourActivated')
     }
 
-    if(componentJustRendered && (data === undefined || data?.extra_hour_activated === 0)){
+    if(componentJustRendered && (data === undefined || data?.extra_hour_activated === false)){
         setExtraHour('extraHourDisabled')
     }
 

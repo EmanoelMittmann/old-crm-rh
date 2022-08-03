@@ -20,7 +20,7 @@ export const Login = () => {
 
      const accessLogin = async (googleData) => {
         const api = axios.create({
-            baseURL: 'https://ubistart-rh-backend.herokuapp.com',
+            baseURL: 'https://e630-179-109-199-41.sa.ngrok.io',
             headers:{ 
                 "Content-Type":"application/json",
                 }
@@ -84,7 +84,7 @@ export const Login = () => {
             <Column2>
             <TitleLogin>Faça seu login</TitleLogin>
                 <GoogleLogin
-                    clientId="201717717152-mf8l6h5bgdmvc336k1valsflre7gifgv.apps.googleusercontent.com"
+                    clientId="315430315500-t5r6lcd2f9ma1ahlbdvuk9v1jf7mus0o.apps.googleusercontent.com"
                     render={renderProps => (
                         <DarkButton 
                             fontSize="16px" 

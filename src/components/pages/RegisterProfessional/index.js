@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useCallback } from 'react'
 import { useHistory, useParams } from "react-router-dom"
 import axios from 'axios'
@@ -8,8 +7,10 @@ import api from '../../../api/api'
 import { toast } from 'react-toastify'
 import ArrowRegister from '../../atoms/ArrowRegister'
 import OvertimePayCalc from '../../atoms/OvertimePayCalc'
+import SecondaryText from '../../atoms/SecondaryText/style'
 import { SectionTitle } from '../../atoms/PageTitle/style.js'
 import { DefaultToast } from '../../atoms/Toast/DefaultToast'
+import InputWithLabel from '../../atoms/InputWithLabel'
 import EmploymentContract from '../../molecules/EmploymentContract'
 import ProfessionalsExtraHour from '../../molecules/ProfessionalsExtraHour'
 import RegisterFooter from '../../molecules/RegisterFooter'
@@ -18,6 +19,7 @@ import RegisterProfessionalsData from '../../organisms/RegisterProfessionalsData
 import {
     RegisterProfessionalTitleContainer,
     RegisterProfessionalContainer,
+    ContainerProfessionalsLoginData,
 } from './style.js'
 import { cleanMask } from '../../utils/cleanMask'
 import { getDate } from '../../utils/getDate'
@@ -32,7 +34,7 @@ const RegisterProfessional = () => {
     const [uniqueCpf, setUniqueCpf] = useState('')
     const [cpfValid, setCpfValid] = useState(false)
     const [uniqueCEP, setUniqueCEP] = useState('')
-    const [twoCEP, settwoCEP] = useState('')
+    const [anotherCep, setAnotherCEP] = useState('')
     const [extraHour, setExtraHour] = useState('')
     const history = useHistory()
     const { id } = useParams()
@@ -50,28 +52,17 @@ const RegisterProfessional = () => {
                     })
                     .catch(error => false)
             }
-            return cpfValid
+            return true
         }),
         rg: Yup.string().required(messages.required),
         birth_date: Yup.string().required(messages.required),
-        cep: Yup.string().required(messages.required).min(9, 'CEP Inválido').test('CEP válido', 'CEP não encontrado', () => {
-            if (values.cep.length === 9 && values.cep !== uniqueCEP) {
+        cep: Yup.string().required(messages.required).min(4 - 9, 'CEP Inválido').test('CEP válido', 'CEP não encontrado', () => {
+            if (values.cep.length === 9 && values.cep !== uniqueCEP && values.country == "Brazil") {
                 setUniqueCEP(values.cep)
                 handleCEP(values.cep)
             }
             return true
         }),
-
-        cnpj: Yup.string().required(messages.required).min(18, 'CNPJ Inválido'),
-        razao_social: Yup.string().required(messages.required),
-        cep: Yup.string().required(messages.required).min(4-9, 'CEP Inválido').test('CEP válido', 'CEP não encontrado', () => {
-                if(values.cep.length === 9 && values.cep !== uniqueCEP && values.country == "Brazil") {
-                        setUniqueCEP(values.cep)
-                        handleCEP(values.cep)
-                }
-                handleCEP(values.cep)
-                return true
-            }),
 
         street_name: Yup.string().required(messages.required),
         house_number: Yup.number().required(messages.required),
@@ -80,12 +71,7 @@ const RegisterProfessional = () => {
         city_name: Yup.string().required(messages.required),
         uf: Yup.string().required(messages.required),
         telephone_number: Yup.string().required(messages.required),
-
-        email: Yup.string().required(messages.required).test('Email válido', 'Insira um email de domínio Ubistart', () => {
-            const startDomainIndex = values.email.indexOf('@')
-            const emailDomain = values.email.substring(startDomainIndex, values.email.length)
-            return emailDomain === '@ubistart.com' ? true : false
-        }),
+        email: Yup.string().required(messages.required),
 
         professional_data: Yup.object().shape({
             cnpj: Yup.string().min(18, 'CNPJ Inválido'),
@@ -102,58 +88,48 @@ const RegisterProfessional = () => {
             agency: Yup.string(),
             account_type: Yup.string(),
             account_number: Yup.string(),
-            company_cep: Yup.string().min(9, 'CEP Inválido').test('CEP válido', 'CEP não encontrado', () => {
-                if (values.professional_data.company_cep.length === 9 && values.professional_data.company_cep !== twoCEP) {
-                    settwoCEP(values.professional_data.company_cep)
-                    handleCEPTwo(values.professional_data.company_cep)
-
+            company_cep: Yup.string().required(messages.required).min(4 - 9, 'CEP Inválido').test('CEP válido', 'CEP não encontrado', () => {
+                if (values.professional_data.company_cep.length === 9 && values.professional_data.company_cep !== anotherCep) {
+                    setAnotherCEP(values.professional_data.company_cep)
+                    handleCEPJudiacy(values.professional_data.company_cep)
                 }
                 return true
-            }),
-
-            company_email: Yup.string().test('Email válido', 'Insira um email de domínio Ubistart', () => {
-                const startDomainIndex = values.professional_data.company_email.indexOf('@')
-                const emailDomain = values.professional_data.company_email.substring(startDomainIndex, values.professional_data.company_email.length)
-                return emailDomain === '@ubistart.com' ? true : false
-            }),
-
+            })
         }),
-
         start_date: Yup.date().required(messages.required),
         job_id: Yup.number().required(messages.required),
         job_type: Yup.string().required(messages.required),
         weekly_hours: Yup.number().required(messages.required).max(44, "Horas/semana excedida"),
         mounth_hours: Yup.number().required(messages.required).max(176, "Horas/mês excedida"),
         fixed_payment_value: Yup.string().required(messages.required),
-        commission : Yup.boolean().required(messages.required)
-    })
 
+    })
     const formik = useFormik({
         initialValues: {
             name: '',
             cpf: cleanMask(''),
             rg: ''.toString(),
             birth_date: '',
+            avatar: 'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png',
             cep: cleanMask(''),
             street_name: '',
             house_number: '',
             complement: '',
             neighbourhood_name: '',
             city_name: '',
-            country:'',
+            country: '',
             uf: '',
             telephone_number: cleanMask(''),
             email: '',
             start_date: '',
             job_id: '',
-            occupation_id: '',
             job_type: '',
             weekly_hours: '',
             mounth_hours: '',
             fixed_payment_value: cleanMask(''),
             extra_hour_activated: 1,
             variable1: '',
-            variable2: cleanMask(''),
+            variable2: Number(''),
             extra_hour_value: '',
             limited_extra_hours: 1,
             extra_hour_limit: '',
@@ -169,54 +145,38 @@ const RegisterProfessional = () => {
                 company_house_number: '',
                 company_complement: '',
                 company_city_name: '',
-                uf_campany: '',
+                uf_company: '',
                 company_phone_number: cleanMask(''),
                 company_email: '',
                 bank: cleanMask(''),
                 account_type: '',
                 agency: '',
                 account_number: '',
-
-            },
-
+            }
+        },
         onSubmit: async (values) => {
             await api({
                 method: id ? 'put' : 'post',
                 url: id ? `/user/${id}` : '/user',
                 data: !id ? {
-
+                    ...values,
+                    extra_hour_value: parseFloat(values.extra_hour_value.replace('R$', '').replace(',', '.')),
+                    fixed_payment_value: values.fixed_payment_value.replace('R$', '').replace('.', '').replace(',00', ''),
+                    telephone_number: values.telephone_number.toString().replace('(', '').replace(')', '').replace(' ', '').replace(' ', '').replace('-', ''),
+                    cpf: cleanMask(values.cpf),
+                    cep: cleanMask(values.cep),
+                    rg: values.rg.toString(),
+                    projects,
+                }
                     : {
                         ...values,
                         extra_hour_value: parseFloat(values.extra_hour_value.replace('R$', '').replace(',', '.')),
                         fixed_payment_value: values.fixed_payment_value.replace('R$', '').replace('.', '').replace(',00', ''),
                         telephone_number: values.telephone_number.toString().replace('(', '').replace(')', '').replace(' ', '').replace(' ', '').replace('-', ''),
                         cpf: cleanMask(values.cpf),
-                        cnpj: cleanMask(values.professional_data.cnpj),
                         cep: cleanMask(values.cep),
-                        company_cep: cleanMask(values.professional_data.company_cep),
-                        company_bank: cleanMask(values.professional_data.company_bank),
                         rg: values.rg.toString(),
                     },
-                    
-                    projects: projects,   
-                } 
-                : {
-                    ...values, 
-                    extra_hour_value: parseFloat(values.extra_hour_value.replace('R$', '').replace(',', '.')),
-                    fixed_payment_value: values.fixed_payment_value.replace('R$', '').replace('.', '').replace(',00', ''),
-                    telephone_number: values.telephone_number.toString().replace('(', '').replace(')', '').replace(' ', '').replace(' ', '').replace('-', ''),
-                    cpf: cleanMask(values.cpf),
-                    cnpj: cleanMask(values.cnpj),
-                    cep: cleanMask(values.cep),
-                    rg: values.rg.toString(),
-                },
-            })
-            .then(result => {
-                toast.success(<DefaultToast text="Profissional cadastrado." />,{
-                    toastId: "post"
-                }) 
-                return history.push('/professionals')
-
             })
                 .then(result => {
                     toast.success(<DefaultToast text="Profissional cadastrado." />, {
@@ -225,7 +185,7 @@ const RegisterProfessional = () => {
                     return history.push('/professionals')
                 })
                 .catch(error => {
-                    toast.error(<DefaultToast text="Há erros de validação." />, {
+                    toast.error(<DefaultToast text="Há error de validação" />, {
                         toastId: "post"
                     })
                     const errors = error.response.data.errors
@@ -237,7 +197,13 @@ const RegisterProfessional = () => {
         isValidating: false,
         enableReinitialize: true
     })
-    const { values, handleChange, setFieldValue, setErrors } = formik
+    const { values, setFieldValue, setFieldError, setErrors } = formik
+
+    useEffect(() => {
+        console.log(formik.values)
+    }, [formik])
+
+
 
     const handleCEP = async (cep) => {
         await axios.get(`https://viacep.com.br/ws/${cep}/json/`,
@@ -247,31 +213,19 @@ const RegisterProfessional = () => {
                     return data
                 }
             })
-
-    const { values, handleChange, setFieldValue, setFieldError, setErrors} = formik
-
-    const handleCEP =  async (cep) => {
-       await axios.get(`https://viacep.com.br/ws/${cep}/json/`, 
-            {transformRequest: (data, headers) => {
-                delete headers.common
-                return data
-            }})
-
             .then(data => {
-                if(data.data.erro) return setFieldError("cep","Cep Invalido!")
+                if (data.data.erro) return setFieldError("cep", "Cep Invalido!")
                 const { bairro, localidade, logradouro, uf } = data.data
                 if (localidade) setFieldValue('city_name', localidade)
                 if (uf) setFieldValue('uf', uf)
                 if (logradouro) setFieldValue('street_name', logradouro)
                 if (bairro) setFieldValue('neighbourhood_name', bairro)
-
-    
             })
             .catch(error => { toast.error(<DefaultToast text={error.message} />) })
-    }
-
-    const handleCEPTwo = async (company_cep) => {
-        await axios.get(`https://viacep.com.br/ws/${company_cep}/json/`,
+        }
+        
+        const handleCEPJudiacy = async (company_cep) => {
+            await axios.get(`https://viacep.com.br/ws/${company_cep}/json/`,
             {
                 transformRequest: (data, headers) => {
                     delete headers.common
@@ -419,6 +373,7 @@ const RegisterProfessional = () => {
                 method: 'get',
                 url: `/user/${id}`,
             }).then((response) => {
+                console.log(response)
                 const data = response.data[0]
                 Object.entries(data).forEach(([property, value]) => {
                     if (property.includes('date')) {
@@ -428,7 +383,7 @@ const RegisterProfessional = () => {
                         setFieldValue(property, value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1 $2 $3/$4-$5"))
                     }
                     else if (property.includes('telephone_number')) {
-                        setFieldValue(property, parseInt(value))
+                        setFieldValue(property, value)
                     }
                     else if (property.includes('fixed_payment_value')) {
                         setFieldValue(property, `R$${value},00`)
@@ -438,9 +393,9 @@ const RegisterProfessional = () => {
                         setUniqueCEP(data)
                         setFieldValue(property, data)
                     }
-                    else if (property.includes('professional_data.company_cep')) {
+                    else if (property.includes('company_cep')) {
                         let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2")
-                        settwoCEP(data)
+                        setAnotherCEP(data)
                         setFieldValue(property, data)
                     }
                     else if (property.includes('cpf')) {
@@ -482,6 +437,8 @@ const RegisterProfessional = () => {
         }
     }, [values.variable1, values.variable2])
 
+    
+
     return (
         <>
             <RegisterProfessionalTitleContainer>
@@ -493,7 +450,7 @@ const RegisterProfessional = () => {
             <RegisterProfessionalContainer>
                 <form id="professional" onSubmit={formik.handleSubmit}>
                     <RegisterProfessionalsData data={formik} />
-                    <EmploymentContract data={formik} jobs={jobs} occupations={occupations} />
+                    <EmploymentContract data={formik} jobs={jobs}/>
                     <ProfessionalsExtraHour
                         extraHour={extraHour}
                         setExtraHour={setExtraHour}
@@ -504,7 +461,6 @@ const RegisterProfessional = () => {
                         <OvertimePayCalc data={formik} /> : <></>
                     }
                 </form>
-
                 <AttachmentProject
                     allOptions={allProjects}
                     attachment={attachment}
@@ -512,7 +468,7 @@ const RegisterProfessional = () => {
                 />
                 <RegisterFooter
                     cancelButtonHandler={goBackClickHandler}
-                    registerButtonHandler={() => { }}
+                    registerButtonHandler={() => {}}
                     buttonDescription="Cadastrar"
                     type="submit"
                     form="professional"
