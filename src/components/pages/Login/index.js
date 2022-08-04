@@ -3,9 +3,6 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import GoogleLogin from 'react-google-login';
-
-import DarkButton from '../../atoms/Buttons/DarkButton/style.js';
 import teamLogin from '../../../assets/teamLogin.svg';
 import {
   ContainerLogin,
@@ -34,14 +31,14 @@ export const Login = () => {
   const accessLogin = async (googleData) => {
     const decodeJwt = jwt_decode(googleData.credential);
     const api = axios.create({
-      baseURL: 'https://ubistart-rh-backend.herokuapp.com',
+      baseURL: process.env.REACT_APP_URL_API,
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
     try {
-      const responseAuth = await api({
+      const { data } = await api({
         method: 'post',
         url: '/auth',
         data: {
@@ -50,10 +47,11 @@ export const Login = () => {
           access_token: googleData.credential,
         },
       });
+
       dispatch(
         loggingIn({
-          googleData: googleData,
-          token: responseAuth.data.token,
+          googleData: decodeJwt,
+          token: data.token.token,
           responseValidToken: true,
         })
       );
@@ -62,6 +60,7 @@ export const Login = () => {
       console.log(error.message);
     }
   };
+
   const handlePushCredentialInGoogle = () => {
     try {
       window.google.accounts.id.initialize({
