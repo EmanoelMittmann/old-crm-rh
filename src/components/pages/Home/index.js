@@ -5,7 +5,6 @@ import {
   SectionTitleIcon,
   SectionTitleContainer,
 } from '../../atoms/PageTitle/style.js';
-import PagesContainer from '../../organisms/PagesContainer/styled.js';
 import { ReactComponent as HomeIcon } from '../../../assets/icons/home.svg';
 
 const Home = () => {
@@ -14,15 +13,16 @@ const Home = () => {
   }, []);
 
   return (
-    <PagesContainer>
-      <Header />
+    <>
+      {/* Renderização duplicada... olhar novamente mais tarde */}
+      {/* <Header />
       <SectionTitleContainer>
         <SectionTitleIcon>
           <HomeIcon />
         </SectionTitleIcon>
         <SectionTitle>Início</SectionTitle>
-      </SectionTitleContainer>
-    </PagesContainer>
+      </SectionTitleContainer> */}
+    </>
   );
 };
 
