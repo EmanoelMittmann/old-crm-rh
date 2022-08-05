@@ -31,7 +31,7 @@ export const Login = () => {
   const accessLogin = async (googleData) => {
     const decodeJwt = jwt_decode(googleData.credential);
     const api = axios.create({
-      baseURL: process.env.REACT_APP_URL_API,
+      baseURL: 'https://ubistart-rh-backend.herokuapp.com',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -47,14 +47,16 @@ export const Login = () => {
           access_token: googleData.credential,
         },
       });
+      console.log(data);
 
       dispatch(
         loggingIn({
-          googleData: decodeJwt,
+          googleData: { decodeJwt: decodeJwt, data: data.data[0] },
           token: data.token.token,
           responseValidToken: true,
         })
       );
+
       history.push('/home');
     } catch (error) {
       console.log(error.message);
