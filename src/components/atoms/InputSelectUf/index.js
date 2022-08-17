@@ -25,7 +25,7 @@ const InputSelectUf = ({ onChange, options, placeHolder, width, lineWidth, value
                 </InputSelectOptionPlaceholder>
                 {options?.map((option, index) => (
                     <InputSelectOption
-
+                        key={index}
                         value={`${option.isoCode ? option.isoCode : ""}`}
                     >
                         {option.name}
