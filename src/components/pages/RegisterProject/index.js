@@ -59,6 +59,7 @@ const RegisterProject = (props) => {
            project_type_id: 0,
            team_cost: '',
         },
+
         onSubmit: async (values) => {
             await api({
                 method: id ? 'put' : 'post',
@@ -86,6 +87,9 @@ const RegisterProject = (props) => {
         isValidating: false,
         enableReinitialize: true
     })
+
+
+
     const { values, setFieldValue, setErrors } = formik
 
     function validDate() {
@@ -282,7 +286,7 @@ const RegisterProject = (props) => {
             </RegisterProjectTitleContainer>
 
             <RegisterProjectContainer>
-                <form id="register">
+                <form id="register" onSubmit={formik.handleSubmit}>
                     <RegisterProjectData 
                         data={formik} 
                         typeOptions={typeOptions}
@@ -295,8 +299,8 @@ const RegisterProject = (props) => {
                 />
                 <RegisterFooter
                     cancelButtonHandler={footerCancelButtonHandler}
-                    registerButtonHandler={formik.handleSubmit}
-                    buttonDescription={id ? "Atualizar" : "Cadastrar"}
+                    registerButtonHandler={() => { }}
+                    buttonDescription={"Cadastrar"}
                     type="submit"
                     form="register"
                 />
