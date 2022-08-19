@@ -44,11 +44,11 @@ const OvertimePayCalc = ({ data }) => {
     }, [])
 
     const limitAllowed = {
-        ...(componentJustRendered && values.limited_extra_hours === 1 && {checked: true})
+        ...(componentJustRendered && values.limited_extra_hours === true && {checked: true})
     }
 
     const limitNotAllowed = {
-        ...(componentJustRendered && (values === undefined || values.limited_extra_hours === 0) && {checked: true})
+        ...(componentJustRendered && (values === undefined || values.limited_extra_hours === false) && {checked: true})
     }
 
     return (
@@ -63,7 +63,7 @@ const OvertimePayCalc = ({ data }) => {
                             defaultValue={values.hours_month} 
                             value={values.variable1} 
                             id="variable1" 
-                            placeholderPosition="right" 
+                            placeholderPosition="left" 
                             onChange={handleChange('variable1')} 
                             placeholder="Horas" 
                             padding="0.3em 1.2em 0 1.2em" 
@@ -89,6 +89,7 @@ const OvertimePayCalc = ({ data }) => {
                         }}
                         keepCharPositions={true}
                         guide={false}
+
                         render={(maskRef, maskProps) => (
                             <InputLine  widthLine="23%" margin="0 2em 0 0">
                                 <DefaultInput

@@ -50,7 +50,7 @@ const InputBank = ({ onChange, options, placeHolder, width, lineWidth, value, ma
                 {state?.map((option, index) => (
                     <InputSelectOption
                         key={index}
-                        value={`${option.code ? option.code : ""}`}
+                        value={`${option.name ? option.name : ""}`}
                     >
                         {option.name}
                     </InputSelectOption>
