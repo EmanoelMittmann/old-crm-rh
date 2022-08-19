@@ -229,7 +229,7 @@ const RegisterProfessionalsData = ({ data }) => {
             name="city_name"
           />
           <InputSelectUf
-            value={values.options}
+            value={values.uf}
             onChange={handleChange("uf")}
             options={optionsUFCountry}
             placeHolder="UF"
@@ -448,7 +448,7 @@ const RegisterProfessionalsData = ({ data }) => {
           <InputMasked
             value={values.professional_data.account_number}
             onChange={handleChange('professional_data.account_number')}
-            mask={[/\d/, /\d/, /\d/, /\d/, /\d/,/\d/, /\d/, /\d/, /\d/, /\d/]}
+            mask={[/\d/, /\d/, /\d/, /\d/,/\d/, /\d/, /\d/, /\d/,/\d/, /\d/]}
             label="Número da conta"
             width="100%"
             widthContainer='60%'

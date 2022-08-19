@@ -7,10 +7,8 @@ import api from "../../../api/api";
 import { toast } from "react-toastify";
 import ArrowRegister from "../../atoms/ArrowRegister";
 import OvertimePayCalc from "../../atoms/OvertimePayCalc";
-import SecondaryText from "../../atoms/SecondaryText/style";
 import { SectionTitle } from "../../atoms/PageTitle/style.js";
 import { DefaultToast } from "../../atoms/Toast/DefaultToast";
-import InputWithLabel from "../../atoms/InputWithLabel";
 import EmploymentContract from "../../molecules/EmploymentContract";
 import ProfessionalsExtraHour from "../../molecules/ProfessionalsExtraHour";
 import RegisterFooter from "../../molecules/RegisterFooter";
@@ -19,7 +17,6 @@ import RegisterProfessionalsData from "../../organisms/RegisterProfessionalsData
 import {
   RegisterProfessionalTitleContainer,
   RegisterProfessionalContainer,
-  ContainerProfessionalsLoginData,
 } from "./style.js";
 import { cleanMask } from "../../utils/cleanMask";
 import { getDate } from "../../utils/getDate";
@@ -153,9 +150,9 @@ const RegisterProfessional = () => {
       fixed_payment_value: cleanMask(""),
       extra_hour_activated: true,
       variable1: "",
-      variable2: "",
+      variable2: cleanMask(""),
       extra_hour_value: "",
-      limited_extra_hours: true,
+      limited_extra_hours: false,
       extra_hour_limit: "",
       user_type_id: 2,
       commission: true,
@@ -185,9 +182,7 @@ const RegisterProfessional = () => {
         data: !id
           ? {
               ...values,
-              extra_hour_value: parseFloat(
-                values.extra_hour_value.replace("R$", "").replace(",", ".")
-              ),
+              extra_hour_value: parseFloat(values.extra_hour_value.replace("R$", "").replace(".", "").replace(",00", "")),
               fixed_payment_value: values.fixed_payment_value
                 .replace("R$", "")
                 .replace(".", "")
@@ -206,9 +201,7 @@ const RegisterProfessional = () => {
             }
           : {
               ...values,
-              extra_hour_value: parseFloat(
-                values.extra_hour_value.replace("R$", "").replace(",", ".")
-              ),
+              extra_hour_value: parseFloat(values.extra_hour_value.replace("R$", "").replace(",", ".").replace(",00", "")),
               fixed_payment_value: values.fixed_payment_value
                 .replace("R$", "")
                 .replace(".", "")
@@ -409,7 +402,6 @@ const RegisterProfessional = () => {
         url: `/user/${id}`,
       })
         .then((response) => {
-          console.log(response);
           const data = response.data[0];
           Object.entries(data).forEach(([property, value]) => {
             if (property.includes("date")) {
@@ -467,26 +459,21 @@ const RegisterProfessional = () => {
   }, [id]);
 
   useEffect(() => {
-    setFieldValue('variable2',values.fixed_payment_value)
+    console.log(values.variable2)
+    setFieldValue('variable2',Number(values.fixed_payment_value.replace("R$", "").replace(".", "").replace(",00", "")))
   },[values.fixed_payment_value])
 
   
   useEffect(() => {
-    console.log(values.variable1)
-    
     if (values.variable1 > 0 && values.variable2 !== "") {
-      let calc = Number(values.variable2.replace("R$", "").replace(".", "").replace(",00", "")) / values.variable1;
+      let calc = values.variable2 / values.variable1;
       setFieldValue(
         "extra_hour_value",
         "R$" + calc.toFixed(2).toString().replace(".", ",")
       );
     }
-  }, [values.variable1,values.variable2]);
 
-  useEffect(() => {
-    console.log(values.extra_hour_value)
-    console.log(values.variable2)
-  }, [formik, values]);
+  }, [values.variable1,values.variable2]);
 
   return (
     <>
