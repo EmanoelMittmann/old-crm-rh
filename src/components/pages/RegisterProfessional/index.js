@@ -76,6 +76,7 @@ const RegisterProfessional = () => {
         return true;
       }),
 
+<<<<<<< HEAD
     street_name: Yup.string().required(messages.required),
     house_number: Yup.number().required(messages.required),
     complement: Yup.string(),
@@ -198,6 +199,57 @@ const RegisterProfessional = () => {
               cep: cleanMask(values.cep),
               rg: values.rg.toString(),
               projects,
+=======
+    })
+    const formik = useFormik({
+        initialValues: {
+            name: '',
+            cpf: cleanMask(''),
+            rg: ''.toString(),
+            birth_date: '',
+            avatar: 'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png',
+            cep: cleanMask(''),
+            street_name: '',
+            house_number: '',
+            complement: '',
+            neighbourhood_name: '',
+            city_name: '',
+            country: '',
+            uf: '',
+            telephone_number: cleanMask(''),
+            email: '',
+            start_date: '',
+            job_id: '',
+            job_type: '',
+            weekly_hours: '',
+            mounth_hours: '',
+            fixed_payment_value: cleanMask(''),
+            extra_hour_activated: true,
+            variable1: '',
+            variable2: Number(''),
+            extra_hour_value: '',
+            limited_extra_hours: 1,
+            extra_hour_limit: '',
+            user_type_id: 2,
+            commission: true,
+            professional_data: {
+                cnpj: cleanMask(''),
+                razao_social: '',
+                fantasy_name: '',
+                company_cep: cleanMask(''),
+                company_street_name: '',
+                company_neighborhood_name: '',
+                company_house_number: '',
+                company_complement: '',
+                company_city_name: '',
+                uf_company: '',
+                company_phone_number: cleanMask(''),
+                company_email: '',
+                bank: cleanMask(''),
+                account_type: '',
+                agency: '',
+                account_number: '',
+>>>>>>> 74df3db001f1e23e5c189fa3d198b4a9d5ed10de
             }
           : {
               ...values,
