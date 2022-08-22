@@ -76,7 +76,6 @@ const RegisterProfessional = () => {
         return true;
       }),
 
-<<<<<<< HEAD
     street_name: Yup.string().required(messages.required),
     house_number: Yup.number().required(messages.required),
     complement: Yup.string(),
@@ -132,7 +131,8 @@ const RegisterProfessional = () => {
       cpf: cleanMask(""),
       rg: "".toString(),
       birth_date: "",
-      avatar:"https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png",
+      avatar:
+        "https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png",
       cep: cleanMask(""),
       street_name: "",
       house_number: "",
@@ -183,7 +183,9 @@ const RegisterProfessional = () => {
         data: !id
           ? {
               ...values,
-              extra_hour_value:  parseFloat(values.extra_hour_value.replace('R$', '').replace(',', '.')),
+              extra_hour_value: parseFloat(
+                values.extra_hour_value.replace("R$", "").replace(",", ".")
+              ),
               fixed_payment_value: values.fixed_payment_value
                 .replace("R$", "")
                 .replace(".", "")
@@ -199,61 +201,12 @@ const RegisterProfessional = () => {
               cep: cleanMask(values.cep),
               rg: values.rg.toString(),
               projects,
-=======
-    })
-    const formik = useFormik({
-        initialValues: {
-            name: '',
-            cpf: cleanMask(''),
-            rg: ''.toString(),
-            birth_date: '',
-            avatar: 'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png',
-            cep: cleanMask(''),
-            street_name: '',
-            house_number: '',
-            complement: '',
-            neighbourhood_name: '',
-            city_name: '',
-            country: '',
-            uf: '',
-            telephone_number: cleanMask(''),
-            email: '',
-            start_date: '',
-            job_id: '',
-            job_type: '',
-            weekly_hours: '',
-            mounth_hours: '',
-            fixed_payment_value: cleanMask(''),
-            extra_hour_activated: true,
-            variable1: '',
-            variable2: Number(''),
-            extra_hour_value: '',
-            limited_extra_hours: 1,
-            extra_hour_limit: '',
-            user_type_id: 2,
-            commission: true,
-            professional_data: {
-                cnpj: cleanMask(''),
-                razao_social: '',
-                fantasy_name: '',
-                company_cep: cleanMask(''),
-                company_street_name: '',
-                company_neighborhood_name: '',
-                company_house_number: '',
-                company_complement: '',
-                company_city_name: '',
-                uf_company: '',
-                company_phone_number: cleanMask(''),
-                company_email: '',
-                bank: cleanMask(''),
-                account_type: '',
-                agency: '',
-                account_number: '',
->>>>>>> 74df3db001f1e23e5c189fa3d198b4a9d5ed10de
             }
           : {
               ...values,
-              extra_hour_value: parseFloat(values.extra_hour_value.replace('R$', '').replace(',', '.')),
+              extra_hour_value: parseFloat(
+                values.extra_hour_value.replace("R$", "").replace(",", ".")
+              ),
               fixed_payment_value: values.fixed_payment_value
                 .replace("R$", "")
                 .replace(".", "")
@@ -485,9 +438,9 @@ const RegisterProfessional = () => {
               );
               setUniqueCpf(data);
               setFieldValue(property, data);
-            } else if (property.includes("extra_hour_value")){
-              setFieldValue(property, String(value).replace('.',','));
-            }else{
+            } else if (property.includes("extra_hour_value")) {
+              setFieldValue(property, String(value).replace(".", ","));
+            } else {
               setFieldValue(property, value);
             }
           });
@@ -511,10 +464,17 @@ const RegisterProfessional = () => {
   }, [id]);
 
   useEffect(() => {
-    setFieldValue('variable2',Number(values.fixed_payment_value.replace("R$", "").replace(".", "").replace(",00", "")))
-  },[values.fixed_payment_value])
+    setFieldValue(
+      "variable2",
+      Number(
+        values.fixed_payment_value
+          .replace("R$", "")
+          .replace(".", "")
+          .replace(",00", "")
+      )
+    );
+  }, [values.fixed_payment_value]);
 
-  
   useEffect(() => {
     if (values.variable1 > 0 && values.variable2 !== "") {
       let calc = values.variable2 / values.variable1;
@@ -523,8 +483,7 @@ const RegisterProfessional = () => {
         "R$" + calc.toFixed(2).toString().replace(".", ",")
       );
     }
-
-  }, [values.variable1,values.variable2]);
+  }, [values.variable1, values.variable2]);
 
   return (
     <>
