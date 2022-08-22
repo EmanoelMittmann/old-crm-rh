@@ -182,7 +182,7 @@ const RegisterProfessional = () => {
         data: !id
           ? {
               ...values,
-              extra_hour_value: parseFloat(values.extra_hour_value.replace("R$", "").replace(".", "").replace(",00", "")),
+              extra_hour_value:  parseFloat(values.extra_hour_value.replace('R$', '').replace(',', '.')),
               fixed_payment_value: values.fixed_payment_value
                 .replace("R$", "")
                 .replace(".", "")
@@ -201,7 +201,7 @@ const RegisterProfessional = () => {
             }
           : {
               ...values,
-              extra_hour_value: parseFloat(values.extra_hour_value.replace("R$", "").replace(",", ".").replace(",00", "")),
+              extra_hour_value: parseFloat(values.extra_hour_value.replace('R$', '').replace(',', '.')),
               fixed_payment_value: values.fixed_payment_value
                 .replace("R$", "")
                 .replace(".", "")
@@ -433,9 +433,9 @@ const RegisterProfessional = () => {
               );
               setUniqueCpf(data);
               setFieldValue(property, data);
-            } else if (property.includes("extra_hours_value")) {
-              setFieldValue(property, value.replace(".", ","));
-            } else {
+            } else if (property.includes("extra_hour_value")){
+              setFieldValue(property, String(value).replace('.',','));
+            }else{
               setFieldValue(property, value);
             }
           });
@@ -459,7 +459,6 @@ const RegisterProfessional = () => {
   }, [id]);
 
   useEffect(() => {
-    console.log(values.variable2)
     setFieldValue('variable2',Number(values.fixed_payment_value.replace("R$", "").replace(".", "").replace(",00", "")))
   },[values.fixed_payment_value])
 
@@ -493,7 +492,7 @@ const RegisterProfessional = () => {
             setFieldValue={setFieldValue}
             data={values}
           />
-          {values.extra_hour_activated !== 0 ? (
+          {values.extra_hour_activated !== false ? (
             <OvertimePayCalc data={formik} />
           ) : (
             <></>
