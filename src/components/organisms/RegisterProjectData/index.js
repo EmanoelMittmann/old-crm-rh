@@ -28,11 +28,6 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
         decimalLimit: 2
     })
 
-    useEffect(() => {
-        console.log(values)
-
-    },[values])
-
 
     return (
         <ContainerRegisterProjectData>

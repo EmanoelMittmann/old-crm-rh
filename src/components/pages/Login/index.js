@@ -31,7 +31,7 @@ export const Login = () => {
   const accessLogin = async (googleData) => {
     const decodeJwt = jwt_decode(googleData.credential);
     const api = axios.create({
-      baseURL: 'https://ubistart-rh-backend.herokuapp.com',
+      baseURL: process.env.REACT_APP_URL_API,
       headers: {
         'Content-Type': 'application/json',
       },
@@ -66,7 +66,7 @@ export const Login = () => {
   const handlePushCredentialInGoogle = () => {
     try {
       window.google.accounts.id.initialize({
-        client_id:'201717717152-vdd0fl673bflolmondn87qsk286l2fa1.apps.googleusercontent.com',
+        client_id:process.env.REACT_APP_CLIENT_ID,
         callback: handleSign,
       });
       window.google.accounts.id.renderButton(buttonref.current, {
