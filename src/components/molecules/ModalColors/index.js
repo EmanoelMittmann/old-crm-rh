@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 
 import api from '../../../api/api.js'
 
-import { 
+import {
     setStatusList,
     settingsPages,
     setFilterOrder,
@@ -28,17 +28,18 @@ import {
     ModalContainer,
     ModalTitle,
 } from '../Modal/style.js'
+import { values } from 'lodash'
 
 const ModalColors = () => {
     const dispatch = useDispatch()
     const [value, setValue] = useState("")
     const [selectedOption, setSelectedOption] = useState("")
-    
+
     const state = useSelector(state => state)
     let params
     let colorId
 
-    if(state.filterOrder !== ""){
+    if (state.filterOrder !== "") {
         params = {
             page: `${state.settingsPagesFilter.current_page}`,
             is_active: state.filterStatus,
@@ -48,7 +49,7 @@ const ModalColors = () => {
         }
     }
 
-    if(state.filterOrder === ""){
+    if (state.filterOrder === "") {
         params = {
             page: `${state.settingsPagesFilter.current_page}`,
             is_active: state.filterStatus,
@@ -73,7 +74,7 @@ const ModalColors = () => {
                 }
             });
 
-            const {data} = await api({
+            const { data } = await api({
                 method: 'get',
                 url: '/projectStatus',
             });
@@ -81,9 +82,9 @@ const ModalColors = () => {
             dispatch(setStatusList(data.data))
             dispatch(settingsPages(data.meta));
             resetFilters()
-            
-            return data.data && toast.success(<DefaultToast text="Status do Projeto cadastrado!"/>)
-        
+
+            return data.data && toast.success(<DefaultToast text="Status do Projeto cadastrado!" />)
+
         } catch (error) {
             return error
         }
@@ -100,16 +101,16 @@ const ModalColors = () => {
                 }
             });
 
-            const {data} = await api({
+            const { data } = await api({
                 method: 'get',
                 url: '/projectStatus',
                 params: params
             });
-            
+
             dispatch(setStatusList(data.data))
             dispatch(settingsPages(data.meta))
-            
-            return data.data && toast.success(<DefaultToast text="Status do Projeto atualizado!"/>)
+
+            return data.data && toast.success(<DefaultToast text="Status do Projeto atualizado!" />)
 
         } catch (error) {
             return error
@@ -119,12 +120,12 @@ const ModalColors = () => {
     const saveButtonClickHandler = (e) => {
         if (value.length === 0) return
 
-        if(state.modalFunctionality.register){
+        if (state.modalFunctionality.register) {
             saveStatus()
             dispatch(closeModal())
         }
 
-        if(state.modalFunctionality.edit){
+        if (state.modalFunctionality.edit) {
             updateStatus()
             dispatch(closeModal())
         }
@@ -139,27 +140,27 @@ const ModalColors = () => {
     }
 
     const editStatus = state.status.filter(status => {
-        if(state.statusId === status.id) return status
+        if (state.statusId === status.id) return status
     });
 
     const statusName = () => {
-        if(state.modalFunctionality.edit !== true) return;
+        if (state.modalFunctionality.edit !== true) return;
 
-        const [{name}] = editStatus;
-         [{colors_id: colorId}] = editStatus
+        const [{ name }] = editStatus;
+        [{ colors_id: colorId }] = editStatus
         return name
     };
 
     const getStatusColor = async () => {
-        try{
-            const {data} = await api({
+        try {
+            const { data } = await api({
                 method: 'get',
                 url: '/color'
             })
 
             dispatch(setStatusColors(data))
 
-        } catch(error){
+        } catch (error) {
             console.log(error);
         }
     }
@@ -168,6 +169,7 @@ const ModalColors = () => {
         getStatusColor()
     }, [])
 
+
     //pegar a cor selecionada referente a um status especifico
     //status especifico
 
@@ -175,52 +177,52 @@ const ModalColors = () => {
     // o que o input tem que fazer?
     //se o id da cor do status sendo editado for === uma das options de cores então colocar como selected aquela cor
 
-
     return (
         <div>
             <ModalContainer>
-                <CloseButton CloseButtonClickHandler={CloseButtonClickHandler}/>
+                <CloseButton CloseButtonClickHandler={CloseButtonClickHandler} />
                 <ModalTitle padding="1.3em 0 1.3em 1.6em">
                     {state.modalFunctionality.edit ? "Editar status do projeto" : "Novo status do projeto"}
                 </ModalTitle>
-                        <ModalInputContainer>
-                        
-                            <InputWithLabel
-                            label="Status"
-                            setInputWithLabelValue={setValue}
-                            editValue={statusName()}
-                            width="100%"
-                            widthContainer="85%"
-                            justify="center"
-                            padding="0 0 0.8em 0"/>
+                <ModalInputContainer>
 
-                            {state.modalFunctionality.edit ? 
-                            (
-                                <InputSelectEdit
+                    <InputWithLabel
+                        label="Status"
+                        onChange={e => setValue(e.target.value)}
+                        editValue={statusName()}
+                        width="100%"
+                        widthContainer="85%"
+                        handleBlur={() => { }}
+                        justify="center"
+                        padding="0 0 0.8em 0" />
+
+                    {state.modalFunctionality.edit ?
+                        (
+                            <InputSelectEdit
                                 label="Status"
                                 optionId={colorId}
                                 setSelectedOption={setSelectedOption}
                                 width="85%"
                                 options={state.statusColors}
-                                ></InputSelectEdit>
-                            ) : 
-                            (
-                                <InputSelect 
-                                setSelectedOption={setSelectedOption}
+                            ></InputSelectEdit>
+                        ) :
+                        (
+                            <InputSelect
+                                onChange={e => setSelectedOption(e.target.value)}
                                 placeholder="Color"
                                 width="100%"
                                 lineWidth="85%"
                                 options={state.statusColors}
-                                />
-                            )}
+                            />
+                        )}
 
-                        </ModalInputContainer>
+                </ModalInputContainer>
                 <ModalContainerButtons>
                     <CancelButton onClick={cancelButtonClickHandler}>Cancelar</CancelButton>
                     <SaveButton onClick={(e) => saveButtonClickHandler(e)} margin="0 3.5em 0 1.7em">Salvar</SaveButton>
                 </ModalContainerButtons>
             </ModalContainer>
-            <ModalOverlay/>
+            <ModalOverlay />
         </div>
     )
 }

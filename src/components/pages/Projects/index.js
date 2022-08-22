@@ -89,7 +89,7 @@ const Projects = () => {
       method: 'get',
       url: `/projectType`,
     })
-    data.data.push({ name: "Todos"})
+    data.data.push({ name: "Todos" })
     setTypesOptions(data.data)
   }
 
@@ -98,9 +98,11 @@ const Projects = () => {
       method: 'get',
       url: `/projectStatus`
     })
-    data.data.push({ name: "Todos"})
+
     setStatusOptions(data.data)
   }
+  const allOptions = [...statusOptions, {name: "Todos"}]
+  
 
   useEffect(() => {
     getProjects()
@@ -118,14 +120,14 @@ const Projects = () => {
           width="220px"
         />
         <InputSelect
-          options={statusOptions}
+          options={allOptions}
           onChange={e => setSelectedStatusOptions(e.target.value)}
           placeHolder="Status"
           width="230px"
         />
       </SearchSection>
       <ProjectsListHeader fnOrder={sortByField} />
-      <ProjectsListItem data={data} statusOptions={statusOptions} />
+      <ProjectsListItem data={data} statusOptions={statusOptions}/>
       <Footer
         previousPage={previousPage}
         nextPage={nextPage}

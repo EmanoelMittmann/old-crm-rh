@@ -14,18 +14,20 @@ import {
     ContainerThirdLine,
     ContainerRegisterProjectData
 } from './style.js'
+import { useEffect } from 'react'
 
-const RegisterProjectData = ({ data, typeOptions, statusOptions }) => {
-   const { values, handleChange, errors, touched, setFieldTouched, setFieldValue} = data
-   const inputRef = useRef(null)
+const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
+    const { values, handleChange, errors, touched, setFieldTouched, setFieldValue } = data
+    const inputRef = useRef(null)
 
     const team_cost_mask = createNumberMask({
         prefix: 'R$',
         thousandsSeparatorSymbol: '.',
         allowDecimal: true,
-        decimalSymbol : ',',
+        decimalSymbol: ',',
         decimalLimit: 2
     })
+
 
     return (
         <ContainerRegisterProjectData>
@@ -39,7 +41,7 @@ const RegisterProjectData = ({ data, typeOptions, statusOptions }) => {
                             value={values.name}
                             onChange={handleChange('name')}
                             name="name"
-                            widthContainer="95%" 
+                            widthContainer="95%"
                             error={errors.name}
                             touched={touched.name}
                             handleBlur={setFieldTouched}
@@ -87,7 +89,7 @@ const RegisterProjectData = ({ data, typeOptions, statusOptions }) => {
                             onChange={handleChange('project_status_id')}
                             options={statusOptions}
                             placeHolder="Status do projeto"
-                            width="100%"    
+                            width="100%"
                         />
                     </ContainerInputProjectStatusSelect>
                 </ContainerSecondRow>
@@ -103,7 +105,7 @@ const RegisterProjectData = ({ data, typeOptions, statusOptions }) => {
                         error={errors.team_cost}
                         touched={touched.team_cost}
                         width="100%"
-                        padding="0 3em 0 0"  
+                        padding="0 3em 0 0"
                         widthContainer="30%"
                         handleBlur={setFieldTouched}
                     />
