@@ -55,8 +55,7 @@ const optionsBank = [
 
 
 const RegisterProfessionalsData = ({ data }) => {
-
-  const [optionsUF, setOptionsUf] = useState([])
+  const [optionsUFCountry,setOptionsUFCountry] = useState([])
   const { values, handleChange, errors, touched, setFieldTouched } = data
 
   useEffect(() => {
@@ -65,7 +64,7 @@ const RegisterProfessionalsData = ({ data }) => {
     const countries = Country.getAllCountries()
     const filtro = countries.find(item => item.name === values.country).isoCode
     const states = State.getStatesOfCountry(filtro)
-    setOptionsUf(states)
+    setOptionsUFCountry(states)
 
   }, [values.country])
 
@@ -230,9 +229,9 @@ const RegisterProfessionalsData = ({ data }) => {
             name="city_name"
           />
           <InputSelectUf
-            value={values.options}
+            value={values.uf}
             onChange={handleChange("uf")}
-            options={optionsUF}
+            options={optionsUFCountry}
             placeHolder="UF"
             width="230px"
           />
@@ -383,7 +382,7 @@ const RegisterProfessionalsData = ({ data }) => {
               handleBlur={setFieldTouched}
               name="professional_data.company_city_name"
             />
-            <InputSelectUf
+            <InputSelect
               value={values.professional_data.uf_company}
               onChange={handleChange('professional_data.uf_company')}
               options={optionsUF}
@@ -417,7 +416,7 @@ const RegisterProfessionalsData = ({ data }) => {
             placeHolder={'Banco'}
             label="Banco"
             width="60%"
-            lineWidth='55%'
+            lineWidth='53%'
             name="professional_data.bank"
           />
           <InputSelect
@@ -427,14 +426,15 @@ const RegisterProfessionalsData = ({ data }) => {
             placeHolder="Tipo da conta"
             padding="0em 2em 0 0em"
             width='100%'
-            lineWidth="40%"
+            lineWidth="45%"
             name="professional_data.account_type"
           />
         </ContainerRow>
         <ContainerRow>
-          <InputWithLabel
+          <InputMasked
             value={values.professional_data.agency}
             padding="0 2em 0 0"
+            mask={[/\d/, /\d/, /\d/, /\d/,/\d/]}
             onChange={handleChange('professional_data.agency')}
             label="Agência"
             width="100%"
@@ -443,11 +443,12 @@ const RegisterProfessionalsData = ({ data }) => {
             touched={touched.agency}
             handleBlur={setFieldTouched}
             name="professional_data.agency"
-            type="text"
+            type="number"
           />
-          <InputWithLabel
+          <InputMasked
             value={values.professional_data.account_number}
             onChange={handleChange('professional_data.account_number')}
+            mask={[/\d/, /\d/, /\d/, /\d/,/\d/, /\d/, /\d/, /\d/,/\d/, /\d/]}
             label="Número da conta"
             width="100%"
             widthContainer='60%'
@@ -455,7 +456,7 @@ const RegisterProfessionalsData = ({ data }) => {
             touched={touched.account_number}
             handleBlur={setFieldTouched}
             name="professional_data.account_number"
-            type="text"
+            type="number"
           />
         </ContainerRow>
       </RegisterProfessionalsForm>

@@ -44,11 +44,11 @@ const OvertimePayCalc = ({ data }) => {
     }, [])
 
     const limitAllowed = {
-        ...(componentJustRendered && values.limited_extra_hours === 1 && {checked: true})
+        ...(componentJustRendered && values.limited_extra_hours === true && {checked: true})
     }
 
     const limitNotAllowed = {
-        ...(componentJustRendered && (values === undefined || values.limited_extra_hours === 0) && {checked: true})
+        ...(componentJustRendered && (values === undefined || values.limited_extra_hours === false) && {checked: true})
     }
 
     return (
@@ -63,7 +63,7 @@ const OvertimePayCalc = ({ data }) => {
                             defaultValue={values.hours_month} 
                             value={values.variable1} 
                             id="variable1" 
-                            placeholderPosition="right" 
+                            placeholderPosition="left" 
                             onChange={handleChange('variable1')} 
                             placeholder="Horas" 
                             padding="0.3em 1.2em 0 1.2em" 
@@ -87,8 +87,8 @@ const OvertimePayCalc = ({ data }) => {
                             const newValue = value.slice(0, -2)
                             setFieldValue('variable2', newValue)
                         }}
-                        keepCharPositions={true}
-                        guide={false}
+                        guide={true}
+
                         render={(maskRef, maskProps) => (
                             <InputLine  widthLine="23%" margin="0 2em 0 0">
                                 <DefaultInput
@@ -149,7 +149,7 @@ const OvertimePayCalc = ({ data }) => {
 
                 <ContainerLimitOvertime>
                     <ContainerLimitOvertimeButtons onChange={(e) => {
-                       e.target.value === 'limitOvertime' ? setFieldValue('limited_extra_hours', 1) : setFieldValue('limited_extra_hours', 0)
+                       e.target.value === 'limitOvertime' ? setFieldValue('limited_extra_hours', true) : setFieldValue('limited_extra_hours', false)
                        setComponentJustRendered(false)
                     }}>
                         <ContainerLimitOvertimeButton>
@@ -176,7 +176,7 @@ const OvertimePayCalc = ({ data }) => {
                         </ContainerLimitOvertimeButton>
                     </ContainerLimitOvertimeButtons>
                         {
-                        values.limited_extra_hours !== 0 &&
+                        values.limited_extra_hours !== false &&
                         <InputWithLabel
                             name="extra_hour_limit"
                             value={values.extra_hour_limit}
