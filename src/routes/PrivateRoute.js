@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { Route } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
 import { templates, noTemplate } from './PagesConfig';
 import { PagesTemplate } from '../components/templates/PagesTemplate/PagesTemplate';
@@ -9,6 +10,7 @@ import { LocalStorageKeys } from '../settings/LocalStorageKeys';
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const [template, setTemplate] = useState({});
   const token = JSON.parse(localStorage.getItem(LocalStorageKeys.TOKEN));
+  const history = useHistory();
   const path = rest.path;
 
   function handleTemplate(path) {
