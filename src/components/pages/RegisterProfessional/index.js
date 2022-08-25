@@ -472,8 +472,13 @@ const RegisterProfessional = () => {
   console.log(values.variable2);
 
   useEffect(() => {
+    console.log(values.variable1);
+
     if (values.variable1 > 0 && values.variable2 !== '') {
-      let calc = Number(values.variable2) / values.variable1;
+      let calc =
+        Number(
+          values.variable2.replace('R$', '').replace('.', '').replace(',00', '')
+        ) / values.variable1;
       setFieldValue(
         'extra_hour_value',
         'R$' + calc.toFixed(2).toString().replace('.', ',')
@@ -499,7 +504,7 @@ const RegisterProfessional = () => {
             setFieldValue={setFieldValue}
             data={values}
           />
-          {values.extra_hour_activated !== 0 ? (
+          {values.extra_hour_activated !== false ? (
             <OvertimePayCalc data={formik} />
           ) : (
             <></>

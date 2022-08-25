@@ -36,7 +36,7 @@ const ProfessionalsExtraHour = ({extraHour, setExtraHour,  setFieldValue, data})
         <ContainerRegisterExtraHours>
             <SecondaryText margin="0 0 2.5em 0">Hora extra</SecondaryText>
             <ContainerRadioButtons onChange={(e) => {
-                e.target.value === 'extraHourActivated' ? setFieldValue('extra_hour_activated', 1) : setFieldValue('extra_hour_activated', 0)
+                e.target.value === 'extraHourActivated' ? setFieldValue('extra_hour_activated', true) : setFieldValue('extra_hour_activated', false)
                 setComponentJustRendered(false)
             }}>
                 <InputRadio

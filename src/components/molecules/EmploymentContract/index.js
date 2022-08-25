@@ -69,6 +69,9 @@ const EmploymentContract = ({ data, jobs }) => {
     }
     return true;
   }
+  useEffect(() => {
+    console.log(values);
+  }, [values]);
 
   return (
     <ContainerEmploymentContract>

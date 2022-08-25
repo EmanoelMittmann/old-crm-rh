@@ -82,7 +82,7 @@ const OvertimePayCalc = ({ data }) => {
           </OvertimePayCalcLabel>
           <MaskedInput
             id="variable2"
-            defaultValue={values.variable2}
+            defaultValue={values.fixed_payment_value}
             mask={fixedValueMask}
             placeholder="R$"
             onChange={(e) => {
@@ -90,27 +90,25 @@ const OvertimePayCalc = ({ data }) => {
               const newValue = value.slice(0, -2);
               setFieldValue('variable2', newValue);
             }}
-            // keepCharPositions={true}
-            // guide={false}
-            render={(maskRef, maskProps) => {
-              return (
-                <InputLine widthLine="23%" margin="0 2em 0 0">
-                  <DefaultInput
-                    padding="0.3em 1.2em 0 1.2em"
-                    width="100%"
-                    widthLine="23%"
-                    margin="0 2em 0 0"
-                    ref={(node) => {
-                      if (node) {
-                        maskRef(node);
-                        inputRef.current = node;
-                      }
-                    }}
-                    {...maskProps}
-                  />
-                </InputLine>
-              );
-            }}
+            keepCharPositions={true}
+            guide={false}
+            render={(maskRef, maskProps) => (
+              <InputLine widthLine="23%" margin="0 2em 0 0">
+                <DefaultInput
+                  padding="0.3em 1.2em 0 1.2em"
+                  width="100%"
+                  widthLine="23%"
+                  margin="0 2em 0 0"
+                  ref={(node) => {
+                    if (node) {
+                      maskRef(node);
+                      inputRef.current = node;
+                    }
+                  }}
+                  {...maskProps}
+                />
+              </InputLine>
+            )}
           />
         </ContainerOvertimePayInput>
         <ContainerHourlyPayRate>
@@ -199,5 +197,3 @@ const OvertimePayCalc = ({ data }) => {
     </ContainerOvertimePayCalcLabel>
   );
 };
-
-export default OvertimePayCalc;

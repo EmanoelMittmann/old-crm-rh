@@ -66,7 +66,7 @@ export const Login = () => {
   const handlePushCredentialInGoogle = () => {
     try {
       window.google.accounts.id.initialize({
-        client_id: process.env.REACT_APP_CLIENT_ID,
+        client_id:process.env.REACT_APP_CLIENT_ID,
         callback: handleSign,
       });
       window.google.accounts.id.renderButton(buttonref.current, {
