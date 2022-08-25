@@ -8,6 +8,7 @@ const authentication = (state = inicialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case VALIDTOKEN:
+      console.log(payload);
       const token = JSON.stringify(payload.token);
       const user = JSON.stringify({
         avatar: payload.googleData.data.avatar,
