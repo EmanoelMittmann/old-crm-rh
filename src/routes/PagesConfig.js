@@ -121,16 +121,6 @@ export const templates = [
     isRegisterPage: false,
     path: "/invoiceSending"
   },
-  {
-    id: 13,
-    name: "Configurações",
-    hasButton: false,
-    buttonText: "",
-    buttonPath: "",
-    icon: <SettingsIcon/>,
-    isRegisterPage: false,
-    path: "/occupation"
-  }
 ]
 
 export const noTemplate = {

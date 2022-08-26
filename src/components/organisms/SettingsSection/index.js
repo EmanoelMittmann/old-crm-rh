@@ -85,7 +85,6 @@ export const SettingsSection = () => {
         if(location.pathname === "/job") dispatch(setJobList(data.data))
         if(location.pathname === "/projectStatus") dispatch(setStatusList(data.data))
         if(location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
-        if(location.pathname === "/occupation") dispatch(setOccupationList(data.data))
         dispatch(settingsPages(data.meta))
         
         return data
@@ -104,7 +103,6 @@ export const SettingsSection = () => {
         if(location.pathname === "/job") dispatch(setJobList(data.data))
         if(location.pathname === "/projectStatus") dispatch(setStatusList(data.data))
         if(location.pathname === "/projectType") dispatch(setProjectTypeList(data.data))
-        if(location.pathname === "/occupation") dispatch(setOccupationList(data.data))
         dispatch(settingsPages(data.meta))
     
         return data
