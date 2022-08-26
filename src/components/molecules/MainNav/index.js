@@ -157,7 +157,6 @@ const NavHome = () => {
             {location.pathname === '/job' && <ActiveIcon />}
             {location.pathname === '/projectStatus' && <ActiveIcon />}
             {location.pathname === '/projectType' && <ActiveIcon />}
-            {location.pathname === '/occupation' && <ActiveIcon />}
           </ActiveIconContainer>
         </>
       ) : (

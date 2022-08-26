@@ -60,18 +60,6 @@ const SettingsSidebar = () => {
                     </SettingsOption>
                 </Link>
 
-                <Link
-                    to="/occupation"
-                    className="settings-menu-link"
-                    onClick={() => resetFilters()}
-                >
-                    <SettingsOption
-                        clicked={location.pathname === "/occupation" ? true : false}
-                    >
-                        Funções
-                    </SettingsOption>
-                </Link>
-                
         </Sidebar>
     )
 }
