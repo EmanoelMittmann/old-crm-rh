@@ -147,10 +147,9 @@ const RegisterProject = (props) => {
   const getAllProfessionals = useCallback(async () => {
     const { data } = await api({
       method: 'get',
-      url: `/user`,
+      url: `/professionals/?limit=undefined`,
     });
-    const formattedProfessionals = formatFirstLetter(data);
-    setAllUsers(formattedProfessionals);
+    setAllUsers(data.data);
   }, []);
 
   const getTeam = () => {

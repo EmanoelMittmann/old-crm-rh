@@ -40,7 +40,7 @@ const ProfessionalsListItem = ({professional}) => {
         setMenuOptionsisVisible(false)
 
         const name = professional.id === optionClicked  ? professional.name : "esse profissional"
-        const status = professional.is_active === 1 ? 'inativar' : 'ativar'
+        const status = professional.is_active ? 'inativar' : 'ativar'
         setModalMessage(`Deseja realmente ${status} ${name}?`)
     }
 
@@ -76,7 +76,7 @@ const ProfessionalsListItem = ({professional}) => {
                 {professional.local}
             </Professionalnfo>
             <ProfessionalStatus>
-                { professional.is_active === 1 
+                { professional.is_active === true 
                     ? <Badge bg='#E4F8DD' color='#229A16' > Ativo </Badge> 
                     : <Badge bg='#FFE2E1' color='#BB2B3F' > Inativo </Badge> }
             </ProfessionalStatus>
@@ -90,7 +90,7 @@ const ProfessionalsListItem = ({professional}) => {
                 <MenuOptions
                     positionMenu="13px"
                     firstOptionDescription="Editar"
-                    secondOptionDescription={professional.is_active === 1 ? "Inativar" : "Ativar"}
+                    secondOptionDescription={professional.is_active ? "Inativar" : "Ativar"}
                     firstChosenOption={editProfessional}
                     secondChosenOption={openModaldisableProfessional}
                     padding="0.3em 0.5em 0.3em 1.7em"

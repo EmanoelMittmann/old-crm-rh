@@ -517,7 +517,7 @@ const RegisterProfessional = () => {
         <RegisterFooter
           cancelButtonHandler={goBackClickHandler}
           registerButtonHandler={() => {}}
-          buttonDescription="Cadastrar"
+          buttonDescription={id ? 'Atualizar' : 'Cadastrar'}
           type="submit"
           form="professional"
         />
