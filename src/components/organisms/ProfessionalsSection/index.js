@@ -54,7 +54,7 @@ const ProfessionalsSection = () => {
     const getProfessionals = async () => {
         const {data} = await api({
             method:'get',     
-            url:`/professionals`,
+            url:`/professionals/?limit=5`,
             params: params
         })
         
