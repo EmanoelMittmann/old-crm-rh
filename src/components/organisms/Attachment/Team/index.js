@@ -69,7 +69,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
             key: 'id'
         })
         setOptions(optionsValid)
-        console.log(allOptions)
         handleRows()
     },[allOptions, team])
 
