@@ -63,6 +63,10 @@ const ProfessionalsSection = () => {
     }
 
     useEffect(() => {
+        getProfessionals()
+    },[professionals])
+
+    useEffect(() => {
         handleFilterRequest()
         getProfessionals()
         location.state && setProfessionals(location.state.professionals.data) 

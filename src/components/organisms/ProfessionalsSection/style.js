@@ -6,5 +6,9 @@ export const ProfessionalsSectionContainer = styled.section`
     min-height: 70vh;
     background-color: white;
     border-radius: 20px;
+
+    @media(min-width:1000px){
+        width:95%;
+    }
 `
 

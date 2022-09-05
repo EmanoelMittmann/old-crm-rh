@@ -57,6 +57,10 @@ const Projects = () => {
       setMeta(data.meta)
   }
 
+  useEffect(() => {
+    getProjects()
+  },[data])
+
   const nextPage = () => {
     handleFilterRequest("next")
     getProjects()

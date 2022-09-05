@@ -51,7 +51,7 @@ const ProfessionalsListItem = ({professional}) => {
                 url:`/user/updateStatus/${optionClicked}`
             })
             setOpenModal(false)
-            window.location.reload()
+
         } catch(error){
             console.log(error);
         }
