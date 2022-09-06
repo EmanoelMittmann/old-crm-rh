@@ -37,6 +37,8 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
     const [totalHours, setTotalHours] = useState(0)
     const [totalOvertime, setTotalOvertime] = useState(0)
     const [totalPercentage, setTotalPercentage] = useState(0)
+    const [onlyError, setOnlyError] = useState('')
+    const [overtimeProjetctErr, setOvertimeProjectErr] = useState('')
 
     const [options, setOptions] = useState([])
 
@@ -50,6 +52,8 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
         setProjectSelected(null)
         setHoursMonthProject('')
         setOvertime('')
+        setOnlyError('')
+        setOvertimeProjectErr('')
         setReset(true)
     }
 
@@ -121,21 +125,37 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
     }
 
     function handleAddProject() {
-        if(!projectSelected) return
-        const selected = allOptions.find(project => project.id == projectSelected)
+        if (!projectSelected) return;
+        const selected = allOptions.find(
+            (project) => project.id == projectSelected
+        );
 
-        if(!id) {
-            setProjects(oldState => [...oldState, {
-                id: selected.id,
-                workload: hoursMonthProject,
-                extra_hours_limit: overtime
-            }])
-            resetInputs()
-            return
+        if (hoursMonthProject === '0' || hoursMonthProject === '') {
+            setOnlyError('O Campo Hora/mês deve ser maior que 0');
+            return;
         }
-        
-        addProject(selected.id, hoursMonthProject, overtime)
-        resetInputs()
+
+        if(overtime === '' || overtime < '0'){
+            setOvertimeProjectErr('O Campo Hora/Extra não pode ser vazio, inclua o zero caso não exista valor de hora extra')
+            return;
+
+        }
+
+        if (!id) {
+            setProjects((oldState) => [
+                ...oldState,
+                {
+                    id: selected.id,
+                    workload: hoursMonthProject,
+                    extra_hours_limit: overtime,
+                },
+            ]);
+            resetInputs();
+            return;
+        }
+
+        addProject(selected.id, hoursMonthProject, overtime);
+        resetInputs();
     }
 
     function handleEditProject() {
@@ -212,6 +232,8 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
                     value={hoursMonthProject}
                     type="number"
                     padding="0 2em 0 2em"
+                    error={onlyError}
+                    touched={onlyError}
                     handleBlur={() => {}}
                 />
                 <InputWithLabel
@@ -222,6 +244,8 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
                     value={overtime}
                     type="number"
                     padding="0 2em 0 0"
+                    error={overtimeProjetctErr}
+                    touched={overtimeProjetctErr}
                     handleBlur={() => {}}
                 />
                 <BlueButton onClick={() => handleAddProject()} width="13%">
