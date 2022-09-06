@@ -19,7 +19,7 @@ import { formatDate } from '../../utils/formatDate.js'
 import {ReactComponent as OptionsIcon} from '../../../assets/icons/options.svg'
 import { TeamMemberAttachment } from '../../molecules/TeamMemberAttachment/index.js'
 
-export const ProjectsListItem = ({ data, statusOptions }) => {
+export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
     const history = useHistory()
     const [idProjectClicked, setIdProjectClicked] = useState(0)
     const [idProjectStatusClicked, setIdProjectStatusClicked] = useState(0)
@@ -46,6 +46,7 @@ export const ProjectsListItem = ({ data, statusOptions }) => {
 
     const closeModalEditProjectStatus = () => {
         setStatusModalIsVisible(false)
+        getProjects()
     }
 
     const openProjectTeamModal = () => {

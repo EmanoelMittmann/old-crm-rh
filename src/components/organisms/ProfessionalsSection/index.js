@@ -45,11 +45,17 @@ const ProfessionalsSection = () => {
 
     }
 
+    // useEffect(() => {
+    //     getProfessionals()
+    // },[professionals.is_active])
+
+
     const sortByName = () => {
         order === "" && setOrder("desc")
         order === "asc" && setOrder("desc")
         order === "desc" && setOrder("asc")
     }
+
 
     const getProfessionals = async () => {
         const {data} = await api({
@@ -63,14 +69,9 @@ const ProfessionalsSection = () => {
     }
 
     useEffect(() => {
-        getProfessionals()
-    },[professionals])
-
-    useEffect(() => {
         handleFilterRequest()
         getProfessionals()
         location.state && setProfessionals(location.state.professionals.data) 
-
     }, [searchResult, jobSelected, order])
 
     const nextPage = () => {
@@ -88,7 +89,7 @@ const ProfessionalsSection = () => {
             <ProfessionalsInputs setSearchResult={setSearchResult} setJobSelected={setJobSelected}/>
             <ProfessionalsListHeader sortByName={sortByName}/>
             {professionals?.map((professional) => {
-                return <ProfessionalsListItem key={professional.id} professional={professional}/>
+                return <ProfessionalsListItem key={professional.id} professional={professional} getProfessionals={getProfessionals}/>
             })}
             <Footer
             previousPage={previousPage}
