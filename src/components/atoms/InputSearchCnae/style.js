@@ -6,6 +6,7 @@ height: 45px;
 border: ${props => `1.5px solid ${props.error ? "#ff4842" : "#919EAB52"}`};
 border-radius: 8px;
 display: flex;
+flex-direction: row;
 justify-content:space-between;
 width:${props => props.width ? props.width : "90%"};
 `
@@ -61,4 +62,12 @@ export const DefaultInputCnae = styled.input`
     &::-webkit-search-results-decoration {
         display: none;
     }
+`
+
+export const ListItens = styled.option`
+    position: absolute;
+    color: blue;
+    background-color: #DBE9F4;
+    border-radius: 10px;
+    line-height: -10;
 `

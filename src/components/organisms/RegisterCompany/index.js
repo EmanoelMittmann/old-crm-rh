@@ -16,6 +16,7 @@ import InputSelect from '../../atoms/InputSelect'
 import { BlueButton } from '../../atoms/Buttons/BlueButton/style'
 import { optionsPorte } from './Porte'
 import { useEffect } from 'react'
+import InputSearchCnae from '../../atoms/InputSearchCnae'
 
 
 
@@ -160,14 +161,14 @@ const RegisterCompany = ({ data}) => {
           />
         </ContainerRow>
         <ContainerRow>
-          <InputWithButton
+          <InputSearchCnae
             placeholder={"Codigo e descrição de Atividade Economica Principal"}
             onChange={handleChange('main_cnae')}
             value={values.main_cnae}
           />
         </ContainerRow>
         <ContainerRow>
-          <InputWithButton
+          <InputSearchCnae
             placeholder={"Codigo e descrição de Atividade Economica Secundaria"}
             onChange={handleChange('secundary_cnae')}
             value={values.main_cnae}
