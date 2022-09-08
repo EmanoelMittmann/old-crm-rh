@@ -7,6 +7,7 @@ import { InputSearchWithLabel, DefaultInputCnae, ListItens } from "./style.js";
 const InputSearchCnae = ({ inputWidth, placeholder, onChange }) => {
   const [id, setId] = useState("");
   const [value, setValue] = useState([]);
+  const [SelectedValue, setSelectedValue] = useState([]);
 
   useEffect(() => {
     const dataInApi = async () => {
@@ -27,10 +28,9 @@ const InputSearchCnae = ({ inputWidth, placeholder, onChange }) => {
     }
   }, [id]);
 
-  console.log(value);
+  console.log(SelectedValue);
 
   return (
-    <>
       <InputSearchWithLabel>
         <DefaultInputCnae
           onChange={(e) => setId(e.target.value)}
@@ -39,11 +39,15 @@ const InputSearchCnae = ({ inputWidth, placeholder, onChange }) => {
           width={inputWidth}
           padding="0.3em 0 0 1em"
         />
+        {value.length <= 200 &&
+          value.map((index) => (
+            <ListItens
+              key={index.id}
+            >
+              {index.descricao}
+            </ListItens>
+          ))}
       </InputSearchWithLabel>
-        {value.map((index) => (
-          <ListItens key={index.id}>{index.descricao}</ListItens>
-        ))}
-    </>
   );
 };
 

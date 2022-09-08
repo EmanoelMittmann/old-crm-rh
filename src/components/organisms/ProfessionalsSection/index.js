@@ -45,11 +45,6 @@ const ProfessionalsSection = () => {
 
     }
 
-    // useEffect(() => {
-    //     getProfessionals()
-    // },[professionals.is_active])
-
-
     const sortByName = () => {
         order === "" && setOrder("desc")
         order === "asc" && setOrder("desc")

@@ -166,6 +166,7 @@ const RegisterCompany = ({ data}) => {
             onChange={handleChange('main_cnae')}
             value={values.main_cnae}
           />
+          <BlueButton width="20%">Adicionar</BlueButton>
         </ContainerRow>
         <ContainerRow>
           <InputSearchCnae
@@ -173,6 +174,7 @@ const RegisterCompany = ({ data}) => {
             onChange={handleChange('secundary_cnae')}
             value={values.main_cnae}
           />
+          <BlueButton width="20%">Adicionar</BlueButton>
         </ContainerRow>
         <ContainerRow>
           <InputWithLabel

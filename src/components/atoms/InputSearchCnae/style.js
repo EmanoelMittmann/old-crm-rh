@@ -68,6 +68,7 @@ export const ListItens = styled.option`
     position: absolute;
     color: blue;
     background-color: #DBE9F4;
+    margin: 10px;
     border-radius: 10px;
-    line-height: -10;
+  
 `
