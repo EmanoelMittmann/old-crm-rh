@@ -133,12 +133,12 @@ export const templates = [
   },
   {
     id: 14,
-    name: "Company",
+    name: "Cadastro de Empresas",
     hasButton: true,
-    buttonText: "",
-    buttonPath: "",
-    icon:<CompanyIcon/>,
-    isRegisterPage: true,
+    buttonText: "Cadastrar Nova",
+    buttonPath: "/Companies",
+    icon:<ProjectsIcon/>,
+    isRegisterPage: false,
     path: "/Company"
   },
 ]
