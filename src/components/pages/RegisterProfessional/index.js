@@ -32,6 +32,7 @@ const RegisterProfessional = () => {
   const [uniqueCEP, setUniqueCEP] = useState("");
   const [anotherCep, setAnotherCEP] = useState("");
   const [extraHour, setExtraHour] = useState("");
+  const [uniqueEmail, setUniqueEmail] = useState('')
   const history = useHistory();
   const { id } = useParams();
   const attachment = {
@@ -47,7 +48,7 @@ const RegisterProfessional = () => {
     cpf: Yup.string()
       .required(messages.required)
       .min(14, "CPF inválido")
-      .test("Verificar CPF", "CPF Usado", () => {
+      .test("Verificar CPF", "CPF já existe", () => {
         if (values.cpf.length === 14 && values.cpf !== uniqueCpf) {
           setUniqueCpf(values.cpf);
           validateCpf(values.cpf)
@@ -55,10 +56,12 @@ const RegisterProfessional = () => {
               if (response.data === true) return setCpfValid(true);
               return setCpfValid(false);
             })
-            .catch((error) => false);
+            .catch((error) => false );
+     
         }
         return true;
       }),
+      
     rg: Yup.string().required(messages.required),
     birth_date: Yup.string().required(messages.required),
     cep: Yup.string()
@@ -84,7 +87,6 @@ const RegisterProfessional = () => {
     uf: Yup.string().required(messages.required),
     telephone_number: Yup.string().required(messages.required),
     email: Yup.string().required(messages.required),
-
     professional_data: Yup.object().shape({
       cnpj: Yup.string().min(18, "CNPJ Inválido"),
       razao_social: Yup.string(),

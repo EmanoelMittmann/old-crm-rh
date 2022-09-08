@@ -261,7 +261,7 @@ const RegisterProfessionalsData = ({ data }) => {
               label="CNPJ"
               onChange={handleChange('professional_data.cnpj')}
               error={errors.cnpj}
-              touched={touched.cnpj}
+              touched={errors.cnpj}
               padding="0em 2em 0 0em"
               width="100%"
               widthContainer="30%"
