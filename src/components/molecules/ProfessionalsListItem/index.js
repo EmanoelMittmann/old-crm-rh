@@ -18,7 +18,7 @@ import {
     Badge
 } from './style.js'
 
-const ProfessionalsListItem = ({professional}) => {
+const ProfessionalsListItem = ({professional, getProfessionals}) => {
 
     const history = useHistory();
     const [optionClicked, setOptionClicked] = useState(false);
@@ -51,7 +51,7 @@ const ProfessionalsListItem = ({professional}) => {
                 url:`/user/updateStatus/${optionClicked}`
             })
             setOpenModal(false)
-
+            getProfessionals()
         } catch(error){
             console.log(error);
         }
