@@ -1,37 +1,37 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useHistory, useParams } from "react-router-dom";
-import axios from "axios";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import api from "../../../api/api";
-import { toast } from "react-toastify";
-import ArrowRegister from "../../atoms/ArrowRegister";
-import OvertimePayCalc from "../../atoms/OvertimePayCalc";
-import { SectionTitle } from "../../atoms/PageTitle/style.js";
-import { DefaultToast } from "../../atoms/Toast/DefaultToast";
-import EmploymentContract from "../../molecules/EmploymentContract";
-import ProfessionalsExtraHour from "../../molecules/ProfessionalsExtraHour";
-import RegisterFooter from "../../molecules/RegisterFooter";
-import AttachmentProject from "../../organisms/Attachment/Project";
-import RegisterProfessionalsData from "../../organisms/RegisterProfessionalsData";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import api from '../../../api/api';
+import { toast } from 'react-toastify';
+import ArrowRegister from '../../atoms/ArrowRegister';
+import OvertimePayCalc from '../../atoms/OvertimePayCalc';
+import { SectionTitle } from '../../atoms/PageTitle/style.js';
+import { DefaultToast } from '../../atoms/Toast/DefaultToast';
+import EmploymentContract from '../../molecules/EmploymentContract';
+import ProfessionalsExtraHour from '../../molecules/ProfessionalsExtraHour';
+import RegisterFooter from '../../molecules/RegisterFooter';
+import AttachmentProject from '../../organisms/Attachment/Project';
+import RegisterProfessionalsData from '../../organisms/RegisterProfessionalsData';
 import {
   RegisterProfessionalTitleContainer,
   RegisterProfessionalContainer,
-} from "./style.js";
-import { cleanMask } from "../../utils/cleanMask";
-import { getDate } from "../../utils/getDate";
-import { messages } from "../../../settings/YupValidates";
-import { handleErrorMessages } from "../../utils/handleErrorMessages";
+} from './style.js';
+import { cleanMask } from '../../utils/cleanMask';
+import { getDate } from '../../utils/getDate';
+import { messages } from '../../../settings/YupValidates';
+import { handleErrorMessages } from '../../utils/handleErrorMessages';
 
 const RegisterProfessional = () => {
   const [jobs, setJobs] = useState([]);
   const [allProjects, setAllProjects] = useState([]);
   const [projects, setProjects] = useState([]);
-  const [uniqueCpf, setUniqueCpf] = useState("");
+  const [uniqueCpf, setUniqueCpf] = useState('');
   const [cpfValid, setCpfValid] = useState(false);
-  const [uniqueCEP, setUniqueCEP] = useState("");
-  const [anotherCep, setAnotherCEP] = useState("");
-  const [extraHour, setExtraHour] = useState("");
+  const [uniqueCEP, setUniqueCEP] = useState('');
+  const [anotherCep, setAnotherCEP] = useState('');
+  const [extraHour, setExtraHour] = useState('');
   const history = useHistory();
   const { id } = useParams();
   const attachment = {
@@ -46,14 +46,17 @@ const RegisterProfessional = () => {
     name: Yup.string().required(messages.required),
     cpf: Yup.string()
       .required(messages.required)
-      .min(14, "CPF inválido")
-      .test("Verificar CPF", "CPF Usado", () => {
-        if (values.cpf.length === 14 && values.cpf !== uniqueCpf) {
+      .min(14, 'CPF inválido')
+      .test('Verificar CPF', { message: 'CPF Usado' }, () => {
+        if (values.cpf !== uniqueCpf) {
           setUniqueCpf(values.cpf);
           validateCpf(values.cpf)
             .then((response) => {
-              if (response.data === true) return setCpfValid(true);
-              return setCpfValid(false);
+              if (response.data) {
+                setCpfValid(true);
+              } else {
+                setCpfValid(false);
+              }
             })
             .catch((error) => false);
         }
@@ -63,12 +66,12 @@ const RegisterProfessional = () => {
     birth_date: Yup.string().required(messages.required),
     cep: Yup.string()
       .required(messages.required)
-      .min(4 - 9, "CEP Inválido")
-      .test("CEP válido", "CEP não encontrado", () => {
+      .min(4 - 9, 'CEP Inválido')
+      .test('CEP válido', 'CEP não encontrado', () => {
         if (
           values.cep.length === 9 &&
           values.cep !== uniqueCEP &&
-          values.country == "Brazil"
+          values.country == 'Brazil'
         ) {
           setUniqueCEP(values.cep);
           handleCEP(values.cep);
@@ -86,7 +89,7 @@ const RegisterProfessional = () => {
     email: Yup.string().required(messages.required),
 
     professional_data: Yup.object().shape({
-      cnpj: Yup.string().min(18, "CNPJ Inválido"),
+      cnpj: Yup.string().min(18, 'CNPJ Inválido'),
       razao_social: Yup.string(),
       fantasy_name: Yup.string(),
       company_city_name: Yup.string(),
@@ -97,13 +100,13 @@ const RegisterProfessional = () => {
       uf_campany: Yup.string(),
       company_phone_number: Yup.string(),
       bank: Yup.string(),
-      agency: Yup.string().max(5, "Invalido"),
+      agency: Yup.string().max(5, 'Invalido'),
       account_type: Yup.string(),
       account_number: Yup.number(),
       company_cep: Yup.string()
         .required(messages.required)
-        .min(4 - 9, "CEP Inválido")
-        .test("CEP válido", "CEP não encontrado", () => {
+        .min(4 - 9, 'CEP Inválido')
+        .test('CEP válido', 'CEP não encontrado', () => {
           if (
             values.professional_data.company_cep.length === 9 &&
             values.professional_data.company_cep !== anotherCep
@@ -119,84 +122,84 @@ const RegisterProfessional = () => {
     job_type: Yup.string().required(messages.required),
     weekly_hours: Yup.number()
       .required(messages.required)
-      .max(44, "Horas/semana excedida"),
+      .max(44, 'Horas/semana excedida'),
     mounth_hours: Yup.number()
       .required(messages.required)
-      .max(176, "Horas/mês excedida"),
+      .max(176, 'Horas/mês excedida'),
     fixed_payment_value: Yup.string().required(messages.required),
   });
   const formik = useFormik({
     initialValues: {
-      name: "",
-      cpf: cleanMask(""),
-      rg: "".toString(),
-      birth_date: "",
+      name: '',
+      cpf: cleanMask(''),
+      rg: ''.toString(),
+      birth_date: '',
       avatar:
-        "https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png",
-      cep: cleanMask(""),
-      street_name: "",
-      house_number: "",
-      complement: "",
-      neighbourhood_name: "",
-      city_name: "",
-      country: "Brazil",
-      uf: "",
-      telephone_number: cleanMask(""),
-      email: "",
-      start_date: "",
-      job_id: "",
-      job_type: "",
-      weekly_hours: "",
-      mounth_hours: "",
-      fixed_payment_value: cleanMask(""),
+        'https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png',
+      cep: cleanMask(''),
+      street_name: '',
+      house_number: '',
+      complement: '',
+      neighbourhood_name: '',
+      city_name: '',
+      country: 'Brazil',
+      uf: '',
+      telephone_number: cleanMask(''),
+      email: '',
+      start_date: '',
+      job_id: '',
+      job_type: '',
+      weekly_hours: '',
+      mounth_hours: '',
+      fixed_payment_value: cleanMask(''),
       extra_hour_activated: true,
-      variable1: "",
-      variable2: cleanMask(""),
-      extra_hour_value: "",
+      variable1: '',
+      variable2: cleanMask(''),
+      extra_hour_value: '',
       limited_extra_hours: false,
-      extra_hour_limit: "",
+      extra_hour_limit: '',
       user_type_id: 2,
       commission: true,
       professional_data: {
-        cnpj: cleanMask(""),
-        razao_social: "",
-        fantasy_name: "",
-        company_cep: cleanMask(""),
-        company_street_name: "",
-        company_neighborhood_name: "",
-        company_house_number: "",
-        company_complement: "",
-        company_city_name: "",
-        uf_company: "",
-        company_phone_number: cleanMask(""),
-        company_email: "",
-        bank: cleanMask(""),
-        account_type: "",
-        agency: "",
-        account_number: "",
+        cnpj: cleanMask(''),
+        razao_social: '',
+        fantasy_name: '',
+        company_cep: cleanMask(''),
+        company_street_name: '',
+        company_neighborhood_name: '',
+        company_house_number: '',
+        company_complement: '',
+        company_city_name: '',
+        uf_company: '',
+        company_phone_number: cleanMask(''),
+        company_email: '',
+        bank: cleanMask(''),
+        account_type: '',
+        agency: '',
+        account_number: '',
       },
     },
     onSubmit: async (values) => {
       await api({
-        method: id ? "put" : "post",
-        url: id ? `/user/${id}` : "/user",
+        method: id ? 'put' : 'post',
+        url: id ? `/user/${id}` : '/user',
         data: !id
           ? {
               ...values,
               extra_hour_value: parseFloat(
-                values.extra_hour_value.replace("R$", "").replace(",", ".")
+                values.extra_hour_value.replace('R$', '').replace(',', '.')
               ),
               fixed_payment_value: values.fixed_payment_value
-                .replace("R$", "")
-                .replace(".", "")
-                .replace(",00", ""),
+                .replace('R$', '')
+                .replace('.', '')
+                .replace(',00', ''),
               telephone_number: values.telephone_number
                 .toString()
-                .replace("(", "")
-                .replace(")", "")
-                .replace(" ", "")
-                .replace(" ", "")
-                .replace("-", ""),
+                .replace('(', '')
+                .replace(')', '')
+                .replace(' ', '')
+                .replace(' ', '')
+                .replace('-', ''),
               cpf: cleanMask(values.cpf),
               cep: cleanMask(values.cep),
               rg: values.rg.toString(),
@@ -205,19 +208,19 @@ const RegisterProfessional = () => {
           : {
               ...values,
               extra_hour_value: parseFloat(
-                values.extra_hour_value.replace("R$", "").replace(",", ".")
+                values.extra_hour_value.replace('R$', '').replace(',', '.')
               ),
               fixed_payment_value: values.fixed_payment_value
-                .replace("R$", "")
-                .replace(".", "")
-                .replace(",00", ""),
+                .replace('R$', '')
+                .replace('.', '')
+                .replace(',00', ''),
               telephone_number: values.telephone_number
                 .toString()
-                .replace("(", "")
-                .replace(")", "")
-                .replace(" ", "")
-                .replace(" ", "")
-                .replace("-", ""),
+                .replace('(', '')
+                .replace(')', '')
+                .replace(' ', '')
+                .replace(' ', '')
+                .replace('-', ''),
               cpf: cleanMask(values.cpf),
               cep: cleanMask(values.cep),
               rg: values.rg.toString(),
@@ -225,13 +228,13 @@ const RegisterProfessional = () => {
       })
         .then((result) => {
           toast.success(<DefaultToast text="Profissional cadastrado." />, {
-            toastId: "post",
+            toastId: 'post',
           });
-          return history.push("/professionals");
+          return history.push('/professionals');
         })
         .catch((error) => {
           toast.error(<DefaultToast text="Há error de validação" />, {
-            toastId: "post",
+            toastId: 'post',
           });
           const errors = error.response.data.errors;
           setErrors(handleErrorMessages(errors));
@@ -251,12 +254,12 @@ const RegisterProfessional = () => {
         },
       })
       .then((data) => {
-        if (data.data.erro) return setFieldError("cep", "Cep Invalido!");
+        if (data.data.erro) return setFieldError('cep', 'Cep Invalido!');
         const { bairro, localidade, logradouro, uf } = data.data;
-        if (localidade) setFieldValue("city_name", localidade);
-        if (uf) setFieldValue("uf", uf);
-        if (logradouro) setFieldValue("street_name", logradouro);
-        if (bairro) setFieldValue("neighbourhood_name", bairro);
+        if (localidade) setFieldValue('city_name', localidade);
+        if (uf) setFieldValue('uf', uf);
+        if (logradouro) setFieldValue('street_name', logradouro);
+        if (bairro) setFieldValue('neighbourhood_name', bairro);
       })
       .catch((error) => {
         toast.error(<DefaultToast text={error.message} />);
@@ -274,12 +277,12 @@ const RegisterProfessional = () => {
       .then((data) => {
         const { bairro, localidade, logradouro, uf } = data.data;
         if (localidade)
-          setFieldValue("professional_data.company_city_name", localidade);
-        if (uf) setFieldValue("professional_data.uf_company", uf);
+          setFieldValue('professional_data.company_city_name', localidade);
+        if (uf) setFieldValue('professional_data.uf_company', uf);
         if (logradouro)
-          setFieldValue("professional_data.company_street_name", logradouro);
+          setFieldValue('professional_data.company_street_name', logradouro);
         if (bairro)
-          setFieldValue("professional_data.company_neighborhood_name", bairro);
+          setFieldValue('professional_data.company_neighborhood_name', bairro);
       })
       .catch((error) => {
         toast.error(<DefaultToast text={error.message} />);
@@ -288,20 +291,21 @@ const RegisterProfessional = () => {
 
   const validateCpf = async (cpf) => {
     const response = await api({
-      method: "post",
-      url: "/user/validateCpf",
+      method: 'post',
+      url: '/user/validateCpf',
       data: { cpf: cpf },
     });
+    console.log(response);
     return response;
   };
 
   const goBackClickHandler = () => {
-    history.push("/professionals");
+    history.push('/professionals');
   };
 
   const optionsJob = useCallback(async () => {
     const response = await api({
-      method: "get",
+      method: 'get',
       url: `/job`,
     });
     setJobs(response.data.data);
@@ -309,8 +313,8 @@ const RegisterProfessional = () => {
 
   const getAllProjects = useCallback(async () => {
     const { data } = await api({
-      method: "get",
-      url: "/project",
+      method: 'get',
+      url: '/project',
     });
 
     setAllProjects(data.data);
@@ -318,7 +322,7 @@ const RegisterProfessional = () => {
 
   function addProject(id_project, workload, extra_hours_limit) {
     api({
-      method: "post",
+      method: 'post',
       url: `/userProjects/user/${id}`,
       data: {
         id: id_project,
@@ -328,10 +332,10 @@ const RegisterProfessional = () => {
     })
       .then(async (response) => {
         toast.success(<DefaultToast text="Projeto vinculado." />, {
-          toastId: "post",
+          toastId: 'post',
         });
         await api({
-          method: "get",
+          method: 'get',
           url: `/userProjects/user/${id}`,
         }).then((response) => {
           setProjects(response.data);
@@ -339,14 +343,14 @@ const RegisterProfessional = () => {
       })
       .catch((error) => {
         toast.error(<DefaultToast text="Erro ao vincular projeto." />, {
-          toastId: "post",
+          toastId: 'post',
         });
       });
   }
 
   function removeProject(project) {
     api({
-      method: "delete",
+      method: 'delete',
       url: `/userProjects/user/${id}`,
       data: {
         project_id: project,
@@ -354,10 +358,10 @@ const RegisterProfessional = () => {
     })
       .then(async (response) => {
         toast.success(<DefaultToast text="Projeto removido." />, {
-          toastId: "delete",
+          toastId: 'delete',
         });
         await api({
-          method: "get",
+          method: 'get',
           url: `/userProjects/user/${id}`,
         }).then((response) => {
           setProjects(response.data);
@@ -365,14 +369,14 @@ const RegisterProfessional = () => {
       })
       .catch((error) => {
         toast.error(<DefaultToast text="Erro ao remover projeto." />, {
-          toastId: "delete",
+          toastId: 'delete',
         });
       });
   }
 
   function editProject(project, workload, extra_hours_limit) {
     api({
-      method: "put",
+      method: 'put',
       url: `/userProjects/user/${id}`,
       data: {
         id: project,
@@ -382,10 +386,10 @@ const RegisterProfessional = () => {
     })
       .then(async (response) => {
         toast.success(<DefaultToast text="Projeto atualizado." />, {
-          toastId: "put",
+          toastId: 'put',
         });
         await api({
-          method: "get",
+          method: 'get',
           url: `/userProjects/user/${id}`,
         }).then((response) => {
           setProjects(response.data);
@@ -393,7 +397,7 @@ const RegisterProfessional = () => {
       })
       .catch((error) => {
         toast.error(<DefaultToast text="Erro ao atualizar projeto." />, {
-          toastId: "put",
+          toastId: 'put',
         });
       });
   }
@@ -403,43 +407,43 @@ const RegisterProfessional = () => {
     if (!allProjects.length) getAllProjects();
     if (id) {
       api({
-        method: "get",
+        method: 'get',
         url: `/user/${id}`,
       })
         .then((response) => {
           const data = response.data[0];
           Object.entries(data).forEach(([property, value]) => {
-            if (property.includes("date")) {
+            if (property.includes('date')) {
               setFieldValue(property, getDate(value));
-            } else if (property.includes("cnpj")) {
+            } else if (property.includes('cnpj')) {
               setFieldValue(
                 property,
                 value.replace(
                   /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
-                  "$1 $2 $3/$4-$5"
+                  '$1 $2 $3/$4-$5'
                 )
               );
-            } else if (property.includes("telephone_number")) {
+            } else if (property.includes('telephone_number')) {
               setFieldValue(property, value);
-            } else if (property.includes("fixed_payment_value")) {
+            } else if (property.includes('fixed_payment_value')) {
               setFieldValue(property, `R$${value},00`);
-            } else if (property.includes("cep")) {
-              let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
+            } else if (property.includes('cep')) {
+              let data = value.replace(/^(\d{5})(\d{3})+?$/, '$1-$2');
               setUniqueCEP(data);
               setFieldValue(property, data);
-            } else if (property.includes("company_cep")) {
-              let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
+            } else if (property.includes('company_cep')) {
+              let data = value.replace(/^(\d{5})(\d{3})+?$/, '$1-$2');
               setAnotherCEP(data);
               setFieldValue(property, data);
-            } else if (property.includes("cpf")) {
+            } else if (property.includes('cpf')) {
               let data = value.replace(
                 /(\d{3})(\d{3})(\d{3})(\d{2})/,
-                "$1.$2.$3-$4"
+                '$1.$2.$3-$4'
               );
               setUniqueCpf(data);
               setFieldValue(property, data);
-            } else if (property.includes("extra_hour_value")) {
-              setFieldValue(property, String(value).replace(".", ","));
+            } else if (property.includes('extra_hour_value')) {
+              setFieldValue(property, String(value).replace('.', ','));
             } else {
               setFieldValue(property, value);
             }
@@ -450,7 +454,7 @@ const RegisterProfessional = () => {
         });
 
       api({
-        method: "get",
+        method: 'get',
         url: `/userProjects/user/${id}`,
       }).then((response) => {
         setProjects(response.data);
@@ -465,22 +469,22 @@ const RegisterProfessional = () => {
 
   useEffect(() => {
     setFieldValue(
-      "variable2",
+      'variable2',
       Number(
         values.fixed_payment_value
-          .replace("R$", "")
-          .replace(".", "")
-          .replace(",00", "")
+          .replace('R$', '')
+          .replace('.', '')
+          .replace(',00', '')
       )
     );
   }, [values.fixed_payment_value]);
 
   useEffect(() => {
-    if (values.variable1 > 0 && values.variable2 !== "") {
+    if (values.variable1 > 0 && values.variable2 !== '') {
       let calc = values.variable2 / values.variable1;
       setFieldValue(
-        "extra_hour_value",
-        "R$" + calc.toFixed(2).toString().replace(".", ",")
+        'extra_hour_value',
+        'R$' + calc.toFixed(2).toString().replace('.', ',')
       );
     }
   }, [values.variable1, values.variable2]);
@@ -490,7 +494,7 @@ const RegisterProfessional = () => {
       <RegisterProfessionalTitleContainer>
         <ArrowRegister clickHandler={goBackClickHandler} />
         <SectionTitle>
-          {id ? "Edição de profissional" : "Novo profissional"}
+          {id ? 'Edição de profissional' : 'Novo profissional'}
         </SectionTitle>
       </RegisterProfessionalTitleContainer>
       <RegisterProfessionalContainer>
