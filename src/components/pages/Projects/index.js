@@ -57,10 +57,6 @@ const Projects = () => {
       setMeta(data.meta)
   }
 
-  useEffect(() => {
-    getProjects()
-  },[data])
-
   const nextPage = () => {
     handleFilterRequest("next")
     getProjects()
@@ -131,7 +127,7 @@ const Projects = () => {
         />
       </SearchSection>
       <ProjectsListHeader fnOrder={sortByField} />
-      <ProjectsListItem data={data} statusOptions={statusOptions}/>
+      <ProjectsListItem data={data} statusOptions={statusOptions} getProjects={getProjects}/>
       <Footer
         previousPage={previousPage}
         nextPage={nextPage}

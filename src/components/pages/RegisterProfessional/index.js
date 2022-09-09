@@ -304,7 +304,7 @@ const RegisterProfessional = () => {
   const optionsJob = useCallback(async () => {
     const response = await api({
       method: "get",
-      url: `/job`,
+      url: `/job/?is_active=1&limit=undefined&?orderField=name&order=asc`,
     });
     setJobs(response.data.data);
   }, []);
