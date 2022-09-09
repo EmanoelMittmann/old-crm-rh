@@ -68,7 +68,6 @@ const RegisterProfessionalsData = ({ data }) => {
 
   }, [values.country])
 
-  console.log(errors)
   return (
     <ContainerRegisterProfessionalsData>
       <SecondaryText margin="0 0 2.5em 0">Dados pessoais</SecondaryText>
@@ -252,6 +251,7 @@ const RegisterProfessionalsData = ({ data }) => {
             width="100%"
           />
         </ContainerRow>
+        
         <RegisterProfessionalsForm>
           <SecondaryText margin="0 0 2.5em">Dados Pessoa Juridica</SecondaryText>
           <ContainerRow>
