@@ -251,17 +251,18 @@ const RegisterProfessionalsData = ({ data }) => {
             width="100%"
           />
         </ContainerRow>
+        
         <RegisterProfessionalsForm>
           <SecondaryText margin="0 0 2.5em">Dados Pessoa Juridica</SecondaryText>
           <ContainerRow>
             <InputMasked
+              onChange={handleChange('professional_data.cnpj')}
               value={values.professional_data.cnpj}
               mask={[/[0-9]/, /\d/, '.', /\d/, /\d/, /\d/, '.',
                 /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/,]}
               label="CNPJ"
-              onChange={handleChange('professional_data.cnpj')}
-              error={errors.cnpj}
-              touched={errors.cnpj}
+              error={errors?.professional_data?.cnpj}
+              touched={errors?.professional_data?.cnpj}
               padding="0em 2em 0 0em"
               width="100%"
               widthContainer="30%"
@@ -393,8 +394,8 @@ const RegisterProfessionalsData = ({ data }) => {
           <ContainerRow>
             <InputWithLabel
               name="professional_data.company_email"
-              error={errors.company_email}
-              touched={touched.company_email}
+              error={errors?.professional_data?.company_email}
+              touched={errors?.professional_data?.company_email}
               handleBlur={setFieldTouched}
               onChange={handleChange('professional_data.company_email')}
               width="100%"

@@ -32,7 +32,6 @@ const RegisterProfessional = () => {
   const [uniqueCEP, setUniqueCEP] = useState("");
   const [anotherCep, setAnotherCEP] = useState("");
   const [extraHour, setExtraHour] = useState("");
-  const [uniqueEmail, setUniqueEmail] = useState('')
   const history = useHistory();
   const { id } = useParams();
   const attachment = {
@@ -102,6 +101,7 @@ const RegisterProfessional = () => {
       agency: Yup.string().max(5, "Invalido"),
       account_type: Yup.string(),
       account_number: Yup.number(),
+      company_email: Yup.string(),
       company_cep: Yup.string()
         .required(messages.required)
         .min(4 - 9, "CEP Inválido")
