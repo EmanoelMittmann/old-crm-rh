@@ -135,7 +135,7 @@ export const ProjectsInputs = () => {
         return filterProjects()
     }, [selectedOptionTypes])
 
-
+ 
     return (
         <ProjectsInputsContainer>
             <InputSearch

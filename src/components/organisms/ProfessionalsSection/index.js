@@ -78,7 +78,8 @@ const ProfessionalsSection = () => {
         handleFilterRequest("previous")
         getProfessionals()
     }
- 
+
+
     return (
         <ProfessionalsSectionContainer>
             <ProfessionalsInputs setSearchResult={setSearchResult} setJobSelected={setJobSelected}/>
