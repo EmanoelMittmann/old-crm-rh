@@ -5,28 +5,32 @@ import { ProfessionalsInputsContainer } from './style.js'
 import InputSearch from '../../atoms/InputSearch'
 import InputSelect from '../../atoms/InputSelect'
 
-const ProfessionalsInputs = ({setJobSelected, setSearchResult}) => {
+const ProfessionalsInputs = ({ jobSelected, setJobSelected, setSearchResult }) => {
     const [jobs, setJobs] = useState([])
 
     const getJobs = async () => {
-        const {data} = await api({
-            method:'get',     
-            url:`/job`,
+
+        const { data } = await api({
+            method: 'get',
+            url: `/job`,
         })
-        data.data.push({ name: "Todos" }) 
+        data.data.push({ name: "Todos" })
         setJobs(data.data)
     }
-    
+
     useEffect(() => {
         getJobs()
-    },[])
+    }, [])
+
+
 
     return (
         <ProfessionalsInputsContainer>
-            <InputSearch setSearchResult={setSearchResult} lineWidth="280px" inputWidth="230px"/>
+            <InputSearch setSearchResult={setSearchResult} lineWidth="280px" inputWidth="230px" />
             <InputSelect
+                value={jobSelected}
+                onChange={(e) => setJobSelected(e.target.value)}
                 options={jobs}
-                setSelectedOption={setJobSelected}
                 placeHolder="Cargo"
                 width="220px"
             />
