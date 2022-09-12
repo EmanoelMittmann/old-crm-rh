@@ -4,7 +4,7 @@ export const handleErrorMessages = (error, defaultMessage = "Inválido") => {
   let obj = {}
 
   const message = Object.values(error).map((value) => {
-    return messages[value] || defaultMessage
+    return value || defaultMessage
   })
 
   const keys = Object.keys(error).map((value) => {
