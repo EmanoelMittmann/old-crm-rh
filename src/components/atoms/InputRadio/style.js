@@ -21,6 +21,7 @@ export const LabelInputRadio = styled.label`
     font-size: 1rem;
     font-family: "Poppins", sans-serif;
     font-weight: 500;
+	padding: 0px;
     margin-left: 0.6rem;
 	color: ${props => props.color}
 `

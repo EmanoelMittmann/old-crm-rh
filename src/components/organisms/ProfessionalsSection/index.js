@@ -51,6 +51,7 @@ const ProfessionalsSection = () => {
         order === "desc" && setOrder("asc")
     }
 
+
     const getProfessionals = async () => {
         const {data} = await api({
             method:'get',     
@@ -66,7 +67,6 @@ const ProfessionalsSection = () => {
         handleFilterRequest()
         getProfessionals()
         location.state && setProfessionals(location.state.professionals.data) 
-
     }, [searchResult, jobSelected, order])
 
     const nextPage = () => {

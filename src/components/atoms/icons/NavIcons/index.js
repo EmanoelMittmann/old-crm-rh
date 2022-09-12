@@ -26,7 +26,9 @@ import {
 import {
   ReactComponent as Settings
 } from '../../../../assets/icons/settings.svg';
-
+import {
+  ReactComponent as Company
+} from '../../../../assets/icons/Vector.svg'
 
 //Home Icon
 
@@ -605,3 +607,69 @@ export const SettingsIcon = () => {
     )
 };
 
+const CompanyIconContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 55px;
+
+  svg {
+    fill: ${(props) => props.location === '/Company' ? "black" : "#B7BDC2"};
+    cursor: pointer;
+    height: 45px;
+    transition: 0.4s fill ease-in-out;
+  }
+
+  &:hover{
+    background: #F4F6F8;
+    border-radius: 10px;
+
+    svg{
+      fill: black;
+    }
+  }
+
+  &:after{
+    content: 'Empresas';
+    display: ${props => props.location === '/Company' ? "none" : props.hover};
+    width: 100px;
+    height: 35px;
+    background-color: white;
+    box-shadow: 0px 10px 15px -7px rgba(0,0,0,0.2), 5px 25px 14px -13px rgba(0,0,0,0);
+    position: absolute;
+    border-radius: 8px;
+    top: 122%;
+    color: black;
+    font-size: 0.7rem;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  &:before {
+    content: "";
+    display: ${props => props.location === '/Company' ? "none" : props.hover};
+    width: 45px;
+    height: 20px;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    position: absolute;
+    top: 65px;
+    background-color: white;
+  }
+`;
+
+
+export const CompanyIcon = () => {
+  const location = useLocation();
+  const state = useSelector(state => state.headerMenu[7])
+  const displayDescription = state.descriptionIsAppearing ? "flex" : "none";
+
+    return (
+      <CompanyIconContainer 
+      location={location.pathname}
+      hover={displayDescription}>
+          <Company/>
+      </CompanyIconContainer>
+    )
+};

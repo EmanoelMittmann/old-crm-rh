@@ -16,7 +16,7 @@ import InputMasked from '../../atoms/InputMasked/index.js'
 import { useEffect } from 'react'
 import SelectBank from '../../atoms/SelectBank'
 
-const optionsUF = [
+export const optionsUF = [
   { name: "Acre", id: "AC" },
   { name: "Alagoas", id: "AL" },
   { name: "Amapá", id: "AP" },
@@ -45,7 +45,6 @@ const optionsUF = [
   { name: "Sergipe", id: "SE" },
   { name: "Tocantins", id: "TO" }
 ]
-
 
 const optionsBank = [
   { name: "Conta Corrente ", id: "001" },

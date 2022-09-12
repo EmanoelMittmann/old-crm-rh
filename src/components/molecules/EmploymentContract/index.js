@@ -152,8 +152,8 @@ const EmploymentContract = ({ data, jobs }) => {
       <FullcCommissionAllowance
         onChange={(e) => {
           e.target.value === "limitComission"
-            ? setFieldValue("commission", 1)
-            : setFieldValue("commission", 0);
+            ? setFieldValue("Commission", 1)
+            : setFieldValue("Commission", 0);
           setComponentJustRenderedComission(false);
         }}
       >

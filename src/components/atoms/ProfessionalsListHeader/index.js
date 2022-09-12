@@ -10,6 +10,8 @@ import {
 import { ListHeaderContainer, ListHeaderTitle } from '../ListHeader/style'
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
 
+
+
 const ProfessionalsListHeader = ({sortByName}) => {
     return (
         <ListHeaderContainer>

@@ -21,6 +21,7 @@ import {
   ReportsIcon,
   ServiceOrdersIcon,
   SettingsIcon,
+  CompanyIcon,
 } from '../../atoms/icons/NavIcons/index';
 
 import { Nav, ActiveIconContainer, ActiveIcon } from './style.js';
@@ -155,10 +156,20 @@ const NavHome = () => {
               <SettingsIcon />
             </Link>
             {location.pathname === '/job' && <ActiveIcon />}
-            {location.pathname === '/projectStatus' && <ActiveIcon />}
-            {location.pathname === '/projectType' && <ActiveIcon />}
+          </ActiveIconContainer>
+          
+          <ActiveIconContainer
+            onClick={() => MenuItemClickHandler(9)}
+            onMouseOver={() => MenuItemOnMouseOverHandler(9)}
+            onMouseOut={() => MenuItemOnMouseOutHandler(9)}
+          >
+            <Link to="/company">
+              <CompanyIcon />
+            </Link>
+            {location.pathname === '/company' && <ActiveIcon />}
           </ActiveIconContainer>
         </>
+
       ) : (
         <></>
       )}
