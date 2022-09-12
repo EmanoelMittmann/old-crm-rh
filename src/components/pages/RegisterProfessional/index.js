@@ -47,8 +47,8 @@ const RegisterProfessional = () => {
     cpf: Yup.string()
       .required(messages.required)
       .min(14, 'CPF inválido')
-      .test('Verificar CPF', { message: 'CPF Usado' }, () => {
-        if (values.cpf !== uniqueCpf) {
+      .test('Verificar CPF', 'CPF já existe', () => {
+        if (values.cpf.length === 14 && values.cpf !== uniqueCpf) {
           setUniqueCpf(values.cpf);
           validateCpf(values.cpf)
             .then((response) => {
@@ -62,6 +62,7 @@ const RegisterProfessional = () => {
         }
         return true;
       }),
+
     rg: Yup.string().required(messages.required),
     birth_date: Yup.string().required(messages.required),
     cep: Yup.string()
@@ -87,7 +88,6 @@ const RegisterProfessional = () => {
     uf: Yup.string().required(messages.required),
     telephone_number: Yup.string().required(messages.required),
     email: Yup.string().required(messages.required),
-
     professional_data: Yup.object().shape({
       cnpj: Yup.string().min(18, 'CNPJ Inválido'),
       razao_social: Yup.string(),
@@ -103,6 +103,7 @@ const RegisterProfessional = () => {
       agency: Yup.string().max(5, 'Invalido'),
       account_type: Yup.string(),
       account_number: Yup.number(),
+      company_email: Yup.string(),
       company_cep: Yup.string()
         .required(messages.required)
         .min(4 - 9, 'CEP Inválido')
@@ -306,7 +307,7 @@ const RegisterProfessional = () => {
   const optionsJob = useCallback(async () => {
     const response = await api({
       method: 'get',
-      url: `/job`,
+      url: `/job/?is_active=1&limit=undefined&?orderField=name&order=asc`,
     });
     setJobs(response.data.data);
   }, []);
