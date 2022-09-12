@@ -11,7 +11,7 @@ import {
   ValuesSelected,
 } from "./style.js";
 
-const InputSearchCnae = ({
+const InputSearchCnaeSecundary = ({
   inputWidth,
   placeholder,
   setFieldValue,
@@ -30,13 +30,7 @@ const InputSearchCnae = ({
 
   const handleClick = (e) => {
     e.preventDefault()
-    setFieldValue('main_cnae',waitingValue)
-  }
-
-  const handleDelete = (index) => {
-    const temp = values.main_cnae
-    temp.splice(index,1)
-    setFieldValue('main_cnae',temp)
+    setFieldValue('secondary_cnae',waitingValue)
   }
 
   useEffect(() => {
@@ -55,8 +49,9 @@ const InputSearchCnae = ({
   }, [id]);
 
   useEffect(() => {
-    setSelectValue(values.main_cnae);
-  }, [values.main_cnae]);
+    setSelectValue(values.secondary_cnae);
+    console.log(selectValue)
+  }, [values.secondary_cnae]);
 
   return (
     <>
@@ -70,23 +65,19 @@ const InputSearchCnae = ({
         />
         <div className="div1">
           {selectValue?.map((index) => (
-            <ValuesSelected 
-              key={index.id}
-              onClick={(index) => handleDelete(index)}
-              >
-                {index.description}
-            </ValuesSelected>
+            <ValuesSelected key={index.id}>{index.description}</ValuesSelected>
           ))}
         </div>
       </InputSearchWithLabel>
-      {id > 1 && (
+      {id >= 1 && (
         <ListItens>
           {filteredValues.length <= 150 &&
             filteredValues.map((index) => (
               <Itens
                 key={index.id}
                 onClick={() => {
-                  setWaitingValue([...values.main_cnae,{id: index.id, description: index.descricao}]);
+                  setWaitingValue( 
+                  [...values.secondary_cnae,{id: index.id, description: index.descricao}]);
                   setId("");
                 }}
               >
@@ -95,11 +86,9 @@ const InputSearchCnae = ({
             ))}
         </ListItens>
       )}
-        <BlueButton width="20%" onClick={(e) => handleClick(e)}>
-          Adicionar
-        </BlueButton>
+      <BlueButton width="20%" onClick={(e) => handleClick(e)}>Adicionar</BlueButton>
     </>
   );
 };
 
-export default InputSearchCnae;
+export default InputSearchCnaeSecundary;

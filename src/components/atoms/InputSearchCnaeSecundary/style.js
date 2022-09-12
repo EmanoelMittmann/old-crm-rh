@@ -9,7 +9,7 @@ export const InputSearchWithLabel = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: ${(props) => (props.width ? props.width : "90%")};
-  margin-bottom: 10px;
+  margin-bottom: 18px;
 
   .div1{
     display:flex;
@@ -106,5 +106,4 @@ export const ValuesSelected = styled.div`
   font-size: 10px;
   padding: 5px;
   margin: 10px;
-  cursor: pointer;
 `;

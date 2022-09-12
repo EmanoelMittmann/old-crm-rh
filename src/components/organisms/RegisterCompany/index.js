@@ -17,6 +17,7 @@ import { BlueButton } from '../../atoms/Buttons/BlueButton/style'
 import { optionsPorte } from './Porte'
 import { useEffect } from 'react'
 import InputSearchCnae from '../../atoms/InputSearchCnae'
+import InputSearchCnaeSecundary from '../../atoms/InputSearchCnaeSecundary'
 
 
 
@@ -118,7 +119,7 @@ const RegisterCompany = ({ data}) => {
             value={values.municipal_registration}
             onChange={handleChange('municipal_registration')}
             error={errors.municipal_registration}
-            touched={touched.nmunicipal_registration}
+            touched={touched.municipal_registration}
             label="Inscrição Municipal"
             name="Inscrição Municipal"
             width="90%"
@@ -127,7 +128,7 @@ const RegisterCompany = ({ data}) => {
           />
           <InputSelect
             value={values.size}
-            onChange={handleChange('porte')}
+            onChange={handleChange('size')}
             error={errors.porte}
             touched={touched.porte}
             options={optionsPorte}
@@ -163,18 +164,20 @@ const RegisterCompany = ({ data}) => {
         <ContainerRow>
           <InputSearchCnae
             placeholder={"Codigo e descrição de Atividade Economica Principal"}
-            onChange={handleChange('main_cnae')}
+            onChange={handleChange("main_cnae")}
             value={values.main_cnae}
+            setFieldValue={setFieldValue}
+            values={values}
           />
-          <BlueButton width="20%">Adicionar</BlueButton>
         </ContainerRow>
         <ContainerRow>
-          <InputSearchCnae
+          <InputSearchCnaeSecundary
             placeholder={"Codigo e descrição de Atividade Economica Secundaria"}
             onChange={handleChange('secundary_cnae')}
-            value={values.main_cnae}
+            value={values.secundary_cnae}
+            setFieldValue={setFieldValue}
+            values={values}
           />
-          <BlueButton width="20%">Adicionar</BlueButton>
         </ContainerRow>
         <ContainerRow>
           <InputWithLabel

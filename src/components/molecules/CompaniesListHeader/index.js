@@ -16,7 +16,7 @@ export const CompaniesListHeader = () => {
     <ListHeaderContainer>
 
             <ListHeaderRazaoSocial>
-                <ListHeaderTitle margin="0">Razão Social</ListHeaderTitle>
+                <ListHeaderTitle margin="-50px">Razão Social</ListHeaderTitle>
                 <Arrows onClick={sortByName}/>
             </ListHeaderRazaoSocial>
 

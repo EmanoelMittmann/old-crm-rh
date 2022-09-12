@@ -14,13 +14,15 @@ export const ContainerCompaniesListItem = styled.div`
 export const CompanyRazaoSocial = styled.div`
   display: flex;
   width: 20%;
-  padding-left: 5em;
+  padding-left: 2em;
+  padding-right: 1em;
 `;
 
 export const CompanyCNPJ = styled.div`
   display: flex;
-  width: 20%;
-  padding-left: 5em;
+  width: 30%;
+  justify-content: center;
+  margin-left: 2.5em;
 `;
 
 export const CompanyDate = styled.div`

@@ -60,7 +60,6 @@ const ProfessionalsListItem = ({professional, getProfessionals}) => {
     return (
         <ContainerProfessionalsListItem key={professional.id}>
             <ProfessionalProfile>
-                <TeamMemberPic margin="0 1.5em 0 0" width="45px" height="45px" src={professional.avatar}/>
                 {professional.name}
             </ProfessionalProfile>
             <Professionalnfo>

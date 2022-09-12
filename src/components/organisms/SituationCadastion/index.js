@@ -20,7 +20,7 @@ export const SituationCadastion = ({data}) => {
         <ContainerRow>
           <InputSelect
             value={values.registration_status}
-            onChange={handleChange('porte')}
+            onChange={handleChange('registration_status')}
             error={errors.registration_status}
             touched={touched.registration_status}
             options={optionsRegistions}
@@ -28,7 +28,6 @@ export const SituationCadastion = ({data}) => {
             name="Situação Cadastral"
             handleBlur={setFieldTouched}
             width="270px"
-
           />
           <InputDate
             value={values.date_of_registration_status}

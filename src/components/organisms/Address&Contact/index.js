@@ -46,7 +46,7 @@ export const AddressContact = ({ data }) => {
                     />
                     <InputWithLabel
                         value={values.house_number}
-                        onChange={handleChange('number')}
+                        onChange={handleChange('house_number')}
                         label="número"
                         padding="0em 2em 0 0em"
                         width="100%"
@@ -54,7 +54,7 @@ export const AddressContact = ({ data }) => {
                         error={errors.number}
                         touched={touched.number}
                         handleBlur={setFieldTouched}
-                        name="number"
+                        
                     />
                     <InputWithLabel
                         value={values.complement}
@@ -71,8 +71,8 @@ export const AddressContact = ({ data }) => {
                 </ContainerRow>
                 <ContainerRow>
                     <InputWithLabel
-                        value={values.neighbourhood_name}
-                        onChange={handleChange('district')}
+                        value={values.neighborhood_name}
+                        onChange={handleChange('neighborhood_name')}
                         label="Bairro"
                         padding="0em 2em 0 0em"
                         width="100%"
@@ -104,22 +104,22 @@ export const AddressContact = ({ data }) => {
                 </ContainerRow>
                 <ContainerRow>
                     <InputMasked
-                        value={values.telephone_number}
+                        value={values.phone_number}
                         mask={['(', /[1-9]/, /\d/, ')', ' ', /\d/, ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
                         label="telefone"
-                        onChange={handleChange('telephone_number')}
-                        error={errors.telephone_number}
-                        touched={touched.telephone_number}
+                        onChange={handleChange('phone_number')}
+                        error={errors.phone_number}
+                        touched={touched.phone_number}
                         width="95%"
                         widthContainer="30%"
                         handleBlur={setFieldTouched}
-                        name="telephone_number"
+                        name="phone_number"
                     />
                     <InputWithLabel
                         value={values.main_email}
                         type="email"
                         label="E-mail Principal"
-                        onChange={handleChange('email')}
+                        onChange={handleChange('main_email')}
                         error={errors.email}
                         touched={touched.email}
                         width="95%"
@@ -131,7 +131,7 @@ export const AddressContact = ({ data }) => {
                         value={values.secondary_email}
                         type="email"
                         label="E-mail secundário"
-                        onChange={handleChange('secundary_email')}
+                        onChange={handleChange('secondary_email')}
                         error={errors.secundary_email}
                         touched={touched.secundary_email}
                         width="100%"

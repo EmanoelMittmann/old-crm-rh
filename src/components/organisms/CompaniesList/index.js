@@ -9,7 +9,7 @@ import { CompaniesSectionContainer } from "./style";
 import { useEffect } from "react";
 
 const CompaniesList = () => {
-  const location = useLocation()
+  const location = useLocation();
   const [jobSelected, setJobSelected] = useState([]);
   const [searchResult, setSearchResult] = useState([]);
   const [companies, setCompanies] = useState([]);
@@ -22,30 +22,21 @@ const CompaniesList = () => {
       url: `/companies`,
       params: params,
     });
-
-    setCompanies(data.data)
+    setCompanies(data.data);
   };
-
   
-
   useEffect(() => {
-    console.log(companies)
+    GetCompany()
   },[])
 
 
 
   return (
     <CompaniesSectionContainer>
-      <ProfessionalsInputs
-        setSearchResult={setSearchResult}
-        setJobSelected={setJobSelected}
-      />
       <CompaniesListHeader />
-      {companies.map((corporation) => {
-        return (
-          <CompaniesListItem key={corporation.id} corporation={corporation} />
-        );
-      })}
+      {companies?.map((corporation) => (
+        <CompaniesListItem key={corporation.id} corporation={corporation} />
+      ))}
     </CompaniesSectionContainer>
   );
 };

@@ -1,7 +1,7 @@
 export const optionsRegistions = [
-    { name: "Ativo" },
-    { name: "Inativo" },
-    { name: "Suspensa" },
-    { name: "Inapta" },
-    { name: "Nula" }
+    { id: 'ACTIVE',name:'Ativo'},
+    { id: 'UNFIT', name:'Inapta' },
+    { id: 'SUSPENDED', name:'Suspensa'},
+    { id: 'DOWNLOADED', name:'Baixada'},
+    { id:'NULL', name: 'Nula'}
 ]
