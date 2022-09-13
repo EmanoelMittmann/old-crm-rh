@@ -24,7 +24,7 @@ import InputText from '../../atoms/InputText'
 import { ListHeaderContainer, ListHeaderTitle } from '../../atoms/ListHeader/style.js'
 import ModalDelete from '../../molecules/ModalDelete'
 
-const RegisterProjectTeam = ({payloadTeam, setPayloadTeam}) => {
+const RegisterProjectTeam = ({ payloadTeam, setPayloadTeam }) => {
     const [hoursMonth, setHoursMonth] = useState('')
     //Todos os possíveis membros do time
     const [allProfessionals, setAllProfessionals] = useState([])
@@ -44,15 +44,15 @@ const RegisterProjectTeam = ({payloadTeam, setPayloadTeam}) => {
     }
 
     const getAllProfessionals = async () => {
-        const {data} = await api({
-            method:'get',     
-            url:`/user`,
-        }); 
+        const { data } = await api({
+            method: 'get',
+            url: `/user`,
+        });
 
         const formattedAllProfessionals = formatFirstLetter(data)
 
         setAllProfessionals(formattedAllProfessionals)
-    
+
         return data;
     }
 
@@ -60,43 +60,43 @@ const RegisterProjectTeam = ({payloadTeam, setPayloadTeam}) => {
     const setTeamMemberClickHandler = () => {
 
         // o profissional selecionado é vinculado ao time
-    
+
         //Informações do profissional selecionado
         const newTeamMember = allProfessionals.filter((profes) => {
             return profes.id == professionalSelected
         })
-        
-        const [{id, name, avatar, job_id}] = newTeamMember
 
-            const newTeamMembers = [...teamMembers, {
-                user_id: id,
-                name: name,
-                avatar: avatar,
-                job: job_id,
-                hours: +hoursMonth,
-                trash_color: '#DCE0E4'
-            }];
-            
-            //Validação para se o membro do time já existe
-             const memberAlreadyExist = teamMembers.find((member) => {
-                return member.user_id == id
-             })
+        const [{ id, name, avatar, job_id }] = newTeamMember
 
-            if(!memberAlreadyExist){
-                setTeamMembers(newTeamMembers)
-                setPayloadTeam(
-                    [...payloadTeam, {
+        const newTeamMembers = [...teamMembers, {
+            user_id: id,
+            name: name,
+            avatar: avatar,
+            job: job_id,
+            hours: +hoursMonth,
+            trash_color: '#DCE0E4'
+        }];
+
+        //Validação para se o membro do time já existe
+        const memberAlreadyExist = teamMembers.find((member) => {
+            return member.user_id == id
+        })
+
+        if (!memberAlreadyExist) {
+            setTeamMembers(newTeamMembers)
+            setPayloadTeam(
+                [...payloadTeam, {
                     user_id: Number(id),
                     workload: Number(hoursMonth)
-                    }]
-                )
-            }
+                }]
+            )
         }
+    }
 
     const trashOnMouseEnterHandler = (currentMemberId) => {
         const newTrashColor = teamMembers.map(member => {
-            if(member.user_id === currentMemberId) return {...member, trash_color: '#CF0418'}
-            
+            if (member.user_id === currentMemberId) return { ...member, trash_color: '#CF0418' }
+
             return member;
         })
 
@@ -105,8 +105,8 @@ const RegisterProjectTeam = ({payloadTeam, setPayloadTeam}) => {
 
     const trashOnMouseLeaveHandler = (currentMemberId) => {
         const newTrashColor = teamMembers.map(member => {
-            if(member.user_id === currentMemberId) return {...member, trash_color: '#DCE0E4'}
-            
+            if (member.user_id === currentMemberId) return { ...member, trash_color: '#DCE0E4' }
+
             return member;
         })
 
@@ -123,28 +123,20 @@ const RegisterProjectTeam = ({payloadTeam, setPayloadTeam}) => {
         setTeamMemberDeleteId(memberId)
         setModalIsVisible(true)
     }
-    
+
     useEffect(() => {
 
         setHoursMonth('')
         setReset(true)
-  
-    }, [teamMembers])
+        getAllProfessionals()
 
-
-    useEffect(() => {
-        
-        if(professionalSelected !== null){
+        if (professionalSelected !== null) {
             setReset(false)
         }
-        
-    }, [professionalSelected])
-    
-    
-    useEffect(() => {
-        getAllProfessionals()
-    }, [])
-    
+
+    }, [teamMembers, professionalSelected])
+
+
 
     return (
         <ContainerRegisterProjectTeam>
@@ -152,13 +144,13 @@ const RegisterProjectTeam = ({payloadTeam, setPayloadTeam}) => {
 
             <RegisterProjectTeamForm>
                 <InputSelectWithLabel
-                setSelectedOption={setProfessionalSelected}
-                options={allProfessionals}
-                placeholder="Time"
-                width="100%"
-                lineWidth="52%"
-                label="Selecionar time"
-                reset={reset}
+                    setSelectedOption={setProfessionalSelected}
+                    options={allProfessionals}
+                    placeholder="Time"
+                    width="100%"
+                    lineWidth="52%"
+                    label="Selecionar time"
+                    reset={reset}
                 />
                 <InputText
                     width="100%"
@@ -189,31 +181,31 @@ const RegisterProjectTeam = ({payloadTeam, setPayloadTeam}) => {
                 <RegisterProjectTeamProfessional key={member.user_id}>
                     <ProfessionalInfo>
                         <ProfessionalProfilePicture>
-                            <ProfilePicture src={member?.avatar || User}/>
+                            <ProfilePicture src={member?.avatar || User} />
                         </ProfessionalProfilePicture>
                         <ProfessionalName>
                             {member.name}
                         </ProfessionalName>
                     </ProfessionalInfo>
                     <ProfessionalJob>
-                    Desenvolvedor Frontend
+                        Desenvolvedor Frontend
                     </ProfessionalJob>
                     <ProfessionalHours>
                         {member.hours}
                     </ProfessionalHours>
                     {modalIsVisible && <ModalDelete
-                     deleteHandler={deleteTeamMember}
-                     id={teamMemberDeleteId}
-                     CloseButtonClickHandler={CloseButtonClickHandler}
-                     />}
+                        deleteHandler={deleteTeamMember}
+                        id={teamMemberDeleteId}
+                        CloseButtonClickHandler={CloseButtonClickHandler}
+                    />}
                     <ContainerTrashIcon >
-                        <FaTrashAlt 
-                        color={member.trash_color}
-                        size="16px"
-                        style={{cursor: 'pointer'}}
-                        onMouseEnter={() => trashOnMouseEnterHandler(member.user_id)}
-                        onMouseLeave={() => trashOnMouseLeaveHandler(member.user_id)}
-                        onClick={() => trashIconClickHandler(member.user_id)}
+                        <FaTrashAlt
+                            color={member.trash_color}
+                            size="16px"
+                            style={{ cursor: 'pointer' }}
+                            onMouseEnter={() => trashOnMouseEnterHandler(member.user_id)}
+                            onMouseLeave={() => trashOnMouseLeaveHandler(member.user_id)}
+                            onClick={() => trashIconClickHandler(member.user_id)}
                         />
                     </ContainerTrashIcon>
                 </RegisterProjectTeamProfessional>

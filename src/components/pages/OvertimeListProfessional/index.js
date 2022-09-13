@@ -125,13 +125,11 @@ const OvertimeListProfessional = (props) => {
     })
   }
 
+
   useEffect(() => {
     getProjects()
     getStatus()
     getOvertimes() 
-  },[])
-
-  useEffect(() => {
     handleFilterRequest()
     getOvertimes() 
   },[search, order, statusParams, projectParams, initialDate, finalDate])
