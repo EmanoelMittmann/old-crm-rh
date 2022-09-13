@@ -17,6 +17,7 @@ import { ReactComponent as OptionsIcon } from "../../../assets/icons/options.svg
 import { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import {formatDate} from '../../utils/formatDate'
 import MenuOptions from "../../atoms/MenuOptions";
 
 const CompaniesListItem = ({ corporation }) => {
@@ -41,7 +42,7 @@ const CompaniesListItem = ({ corporation }) => {
     <ContainerCompaniesListItem>
       <CompanyRazaoSocial>{corporation.razao_social}</CompanyRazaoSocial>
       <CompanyCNPJ>{corporation.cnpj}</CompanyCNPJ>
-      <CompanyDate>{corporation.opening_date}</CompanyDate>
+      <CompanyDate>{formatDate(corporation.opening_date)}</CompanyDate>
       <CompanyCity>{corporation.city_name}</CompanyCity>
       <CompanyUF>{corporation.uf}</CompanyUF>
       <CompanySituation>
@@ -80,14 +81,10 @@ const CompaniesListItem = ({ corporation }) => {
           id={optionClicked}
         />
       )}
-      {/* {openModal && (
-        <ModalRed
-          CloseButtonClickHandler={() => setOpenModal(false)}
-          redButtonClickHandler={() => disableProfessional()}
-          title={corporation.is_active === 1 ? "Inativar" : "Ativar"}
-          message={modalMessage}
-        />
-      )} */}
+      {/* {openModal && 
+        <Modal>
+      } */}
+      
     </ContainerCompaniesListItem>
   );
 };
