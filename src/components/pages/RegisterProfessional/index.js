@@ -265,8 +265,6 @@ const RegisterProfessional = () => {
       });
   };
 
-  console.log(id)
-
   const handleCEPJudiacy = async (company_cep) => {
     await axios
       .get(`https://viacep.com.br/ws/${company_cep}/json/`, {
@@ -489,9 +487,6 @@ const RegisterProfessional = () => {
     }
   }, [values.variable1, values.variable2]);
 
-  useEffect(() => {
-    console.log(formik.values)
-  },[formik.values])
 
   return (
     <>
