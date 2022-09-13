@@ -1,10 +1,10 @@
 import React from 'react'
-import { Link, useLocation } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 
-import './style.css'
-import { Sidebar, SettingsOption } from './style.js'
+
+import { Sidebar, SettingsOption, LinkSettingsMenu } from './style.js'
 import { resetFilterStatus, setFilterOrder, setFilterStatus, setSearchName} from '../../../redux/actions'
 import Title from '../../atoms/SettingsMenuTitle/style.js'
 
@@ -24,9 +24,8 @@ const SettingsSidebar = () => {
         <Sidebar>
                 <Title>Cadastros</Title>
 
-                <Link
+            <LinkSettingsMenu
                     to="/job"
-                    className="settings-menu-link"
                     onClick={() => resetFilters()}
                 >
                     <SettingsOption 
@@ -34,11 +33,10 @@ const SettingsSidebar = () => {
                     >
                        Cargos
                     </SettingsOption>
-                </Link>
+            </LinkSettingsMenu>
 
-                <Link
+            <LinkSettingsMenu
                     to="/projectStatus"
-                    className="settings-menu-link"
                     onClick={() => resetFilters()}
                 >
                     <SettingsOption
@@ -46,11 +44,10 @@ const SettingsSidebar = () => {
                     >
                         Status do projeto
                     </SettingsOption>
-                </Link>
+            </LinkSettingsMenu>
 
-                <Link
+            <LinkSettingsMenu
                     to="/projectType"
-                    className="settings-menu-link"
                     onClick={() => resetFilters()}
                 >
                     <SettingsOption
@@ -58,7 +55,7 @@ const SettingsSidebar = () => {
                     >
                         Tipo de projeto
                     </SettingsOption>
-                </Link>
+            </LinkSettingsMenu>
 
         </Sidebar>
     )

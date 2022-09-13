@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Sidebar = styled.nav`
   width: 25%;
@@ -20,4 +21,8 @@ export const SettingsOption = styled.li`
     padding-left: 1em;
     display: flex;
     align-items: center;
+`
+export const LinkSettingsMenu = styled(Link)`
+  color: black;
+  text-decoration:none
 `
