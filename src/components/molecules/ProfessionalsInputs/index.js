@@ -12,7 +12,7 @@ const ProfessionalsInputs = ({ jobSelected, setJobSelected, setSearchResult }) =
 
         const { data } = await api({
             method: 'get',
-            url: `/job`,
+            url: `/job/?limit=undefined`,
         })
         data.data.push({ name: "Todos" })
         setJobs(data.data)

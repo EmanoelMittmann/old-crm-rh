@@ -11,7 +11,6 @@ import ProfessionalsListItem from '../../molecules/ProfessionalsListItem'
 const ProfessionalsSection = () => {
     const location = useLocation()
     const [professionals, setProfessionals] = useState([])
-
     const [jobSelected, setJobSelected] = useState('')
     const [searchResult, setSearchResult] = useState('')
     const [professionalMeta, setProfessionalMeta] = useState('')
@@ -50,6 +49,8 @@ const ProfessionalsSection = () => {
         order === "asc" && setOrder("desc")
         order === "desc" && setOrder("asc")
     }
+
+    console.log(professionalMeta)
 
 
     const getProfessionals = async () => {

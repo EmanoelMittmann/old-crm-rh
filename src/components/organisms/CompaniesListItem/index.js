@@ -17,6 +17,7 @@ import { ReactComponent as OptionsIcon } from "../../../assets/icons/options.svg
 import { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { formatDate } from "../../utils/formatDate";
 import MenuOptions from "../../atoms/MenuOptions";
 
 const CompaniesListItem = ({ corporation }) => {
@@ -26,32 +27,31 @@ const CompaniesListItem = ({ corporation }) => {
   const [openModal, setOpenModal] = useState(false);
   const [Message, setMessage] = useState("");
 
-
   const menuOptionsClicked = (companyId) => {
     setMenuOptionsisClicked(!menuOptionsisClicked);
     setOptionClicked(companyId);
   };
 
   const editCompany = () => {
+    console.log(corporation.id)
     history.push(`/companies/${corporation.id}`);
   };
-
 
   return (
     <ContainerCompaniesListItem>
       <CompanyRazaoSocial>{corporation.razao_social}</CompanyRazaoSocial>
       <CompanyCNPJ>{corporation.cnpj}</CompanyCNPJ>
-      <CompanyDate>{corporation.opening_date}</CompanyDate>
+      <CompanyDate>{formatDate(corporation.opening_date)}</CompanyDate>
       <CompanyCity>{corporation.city_name}</CompanyCity>
       <CompanyUF>{corporation.uf}</CompanyUF>
       <CompanySituation>
         {corporation.is_active === true ? (
           <Badge bg="#E4F8DD" color="#229A16">
-            Ativo
+            Parado
           </Badge>
         ) : (
           <Badge bg="#FFE2E1" color="#BB2B3F">
-            Inativo
+            Parado
           </Badge>
         )}
       </CompanySituation>
@@ -72,22 +72,14 @@ const CompaniesListItem = ({ corporation }) => {
         <MenuOptions
           positionMenu="13px"
           firstOptionDescription="Editar"
-          secondOptionDescription={
-            corporation.is_active ? "Inativar" : "Ativar"
-          }
           firstChosenOption={editCompany}
           padding="0.3em 0.5em 0.3em 1.7em"
           id={optionClicked}
         />
       )}
-      {/* {openModal && (
-        <ModalRed
-          CloseButtonClickHandler={() => setOpenModal(false)}
-          redButtonClickHandler={() => disableProfessional()}
-          title={corporation.is_active === 1 ? "Inativar" : "Ativar"}
-          message={modalMessage}
-        />
-      )} */}
+      {/* {openModal && 
+        <Modal>
+      } */}
     </ContainerCompaniesListItem>
   );
 };

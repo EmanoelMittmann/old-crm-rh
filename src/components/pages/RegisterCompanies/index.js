@@ -37,7 +37,6 @@ export const RegisterCompanies = () => {
       return true
     }),
     size: Yup.string().required(messages.required),
-    code_and_description_of_the_legal_status: Yup.string().required(messages.required),
     street_name: Yup.string().required(messages.required),
     registration_status: Yup.string().required(messages.required),
     house_number: Yup.number().required(messages.required),
@@ -48,7 +47,6 @@ export const RegisterCompanies = () => {
     uf: Yup.string().required(messages.required),
     phone_number: Yup.string().required(messages.required),
     main_email: Yup.string().required(messages.required),
-    date_of_special_situation:Yup.string().required(messages.required)
   })
 
   const formik = useFormik({
@@ -63,7 +61,7 @@ export const RegisterCompanies = () => {
       size: '',
       main_cnae: [],
       secondary_cnae: [],
-      code_and_description_of_the_legal_status: '',
+      code_and_description_of_the_legal_status: [],
       cep: cleanMask(''),
       street_name:'',
       house_number:'',
@@ -98,7 +96,7 @@ export const RegisterCompanies = () => {
         return history.push("/company");
       })
       .catch((error) => {
-        toast.error(<DefaultToast text="Há error de validação" />, {
+        toast.error(<DefaultToast text={error.message} />, {
           toastId: "post",
         });
         const errors = error.response.data.errors;
@@ -171,9 +169,8 @@ export const RegisterCompanies = () => {
       }},[])
 
   useEffect(() => {
-    console.log(formik.values)
-    console.log(id)
-  },[formik.values])
+    console.log(formik.errors)
+  },[formik.errors])
 
   return (
     <>

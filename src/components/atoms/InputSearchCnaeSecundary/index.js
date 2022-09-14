@@ -33,6 +33,12 @@ const InputSearchCnaeSecundary = ({
     setFieldValue('secondary_cnae',waitingValue)
   }
 
+  const handleDelete = (index) => {
+    const temp = values.secondary_cnae
+    temp.splice(index,1)
+    setFieldValue('secondary_cnae',temp)
+  }
+
   useEffect(() => {
     const dataInApi = async () => {
       await axios
@@ -65,7 +71,7 @@ const InputSearchCnaeSecundary = ({
         />
         <div className="div1">
           {selectValue?.map((index) => (
-            <ValuesSelected key={index.id}>{index.description}</ValuesSelected>
+            <ValuesSelected key={index.id} onClick={(index) => handleDelete(index)}>{index.description}</ValuesSelected>
           ))}
         </div>
       </InputSearchWithLabel>
