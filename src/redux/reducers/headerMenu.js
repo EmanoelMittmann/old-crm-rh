@@ -58,6 +58,13 @@ const inicialState = [{
         status: false,
         description: "Configurações",
         descriptionIsAppearing: false
+    },
+
+    {
+        id: 9,
+        status: false,
+        description: "Empresas",
+        descriptionIsAppearing: false
     }
 ]
 

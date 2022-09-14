@@ -24,6 +24,7 @@ import projectTypeProjects from './projectTypeProjects.js';
 import filterTypesProjects from './filterTypesProjects.js';
 import projectList from './projectsList';
 import occupation from './occupation';
+import companiesList from './companyList'
 import occupationId from './occupationId';
 
 
@@ -55,5 +56,6 @@ export const Reducers = combineReducers({
     filterTypesProjects,
     projectList,
     occupation,
-    occupationId
+    occupationId,
+    companiesList,
 });

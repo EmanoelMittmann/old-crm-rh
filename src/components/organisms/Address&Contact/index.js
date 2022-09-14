@@ -34,7 +34,7 @@ export const AddressContact = ({ data }) => {
                     />
                     <InputWithLabel
                         value={values.street_name}
-                        onChange={handleChange('street')}
+                        onChange={handleChange('street_name')}
                         label="Rua"
                         padding="0em 2em 0 0em"
                         width="100%"
@@ -84,7 +84,7 @@ export const AddressContact = ({ data }) => {
                     />
                     <InputWithLabel
                         value={values.city_name}
-                        onChange={handleChange('city')}
+                        onChange={handleChange('city_name')}
                         label="cidade"
                         padding="0em 2em 0 0em"
                         width="100%"

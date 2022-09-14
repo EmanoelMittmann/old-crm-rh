@@ -15,7 +15,7 @@ export const InputSearchWithLabel = styled.div`
     display:flex;
     width: 100%;
     gap:5px;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     margin-top: 10px;
   }
   `
@@ -103,7 +103,7 @@ export const ValuesSelected = styled.div`
   color: blue;
   background-color: #dbe9f4;
   border-radius: 8px;
-  font-size: 10px;
+  font-size: 8px;
   padding: 5px;
   margin: 10px;
   cursor: pointer;

@@ -36,7 +36,7 @@ export const CompaniesListHeader = () => {
             </ListHeaderCity>
 
             <ListHeaderUF>
-                <ListHeaderTitle margin="0">UF</ListHeaderTitle>
+                <ListHeaderTitle margin="10px">UF</ListHeaderTitle>
                 <Arrows onClick={sortByName}/>
             </ListHeaderUF>
 

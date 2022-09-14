@@ -18,6 +18,7 @@ import { optionsPorte } from './Porte'
 import { useEffect } from 'react'
 import InputSearchCnae from '../../atoms/InputSearchCnae'
 import InputSearchCnaeSecundary from '../../atoms/InputSearchCnaeSecundary'
+import InputNature from '../../atoms/inputCnj'
 
 
 
@@ -48,7 +49,7 @@ const RegisterCompany = ({ data}) => {
         <ContainerRow>
           <InputMasked
             value={values.cnpj}
-            mask={[/[1-9]/, /\d/, '.', /\d/, /\d/, /\d/, '.',
+            mask={[/[0-9]/, /\d/, '.', /\d/, /\d/, /\d/, '.',
               /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/,]}
             label="CNPJ"
             onChange={handleChange('cnpj')}
@@ -180,15 +181,13 @@ const RegisterCompany = ({ data}) => {
           />
         </ContainerRow>
         <ContainerRow>
-          <InputWithLabel
-            error={errors.code_and_description_of_the_legal_status}
+          <InputNature
             onChange={handleChange('code_and_description_of_the_legal_status')}
-            handleBlur={setFieldTouched}
-            label="Código de Descrição da Natureza Jurídica"
-            touched={touched.code_and_description_of_the_legal_status}
-            width="100%"
-            widthContainer="100%"
             value={values.code_and_description_of_the_legal_status}
+            placeholder="Código de Descrição da Natureza Jurídica"
+            inputWidth='50%'
+            setFieldValue={setFieldValue}
+            values={values}
           />
         </ContainerRow>
       </RegisterCompanyForm>

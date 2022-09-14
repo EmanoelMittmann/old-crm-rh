@@ -28,25 +28,28 @@ export const CompanyCNPJ = styled.div`
 export const CompanyDate = styled.div`
   display: flex;
   justify-content: center;
-  width: 20%;
+  width: 25%;
 `;
 
 export const CompanyCity = styled.div`
   display: flex;
-  width: 20%;
+  width: 28%;
+  justify-content: center;
   padding-left: 5em;
 `;
 
 export const CompanyUF = styled.div`
   display: flex;
-  width: 20%;
-  padding-left: 5em;
+  min-width: 20%;
+  padding-right: 3em;
+  justify-content: center;
 `;
 
 export const CompanySituation = styled.div`
   display: flex;
-  width: 20%;
-  padding-left: 5em;
+  width: 23%;
+  padding-left: 1em;
+  
 `;
 
 export const ComapaniesListOptions = styled.div`
