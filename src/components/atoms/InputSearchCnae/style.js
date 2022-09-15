@@ -8,14 +8,14 @@ export const InputSearchWithLabel = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: ${(props) => (props.width ? props.width : "90%")};
-  margin-bottom: 10px;
+  margin-bottom: 1em;
 
   .div1{
     display:flex;
     width: 100%;
     gap:5px;
     flex-flow: row nowrap;
-    margin-top: 10px;
+    position: relative;
   }
   `
 

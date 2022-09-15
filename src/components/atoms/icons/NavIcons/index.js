@@ -615,14 +615,15 @@ const CompanyIconContainer = styled.div`
   width: 55px;
 
   svg {
-    fill: ${(props) => (props.location === "/Company" ? "black" : "#B7BDC2")};
+    fill: ${(props) => (props.location === '/company' ? 'black' : '#B7BDC2')};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
   }
 
   &:hover {
-    background: #f4f6f8;
+    background-color: ${(props) =>
+      props.location === '/company' ? 'white' : '#F4F6F8'};
     border-radius: 10px;
 
     svg {
@@ -633,8 +634,8 @@ const CompanyIconContainer = styled.div`
   &:after {
     content: "Empresas";
     display: ${(props) =>
-      props.location === "/Company" ? "none" : props.hover};
-    width: 100px;
+      props.location === '/company' ? 'none' : props.hover};
+    width: 130px;
     height: 35px;
     background-color: white;
     box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.2),
@@ -653,7 +654,7 @@ const CompanyIconContainer = styled.div`
   &:before {
     content: "";
     display: ${(props) =>
-      props.location === "/Company" ? "none" : props.hover};
+      props.location === '/company' ? 'none' : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);

@@ -97,7 +97,7 @@ const InputSearchCnae = ({
           ))}
         </div>
         {error && touched && (
-          <ErrorMessage visible={error}>{error.main_cnae[0].id}</ErrorMessage>
+          <ErrorMessage visible={error}>{error}</ErrorMessage>
         )}
       </InputSearchWithLabel>
       {id && (

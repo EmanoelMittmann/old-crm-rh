@@ -185,6 +185,8 @@ const RegisterCompany = ({ data}) => {
             error={errors.secondary_cnae}
             touched={touched.secondary_cnae}
             setFieldValue={setFieldValue}
+            label=""
+            width='100%'
             values={values}
           />
         </ContainerRow>
@@ -196,6 +198,7 @@ const RegisterCompany = ({ data}) => {
             error={errors.code_and_description_of_the_legal_status}
             touched={touched.code_and_description_of_the_legal_status}
             inputWidth='50%'
+            label=""
             setFieldValue={setFieldValue}
             values={values}
           />

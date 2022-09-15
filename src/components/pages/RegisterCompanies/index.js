@@ -39,13 +39,15 @@ export const RegisterCompanies = () => {
     }),
     size: Yup.string().required(messages.required),
     street_name: Yup.string().required(messages.required),
-    main_cnae: Yup.array().of(
-      Yup.object().shape({
-        id: Yup.string().required(messages.required),
-        description: Yup.string().required(messages.required)
-      }).required(messages.required)
-    ).required(messages.required),
-    secondary_cnae: Yup.array().required(messages.required),
+    main_cnae: Yup.array()
+    .min(1,'Campo obrigatório')
+    .required(messages.required),
+    secondary_cnae:Yup.array()
+    .min(1,'Campo obrigatório')
+    .required(messages.required),
+    code_and_description_of_the_legal_status: Yup.array()
+    .min(1,'Campo obrigatório')
+    .required(messages.required),
     registration_status: Yup.string().required(messages.required),
     house_number: Yup.number().required(messages.required),
     neighborhood_name: Yup.string().required(messages.required),
@@ -69,7 +71,7 @@ export const RegisterCompanies = () => {
       state_registration: '',
       municipal_registration: '',
       size: '',
-      main_cnae: [{id: '', description: ''}],
+      main_cnae: [],
       secondary_cnae: [],
       code_and_description_of_the_legal_status: [],
       cep: cleanMask(''),
@@ -181,11 +183,7 @@ export const RegisterCompanies = () => {
           new Error(error.message);
         });
       }},[])
-
-      useEffect(() => {
-        console.log(formik.errors)
-      },[formik])
-
+      
   return (
     <>
       <RegisterProfessionalTitleContainer>
