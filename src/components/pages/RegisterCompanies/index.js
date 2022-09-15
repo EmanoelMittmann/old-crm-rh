@@ -173,8 +173,12 @@ export const RegisterCompanies = () => {
               setFieldValue(property, data);
             } else if(property.includes('opening_date')){
               setFieldValue(property,getDate(value))
-            }
-             else {
+            }else if(property.includes("date_of_special_situation")){
+              if(value === null){
+                return null
+              }
+              setFieldValue(property, getDate(value))
+            } else {
               setFieldValue(property, value);
             }
           });

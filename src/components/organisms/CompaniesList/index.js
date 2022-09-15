@@ -75,6 +75,7 @@ const CompaniesList = () => {
 
   useEffect(() => {
     handleFilterRequest();
+    
     searchResult || uf ? handleFilterCompanies(searchResult,uf) : getCompany()
     location.state && setCompanies(location.state.companies.data);
   }, [order, searchResult,uf]);

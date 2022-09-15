@@ -47,7 +47,6 @@ export const Login = () => {
           access_token: googleData.credential,
         },
       });
-      console.log(data);
 
       dispatch(
         loggingIn({
