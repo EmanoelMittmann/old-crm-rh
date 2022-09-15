@@ -112,6 +112,7 @@ const RegisterCompany = ({ data}) => {
             touched={touched.state_registration}
             label="Inscrição Estadual"
             name="Inscrição Estadual"
+            type='number'
             width="90%"
             widthContainer="50%"
             handleBlur={setFieldTouched}
@@ -123,6 +124,7 @@ const RegisterCompany = ({ data}) => {
             touched={touched.municipal_registration}
             label="Inscrição Municipal"
             name="Inscrição Municipal"
+            type='number'
             width="90%"
             handleBlur={setFieldTouched}
             widthContainer="50%"
@@ -130,8 +132,8 @@ const RegisterCompany = ({ data}) => {
           <InputSelect
             value={values.size}
             onChange={handleChange('size')}
-            error={errors.porte}
-            touched={touched.porte}
+            error={errors.size}
+            touched={touched.size}
             options={optionsPorte}
             placeHolder="Porte"
             handleBlur={setFieldTouched}
@@ -165,18 +167,26 @@ const RegisterCompany = ({ data}) => {
         <ContainerRow>
           <InputSearchCnae
             placeholder={"Codigo e descrição de Atividade Economica Principal"}
-            onChange={handleChange("main_cnae")}
             value={values.main_cnae}
+            handleBlur={setFieldTouched}
+            error={errors.main_cnae}
+            touched={touched.main_cnae}
             setFieldValue={setFieldValue}
+            label=""
+            width="100%"
             values={values}
           />
         </ContainerRow>
         <ContainerRow>
           <InputSearchCnaeSecundary
             placeholder={"Codigo e descrição de Atividade Economica Secundaria"}
-            onChange={handleChange('secundary_cnae')}
-            value={values.secundary_cnae}
+            value={values.secondary_cnae}
+            handleBlur={setFieldTouched}
+            error={errors.secondary_cnae}
+            touched={touched.secondary_cnae}
             setFieldValue={setFieldValue}
+            label=""
+            width='100%'
             values={values}
           />
         </ContainerRow>
@@ -185,7 +195,10 @@ const RegisterCompany = ({ data}) => {
             onChange={handleChange('code_and_description_of_the_legal_status')}
             value={values.code_and_description_of_the_legal_status}
             placeholder="Código de Descrição da Natureza Jurídica"
+            error={errors.code_and_description_of_the_legal_status}
+            touched={touched.code_and_description_of_the_legal_status}
             inputWidth='50%'
+            label=""
             setFieldValue={setFieldValue}
             values={values}
           />

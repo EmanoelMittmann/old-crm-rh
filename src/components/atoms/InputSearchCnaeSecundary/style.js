@@ -3,20 +3,18 @@ import styled from "styled-components";
 export const InputSearchWithLabel = styled.div`
   margin-right: 23px;
   height: 45px;
-  border: ${(props) => `1.5px solid ${props.error ? "#ff4842" : "#919EAB52"}`};
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: ${(props) => (props.width ? props.width : "90%")};
-  margin-bottom: 18px;
+  margin-bottom: 10px;
 
   .div1{
     display:flex;
     width: 100%;
     gap:5px;
-    flex-flow: row wrap;
-    margin-top: 10px;
+    flex-flow: row nowrap;
   }
   `
 

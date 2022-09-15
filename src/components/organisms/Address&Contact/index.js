@@ -39,8 +39,8 @@ export const AddressContact = ({ data }) => {
                         padding="0em 2em 0 0em"
                         width="100%"
                         widthContainer="40%"
-                        error={errors.street}
-                        touched={touched.street}
+                        error={errors.street_name}
+                        touched={touched.street_name}
                         handleBlur={setFieldTouched}
                         name="street"
                     />
@@ -50,9 +50,10 @@ export const AddressContact = ({ data }) => {
                         label="número"
                         padding="0em 2em 0 0em"
                         width="100%"
+                        type='number'
                         widthContainer="20%"
-                        error={errors.number}
-                        touched={touched.number}
+                        error={errors.house_number}
+                        touched={touched.house_number}
                         handleBlur={setFieldTouched}
                         
                     />
@@ -77,8 +78,8 @@ export const AddressContact = ({ data }) => {
                         padding="0em 2em 0 0em"
                         width="100%"
                         widthContainer="60%"
-                        error={errors.district}
-                        touched={touched.district}
+                        error={errors.neighborhood_name}
+                        touched={touched.neighborhood_name}
                         handleBlur={setFieldTouched}
                         name="district"
                     />
@@ -89,8 +90,8 @@ export const AddressContact = ({ data }) => {
                         padding="0em 2em 0 0em"
                         width="100%"
                         widthContainer="50%"
-                        error={errors.city}
-                        touched={touched.city}
+                        error={errors.city_name}
+                        touched={touched.city_name}
                         handleBlur={setFieldTouched}
                         name="city"
                     />
@@ -98,6 +99,9 @@ export const AddressContact = ({ data }) => {
                         value={values.uf}
                         onChange={handleChange('uf')}
                         options={optionsUF}
+                        error={errors.uf}
+                        touched={touched.uf}
+                        handleBlur={setFieldTouched}
                         placeHolder="UF"
                         width="230px"
                     />
@@ -120,8 +124,8 @@ export const AddressContact = ({ data }) => {
                         type="email"
                         label="E-mail Principal"
                         onChange={handleChange('main_email')}
-                        error={errors.email}
-                        touched={touched.email}
+                        error={errors.main_email}
+                        touched={touched.main_email}
                         width="95%"
                         widthContainer="40%"
                         handleBlur={setFieldTouched}
@@ -132,8 +136,8 @@ export const AddressContact = ({ data }) => {
                         type="email"
                         label="E-mail secundário"
                         onChange={handleChange('secondary_email')}
-                        error={errors.secundary_email}
-                        touched={touched.secundary_email}
+                        error={errors.secondary_email}
+                        touched={touched.secondary_email}
                         width="100%"
                         widthContainer="40%"
                         handleBlur={setFieldTouched}

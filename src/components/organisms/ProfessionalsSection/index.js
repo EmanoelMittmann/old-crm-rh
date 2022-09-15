@@ -50,9 +50,6 @@ const ProfessionalsSection = () => {
         order === "desc" && setOrder("asc")
     }
 
-    console.log(professionalMeta)
-
-
     const getProfessionals = async () => {
         const {data} = await api({
             method:'get',     
