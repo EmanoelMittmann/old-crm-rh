@@ -3,6 +3,8 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { BlueButton } from "../Buttons/BlueButton/style.js";
+import { InputLine } from "../DefaultInput/style.js";
+import { ErrorMessage, Label } from "../InputWithLabel/style.js";
 import {
   InputSearchWithLabel,
   DefaultInputCnae,
@@ -16,12 +18,20 @@ const InputSearchCnae = ({
   placeholder,
   setFieldValue,
   values,
+  name,
+  label,  
+  width,
+  error,
+  touched,
+  handleBlur,
 }) => {
   const [id, setId] = useState("");
   const [value, setValue] = useState([]);
   const [filteredValues, setFilteredValues] = useState([]);
-  const [waitingValue, setWaitingValue] = useState([])
+  const [waitingValue, setWaitingValue] = useState([]);
   const [selectValue, setSelectValue] = useState([]);
+  const [blur, setBlur] = useState("");
+  const [focus, setFocus] = useState("");
 
   const handleFilter = (id) => {
     const searchCnae = value.filter((index) => index.id.includes(id));
@@ -29,15 +39,15 @@ const InputSearchCnae = ({
   };
 
   const handleClick = (e) => {
-    e.preventDefault()
-    setFieldValue('main_cnae',waitingValue)
-  }
+    e.preventDefault();
+    setFieldValue("main_cnae", waitingValue);
+  };
 
   const handleDelete = (index) => {
-    const temp = values.main_cnae
-    temp.splice(index,1)
-    setFieldValue('main_cnae',temp)
-  }
+    const temp = values.main_cnae;
+    temp.splice(index, 1);
+    setFieldValue("main_cnae", temp);
+  };
 
   useEffect(() => {
     const dataInApi = async () => {
@@ -61,32 +71,46 @@ const InputSearchCnae = ({
   return (
     <>
       <InputSearchWithLabel>
-        <DefaultInputCnae
-          onChange={(e) => setId(e.target.value)}
-          type="search"
-          placeholder={placeholder}
-          width={inputWidth}
-          padding="0.3em 0 0 1em"
-        />
+        <InputLine width={width} error={touched && error}>
+          <Label focus={focus || value !== ""} blur={blur || value !== ""}>
+            {label}
+          </Label>
+          <DefaultInputCnae
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+            type="search"
+            onFocus={() => setFocus(true) & setBlur(false)}
+            onBlur={() =>  setBlur(true) & setFocus(false) & handleBlur(name, true)}
+            placeholder={placeholder}
+            width={inputWidth}
+            padding="0.3em 0 0 1em"
+          />
+        </InputLine>
         <div className="div1">
           {selectValue?.map((index) => (
-            <ValuesSelected 
+            <ValuesSelected
               key={index.id}
               onClick={(index) => handleDelete(index)}
-              >
-                {index.description}
+            >
+              {index.description}
             </ValuesSelected>
           ))}
         </div>
+        {error && touched && (
+          <ErrorMessage visible={error}>{error.main_cnae[0].id}</ErrorMessage>
+        )}
       </InputSearchWithLabel>
-      {id > 1 && (
+      {id && (
         <ListItens>
           {filteredValues.length <= 150 &&
             filteredValues.map((index) => (
               <Itens
                 key={index.id}
                 onClick={() => {
-                  setWaitingValue([...values.main_cnae,{id: index.id, description: index.descricao}]);
+                  setWaitingValue([
+                    ...values.main_cnae,
+                    { id: index.id, description: index.descricao },
+                  ]);
                   setId("");
                 }}
               >
@@ -95,9 +119,9 @@ const InputSearchCnae = ({
             ))}
         </ListItens>
       )}
-        <BlueButton width="20%" onClick={(e) => handleClick(e)}>
-          Adicionar
-        </BlueButton>
+      <BlueButton width="20%" onClick={(e) => handleClick(e)}>
+        Adicionar
+      </BlueButton>
     </>
   );
 };

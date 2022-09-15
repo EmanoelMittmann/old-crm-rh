@@ -63,6 +63,7 @@ const InputSearchCnaeSecundary = ({
     <>
       <InputSearchWithLabel>
         <DefaultInputCnae
+          value={id}
           onChange={(e) => setId(e.target.value)}
           type="search"
           placeholder={placeholder}

@@ -2,7 +2,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import RegisterCompany from '../../organisms/RegisterCompany'
 import axios from 'axios'
 import api from '../../../api/api'
-import { useFormik, yupToFormErrors } from 'formik'
+import { Formik, useFormik, yupToFormErrors } from 'formik'
 import { cleanMask } from '../../utils/cleanMask'
 import { getDate } from "../../utils/getDate";
 import { SectionTitle } from '../../atoms/PageTitle/style'
@@ -29,6 +29,7 @@ export const RegisterCompanies = () => {
     fantasy_name: Yup.string().required(messages.required),
     cnpj: Yup.string().required(messages.required).min(18, 'CNPJ Inválido'),
     is_matriz: Yup.boolean().required(messages.required),
+    opening_date: Yup.date().required(messages.required),
     cep: Yup.string().required(messages.required).min(9, 'CEP Inválido').test('CEP válido', 'CEP não encontrado', () => {
       if (values.cep.length === 9 && values.cep !== uniqueCEP) {
         setUniqueCEP(values.cep)
@@ -38,15 +39,24 @@ export const RegisterCompanies = () => {
     }),
     size: Yup.string().required(messages.required),
     street_name: Yup.string().required(messages.required),
+    main_cnae: Yup.array().of(
+      Yup.object().shape({
+        id: Yup.string().required(messages.required),
+        description: Yup.string().required(messages.required)
+      }).required(messages.required)
+    ).required(messages.required),
+    secondary_cnae: Yup.array().required(messages.required),
     registration_status: Yup.string().required(messages.required),
     house_number: Yup.number().required(messages.required),
     neighborhood_name: Yup.string().required(messages.required),
-    complement: Yup.string(),
     phone_number: Yup.string().required(messages.required),
     city_name: Yup.string().required(messages.required),
     uf: Yup.string().required(messages.required),
     phone_number: Yup.string().required(messages.required),
     main_email: Yup.string().required(messages.required),
+    registration_status: Yup.string().required(messages.required),
+    date_of_registration_status: Yup.string().required(messages.required),
+    reason_for_registration_status:Yup.string().required(messages.required),
   })
 
   const formik = useFormik({
@@ -59,7 +69,7 @@ export const RegisterCompanies = () => {
       state_registration: '',
       municipal_registration: '',
       size: '',
-      main_cnae: [],
+      main_cnae: [{id: '', description: ''}],
       secondary_cnae: [],
       code_and_description_of_the_legal_status: [],
       cep: cleanMask(''),
@@ -96,7 +106,7 @@ export const RegisterCompanies = () => {
         return history.push("/company");
       })
       .catch((error) => {
-        toast.error(<DefaultToast text={error.message} />, {
+        toast.error(<DefaultToast text={"Ha Erros de Validação"} />, {
           toastId: "post",
         });
         const errors = error.response.data.errors;
@@ -108,7 +118,7 @@ export const RegisterCompanies = () => {
     enableReinitialize: true
   })
 
-  const { values, setFieldValue } = formik
+  const { values, setFieldValue,setFieldError } = formik
 
   const handleCEP = async (cep) => {
     await axios.get(`https://viacep.com.br/ws/${cep}/json/`,
@@ -119,6 +129,7 @@ export const RegisterCompanies = () => {
         }
       })
       .then(data => {
+        if (data.data.erro) return setFieldError("cep", "Cep Invalido!");
         const { bairro, localidade, logradouro, uf } = data.data
         if (localidade) setFieldValue('city_name', localidade)
         if (uf) setFieldValue('uf', uf)
@@ -143,7 +154,7 @@ export const RegisterCompanies = () => {
       .then((response) => {
         const data = response.data[0];
           Object.entries(data).forEach(([property, value]) => {
-            if (property.includes("date")) {
+            if (property.includes("date_of_registration_status")) {
               setFieldValue(property, getDate(value));
             } else if (property.includes("cnpj")) {
               setFieldValue(
@@ -158,7 +169,10 @@ export const RegisterCompanies = () => {
             } else if (property.includes("cep")) {
               let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
               setFieldValue(property, data);
-            } else {
+            } else if(property.includes('opening_date')){
+              setFieldValue(property,getDate(value))
+            }
+             else {
               setFieldValue(property, value);
             }
           });
@@ -168,9 +182,9 @@ export const RegisterCompanies = () => {
         });
       }},[])
 
-  useEffect(() => {
-    console.log(formik.errors)
-  },[formik.errors])
+      useEffect(() => {
+        console.log(formik.errors)
+      },[formik])
 
   return (
     <>

@@ -29,13 +29,15 @@ export const SituationCadastion = ({data}) => {
             handleBlur={setFieldTouched}
             width="270px"
           />
-          <InputDate
+          <InputWithLabel
             value={values.date_of_registration_status}
             onChange={handleChange('date_of_registration_status')}
             error={errors.date_of_registration_status}
             touched={touched.date_of_registration_status}
-            placeholder="Data da Situação Cadastral"
-            width="35%"
+            name="Data da Situação Cadastral"
+            label="Data da Situação Cadastral"
+            type='date'
+            width="100%"
             widthContainer="35%"
             handleBlur={setFieldTouched}
           />
