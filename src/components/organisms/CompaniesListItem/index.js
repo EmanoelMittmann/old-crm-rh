@@ -33,7 +33,6 @@ const CompaniesListItem = ({ corporation }) => {
   };
 
   const editCompany = () => {
-    console.log(corporation.id)
     history.push(`/companies/${corporation.id}`);
   };
 

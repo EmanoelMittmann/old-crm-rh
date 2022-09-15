@@ -87,7 +87,7 @@ const InputSearchCnae = ({
           />
         </InputLine>
         <div className="div1">
-          {selectValue?.map((index) => (
+          {values.main_cnae.map((index) => (
             <ValuesSelected
               key={index.id}
               onClick={(index) => handleDelete(index)}
