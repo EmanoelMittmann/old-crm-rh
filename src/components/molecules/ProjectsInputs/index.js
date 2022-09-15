@@ -4,8 +4,6 @@ import { useLocation } from 'react-router'
 import { useSelector } from 'react-redux'
 
 
-
-// TRISTEZA PARA MAIS UM CAPITULO DUVIDOSO DO LUCAS NO FRONT..
 import {
     setProjectList,
     projectsPages,
@@ -94,11 +92,7 @@ export const ProjectsInputs = () => {
         return data
     }
 
-    useEffect(() => {
-        projectsFilterTypesOptions()
-        projectsFilterStatusOptions()
-    }, [])
-
+    
     //Chamar api para filtrar a pesquisa
 
     const filterProjects = async () => {
@@ -119,23 +113,17 @@ export const ProjectsInputs = () => {
         }
     }
 
-
     useEffect(() => {
+        projectsFilterTypesOptions()
+        projectsFilterStatusOptions()
         dispatch(setSearchNameProject(searchResult))
-        return filterProjects()
-    }, [searchResult])
-
-    useEffect(() => {
         dispatch(setStatusListProjects(selectedOptionStatus))
-        return filterProjects()
-    }, [selectedOptionStatus])
-
-    useEffect(() => {
         dispatch(setTypeListProjects(selectedOptionTypes))
         return filterProjects()
-    }, [selectedOptionTypes])
+    }, [searchResult, selectedOptionStatus, selectedOptionTypes])
 
 
+ 
     return (
         <ProjectsInputsContainer>
             <InputSearch

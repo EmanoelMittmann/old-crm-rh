@@ -1,4 +1,4 @@
-import { HomeIcon, InvoiceIcon, JobIcon, OvertimeIcon, ProjectsIcon, ReportsIcon, ServiceOrdersIcon, SettingsIcon } from "../components/atoms/icons/NavIcons";
+import { CompanyIcon, HomeIcon, InvoiceIcon, JobIcon, OvertimeIcon, ProjectsIcon, ReportsIcon, ServiceOrdersIcon, SettingsIcon } from "../components/atoms/icons/NavIcons";
 
 export const templates = [
   {
@@ -64,9 +64,9 @@ export const templates = [
   {
     id: 7,
     name: "Ordens de serviço",
-    hasButton: false,
-    buttonText: "",
-    buttonPath: "",
+    hasButton: true,
+    buttonText: "Criar nova O.S.",
+    buttonPath: "/serviceOrders",
     icon: <ServiceOrdersIcon/>,
     isRegisterPage: false,
     path: "/serviceOrders"
@@ -120,6 +120,26 @@ export const templates = [
     icon: <InvoiceIcon/>,
     isRegisterPage: false,
     path: "/invoiceSending"
+  },
+  {
+    id: 13,
+    name: "Configurações",
+    hasButton: false,
+    buttonText: "",
+    buttonPath: "",
+    icon: <SettingsIcon/>,
+    isRegisterPage: false,
+    path: "/occupation"
+  },
+  {
+    id: 14,
+    name: "Cadastro de Empresas",
+    hasButton: true,
+    buttonText: "Cadastrar Nova",
+    buttonPath: "/Companies",
+    icon:<ProjectsIcon/>,
+    isRegisterPage: false,
+    path: "/Company"
   },
 ]
 

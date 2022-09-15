@@ -8,12 +8,15 @@ import {
   InputSelectOption,
   InputSelectOptionPlaceholder,
 } from './style.js';
+import { ErrorMessage } from '../InputWithLabel/style';
 
 const InputSelect = ({
   onChange,
   options,
   placeHolder,
   width,
+  error,
+  touched,
   lineWidth,
   value,
   margin,
@@ -23,26 +26,28 @@ const InputSelect = ({
   };
 
   return (
-    <InputLine width={lineWidth} margin={margin}>
-      <InputSelectContainer
-        {...attributeValue}
-        width={width}
-        onChange={onChange}
-      >
-        <InputSelectOptionPlaceholder disabled selected>
-          {placeHolder}
-        </InputSelectOptionPlaceholder>
-        {options?.map((option, index) => (
-          <InputSelectOption
-            key={index}
-            value={`${option.id ? option.id : ''}`}
-          >
-            {option.name}
-          </InputSelectOption>
-        ))}
-      </InputSelectContainer>
-      <Img src={arrowPointingDown} alt="Lupa" />
-    </InputLine>
+    <>
+      <InputLine width={lineWidth} margin={margin}>
+        <InputSelectContainer
+          {...attributeValue}
+          width={width}
+          onChange={onChange}
+        >
+          <InputSelectOptionPlaceholder disabled selected>
+            {placeHolder}
+          </InputSelectOptionPlaceholder>
+          {options?.map((option, index) => (
+            <InputSelectOption
+              key={index}
+              value={`${option.id ? option.id : ''}`}
+            >
+              {option.name}
+            </InputSelectOption>
+          ))}
+        </InputSelectContainer>
+        <Img src={arrowPointingDown} alt="Lupa" />
+      </InputLine>
+    </>
   );
 };
 

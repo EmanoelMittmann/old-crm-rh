@@ -6,16 +6,16 @@ import InputSearch from '../../atoms/InputSearch';
 import InputSelect from '../../atoms/InputSelect';
 
 const ProfessionalsInputs = ({
+  jobSelected,
   setJobSelected,
   setSearchResult,
-  jobSelected,
 }) => {
   const [jobs, setJobs] = useState([]);
 
   const getJobs = async () => {
     const { data } = await api({
       method: 'get',
-      url: `/job`,
+      url: `/job/?limit=undefined`,
     });
     data.data.push({ name: 'Todos' });
     setJobs(data.data);

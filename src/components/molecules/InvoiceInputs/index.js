@@ -9,15 +9,8 @@ const InvoiceInputs = ({getInvoices, inicialDate, setFinalDate, finalDate, setIn
 
     useEffect(() => {
         getInvoices()
-    }, [inicialDate])
+    }, [inicialDate, search, finalDate])
 
-    useEffect(() => {
-        getInvoices()
-    }, [finalDate])
-
-    useEffect(() => {
-        getInvoices()
-    }, [search])
 
     return (
         <InvoiceInputsContainer>

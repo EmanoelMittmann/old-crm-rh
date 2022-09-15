@@ -37,6 +37,8 @@ import {
   SETPROJECTLISTPROJECTS,
   SETOCCUPATIONLIST,
   OCCUPATIONOPTIONCLICKED,
+  SETCOMPANYLISTITEMS,
+  SETCOMPANYCLICKED
 } from '../types';
 
 export const loggingIn = (payload) => ({
@@ -222,4 +224,14 @@ export const setFilterTypesProjects = (payload) => ({
 export const setProjectListProjects = (payload) => ({
   type: SETPROJECTLISTPROJECTS,
   payload,
+});
+
+export const setComapanyListItems = (payload) => ({
+  type: SETCOMPANYLISTITEMS,
+  payload,
+});
+
+export const setCompanyClicked = (payload) => ({
+  type:SETCOMPANYCLICKED,
+  payload
 });

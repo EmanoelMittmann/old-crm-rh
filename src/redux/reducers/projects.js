@@ -1,4 +1,4 @@
-import { PROJECTOPTIONCLICKED, SETPROJECTLIST,} from "../types"
+import { PROJECTOPTIONCLICKED, SETPROJECTLIST} from "../types"
 
 
 const inicialState = []
