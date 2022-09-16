@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ListHeaderContainer = styled.div`
-    width: 100%;
+    max-width: 100%;
     height: 40px;
     background-color: #F4F6F8;
     border-radius: 8px;

@@ -50,7 +50,7 @@ const Projects = () => {
       handleFilterRequest()
       const {data} = await api({
           method:'get',     
-          url:`/project`,
+        url:`/project/?limit=5`,
           params: params
       })
       setData(data.data)
