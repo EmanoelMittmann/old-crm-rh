@@ -108,17 +108,19 @@ export const RegisterCompanies = () => {
         return history.push("/company");
       })
       .catch((error) => {
-        toast.error(<DefaultToast text={"Ha Erros de Validação"} />, {
+        toast.error(<DefaultToast text={"Algo Errado, Revise os Campos!"} />, {
           toastId: "post",
         });
         const errors = error.response.data.errors;
         setErrors(handleErrorMessages(errors));
+        console.log(errors.fantasy_name)
       });
     },
     validationSchema: schema,
     isValidating: false,
     enableReinitialize: true
   })
+
 
   const { values, setFieldValue,setFieldError } = formik
 
@@ -192,14 +194,14 @@ export const RegisterCompanies = () => {
     <>
       <RegisterProfessionalTitleContainer>
         <SectionTitle>
-          Nova Empresa
-        </SectionTitle>
+          {id ? "Edição de Empresa" : "Nova Empresa"}
+       </SectionTitle>
       </RegisterProfessionalTitleContainer>
       <RegisterProfessionalContainer>
         <form id="Company" onSubmit={formik.handleSubmit}>
-          <RegisterCompany data={formik}/>
-          <AddressContact data={formik} />
-          <SituationCadastion data={formik} />
+          <RegisterCompany data={formik} disabled={false}/>
+          <AddressContact data={formik} disabled={false}/>
+          <SituationCadastion data={formik} disabled={false}/>
         </form>
         <RegisterFooter
           cancelButtonHandler={goBackClickHandler}

@@ -13,6 +13,7 @@ const InputNature = ({
   setFieldValue,
   values,
   value,
+  disabled,
   label,
   error,
   touched,
@@ -49,6 +50,7 @@ const InputNature = ({
           <DefaultInputCnae
             onChange={(e) => setId(e.target.value)}
             value={id}
+            disabled={disabled}
             type="search"
             placeholder={placeholder}
             width={inputWidth}
