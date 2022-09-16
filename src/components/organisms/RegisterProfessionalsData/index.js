@@ -17,6 +17,7 @@ import { useEffect } from 'react'
 import SelectBank from '../../atoms/SelectBank'
 
 export const optionsUF = [
+  { name: "Todos" , id: undefined},
   { name: "Acre", id: "AC" },
   { name: "Alagoas", id: "AL" },
   { name: "Amapá", id: "AP" },

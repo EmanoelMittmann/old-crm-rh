@@ -3,7 +3,7 @@ import { InputLine } from '../DefaultInput/style'
 import { DefaultInput } from '../DefaultInput/style'
 import {InputWithLabelContainer, Label, ErrorMessage} from './style.js'
 
-const InputWithLabel = ({value, label, onChange, defaultValue, width, widthContainer, justify, padding, error, touched, type, handleBlur, name}) => {
+const InputWithLabel = ({value, label, onChange, defaultValue, width, widthContainer,disabled, justify, padding, error, touched, type, handleBlur, name}) => {
     const [focus, setFocus] = useState(false)
     const [blur, setBlur] = useState(false)
     const [typeDate, setTypeDate] = useState("text")
@@ -34,6 +34,7 @@ const InputWithLabel = ({value, label, onChange, defaultValue, width, widthConta
                     onFocus={() => setFocus(true) & setBlur(false)}
                     onBlur={() =>  setBlur(true) & setFocus(false) & handleBlur(name, true)}
                     value={value}
+                    disabled={disabled}
                     placeholder={focus ? '' : label}
                     defaultValue={defaultValue}
                     width={width}

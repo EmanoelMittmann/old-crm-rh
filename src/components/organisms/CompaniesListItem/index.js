@@ -26,6 +26,7 @@ const CompaniesListItem = ({ corporation }) => {
   const [menuOptionsisClicked, setMenuOptionsisClicked] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [Message, setMessage] = useState("");
+  let isDetails = true
 
   const menuOptionsClicked = (companyId) => {
     setMenuOptionsisClicked(!menuOptionsisClicked);
@@ -35,6 +36,10 @@ const CompaniesListItem = ({ corporation }) => {
   const editCompany = () => {
     history.push(`/companies/${corporation.id}`);
   };
+
+  const viewDetails = () => {
+    history.push(`/companies/${corporation.id}`);
+  }
 
   return (
     <ContainerCompaniesListItem>
@@ -71,7 +76,9 @@ const CompaniesListItem = ({ corporation }) => {
         <MenuOptions
           positionMenu="13px"
           firstOptionDescription="Editar"
+          secondOptionDescription='Detalhes'
           firstChosenOption={editCompany}
+          secondChosenOption={viewDetails}
           padding="0.3em 0.5em 0.3em 1.7em"
           id={optionClicked}
         />

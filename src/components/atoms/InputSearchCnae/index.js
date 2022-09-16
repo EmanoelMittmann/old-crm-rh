@@ -19,6 +19,7 @@ const InputSearchCnae = ({
   setFieldValue,
   values,
   name,
+  disabled,
   label,  
   width,
   error,
@@ -77,6 +78,7 @@ const InputSearchCnae = ({
           </Label>
           <DefaultInputCnae
             value={id}
+            disabled={disabled}
             onChange={(e) => setId(e.target.value)}
             type="search"
             onFocus={() => setFocus(true) & setBlur(false)}

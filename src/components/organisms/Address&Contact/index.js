@@ -10,7 +10,7 @@ import { optionsUF } from '../RegisterProfessionalsData'
 import SecondaryText from '../../atoms/SecondaryText/style'
 import InputMasked from '../../atoms/InputMasked'
 
-export const AddressContact = ({ data }) => {
+export const AddressContact = ({ data, disabled }) => {
     const { values, handleChange, errors, touched, setFieldTouched } = data
 
     return (
@@ -27,6 +27,7 @@ export const AddressContact = ({ data }) => {
                         padding="0em 2em 0 0em"
                         width="100%"
                         widthContainer="30%"
+                        disabled={disabled}
                         error={errors.cep}
                         touched={touched.cep}
                         handleBlur={setFieldTouched}
@@ -39,6 +40,7 @@ export const AddressContact = ({ data }) => {
                         padding="0em 2em 0 0em"
                         width="100%"
                         widthContainer="40%"
+                        disabled={disabled}
                         error={errors.street_name}
                         touched={touched.street_name}
                         handleBlur={setFieldTouched}
@@ -51,6 +53,7 @@ export const AddressContact = ({ data }) => {
                         padding="0em 2em 0 0em"
                         width="100%"
                         type='number'
+                        disabled={disabled}
                         widthContainer="20%"
                         error={errors.house_number}
                         touched={touched.house_number}
@@ -62,6 +65,7 @@ export const AddressContact = ({ data }) => {
                         onChange={handleChange('complement')}
                         label="complemento"
                         padding="0em 0em 0 0em"
+                        disabled={disabled}
                         width="100%"
                         widthContainer="30%"
                         error={errors.complement}
@@ -77,6 +81,7 @@ export const AddressContact = ({ data }) => {
                         label="Bairro"
                         padding="0em 2em 0 0em"
                         width="100%"
+                        disabled={disabled}
                         widthContainer="60%"
                         error={errors.neighborhood_name}
                         touched={touched.neighborhood_name}
@@ -89,6 +94,7 @@ export const AddressContact = ({ data }) => {
                         label="cidade"
                         padding="0em 2em 0 0em"
                         width="100%"
+                        disabled={disabled}
                         widthContainer="50%"
                         error={errors.city_name}
                         touched={touched.city_name}
@@ -100,6 +106,7 @@ export const AddressContact = ({ data }) => {
                         onChange={handleChange('uf')}
                         options={optionsUF}
                         error={errors.uf}
+                        disabled={disabled}
                         touched={touched.uf}
                         handleBlur={setFieldTouched}
                         placeHolder="UF"
@@ -114,6 +121,7 @@ export const AddressContact = ({ data }) => {
                         onChange={handleChange('phone_number')}
                         error={errors.phone_number}
                         touched={touched.phone_number}
+                        disabled={disabled}
                         width="95%"
                         widthContainer="30%"
                         handleBlur={setFieldTouched}
@@ -126,6 +134,7 @@ export const AddressContact = ({ data }) => {
                         onChange={handleChange('main_email')}
                         error={errors.main_email}
                         touched={touched.main_email}
+                        disabled={disabled}
                         width="95%"
                         widthContainer="40%"
                         handleBlur={setFieldTouched}
@@ -140,6 +149,7 @@ export const AddressContact = ({ data }) => {
                         touched={touched.secondary_email}
                         width="100%"
                         widthContainer="40%"
+                        disabled={disabled}
                         handleBlur={setFieldTouched}
                         name="secundary_email"
                     />

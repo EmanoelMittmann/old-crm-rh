@@ -16,6 +16,7 @@ const InputWithLabel = (
     justify, 
     padding, 
     error, 
+    disabled,
     mask,
     handleBlur, 
     name,
@@ -51,6 +52,7 @@ const InputWithLabel = (
               type="text"
               placeholder={focus ? '' : label}
               width={width}
+              disabled={disabled}
               padding="0.3em 0 0 1.5em"
               ref={
                 node => {

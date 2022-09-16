@@ -12,7 +12,7 @@ import InputWithLabel from '../../atoms/InputWithLabel'
 import { ContainerRow } from '../RegisterCompany/style'
 import { optionsRegistions } from '../RegisterCompany/status'
 
-export const SituationCadastion = ({data}) => {
+export const SituationCadastion = ({data,disabled}) => {
   const { values, handleChange, errors, touched, setFieldTouched } = data
   return(
     <ContainerRegisterCompanySituation>
@@ -24,6 +24,7 @@ export const SituationCadastion = ({data}) => {
             error={errors.registration_status}
             touched={touched.registration_status}
             options={optionsRegistions}
+            disabled={disabled}
             placeHolder="Situação Cadastral"
             name="Situação Cadastral"
             handleBlur={setFieldTouched}
@@ -37,6 +38,7 @@ export const SituationCadastion = ({data}) => {
             name="Data da Situação Cadastral"
             label="Data da Situação Cadastral"
             type='date'
+            disabled={disabled}
             width="100%"
             widthContainer="35%"
             handleBlur={setFieldTouched}
@@ -49,6 +51,7 @@ export const SituationCadastion = ({data}) => {
             error={errors.reason_for_registration_status}
             touched={touched.reason_for_registration_status}
             width="100%"
+            disabled={disabled}
             widthContainer="35%"
             handleBlur={setFieldTouched}
             name="reason_for_registration_status"
@@ -61,6 +64,7 @@ export const SituationCadastion = ({data}) => {
             onChange={handleChange('responsible_federative_entity')}
             error={errors.responsible_federative_entity}
             touched={touched.responsible_federative_entity}
+            disabled={disabled}
             width="100%"
             widthContainer="100%"
             handleBlur={setFieldTouched}
@@ -75,6 +79,7 @@ export const SituationCadastion = ({data}) => {
             error={errors.special_situation}
             touched={touched.special_situation}
             width="95%"
+            disabled={disabled}
             widthContainer="90%"
             handleBlur={setFieldTouched}
             name="special_situation"
@@ -86,6 +91,7 @@ export const SituationCadastion = ({data}) => {
             touched={touched.date_of_special_situation}
             placeholder="Data da Situação Especial"
             width="40%"
+            disabled={disabled}
             widthContainer="30%"
             handleBlur={setFieldTouched}
           />
