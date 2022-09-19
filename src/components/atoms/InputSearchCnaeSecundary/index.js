@@ -1,17 +1,19 @@
-import axios from "axios";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { BlueButton } from "../Buttons/BlueButton/style.js";
-import { InputLine } from "../DefaultInput/style.js";
-import { ErrorMessage, Label } from "../InputWithLabel/style.js";
+import axios from 'axios';
+import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { BlueButton } from '../Buttons/BlueButton/style.js';
+import { InputLine } from '../DefaultInput/style.js';
+import { ErrorMessage, Label } from '../InputWithLabel/style.js';
+import { DefaultToast } from '../Toast/DefaultToast.js';
 import {
   InputSearchWithLabel,
   DefaultInputCnae,
   ListItens,
   Itens,
   ValuesSelected,
-} from "./style.js";
+} from './style.js';
 
 const InputSearchCnaeSecundary = ({
   inputWidth,
@@ -19,20 +21,20 @@ const InputSearchCnaeSecundary = ({
   setFieldValue,
   values,
   name,
-  label,  
+  label,
   disabled,
   width,
   error,
   touched,
   handleBlur,
 }) => {
-  const [id, setId] = useState("");
+  const [id, setId] = useState('');
   const [value, setValue] = useState([]);
   const [filteredValues, setFilteredValues] = useState([]);
-  const [waitingValue, setWaitingValue] = useState([])
+  const [waitingValue, setWaitingValue] = useState([]);
   const [selectValue, setSelectValue] = useState([]);
-  const [blur, setBlur] = useState("");
-  const [focus, setFocus] = useState("");
+  const [blur, setBlur] = useState('');
+  const [focus, setFocus] = useState('');
 
   const handleFilter = (id) => {
     const searchCnae = value.filter((index) => index.id.includes(id));
@@ -40,15 +42,27 @@ const InputSearchCnaeSecundary = ({
   };
 
   const handleClick = (e) => {
-    e.preventDefault()
-    setFieldValue('secondary_cnae',waitingValue)
-  }
+    e.preventDefault();
+    // isExist => valida se um valor ja foi selecionado mais de 1 vez dentro de waitingValue.
+    const isExist =
+      waitingValue.filter((item) => item.id === waitingValue.at(-1).id).length >
+      1;
+    // Caso o valor tenha sido adicionado, não prosseguir o fluxo.
+    if (isExist) {
+      return toast.error(
+        <DefaultToast text="Essa atividade ja foi selecionada." />
+      );
+    }
+    setFieldValue('secondary_cnae', waitingValue);
+  };
 
   const handleDelete = (index) => {
-    const temp = values.secondary_cnae
-    temp.splice(index,1)
-    setFieldValue('secondary_cnae',temp)
-  }
+    // index = vem o id da atividade principal.
+    // o id da atividade so existe 1, não podemos duplicar uma atividade
+    // é por isso que se filtrarmos todas as atividades diferentes da que queremos remover o filtro vai funcionar.
+    const temp = values.secondary_cnae.filter((item) => item.id !== index); // para remover
+    setFieldValue('secondary_cnae', temp);
+  };
 
   useEffect(() => {
     const dataInApi = async () => {
@@ -72,23 +86,28 @@ const InputSearchCnaeSecundary = ({
   return (
     <>
       <InputSearchWithLabel>
-      <InputLine width={width} error={touched && error}>
-          <Label focus={focus || value !== ""} blur={blur || value !== ""}>
+        <InputLine width={width} error={touched && error}>
+          <Label focus={focus || value !== ''} blur={blur || value !== ''}>
             {label}
           </Label>
-        <DefaultInputCnae
-          value={id}
-          disabled={disabled}
-          onChange={(e) => setId(e.target.value)}
-          type="search"
-          placeholder={placeholder}
-          width={inputWidth}
-          padding="0.3em 0 0 1em"
-        />
+          <DefaultInputCnae
+            value={id}
+            disabled={disabled}
+            onChange={(e) => setId(e.target.value)}
+            type="search"
+            placeholder={placeholder}
+            width={inputWidth}
+            padding="0.3em 0 0 1em"
+          />
         </InputLine>
         <div className="div1">
           {selectValue?.map((index) => (
-            <ValuesSelected key={index.id} onClick={(index) => handleDelete(index)}>{index.description}</ValuesSelected>
+            <ValuesSelected
+              key={index.id}
+              onClick={() => handleDelete(index.id)}
+            >
+              {index.description}
+            </ValuesSelected>
           ))}
         </div>
         {error && touched && (
@@ -102,9 +121,11 @@ const InputSearchCnaeSecundary = ({
               <Itens
                 key={index.id}
                 onClick={() => {
-                  setWaitingValue( 
-                  [...values.secondary_cnae,{id: index.id, description: index.descricao}]);
-                  setId("");
+                  setWaitingValue([
+                    ...values.secondary_cnae,
+                    { id: index.id, description: index.descricao },
+                  ]);
+                  setId('');
                 }}
               >
                 {index.id} {index.descricao}
@@ -112,7 +133,9 @@ const InputSearchCnaeSecundary = ({
             ))}
         </ListItens>
       )}
-      <BlueButton width="20%" onClick={(e) => handleClick(e)}>Adicionar</BlueButton>
+      <BlueButton width="20%" onClick={(e) => handleClick(e)}>
+        Adicionar
+      </BlueButton>
     </>
   );
 };

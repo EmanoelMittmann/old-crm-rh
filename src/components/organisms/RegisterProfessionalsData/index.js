@@ -1,72 +1,69 @@
-
 import { Country, State } from 'country-state-city';
-import SecondaryText from "../../atoms/SecondaryText/style";
+import SecondaryText from '../../atoms/SecondaryText/style';
 import InputSelect from '../../atoms/InputSelect';
-import InputSelectUf from '../../atoms/InputSelectUf/index.js'
-import InputSelectCountry from "../../atoms/InputSelectCountry/Index";
-import React, { useState } from 'react'
+import InputSelectUf from '../../atoms/InputSelectUf/index.js';
+import InputSelectCountry from '../../atoms/InputSelectCountry/Index';
+import React, { useState } from 'react';
 import {
   ContainerRegisterProfessionalsData,
   RegisterProfessionalsForm,
   ContainerRow,
   PhoneInternational,
-} from './style.js'
-import InputWithLabel from '../../atoms/InputWithLabel/index.js'
-import InputMasked from '../../atoms/InputMasked/index.js'
-import { useEffect } from 'react'
-import SelectBank from '../../atoms/SelectBank'
+} from './style.js';
+import InputWithLabel from '../../atoms/InputWithLabel/index.js';
+import InputMasked from '../../atoms/InputMasked/index.js';
+import { useEffect } from 'react';
+import SelectBank from '../../atoms/SelectBank';
 
 export const optionsUF = [
-  { name: "Todos" , id: undefined},
-  { name: "Acre", id: "AC" },
-  { name: "Alagoas", id: "AL" },
-  { name: "Amapá", id: "AP" },
-  { name: "Amazonas", id: "AM" },
-  { name: "Bahia", id: "BA" },
-  { name: "Ceará", id: "CE" },
-  { name: "Distrito Federal", id: "DF" },
-  { name: "Espírito Santo", id: "ES" },
-  { name: "Goiás", id: "GO" },
-  { name: "Maranhão", id: "MA" },
-  { name: "Mato Grosso", id: "MT" },
-  { name: "Mato Grosso do Sul", id: "MS" },
-  { name: "Minas Gerais", id: "MG" },
-  { name: "Pará", id: "PA" },
-  { name: "Paraíba", id: "PB" },
-  { name: "Paraná", id: "PR" },
-  { name: "Pernambuco", id: "PE" },
-  { name: "Piauí", id: "PI" },
-  { name: "Rio de Janeiro", id: "RJ" },
-  { name: "Rio Grande do Norte", id: "RN" },
-  { name: "Rio Grande do Sul", id: "RS" },
-  { name: "Rondônia", id: "RO" },
-  { name: "Roraima", id: "RR" },
-  { name: "Santa Catarina", id: "SC" },
-  { name: "São Paulo", id: "SP" },
-  { name: "Sergipe", id: "SE" },
-  { name: "Tocantins", id: "TO" }
-]
+  { name: 'Todos', id: undefined },
+  { name: 'Acre', id: 'AC' },
+  { name: 'Alagoas', id: 'AL' },
+  { name: 'Amapá', id: 'AP' },
+  { name: 'Amazonas', id: 'AM' },
+  { name: 'Bahia', id: 'BA' },
+  { name: 'Ceará', id: 'CE' },
+  { name: 'Distrito Federal', id: 'DF' },
+  { name: 'Espírito Santo', id: 'ES' },
+  { name: 'Goiás', id: 'GO' },
+  { name: 'Maranhão', id: 'MA' },
+  { name: 'Mato Grosso', id: 'MT' },
+  { name: 'Mato Grosso do Sul', id: 'MS' },
+  { name: 'Minas Gerais', id: 'MG' },
+  { name: 'Pará', id: 'PA' },
+  { name: 'Paraíba', id: 'PB' },
+  { name: 'Paraná', id: 'PR' },
+  { name: 'Pernambuco', id: 'PE' },
+  { name: 'Piauí', id: 'PI' },
+  { name: 'Rio de Janeiro', id: 'RJ' },
+  { name: 'Rio Grande do Norte', id: 'RN' },
+  { name: 'Rio Grande do Sul', id: 'RS' },
+  { name: 'Rondônia', id: 'RO' },
+  { name: 'Roraima', id: 'RR' },
+  { name: 'Santa Catarina', id: 'SC' },
+  { name: 'São Paulo', id: 'SP' },
+  { name: 'Sergipe', id: 'SE' },
+  { name: 'Tocantins', id: 'TO' },
+];
 
 const optionsBank = [
-  { name: "Conta Corrente ", id: "001" },
-  { name: "Conta Poupança ", id: "013" }
-]
-
-
+  { name: 'Conta Corrente ', id: '001' },
+  { name: 'Conta Poupança ', id: '013' },
+];
 
 const RegisterProfessionalsData = ({ data }) => {
-  const [optionsUFCountry,setOptionsUFCountry] = useState([])
-  const { values, handleChange, errors, touched, setFieldTouched } = data
+  const [optionsUFCountry, setOptionsUFCountry] = useState([]);
+  const { values, handleChange, errors, touched, setFieldTouched } = data;
 
   useEffect(() => {
-
-    if (values.country === "") return
-    const countries = Country.getAllCountries()
-    const filtro = countries.find(item => item.name === values.country).isoCode
-    const states = State.getStatesOfCountry(filtro)
-    setOptionsUFCountry(states)
-
-  }, [values.country])
+    if (values.country === '') return;
+    const countries = Country.getAllCountries();
+    const filtro = countries.find(
+      (item) => item.name === values.country
+    ).isoCode;
+    const states = State.getStatesOfCountry(filtro);
+    setOptionsUFCountry(states);
+  }, [values.country]);
 
   return (
     <ContainerRegisterProfessionalsData>
@@ -75,7 +72,7 @@ const RegisterProfessionalsData = ({ data }) => {
         <ContainerRow>
           <InputWithLabel
             value={values.name}
-            onChange={handleChange("name")}
+            onChange={handleChange('name')}
             label="Nome"
             name="name"
             width="100%"
@@ -87,7 +84,7 @@ const RegisterProfessionalsData = ({ data }) => {
             handleBlur={setFieldTouched}
           />
           <InputWithLabel
-            onChange={handleChange("birth_date")}
+            onChange={handleChange('birth_date')}
             label="Data nascimento"
             value={values.birth_date}
             width="100%"
@@ -104,9 +101,24 @@ const RegisterProfessionalsData = ({ data }) => {
             id="cpf"
             name="cpf"
             value={values.cpf}
-            mask={[/\d/, /\d/, /\d/, ".", /\d/, /\d/, /\d/, ".", /\d/, /\d/, /\d/, "-", /\d/, /\d/,]}
+            mask={[
+              /\d/,
+              /\d/,
+              /\d/,
+              '.',
+              /\d/,
+              /\d/,
+              /\d/,
+              '.',
+              /\d/,
+              /\d/,
+              /\d/,
+              '-',
+              /\d/,
+              /\d/,
+            ]}
             label="CPF"
-            onChange={handleChange("cpf")}
+            onChange={handleChange('cpf')}
             error={errors.cpf}
             touched={touched.cpf}
             width="100%"
@@ -115,7 +127,7 @@ const RegisterProfessionalsData = ({ data }) => {
             handleBlur={setFieldTouched}
           />
           <InputWithLabel
-            onChange={handleChange("rg")}
+            onChange={handleChange('rg')}
             value={values.rg}
             label="RG"
             width="100%"
@@ -128,9 +140,26 @@ const RegisterProfessionalsData = ({ data }) => {
             type="number"
           />
           <PhoneInternational
-            country={"br"}
-            placeholder={"Telefone"}
-            mask={['(', /[1-9]/, /\d/, ')', ' ', /\d/, ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+            country={'br'}
+            placeholder={'Telefone'}
+            mask={[
+              '(',
+              /[1-9]/,
+              /\d/,
+              ')',
+              ' ',
+              /\d/,
+              ' ',
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+              '-',
+              /\d/,
+              /\d/,
+              /\d/,
+              /\d/,
+            ]}
             onChange={handleChange('telephone_number')}
             error={errors.telephone_number}
             touched={touched.telephone_number}
@@ -138,17 +167,28 @@ const RegisterProfessionalsData = ({ data }) => {
             type="number"
             name="telephone_number"
             value={values.telephone_number}
-
           />
         </ContainerRow>
         <ContainerRow>
           <InputMasked
             type="text"
             value={values.cep}
-            onChange={handleChange("cep")}
+            onChange={handleChange('cep')}
             label="CEP"
             padding="0em 2em 0 0em"
-            mask={values.country === "Brazil" && [/\d/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/]}
+            mask={
+              values.country === 'Brazil' && [
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+                '-',
+                /\d/,
+                /\d/,
+                /\d/,
+              ]
+            }
             width="100%"
             widthContainer="23%"
             error={errors.cep}
@@ -157,7 +197,7 @@ const RegisterProfessionalsData = ({ data }) => {
             name="cep"
           />
           <InputWithLabel
-            onChange={handleChange("street_name")}
+            onChange={handleChange('street_name')}
             value={values.street_name}
             label="Rua"
             width="100%"
@@ -169,7 +209,7 @@ const RegisterProfessionalsData = ({ data }) => {
             name="street_name"
           />
           <InputWithLabel
-            onChange={handleChange("house_number")}
+            onChange={handleChange('house_number')}
             value={values.house_number}
             label="Número"
             type="number"
@@ -182,7 +222,7 @@ const RegisterProfessionalsData = ({ data }) => {
             name="house_number"
           />
           <InputWithLabel
-            onChange={handleChange("complement")}
+            onChange={handleChange('complement')}
             value={values.complement}
             label="Complemento"
             width="100%"
@@ -198,14 +238,14 @@ const RegisterProfessionalsData = ({ data }) => {
             width="100%"
             widthContainer="60%"
             margin="0 2em 0 0"
-            placeHolder={"Pais"}
-            onChange={handleChange("country")}
+            placeHolder={'Pais'}
+            onChange={handleChange('country')}
             value={values.country}
             error={errors.country}
             touched={touched.country}
           />
           <InputWithLabel
-            onChange={handleChange("neighbourhood_name")}
+            onChange={handleChange('neighbourhood_name')}
             value={values.neighbourhood_name}
             label="Bairro"
             width="100%"
@@ -218,7 +258,7 @@ const RegisterProfessionalsData = ({ data }) => {
           />
           <InputWithLabel
             value={values.city_name}
-            onChange={handleChange("city_name")}
+            onChange={handleChange('city_name')}
             label="Cidade"
             width="100%"
             widthContainer="38%"
@@ -230,7 +270,7 @@ const RegisterProfessionalsData = ({ data }) => {
           />
           <InputSelectUf
             value={values.uf}
-            onChange={handleChange("uf")}
+            onChange={handleChange('uf')}
             options={optionsUFCountry}
             placeHolder="UF"
             width="230px"
@@ -242,7 +282,7 @@ const RegisterProfessionalsData = ({ data }) => {
             handleBlur={setFieldTouched}
             label="E-mail Pessoal"
             name="email"
-            onChange={handleChange("email")}
+            onChange={handleChange('email')}
             padding="0 2em 0 0"
             touched={touched.email}
             type="email"
@@ -251,15 +291,35 @@ const RegisterProfessionalsData = ({ data }) => {
             width="100%"
           />
         </ContainerRow>
-        
+
         <RegisterProfessionalsForm>
-          <SecondaryText margin="0 0 2.5em">Dados Pessoa Juridica</SecondaryText>
+          <SecondaryText margin="0 0 2.5em">
+            Dados Pessoa Juridica
+          </SecondaryText>
           <ContainerRow>
             <InputMasked
               onChange={handleChange('professional_data.cnpj')}
               value={values.professional_data.cnpj}
-              mask={[/[0-9]/, /\d/, '.', /\d/, /\d/, /\d/, '.',
-                /\d/, /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/,]}
+              mask={[
+                /[0-9]/,
+                /\d/,
+                '.',
+                /\d/,
+                /\d/,
+                /\d/,
+                '.',
+                /\d/,
+                /\d/,
+                /\d/,
+                '/',
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+                '-',
+                /\d/,
+                /\d/,
+              ]}
               label="CNPJ"
               error={errors?.professional_data?.cnpj}
               touched={errors?.professional_data?.cnpj}
@@ -295,7 +355,24 @@ const RegisterProfessionalsData = ({ data }) => {
             />
             <InputMasked
               value={values.professional_data.company_phone_number}
-              mask={['(', /[1-9]/, /\d/, ')', ' ', /\d/, ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
+              mask={[
+                '(',
+                /[1-9]/,
+                /\d/,
+                ')',
+                ' ',
+                /\d/,
+                ' ',
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+                '-',
+                /\d/,
+                /\d/,
+                /\d/,
+                /\d/,
+              ]}
               label="Telefone"
               onChange={handleChange('professional_data.company_phone_number')}
               error={errors.company_phone_number}
@@ -311,8 +388,7 @@ const RegisterProfessionalsData = ({ data }) => {
               value={values.professional_data.company_cep}
               onChange={handleChange('professional_data.company_cep')}
               label="CEP"
-              mask={[/\d/, /\d/, /\d/, /\d/, /\d/, '-',
-                /\d/, /\d/, /\d/]}
+              mask={[/\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/]}
               padding="0em 2em 0 0em"
               width="100%"
               widthContainer="23%"
@@ -360,7 +436,9 @@ const RegisterProfessionalsData = ({ data }) => {
           </ContainerRow>
           <ContainerRow>
             <InputWithLabel
-              onChange={handleChange('professional_data.company_neighborhood_name')}
+              onChange={handleChange(
+                'professional_data.company_neighborhood_name'
+              )}
               value={values.professional_data.company_neighborhood_name}
               label="Bairro"
               width="100%"
@@ -417,7 +495,7 @@ const RegisterProfessionalsData = ({ data }) => {
             placeHolder={'Banco'}
             label="Banco"
             width="60%"
-            lineWidth='53%'
+            lineWidth="53%"
             name="professional_data.bank"
           />
           <InputSelect
@@ -426,7 +504,7 @@ const RegisterProfessionalsData = ({ data }) => {
             options={optionsBank}
             placeHolder="Tipo da conta"
             padding="0em 2em 0 0em"
-            width='100%'
+            width="100%"
             lineWidth="45%"
             name="professional_data.account_type"
           />
@@ -435,11 +513,11 @@ const RegisterProfessionalsData = ({ data }) => {
           <InputMasked
             value={values.professional_data.agency}
             padding="0 2em 0 0"
-            mask={[/\d/, /\d/, /\d/, /\d/,/\d/]}
+            mask={[/\d/, /\d/, /\d/, /\d/, /\d/]}
             onChange={handleChange('professional_data.agency')}
             label="Agência"
             width="100%"
-            widthContainer='40%'
+            widthContainer="40%"
             error={errors.agency}
             touched={touched.agency}
             handleBlur={setFieldTouched}
@@ -449,10 +527,10 @@ const RegisterProfessionalsData = ({ data }) => {
           <InputMasked
             value={values.professional_data.account_number}
             onChange={handleChange('professional_data.account_number')}
-            mask={[/\d/, /\d/, /\d/, /\d/,/\d/, /\d/, /\d/, /\d/,/\d/, /\d/]}
+            mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
             label="Número da conta"
             width="100%"
-            widthContainer='60%'
+            widthContainer="60%"
             error={errors.account_number}
             touched={touched.account_number}
             handleBlur={setFieldTouched}
@@ -464,6 +542,5 @@ const RegisterProfessionalsData = ({ data }) => {
     </ContainerRegisterProfessionalsData>
   );
 };
-
 
 export default RegisterProfessionalsData;

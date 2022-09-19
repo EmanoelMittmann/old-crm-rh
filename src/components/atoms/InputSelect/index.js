@@ -1,14 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import { InputLine } from "../../atoms/DefaultInput/style";
-import arrowPointingDown from "../../../assets/icons/arrowPointingDown.svg";
+import { InputLine } from '../../atoms/DefaultInput/style';
+import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg';
 import {
   Img,
   InputSelectContainer,
   InputSelectOption,
   InputSelectOptionPlaceholder,
-} from "./style.js";
-import { ErrorMessage } from "../InputWithLabel/style";
+} from './style.js';
+import { ErrorMessage } from '../InputWithLabel/style';
 
 const InputSelect = ({
   onChange,
@@ -41,7 +41,7 @@ const InputSelect = ({
           {options?.map((option, index) => (
             <InputSelectOption
               key={index}
-              value={`${option.id ? option.id : ""}`}
+              value={`${option.id ? option.id : ''}`}
             >
               {option.name}
             </InputSelectOption>
