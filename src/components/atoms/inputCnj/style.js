@@ -1,18 +1,19 @@
 import styled from "styled-components";
 
 export const ValuesSelected = styled.div`
-  color: blue;
+  color: #424542;
   width:25%;
-  background-color: #dbe9f4;
+  background-color: #fff;
   border-radius: 8px;
   font-size: 10px;
   margin-top: 1em;
   margin-left: 1em;
+  box-shadow: 1px 2px 5px #ccc;
   margin-bottom: 10px;
   padding: 5px;
   cursor: pointer;
 `;
-
+  
 export const InputSearchWithLabel = styled.div`
   margin-right: 23px;
   height: 45px;
