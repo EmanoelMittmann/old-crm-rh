@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const InputSearchWithLabel = styled.div`
   margin-right: 23px;
@@ -7,22 +7,22 @@ export const InputSearchWithLabel = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: ${(props) => (props.width ? props.width : "90%")};
+  width: ${(props) => (props.width ? props.width : '90%')};
   margin-bottom: 10px;
 
-  .div1{
-    display:flex;
+  .div1 {
+    display: flex;
     width: 100%;
-    gap:5px;
+    gap: 5px;
     flex-flow: row nowrap;
   }
-  `
+`;
 
 export const DefaultInputCnae = styled.input`
   font-size: 1rem;
   font-weight: 500;
-  font-family: "Poppins", sans-serif;
-  width: ${(props) => (props.width ? props.width : "100%")};
+  font-family: 'Poppins', sans-serif;
+  width: ${(props) => (props.width ? props.width : '100%')};
   height: 40px;
   padding: ${(props) => props.padding};
   outline: none;
@@ -36,10 +36,10 @@ export const DefaultInputCnae = styled.input`
     position: fixed;
     padding: 6px;
     color: ${(props) =>
-      props.placeholderColor ? props.placeholderColor : "#919EAB"};
+      props.placeholderColor ? props.placeholderColor : '#919EAB'};
     opacity: 0.7;
     text-align: ${(props) =>
-      props.placeholderPosition ? props.placeholderPosition : "left"};
+      props.placeholderPosition ? props.placeholderPosition : 'left'};
   }
 
   &:-webkit-autofill,
@@ -78,31 +78,37 @@ export const DefaultInputCnae = styled.input`
 `;
 
 export const ListItens = styled.div`
-  color: blue;
+  color: #424542;
   display: flex;
   flex-direction: column;
+  width: 60%;
+  max-height: 500px;
+  overflow: auto;
   padding: 10px;
   border-radius: 10px;
-  background-color: #dbe9f4;
+  background-color: #fff;
   margin-top: 45px;
   z-index: 10;
   position: absolute;
+  box-shadow: 1px 2px 5px #ccc;
   cursor: pointer;
 `;
 
 export const Itens = styled.div`
+  padding: 2px 0;
   :hover {
-    background-color: #b4c2cf;
+    background-color: #ccc;
     border-radius: 5px;
   }
 `;
 
 export const ValuesSelected = styled.div`
-  color: blue;
-  background-color: #dbe9f4;
+  color: #424542;
+  background-color: #fff;
   border-radius: 8px;
-  font-size: 8px;
+  font-size: 10px;
   padding: 5px;
   margin: 10px;
+  box-shadow: 1px 2px 5px #ccc;
   cursor: pointer;
 `;

@@ -1,17 +1,19 @@
-import axios from "axios";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import { BlueButton } from "../Buttons/BlueButton/style.js";
-import { InputLine } from "../DefaultInput/style.js";
-import { ErrorMessage, Label } from "../InputWithLabel/style.js";
+import axios from 'axios';
+import React from 'react';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { BlueButton } from '../Buttons/BlueButton/style.js';
+import { InputLine } from '../DefaultInput/style.js';
+import { ErrorMessage, Label } from '../InputWithLabel/style.js';
+import { DefaultToast } from '../Toast/DefaultToast.js';
 import {
   InputSearchWithLabel,
   DefaultInputCnae,
   ListItens,
   Itens,
   ValuesSelected,
-} from "./style.js";
+} from './style.js';
 
 const InputSearchCnae = ({
   inputWidth,
@@ -20,19 +22,19 @@ const InputSearchCnae = ({
   values,
   name,
   disabled,
-  label,  
+  label,
   width,
   error,
   touched,
   handleBlur,
 }) => {
-  const [id, setId] = useState("");
+  const [id, setId] = useState('');
   const [value, setValue] = useState([]);
   const [filteredValues, setFilteredValues] = useState([]);
   const [waitingValue, setWaitingValue] = useState([]);
   const [selectValue, setSelectValue] = useState([]);
-  const [blur, setBlur] = useState("");
-  const [focus, setFocus] = useState("");
+  const [blur, setBlur] = useState('');
+  const [focus, setFocus] = useState('');
 
   const handleFilter = (id) => {
     const searchCnae = value.filter((index) => index.id.includes(id));
@@ -41,13 +43,25 @@ const InputSearchCnae = ({
 
   const handleClick = (e) => {
     e.preventDefault();
-    setFieldValue("main_cnae", waitingValue);
+    // isExist => valida se um valor ja foi selecionado mais de 1 vez dentro de waitingValue.
+    const isExist =
+      waitingValue.filter((item) => item.id === waitingValue.at(-1).id).length >
+      1;
+    // Caso o valor tenha sido adicionado, não prosseguir o fluxo.
+    if (isExist) {
+      return toast.error(
+        <DefaultToast text="Essa atividade ja foi selecionada." />
+      );
+    }
+    setFieldValue('main_cnae', waitingValue);
   };
 
   const handleDelete = (index) => {
-    const temp = values.main_cnae;
-    temp.splice(index, 1);
-    setFieldValue("main_cnae", temp);
+    // index = vem o id da atividade principal.
+    // o id da atividade so existe 1, não podemos duplicar uma atividade
+    // é por isso que se filtrarmos todas as atividades diferentes da que queremos remover o filtro vai funcionar.
+    const temp = values.main_cnae.filter((item) => item.id !== index); // para remover.
+    setFieldValue('main_cnae', temp);
   };
 
   useEffect(() => {
@@ -73,7 +87,7 @@ const InputSearchCnae = ({
     <>
       <InputSearchWithLabel>
         <InputLine width={width} error={touched && error}>
-          <Label focus={focus || value !== ""} blur={blur || value !== ""}>
+          <Label focus={focus || value !== ''} blur={blur || value !== ''}>
             {label}
           </Label>
           <DefaultInputCnae
@@ -82,7 +96,9 @@ const InputSearchCnae = ({
             onChange={(e) => setId(e.target.value)}
             type="search"
             onFocus={() => setFocus(true) & setBlur(false)}
-            onBlur={() =>  setBlur(true) & setFocus(false) & handleBlur(name, true)}
+            onBlur={() =>
+              setBlur(true) & setFocus(false) & handleBlur(name, true)
+            }
             placeholder={placeholder}
             width={inputWidth}
             padding="0.3em 0 0 1em"
@@ -92,7 +108,7 @@ const InputSearchCnae = ({
           {values.main_cnae.map((index) => (
             <ValuesSelected
               key={index.id}
-              onClick={(index) => handleDelete(index)}
+              onClick={() => handleDelete(index.id)}
             >
               {index.description}
             </ValuesSelected>
@@ -113,7 +129,7 @@ const InputSearchCnae = ({
                     ...values.main_cnae,
                     { id: index.id, description: index.descricao },
                   ]);
-                  setId("");
+                  setId('');
                 }}
               >
                 {index.id} {index.descricao}
