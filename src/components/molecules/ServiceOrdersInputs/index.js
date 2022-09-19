@@ -2,36 +2,36 @@ import React from 'react'
 import InputDate from '../../atoms/InputDate'
 import InputSearch from '../../atoms/InputSearch'
 import InputSelect from '../../atoms/InputSelect'
-import { ContainerInput } from './style'
+import { ContainerInput, ContainerSelectDate, ContainerStyleOS } from './style'
 
 
 
 const ServiceOrdersInput = () => {
 
     return (
-
+<ContainerStyleOS>
         <ContainerInput>
-            <InputSearch lineWidth="280px" inputWidth="230px" />
+            <InputSearch lineWidth="230px" inputWidth="210px" />
             <InputSelect
                 value=""
                 onChange=""
                 placeHolder="Status"
-                width="280px"
+                width="230px"
             />
+</ContainerInput>
+            <ContainerSelectDate >
             <InputDate
-                width="20%"
+                width="210px"
                 padding="0 1em 0 0"
                 placeholder="Período inicial"
             />
             <InputDate
-                width="20%"
+                width="210px"
                 padding="0 1em 0 0"
                 placeholder="Período final"
             />
-   
-            
-
-        </ContainerInput>
+            </ContainerSelectDate>
+       </ContainerStyleOS > 
 
     )
 }

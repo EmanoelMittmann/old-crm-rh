@@ -40,14 +40,14 @@ export const RegisterCompanies = () => {
     size: Yup.string().required(messages.required),
     street_name: Yup.string().required(messages.required),
     main_cnae: Yup.array()
-    .min(1,'Campo obrigatório')
-    .required(messages.required),
-    secondary_cnae:Yup.array()
-    .min(1,'Campo obrigatório')
-    .required(messages.required),
+      .min(1, 'Campo obrigatório')
+      .required(messages.required),
+    secondary_cnae: Yup.array()
+      .min(1, 'Campo obrigatório')
+      .required(messages.required),
     code_and_description_of_the_legal_status: Yup.array()
-    .min(1,'Campo obrigatório')
-    .required(messages.required),
+      .min(1, 'Campo obrigatório')
+      .required(messages.required),
     registration_status: Yup.string().required(messages.required),
     house_number: Yup.number().required(messages.required),
     neighborhood_name: Yup.string().required(messages.required),
@@ -58,7 +58,7 @@ export const RegisterCompanies = () => {
     main_email: Yup.string().required(messages.required),
     registration_status: Yup.string().required(messages.required),
     date_of_registration_status: Yup.string().required(messages.required),
-    reason_for_registration_status:Yup.string().required(messages.required),
+    reason_for_registration_status: Yup.string().required(messages.required),
   })
 
   const formik = useFormik({
@@ -75,8 +75,8 @@ export const RegisterCompanies = () => {
       secondary_cnae: [],
       code_and_description_of_the_legal_status: [],
       cep: cleanMask(''),
-      street_name:'',
-      house_number:'',
+      street_name: '',
+      house_number: '',
       complement: '',
       neighborhood_name: '',
       city_name: '',
@@ -101,6 +101,7 @@ export const RegisterCompanies = () => {
           ...values,
         }
       })
+
       .then((result) => {
         toast.success(<DefaultToast text="Empresa cadastrada." />, {
           toastId: "post",
@@ -115,14 +116,15 @@ export const RegisterCompanies = () => {
         setErrors(handleErrorMessages(errors));
         console.log(errors.fantasy_name)
       });
+
     },
     validationSchema: schema,
     isValidating: false,
     enableReinitialize: true
   })
 
-
   const { values, setFieldValue,setFieldError } = formik
+
 
   const handleCEP = async (cep) => {
     await axios.get(`https://viacep.com.br/ws/${cep}/json/`,
@@ -150,13 +152,13 @@ export const RegisterCompanies = () => {
   }
 
   useEffect(() => {
-    if(id){
+    if (id) {
       api({
         method: 'get',
         url: `/companies/${id}`,
       })
-      .then((response) => {
-        const data = response.data[0];
+        .then((response) => {
+          const data = response.data[0];
           Object.entries(data).forEach(([property, value]) => {
             if (property.includes("date_of_registration_status")) {
               setFieldValue(property, getDate(value));
@@ -173,6 +175,7 @@ export const RegisterCompanies = () => {
             } else if (property.includes("cep")) {
               let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
               setFieldValue(property, data);
+
             } else if(property.includes('opening_date')){
               setFieldValue(property,getDate(value))
             }else if(property.includes("date_of_special_situation")){
@@ -181,15 +184,19 @@ export const RegisterCompanies = () => {
               }
               setFieldValue(property, getDate(value))
             } else {
-              setFieldValue(property, value);
+
             }
           });
         })
         .catch((error) => {
           new Error(error.message);
         });
-      }},[])
-      
+    }
+  }, [])
+
+  useEffect(() => {
+    console.log(formik.values)
+  }, [Formik.values])
   return (
     <>
       <RegisterProfessionalTitleContainer>
@@ -199,9 +206,15 @@ export const RegisterCompanies = () => {
       </RegisterProfessionalTitleContainer>
       <RegisterProfessionalContainer>
         <form id="Company" onSubmit={formik.handleSubmit}>
+
           <RegisterCompany data={formik} disabled={false}/>
           <AddressContact data={formik} disabled={false}/>
           <SituationCadastion data={formik} disabled={false}/>
+
+          <RegisterCompany data={formik} />
+          <AddressContact data={formik} />
+          <SituationCadastion data={formik} />
+
         </form>
         <RegisterFooter
           cancelButtonHandler={goBackClickHandler}

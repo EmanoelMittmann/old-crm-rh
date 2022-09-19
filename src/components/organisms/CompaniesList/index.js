@@ -8,6 +8,8 @@ import { CompaniesSectionContainer } from "./style";
 import { useEffect } from "react";
 import Footer from "../Footer";
 import HeaderSearchCompany from "../../molecules/HeaderSearchCompany";
+import { Container } from "../../atoms/Container";
+
 
 
 const CompaniesList = () => {
@@ -81,7 +83,7 @@ const CompaniesList = () => {
   }, [order, searchResult,uf]);
 
   return (
-    <CompaniesSectionContainer>
+    <Container>
       <HeaderSearchCompany setSearchResult={setSearchResult} setUf={setUf} uf={uf}/>  
       <CompaniesListHeader OrderForList={OrderForList} />
       {companies?.map((corporation) => (
@@ -94,7 +96,7 @@ const CompaniesList = () => {
             firstPage={companyMeta.first_page}
             lastPage={companyMeta.last_page}
             />
-    </CompaniesSectionContainer>
+    </Container>
   );
 };
 

@@ -9,30 +9,35 @@ export const ListHeaderRazaoSocial = styled.div`
 
 export const ListHeaderCNPJ = styled.div`
   display: flex;
+  width: 14.5%;
   align-items: center;
-  padding-left: 5em;
+  padding-left: 4em;
 `;
 
 export const ListHeaderDate = styled.div`
   display: flex;
+  width: 15.5%;
   align-items: center;
-  padding-left: 5em;
+  padding-left: 4em;
 `;
 
 export const ListHeaderCity = styled.div`
   display: flex;
+  width:14.5%;
   align-items: center;
-  padding-left: 5em;
+  padding-left: 2.5em;
 `;
 
 export const ListHeaderUF = styled.div`
   display: flex;
+  width:14%;
   align-items: center;
   padding-left: 5em;
 `;
 
 export const ListHeaderSituation = styled.div`
   display: flex;
+  width: 24%;
   align-items: center;
-  padding-left: 5em;
+  padding-left: 4em;
 `;
