@@ -31,8 +31,14 @@ export const ProjectsListItemTime = styled.div`
 `
 
 export const ProjectsListItemStatus = styled.div`
-    width: 17.5%;
-    padding-left: 3em;
+   display: flex;
+    width: 15%;
+    padding-left: 4.5em;
+
+    @media(max-width: 1030px){
+        width: 10%;
+        padding-left: 3.5em;
+    }
 `
 export const ProjectListOptions = styled.div`
     display: flex;

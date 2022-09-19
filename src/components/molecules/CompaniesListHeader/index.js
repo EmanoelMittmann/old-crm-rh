@@ -42,7 +42,6 @@ export const CompaniesListHeader = () => {
 
             <ListHeaderSituation>
                 <ListHeaderTitle margin="0">Situação Cadastral</ListHeaderTitle>
-                <Arrows onClick={sortByName}/>
             </ListHeaderSituation>
         </ListHeaderContainer>
   )
