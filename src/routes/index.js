@@ -19,7 +19,7 @@ import OvertimeListProfessional from '../components/pages/OvertimeListProfession
 import InvoiceSending from '../components/pages/InvoiceSending/InvoiceSending'
 import InvoiceUpload from '../components/pages/InvoiceUpload'
 import ReleaseHours  from '../components/pages/ReleaseHours'
-import Companies from '../components/organisms/CompaniesList'
+import Companies from '../components/pages/ListCompany'
 import {RegisterCompanies} from '../components/pages/RegisterCompanies'
 
 const Routes = () => {

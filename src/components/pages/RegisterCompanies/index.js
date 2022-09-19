@@ -39,13 +39,15 @@ export const RegisterCompanies = () => {
     }),
     size: Yup.string().required(messages.required),
     street_name: Yup.string().required(messages.required),
-    main_cnae: Yup.array().of(
-      Yup.object().shape({
-        id: Yup.string().required(messages.required),
-        description: Yup.string().required(messages.required)
-      }).required(messages.required)
-    ).required(messages.required),
-    secondary_cnae: Yup.array().required(messages.required),
+    main_cnae: Yup.array()
+    .min(1,'Campo obrigatório')
+    .required(messages.required),
+    secondary_cnae:Yup.array()
+    .min(1,'Campo obrigatório')
+    .required(messages.required),
+    code_and_description_of_the_legal_status: Yup.array()
+    .min(1,'Campo obrigatório')
+    .required(messages.required),
     registration_status: Yup.string().required(messages.required),
     house_number: Yup.number().required(messages.required),
     neighborhood_name: Yup.string().required(messages.required),
@@ -69,7 +71,7 @@ export const RegisterCompanies = () => {
       state_registration: '',
       municipal_registration: '',
       size: '',
-      main_cnae: [{id: '', description: ''}],
+      main_cnae: [],
       secondary_cnae: [],
       code_and_description_of_the_legal_status: [],
       cep: cleanMask(''),
@@ -106,17 +108,19 @@ export const RegisterCompanies = () => {
         return history.push("/company");
       })
       .catch((error) => {
-        toast.error(<DefaultToast text={"Ha Erros de Validação"} />, {
+        toast.error(<DefaultToast text={"Algo Errado, Revise os Campos!"} />, {
           toastId: "post",
         });
         const errors = error.response.data.errors;
         setErrors(handleErrorMessages(errors));
+        console.log(errors.fantasy_name)
       });
     },
     validationSchema: schema,
     isValidating: false,
     enableReinitialize: true
   })
+
 
   const { values, setFieldValue,setFieldError } = formik
 
@@ -171,8 +175,12 @@ export const RegisterCompanies = () => {
               setFieldValue(property, data);
             } else if(property.includes('opening_date')){
               setFieldValue(property,getDate(value))
-            }
-             else {
+            }else if(property.includes("date_of_special_situation")){
+              if(value === null){
+                return null
+              }
+              setFieldValue(property, getDate(value))
+            } else {
               setFieldValue(property, value);
             }
           });
@@ -181,23 +189,19 @@ export const RegisterCompanies = () => {
           new Error(error.message);
         });
       }},[])
-
-      useEffect(() => {
-        console.log(formik.errors)
-      },[formik])
-
+      
   return (
     <>
       <RegisterProfessionalTitleContainer>
         <SectionTitle>
-          Nova Empresa
-        </SectionTitle>
+          {id ? "Edição de Empresa" : "Nova Empresa"}
+       </SectionTitle>
       </RegisterProfessionalTitleContainer>
       <RegisterProfessionalContainer>
         <form id="Company" onSubmit={formik.handleSubmit}>
-          <RegisterCompany data={formik}/>
-          <AddressContact data={formik} />
-          <SituationCadastion data={formik} />
+          <RegisterCompany data={formik} disabled={false}/>
+          <AddressContact data={formik} disabled={false}/>
+          <SituationCadastion data={formik} disabled={false}/>
         </form>
         <RegisterFooter
           cancelButtonHandler={goBackClickHandler}

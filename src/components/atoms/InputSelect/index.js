@@ -16,6 +16,7 @@ const InputSelect = ({
   placeHolder,
   width,
   error,
+  disabled,
   touched,
   lineWidth,
   value,
@@ -31,6 +32,7 @@ const InputSelect = ({
         <InputSelectContainer
           {...attributeValue}
           width={width}
+          disabled={disabled}
           onChange={onChange}
         >
           <InputSelectOptionPlaceholder disabled selected>

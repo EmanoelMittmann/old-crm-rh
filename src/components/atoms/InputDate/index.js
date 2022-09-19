@@ -4,7 +4,7 @@ import { PlaceHolder } from './style.js'
 import { InputLine } from '../DefaultInput/style'
 import { DefaultInput } from '../DefaultInput/style.js'
 
-const InputDate = ({value, onChange, placeholder, margin, width}) => {
+const InputDate = ({value, onChange, placeholder, margin,disabled, width}) => {
     const [onFocus, setOnFocus] = useState(false)
 
     return (
@@ -13,6 +13,7 @@ const InputDate = ({value, onChange, placeholder, margin, width}) => {
                 displayDate={onFocus || value !== "" ? "block" : "none"}
                 width="70px"
                 type="date"
+                disabled={disabled}
                 onFocus={(e) => setOnFocus(true)}
                 onChange={onChange}
                 value={value}

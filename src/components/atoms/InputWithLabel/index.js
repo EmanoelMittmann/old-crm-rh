@@ -10,6 +10,7 @@ const InputWithLabel = ({
   defaultValue,
   width,
   widthContainer,
+  disabled,
   justify,
   padding,
   error,
@@ -47,6 +48,7 @@ const InputWithLabel = ({
             setBlur(true) & setFocus(false) & handleBlur(name, true)
           }
           value={value}
+          disabled={disabled}
           placeholder={focus ? '' : label}
           defaultValue={defaultValue}
           width={width}

@@ -19,6 +19,7 @@ const InputSearchCnae = ({
   setFieldValue,
   values,
   name,
+  disabled,
   label,  
   width,
   error,
@@ -77,6 +78,7 @@ const InputSearchCnae = ({
           </Label>
           <DefaultInputCnae
             value={id}
+            disabled={disabled}
             onChange={(e) => setId(e.target.value)}
             type="search"
             onFocus={() => setFocus(true) & setBlur(false)}
@@ -87,7 +89,7 @@ const InputSearchCnae = ({
           />
         </InputLine>
         <div className="div1">
-          {selectValue?.map((index) => (
+          {values.main_cnae.map((index) => (
             <ValuesSelected
               key={index.id}
               onClick={(index) => handleDelete(index)}
@@ -97,7 +99,7 @@ const InputSearchCnae = ({
           ))}
         </div>
         {error && touched && (
-          <ErrorMessage visible={error}>{error.main_cnae[0].id}</ErrorMessage>
+          <ErrorMessage visible={error}>{error}</ErrorMessage>
         )}
       </InputSearchWithLabel>
       {id && (

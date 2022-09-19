@@ -3,6 +3,8 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { BlueButton } from "../Buttons/BlueButton/style.js";
+import { InputLine } from "../DefaultInput/style.js";
+import { ErrorMessage, Label } from "../InputWithLabel/style.js";
 import {
   InputSearchWithLabel,
   DefaultInputCnae,
@@ -16,12 +18,21 @@ const InputSearchCnaeSecundary = ({
   placeholder,
   setFieldValue,
   values,
+  name,
+  label,  
+  disabled,
+  width,
+  error,
+  touched,
+  handleBlur,
 }) => {
   const [id, setId] = useState("");
   const [value, setValue] = useState([]);
   const [filteredValues, setFilteredValues] = useState([]);
   const [waitingValue, setWaitingValue] = useState([])
   const [selectValue, setSelectValue] = useState([]);
+  const [blur, setBlur] = useState("");
+  const [focus, setFocus] = useState("");
 
   const handleFilter = (id) => {
     const searchCnae = value.filter((index) => index.id.includes(id));
@@ -56,25 +67,33 @@ const InputSearchCnaeSecundary = ({
 
   useEffect(() => {
     setSelectValue(values.secondary_cnae);
-    console.log(selectValue)
   }, [values.secondary_cnae]);
 
   return (
     <>
       <InputSearchWithLabel>
+      <InputLine width={width} error={touched && error}>
+          <Label focus={focus || value !== ""} blur={blur || value !== ""}>
+            {label}
+          </Label>
         <DefaultInputCnae
           value={id}
+          disabled={disabled}
           onChange={(e) => setId(e.target.value)}
           type="search"
           placeholder={placeholder}
           width={inputWidth}
           padding="0.3em 0 0 1em"
         />
+        </InputLine>
         <div className="div1">
           {selectValue?.map((index) => (
             <ValuesSelected key={index.id} onClick={(index) => handleDelete(index)}>{index.description}</ValuesSelected>
           ))}
         </div>
+        {error && touched && (
+          <ErrorMessage visible={error}>{error}</ErrorMessage>
+        )}
       </InputSearchWithLabel>
       {id >= 1 && (
         <ListItens>

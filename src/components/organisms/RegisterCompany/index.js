@@ -22,7 +22,7 @@ import InputNature from '../../atoms/inputCnj'
 
 
 
-const RegisterCompany = ({ data}) => {
+const RegisterCompany = ({ data, disabled}) => {
   const { values, handleChange, errors, touched, setFieldTouched, setFieldValue } = data
   const [componentJustRenderedCommission, setComponentJustRenderedComission] = useState(false);
 
@@ -60,6 +60,7 @@ const RegisterCompany = ({ data}) => {
             widthContainer="60%"
             handleBlur={setFieldTouched}
             name="cnpj"
+            disabled={disabled}
           />
           <ContainerInputRadio>
             <Matriz>Essa é empresa uma matriz?</Matriz>
@@ -71,6 +72,7 @@ const RegisterCompany = ({ data}) => {
                 <InputRadio
                   {...allowMatriz}
                   type="radio"
+                  disabled={disabled}
                   name="Commission"
                   value="is_matriz"
                   id="is_matriz"
@@ -82,6 +84,7 @@ const RegisterCompany = ({ data}) => {
                   margin='0em 0em 0em 3em'
                   type="radio"
                   name="Commission"
+                  disabled={disabled}
                   value="is_matriz"
                   id="is_matriz"
                 />
@@ -99,6 +102,7 @@ const RegisterCompany = ({ data}) => {
             type={'date'}
             label="Data de Abertura"
             width="100%"
+            disabled={disabled}
             widthContainer="70%"
             handleBlur={setFieldTouched}
 
@@ -114,6 +118,7 @@ const RegisterCompany = ({ data}) => {
             name="Inscrição Estadual"
             type='number'
             width="90%"
+            disabled={disabled}
             widthContainer="50%"
             handleBlur={setFieldTouched}
           />
@@ -125,6 +130,7 @@ const RegisterCompany = ({ data}) => {
             label="Inscrição Municipal"
             name="Inscrição Municipal"
             type='number'
+            disabled={disabled}
             width="90%"
             handleBlur={setFieldTouched}
             widthContainer="50%"
@@ -136,6 +142,7 @@ const RegisterCompany = ({ data}) => {
             touched={touched.size}
             options={optionsPorte}
             placeHolder="Porte"
+            disabled={disabled}
             handleBlur={setFieldTouched}
             width="100%"
             widthContainer="50%"
@@ -147,6 +154,7 @@ const RegisterCompany = ({ data}) => {
             padding='0 1em 0 0'
             onChange={handleChange('fantasy_name')}
             error={errors.fantasy_name}
+            disabled={disabled}
             touched={touched.fantasy_name}
             label='Nome Fantasia'
             width="100%"
@@ -159,6 +167,7 @@ const RegisterCompany = ({ data}) => {
             error={errors.razao_social}
             touched={touched.razao_social}
             label='Razão Social'
+            disabled={disabled}
             width="100%"
             handleBlur={setFieldTouched}
             widthContainer="80%"
@@ -170,6 +179,7 @@ const RegisterCompany = ({ data}) => {
             value={values.main_cnae}
             handleBlur={setFieldTouched}
             error={errors.main_cnae}
+            disabled={disabled}
             touched={touched.main_cnae}
             setFieldValue={setFieldValue}
             label=""
@@ -183,8 +193,11 @@ const RegisterCompany = ({ data}) => {
             value={values.secondary_cnae}
             handleBlur={setFieldTouched}
             error={errors.secondary_cnae}
+            disabled={disabled}
             touched={touched.secondary_cnae}
             setFieldValue={setFieldValue}
+            label=""
+            width='100%'
             values={values}
           />
         </ContainerRow>
@@ -196,6 +209,8 @@ const RegisterCompany = ({ data}) => {
             error={errors.code_and_description_of_the_legal_status}
             touched={touched.code_and_description_of_the_legal_status}
             inputWidth='50%'
+            disabled={disabled}
+            label=""
             setFieldValue={setFieldValue}
             values={values}
           />
