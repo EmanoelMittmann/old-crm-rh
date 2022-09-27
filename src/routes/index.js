@@ -21,6 +21,7 @@ import InvoiceUpload from '../components/pages/InvoiceUpload'
 import ReleaseHours  from '../components/pages/ReleaseHours'
 import Companies from '../components/pages/ListCompany'
 import {RegisterCompanies} from '../components/pages/RegisterCompanies'
+import SelectorNewOs from '../components/organisms/SelectorNewOs'
 
 const Routes = () => {
     return (
@@ -44,6 +45,7 @@ const Routes = () => {
                 <PrivateRoute path="/Company" component={Companies}/>
                 <PrivateRoute exact path="/Companies" component={RegisterCompanies}/>
                 <PrivateRoute path="/Companies/:id" component={RegisterCompanies}/>
+                <PrivateRoute path="/NewOs" component={SelectorNewOs}/>
 
                 <PrivateRoute path="/timeSending" component={OvertimeListProfessional}  />
                 <PrivateRoute path="/invoiceSending" component={InvoiceSending}  />
