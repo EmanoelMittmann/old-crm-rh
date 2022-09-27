@@ -4,7 +4,7 @@ import api from "../../../api/api";
 import { useLocation } from "react-router-dom";
 import { CompaniesListHeader } from "../../molecules/CompaniesListHeader";
 import CompaniesListItem from "../CompaniesListItem";
-import { CompaniesSectionContainer } from "./style";
+import { CompaniesSectionContainer, CompanyContainer } from "./style";
 import { useEffect } from "react";
 import Footer from "../Footer";
 import HeaderSearchCompany from "../../molecules/HeaderSearchCompany";

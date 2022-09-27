@@ -28,7 +28,6 @@ import {
     ModalContainer,
     ModalTitle,
 } from '../Modal/style.js'
-import { values } from 'lodash'
 
 const ModalColors = () => {
     const dispatch = useDispatch()

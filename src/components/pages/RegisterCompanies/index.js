@@ -123,7 +123,6 @@ export const RegisterCompanies = () => {
           );
           const errors = error.response.data.errors;
           setErrors(handleErrorMessages(errors));
-          console.log(errors.fantasy_name);
         });
     },
     validationSchema: schema,
@@ -192,6 +191,7 @@ export const RegisterCompanies = () => {
               }
               setFieldValue(property, getDate(value));
             } else {
+              setFieldValue(property, value)
             }
           });
         })
