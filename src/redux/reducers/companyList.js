@@ -14,13 +14,13 @@ const CompaniesList = (state = inicialState, action) => {
 
         case SETCOMPANYCLICKED:
         
-        state = state.map(project => {
-            if(project.id === payload) return {
-                ...project,
-                clicked: !project.clicked
+        state = state.map(company => {
+            if (company.id === payload) return {
+                ...company,
+                clicked: !company.clicked
             };
-            if(project.id !== payload) return {
-                ...project,
+            if (company.id !== payload) return {
+                ...company,
                 status:false
             }
         })
