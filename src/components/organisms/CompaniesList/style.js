@@ -9,6 +9,6 @@ export const CompaniesSectionContainer = styled.section`
   border-radius: 20px;
 
   @media (min-width: 1000px) {
-    width: 95%;
+    width: 91%;
   }
 `;
