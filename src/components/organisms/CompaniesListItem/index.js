@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 import {
   Badge,
   ContainerIconOptions,
-} from "../../molecules/ProfessionalsListItem/style";
+} from '../../molecules/ProfessionalsListItem/style';
 import {
   ComapaniesListOptions,
   CompanyCity,
@@ -12,21 +12,17 @@ import {
   CompanySituation,
   CompanyUF,
   ContainerCompaniesListItem,
-} from "./style";
-import { ReactComponent as OptionsIcon } from "../../../assets/icons/options.svg";
-import { useEffect } from "react";
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
-import { formatDate } from "../../utils/formatDate";
-import MenuOptions from "../../atoms/MenuOptions";
+} from './style';
+import { ReactComponent as OptionsIcon } from '../../../assets/icons/options.svg';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { formatDate } from '../../utils/formatDate';
+import MenuOptions from '../../atoms/MenuOptions';
 
 const CompaniesListItem = ({ corporation }) => {
   const history = useHistory();
   const [optionClicked, setOptionClicked] = useState();
   const [menuOptionsisClicked, setMenuOptionsisClicked] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
-  const [Message, setMessage] = useState("");
-  let isDetails = true
 
   const menuOptionsClicked = (companyId) => {
     setMenuOptionsisClicked(!menuOptionsisClicked);
@@ -39,7 +35,7 @@ const CompaniesListItem = ({ corporation }) => {
 
   const viewDetails = () => {
     history.push(`/companies/${corporation.id}`);
-  }
+  };
 
   return (
     <ContainerCompaniesListItem>
@@ -61,9 +57,9 @@ const CompaniesListItem = ({ corporation }) => {
       </CompanySituation>
       <ComapaniesListOptions
         optionsColor={
-          corporation.id == optionClicked && menuOptionsisClicked
-            ? "#407BFF"
-            : "#B7BDC2"
+          corporation.id === optionClicked && menuOptionsisClicked
+            ? '#407BFF'
+            : '#B7BDC2'
         }
       >
         <ContainerIconOptions
@@ -72,20 +68,17 @@ const CompaniesListItem = ({ corporation }) => {
           <OptionsIcon />
         </ContainerIconOptions>
       </ComapaniesListOptions>
-      {menuOptionsisClicked && corporation.id == optionClicked && (
+      {menuOptionsisClicked && corporation.id === optionClicked && (
         <MenuOptions
           positionMenu="13px"
           firstOptionDescription="Editar"
-          secondOptionDescription='Detalhes'
+          secondOptionDescription="Detalhes"
           firstChosenOption={editCompany}
           secondChosenOption={viewDetails}
           padding="0.3em 0.5em 0.3em 1.7em"
           id={optionClicked}
         />
       )}
-      {/* {openModal && 
-        <Modal>
-      } */}
     </ContainerCompaniesListItem>
   );
 };
