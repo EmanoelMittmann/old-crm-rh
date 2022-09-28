@@ -3,17 +3,25 @@ import styled from "styled-components";
 export const Container = styled.div`
   padding: 1.5em 1.5em 0 1.5em;
   width: 91.2%;
-  min-height: 80vh;
+  height: 32em;
   background-color: white;
   border-radius: 20px;
   margin: auto;
-  position: relative;
-  top: 40px;
+  margin-top: 40px;
 
   @media (min-width: 1000px) {
     width: 95%;
   }
 `;
+
+export const ContainerButtons = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  top: 1em;
+  right: 2.3em;
+`
 
 export const ScrollContainer = styled.ul`
   overflow-y: scroll;

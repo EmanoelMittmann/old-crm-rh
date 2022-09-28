@@ -12,7 +12,7 @@ export const OrdemServiceItens = styled.div`
   justify-content: ${(props) => props.content};
   white-space: nowrap;
   align-items: center;
-  font-family: "Roboto", sans-serif;
+  font-family: 'Poppins', sans-serif;
   width: ${(props) => props.width};
   padding-right: ${(props) => props.right};
 
