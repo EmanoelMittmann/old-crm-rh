@@ -11,8 +11,8 @@ const OrdemServiceListItem = ({ index }) => {
         <OrdemServiceItens width="20%" content="right" right="1.5em">
           {index.professional_data?.cnpj}
         </OrdemServiceItens>
-        <OrdemServiceItens width="20%" content="right" right="3em">
-          R$ {index.fixed_payment_value}
+        <OrdemServiceItens width="20%" content="right" right="1.5em">
+          R$ {index.fixed_payment_value},00
         </OrdemServiceItens>
         <OrdemServiceItens width="20%" content="right" right="5em">
           -
