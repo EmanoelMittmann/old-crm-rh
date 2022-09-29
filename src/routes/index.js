@@ -22,6 +22,7 @@ import ReleaseHours from '../components/pages/ReleaseHours';
 import ListCompany from '../components/pages/ListCompany';
 import { RegisterCompanies } from '../components/pages/RegisterCompanies';
 import OrdemService from '../components/pages/OrdemServices';
+import { ModalOdemServices } from '../components/molecules/ModalOrdemServices';
 
 const Routes = () => {
   return (
@@ -53,6 +54,7 @@ const Routes = () => {
         <PrivateRoute exact path="/Companies" component={RegisterCompanies} />
         <PrivateRoute path="/Companies/:id" component={RegisterCompanies} />
         <PrivateRoute path="/NewOs" component={OrdemService} />
+        
 
         <PrivateRoute
           path="/timeSending"

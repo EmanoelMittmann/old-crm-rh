@@ -38,7 +38,8 @@ import {
   SETOCCUPATIONLIST,
   OCCUPATIONOPTIONCLICKED,
   SETCOMPANYLISTITEMS,
-  SETCOMPANYCLICKED
+  SETCOMPANYCLICKED,
+  SETVALUECOMMISSION
 } from '../types';
 
 export const loggingIn = (payload) => ({
@@ -233,5 +234,10 @@ export const setComapanyListItems = (payload) => ({
 
 export const setCompanyClicked = (payload) => ({
   type:SETCOMPANYCLICKED,
+  payload
+});
+
+export const setValueCommission = (payload) => ({
+  type: SETVALUECOMMISSION,
   payload
 });
