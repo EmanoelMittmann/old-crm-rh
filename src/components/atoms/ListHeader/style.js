@@ -22,5 +22,6 @@ export const ListHeaderTitle = styled.h4`
   color: black;
   margin-left: ${(props) => (props.margin ? props.margin : '3em')};
   width: ${(props) => props.width};
+  white-space: nowrap;
   cursor: pointer;
 `;
