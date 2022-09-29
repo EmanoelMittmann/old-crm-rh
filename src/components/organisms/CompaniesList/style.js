@@ -8,7 +8,7 @@ export const CompaniesSectionContainer = styled.section`
   background-color: white;
   border-radius: 20px;
 
-  @media (min-width: 1000px) {
+  @media (min-width: 1030px) {
     width: 91%;
   }
 `;
