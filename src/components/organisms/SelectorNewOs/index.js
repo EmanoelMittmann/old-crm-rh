@@ -6,18 +6,26 @@ import OrdemServiceHeader from "../../molecules/OrdemServiceListHeader";
 import OrdemServiceListItem from "../../molecules/OrdemServicesListItem";
 import { Container, ScrollContainer, ContainerButtons } from "./style";
 import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { BlueButton } from "../../atoms/Buttons/BlueButton/style";
 import CancelButton from "../../atoms/Buttons/CancelButton/style";
 
 const NewOrdemService = () => {
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState('');
   const [professionals, setProfessionals] = useState([]);
   const [checkedProfissional, setCheckedProfissional] = useState([])
   const [order, setOrder] = useState("");
   const history = useHistory()
 
   let params = {};
+
+  const handleFilterRequest = () => {
+    if (searchResult !== '') {
+      params.search = searchResult;
+    }
+
+    if (order !== "") params.order = order;
+  };
 
   const sortByName = () => {
     order === "" && setOrder("desc");
@@ -41,24 +49,15 @@ const NewOrdemService = () => {
   const getProfessionals = async () => {
     const { data } = await api({
       method: "get",
-      url: "/professionals/?limit=100",
-      params: params,
+      url: `/professionals/?limit=20&search=${searchResult}`,
     });
     setProfessionals(data.data);
   };
 
-  const handleFilterRequest = () => {
-    if (searchResult !== "") {
-      params.search = searchResult;
-      params.professional_data = searchResult
-    }
-
-    if (order !== "") params.order = order;
-  };
 
   useEffect(() => {
-    handleFilterRequest();
     getProfessionals();
+    handleFilterRequest();
   }, [searchResult]);
 
   return (
