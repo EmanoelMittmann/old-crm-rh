@@ -13,6 +13,7 @@ import CancelButton from "../../atoms/Buttons/CancelButton/style";
 const NewOrdemService = () => {
   const [searchResult, setSearchResult] = useState([]);
   const [professionals, setProfessionals] = useState([]);
+  const [checkedProfissional, setCheckedProfissional] = useState([])
   const [order, setOrder] = useState("");
   const history = useHistory()
 
@@ -27,7 +28,7 @@ const NewOrdemService = () => {
   const getProfessionals = async () => {
     const { data } = await api({
       method: "get",
-      url: "/professionals/?limit=undefined",
+      url: "/professionals/?limit=20",
       params: params,
     });
     setProfessionals(data.data);
@@ -36,6 +37,7 @@ const NewOrdemService = () => {
   const handleFilterRequest = () => {
     if (searchResult !== "") {
       params.search = searchResult;
+      params.professional_data = searchResult
     }
 
     if (order !== "") params.order = order;
@@ -61,7 +63,7 @@ const NewOrdemService = () => {
         <OrdemServiceHeader sortByName={sortByName} />
         <ScrollContainer>
           {professionals?.map((index) => {
-            return <OrdemServiceListItem key={index.id} index={index} />;
+            return <OrdemServiceListItem key={index.id} index={index} setCheckedProfissional={setCheckedProfissional} checkedProfissional={checkedProfissional}/>;
           })}
         </ScrollContainer>
       </Container>

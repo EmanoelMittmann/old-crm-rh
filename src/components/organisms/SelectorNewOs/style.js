@@ -28,7 +28,7 @@ export const ScrollContainer = styled.ul`
   height: 20em;
   width: 100%;
   border-bottom: 1px solid #ccc;
-
+  
   &::-webkit-scrollbar{
     width: 6px;
   }
@@ -41,5 +41,6 @@ export const ScrollContainer = styled.ul`
   &::-webkit-scrollbar-thumb{
     border-radius: 20px;
     border: 3px solid #ddd;
+    background-color: #ddd;
   }
 `
