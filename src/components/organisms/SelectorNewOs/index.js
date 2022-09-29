@@ -25,10 +25,23 @@ const NewOrdemService = () => {
     order === "desc" && setOrder("asc");
   };
 
+  const handleSubmit = async() => {
+    try{
+      await api({
+        method: 'POST',
+        url: `/findProfessionalComission`,
+        data: checkedProfissional
+      })
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+
   const getProfessionals = async () => {
     const { data } = await api({
       method: "get",
-      url: "/professionals/?limit=20",
+      url: "/professionals/?limit=100",
       params: params,
     });
     setProfessionals(data.data);
@@ -52,7 +65,7 @@ const NewOrdemService = () => {
     <>
       <ContainerButtons>
         <CancelButton margin="10px" onClick={() => history.push('/serviceOrders')}>Cancelar</CancelButton>
-        <BlueButton width="10%" height="40px" onClick={() => {}}>Confirmar</BlueButton>
+        <BlueButton width="10%" height="40px" onClick={() => handleSubmit()}>Confirmar</BlueButton>
       </ContainerButtons>
       <Container>
         <InputSearch

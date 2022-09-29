@@ -8,13 +8,11 @@ import {
   ContainerRadios,
 } from './style';
 import { ContainerRow } from '../RegisterProfessionalsData/style';
-import InputWithButton from '../../molecules/InputWithButton/';
 import InputWithLabel from '../../atoms/InputWithLabel/index';
 import InputMasked from '../../atoms/InputMasked/index';
 import SecondaryText from '../../atoms/SecondaryText/style';
 import { InputRadio, LabelInputRadio } from '../../atoms/InputRadio/style';
 import InputSelect from '../../atoms/InputSelect';
-import { BlueButton } from '../../atoms/Buttons/BlueButton/style';
 import { optionsPorte } from './Porte';
 import { useEffect } from 'react';
 import InputSearchCnae from '../../atoms/InputSearchCnae';
