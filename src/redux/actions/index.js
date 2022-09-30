@@ -39,7 +39,8 @@ import {
   OCCUPATIONOPTIONCLICKED,
   SETCOMPANYLISTITEMS,
   SETCOMPANYCLICKED,
-  SETVALUECOMMISSION
+  SETVALUECOMMISSION,
+  DISABLEEDITOR,
 } from '../types';
 
 export const loggingIn = (payload) => ({
@@ -54,6 +55,11 @@ export const menuItemClicked = (payload) => ({
 
 export const showItemDescription = (payload) => ({
   type: iTEMONMOUSEOVER,
+  payload,
+});
+
+export const showEnableDisable = (payload) => ({
+  type: DISABLEEDITOR,
   payload,
 });
 
@@ -233,11 +239,11 @@ export const setComapanyListItems = (payload) => ({
 });
 
 export const setCompanyClicked = (payload) => ({
-  type:SETCOMPANYCLICKED,
-  payload
+  type: SETCOMPANYCLICKED,
+  payload,
 });
 
 export const setValueCommission = (payload) => ({
   type: SETVALUECOMMISSION,
-  payload
+  payload,
 });

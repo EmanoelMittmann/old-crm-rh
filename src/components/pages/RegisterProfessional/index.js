@@ -129,7 +129,7 @@ const RegisterProfessional = () => {
       .max(176, 'Horas/mês excedida'),
     fixed_payment_value: Yup.string().required(messages.required),
   });
-    
+
   const formik = useFormik({
     initialValues: {
       name: '',

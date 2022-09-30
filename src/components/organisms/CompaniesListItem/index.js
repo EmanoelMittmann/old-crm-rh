@@ -18,11 +18,14 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { formatDate } from '../../utils/formatDate';
 import MenuOptions from '../../atoms/MenuOptions';
+import { useDispatch } from 'react-redux';
+import { showEnableDisable } from '../../../redux/actions';
 
 const CompaniesListItem = ({ corporation }) => {
   const history = useHistory();
   const [optionClicked, setOptionClicked] = useState();
   const [menuOptionsisClicked, setMenuOptionsisClicked] = useState(false);
+  const dispatch = useDispatch();
 
   const menuOptionsClicked = (companyId) => {
     setMenuOptionsisClicked(!menuOptionsisClicked);
@@ -30,10 +33,12 @@ const CompaniesListItem = ({ corporation }) => {
   };
 
   const editCompany = () => {
+    dispatch(showEnableDisable(false));
     history.push(`/companies/${corporation.id}`);
   };
 
   const viewDetails = () => {
+    dispatch(showEnableDisable(true));
     history.push(`/companies/${corporation.id}`);
   };
 
