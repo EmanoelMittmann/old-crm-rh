@@ -20,11 +20,13 @@ import { messages } from '../../../settings/YupValidates';
 import * as Yup from 'yup';
 import { useEffect } from 'react';
 import { handleErrorMessages } from '../../utils/handleErrorMessages';
+import { useSelector } from 'react-redux';
 
 export const RegisterCompanies = () => {
   const { id } = useParams();
   const [uniqueCEP, setUniqueCEP] = useState();
   const [errors, setErrors] = useState();
+  const isDisable = useSelector((state) => state.disableEditor);
 
   const schema = Yup.object().shape({
     razao_social: Yup.string().required(messages.required),
@@ -191,7 +193,7 @@ export const RegisterCompanies = () => {
               }
               setFieldValue(property, getDate(value));
             } else {
-              setFieldValue(property, value)
+              setFieldValue(property, value);
             }
           });
         })
@@ -207,9 +209,9 @@ export const RegisterCompanies = () => {
       </RegisterProfessionalTitleContainer>
       <RegisterProfessionalContainer>
         <form id="Company" onSubmit={formik.handleSubmit}>
-          <RegisterCompany data={formik} disabled={false} />
-          <AddressContact data={formik} disabled={false} />
-          <SituationCadastion data={formik} disabled={false} />
+          <RegisterCompany data={formik} disabled={isDisable} />
+          <AddressContact data={formik} disabled={isDisable} />
+          <SituationCadastion data={formik} disabled={isDisable} />
         </form>
         <RegisterFooter
           cancelButtonHandler={goBackClickHandler}
