@@ -1,6 +1,6 @@
 import authentication from './authentication.js';
 import headerMenu from './headerMenu.js';
-import modelVisibility from './modalVisibility.js';
+import modalVisibility from './modalVisibility.js';
 import modalFunctionality from './modalFunctionality.js';
 import settingsPagesFilter from './settingsPagesFilter.js';
 import jobs from './jobs.js';
@@ -24,6 +24,7 @@ import projectTypeProjects from './projectTypeProjects.js';
 import filterTypesProjects from './filterTypesProjects.js';
 import projectList from './projectsList';
 import occupation from './occupation';
+import valueOfCommission from './valueOfCommission';
 import companiesList from './companyList';
 import occupationId from './occupationId';
 import disableEditor from './disableEditor.js';
@@ -31,7 +32,7 @@ import disableEditor from './disableEditor.js';
 export const Reducers = combineReducers({
   authentication,
   headerMenu,
-  modelVisibility,
+  modalVisibility,
   jobs,
   status,
   projectType,
@@ -57,4 +58,5 @@ export const Reducers = combineReducers({
   occupationId,
   companiesList,
   disableEditor,
+  valueOfCommission,
 });

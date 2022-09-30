@@ -6,15 +6,24 @@ import OrdemServiceHeader from "../../molecules/OrdemServiceListHeader";
 import OrdemServiceListItem from "../../molecules/OrdemServicesListItem";
 import { Container, ScrollContainer, ContainerButtons } from "./style";
 import { useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { BlueButton } from "../../atoms/Buttons/BlueButton/style";
 import CancelButton from "../../atoms/Buttons/CancelButton/style";
+import { ModalOrdemServices } from "../../molecules/ModalOrdemServices";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import modalVisibility from "../../../redux/reducers/modalVisibility";
+import { openModal } from "../../../redux/actions";
 
 const NewOrdemService = () => {
   const [searchResult, setSearchResult] = useState('');
   const [professionals, setProfessionals] = useState([]);
-  const [checkedProfissional, setCheckedProfissional] = useState([])
+  const [checkedProfissional, setCheckedProfissional] = useState([]);
   const [order, setOrder] = useState("");
+  const [haveCommission, setHaveCommission] = useState([]);
+  const [haveCommissionMeta, setHaveCommissionMeta] = useState({});
+  const Modal = useSelector((state) => state.modalVisibility)
+  const dispatch = useDispatch()
   const history = useHistory()
 
   let params = {};
@@ -39,7 +48,11 @@ const NewOrdemService = () => {
         method: 'POST',
         url: `/findProfessionalComission`,
         data: checkedProfissional
+      }).then(res => {
+        setHaveCommission(res.data.data)
+        dispatch(openModal({type: "OPENMODAL"}))
       })
+      
     }
     catch(err){
       console.log(err)
@@ -65,6 +78,7 @@ const NewOrdemService = () => {
       <ContainerButtons>
         <CancelButton margin="10px" onClick={() => history.push('/serviceOrders')}>Cancelar</CancelButton>
         <BlueButton width="10%" height="40px" onClick={() => handleSubmit()}>Confirmar</BlueButton>
+        {Modal && <ModalOrdemServices haveCommission={haveCommission} setHaveCommission={setHaveCommission}/>}
       </ContainerButtons>
       <Container>
         <InputSearch

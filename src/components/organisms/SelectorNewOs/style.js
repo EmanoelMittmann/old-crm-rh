@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   padding: 1.5em 1.5em 0 1.5em;
   width: 91.2%;
-  height: 32em;
+  height: 40em;
   background-color: white;
   border-radius: 20px;
   margin: auto;
@@ -25,7 +25,7 @@ export const ContainerButtons = styled.div`
 
 export const ScrollContainer = styled.ul`
   overflow-y: scroll;
-  height: 20em;
+  height: 75%;
   width: 100%;
   border-bottom: 1px solid #ccc;
   

@@ -44,10 +44,9 @@ export const ModalContainerButtons = styled.div`
     border-top: 1.5px solid #919EAB52;
 `
 export const ModalContainerProfessional = styled.div`
-    position: fixed;
-    top: 50%;
-    left: 80%;
-    transform: translate(-50%, -50%);
+    position: absolute;
+    left: 35%;
+    top:0;
     width: 520px;
     height: 540px;
     background-color: white;
