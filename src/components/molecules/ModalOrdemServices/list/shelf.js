@@ -10,12 +10,10 @@ import { useEffect } from "react";
 
 const Shelf = ({ professional, handleDelete, AddOrUpdate }) => {
   const teste = useSelector((state) => state.valueOfCommission);
-  const [commission, setCommission] = useState(teste.find(item => item.id === professional.id)?.value | '');
+  const isExist = teste.find((item) => item.id === professional.id);
+  const [commission, setCommission] = useState(!!isExist ? isExist.value : '');
 
-  useEffect(() => {
-    AddOrUpdate({ id: professional.id, value: commission })
-  },[])
-  console.log(teste)
+
   return (
     <>
       <ContainerWap>

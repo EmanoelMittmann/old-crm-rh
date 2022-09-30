@@ -17,15 +17,15 @@ import Shelf from "./list/shelf.js";
 import { closeModal, valueOfCommission } from "../../../redux/actions/index.js";
 
 export const ModalOrdemServices = ({ haveCommission, setHaveCommission }) => {
+  const state = useSelector(state => state.valueOfCommission)
   const location = useLocation();
   const [professionals, setProfessionals] = useState([]);
-  const [valuesCommission, setValuesCommission] = useState([]);
+  const [valuesCommission, setValuesCommission] = useState(state);
   const [metaProfessional, setProfessionalMeta] = useState({});
   const [order, setOrder] = useState({ order: "", field: "" });
   const params = {};
   const dispatch = useDispatch();
-  const state = useSelector(state => state.valueOfCommission)
-                                                                                  
+
   const AddOrUpdate = (object) => {
     const findId = valuesCommission.find(item => item.id === object.id);
     if(findId){
@@ -65,8 +65,6 @@ export const ModalOrdemServices = ({ haveCommission, setHaveCommission }) => {
   useEffect(() => {
     location.state && setProfessionals(location.state.professionals.data);
   }, [order]);
-
-  console.log(state);
 
   return (
     <div>
