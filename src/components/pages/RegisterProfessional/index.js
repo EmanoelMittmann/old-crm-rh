@@ -403,9 +403,6 @@ const RegisterProfessional = () => {
       });
   }
 
-  useEffect(() => {
-    console.log(formik.values)
-  },[formik])
 
   useEffect(() => {
     if (!jobs.length) optionsJob();

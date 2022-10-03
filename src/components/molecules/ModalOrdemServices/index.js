@@ -7,11 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 import CloseButtonCircle from '../../atoms/Buttons/CloseButtonCircle'
 import {
   ModalTitle,
-  ModalContainerProfessional,
   ModalOverlay,
 } from "../Modal/style.js";
 
-import { ModalContainerButtons, TitleComissionProfessional } from "./style";
+import { 
+  ModalContainerButtons, 
+  TitleComissionProfessional, 
+  ModalContainerProfessional,
+  ContainerAbsolute,
+
+} from "./style";
+
 import Shelf from "./list/shelf.js";
 import { closeModal, valueOfCommission } from "../../../redux/actions/index.js";
 
@@ -72,6 +78,7 @@ export const ModalOrdemServices = ({
       <ModalContainerProfessional>
         <CloseButtonCircle onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))} />
         <ModalTitle padding="1em">Confirmar Comissões</ModalTitle>
+        <ContainerAbsolute>
         <TitleComissionProfessional>
           <h6>Profissional</h6>
           <h6>Comissão</h6>
@@ -84,6 +91,7 @@ export const ModalOrdemServices = ({
             AddOrUpdate={AddOrUpdate}
           />
         ))}
+        </ContainerAbsolute>
         <FooterModais
           previousPage={previousPage}
           nextPage={nextPage}
@@ -91,15 +99,17 @@ export const ModalOrdemServices = ({
           currentPage={haveCommissionMeta?.current_page}
           firstPage={haveCommissionMeta?.first_page}
         />
+       
+  
         <ModalContainerButtons>
           <CancelButton
-            margin="-5em 0 0 0"
+
             onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
           >
             Cancelar
           </CancelButton>
           <SaveButton
-            margin="-5em 3em 0 1.7em"
+
             onClick={() => {
               dispatch(valueOfCommission(valuesCommission));
               dispatch(closeModal({ type: "CLOSEMODAL" }));
