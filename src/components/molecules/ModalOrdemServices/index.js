@@ -16,8 +16,14 @@ import { ModalContainerButtons, TitleComissionProfessional } from "./style";
 import Shelf from "./list/shelf.js";
 import { closeModal, valueOfCommission } from "../../../redux/actions/index.js";
 
-export const ModalOrdemServices = ({ haveCommission, setHaveCommission ,haveCommissionMeta, setHaveCommissionMeta}) => {
-  const state = useSelector(state => state.valueOfCommission)
+export const ModalOrdemServices = ({
+  haveCommission,
+  setHaveCommission,
+  haveCommissionMeta,
+  setPage,
+  page,
+}) => {
+  const state = useSelector((state) => state.valueOfCommission);
   const location = useLocation();
   const [professionals, setProfessionals] = useState([]);
   const [valuesCommission, setValuesCommission] = useState(state);
@@ -26,36 +32,30 @@ export const ModalOrdemServices = ({ haveCommission, setHaveCommission ,haveComm
   const dispatch = useDispatch();
 
   const AddOrUpdate = (object) => {
-    const findId = valuesCommission.find(item => item.id === object.id);
-    if(findId){
-      const newCommission = valuesCommission.filter(item => item.id !== object.id);
-      setValuesCommission([...newCommission,object]);
-    }else{
-      setValuesCommission([...valuesCommission,object])
-    }
-  }
-
-  console.log()
-
-  const handleFilterRequest = (pagesFilter) => {
-    if (pagesFilter === "previous")
-      params.page = `${haveCommissionMeta.current_page - 1}`;
-
-    if (pagesFilter === "next")
-      params.page = `${haveCommissionMeta.current_page + 1}`;
-
-    if (order.order !== "") {
-      params.orderField = order.orderField;
-      params.order = order.order;
+    const findId = valuesCommission.find((item) => item.id === object.id);
+    if (findId) {
+      const newCommission = valuesCommission.filter(
+        (item) => item.id !== object.id
+      );
+      setValuesCommission([...newCommission, object]);
+    } else {
+      setValuesCommission([...valuesCommission, object]);
     }
   };
 
   const nextPage = () => {
-    handleFilterRequest("next");
+    if (page === haveCommissionMeta.last_page) {
+      return setPage(page);
+    }
+    return setPage(page + 1);
   };
 
   const previousPage = () => {
-    handleFilterRequest("previous");
+    if (page === 0) {
+      return setPage(page + 1);
+    } else if (page > 1) {
+      setPage(page - 1);
+    }
   };
 
   const handleDelete = (professional) =>
@@ -100,10 +100,13 @@ export const ModalOrdemServices = ({ haveCommission, setHaveCommission ,haveComm
           >
             Cancelar
           </CancelButton>
-          <SaveButton margin="-5em 3em 0 1.7em" onClick={() => {
-            dispatch(valueOfCommission(valuesCommission))
-            dispatch(closeModal({ type: "CLOSEMODAL" }))
-          }}>
+          <SaveButton
+            margin="-5em 3em 0 1.7em"
+            onClick={() => {
+              dispatch(valueOfCommission(valuesCommission));
+              dispatch(closeModal({ type: "CLOSEMODAL" }));
+            }}
+          >
             Confirmar
           </SaveButton>
         </ModalContainerButtons>

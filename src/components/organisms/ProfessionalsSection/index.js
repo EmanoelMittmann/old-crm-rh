@@ -60,6 +60,7 @@ const ProfessionalsSection = () => {
   useEffect(() => {
     handleFilterRequest();
     getProfessionals();
+    console.log()
     location.state && setProfessionals(location.state.professionals.data);
   }, [searchResult, jobSelected, order]);
 
@@ -85,7 +86,7 @@ const ProfessionalsSection = () => {
           <ProfessionalsListItem
             key={professional.id}
             professional={professional}
-            getProfessionals={getProfessionals}
+            getProfessionals={() => getProfessionals()}
           />
         );
       })}

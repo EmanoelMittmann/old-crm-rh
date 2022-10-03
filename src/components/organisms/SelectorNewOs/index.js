@@ -23,6 +23,7 @@ const NewOrdemService = () => {
   const [haveCommission, setHaveCommission] = useState([]);
   const [haveCommissionMeta, setHaveCommissionMeta] = useState({});
   const Modal = useSelector((state) => state.modalVisibility)
+  const [page, setPage] = useState(1)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -46,14 +47,13 @@ const NewOrdemService = () => {
     try{
       await api({
         method: 'POST',
-        url: `/findProfessionalComission`,
-        data: checkedProfissional
+        url: `/findProfessionalComission?page=${page}&limit=5`,
+        data: checkedProfissional,
+        params:params
       }).then(res => {
         setHaveCommission(res.data.data)
         setHaveCommissionMeta(res.data.meta)
-        dispatch(openModal({type: "OPENMODAL"}))
       })
-      
     }
     catch(err){
       console.log(err)
@@ -69,19 +69,29 @@ const NewOrdemService = () => {
   };
 
 
+  console.log(haveCommissionMeta)
   useEffect(() => {
     getProfessionals();
     handleFilterRequest();
   }, [searchResult]);
 
+  useEffect(() => {
+    handleSubmit()
+  },[page])
+
   return (
     <>
       <ContainerButtons>
         <CancelButton margin="10px" onClick={() => history.push('/serviceOrders')}>Cancelar</CancelButton>
-        <BlueButton width="10%" height="40px" onClick={() => handleSubmit()}>Confirmar</BlueButton>
+        <BlueButton width="10%" height="40px" onClick={() => {
+          handleSubmit()
+          dispatch(openModal({type: "OPENMODAL"}))
+        }}>Confirmar</BlueButton>
         {Modal && <ModalOrdemServices   
           haveCommission={haveCommission} 
           setHaveCommission={setHaveCommission}
+          setPage={setPage}
+          page={page}
           haveCommissionMeta={haveCommissionMeta}
           setHaveCommissionMeta={setHaveCommissionMeta}
           />}
