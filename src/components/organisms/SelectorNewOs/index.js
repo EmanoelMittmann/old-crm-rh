@@ -68,8 +68,6 @@ const NewOrdemService = () => {
     setProfessionals(data.data);
   };
 
-
-  console.log(haveCommissionMeta)
   useEffect(() => {
     getProfessionals();
     handleFilterRequest();
