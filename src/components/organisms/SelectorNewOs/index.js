@@ -6,15 +6,25 @@ import OrdemServiceHeader from "../../molecules/OrdemServiceListHeader";
 import OrdemServiceListItem from "../../molecules/OrdemServicesListItem";
 import { Container, ScrollContainer, ContainerButtons } from "./style";
 import { useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { BlueButton } from "../../atoms/Buttons/BlueButton/style";
 import CancelButton from "../../atoms/Buttons/CancelButton/style";
+import { ModalOrdemServices } from "../../molecules/ModalOrdemServices";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import modalVisibility from "../../../redux/reducers/modalVisibility";
+import { openModal } from "../../../redux/actions";
 
 const NewOrdemService = () => {
   const [searchResult, setSearchResult] = useState('');
   const [professionals, setProfessionals] = useState([]);
-  const [checkedProfissional, setCheckedProfissional] = useState([])
+  const [checkedProfissional, setCheckedProfissional] = useState([]);
   const [order, setOrder] = useState("");
+  const [haveCommission, setHaveCommission] = useState([]);
+  const [haveCommissionMeta, setHaveCommissionMeta] = useState({});
+  const Modal = useSelector((state) => state.modalVisibility)
+  const [page, setPage] = useState(1)
+  const dispatch = useDispatch()
   const history = useHistory()
 
   let params = {};
@@ -37,12 +47,16 @@ const NewOrdemService = () => {
     try{
       await api({
         method: 'POST',
-        url: `/findProfessionalComission`,
-        data: checkedProfissional
+        url: `/findProfessionalComission?page=${page}&limit=5`,
+        data: checkedProfissional,
+        params:params
+      }).then(res => {
+        setHaveCommission(res.data.data)
+        setHaveCommissionMeta(res.data.meta)
       })
     }
     catch(err){
-      console.log(err)
+      
     }
   }
 
@@ -54,17 +68,31 @@ const NewOrdemService = () => {
     setProfessionals(data.data);
   };
 
-
   useEffect(() => {
     getProfessionals();
     handleFilterRequest();
   }, [searchResult]);
 
+  useEffect(() => {
+    handleSubmit()
+  },[page])
+
   return (
     <>
       <ContainerButtons>
         <CancelButton margin="10px" onClick={() => history.push('/serviceOrders')}>Cancelar</CancelButton>
-        <BlueButton width="10%" height="40px" onClick={() => handleSubmit()}>Confirmar</BlueButton>
+        <BlueButton width="10%" height="40px" onClick={() => {
+          handleSubmit()
+          dispatch(openModal({type: "OPENMODAL"}))
+        }}>Confirmar</BlueButton>
+        {Modal && <ModalOrdemServices   
+          haveCommission={haveCommission} 
+          setHaveCommission={setHaveCommission}
+          setPage={setPage}
+          page={page}
+          haveCommissionMeta={haveCommissionMeta}
+          setHaveCommissionMeta={setHaveCommissionMeta}
+          />}
       </ContainerButtons>
       <Container>
         <InputSearch

@@ -243,7 +243,7 @@ export const setCompanyClicked = (payload) => ({
   payload,
 });
 
-export const setValueCommission = (payload) => ({
+export const valueOfCommission = (payload) => ({
   type: SETVALUECOMMISSION,
   payload,
 });

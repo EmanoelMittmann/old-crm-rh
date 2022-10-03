@@ -85,7 +85,7 @@ const ProfessionalsSection = () => {
           <ProfessionalsListItem
             key={professional.id}
             professional={professional}
-            getProfessionals={getProfessionals}
+            getProfessionals={() => getProfessionals()}
           />
         );
       })}

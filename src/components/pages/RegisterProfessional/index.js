@@ -297,7 +297,6 @@ const RegisterProfessional = () => {
       url: '/user/validateCpf',
       data: { cpf: cpf },
     });
-    console.log(response);
     return response;
   };
 
