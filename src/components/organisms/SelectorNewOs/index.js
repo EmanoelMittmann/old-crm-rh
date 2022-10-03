@@ -50,6 +50,7 @@ const NewOrdemService = () => {
         data: checkedProfissional
       }).then(res => {
         setHaveCommission(res.data.data)
+        setHaveCommissionMeta(res.data.meta)
         dispatch(openModal({type: "OPENMODAL"}))
       })
       
@@ -78,7 +79,12 @@ const NewOrdemService = () => {
       <ContainerButtons>
         <CancelButton margin="10px" onClick={() => history.push('/serviceOrders')}>Cancelar</CancelButton>
         <BlueButton width="10%" height="40px" onClick={() => handleSubmit()}>Confirmar</BlueButton>
-        {Modal && <ModalOrdemServices haveCommission={haveCommission} setHaveCommission={setHaveCommission}/>}
+        {Modal && <ModalOrdemServices   
+          haveCommission={haveCommission} 
+          setHaveCommission={setHaveCommission}
+          haveCommissionMeta={haveCommissionMeta}
+          setHaveCommissionMeta={setHaveCommissionMeta}
+          />}
       </ContainerButtons>
       <Container>
         <InputSearch

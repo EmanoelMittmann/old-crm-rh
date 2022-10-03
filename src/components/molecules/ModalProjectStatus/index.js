@@ -32,7 +32,7 @@ export const ModalProjectStatus = ({CloseButtonClickHandler, statusId, projectId
     return (
         <div>
             <ModalContainer>
-                <CloseButton CloseButtonClickHandler={CloseButtonClickHandler}/>
+                <CloseButton CloseButtonClickHandler={() => CloseButtonClickHandler()}/>
                 <ModalTitle padding="1.6em">
                     Status
                 </ModalTitle>
@@ -45,7 +45,7 @@ export const ModalProjectStatus = ({CloseButtonClickHandler, statusId, projectId
                     />
                 </ContainerInputSelect>
                 <ModalContainerButtons>
-                    <CancelButton onClick={CloseButtonClickHandler}>Cancelar</CancelButton>
+                    <CancelButton onClick={() => CloseButtonClickHandler()}>Cancelar</CancelButton>
                     <SaveButton onClick={() => updateStatusProject(selectedOption)} margin="0 3.5em 0 1.7em">Salvar</SaveButton>
                 </ModalContainerButtons>
             </ModalContainer>

@@ -16,12 +16,11 @@ import { ModalContainerButtons, TitleComissionProfessional } from "./style";
 import Shelf from "./list/shelf.js";
 import { closeModal, valueOfCommission } from "../../../redux/actions/index.js";
 
-export const ModalOrdemServices = ({ haveCommission, setHaveCommission }) => {
+export const ModalOrdemServices = ({ haveCommission, setHaveCommission ,haveCommissionMeta, setHaveCommissionMeta}) => {
   const state = useSelector(state => state.valueOfCommission)
   const location = useLocation();
   const [professionals, setProfessionals] = useState([]);
   const [valuesCommission, setValuesCommission] = useState(state);
-  const [metaProfessional, setProfessionalMeta] = useState({});
   const [order, setOrder] = useState({ order: "", field: "" });
   const params = {};
   const dispatch = useDispatch();
@@ -36,12 +35,14 @@ export const ModalOrdemServices = ({ haveCommission, setHaveCommission }) => {
     }
   }
 
+  console.log()
+
   const handleFilterRequest = (pagesFilter) => {
     if (pagesFilter === "previous")
-      params.page = `${metaProfessional.current_page - 1}`;
+      params.page = `${haveCommissionMeta.current_page - 1}`;
 
     if (pagesFilter === "next")
-      params.page = `${metaProfessional.current_page + 1}`;
+      params.page = `${haveCommissionMeta.current_page + 1}`;
 
     if (order.order !== "") {
       params.orderField = order.orderField;
@@ -88,9 +89,9 @@ export const ModalOrdemServices = ({ haveCommission, setHaveCommission }) => {
         <FooterModais
           previousPage={previousPage}
           nextPage={nextPage}
-          lastPage={metaProfessional?.last_page}
-          currentPage={metaProfessional?.current_page}
-          firstPage={metaProfessional?.first_page}
+          lastPage={haveCommissionMeta?.last_page}
+          currentPage={haveCommissionMeta?.current_page}
+          firstPage={haveCommissionMeta?.first_page}
         />
         <ModalContainerButtons>
           <CancelButton
