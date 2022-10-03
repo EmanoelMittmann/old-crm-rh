@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import api from "../../../api/api.js";
 import CancelButton from "../../atoms/Buttons/CancelButton/style";
 import SaveButton from "../../atoms/Buttons/SaveButton/style";
 import FooterModais from "../../organisms/FooterModais";
@@ -16,9 +15,16 @@ import { ModalContainerButtons, TitleComissionProfessional } from "./style";
 import Shelf from "./list/shelf.js";
 import { closeModal, valueOfCommission } from "../../../redux/actions/index.js";
 
-export const ModalOrdemServices = ({ haveCommission, setHaveCommission }) => {
-  const state = useSelector(state => state.valueOfCommission)
+export const ModalOrdemServices = ({
+  haveCommission,
+  setHaveCommission,
+  haveCommissionMeta,
+  setPage,
+  page,
+}) => {
+  const state = useSelector((state) => state.valueOfCommission);
   const location = useLocation();
+  const [professionals, setProfessionals] = useState([]);
   const [valuesCommission, setValuesCommission] = useState(state);
   const [order, setOrder] = useState({ order: "", field: "" });
   const params = {};
@@ -34,39 +40,32 @@ export const ModalOrdemServices = ({ haveCommission, setHaveCommission }) => {
     }
   }
 
-  const handleFilterRequest = (pagesFilter) => {
-    if (pagesFilter === "previous")
-      params.page = `${metaProfessional.current_page - 1}`;
-
-    if (pagesFilter === "next")
-      params.page = `${metaProfessional.current_page + 1}`;
-
-    if (order.order !== "") {
-      params.orderField = order.orderField;
-      params.order = order.order;
+  const nextPage = () => {
+    if (page === haveCommissionMeta.last_page) {
+      return setPage(page);
     }
     return setPage(page + 1);
   };
 
-  const nextPage = () => {
-    handleFilterRequest("next");
-    setProfessionalMeta()
-
-  };
-
   const previousPage = () => {
-    handleFilterRequest("previous");
+    if (page === 0) {
+      return setPage(page + 1);
+    } else if (page > 1) {
+      setPage(page - 1);
+    }
   };
+
 
   const handleDelete = (professional) =>
     setHaveCommission(
       haveCommission.filter((item) => item.id !== professional.id)
     );
 
+
   useEffect(() => {
-    setProfessionalMeta()
-    location.state && setHaveCommissionMeta(location.state.haveCommissionMeta.data);
-  }, [order]);
+ 
+    location.state && setProfessionals(location.state.professionals.data);
+  }, [order, page]);
 
   return (
     <div>
