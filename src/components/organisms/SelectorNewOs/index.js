@@ -56,7 +56,7 @@ const NewOrdemService = () => {
       })
     }
     catch(err){
-      console.log(err)
+      
     }
   }
 
