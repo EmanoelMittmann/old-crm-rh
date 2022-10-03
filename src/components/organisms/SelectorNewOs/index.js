@@ -56,7 +56,7 @@ const NewOrdemService = () => {
       })
     }
     catch(err){
-      console.log(err)
+      
     }
   }
 
@@ -67,7 +67,6 @@ const NewOrdemService = () => {
     });
     setProfessionals(data.data);
   };
-
 
   useEffect(() => {
     getProfessionals();
