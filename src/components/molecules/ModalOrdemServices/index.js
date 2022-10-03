@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import api from "../../../api/api.js";
 import CancelButton from "../../atoms/Buttons/CancelButton/style";
-import CloseButton from "../../atoms/Buttons/CloseButton";
 import SaveButton from "../../atoms/Buttons/SaveButton/style";
 import FooterModais from "../../organisms/FooterModais";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import CloseButtonCircle from '../../atoms/Buttons/CloseButtonCircle'
 import {
   ModalTitle,
   ModalContainerProfessional,
@@ -16,46 +16,46 @@ import { ModalContainerButtons, TitleComissionProfessional } from "./style";
 import Shelf from "./list/shelf.js";
 import { closeModal, valueOfCommission } from "../../../redux/actions/index.js";
 
-export const ModalOrdemServices = ({
-  haveCommission,
-  setHaveCommission,
-  haveCommissionMeta,
-  setPage,
-  page,
-}) => {
-  const state = useSelector((state) => state.valueOfCommission);
+export const ModalOrdemServices = ({ haveCommission, setHaveCommission }) => {
+  const state = useSelector(state => state.valueOfCommission)
   const location = useLocation();
-  const [professionals, setProfessionals] = useState([]);
   const [valuesCommission, setValuesCommission] = useState(state);
   const [order, setOrder] = useState({ order: "", field: "" });
   const params = {};
   const dispatch = useDispatch();
 
   const AddOrUpdate = (object) => {
-    const findId = valuesCommission.find((item) => item.id === object.id);
-    if (findId) {
-      const newCommission = valuesCommission.filter(
-        (item) => item.id !== object.id
-      );
-      setValuesCommission([...newCommission, object]);
-    } else {
-      setValuesCommission([...valuesCommission, object]);
+    const findId = valuesCommission.find(item => item.id === object.id);
+    if(findId){
+      const newCommission = valuesCommission.filter(item => item.id !== object.id);
+      setValuesCommission([...newCommission,object]);
+    }else{
+      setValuesCommission([...valuesCommission,object])
     }
-  };
+  }
 
-  const nextPage = () => {
-    if (page === haveCommissionMeta.last_page) {
-      return setPage(page);
+  const handleFilterRequest = (pagesFilter) => {
+    if (pagesFilter === "previous")
+      params.page = `${metaProfessional.current_page - 1}`;
+
+    if (pagesFilter === "next")
+      params.page = `${metaProfessional.current_page + 1}`;
+
+    if (order.order !== "") {
+      params.orderField = order.orderField;
+      params.order = order.order;
     }
     return setPage(page + 1);
   };
 
+  const nextPage = () => {
+    handleFilterRequest("next");
+    setProfessionalMeta()
+
+  };
+
   const previousPage = () => {
-    if (page === 0) {
-      return setPage(page + 1);
-    } else if (page > 1) {
-      setPage(page - 1);
-    }
+    handleFilterRequest("previous");
   };
 
   const handleDelete = (professional) =>
@@ -64,15 +64,14 @@ export const ModalOrdemServices = ({
     );
 
   useEffect(() => {
-    location.state && setProfessionals(location.state.professionals.data);
+    setProfessionalMeta()
+    location.state && setHaveCommissionMeta(location.state.haveCommissionMeta.data);
   }, [order]);
 
   return (
     <div>
       <ModalContainerProfessional>
-        <CloseButton
-          onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
-        />
+        <CloseButtonCircle onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))} />
         <ModalTitle padding="1em">Confirmar Comissões</ModalTitle>
         <TitleComissionProfessional>
           <h6>Profissional</h6>
