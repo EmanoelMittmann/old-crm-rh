@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const ContainerSettingsSectionFooter = styled.footer`
+
     width: 100%;
     height:40px;
     display: flex;

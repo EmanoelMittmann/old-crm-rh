@@ -28,7 +28,6 @@ export const ModalOrdemServices = ({
   const [professionals, setProfessionals] = useState([]);
   const [valuesCommission, setValuesCommission] = useState(state);
   const [order, setOrder] = useState({ order: "", field: "" });
-  const params = {};
   const dispatch = useDispatch();
 
   const AddOrUpdate = (object) => {
@@ -73,26 +72,28 @@ export const ModalOrdemServices = ({
         <CloseButton
           onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
         />
+        <div className="container">
         <ModalTitle padding="1em">Confirmar Comissões</ModalTitle>
-        <TitleComissionProfessional>
-          <h6>Profissional</h6>
-          <h6>Comissão</h6>
-        </TitleComissionProfessional>
-        {haveCommission?.map((professional) => (
-          <Shelf
-            key={professional.id}
-            professional={professional}
-            handleDelete={handleDelete}
-            AddOrUpdate={AddOrUpdate}
+          <TitleComissionProfessional>
+            <h6>Profissional</h6>
+            <h6>Comissão</h6>
+          </TitleComissionProfessional>
+          {haveCommission?.map((professional) => (
+            <Shelf
+              key={professional.id}
+              professional={professional}
+              handleDelete={handleDelete}
+              AddOrUpdate={AddOrUpdate}
+            />
+          ))}
+          <FooterModais
+            previousPage={previousPage}
+            nextPage={nextPage}
+            lastPage={haveCommissionMeta?.last_page}
+            currentPage={haveCommissionMeta?.current_page}
+            firstPage={haveCommissionMeta?.first_page}
           />
-        ))}
-        <FooterModais
-          previousPage={previousPage}
-          nextPage={nextPage}
-          lastPage={haveCommissionMeta?.last_page}
-          currentPage={haveCommissionMeta?.current_page}
-          firstPage={haveCommissionMeta?.first_page}
-        />
+        </div>
         <ModalContainerButtons>
           <CancelButton
             margin="-5em 0 0 0"

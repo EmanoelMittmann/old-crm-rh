@@ -12,8 +12,10 @@ import CancelButton from "../../atoms/Buttons/CancelButton/style";
 import { ModalOrdemServices } from "../../molecules/ModalOrdemServices";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { toast } from 'react-toastify';
+import { DefaultToast } from '../../atoms/Toast/DefaultToast' 
 import modalVisibility from "../../../redux/reducers/modalVisibility";
-import { openModal } from "../../../redux/actions";
+import { openModal, valueOfCommission } from "../../../redux/actions";
 
 const NewOrdemService = () => {
   const [searchResult, setSearchResult] = useState('');
@@ -23,11 +25,12 @@ const NewOrdemService = () => {
   const [haveCommission, setHaveCommission] = useState([]);
   const [haveCommissionMeta, setHaveCommissionMeta] = useState({});
   const Modal = useSelector((state) => state.modalVisibility)
+  const ValueCommission = useSelector((state) => state.valueOfCommission)
   const [page, setPage] = useState(1)
   const dispatch = useDispatch()
   const history = useHistory()
+  let params = {}
 
-  let params = {};
 
   const handleFilterRequest = () => {
     if (searchResult !== '') {
@@ -44,20 +47,40 @@ const NewOrdemService = () => {
   };
 
   const handleSubmit = async() => {
-    try{
-      await api({
-        method: 'POST',
-        url: `/findProfessionalComission?page=${page}&limit=5`,
-        data: checkedProfissional,
-        params:params
-      }).then(res => {
-        setHaveCommission(res.data.data)
-        setHaveCommissionMeta(res.data.meta)
-      })
+    if(checkedProfissional.length >= 1){
+      try{
+        await api({
+          method: 'POST',
+          url: `/findProfessionalComission?page=${page}&limit=5`,
+          data: checkedProfissional,
+          params:params
+        }).then(res => {
+          if(res.data.data === ''){
+            return toast.error(<DefaultToast text={"Nenhum professional com comissão encontrado"}/>)
+          }else{
+            dispatch(openModal({type: "OPENMODAL"}))
+            setHaveCommission(res.data.data)
+            setHaveCommissionMeta(res.data.meta)
+          }
+        })
+      }
+      catch(err){
+      }
+    }else{  
+      return toast.error(<DefaultToast text={"Selecione o Profissional!"}/>)
     }
-    catch(err){
-      console.log(err)
-    }
+  }
+
+
+  const filteredProfessionals = () => {
+    const NewProfissional  = professionals.map(item => {
+      const search = ValueCommission.find(obj => obj.id === item.id)
+      if(search){
+        return {...item, value: search.value};
+      }
+      return item;
+    })
+    setProfessionals(NewProfissional)
   }
 
   const getProfessionals = async () => {
@@ -68,25 +91,23 @@ const NewOrdemService = () => {
     setProfessionals(data.data);
   };
 
-
-  console.log(haveCommissionMeta)
   useEffect(() => {
     getProfessionals();
     handleFilterRequest();
-  }, [searchResult]);
+    }, [searchResult]);
 
   useEffect(() => {
-    handleSubmit()
-  },[page])
+    filteredProfessionals()
+  },[ValueCommission])
+
+  console.log(professionals)
 
   return (
     <>
+    { checkedProfissional.length >= 1 &&  
       <ContainerButtons>
         <CancelButton margin="10px" onClick={() => history.push('/serviceOrders')}>Cancelar</CancelButton>
-        <BlueButton width="10%" height="40px" onClick={() => {
-          handleSubmit()
-          dispatch(openModal({type: "OPENMODAL"}))
-        }}>Confirmar</BlueButton>
+        <BlueButton width="108px" height="40px" onClick={() => handleSubmit()}>Confirmar</BlueButton>
         {Modal && <ModalOrdemServices   
           haveCommission={haveCommission} 
           setHaveCommission={setHaveCommission}
@@ -94,8 +115,10 @@ const NewOrdemService = () => {
           page={page}
           haveCommissionMeta={haveCommissionMeta}
           setHaveCommissionMeta={setHaveCommissionMeta}
-          />}
+          />
+        }
       </ContainerButtons>
+    }
       <Container>
         <InputSearch
           setSearchResult={setSearchResult}
