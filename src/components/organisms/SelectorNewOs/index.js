@@ -98,8 +98,8 @@ const NewOrdemService = () => {
       <Container>
         <InputSearch
           setSearchResult={setSearchResult}
-          lineWidth="20%"
-          inputWidth="12em"
+          lineWidth="280px"
+          inputWidth="15em"
         />
         <OrdemServiceHeader sortByName={sortByName} />
         <ScrollContainer>
