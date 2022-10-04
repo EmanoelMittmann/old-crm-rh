@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import CancelButton from '../../atoms/Buttons/CancelButton/style';
 import SaveButton from '../../atoms/Buttons/SaveButton/style';
 import FooterModais from '../../organisms/FooterModais';
-import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import CloseButtonCircle from '../../atoms/Buttons/CloseButtonCircle';
 import { ModalTitle, ModalOverlay } from '../Modal/style.js';
@@ -11,7 +10,6 @@ import {
   ModalContainerButtons,
   TitleComissionProfessional,
   ModalContainerProfessional,
-  ContainerAbsolute,
 } from './style';
 
 import Shelf from './list/shelf.js';
@@ -19,19 +17,14 @@ import { closeModal, valueOfCommission } from '../../../redux/actions/index.js';
 
 export const ModalOrdemServices = ({
   haveCommission,
-  setHaveCommission,
   haveCommissionMeta,
   setPage,
   page,
-  newId,
-  handleSubmit,
+  checkedProfissional,
   setNewId,
 }) => {
   const state = useSelector((state) => state.valueOfCommission);
-  const location = useLocation();
-  const [professionals, setProfessionals] = useState([]);
   const [valuesCommission, setValuesCommission] = useState(state);
-  const [order, setOrder] = useState({ order: '', field: '' });
   const dispatch = useDispatch();
 
   const AddOrUpdate = (object) => {
@@ -45,18 +38,6 @@ export const ModalOrdemServices = ({
       setValuesCommission([...valuesCommission, object]);
     }
   };
-
-  // const reValidation = async () => {
-  //   try {
-  //     await api({
-  //       method: 'POST',
-  //       url: `/findProfessionalComission?page=${page}`,
-  //       data: newId,
-  //     }).then((res) => setHaveCommission(res.data.data));
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const nextPage = () => {
     if (page === haveCommissionMeta.last_page) {
@@ -74,19 +55,8 @@ export const ModalOrdemServices = ({
   };
 
   const handleDelete = (professional) => {
-    setHaveCommission(
-      haveCommission.filter((item) => item.id !== professional.id)
-    );
+    setNewId(checkedProfissional.filter((item) => item !== professional.id));
   };
-
-  useEffect(() => {
-    setNewId(haveCommission?.map((item) => item.id));
-  }, [haveCommission]);
-
-  useEffect(() => {
-    console.log(newId);
-    // reValidation()
-  }, [newId]);
 
   return (
     <div>

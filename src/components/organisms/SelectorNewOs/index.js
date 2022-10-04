@@ -14,8 +14,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { DefaultToast } from '../../atoms/Toast/DefaultToast';
-import modalVisibility from '../../../redux/reducers/modalVisibility';
-import { openModal, valueOfCommission } from '../../../redux/actions';
+import { closeModal, openModal } from '../../../redux/actions';
 
 const NewOrdemService = () => {
   const [searchResult, setSearchResult] = useState('');
@@ -25,20 +24,13 @@ const NewOrdemService = () => {
   const [newId, setNewId] = useState([]);
   const [haveCommission, setHaveCommission] = useState([]);
   const [haveCommissionMeta, setHaveCommissionMeta] = useState({});
-  const Modal = useSelector((state) => state.modalVisibility);
-  const ValueCommission = useSelector((state) => state.valueOfCommission);
   const [page, setPage] = useState(1);
+  const ValueCommission = useSelector((state) => state.valueOfCommission);
+  const Modal = useSelector((state) => state.modalVisibility);
   const dispatch = useDispatch();
   const history = useHistory();
+
   let params = {};
-
-  const handleFilterRequest = () => {
-    if (searchResult !== '') {
-      params.search = searchResult;
-    }
-
-    if (order !== '') params.order = order;
-  };
 
   const sortByName = () => {
     order === '' && setOrder('desc');
@@ -46,16 +38,17 @@ const NewOrdemService = () => {
     order === 'desc' && setOrder('asc');
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (data) => {
     if (checkedProfissional.length >= 1) {
       try {
         await api({
           method: 'POST',
           url: `/findProfessionalComission?page=${page}&limit=5`,
-          data: checkedProfissional,
+          data: data,
           params: params,
         }).then((res) => {
           if (res.data.msg === 'Nenhum professional com comissão encontrado') {
+            dispatch(closeModal({ type: 'CLOSEMODAL' }));
             return toast.error(
               <DefaultToast
                 text={'Nenhum professional com comissão encontrado'}
@@ -97,8 +90,13 @@ const NewOrdemService = () => {
   }, [searchResult]);
 
   useEffect(() => {
-    handleSubmit();
+    handleSubmit(checkedProfissional);
   }, [page]);
+
+  useEffect(() => {
+    handleSubmit(newId);
+    setCheckedProfissional(newId);
+  }, [newId]);
 
   useEffect(() => {
     filteredProfessionals();
@@ -113,16 +111,21 @@ const NewOrdemService = () => {
         >
           Cancelar
         </CancelButton>
-        <BlueButton width="108px" height="40px" onClick={() => handleSubmit()}>
+        <BlueButton
+          width="108px"
+          height="40px"
+          onClick={() => handleSubmit(checkedProfissional)}
+        >
           Confirmar
         </BlueButton>
         {Modal && (
           <ModalOrdemServices
+            checkedProfissional={checkedProfissional}
             haveCommission={haveCommission}
             setHaveCommission={setHaveCommission}
             setPage={setPage}
             page={page}
-            handleSubmit={() => handleSubmit()}
+            setCheckedProfissional={setCheckedProfissional}
             newId={newId}
             setNewId={setNewId}
             haveCommissionMeta={haveCommissionMeta}
