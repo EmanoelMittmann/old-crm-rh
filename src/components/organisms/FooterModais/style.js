@@ -11,15 +11,15 @@ export const ContainerSettingsSectionFooter = styled.footer`
 `
 export const PagesBackAndForth = styled.span`
     font-family: "Poppins", sans-serif;
-    font-size: 01rem;
+    font-size: 0.8rem;
     font-weight: 500;
     color: #161C24;
-    margin-right: 2em;
-    padding: 0.5em 0.5em 0.7em 0.5em;
+
+
 `
 
 export const ArrowContainer = styled.div`
-    width: 10%;
+    width: 6%;
     display: flex;
     margin-right: 2.8em;
 `
@@ -27,8 +27,11 @@ export const ArrowContainer = styled.div`
 export const LeftArrowContainer = styled.i`
     display: block;
 
+
     svg{
         transform: rotate(-180deg);
+        width: 2rem;
+
     }
 
     &:hover {
@@ -39,6 +42,12 @@ export const LeftArrowContainer = styled.i`
 
 export const RightArrowContainer = styled.i`
     display: block;
+    
+    svg{
+        width: 2rem;
+
+    }
+
 
     &:hover {
         cursor: pointer;

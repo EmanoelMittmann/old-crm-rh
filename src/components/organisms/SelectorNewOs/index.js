@@ -1,27 +1,27 @@
-import React from "react";
-import { useState } from "react";
-import api from "../../../api/api";
-import InputSearch from "../../atoms/InputSearch";
-import OrdemServiceHeader from "../../molecules/OrdemServiceListHeader";
-import OrdemServiceListItem from "../../molecules/OrdemServicesListItem";
-import { Container, ScrollContainer, ContainerButtons } from "./style";
-import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { BlueButton } from "../../atoms/Buttons/BlueButton/style";
-import CancelButton from "../../atoms/Buttons/CancelButton/style";
-import { ModalOrdemServices } from "../../molecules/ModalOrdemServices";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
-import { DefaultToast } from "../../atoms/Toast/DefaultToast";
-import modalVisibility from "../../../redux/reducers/modalVisibility";
-import { openModal, valueOfCommission } from "../../../redux/actions";
+import React from 'react';
+import { useState } from 'react';
+import api from '../../../api/api';
+import InputSearch from '../../atoms/InputSearch';
+import OrdemServiceHeader from '../../molecules/OrdemServiceListHeader';
+import OrdemServiceListItem from '../../molecules/OrdemServicesListItem';
+import { Container, ScrollContainer, ContainerButtons } from './style';
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { BlueButton } from '../../atoms/Buttons/BlueButton/style';
+import CancelButton from '../../atoms/Buttons/CancelButton/style';
+import { ModalOrdemServices } from '../../molecules/ModalOrdemServices';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { DefaultToast } from '../../atoms/Toast/DefaultToast';
+import modalVisibility from '../../../redux/reducers/modalVisibility';
+import { openModal, valueOfCommission } from '../../../redux/actions';
 
 const NewOrdemService = () => {
-  const [searchResult, setSearchResult] = useState("");
+  const [searchResult, setSearchResult] = useState('');
   const [professionals, setProfessionals] = useState([]);
   const [checkedProfissional, setCheckedProfissional] = useState([]);
-  const [order, setOrder] = useState("");
+  const [order, setOrder] = useState('');
   const [newId, setNewId] = useState([]);
   const [haveCommission, setHaveCommission] = useState([]);
   const [haveCommissionMeta, setHaveCommissionMeta] = useState({});
@@ -33,43 +33,43 @@ const NewOrdemService = () => {
   let params = {};
 
   const handleFilterRequest = () => {
-    if (searchResult !== "") {
+    if (searchResult !== '') {
       params.search = searchResult;
     }
 
-    if (order !== "") params.order = order;
+    if (order !== '') params.order = order;
   };
 
   const sortByName = () => {
-    order === "" && setOrder("desc");
-    order === "asc" && setOrder("desc");
-    order === "desc" && setOrder("asc");
+    order === '' && setOrder('desc');
+    order === 'asc' && setOrder('desc');
+    order === 'desc' && setOrder('asc');
   };
 
   const handleSubmit = async () => {
     if (checkedProfissional.length >= 1) {
       try {
         await api({
-          method: "POST",
+          method: 'POST',
           url: `/findProfessionalComission?page=${page}&limit=5`,
           data: checkedProfissional,
           params: params,
         }).then((res) => {
-          if (res.data.msg === "Nenhum professional com comissão encontrado") {
+          if (res.data.msg === 'Nenhum professional com comissão encontrado') {
             return toast.error(
               <DefaultToast
-                text={"Nenhum professional com comissão encontrado"}
+                text={'Nenhum professional com comissão encontrado'}
               />
             );
           } else {
-            dispatch(openModal({ type: "OPENMODAL" }));
+            dispatch(openModal({ type: 'OPENMODAL' }));
             setHaveCommission(res.data.data);
             setHaveCommissionMeta(res.data.meta);
           }
         });
       } catch (err) {}
     } else {
-      return toast.error(<DefaultToast text={"Selecione os Profissionais!"} />);
+      return toast.error(<DefaultToast text={'Selecione os Profissionais!'} />);
     }
   };
 
@@ -86,7 +86,7 @@ const NewOrdemService = () => {
 
   const getProfessionals = async () => {
     const { data } = await api({
-      method: "get",
+      method: 'get',
       url: `/professionals/?limit=20&search=${searchResult}`,
     });
     setProfessionals(data.data);
@@ -98,7 +98,7 @@ const NewOrdemService = () => {
 
   useEffect(() => {
     handleSubmit();
-  },[page]);
+  }, [page]);
 
   useEffect(() => {
     filteredProfessionals();
@@ -109,7 +109,7 @@ const NewOrdemService = () => {
       <ContainerButtons>
         <CancelButton
           margin="10px"
-          onClick={() => history.push("/serviceOrders")}
+          onClick={() => history.push('/serviceOrders')}
         >
           Cancelar
         </CancelButton>
@@ -122,7 +122,6 @@ const NewOrdemService = () => {
             setHaveCommission={setHaveCommission}
             setPage={setPage}
             page={page}
-            
             handleSubmit={() => handleSubmit()}
             newId={newId}
             setNewId={setNewId}
@@ -135,8 +134,8 @@ const NewOrdemService = () => {
       <Container>
         <InputSearch
           setSearchResult={setSearchResult}
-          lineWidth="20%"
-          inputWidth="12em"
+          lineWidth="280px"
+          inputWidth="15em"
         />
         <OrdemServiceHeader sortByName={sortByName} />
         <ScrollContainer>

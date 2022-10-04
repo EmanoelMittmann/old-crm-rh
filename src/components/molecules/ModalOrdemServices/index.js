@@ -1,20 +1,21 @@
-import React, { useState, useEffect } from "react";
-import api from "../../../api/api.js";
-import CancelButton from "../../atoms/Buttons/CancelButton/style";
-import CloseButton from "../../atoms/Buttons/CloseButton";
-import SaveButton from "../../atoms/Buttons/SaveButton/style";
-import FooterModais from "../../organisms/FooterModais";
-import { useLocation } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  ModalTitle,
-  ModalContainerProfessional,
-  ModalOverlay,
-} from "../Modal/style.js";
+import React, { useState, useEffect } from 'react';
+import CancelButton from '../../atoms/Buttons/CancelButton/style';
+import SaveButton from '../../atoms/Buttons/SaveButton/style';
+import FooterModais from '../../organisms/FooterModais';
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import CloseButtonCircle from '../../atoms/Buttons/CloseButtonCircle';
+import { ModalTitle, ModalOverlay } from '../Modal/style.js';
 
-import { ModalContainerButtons, TitleComissionProfessional } from "./style";
-import Shelf from "./list/shelf.js";
-import { closeModal, valueOfCommission } from "../../../redux/actions/index.js";
+import {
+  ModalContainerButtons,
+  TitleComissionProfessional,
+  ModalContainerProfessional,
+  ContainerAbsolute,
+} from './style';
+
+import Shelf from './list/shelf.js';
+import { closeModal, valueOfCommission } from '../../../redux/actions/index.js';
 
 export const ModalOrdemServices = ({
   haveCommission,
@@ -30,7 +31,7 @@ export const ModalOrdemServices = ({
   const location = useLocation();
   const [professionals, setProfessionals] = useState([]);
   const [valuesCommission, setValuesCommission] = useState(state);
-  const [order, setOrder] = useState({ order: "", field: "" });
+  const [order, setOrder] = useState({ order: '', field: '' });
   const dispatch = useDispatch();
 
   const AddOrUpdate = (object) => {
@@ -45,17 +46,17 @@ export const ModalOrdemServices = ({
     }
   };
 
-  const reValidation = async () => {
-    try {
-      await api({
-        method: "POST",
-        url: `/findProfessionalComission?page=${page}`,
-        data: newId,
-      }).then((res) => setHaveCommission(res.data.data));
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const reValidation = async () => {
+  //   try {
+  //     await api({
+  //       method: 'POST',
+  //       url: `/findProfessionalComission?page=${page}`,
+  //       data: newId,
+  //     }).then((res) => setHaveCommission(res.data.data));
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const nextPage = () => {
     if (page === haveCommissionMeta.last_page) {
@@ -77,21 +78,21 @@ export const ModalOrdemServices = ({
       haveCommission.filter((item) => item.id !== professional.id)
     );
   };
-  
-  useEffect(() => {
-    setNewId(haveCommission?.map((item) => item.id));
-  },[haveCommission])
 
   useEffect(() => {
-    console.log(newId)
+    setNewId(haveCommission?.map((item) => item.id));
+  }, [haveCommission]);
+
+  useEffect(() => {
+    console.log(newId);
     // reValidation()
-  },[newId])
+  }, [newId]);
 
   return (
     <div>
       <ModalContainerProfessional>
-        <CloseButton
-          onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
+        <CloseButtonCircle
+          onClick={() => dispatch(closeModal({ type: 'CLOSEMODAL' }))}
         />
         <div className="container">
           <ModalTitle padding="1em">Confirmar Comissões</ModalTitle>
@@ -117,16 +118,14 @@ export const ModalOrdemServices = ({
         </div>
         <ModalContainerButtons>
           <CancelButton
-            margin="-5em 0 0 0"
-            onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
+            onClick={() => dispatch(closeModal({ type: 'CLOSEMODAL' }))}
           >
             Cancelar
           </CancelButton>
           <SaveButton
-            margin="-5em 3em 0 1.7em"
             onClick={() => {
               dispatch(valueOfCommission(valuesCommission));
-              dispatch(closeModal({ type: "CLOSEMODAL" }));
+              dispatch(closeModal({ type: 'CLOSEMODAL' }));
             }}
           >
             Confirmar

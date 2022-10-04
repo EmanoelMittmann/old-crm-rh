@@ -5,6 +5,10 @@ import { optionsUF } from '../../organisms/RegisterProfessionalsData'
 import InputSelect from '../../atoms/InputSelect'
 import { useState } from 'react'
 
+const handleDisplayTitle = {
+  CompanyState: 'Situação Cadastral',
+}
+
 const HeaderSearchCompany = ({setSearchResult, setUf, uf}) => {
 
   return (

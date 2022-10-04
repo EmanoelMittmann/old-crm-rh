@@ -6,6 +6,8 @@ export const ContainerWap = styled.div`
     justify-content: space-between;
     width: 100%;
     margin-bottom: 0.5em;
+    position: relative;
+
 
     &:last-child {
         margin-bottom: 1em;
@@ -30,14 +32,28 @@ export const ContainerLabelProfessional = styled.div`
 
     }
 `
+export const ModalContainerProfessional = styled.div` 
+    left: 40%;
+    top:0;
+    width: 520px;
+    height: 540px;
+    position: absolute;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 1px 0px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+`
+
 export const ModalContainerButtons = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
     width: 100%;
-    height: 28%;
     border-radius: 0 0 15px 15px;
-    border-top: 1.5px solid #919EAB52;
+    border-top: 1px solid #CCD1D6;
+    padding: 24px 33px ;
+    gap: 20px;
+    
     `
 
 export const IconButton = styled.div`
@@ -57,5 +73,11 @@ export const TitleComissionProfessional = styled.div`
     flex-direction: row;
     justify-content: space-between;
     margin: 0 9em 1em 1em;
+
+`
+
+export const ContainerAbsolute = styled.div`
+  height: 335px;
+
 
 `

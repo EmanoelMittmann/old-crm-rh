@@ -1,18 +1,17 @@
-import React from "react";
-import { ContainerLabelProfessional, IconButton } from "../style";
-import { ReactComponent as Trash } from "../../../../assets/icons/trash.svg";
-import InputWithLabel from "../../../atoms/InputWithLabel";
-import { ContainerWap } from "../style";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
-import { useEffect } from "react";
+import React from 'react';
+import { ContainerLabelProfessional, IconButton } from '../style';
+import { ReactComponent as Trash } from '../../../../assets/icons/trash.svg';
+import InputWithLabel from '../../../atoms/InputWithLabel';
+import { ContainerWap } from '../style';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Shelf = ({ professional, handleDelete, AddOrUpdate }) => {
   const teste = useSelector((state) => state.valueOfCommission);
   const isExist = teste.find((item) => item.id === professional.id);
   const [commission, setCommission] = useState(!!isExist ? isExist.value : '');
-
 
   return (
     <>
