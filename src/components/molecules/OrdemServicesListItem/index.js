@@ -34,7 +34,6 @@ const OrdemServiceListItem = ({
           checked={check}
           onChange={(e) => {
             setCheck(e.target.checked);
-            console.log(e.target.checked);
           }}
           onClick={() => handleClick(index)}
         />
