@@ -43,7 +43,7 @@ const OrdemServiceListItem = ({
       <OrdemServiceItens width="20%" content="right" right="1.5em">
         R$ {index.fixed_payment_value},00
       </OrdemServiceItens>
-      <OrdemServiceItens width="20%" content="flex-end">
+      <OrdemServiceItens width="20%" content="flex-end" right="6em">
         {index.value
           ? ` ${Number(index.value).toLocaleString("pt-br", {
               style: "currency",

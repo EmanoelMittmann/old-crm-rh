@@ -60,7 +60,6 @@ const ProfessionalsSection = () => {
   useEffect(() => {
     handleFilterRequest();
     getProfessionals();
-    console.log()
     location.state && setProfessionals(location.state.professionals.data);
   }, [searchResult, jobSelected, order]);
 

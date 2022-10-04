@@ -22,6 +22,9 @@ export const ModalOrdemServices = ({
   haveCommissionMeta,
   setPage,
   page,
+  newId,
+  handleSubmit,
+  setNewId,
 }) => {
   const state = useSelector((state) => state.valueOfCommission);
   const location = useLocation();
@@ -42,6 +45,18 @@ export const ModalOrdemServices = ({
     }
   };
 
+  const reValidation = async () => {
+    try {
+      await api({
+        method: "POST",
+        url: `/findProfessionalComission?page=${page}`,
+        data: newId,
+      }).then((res) => setHaveCommission(res.data.data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const nextPage = () => {
     if (page === haveCommissionMeta.last_page) {
       return setPage(page);
@@ -57,14 +72,20 @@ export const ModalOrdemServices = ({
     }
   };
 
-  const handleDelete = (professional) =>
+  const handleDelete = (professional) => {
     setHaveCommission(
       haveCommission.filter((item) => item.id !== professional.id)
     );
+  };
+  
+  useEffect(() => {
+    setNewId(haveCommission?.map((item) => item.id));
+  },[haveCommission])
 
   useEffect(() => {
-    location.state && setProfessionals(location.state.professionals.data);
-  }, [order]);
+    console.log(newId)
+    // reValidation()
+  },[newId])
 
   return (
     <div>
@@ -73,7 +94,7 @@ export const ModalOrdemServices = ({
           onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
         />
         <div className="container">
-        <ModalTitle padding="1em">Confirmar Comissões</ModalTitle>
+          <ModalTitle padding="1em">Confirmar Comissões</ModalTitle>
           <TitleComissionProfessional>
             <h6>Profissional</h6>
             <h6>Comissão</h6>

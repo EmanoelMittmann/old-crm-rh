@@ -12,28 +12,28 @@ import CancelButton from "../../atoms/Buttons/CancelButton/style";
 import { ModalOrdemServices } from "../../molecules/ModalOrdemServices";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { toast } from 'react-toastify';
-import { DefaultToast } from '../../atoms/Toast/DefaultToast' 
+import { toast } from "react-toastify";
+import { DefaultToast } from "../../atoms/Toast/DefaultToast";
 import modalVisibility from "../../../redux/reducers/modalVisibility";
 import { openModal, valueOfCommission } from "../../../redux/actions";
 
 const NewOrdemService = () => {
-  const [searchResult, setSearchResult] = useState('');
+  const [searchResult, setSearchResult] = useState("");
   const [professionals, setProfessionals] = useState([]);
   const [checkedProfissional, setCheckedProfissional] = useState([]);
   const [order, setOrder] = useState("");
+  const [newId, setNewId] = useState([]);
   const [haveCommission, setHaveCommission] = useState([]);
   const [haveCommissionMeta, setHaveCommissionMeta] = useState({});
-  const Modal = useSelector((state) => state.modalVisibility)
-  const ValueCommission = useSelector((state) => state.valueOfCommission)
-  const [page, setPage] = useState(1)
-  const dispatch = useDispatch()
-  const history = useHistory()
-  let params = {}
-
+  const Modal = useSelector((state) => state.modalVisibility);
+  const ValueCommission = useSelector((state) => state.valueOfCommission);
+  const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  let params = {};
 
   const handleFilterRequest = () => {
-    if (searchResult !== '') {
+    if (searchResult !== "") {
       params.search = searchResult;
     }
 
@@ -46,42 +46,43 @@ const NewOrdemService = () => {
     order === "desc" && setOrder("asc");
   };
 
-  const handleSubmit = async() => {
-    if(checkedProfissional.length >= 1){
-      try{
+  const handleSubmit = async () => {
+    if (checkedProfissional.length >= 1) {
+      try {
         await api({
-          method: 'POST',
+          method: "POST",
           url: `/findProfessionalComission?page=${page}&limit=5`,
           data: checkedProfissional,
-          params:params
-        }).then(res => {
-          if(res.data.data === ''){
-            return toast.error(<DefaultToast text={"Nenhum professional com comissão encontrado"}/>)
-          }else{
-            dispatch(openModal({type: "OPENMODAL"}))
-            setHaveCommission(res.data.data)
-            setHaveCommissionMeta(res.data.meta)
+          params: params,
+        }).then((res) => {
+          if (res.data.msg === "Nenhum professional com comissão encontrado") {
+            return toast.error(
+              <DefaultToast
+                text={"Nenhum professional com comissão encontrado"}
+              />
+            );
+          } else {
+            dispatch(openModal({ type: "OPENMODAL" }));
+            setHaveCommission(res.data.data);
+            setHaveCommissionMeta(res.data.meta);
           }
-        })
-      }
-      catch(err){
-      }
-    }else{  
-      return toast.error(<DefaultToast text={"Selecione o Profissional!"}/>)
+        });
+      } catch (err) {}
+    } else {
+      return toast.error(<DefaultToast text={"Selecione os Profissionais!"} />);
     }
-  }
-
+  };
 
   const filteredProfessionals = () => {
-    const NewProfissional  = professionals.map(item => {
-      const search = ValueCommission.find(obj => obj.id === item.id)
-      if(search){
-        return {...item, value: search.value};
+    const NewProfissional = professionals.map((item) => {
+      const search = ValueCommission.find((obj) => obj.id === item.id);
+      if (search) {
+        return { ...item, value: search.value };
       }
       return item;
-    })
-    setProfessionals(NewProfissional)
-  }
+    });
+    setProfessionals(NewProfissional);
+  };
 
   const getProfessionals = async () => {
     const { data } = await api({
@@ -93,32 +94,44 @@ const NewOrdemService = () => {
 
   useEffect(() => {
     getProfessionals();
-    handleFilterRequest();
-    }, [searchResult]);
+  }, [searchResult]);
 
   useEffect(() => {
-    filteredProfessionals()
-  },[ValueCommission])
+    handleSubmit();
+  },[page]);
 
-  console.log(professionals)
+  useEffect(() => {
+    filteredProfessionals();
+  }, [ValueCommission]);
 
   return (
     <>
-    { checkedProfissional.length >= 1 &&  
       <ContainerButtons>
-        <CancelButton margin="10px" onClick={() => history.push('/serviceOrders')}>Cancelar</CancelButton>
-        <BlueButton width="108px" height="40px" onClick={() => handleSubmit()}>Confirmar</BlueButton>
-        {Modal && <ModalOrdemServices   
-          haveCommission={haveCommission} 
-          setHaveCommission={setHaveCommission}
-          setPage={setPage}
-          page={page}
-          haveCommissionMeta={haveCommissionMeta}
-          setHaveCommissionMeta={setHaveCommissionMeta}
+        <CancelButton
+          margin="10px"
+          onClick={() => history.push("/serviceOrders")}
+        >
+          Cancelar
+        </CancelButton>
+        <BlueButton width="108px" height="40px" onClick={() => handleSubmit()}>
+          Confirmar
+        </BlueButton>
+        {Modal && (
+          <ModalOrdemServices
+            haveCommission={haveCommission}
+            setHaveCommission={setHaveCommission}
+            setPage={setPage}
+            page={page}
+            
+            handleSubmit={() => handleSubmit()}
+            newId={newId}
+            setNewId={setNewId}
+            haveCommissionMeta={haveCommissionMeta}
+            setHaveCommissionMeta={setHaveCommissionMeta}
           />
-        }
+        )}
       </ContainerButtons>
-    }
+
       <Container>
         <InputSearch
           setSearchResult={setSearchResult}
@@ -128,7 +141,14 @@ const NewOrdemService = () => {
         <OrdemServiceHeader sortByName={sortByName} />
         <ScrollContainer>
           {professionals?.map((index) => {
-            return <OrdemServiceListItem key={index.id} index={index} setCheckedProfissional={setCheckedProfissional} checkedProfissional={checkedProfissional}/>;
+            return (
+              <OrdemServiceListItem
+                key={index.id}
+                index={index}
+                setCheckedProfissional={setCheckedProfissional}
+                checkedProfissional={checkedProfissional}
+              />
+            );
           })}
         </ScrollContainer>
       </Container>
