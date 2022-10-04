@@ -403,7 +403,6 @@ const RegisterProfessional = () => {
       });
   }
 
-
   useEffect(() => {
     if (!jobs.length) optionsJob();
     if (!allProjects.length) getAllProjects();

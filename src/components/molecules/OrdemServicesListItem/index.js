@@ -1,31 +1,29 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
-import { DefaultToast } from "../../atoms/Toast/DefaultToast";
-import {
-  ContainerOrdemServices,
-  OrdemServiceItens,
-  ContainerFather,
-} from "./style";
+import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { ContainerOrdemServices, OrdemServiceItens } from './style';
 
 const OrdemServiceListItem = ({
   index,
   setCheckedProfissional,
   checkedProfissional,
 }) => {
-  
+  const [check, setCheck] = useState(false);
   const handleClick = (index) => {
-    const IsExist = checkedProfissional.includes(index.id)
-    if(IsExist){
-      const filtered = checkedProfissional.indexOf(index.id)
-      const deletePosition = checkedProfissional.splice(filtered,1)
-      setCheckedProfissional(checkedProfissional)
-    }else{
-      setCheckedProfissional([...checkedProfissional,index.id])
+    const IsExist = checkedProfissional.includes(index.id);
+    if (IsExist) {
+      const filtered = checkedProfissional.indexOf(index.id);
+      checkedProfissional.splice(filtered, 1);
+      setCheckedProfissional(checkedProfissional);
+    } else {
+      setCheckedProfissional([...checkedProfissional, index.id]);
     }
-  }
-  
+  };
+
+  useEffect(() => {
+    setCheck(checkedProfissional.includes(index.id));
+  }, [checkedProfissional]);
+
   return (
     <ContainerOrdemServices key={index.id}>
       <OrdemServiceItens width="20%" content="flex-start">
@@ -33,6 +31,10 @@ const OrdemServiceListItem = ({
           type="checkbox"
           name="professional"
           id="box"
+          checked={check}
+          onChange={(e) => {
+            setCheck(e.target.checked);
+          }}
           onClick={() => handleClick(index)}
         />
         <p>{index.name}</p>
@@ -43,11 +45,23 @@ const OrdemServiceListItem = ({
       <OrdemServiceItens width="20%" content="right" right="1.5em">
         R$ {index.fixed_payment_value},00
       </OrdemServiceItens>
-      <OrdemServiceItens width="20%" content="right" right="5em">
-        -
+      <OrdemServiceItens width="20%" content="flex-end" right="6em">
+        {index.value
+          ? ` ${Number(index.value).toLocaleString('pt-br', {
+              style: 'currency',
+              currency: 'BRL',
+            })}`
+          : ' - '}
       </OrdemServiceItens>
       <OrdemServiceItens width="20%" content="flex-end" right="1em">
-        R$ {index.fixed_payment_value},00
+        {index.value
+          ? (
+              Number(index.value) + Number(index.fixed_payment_value)
+            ).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+          : Number(index.fixed_payment_value).toLocaleString('pt-br', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
       </OrdemServiceItens>
     </ContainerOrdemServices>
   );
