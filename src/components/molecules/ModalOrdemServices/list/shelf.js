@@ -7,11 +7,19 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { toast } from 'react-toastify';
+import { DefaultToast } from '../../../atoms/Toast/DefaultToast';
 
 const Shelf = ({ professional, handleDelete, AddOrUpdate }) => {
   const teste = useSelector((state) => state.valueOfCommission);
   const isExist = teste.find((item) => item.id === professional.id);
   const [commission, setCommission] = useState(!!isExist ? isExist.value : '');
+
+  useEffect(() => {
+    if(commission < 0){
+      return toast.error(<DefaultToast text={'Valores Negativos não permitidos'}/>)
+    }
+  },[])
 
   return (
     <>

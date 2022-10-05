@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import CancelButton from '../../atoms/Buttons/CancelButton/style';
-import SaveButton from '../../atoms/Buttons/SaveButton/style';
-import FooterModais from '../../organisms/FooterModais';
-import { useDispatch, useSelector } from 'react-redux';
-import CloseButtonCircle from '../../atoms/Buttons/CloseButtonCircle';
-import { ModalTitle, ModalOverlay } from '../Modal/style.js';
+import React, { useState, useEffect } from "react";
+import CancelButton from "../../atoms/Buttons/CancelButton/style";
+import SaveButton from "../../atoms/Buttons/SaveButton/style";
+import FooterModais from "../../organisms/FooterModais";
+import { useDispatch, useSelector } from "react-redux";
+import CloseButtonCircle from "../../atoms/Buttons/CloseButtonCircle";
+import { ModalTitle, ModalOverlay } from "../Modal/style.js";
 
 import {
   ModalContainerButtons,
   TitleComissionProfessional,
   ModalContainerProfessional,
-} from './style';
+} from "./style";
 
-import Shelf from './list/shelf.js';
-import { closeModal, valueOfCommission } from '../../../redux/actions/index.js';
+import Shelf from "./list/shelf.js";
+import { closeModal, valueOfCommission } from "../../../redux/actions/index.js";
 
 export const ModalOrdemServices = ({
   haveCommission,
@@ -62,7 +62,7 @@ export const ModalOrdemServices = ({
     <div>
       <ModalContainerProfessional>
         <CloseButtonCircle
-          onClick={() => dispatch(closeModal({ type: 'CLOSEMODAL' }))}
+          onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
         />
         <div className="container">
           <ModalTitle padding="1em">Confirmar Comissões</ModalTitle>
@@ -88,14 +88,14 @@ export const ModalOrdemServices = ({
         </div>
         <ModalContainerButtons>
           <CancelButton
-            onClick={() => dispatch(closeModal({ type: 'CLOSEMODAL' }))}
+            onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
           >
             Cancelar
           </CancelButton>
           <SaveButton
             onClick={() => {
               dispatch(valueOfCommission(valuesCommission));
-              dispatch(closeModal({ type: 'CLOSEMODAL' }));
+              dispatch(closeModal({ type: "CLOSEMODAL" }));
             }}
           >
             Confirmar
