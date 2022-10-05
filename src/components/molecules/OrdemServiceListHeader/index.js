@@ -14,27 +14,27 @@ const OrdemServiceHeader = ({sortByName}) => {
   return (
     <HeaderContainer>
       <ListHeaderProfessional>
-        <ListHeaderTitle margin="-50px">Professional</ListHeaderTitle>
+        <ListHeaderTitle>Professional</ListHeaderTitle>
         <Arrows onClick={sortByName} />
       </ListHeaderProfessional>
 
       <ListHeaderCNPJ>
-        <ListHeaderTitle margin="">CNPJ</ListHeaderTitle>
+        <ListHeaderTitle>CNPJ</ListHeaderTitle>
         <Arrows onClick={sortByName} />
       </ListHeaderCNPJ>
 
       <ListHeaderNumberOs>
-        <ListHeaderTitle margin="">Salário</ListHeaderTitle>
+        <ListHeaderTitle>Salário</ListHeaderTitle>
         <Arrows onClick={sortByName} />
       </ListHeaderNumberOs>
 
       <ListHeaderComission>
-        <ListHeaderTitle margin="">Comissão</ListHeaderTitle>
+        <ListHeaderTitle>Comissão</ListHeaderTitle>
         <Arrows onClick={sortByName} />
       </ListHeaderComission>
 
       <ListHeaderTotal>
-        <ListHeaderTitle margin="">Total</ListHeaderTitle>
+        <ListHeaderTitle>Total</ListHeaderTitle>
         <Arrows onClick={sortByName} />
       </ListHeaderTotal>
 
