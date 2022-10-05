@@ -65,13 +65,13 @@ const NewOrdemService = () => {
       return toast.error(<DefaultToast text={'Selecione os Profissionais!'} />);
     }
   };
-
+   
   const filteredProfessionals = () => {
     const NewProfissional = professionals.map((item) => {
       const search = ValueCommission.find((obj) => obj.id === item.id);
       if (search) {
         return { ...item, value: search.value };
-      }
+  }
       return item;
     });
     setProfessionals(NewProfissional);
@@ -104,6 +104,10 @@ const NewOrdemService = () => {
 
   return (
     <>
+      <ContainerIconModal>
+        <ArrowBackNew onClick={() => history.push('/serviceOrders')} />
+        <h4>Criar nova O.S</h4>
+      </ContainerIconModal>
       <ContainerButtons>
         <CancelButton
           margin="10px"
