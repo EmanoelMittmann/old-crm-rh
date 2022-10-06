@@ -77,7 +77,7 @@ export const TitleComissionProfessional = styled.div`
 `
 
 export const ContainerAbsolute = styled.div`
-  height: 335px;
+  height: 405px;
 
 
 `
