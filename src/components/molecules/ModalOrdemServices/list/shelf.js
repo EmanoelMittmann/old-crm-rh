@@ -37,7 +37,7 @@ const Shelf = ({ professional, handleDelete, AddOrUpdate, validatorError }) => {
           label="R$ 0.00"
           type="number"
           handleBlur={() =>{
-            if (commission === '' || commission < '0') {
+            if (commission === '' || commission <= 0) {
               return toast.error(<DefaultToast text={'Há Campo vazio!Exclua o, ou inclua um valor maior que 0'} />)
             } else {
               AddOrUpdate({ id: professional.id, value: commission })
