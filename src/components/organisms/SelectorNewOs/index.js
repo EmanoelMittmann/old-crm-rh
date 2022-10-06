@@ -14,7 +14,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { DefaultToast } from '../../atoms/Toast/DefaultToast';
-import { closeModal, openModal } from '../../../redux/actions';
+import { closeModal, openModal, valueOfCommission } from '../../../redux/actions';
 import { ReactComponent as ArrowBackNew} from '../../../assets/icons/arrowBackNew.svg'
 
 const NewOrdemService = () => {
@@ -44,7 +44,7 @@ const NewOrdemService = () => {
       try {
         await api({
           method: "POST",
-          url: `/findProfessionalComission?page=${page}&limit=5`,
+          url: `/findProfessionalCommission?page=${page}&limit=5`,
           data: data,
           params: params,
         }).then((res) => {
