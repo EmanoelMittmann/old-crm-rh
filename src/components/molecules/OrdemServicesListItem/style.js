@@ -13,7 +13,6 @@ export const OrdemServiceItens = styled.div`
   align-items: center;
   font-family: "Poppins", sans-serif;
   width: ${(props) => props.width};
-  padding-right: ${(props) => props.right};
 
   #box {
     margin-right: 10px;

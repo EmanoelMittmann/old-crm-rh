@@ -1,24 +1,21 @@
-import React from "react";
-import { useState } from "react";
-import api from "../../../api/api";
-import InputSearch from "../../atoms/InputSearch";
-import OrdemServiceHeader from "../../molecules/OrdemServiceListHeader";
-import OrdemServiceListItem from "../../molecules/OrdemServicesListItem";
-import { Container, ScrollContainer, ContainerButtons } from "./style";
-import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { BlueButton } from "../../atoms/Buttons/BlueButton/style";
-import CancelButton from "../../atoms/Buttons/CancelButton/style";
-import { ModalOrdemServices } from "../../molecules/ModalOrdemServices";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { toast } from "react-toastify";
-import { DefaultToast } from "../../atoms/Toast/DefaultToast";
-import {
-  closeModal,
-  openModal,
-  valueOfCommission,
-} from "../../../redux/actions";
+import React from 'react';
+import { useState } from 'react';
+import api from '../../../api/api';
+import InputSearch from '../../atoms/InputSearch';
+import OrdemServiceHeader from '../../molecules/OrdemServiceListHeader';
+import OrdemServiceListItem from '../../molecules/OrdemServicesListItem';
+import { Container, ScrollContainer, ContainerButtons, ContainerIconModal, TitleOS, ContainerButtonsHeader, ContainerButtonGeral } from './style';
+import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { BlueButton } from '../../atoms/Buttons/BlueButton/style';
+import CancelButton from '../../atoms/Buttons/CancelButton/style';
+import { ModalOrdemServices } from '../../molecules/ModalOrdemServices';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import { DefaultToast } from '../../atoms/Toast/DefaultToast';
+import { closeModal, openModal } from '../../../redux/actions';
+import { ReactComponent as ArrowBackNew} from '../../../assets/icons/arrowBackNew.svg'
 
 const NewOrdemService = () => {
   const [searchResult, setSearchResult] = useState("");
@@ -67,13 +64,13 @@ const NewOrdemService = () => {
       } catch (err) {}
     }
   };
-
+   
   const filteredProfessionals = () => {
     const updateProfissional = professionals.map((item) => {
       const search = ValueCommission.find((obj) => obj.id === item.id);
       if (search) {
         return { ...item, value: search.value };
-      }
+  }
       return item;
     });
     setProfessionals(updateProfissional);
@@ -125,6 +122,13 @@ const NewOrdemService = () => {
 
   return (
     <>
+      <ContainerButtonGeral>
+      <ContainerButtonsHeader>
+      <ContainerIconModal>
+        <ArrowBackNew onClick={() => history.push('/serviceOrders')} />
+      </ContainerIconModal>
+      <TitleOS>Criar nova O.S</TitleOS>
+        </ContainerButtonsHeader>
       <ContainerButtons>
         <CancelButton
           margin="10px"
@@ -162,7 +166,8 @@ const NewOrdemService = () => {
           />
         )}
       </ContainerButtons>
-
+      </ContainerButtonGeral>
+     
       <Container>
         <InputSearch
           setSearchResult={setSearchResult}

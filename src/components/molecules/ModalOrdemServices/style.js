@@ -33,7 +33,7 @@ export const ContainerLabelProfessional = styled.div`
     }
 `
 export const ModalContainerProfessional = styled.div` 
-    left: 40%;
+    right:100%;
     top:0;
     width: 520px;
     height: 540px;
@@ -77,7 +77,7 @@ export const TitleComissionProfessional = styled.div`
 `
 
 export const ContainerAbsolute = styled.div`
-  height: 335px;
+  height: 405px;
 
 
 `

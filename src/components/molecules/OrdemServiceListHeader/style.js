@@ -10,6 +10,7 @@ export const HeaderContainer = styled.div`
     margin-top: 2em;
     justify-content: space-between;
 
+
     svg{
         margin-left: 1em;
         cursor: pointer;
@@ -18,42 +19,41 @@ export const HeaderContainer = styled.div`
 
 export const ListHeaderProfessional = styled.div`
   display: flex;
+  justify-content: flex-start;
   align-items: center;
-  width: 18%;
-  padding-left: 5em;
+  width: 25%;
 `;
 
 export const ListHeaderCNPJ = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
-  width: 18%;
-  padding-left: 5em;
+  width: 25%;
 `;
 
 export const ListHeaderNumberOs = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
-  width: 18%;
-  padding-left: 5em;
+  width: 30%;
 `;
 
 export const ListHeaderComission = styled.div`
   display: flex;
+  justify-content: center;
   align-items: center;
-  width: 18%;
-  padding-left: 5em;
+  width: 25%;
 `;
 
 export const ListHeaderEmail = styled.div`
   display: flex;
   align-items: center;
   width: 18%;
-  padding-left: 5em;
 `;
 
 export const ListHeaderTotal = styled.div`
   display: flex;
   align-items: center;
-  width: 18%;
-  padding-left: 5em;
+  justify-content:center;
+  width: 25%;
 `;
