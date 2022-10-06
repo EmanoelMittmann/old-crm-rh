@@ -26,7 +26,7 @@ const OrdemServiceListItem = ({
 
   return (
     <ContainerOrdemServices key={index.id}>
-      <OrdemServiceItens width="20%" content="flex-start">
+      <OrdemServiceItens width="36%" content="flex-start">
         <input
           type="checkbox"
           name="professional"
@@ -39,13 +39,13 @@ const OrdemServiceListItem = ({
         />
         <p>{index.name}</p>
       </OrdemServiceItens>
-      <OrdemServiceItens width="20%" content="right" right="1.5em">
+      <OrdemServiceItens width="29%" content="start" >
         {index.professional_data?.cnpj}
       </OrdemServiceItens>
-      <OrdemServiceItens width="20%" content="right" right="1.5em">
+      <OrdemServiceItens width="20%" content="start" >
         R$ {index.fixed_payment_value},00
       </OrdemServiceItens>
-      <OrdemServiceItens width="20%" content="flex-end" right="6em">
+      <OrdemServiceItens width="30%" content="space-evenly" >
         {index.value
           ? ` ${Number(index.value).toLocaleString('pt-br', {
               style: 'currency',
@@ -53,7 +53,7 @@ const OrdemServiceListItem = ({
             })}`
           : ' - '}
       </OrdemServiceItens>
-      <OrdemServiceItens width="20%" content="flex-end" right="1em">
+      <OrdemServiceItens width="20%" content="center">
         {index.value
           ? (
               Number(index.value) + Number(index.fixed_payment_value)
