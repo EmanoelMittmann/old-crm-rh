@@ -15,12 +15,13 @@ export const Container = styled.div`
 `;
 
 export const ContainerButtons = styled.div`
+  width: 31%;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   position: relative;
-  top: 1em;
-  right: 2.3em;
+  top:1em;
+  
 `
 
 export const ScrollContainer = styled.ul`
@@ -28,6 +29,7 @@ export const ScrollContainer = styled.ul`
   height: 75%;
   width: 100%;
   border-bottom: 1px solid #ccc;
+  
   
   &::-webkit-scrollbar{
     width: 6px;
@@ -43,4 +45,29 @@ export const ScrollContainer = styled.ul`
     border: 3px solid #ddd;
     background-color: #ddd;
   }
+`
+
+export const ContainerIconModal = styled.div`
+  cursor: pointer;
+  padding: 1.6em 1.8em 0em 1.8em;
+  display: flex;
+
+`
+
+export const TitleOS = styled.h3`
+  display: flex;
+  padding: 1.2em 0em 0em 0em;
+`
+
+export const ContainerButtonsHeader = styled.div`
+  width: 64%;
+  display: flex;
+  margin: 0.8em 1em -3em 2em;
+
+`
+export const ContainerButtonGeral = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction:row;
+
 `

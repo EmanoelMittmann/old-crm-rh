@@ -4,7 +4,7 @@ import api from '../../../api/api';
 import InputSearch from '../../atoms/InputSearch';
 import OrdemServiceHeader from '../../molecules/OrdemServiceListHeader';
 import OrdemServiceListItem from '../../molecules/OrdemServicesListItem';
-import { Container, ScrollContainer, ContainerButtons } from './style';
+import { Container, ScrollContainer, ContainerButtons, ContainerIconModal, TitleOS, ContainerButtonsHeader, ContainerButtonGeral } from './style';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { BlueButton } from '../../atoms/Buttons/BlueButton/style';
@@ -15,6 +15,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { DefaultToast } from '../../atoms/Toast/DefaultToast';
 import { closeModal, openModal } from '../../../redux/actions';
+import { ReactComponent as ArrowBackNew} from '../../../assets/icons/arrowBackNew.svg'
 
 const NewOrdemService = () => {
   const [searchResult, setSearchResult] = useState('');
@@ -65,13 +66,13 @@ const NewOrdemService = () => {
       return toast.error(<DefaultToast text={'Selecione os Profissionais!'} />);
     }
   };
-
+   
   const filteredProfessionals = () => {
     const NewProfissional = professionals.map((item) => {
       const search = ValueCommission.find((obj) => obj.id === item.id);
       if (search) {
         return { ...item, value: search.value };
-      }
+  }
       return item;
     });
     setProfessionals(NewProfissional);
@@ -104,6 +105,13 @@ const NewOrdemService = () => {
 
   return (
     <>
+      <ContainerButtonGeral>
+      <ContainerButtonsHeader>
+      <ContainerIconModal>
+        <ArrowBackNew onClick={() => history.push('/serviceOrders')} />
+      </ContainerIconModal>
+      <TitleOS>Criar nova O.S</TitleOS>
+        </ContainerButtonsHeader>
       <ContainerButtons>
         <CancelButton
           margin="10px"
@@ -133,7 +141,8 @@ const NewOrdemService = () => {
           />
         )}
       </ContainerButtons>
-
+      </ContainerButtonGeral>
+     
       <Container>
         <InputSearch
           setSearchResult={setSearchResult}
