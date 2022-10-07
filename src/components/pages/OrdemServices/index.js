@@ -1,15 +1,12 @@
-import React from 'react'
-import { BlueButton } from '../../atoms/Buttons/BlueButton/style'
-import { Button } from '../../molecules/ListItem/style'
-import Footer from '../../organisms/Footer'
-import NewOrdemService from '../../organisms/SelectorNewOs'
+import React from 'react';
+import NewOrdemService from '../../organisms/SelectorNewOs';
 
 const OrdemService = () => {
   return (
     <>
-        <NewOrdemService/>
+      <NewOrdemService />
     </>
-  )
-}
+  );
+};
 
-export default OrdemService
+export default OrdemService;
