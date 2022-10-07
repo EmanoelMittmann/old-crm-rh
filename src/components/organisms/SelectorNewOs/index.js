@@ -60,12 +60,11 @@ const NewOrdemService = () => {
           data: data,
           params: params,
         }).then((res) => {
-          if (res.data.msg === 'Nenhum professional com comissão encontrado') {
+          if (res.data.msg === 'Os criada com sucesso') {
             dispatch(closeModal({ type: 'CLOSEMODAL' }));
-            return toast.error(
-              <DefaultToast
-                text={'Nenhum professional com comissão encontrado'}
-              />
+            history.push('/serviceOrders');
+            return toast.success(
+              <DefaultToast text={'Os criada com sucesso'} />
             );
           } else {
             dispatch(openModal({ type: 'OPENMODAL' }));
@@ -123,8 +122,13 @@ const NewOrdemService = () => {
   }, [page]);
 
   useEffect(() => {
-    handleSubmit(newId);
-    setCheckedProfissional(newId);
+    if (haveCommission[1] !== undefined) {
+      handleSubmit(newId);
+      setCheckedProfissional(newId);
+    } else {
+      setCheckedProfissional(newId);
+      dispatch(closeModal({ type: 'CLOSEMODAL' }));
+    }
   }, [newId]);
 
   useEffect(() => {
@@ -190,6 +194,8 @@ const NewOrdemService = () => {
           {professionals?.map((index) => {
             return (
               <OrdemServiceListItem
+                professionals={professionals}
+                setNewId={setNewId}
                 key={index.id}
                 index={index}
                 setCheckedProfissional={setCheckedProfissional}

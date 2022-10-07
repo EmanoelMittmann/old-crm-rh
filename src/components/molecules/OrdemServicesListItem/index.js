@@ -1,45 +1,67 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { ContainerOrdemServices, OrdemServiceItens } from "./style";
+import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { ContainerOrdemServices, OrdemServiceItens } from './style';
 
 const OrdemServiceListItem = ({
   index,
   setCheckedProfissional,
   checkedProfissional,
   deleteProfessionalWithCommission,
+  professionals,
 }) => {
   const [check, setCheck] = useState(false);
-  const handleClick = (index) => {
-    const isExist = checkedProfissional.filter(i => i.professional_id === checkedProfissional.at(-1).professional_id).length > 1
-    if(isExist){
-      const test = checkedProfissional.find(item => item.professional_id === index.id)
-      const findPosition = checkedProfissional.indexOf(test)
-      const temp = checkedProfissional.splice(findPosition,1)
-      setCheckedProfissional(temp)
-    }else{
-      setCheckedProfissional([...checkedProfissional,{professional_id: index.id}]) 
+  const state = useSelector((state) => state.valueOfCommission);
+  const handleClick = () => {
+    const IsExist = checkedProfissional.find(
+      (item) => item.professional_id === index.id
+    );
+    if (IsExist) {
+      setCheckedProfissional(
+        checkedProfissional.filter((item) => item.professional_id !== index.id)
+      );
+    } else {
+      const isHaveComission = professionals.find((obj) => obj.id === index.id);
+      if (isHaveComission.commission) {
+        setCheckedProfissional([
+          ...checkedProfissional,
+          { professional_id: index.id },
+        ]);
+      } else {
+        setCheckedProfissional([
+          ...checkedProfissional,
+          { professional_id: index.id, commission: '' },
+        ]);
+      }
     }
-    console.log(checkedProfissional)
   };
 
-  {
-    /*
-    const IsExist = checkedProfissional.includes(index.id);
-    if (IsExist) {
-      const filtered = checkedProfissional.indexOf(index.id);
-      checkedProfissional.splice(filtered, 1);
-      setCheckedProfissional(checkedProfissional);
-    } else {} */
-  }
-
-  // useEffect(() => {
-  //   setCheck(checkedProfissional.includes(index.id));
-  // }, [checkedProfissional]);
+  useEffect(() => {
+    const exist = checkedProfissional.map((item) => item.professional_id);
+    setCheck(exist.includes(index.id));
+  }, [checkedProfissional]);
 
   useEffect(() => {
     deleteProfessionalWithCommission(index);
   }, [check]);
+
+  useEffect(() => {
+    const newArr = checkedProfissional.map((professional) => {
+      const findProfessionalInCommission = state.find(
+        (commission) => professional.professional_id === commission.id
+      );
+      if (findProfessionalInCommission) {
+        return {
+          ...professional,
+          commission: findProfessionalInCommission.value,
+        };
+      } else {
+        return professional;
+      }
+    });
+    setCheckedProfissional(newArr);
+  }, [state]);
 
   return (
     <ContainerOrdemServices key={index.id}>
@@ -52,11 +74,11 @@ const OrdemServiceListItem = ({
           onChange={(e) => {
             setCheck(e.target.checked);
           }}
-          onClick={() => handleClick(index)}
+          onClick={handleClick}
         />
         <p>{index.name}</p>
       </OrdemServiceItens>
-      <OrdemServiceItens width="29%" content="start" >
+      <OrdemServiceItens width="29%" content="start">
         {index.professional_data?.cnpj}
       </OrdemServiceItens>
       <OrdemServiceItens width="20%" content="start">
@@ -64,20 +86,20 @@ const OrdemServiceListItem = ({
       </OrdemServiceItens>
       <OrdemServiceItens width="30%" content="space-evenly">
         {index.value
-          ? ` ${Number(index.value).toLocaleString("pt-br", {
-              style: "currency",
-              currency: "BRL",
+          ? ` ${Number(index.value).toLocaleString('pt-br', {
+              style: 'currency',
+              currency: 'BRL',
             })}`
-          : " - "}
+          : ' - '}
       </OrdemServiceItens>
       <OrdemServiceItens width="20%" content="center">
         {index.value
           ? (
               Number(index.value) + Number(index.fixed_payment_value)
-            ).toLocaleString("pt-br", { style: "currency", currency: "BRL" })
-          : Number(index.fixed_payment_value).toLocaleString("pt-br", {
-              style: "currency",
-              currency: "BRL",
+            ).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+          : Number(index.fixed_payment_value).toLocaleString('pt-br', {
+              style: 'currency',
+              currency: 'BRL',
             })}
       </OrdemServiceItens>
     </ContainerOrdemServices>
