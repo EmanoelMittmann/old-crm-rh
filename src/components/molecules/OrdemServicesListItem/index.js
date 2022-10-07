@@ -1,12 +1,13 @@
-import React from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { ContainerOrdemServices, OrdemServiceItens } from './style';
+import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { ContainerOrdemServices, OrdemServiceItens } from "./style";
 
 const OrdemServiceListItem = ({
   index,
   setCheckedProfissional,
   checkedProfissional,
+  deleteProfessionalWithCommission,
 }) => {
   const [check, setCheck] = useState(false);
   const handleClick = (index) => {
@@ -23,6 +24,10 @@ const OrdemServiceListItem = ({
   useEffect(() => {
     setCheck(checkedProfissional.includes(index.id));
   }, [checkedProfissional]);
+
+  useEffect(() => {
+    deleteProfessionalWithCommission(index);
+  }, [check]);
 
   return (
     <ContainerOrdemServices key={index.id}>
@@ -47,20 +52,20 @@ const OrdemServiceListItem = ({
       </OrdemServiceItens>
       <OrdemServiceItens width="30%" content="space-evenly" >
         {index.value
-          ? ` ${Number(index.value).toLocaleString('pt-br', {
-              style: 'currency',
-              currency: 'BRL',
+          ? ` ${Number(index.value).toLocaleString("pt-br", {
+              style: "currency",
+              currency: "BRL",
             })}`
-          : ' - '}
+          : " - "}
       </OrdemServiceItens>
       <OrdemServiceItens width="20%" content="center">
         {index.value
           ? (
               Number(index.value) + Number(index.fixed_payment_value)
-            ).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
-          : Number(index.fixed_payment_value).toLocaleString('pt-br', {
-              style: 'currency',
-              currency: 'BRL',
+            ).toLocaleString("pt-br", { style: "currency", currency: "BRL" })
+          : Number(index.fixed_payment_value).toLocaleString("pt-br", {
+              style: "currency",
+              currency: "BRL",
             })}
       </OrdemServiceItens>
     </ContainerOrdemServices>
