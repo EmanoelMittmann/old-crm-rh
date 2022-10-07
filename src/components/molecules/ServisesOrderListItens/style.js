@@ -10,36 +10,38 @@ export const ContainerOSListItem = styled.div`
 
 export const ProfessionalName = styled.div`
   display: flex;
-  width:15%;
+  width:20%;
   padding-left: 3em;
 `;
 
 export const ProfessionalCNPJ = styled.div`
   display: flex;
   width: 18%;
-  margin-left: 5.5em;
+  margin-left: 2em;
 `;
 
 export const DateGerationOS = styled.div`
   display: flex;
-  width: 18%;
+  width: 20%;
+ 
 
 `;
 
 export const NumberOS = styled.div`
   display: flex;
-  width: 15%;
-  padding-left:1em;
+  width: 16%;
+  margin-left: 3em;
 `;
 
 export const ReferenceOS = styled.div`
   display: flex;
   width: 15%;
+  margin-left: 2em;
 
 `;
 
 export const ProfessionalStatusOS  = styled.div`
   display: flex;
-  width: 16%;
+  width: 20%;
   padding-left: 2em;
 `;

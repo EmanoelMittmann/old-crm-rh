@@ -37,7 +37,7 @@ const ServiceOrderSection = () => {
   const getOsProfessionals = async () => {
     const { data } = await api({
       method: 'get',
-      url: `/orderOfService?limit=10`,
+      url: `/orderOfService?limit=5`,
       params: params,
     });
 
