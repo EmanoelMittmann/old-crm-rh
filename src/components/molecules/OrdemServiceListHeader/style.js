@@ -19,41 +19,37 @@ export const HeaderContainer = styled.div`
 
 export const ListHeaderProfessional = styled.div`
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  width: 25%;
+  width: 32%;
+  margin-left: -2em;
 `;
 
 export const ListHeaderCNPJ = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 25%;
+  position: relative;
+  width: 30%;
+  margin-left:3em;
 `;
 
-export const ListHeaderNumberOs = styled.div`
+export const ListHeadeSalarioOs = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 30%;
+  width: 28%;
+  margin-left: -0.7em;
 `;
 
 export const ListHeaderComission = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 25%;
-`;
-
-export const ListHeaderEmail = styled.div`
-  display: flex;
   align-items: center;
   width: 18%;
+  margin-left: 5em;
 `;
+
 
 export const ListHeaderTotal = styled.div`
   display: flex;
   align-items: center;
-  justify-content:center;
-  width: 25%;
+  width: 19%;
+  margin-left: 3.5em;
 `;
