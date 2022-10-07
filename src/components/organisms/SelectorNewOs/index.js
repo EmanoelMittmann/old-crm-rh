@@ -61,8 +61,9 @@ const NewOrdemService = () => {
             setHaveCommissionMeta(res.data.meta);
           }
         });
+
       } catch (err) { }
-    }
+
   };
 
   const filteredProfessionals = () => {
@@ -129,43 +130,43 @@ const NewOrdemService = () => {
           </ContainerIconModal>
           <TitleOS>Criar nova O.S</TitleOS>
         </ContainerButtonsHeader>
-        <ContainerButtons>
-          <CancelButton
-            margin="10px"
-            onClick={() => history.push("/serviceOrders")}
-          >
-            Cancelar
-          </CancelButton>
-          <BlueButton
-            width="108px"
-            height="40px"
-            onClick={() => {
-              if (checkedProfissional.length > 0) {
-                return handleSubmit(checkedProfissional);
-              } else {
-                return toast.error(
-                  <DefaultToast text={"Selecione os Profissionais!"} />
-                );
-              }
-            }}
-          >
-            Confirmar
-          </BlueButton>
-          {Modal && (
-            <ModalOrdemServices
-              checkedProfissional={checkedProfissional}
-              haveCommission={haveCommission}
-              setHaveCommission={setHaveCommission}
-              setPage={setPage}
-              page={page}
-              setCheckedProfissional={setCheckedProfissional}
-              newId={newId}
-              setNewId={setNewId}
-              haveCommissionMeta={haveCommissionMeta}
-              setHaveCommissionMeta={setHaveCommissionMeta}
-            />
-          )}
-        </ContainerButtons>
+      <ContainerButtons>
+        <CancelButton
+          margin="10px"
+          onClick={() => history.push("/serviceOrders")}
+        >
+          Cancelar
+        </CancelButton>
+        <BlueButton
+          width="108px"
+          height="40px"
+          onClick={() => {
+            if (checkedProfissional.length > 0) {
+              return handleSubmit(checkedProfissional);
+            } else {
+              return toast.error(
+                <DefaultToast text={"Selecione os Profissionais!"} />
+              );
+            }
+          }}
+        >
+          Confirmar
+        </BlueButton>
+        {Modal && (
+          <ModalOrdemServices
+            checkedProfissional={checkedProfissional}
+            haveCommission={haveCommission}
+            setHaveCommission={setHaveCommission}
+            setPage={setPage}
+            page={page}
+            setCheckedProfissional={setCheckedProfissional}
+            newId={newId}
+            setNewId={setNewId}
+            haveCommissionMeta={haveCommissionMeta}
+            setHaveCommissionMeta={setHaveCommissionMeta}
+          />
+        )}
+      </ContainerButtons>
       </ContainerButtonGeral>
 
       <Container>

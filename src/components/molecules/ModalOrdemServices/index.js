@@ -1,4 +1,5 @@
-import React, { useState} from "react";
+
+import React, { useState, useEffect } from "react";
 import CancelButton from "../../atoms/Buttons/CancelButton/style";
 import SaveButton from "../../atoms/Buttons/SaveButton/style";
 import FooterModais from "../../organisms/FooterModais";
@@ -104,7 +105,7 @@ export const ModalOrdemServices = ({
               dispatch(valueOfCommission(valuesCommission));
               dispatch(closeModal({ type: 'CLOSEMODAL' }));
             }
-            }
+
           >
             Confirmar
           </SaveButton>
