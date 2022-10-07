@@ -49,4 +49,14 @@ export const ProfessionalStatusOS = styled.div`
   width: 20%;
   justify-content: flex-start;
   padding-left: 0.7em;
+  
 `;
+
+export const ProfessionalTextStatus = styled.div`
+  background-color:${props => props.bg};
+  color:${props => props.text};
+  padding:3px 40px;
+  border-radius: 40px;
+  font-weight: 700;
+
+`
