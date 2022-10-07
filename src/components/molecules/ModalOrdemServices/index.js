@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import CancelButton from "../../atoms/Buttons/CancelButton/style";
 import SaveButton from "../../atoms/Buttons/SaveButton/style";
@@ -15,8 +16,7 @@ import {
 
 import Shelf from './list/shelf.js';
 import { closeModal, valueOfCommission } from '../../../redux/actions/index.js';
-import { toast } from 'react-toastify';
-import { DefaultToast } from '../../atoms/Toast/DefaultToast';
+
 
 export const ModalOrdemServices = ({
   haveCommission,
@@ -39,7 +39,7 @@ export const ModalOrdemServices = ({
       );
       setValuesCommission([...newCommission, object]);
 
-    }  else {
+    } else {
       setValuesCommission([...valuesCommission, object]);
     }
   };
@@ -76,7 +76,7 @@ export const ModalOrdemServices = ({
             <h6>Profissional</h6>
             <h6>Comissão</h6>
           </TitleComissionProfessional>
-          
+
           {haveCommission?.map((professional) => (
             <Shelf
               key={professional.id}
@@ -86,14 +86,14 @@ export const ModalOrdemServices = ({
             />
           ))}
         </ContainerAbsolute>
-          <FooterModais
-            previousPage={previousPage}
-            nextPage={nextPage}
-            lastPage={haveCommissionMeta?.last_page}
-            currentPage={haveCommissionMeta?.current_page}
-            firstPage={haveCommissionMeta?.first_page}
-          />
-      
+        <FooterModais
+          previousPage={previousPage}
+          nextPage={nextPage}
+          lastPage={haveCommissionMeta?.last_page}
+          currentPage={haveCommissionMeta?.current_page}
+          firstPage={haveCommissionMeta?.first_page}
+        />
+
         <ModalContainerButtons>
           <CancelButton
             onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
@@ -102,11 +102,11 @@ export const ModalOrdemServices = ({
           </CancelButton>
           <SaveButton
             onClick={() => {
-                dispatch(valueOfCommission(valuesCommission));
-                dispatch(closeModal({ type: 'CLOSEMODAL' }));
+              dispatch(valueOfCommission(valuesCommission));
+              dispatch(closeModal({ type: 'CLOSEMODAL' }));
             }
           }
-          >
+            >
             Confirmar
           </SaveButton>
         </ModalContainerButtons>

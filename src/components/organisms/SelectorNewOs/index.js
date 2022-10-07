@@ -61,16 +61,18 @@ const NewOrdemService = () => {
             setHaveCommissionMeta(res.data.meta);
           }
         });
+      
       } catch (err) {}
     }
-  };
-   
+  }
+  
+
   const filteredProfessionals = () => {
     const updateProfissional = professionals.map((item) => {
       const search = ValueCommission.find((obj) => obj.id === item.id);
       if (search) {
         return { ...item, value: search.value };
-  }
+      }
       return item;
     });
     setProfessionals(updateProfissional);
@@ -123,11 +125,11 @@ const NewOrdemService = () => {
   return (
     <>
       <ContainerButtonGeral>
-      <ContainerButtonsHeader>
-      <ContainerIconModal>
-        <ArrowBackNew onClick={() => history.push('/serviceOrders')} />
-      </ContainerIconModal>
-      <TitleOS>Criar nova O.S</TitleOS>
+        <ContainerButtonsHeader>
+          <ContainerIconModal>
+            <ArrowBackNew onClick={() => history.push('/serviceOrders')} />
+          </ContainerIconModal>
+          <TitleOS>Criar nova O.S</TitleOS>
         </ContainerButtonsHeader>
       <ContainerButtons>
         <CancelButton
@@ -167,7 +169,7 @@ const NewOrdemService = () => {
         )}
       </ContainerButtons>
       </ContainerButtonGeral>
-     
+
       <Container>
         <InputSearch
           setSearchResult={setSearchResult}

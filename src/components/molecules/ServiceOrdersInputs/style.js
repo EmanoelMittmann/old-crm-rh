@@ -2,10 +2,9 @@ import styled from "styled-components";
 
 
 export const ContainerInput = styled.div`
-    width: 40%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    margin: 0em 1em 0em 0em ;
+    gap: 15px;
     `
 export const ContainerSelectDate = styled.div`
     width: 40%;
@@ -16,5 +15,7 @@ export const ContainerSelectDate = styled.div`
 export const ContainerStyleOS = styled.div`
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+
+
     `
