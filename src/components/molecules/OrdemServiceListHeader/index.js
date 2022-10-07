@@ -4,7 +4,7 @@ import {
   ListHeaderCNPJ,
   ListHeaderComission,
   HeaderContainer,
-  ListHeaderNumberOs,
+  ListHeadeSalarioOs,
   ListHeaderProfessional,
   ListHeaderTotal,
 } from "./style";
@@ -23,10 +23,10 @@ const OrdemServiceHeader = ({sortByName}) => {
         <Arrows onClick={sortByName} />
       </ListHeaderCNPJ>
 
-      <ListHeaderNumberOs>
+      <ListHeadeSalarioOs>
         <ListHeaderTitle>Salário</ListHeaderTitle>
         <Arrows onClick={sortByName} />
-      </ListHeaderNumberOs>
+      </ListHeadeSalarioOs>
 
       <ListHeaderComission>
         <ListHeaderTitle>Comissão</ListHeaderTitle>

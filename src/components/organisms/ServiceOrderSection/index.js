@@ -5,6 +5,7 @@ import api from '../../../api/api'
 import { useLocation } from 'react-router';
 import ServiseOrdersListHeader from '../../molecules/ServiceOrdersListHeader'
 import ServiceOrderListItens from '../../molecules/ServisesOrderListItens'
+import { ContainerHeight } from './style';
 
 
 const ServiceOrderSection = () => {
@@ -37,7 +38,7 @@ const ServiceOrderSection = () => {
   const getOsProfessionals = async () => {
     const { data } = await api({
       method: 'get',
-      url: `/orderOfService?limit=5`,
+      url: `/orderOfService?limit=10`,
       params: params,
     });
 
@@ -66,10 +67,12 @@ const ServiceOrderSection = () => {
   return (
     <>
       <ServiseOrdersListHeader sortByName={sortByName} />
+      <ContainerHeight >
       {professionals.map((professional) =>
         <ServiceOrderListItens
           key={professional.id}
           professional={professional} />)}
+      </ContainerHeight>
       <Footer
         previousPage={previousPage}
         nextPage={nextPage}

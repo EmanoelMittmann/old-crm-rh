@@ -22,3 +22,8 @@ export const ContainerListItemO_S = styled.div`
     width: 20%;
     padding-left: 3em;
 `
+
+
+export const ContainerHeight = styled.div`
+    height: 640px;
+    `
