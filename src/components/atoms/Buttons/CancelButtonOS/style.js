@@ -6,7 +6,7 @@ const CancelButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color:#E5E5E5;
+    background-color:#f4f6f8;
     color: #212B36;
     font-family: "Poppins", sans-serif;
     font-size: 0.84rem;
