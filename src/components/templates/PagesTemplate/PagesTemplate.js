@@ -11,11 +11,11 @@ import {
 import Header from '../../organisms/Header';
 import PagesContainer from '../../organisms/PagesContainer/styled';
 
-import { Container } from './style';
+import { Container, ContainerButtons } from './style';
 
 export const PagesTemplate = (props) => {
   const history = useHistory(props);
-  const { name, icon, hasButton, buttonText, buttonPath, isRegisterPage } =
+  const { name, icon, hasButton, buttonText, buttonPath, isRegisterPage, secondButton, secondButtonText, secondButtonPath } =
     props.template;
 
   if (!isRegisterPage)
@@ -27,6 +27,7 @@ export const PagesTemplate = (props) => {
             <SectionTitleIcon>{icon}</SectionTitleIcon>
             <SectionTitle>{name}</SectionTitle>
           </SectionTitleContainer>
+          <ContainerButtons>
 
           {hasButton ? (
             <DarkButton
@@ -40,7 +41,21 @@ export const PagesTemplate = (props) => {
           ) : (
             <></>
           )}
+          {secondButton ? (
+            <DarkButton
+              onClick={() => history.push(secondButtonPath)}
+              width="200px"
+              height="42px"
+              margin="0 5% 0 0"
+            >
+            {secondButtonText}
+            </DarkButton>
+          ) : (
+            <></>
+          )}
+          </ContainerButtons>
         </Container>
+     
         {props.children}
       </PagesContainer>
     );

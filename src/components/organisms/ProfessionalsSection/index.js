@@ -7,6 +7,7 @@ import ProfessionalsInputs from '../../molecules/ProfessionalsInputs';
 import { ProfessionalsSectionContainer } from './style';
 import ProfessionalsListHeader from '../../atoms/ProfessionalsListHeader';
 import ProfessionalsListItem from '../../molecules/ProfessionalsListItem';
+import {Container} from '../../atoms/Container'
 
 const ProfessionalsSection = () => {
   const location = useLocation();
@@ -74,7 +75,7 @@ const ProfessionalsSection = () => {
   };
 
   return (
-    <ProfessionalsSectionContainer>
+    <Container>
       <ProfessionalsInputs
         setSearchResult={setSearchResult}
         setJobSelected={setJobSelected}
@@ -96,7 +97,7 @@ const ProfessionalsSection = () => {
         firstPage={professionalMeta.first_page}
         lastPage={professionalMeta.last_page}
       />
-    </ProfessionalsSectionContainer>
+    </Container>
   );
 };
 

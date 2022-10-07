@@ -1,37 +1,46 @@
 import React from 'react'
-import InputDate from '../../atoms/InputDate'
 import InputSearch from '../../atoms/InputSearch'
 import InputSelect from '../../atoms/InputSelect'
-import { ContainerInput, ContainerSelectDate, ContainerStyleOS } from './style'
+import { ContainerInput, ContainerStyleOS } from './style'
+import InputWidthLabel from '../../atoms/InputWithLabel'
+import InputDate from '../../atoms/InputDate'
 
 
 
 const ServiceOrdersInput = () => {
 
     return (
-<ContainerStyleOS>
-        <ContainerInput>
-            <InputSearch lineWidth="230px" inputWidth="210px" />
-            <InputSelect
-                value=""
-                onChange=""
-                placeHolder="Status"
-                width="230px"
-            />
-</ContainerInput>
-            <ContainerSelectDate >
-            <InputDate
-                width="210px"
-                padding="0 1em 0 0"
-                placeholder="Período inicial"
-            />
-            <InputDate
-                width="210px"
-                padding="0 1em 0 0"
-                placeholder="Período final"
-            />
-            </ContainerSelectDate>
-       </ContainerStyleOS > 
+        <ContainerStyleOS>
+            <ContainerInput>
+                <InputSearch
+                    lineWidth="280px"
+                    inputWidth="230px" />
+                <InputSelect
+                    value=""
+                    onChange=""
+                    placeHolder="Status"
+                    width="230px"
+                />
+                <InputDate
+                    value=""
+                    width="230px"
+                    placeholder="Período inicial"
+                    name=""
+                />
+                <InputDate
+                    value=""
+                    width="230px"
+                    placeholder="Período final"
+                    name=""
+                />
+                <InputDate
+                    value=""
+                    width="230px"
+                    placeholder='Referência'
+                    name=""
+                />
+            </ContainerInput>
+        </ContainerStyleOS >
 
     )
 }
