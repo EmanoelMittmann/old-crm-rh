@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const ContainerInput = styled.div`
     width: 100%;
     display: flex;
-    gap: 15px;
+    gap: 18px;
     `
 export const ContainerSelectDate = styled.div`
     width: 40%;

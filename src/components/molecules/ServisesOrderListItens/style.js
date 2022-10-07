@@ -16,13 +16,16 @@ export const ProfessionalName = styled.div`
 
 export const ProfessionalCNPJ = styled.div`
   display: flex;
-  width: 18%;
-  margin-left: 2em;
+  width: 25%;
+  padding-left: 3.5em;
+  justify-content: flex-start;
+
 `;
 
 export const DateGerationOS = styled.div`
   display: flex;
-  width: 20%;
+  width: 18%;
+  padding-left: 2em;
  
 
 `;
@@ -30,18 +33,20 @@ export const DateGerationOS = styled.div`
 export const NumberOS = styled.div`
   display: flex;
   width: 16%;
-  margin-left: 3em;
+    padding-left: 1em;
 `;
 
 export const ReferenceOS = styled.div`
   display: flex;
-  width: 15%;
-  margin-left: 2em;
+ width: 25%;
+  padding-left: 5em;
+ 
 
 `;
 
-export const ProfessionalStatusOS  = styled.div`
+export const ProfessionalStatusOS = styled.div`
   display: flex;
   width: 20%;
-  padding-left: 2em;
+  justify-content: flex-start;
+  padding-left: 0.7em;
 `;

@@ -16,6 +16,7 @@ import { toast } from 'react-toastify';
 import { DefaultToast } from '../../atoms/Toast/DefaultToast';
 import { closeModal, openModal, valueOfCommission } from '../../../redux/actions';
 import { ReactComponent as ArrowBackNew} from '../../../assets/icons/arrowBackNew.svg'
+import CancelButtonOs from '../../atoms/Buttons/CancelButtonOS/style'
 
 const NewOrdemService = () => {
   const [searchResult, setSearchResult] = useState("");
@@ -132,12 +133,12 @@ const NewOrdemService = () => {
           <TitleOS>Criar nova O.S</TitleOS>
         </ContainerButtonsHeader>
       <ContainerButtons>
-        <CancelButton
+          <CancelButtonOs
           margin="10px"
           onClick={() => history.push("/serviceOrders")}
         >
           Cancelar
-        </CancelButton>
+          </CancelButtonOs>
         <BlueButton
           width="108px"
           height="40px"

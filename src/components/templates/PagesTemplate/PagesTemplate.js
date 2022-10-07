@@ -28,7 +28,6 @@ export const PagesTemplate = (props) => {
             <SectionTitle>{name}</SectionTitle>
           </SectionTitleContainer>
           <ContainerButtons>
-
           {hasButton ? (
             <DarkButton
               onClick={() => history.push(buttonPath)}
@@ -41,7 +40,7 @@ export const PagesTemplate = (props) => {
           ) : (
             <></>
           )}
-          {secondButton ? (
+          {secondButton && (
             <DarkButton
               onClick={() => history.push(secondButtonPath)}
               width="200px"
@@ -50,12 +49,9 @@ export const PagesTemplate = (props) => {
             >
             {secondButtonText}
             </DarkButton>
-          ) : (
-            <></>
           )}
           </ContainerButtons>
         </Container>
-     
         {props.children}
       </PagesContainer>
     );

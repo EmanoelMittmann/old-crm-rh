@@ -13,7 +13,7 @@ const ServiceOrdersInput = () => {
         <ContainerStyleOS>
             <ContainerInput>
                 <InputSearch
-                    lineWidth="280px"
+                    lineWidth="310px"
                     inputWidth="230px" />
                 <InputSelect
                     value=""
