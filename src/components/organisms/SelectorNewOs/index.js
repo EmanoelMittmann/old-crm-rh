@@ -61,10 +61,11 @@ const NewOrdemService = () => {
             setHaveCommissionMeta(res.data.meta);
           }
         });
-
-      } catch (err) { }
-
-  };
+      
+      } catch (err) {}
+    }
+  }
+  
 
   const filteredProfessionals = () => {
     const updateProfissional = professionals.map((item) => {

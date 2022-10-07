@@ -105,8 +105,8 @@ export const ModalOrdemServices = ({
               dispatch(valueOfCommission(valuesCommission));
               dispatch(closeModal({ type: 'CLOSEMODAL' }));
             }
-
-          >
+          }
+            >
             Confirmar
           </SaveButton>
         </ModalContainerButtons>

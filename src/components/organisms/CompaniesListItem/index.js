@@ -41,7 +41,7 @@ const CompaniesListItem = ({ corporation }) => {
     dispatch(showEnableDisable(true));
     history.push(`/companies/${corporation.id}`);
   };
-  console.log(corporation)
+
   return (
     <ContainerCompaniesListItem>
       <CompanyRazaoSocial>{corporation.razao_social}</CompanyRazaoSocial>
