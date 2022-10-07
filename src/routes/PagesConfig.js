@@ -6,8 +6,8 @@ export const templates = [
     name: "Inicio",
     hasButton: false,
     buttonText: "",
-    buttonPath: "", 
-    icon: <HomeIcon/> ,
+    buttonPath: "",
+    icon: <HomeIcon />,
     isRegisterPage: false,
     path: "/home"
   },
@@ -17,7 +17,7 @@ export const templates = [
     hasButton: true,
     buttonText: "Cadastrar novo",
     buttonPath: "/professional",
-    icon: <JobIcon/>,
+    icon: <JobIcon />,
     isRegisterPage: false,
     path: "/professionals"
   },
@@ -27,7 +27,7 @@ export const templates = [
     hasButton: true,
     buttonText: "Cadastrar novo",
     buttonPath: "/project",
-    icon: <ProjectsIcon/>,
+    icon: <ProjectsIcon />,
     isRegisterPage: false,
     path: "/projects"
   },
@@ -37,7 +37,7 @@ export const templates = [
     hasButton: false,
     buttonText: "",
     buttonPath: "",
-    icon: <OvertimeIcon/>,
+    icon: <OvertimeIcon />,
     isRegisterPage: false,
     path: "/overtime"
   },
@@ -47,7 +47,7 @@ export const templates = [
     hasButton: false,
     buttonText: "",
     buttonPath: "",
-    icon: <InvoiceIcon/>,
+    icon: <InvoiceIcon />,
     isRegisterPage: false,
     path: "/invoice"
   },
@@ -57,7 +57,7 @@ export const templates = [
     hasButton: false,
     buttonText: "",
     buttonPath: "",
-    icon: <ReportsIcon/>,
+    icon: <ReportsIcon />,
     isRegisterPage: false,
     path: "/reports"
   },
@@ -67,17 +67,21 @@ export const templates = [
     hasButton: true,
     buttonText: "Criar nova O.S.",
     buttonPath: "/NewOs",
-    icon: <ServiceOrdersIcon/>,
+    secondButton:true,
+    secondButtonText: "Gerar O.S.",
+    secondButtonPath:'/NewOs',
+    icon: <ServiceOrdersIcon />,
     isRegisterPage: false,
-    path: "/serviceOrders"
+    path: "/serviceOrders",
   },
+
   {
     id: 8,
     name: "Configurações",
     hasButton: false,
     buttonText: "",
     buttonPath: "",
-    icon: <SettingsIcon/>,
+    icon: <SettingsIcon />,
     isRegisterPage: false,
     path: "/job"
   },
@@ -87,7 +91,7 @@ export const templates = [
     hasButton: false,
     buttonText: "",
     buttonPath: "",
-    icon: <SettingsIcon/>,
+    icon: <SettingsIcon />,
     isRegisterPage: false,
     path: "/projectType"
   },
@@ -97,7 +101,7 @@ export const templates = [
     hasButton: false,
     buttonText: "",
     buttonPath: "",
-    icon: <SettingsIcon/>,
+    icon: <SettingsIcon />,
     isRegisterPage: false,
     path: "/projectStatus"
   },
@@ -107,7 +111,7 @@ export const templates = [
     hasButton: true,
     buttonText: "Novo lançamento",
     buttonPath: "/releaseHours",
-    icon: <OvertimeIcon/>,
+    icon: <OvertimeIcon />,
     isRegisterPage: false,
     path: "/timeSending"
   },
@@ -117,7 +121,7 @@ export const templates = [
     hasButton: true,
     buttonText: "Enviar NF",
     buttonPath: "/invoiceUpload",
-    icon: <InvoiceIcon/>,
+    icon: <InvoiceIcon />,
     isRegisterPage: false,
     path: "/invoiceSending"
   },
@@ -127,7 +131,7 @@ export const templates = [
     hasButton: false,
     buttonText: "",
     buttonPath: "",
-    icon: <SettingsIcon/>,
+    icon: <SettingsIcon />,
     isRegisterPage: false,
     path: "/occupation"
   },
@@ -137,17 +141,18 @@ export const templates = [
     hasButton: true,
     buttonText: "Cadastrar Nova",
     buttonPath: "/Companies",
-    icon:<ProjectsIcon/>,
+    icon: <ProjectsIcon />,
     isRegisterPage: false,
     path: "/Company"
   },
+
 ]
 
 export const noTemplate = {
-    name: "Sem template",
-    hasButton: false,
-    buttonText: "",
-    buttonPath: "",
-    icon: <></>,
-    isRegisterPage: true,
+  name: "Sem template",
+  hasButton: false,
+  buttonText: "",
+  buttonPath: "",
+  icon: <></>,
+  isRegisterPage: true,
 }

@@ -2,12 +2,12 @@ import React from 'react'
 import {
     ListHeaderName,
     ListHeaderCNPJ,
-    ListHeaderEmail,
+    ListHeaderRef,
     ListHeaderdate,
     ListHeaderNumbersOS,
     ListHeaderStatus
 } from './style.js'
-import { ListHeaderContainer, ListHeaderTitle } from '../ListHeader/style'
+import { ListHeaderContainer, ListHeaderTitle } from '../../atoms/ListHeader/style'
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
 
 const ServiseOrdersListHeader = ({ sortByName }) => {
@@ -24,18 +24,18 @@ const ServiseOrdersListHeader = ({ sortByName }) => {
             </ListHeaderCNPJ>
 
             <ListHeaderNumbersOS>
-                <ListHeaderTitle margin="0" >Número da OS</ListHeaderTitle>
+                <ListHeaderTitle margin="0" >N° da OS</ListHeaderTitle>
                 <Arrows onClick={sortByName} />
             </ListHeaderNumbersOS>
             <ListHeaderdate>
-                <ListHeaderTitle margin="0" >Data de geração da OS</ListHeaderTitle>
+                <ListHeaderTitle margin="0" >Geração da OS</ListHeaderTitle>
                 <Arrows onClick={sortByName} />
             </ListHeaderdate>
 
-            <ListHeaderEmail>
-                <ListHeaderTitle margin="0">Email</ListHeaderTitle>
+            <ListHeaderRef>
+                <ListHeaderTitle margin="0">Referência</ListHeaderTitle>
                 <Arrows onClick={sortByName} />
-            </ListHeaderEmail>
+            </ListHeaderRef>
 
 
             <ListHeaderStatus>

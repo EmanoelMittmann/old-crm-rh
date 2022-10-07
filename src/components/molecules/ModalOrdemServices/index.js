@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import CancelButton from '../../atoms/Buttons/CancelButton/style';
-import SaveButton from '../../atoms/Buttons/SaveButton/style';
-import FooterModais from '../../organisms/FooterModais';
-import { useDispatch, useSelector } from 'react-redux';
-import CloseButtonCircle from '../../atoms/Buttons/CloseButtonCircle';
-import { ModalTitle, ModalOverlay } from '../Modal/style.js';
+import React, { useState} from "react";
+import CancelButton from "../../atoms/Buttons/CancelButton/style";
+import SaveButton from "../../atoms/Buttons/SaveButton/style";
+import FooterModais from "../../organisms/FooterModais";
+import { useDispatch, useSelector } from "react-redux";
+import CloseButtonCircle from "../../atoms/Buttons/CloseButtonCircle";
+import { ModalTitle, ModalOverlay } from "../Modal/style.js";
 
 import {
   ModalContainerButtons,
@@ -15,8 +15,7 @@ import {
 
 import Shelf from './list/shelf.js';
 import { closeModal, valueOfCommission } from '../../../redux/actions/index.js';
-import { toast } from 'react-toastify';
-import { DefaultToast } from '../../atoms/Toast/DefaultToast';
+
 
 export const ModalOrdemServices = ({
   haveCommission,
@@ -39,7 +38,7 @@ export const ModalOrdemServices = ({
       );
       setValuesCommission([...newCommission, object]);
 
-    }  else {
+    } else {
       setValuesCommission([...valuesCommission, object]);
     }
   };
@@ -68,7 +67,7 @@ export const ModalOrdemServices = ({
     <div>
       <ModalContainerProfessional>
         <CloseButtonCircle
-          onClick={() => dispatch(closeModal({ type: 'CLOSEMODAL' }))}
+          onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
         />
         <ContainerAbsolute>
           <ModalTitle padding="1em">Confirmar Comissões</ModalTitle>
@@ -76,7 +75,7 @@ export const ModalOrdemServices = ({
             <h6>Profissional</h6>
             <h6>Comissão</h6>
           </TitleComissionProfessional>
-          
+
           {haveCommission?.map((professional) => (
             <Shelf
               key={professional.id}
@@ -86,32 +85,26 @@ export const ModalOrdemServices = ({
             />
           ))}
         </ContainerAbsolute>
-          <FooterModais
-            previousPage={previousPage}
-            nextPage={nextPage}
-            lastPage={haveCommissionMeta?.last_page}
-            currentPage={haveCommissionMeta?.current_page}
-            firstPage={haveCommissionMeta?.first_page}
-          />
-      
+        <FooterModais
+          previousPage={previousPage}
+          nextPage={nextPage}
+          lastPage={haveCommissionMeta?.last_page}
+          currentPage={haveCommissionMeta?.current_page}
+          firstPage={haveCommissionMeta?.first_page}
+        />
+
         <ModalContainerButtons>
           <CancelButton
-            onClick={() => dispatch(closeModal({ type: 'CLOSEMODAL' }))}
+            onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
           >
             Cancelar
           </CancelButton>
           <SaveButton
             onClick={() => {
-              if (valuesCommission === '' || valuesCommission < '0') {
-                toast.error(<DefaultToast text={'Exclua o Campo ou inclua um valor maior que 0'} />)
-              }else{
-                dispatch(valueOfCommission(valuesCommission));
-                dispatch(closeModal({ type: 'CLOSEMODAL' }));
-
-              }
-
+              dispatch(valueOfCommission(valuesCommission));
+              dispatch(closeModal({ type: 'CLOSEMODAL' }));
             }
-          }
+            }
           >
             Confirmar
           </SaveButton>
