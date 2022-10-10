@@ -43,6 +43,7 @@ export const ModalOrdemServices = ({
   };
 
   const nextPage = () => {
+    dispatch(valueOfCommission(valuesCommission));
     if (page === haveCommissionMeta.last_page) {
       return setPage(page);
     }
