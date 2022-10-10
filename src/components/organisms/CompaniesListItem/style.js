@@ -59,3 +59,14 @@ export const ComapaniesListOptions = styled.div`
     fill: ${(props) => props.optionsColor};
   }
 `;
+
+export const CompanyTextStatus = styled.div`
+  background-color:${props => props.bg};
+  width: 150px;
+  height: 30px;
+  color:${props => props.text};
+  padding:0.2em 7em 1em 2.3em;
+  border-radius: 15px;
+  font-weight: 700;
+
+`
