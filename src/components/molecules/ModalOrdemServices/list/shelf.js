@@ -10,8 +10,8 @@ import { DefaultToast } from '../../../atoms/Toast/DefaultToast';
 import { toast } from 'react-toastify';
 
 const Shelf = ({ professional, handleDelete, AddOrUpdate, validatorError }) => {
-  const teste = useSelector((state) => state.valueOfCommission);
-  const isExist = teste.find((item) => item.id === professional.id);
+  const state = useSelector((state) => state.valueOfCommission);
+  const isExist = state.find((item) => item.id === professional.id);
   const [commission, setCommission] = useState(!!isExist ? isExist.value : '');
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const Shelf = ({ professional, handleDelete, AddOrUpdate, validatorError }) => {
         </ContainerLabelProfessional>
         <InputWithLabel
           onChange={(e) => setCommission(e.target.value)}
-          key={teste.id}
+          key={state.id}
           value={commission}
           width="100%"
           label="R$ 0.00"
