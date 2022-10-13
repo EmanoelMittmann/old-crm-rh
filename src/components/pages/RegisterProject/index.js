@@ -96,7 +96,7 @@ const RegisterProject = (props) => {
                 .replace(',', '.'),
             },
       })
-        .then((response) => {
+        .then(() => {
           toast.success(<DefaultToast text="Projeto salvo!" />);
           goBackClickHandler();
         })

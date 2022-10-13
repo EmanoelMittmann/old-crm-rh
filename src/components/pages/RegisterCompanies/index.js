@@ -26,6 +26,7 @@ export const RegisterCompanies = () => {
   const { id } = useParams();
   const [uniqueCEP, setUniqueCEP] = useState();
   const [errors, setErrors] = useState();
+  const history = useHistory();
   const isDisable = useSelector((state) => state.disableEditor);
 
   const schema = Yup.object().shape({
@@ -110,7 +111,7 @@ export const RegisterCompanies = () => {
               ...values,
             },
       })
-        .then((result) => {
+        .then(() => {
           toast.success(<DefaultToast text="Empresa cadastrada." />, {
             toastId: "post",
           });
@@ -155,15 +156,14 @@ export const RegisterCompanies = () => {
       });
   };
 
-  const history = useHistory();
 
   const goBackClickHandler = () => {
     history.push("/Company");
   };
 
-  useEffect(() => {
+  useEffect(async () => {
     if (id) {
-      api({
+      await api({
         method: "get",
         url: `/companies/${id}`,
       })
