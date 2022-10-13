@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Badge,
   ContainerIconOptions,
 } from '../../molecules/ProfessionalsListItem/style';
 import {
@@ -12,6 +11,7 @@ import {
   CompanySituation,
   CompanyUF,
   ContainerCompaniesListItem,
+  CompanyTextStatus,
 } from './style';
 import { ReactComponent as OptionsIcon } from '../../../assets/icons/options.svg';
 import { useState } from 'react';
@@ -26,6 +26,19 @@ const CompaniesListItem = ({ corporation }) => {
   const [optionClicked, setOptionClicked] = useState();
   const [menuOptionsisClicked, setMenuOptionsisClicked] = useState(false);
   const dispatch = useDispatch();
+  const tranformStatusCompany = 
+    corporation.registration_status === 'ACTIVE' ? 'Ativa' : 
+      corporation.registration_status === 'SUSPENDED' ? 'Suspensa' : 
+        corporation.registration_status === 'NULL' ? 'Nula': 'Baixada'
+  const colorBg = 
+    corporation.registration_status === 'ACTIVE' ? '#ddf7e5' : 
+      corporation.registration_status === 'SUSPENDED' ? '#fff3d9' : 
+        corporation.registration_status === 'NULL' ? '#F5F5F5' : '#FFE1E3'
+  const colorText = 
+    corporation.registration_status === 'ACTIVE' ? '#1ECB4F' : 
+      corporation.registration_status === 'SUSPENDED' ? '#FFAE00' :  
+        corporation.registration_status === 'NULL' ? '#000000' : '#FF3541'
+
 
   const menuOptionsClicked = (companyId) => {
     setMenuOptionsisClicked(!menuOptionsisClicked);
@@ -50,15 +63,9 @@ const CompaniesListItem = ({ corporation }) => {
       <CompanyCity>{corporation.city_name}</CompanyCity>
       <CompanyUF>{corporation.uf}</CompanyUF>
       <CompanySituation>
-        {corporation.is_active === true ? (
-          <Badge bg="#E4F8DD" color="#229A16">
-            Parado
-          </Badge>
-        ) : (
-          <Badge bg="#FFE2E1" color="#BB2B3F">
-            Parado
-          </Badge>
-        )}
+        <CompanyTextStatus bg={colorBg} text={colorText}>
+          {tranformStatusCompany}
+        </CompanyTextStatus>
       </CompanySituation>
       <ComapaniesListOptions
         optionsColor={

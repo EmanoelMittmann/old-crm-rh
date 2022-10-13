@@ -16,6 +16,7 @@ const CompaniesList = () => {
   const [uf, setUf] = useState('');
   const [companies, setCompanies] = useState([]);
   const [order, setOrder] = useState('');
+  const [selectedStatusCompany, setSelectedStatusCompany] = useState('')
 
   let params = {};
 
@@ -32,7 +33,7 @@ const CompaniesList = () => {
   const handleFilterCompanies = async () => {
     const { data } = await api({
       method: 'GET',
-      url: `/findCompanies?razao_social=${searchResult}&uf=${uf}&cnpj=${searchResult}&city_name=${searchResult}`,
+      url: `/findCompanies?razao_social=${searchResult}&uf=${uf}&cnpj=${searchResult}&city_name=${searchResult}&status=${selectedStatusCompany}`,
       params: params,
     });
     setCompanies(data.data);
@@ -71,12 +72,14 @@ const CompaniesList = () => {
     if (order !== '') params.order = order;
   };
 
+  console.log(selectedStatusCompany)
+
   useEffect(() => {
     handleFilterRequest();
 
-    searchResult || uf ? handleFilterCompanies(searchResult, uf) : getCompany();
+    searchResult || uf || selectedStatusCompany ?  handleFilterCompanies(searchResult, uf, selectedStatusCompany) : getCompany();
     location.state && setCompanies(location.state.companies.data);
-  }, [order, searchResult, uf]);
+  }, [order, searchResult, uf, selectedStatusCompany]);
 
   return (
     <Container>
@@ -84,6 +87,7 @@ const CompaniesList = () => {
         setSearchResult={setSearchResult}
         setUf={setUf}
         uf={uf}
+        setSelectedStatusCompany={setSelectedStatusCompany}
       />
       <CompaniesListHeader OrderForList={OrderForList} />
       {companies?.map((corporation) => (

@@ -4,7 +4,7 @@ import Footer from '../Footer'
 import api from '../../../api/api'
 import { useLocation } from 'react-router';
 import ServiseOrdersListHeader from '../../molecules/ServiceOrdersListHeader'
-import ServiceOrderListItens from '../../molecules/ServisesOrderListItens'
+import ServiceOrderListItens from '../../molecules/ServicesOrderListItens'
 import { ContainerHeight } from './style';
 
 
