@@ -22,6 +22,7 @@ import { cleanMask } from "../../utils/cleanMask";
 import { getDate } from "../../utils/getDate";
 import { messages } from "../../../settings/YupValidates";
 import { handleErrorMessages } from "../../utils/handleErrorMessages";
+import { handleCEP } from "../../utils/validateCep";
 
 const RegisterProfessional = () => {
   const [jobs, setJobs] = useState([]);
@@ -75,7 +76,14 @@ const RegisterProfessional = () => {
           values.country == "Brazil"
         ) {
           setUniqueCEP(values.cep);
-          handleCEP(values.cep);
+          handleCEP(values.cep).then((data) => {
+          if (data.data.erro) return setFieldError("cep", "Cep Invalido!");
+          const { bairro, localidade, logradouro, uf } = data.data;
+          if (localidade) setFieldValue("city_name", localidade);
+          if (uf) setFieldValue("uf", uf);
+          if (logradouro) setFieldValue("street_name", logradouro);
+          if (bairro) setFieldValue("neighbourhood_name", bairro);
+        });
         }
         return true;
       }),
@@ -113,7 +121,17 @@ const RegisterProfessional = () => {
             values.professional_data.company_cep !== anotherCep
           ) {
             setAnotherCEP(values.professional_data.company_cep);
-            handleCEPJudiacy(values.professional_data.company_cep);
+            handleCEP(values.professional_data.company_cep).then(data => {
+            if (data.data.erro) return setFieldError("cep", "Cep Invalido!");
+            const { bairro, localidade, logradouro, uf } = data.data;
+            if (localidade)
+              setFieldValue("professional_data.company_city_name", localidade);
+            if (uf) setFieldValue("professional_data.uf_company", uf);
+            if (logradouro)
+              setFieldValue("professional_data.company_street_name", logradouro);
+            if (bairro)
+              setFieldValue("professional_data.company_neighborhood_name", bairro);
+            })
           }
           return true;
         }),
@@ -249,50 +267,6 @@ const RegisterProfessional = () => {
 
   const { values, setFieldValue, setFieldError, setErrors } = formik;
 
-  const handleCEP = async (cep) => {
-    await axios
-      .get(`https://viacep.com.br/ws/${cep}/json/`, {
-        transformRequest: (data, headers) => {
-          delete headers.common;
-          return data;
-        },
-      })
-      .then((data) => {
-        if (data.data.erro) return setFieldError("cep", "Cep Invalido!");
-        const { bairro, localidade, logradouro, uf } = data.data;
-        if (localidade) setFieldValue("city_name", localidade);
-        if (uf) setFieldValue("uf", uf);
-        if (logradouro) setFieldValue("street_name", logradouro);
-        if (bairro) setFieldValue("neighbourhood_name", bairro);
-      })
-      .catch((error) => {
-        toast.error(<DefaultToast text={error.message} />);
-      });
-  };
-
-  const handleCEPJudiacy = async (company_cep) => {
-    await axios
-      .get(`https://viacep.com.br/ws/${company_cep}/json/`, {
-        transformRequest: (data, headers) => {
-          delete headers.common;
-          return data;
-        },
-      })
-      .then((data) => {
-        const { bairro, localidade, logradouro, uf } = data.data;
-        if (localidade)
-          setFieldValue("professional_data.company_city_name", localidade);
-        if (uf) setFieldValue("professional_data.uf_company", uf);
-        if (logradouro)
-          setFieldValue("professional_data.company_street_name", logradouro);
-        if (bairro)
-          setFieldValue("professional_data.company_neighborhood_name", bairro);
-      })
-      .catch((error) => {
-        toast.error(<DefaultToast text={error.message} />);
-      });
-  };
-
   const reloadProjects = useCallback(async () => {
     await api({
       method: "get",
@@ -300,7 +274,7 @@ const RegisterProfessional = () => {
     }).then((response) => {
       setProjects(response.data);
     });
-  },[]);
+  }, []);
 
   const validateCpf = async (cpf) => {
     const response = await api({
@@ -332,8 +306,8 @@ const RegisterProfessional = () => {
     setAllProjects(data.data);
   }, []);
 
-  function addProject(id_project, workload, extra_hours_limit) {
-    api({
+  async function addProject(id_project, workload, extra_hours_limit) {
+    await api({
       method: "post",
       url: `/userProjects/user/${id}`,
       data: {
@@ -346,7 +320,7 @@ const RegisterProfessional = () => {
         toast.success(<DefaultToast text="Projeto vinculado." />, {
           toastId: "post",
         });
-        reloadProjects()
+        reloadProjects();
       })
       .catch((error) => {
         toast.error(<DefaultToast text="Erro ao vincular projeto." />, {
@@ -355,8 +329,8 @@ const RegisterProfessional = () => {
       });
   }
 
-  function removeProject(project) {
-    api({
+  async function removeProject(project) {
+    await api({
       method: "delete",
       url: `/userProjects/user/${id}`,
       data: {
@@ -367,7 +341,7 @@ const RegisterProfessional = () => {
         toast.success(<DefaultToast text="Projeto removido." />, {
           toastId: "delete",
         });
-        reloadProjects()
+        reloadProjects();
       })
       .catch((error) => {
         toast.error(<DefaultToast text="Erro ao remover projeto." />, {
@@ -376,8 +350,8 @@ const RegisterProfessional = () => {
       });
   }
 
-  function editProject(project, workload, extra_hours_limit) {
-    api({
+  async function editProject(project, workload, extra_hours_limit) {
+    await api({
       method: "put",
       url: `/userProjects/user/${id}`,
       data: {
@@ -390,7 +364,7 @@ const RegisterProfessional = () => {
         toast.success(<DefaultToast text="Projeto atualizado." />, {
           toastId: "put",
         });
-        reloadProjects()
+        reloadProjects();
       })
       .catch((error) => {
         toast.error(<DefaultToast text="Erro ao atualizar projeto." />, {
@@ -398,11 +372,11 @@ const RegisterProfessional = () => {
         });
       });
   }
-  useEffect(() => {
+  useEffect(async() => {
     if (!jobs.length) optionsJob();
     if (!allProjects.length) getAllProjects();
     if (id) {
-      api({
+      await api({
         method: "get",
         url: `/user/${id}`,
       })
@@ -446,7 +420,7 @@ const RegisterProfessional = () => {
         .catch((error) => {
           new Error(error.message);
         });
-      reloadProjects()
+      reloadProjects();
     }
     return () => {
       setJobs([]);

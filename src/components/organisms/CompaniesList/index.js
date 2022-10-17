@@ -72,8 +72,6 @@ const CompaniesList = () => {
     if (order !== '') params.order = order;
   };
 
-  console.log(selectedStatusCompany)
-
   useEffect(() => {
     handleFilterRequest();
 

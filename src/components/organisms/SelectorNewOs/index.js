@@ -1,9 +1,9 @@
-import React from 'react';
-import { useState } from 'react';
-import api from '../../../api/api';
-import InputSearch from '../../atoms/InputSearch';
-import OrdemServiceHeader from '../../molecules/OrdemServiceListHeader';
-import OrdemServiceListItem from '../../molecules/OrdemServicesListItem';
+import React from "react";
+import { useState } from "react";
+import api from "../../../api/api";
+import InputSearch from "../../atoms/InputSearch";
+import OrdemServiceHeader from "../../molecules/OrdemServiceListHeader";
+import OrdemServiceListItem from "../../molecules/OrdemServicesListItem";
 import {
   Container,
   ScrollContainer,
@@ -12,28 +12,28 @@ import {
   TitleOS,
   ContainerButtonsHeader,
   ContainerButtonGeral,
-} from './style';
-import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { BlueButton } from '../../atoms/Buttons/BlueButton/style';
-import CancelButton from '../../atoms/Buttons/CancelButton/style';
-import { ModalOrdemServices } from '../../molecules/ModalOrdemServices';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
-import { DefaultToast } from '../../atoms/Toast/DefaultToast';
+} from "./style";
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { BlueButton } from "../../atoms/Buttons/BlueButton/style";
+import CancelButton from "../../atoms/Buttons/CancelButton/style";
+import { ModalOrdemServices } from "../../molecules/ModalOrdemServices";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { DefaultToast } from "../../atoms/Toast/DefaultToast";
 import {
   closeModal,
   openModal,
   valueOfCommission,
-} from '../../../redux/actions';
-import { ReactComponent as ArrowBackNew } from '../../../assets/icons/arrowBackNew.svg';
+} from "../../../redux/actions";
+import { ReactComponent as ArrowBackNew } from "../../../assets/icons/arrowBackNew.svg";
 
 const NewOrdemService = () => {
-  const [searchResult, setSearchResult] = useState('');
+  const [searchResult, setSearchResult] = useState("");
   const [professionals, setProfessionals] = useState([]);
   const [checkedProfissional, setCheckedProfissional] = useState([]);
-  const [order, setOrder] = useState('');
+  const [order, setOrder] = useState("");
   const [newId, setNewId] = useState([]);
   const [haveCommission, setHaveCommission] = useState([]);
   const [haveCommissionMeta, setHaveCommissionMeta] = useState({});
@@ -46,28 +46,29 @@ const NewOrdemService = () => {
   let params = {};
 
   const sortByName = () => {
-    order === '' && setOrder('desc');
-    order === 'asc' && setOrder('desc');
-    order === 'desc' && setOrder('asc');
+    order === "" && setOrder("desc");
+    order === "asc" && setOrder("desc");
+    order === "desc" && setOrder("asc");
   };
 
   const handleSubmit = async (data) => {
     if (checkedProfissional.length > 0) {
       try {
         await api({
-          method: 'POST',
+          method: "POST",
           url: `/findProfessionalCommission?page=${page}&limit=5`,
           data: data,
           params: params,
         }).then((res) => {
-          if (res.data.msg === 'Os criada com sucesso') {
-            dispatch(closeModal({ type: 'CLOSEMODAL' }));
-            history.push('/serviceOrders');
+          if (res.data.msg === "Os criada com sucesso") {
+            dispatch(closeModal({ type: "CLOSEMODAL" }));
+            history.push("/serviceOrders");
+            dispatch(valueOfCommission([]));
             return toast.success(
-              <DefaultToast text={'Os criada com sucesso'} />
+              <DefaultToast text={"Os criada com sucesso"} />
             );
           } else {
-            dispatch(openModal({ type: 'OPENMODAL' }));
+            dispatch(openModal({ type: "OPENMODAL" }));
             setHaveCommission(res.data.data);
             setHaveCommissionMeta(res.data.meta);
           }
@@ -108,7 +109,7 @@ const NewOrdemService = () => {
 
   const getProfessionals = async () => {
     const { data } = await api({
-      method: 'get',
+      method: "get",
       url: `/professionals/?limit=20&search=${searchResult}`,
     });
     setProfessionals(data.data);
@@ -123,11 +124,11 @@ const NewOrdemService = () => {
 
   useEffect(() => {
     if (haveCommission[1] !== undefined) {
-      handleSubmit(newId);
+      handleSubmit(newId.map((item) => ({ professional_id: item.professional_id })));
       setCheckedProfissional(newId);
     } else {
       setCheckedProfissional(newId);
-      dispatch(closeModal({ type: 'CLOSEMODAL' }));
+      dispatch(closeModal({ type: "CLOSEMODAL" }));
     }
   }, [newId]);
 
@@ -140,14 +141,21 @@ const NewOrdemService = () => {
       <ContainerButtonGeral>
         <ContainerButtonsHeader>
           <ContainerIconModal>
-            <ArrowBackNew onClick={() => history.push('/serviceOrders')} />
+            <ArrowBackNew onClick={() => {
+              history.push("/serviceOrders")
+              dispatch(valueOfCommission([]))
+            }}
+            />
           </ContainerIconModal>
           <TitleOS>Criar nova O.S</TitleOS>
         </ContainerButtonsHeader>
         <ContainerButtons>
           <CancelButton
             margin="10px"
-            onClick={() => history.push('/serviceOrders')}
+            onClick={() => {
+              history.push("/serviceOrders")
+              dispatch(valueOfCommission([]))
+            }}
           >
             Cancelar
           </CancelButton>
@@ -156,10 +164,10 @@ const NewOrdemService = () => {
             height="40px"
             onClick={() => {
               if (checkedProfissional.length > 0) {
-                return handleSubmit(checkedProfissional);
+                handleSubmit(checkedProfissional);
               } else {
                 return toast.error(
-                  <DefaultToast text={'Selecione os Profissionais!'} />
+                  <DefaultToast text={"Selecione os Profissionais!"} />
                 );
               }
             }}

@@ -1,28 +1,29 @@
-import React, { useState } from 'react';
-import CancelButton from '../../atoms/Buttons/CancelButton/style';
-import SaveButton from '../../atoms/Buttons/SaveButton/style';
-import FooterModais from '../../organisms/FooterModais';
-import { useDispatch, useSelector } from 'react-redux';
-import CloseButtonCircle from '../../atoms/Buttons/CloseButtonCircle';
-import { ModalTitle, ModalOverlay } from '../Modal/style.js';
+import React, { useState } from "react";
+import CancelButton from "../../atoms/Buttons/CancelButton/style";
+import SaveButton from "../../atoms/Buttons/SaveButton/style";
+import FooterModais from "../../organisms/FooterModais";
+import { useDispatch, useSelector } from "react-redux";
+import CloseButtonCircle from "../../atoms/Buttons/CloseButtonCircle";
+import { ModalTitle, ModalOverlay } from "../Modal/style.js";
 
 import {
   ModalContainerButtons,
   TitleComissionProfessional,
   ModalContainerProfessional,
   ContainerAbsolute,
-} from './style';
+} from "./style";
 
-import Shelf from './list/shelf.js';
-import { closeModal, valueOfCommission } from '../../../redux/actions/index.js';
-import { toast } from 'react-toastify';
-import { DefaultToast } from '../../atoms/Toast/DefaultToast';
+import Shelf from "./list/shelf.js";
+import { closeModal, valueOfCommission } from "../../../redux/actions/index.js";
+import { toast } from "react-toastify";
+import { DefaultToast } from "../../atoms/Toast/DefaultToast";
 
 export const ModalOrdemServices = ({
   haveCommission,
   haveCommissionMeta,
   setPage,
   page,
+  setCheckedProfissional,
   checkedProfissional,
   setNewId,
 }) => {
@@ -57,20 +58,24 @@ export const ModalOrdemServices = ({
       setPage(page - 1);
     }
   };
-
   const handleDelete = (professional) => {
     setNewId(
       checkedProfissional.filter(
         (item) => item.professional_id !== professional.id
       )
     );
+    setValuesCommission(
+      valuesCommission.filter(
+        (item) => item.id !== professional.id
+      )
+    );  
   };
 
   return (
     <div>
       <ModalContainerProfessional>
         <CloseButtonCircle
-          onClick={() => dispatch(closeModal({ type: 'CLOSEMODAL' }))}
+          onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
         />
         <ContainerAbsolute>
           <ModalTitle padding="1em">Confirmar Comissões</ModalTitle>
@@ -98,29 +103,26 @@ export const ModalOrdemServices = ({
 
         <ModalContainerButtons>
           <CancelButton
-            onClick={() => dispatch(closeModal({ type: 'CLOSEMODAL' }))}
+            onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
           >
             Cancelar
           </CancelButton>
           <SaveButton
             onClick={() => {
               const filterHaveCommission = checkedProfissional.filter(
-                (profissional) => profissional?.commission !== ''
+                (profissional) => profissional?.commission !== ""
               );
               const isEmptyCommision = valuesCommission.find(
                 (commission) => commission.value === ''
               );
-              if (
-                valuesCommission.length === filterHaveCommission.length &&
-                !isEmptyCommision
-              ) {
+              if (valuesCommission.length === filterHaveCommission.length && !isEmptyCommision) {
                 dispatch(valueOfCommission(valuesCommission));
-                dispatch(closeModal({ type: 'CLOSEMODAL' }));
+                dispatch(closeModal({ type: "CLOSEMODAL" }));
               } else {
                 return toast.error(
                   <DefaultToast
                     text={
-                      'Há Campo vazio! Exclua-o, ou inclua um valor maior que 0'
+                      "Há Campo vazio! Exclua-o, ou inclua um valor maior que 0"
                     }
                   />
                 );

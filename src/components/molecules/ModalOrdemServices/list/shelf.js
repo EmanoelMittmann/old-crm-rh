@@ -5,22 +5,11 @@ import InputWithLabel from '../../../atoms/InputWithLabel';
 import { ContainerWap } from '../style';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
-import { useEffect } from 'react';
-import { DefaultToast } from '../../../atoms/Toast/DefaultToast';
-import { toast } from 'react-toastify';
 
 const Shelf = ({ professional, handleDelete, AddOrUpdate, validatorError }) => {
   const state = useSelector((state) => state.valueOfCommission);
   const isExist = state.find((item) => item.id === professional.id);
   const [commission, setCommission] = useState(!!isExist ? isExist.value : '');
-
-  useEffect(() => {
-    if (commission < 0) {
-      return toast.error(
-        <DefaultToast text={'Valores Negativos não permitidos'} />
-      );
-    }
-  }, []);
 
   return (
     <>
