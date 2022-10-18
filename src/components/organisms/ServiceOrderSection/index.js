@@ -51,7 +51,7 @@ const ServiceOrderSection = () => {
   const getOsProfessionals = async (searchResult) => {
     const { data } = await api({
       method: 'get',
-      url: `/orderOfService?limit=10&search=${searchResult}&cnpj=${searchResult}&os_number=${searchResult}`,
+      url: `/orderOfService?limit=10&search=${searchResult}&cnpj=${searchResult}&os_number=${searchResult}&status=${statusSelected}`,
       params: params,
     });
 
@@ -70,9 +70,9 @@ const ServiceOrderSection = () => {
   };
 
   useEffect(() => {
-    getOsProfessionals(searchResult)
+    getOsProfessionals(searchResult, statusSelected)
     location.state && setProfessionals(location.state.professionals.data);
-  }, [order, searchResult]);
+  }, [order, searchResult, statusSelected]);
 
 
   console.log("professionals: ", professionals);
