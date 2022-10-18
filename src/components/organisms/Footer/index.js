@@ -8,7 +8,7 @@ import {
 } from './style.js'
 import { ReactComponent as Arrow } from '../../../assets/icons/arrow.svg'
 
-const Footer = ({ previousPage, nextPage, currentPage = 1, firstPage = 1, lastPage = 1 }) => {
+const Footer = ({ previousPage, height, border , nextPage, currentPage = 1, firstPage = 1, lastPage = 1 }) => {
 
     const RightArrowClickHandler = (e) => {
         if(currentPage === lastPage) return
@@ -21,7 +21,7 @@ const Footer = ({ previousPage, nextPage, currentPage = 1, firstPage = 1, lastPa
     }
 
     return (
-        <ContainerSettingsSectionFooter>
+        <ContainerSettingsSectionFooter height={height} border={border}>
             <PagesBackAndForth>{`${currentPage} de ${lastPage}`}</PagesBackAndForth>
             <ArrowContainer>
                 <LeftArrowContainer onClick={(e) => LeftArrowClickHandler(e)}>
