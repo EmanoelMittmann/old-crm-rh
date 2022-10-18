@@ -14,6 +14,7 @@ const ServiceOrderSection = () => {
   const [osProfessionalMeta, setOsProfessionalMeta] = useState('');
   const [professionals, setProfessionals] = useState([]);
   const [searchResult, setSearchResult] = useState('')
+  const [initialdate, setinitialDate] = useState('')
   const [statusSelected, setstatusSelected] = useState('')
   const location = useLocation();
 
