@@ -75,12 +75,6 @@ const ServiceOrderSection = () => {
   }, [order, searchResult, statusSelected]);
 
 
-  console.log("professionals: ", professionals);
-
-  console.log("searchResult: ", typeof(searchResult));
-
-
-
   return (
     <>
     <ServiceOrdersInput
