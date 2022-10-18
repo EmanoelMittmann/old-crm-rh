@@ -16,7 +16,7 @@ import {
     ContainerTeamMemberPic,
 } from './style.js'
 import { formatDate } from '../../utils/formatDate.js'
-import {ReactComponent as OptionsIcon} from '../../../assets/icons/options.svg'
+import { ReactComponent as OptionsIcon } from '../../../assets/icons/options.svg'
 import { TeamMemberAttachment } from '../../molecules/TeamMemberAttachment/index.js'
 
 
@@ -39,7 +39,7 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
             pathname: `/project/${id}`
         })
     }
-    
+
     const openModalEditProjectStatus = () => {
         setStatusModalIsVisible(true)
         setMenuOptionsIsVisible(false)
@@ -58,29 +58,29 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
         setTeamModalIsVisible(false)
     }
 
-    if(!data) {
+    if (!data) {
         return (
             <ProjectsListItemContainer>
                 <ProjectsListItemProject>
-                Loading...
-               </ProjectsListItemProject>
+                    Loading...
+                </ProjectsListItemProject>
             </ProjectsListItemContainer>
-       )
+        )
     }
 
-    if(!data.length) {
+    if (!data.length) {
         return (
             <ProjectsListItemContainer>
                 <ProjectsListItemProject>
-                Nenhum projeto encontrado...
-               </ProjectsListItemProject>
+                    Nenhum projeto encontrado...
+                </ProjectsListItemProject>
             </ProjectsListItemContainer>
-       )
+        )
     }
 
     return (
-        <> { data.map((project) => {
-            return(
+        <> {data.map((project) => {
+            return (
                 <ProjectsListItemContainer key={project.id}>
                     <ProjectsListItemProject>
                         {project.name}
@@ -89,14 +89,14 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
                         {project.project_type.name}
                     </ProjectsListItemType>
                     <ProjectsListItemBeginning>
-                        { formatDate(project.date_start) }
+                        {formatDate(project.date_start)}
                     </ProjectsListItemBeginning>
                     <ProjectsListItemTime>
                         <ContainerTeamMemberPic>
-                            <TeamMemberAttachment 
-                                data={data} 
+                            <TeamMemberAttachment
+                                data={data}
                                 project={project}
-                                openProjectTeamModal={openProjectTeamModal}    
+                                openProjectTeamModal={openProjectTeamModal}
                             />
                         </ContainerTeamMemberPic>
                     </ProjectsListItemTime>
@@ -109,9 +109,9 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
                     </ProjectsListItemStatus>
                     <ProjectListOptions optionsColor={menuOptionsIsVisible && project.id == idProjectClicked ? "#407BFF" : "#B7BDC2"}>
                         <ContainerIconOptions onClick={() => menuOptionsClicked(project.id, project.project_status_id)}>
-                            <OptionsIcon/>
+                            <OptionsIcon />
                         </ContainerIconOptions>
-                        { menuOptionsIsVisible && project.id === idProjectClicked &&
+                        {menuOptionsIsVisible && project.id === idProjectClicked &&
                             <MenuOptions
                                 positionMenu="40px"
                                 firstChosenOption={editProject}
@@ -123,24 +123,25 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
                             />
                         }
                     </ProjectListOptions>
-                    
-                    { statusModalIsVisible && 
-                        <ModalProjectStatus 
+
+                    {statusModalIsVisible &&
+                        <ModalProjectStatus
                             CloseButtonClickHandler={closeModalEditProjectStatus}
                             statusId={idProjectStatusClicked}
                             projectId={idProjectClicked}
-                            options={statusOptions}
-                        /> 
+                            options={statusOptions} />      
                     }
-                    { teamModalIsVisible && 
+                    {teamModalIsVisible &&
                         <ModalProjectTeam
                             CloseButtonClickHandler={closeProjectTeamModal}
-                            users={project.users}
-                        />
+                            users={project.users} />
+
+
+
                     }
                 </ProjectsListItemContainer>
             )
-        })} </> 
+        })} </>
     )
 }
 

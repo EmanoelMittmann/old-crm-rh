@@ -1,16 +1,15 @@
 import React from 'react'
-
-import IconInfo from '../../../assets/icons/icon-info.svg';
+import exclamation from '../../../assets/icons/exclamation.svg'
 import CancelButton from '../../atoms/Buttons/CancelButton/style.js'
-import CloseButton from '../../atoms/Buttons/CloseButton/index.js'
+import CloseButtonCirle from '../../atoms/Buttons/CloseButtonCircle/'
 import RedButton from '../../atoms/Buttons/RedButton/style.js'
-import { ModalContainer, ModalContainerButtons, ModalDeleteMessage, IconInfoImg } from './style.js'
+import { ModalContainer, ModalContainerButtons, ModalDeleteMessage, IconExclamation } from './style.js'
 import {
     ModalOverlay,
     ModalTitle
 } from '../Modal/style.js'
 
-const ModalDelete = ({CloseButtonClickHandler, deleteHandler, id}) => {
+const ModalCancelOS = ({CloseButtonClickHandler, deleteHandler, id}) => {
 
     const redButtonClickHandler = () => {
         deleteHandler(id)
@@ -21,21 +20,21 @@ const ModalDelete = ({CloseButtonClickHandler, deleteHandler, id}) => {
     return (
         <div>
             <ModalContainer>
-                <CloseButton onClick={CloseButtonClickHandler}/>
+                <CloseButtonCirle CloseButtonClickHandler={CloseButtonClickHandler}/>
                 <ModalTitle padding="1.6em 1.6em 0.7em 1.6em">
-                <IconInfoImg src={IconInfo} alt="Info"/>
-                    Excluir profissional
+                    <IconExclamation src={exclamation} alt="Info"/>
+                    Cancelar O.S
                 </ModalTitle>
-                   <ModalDeleteMessage>Tem certeza que deseja excluir profissional?</ModalDeleteMessage>
+                   <ModalDeleteMessage>Tem certeza que deseja cancelar a O.S?</ModalDeleteMessage>
                 <ModalContainerButtons>
-                    <CancelButton onClick={CloseButtonClickHandler}>Cancelar</CancelButton>
+                    <CancelButton onClick={CloseButtonClickHandler}>não</CancelButton>
                     <RedButton
                     onClick={redButtonClickHandler}
                     width="115px"
                     height="40px"
                     fontSize="0.9rem"
                     margin= "0 3.5em 0 1.7em"
-                    >Sim</RedButton>
+                    >sim, cancelar</RedButton>
                 </ModalContainerButtons>
             </ModalContainer>
             <ModalOverlay/>
@@ -43,4 +42,4 @@ const ModalDelete = ({CloseButtonClickHandler, deleteHandler, id}) => {
     )
 }
 
-export default ModalDelete;
+export default ModalCancelOS;
