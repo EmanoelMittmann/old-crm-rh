@@ -20,6 +20,7 @@ import Footer from "../../organisms/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import ModalGenerateOs from "../../molecules/ModalGenerateOs";
 import { openModal } from "../../../redux/actions";
+import ModalCancelOs from '../../molecules/ModalCancelOS'
 
 const GenerateOS = () => {
   const history = useHistory();
@@ -28,7 +29,7 @@ const GenerateOS = () => {
   const [LastHalfProfessional, setLastHalfProfessional] = useState([]);
   const [professionalMeta, setProfessionalMeta] = useState({});
   const [order, setOrder] = useState();
-  const [page, setPage] = useState(1)
+  const [ModalOs, setModalOs] = useState(false)
   const [checkedProfissional, setCheckedProfissional] = useState([]);
   const Modal = useSelector(state => state.modalVisibility)
   const dispatch = useDispatch()
@@ -48,6 +49,18 @@ const GenerateOS = () => {
       });
     } catch (error) {}
   };
+
+  const handleSubmit = async () => {
+    try {
+      await api({
+        method: 'POST',
+        url: '/batata',
+        data: checkedProfissional
+      }).then((res) => {
+        console.log(res);
+      })
+    } catch (error) {}
+  }
 
   const nextPage = () => {
     handleFilterRequest('next')
@@ -80,12 +93,17 @@ const GenerateOS = () => {
   useEffect(() => {
     GetProfessional();
   }, []);
+
   
 
   return (
     <>
       <Container>
         {Modal && <ModalGenerateOs/>}
+        {ModalOs && <ModalCancelOs 
+          redButtonClickHandler={() => history.push("/serviceOrders")}
+          CloseButtonClickHandler={() => setModalOs(prev => !prev)}
+          />}
         <ContainerButtonsHeader>
           <ContainerIconModal>
             <ArrowBackNew
@@ -99,9 +117,7 @@ const GenerateOS = () => {
         <ContainerButtons bottom="1.5em">
           <CancelButton
             margin="10px"
-            onClick={() => {
-              history.push("/serviceOrders");
-            }}
+            onClick={() =>setModalOs(prev => !prev)}
           >
             Cancelar
           </CancelButton>

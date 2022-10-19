@@ -35,6 +35,7 @@ const NewOrdemService = () => {
   const [checkedProfissional, setCheckedProfissional] = useState([]);
   const [order, setOrder] = useState("");
   const [newId, setNewId] = useState([]);
+  const [check, setCheck] = useState(true)
   const [haveCommission, setHaveCommission] = useState([]);
   const [haveCommissionMeta, setHaveCommissionMeta] = useState({});
   const [page, setPage] = useState(1);
@@ -50,6 +51,15 @@ const NewOrdemService = () => {
     order === "asc" && setOrder("desc");
     order === "desc" && setOrder("asc");
   };
+
+  const handleClick = () => {
+    const allIds = professionals.map((item) => item.id);
+
+    if(check){
+      setCheckedProfissional(allIds.map((item) => ({ professional_id: item })));
+    }
+  };
+  console.log("checkedProfissional: ", checkedProfissional);
 
   const handleSubmit = async (data) => {
     if (checkedProfissional.length > 0) {
@@ -124,7 +134,9 @@ const NewOrdemService = () => {
 
   useEffect(() => {
     if (haveCommission[1] !== undefined) {
-      handleSubmit(newId.map((item) => ({ professional_id: item.professional_id })));
+      handleSubmit(
+        newId.map((item) => ({ professional_id: item.professional_id }))
+      );
       setCheckedProfissional(newId);
     } else {
       setCheckedProfissional(newId);
@@ -141,10 +153,11 @@ const NewOrdemService = () => {
       <ContainerButtonGeral>
         <ContainerButtonsHeader>
           <ContainerIconModal>
-            <ArrowBackNew onClick={() => {
-              history.push("/serviceOrders")
-              dispatch(valueOfCommission([]))
-            }}
+            <ArrowBackNew
+              onClick={() => {
+                history.push("/serviceOrders");
+                dispatch(valueOfCommission([]));
+              }}
             />
           </ContainerIconModal>
           <TitleOS>Criar nova O.S</TitleOS>
@@ -153,8 +166,8 @@ const NewOrdemService = () => {
           <CancelButton
             margin="10px"
             onClick={() => {
-              history.push("/serviceOrders")
-              dispatch(valueOfCommission([]))
+              history.push("/serviceOrders");
+              dispatch(valueOfCommission([]));
             }}
           >
             Cancelar
@@ -192,11 +205,23 @@ const NewOrdemService = () => {
       </ContainerButtonGeral>
 
       <Container>
-        <InputSearch
-          setSearchResult={setSearchResult}
-          lineWidth="280px"
-          inputWidth="15em"
-        />
+        <div className="header">
+          <InputSearch
+            setSearchResult={setSearchResult}
+            lineWidth="280px"
+            inputWidth="15em"
+          />
+          <input
+            type="checkbox"
+            onClick={() => handleClick()}
+            onChange={(e) => setCheck(prev => !prev)}
+            className="Box"
+            id="box"
+          />
+          <label for="box" className="Box">
+            Selecionar Todos
+          </label>
+        </div>
         <OrdemServiceHeader sortByName={sortByName} />
         <ScrollContainer>
           {professionals?.map((index) => {
