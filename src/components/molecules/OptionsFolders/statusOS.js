@@ -1,4 +1,7 @@
 export const StatusOS  = [
+    {  id: undefined, 
+        name: 'Todos'
+ },
     {
         id: 'SENT', 
         name: 'ENVIADA'
