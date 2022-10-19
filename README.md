@@ -31,5 +31,5 @@ $ npm run start
 - [x] Cadastro de Cargos/Listagem
 - [x] Cadastro de Status do Projeto/Listagem
 - [x] Cadastro de Tipos de Projeto/Listagem
-- [ ] Criação de Ordem de serviço/Listagem - Manutenção 👨‍🔧
+- [X] Criação de Ordem de serviço/Listagem
 - [ ] Gerar Ordem de serviço/Listagem
