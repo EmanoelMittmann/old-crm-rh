@@ -3,17 +3,20 @@ import React, { useState, useEffect } from 'react'
 import Footer from '../Footer'
 import api from '../../../api/api'
 import { useLocation } from 'react-router';
+import { toast } from 'react-toastify'
 import ServiseOrdersListHeader from '../../molecules/ServiceOrdersListHeader'
 import ServiceOrderListItens from '../../molecules/ServicesOrderListItens'
 import { ContainerHeight } from './style';
 import ServiceOrdersInput from '../../molecules/ServiceOrdersInputs';
-
+import { DefaultToast } from '../../atoms/Toast/DefaultToast';
 
 const ServiceOrderSection = () => {
   const [order, setOrder] = useState('');
   const [osProfessionalMeta, setOsProfessionalMeta] = useState('');
   const [professionals, setProfessionals] = useState([]);
   const [searchResult, setSearchResult] = useState('')
+  const [initialDate, setInitialDate] = useState('')
+  const [finalDate, setFinalDate] = useState('')
   const [statusSelected, setstatusSelected] = useState('')
   const location = useLocation();
 
@@ -36,6 +39,19 @@ const ServiceOrderSection = () => {
       params.os_number = searchResult;
       params.page = osProfessionalMeta.first_page
     }
+    if(initialDate !== ''){
+      params.initialDate = initialDate
+      params.page = osProfessionalMeta.first_page
+
+    }
+    if (finalDate !== '' && finalDate > '1000-01-01') {
+      finalDate < initialDate
+        ? toast.warn(<DefaultToast text="Período final precisa ser maior que o período inicial" />, {
+          toastId: "finalDate"
+        })
+        : params.date_end = finalDate
+        params.page = osProfessionalMeta.first_page
+    }
 
     if (order !== '') params.order = order;
 
@@ -51,7 +67,7 @@ const ServiceOrderSection = () => {
   const getOsProfessionals = async (searchResult) => {
     const { data } = await api({
       method: 'get',
-      url: `/orderOfService?limit=10&search=${searchResult}&cnpj=${searchResult}&os_number=${searchResult}&status=${statusSelected}`,
+      url: `/orderOfService?limit=10&search=${searchResult}&cnpj=${searchResult}&os_number=${searchResult}&status=${statusSelected}&finalDate=${finalDate}&initialDate=${initialDate}`,
       params: params,
     });
 
@@ -70,9 +86,9 @@ const ServiceOrderSection = () => {
   };
 
   useEffect(() => {
-    getOsProfessionals(searchResult, statusSelected)
+    getOsProfessionals(searchResult, statusSelected, initialDate, finalDate)
     location.state && setProfessionals(location.state.professionals.data);
-  }, [order, searchResult, statusSelected]);
+  }, [order, searchResult, statusSelected, finalDate, initialDate]);
 
 
   return (
@@ -82,6 +98,10 @@ const ServiceOrderSection = () => {
         searchResult={searchResult}
         statusSelected={statusSelected}
         setstatusSelected={setstatusSelected}
+        initialDate={initialDate}
+        setInitialDate={setInitialDate}
+        finalDate={finalDate}
+        setFinalDate={setFinalDate}
         />
       <ServiseOrdersListHeader sortByName={sortByName}/>
       <ContainerHeight >

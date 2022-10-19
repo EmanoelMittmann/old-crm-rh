@@ -29,15 +29,18 @@ const CompaniesListItem = ({ corporation }) => {
   const tranformStatusCompany = 
     corporation.registration_status === 'ACTIVE' ? 'Ativa' : 
       corporation.registration_status === 'SUSPENDED' ? 'Suspensa' : 
-        corporation.registration_status === 'NULL' ? 'Nula': 'Baixada'
+        corporation.registration_status === 'NULL' ? 'Nula': 
+          corporation.registration_status === 'UNFIT' ? 'Inapta' : 'Baixada'       
   const colorBg = 
     corporation.registration_status === 'ACTIVE' ? '#ddf7e5' : 
       corporation.registration_status === 'SUSPENDED' ? '#fff3d9' : 
-        corporation.registration_status === 'NULL' ? '#F5F5F5' : '#FFE1E3'
+        corporation.registration_status === 'NULL' ? '#F5F5F5' :
+          corporation.registration_status === 'UNFIT' ? '#FFE1E3' : '#FFE1E3'
   const colorText = 
     corporation.registration_status === 'ACTIVE' ? '#1ECB4F' : 
       corporation.registration_status === 'SUSPENDED' ? '#FFAE00' :  
-        corporation.registration_status === 'NULL' ? '#000000' : '#FF3541'
+        corporation.registration_status === 'NULL' ? '#000000' :
+          corporation.registration_status === 'UNFIT' ? '#FF3541' : '#FF3541'
 
 
   const menuOptionsClicked = (companyId) => {

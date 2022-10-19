@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
 export const ContainerStatusLabel = styled.div`
-    width: fit-content;
+    width: 150px;
     height: 30px;
-    padding: 1em;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
@@ -12,5 +11,5 @@ export const ContainerStatusLabel = styled.div`
     font-weight: 700;
     background-color: ${props => props.buttonColor};
     color: ${props => props.textColor};
-    border-radius: 7px;
+    border-radius: 40px;
 `
