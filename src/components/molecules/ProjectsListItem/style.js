@@ -31,7 +31,7 @@ export const ProjectsListItemTime = styled.div`
 `
 
 export const ProjectsListItemStatus = styled.div`
-   display: flex;
+    display: flex;
     width: 15%;
     padding-left: 4.5em;
 

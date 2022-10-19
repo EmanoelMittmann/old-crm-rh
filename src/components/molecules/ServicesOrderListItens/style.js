@@ -33,12 +33,12 @@ export const DateGerationOS = styled.div`
 export const NumberOS = styled.div`
   display: flex;
   width: 16%;
-    padding-left: 1em;
+  padding-left: 1em;
 `;
 
 export const ReferenceOS = styled.div`
   display: flex;
- width: 25%;
+  width: 25%;
   padding-left: 5em;
  
 
@@ -53,9 +53,13 @@ export const ProfessionalStatusOS = styled.div`
 `;
 
 export const ProfessionalTextStatus = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 30px;
   background-color:${props => props.bg};
   color:${props => props.text};
-  padding:3px 40px;
   border-radius: 40px;
   font-weight: 700;
 

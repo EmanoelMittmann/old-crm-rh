@@ -4,16 +4,16 @@ export const StatusOS  = [
  },
     {
         id: 'SENT', 
-        name: 'ENVIADA'
+        name: 'Enviada'
     },
 
     {
         id: 'PENDING',
-        name: 'PENDENTE'
+        name: 'Pendente'
     },
     {
         id: 'CANCELED',
-        name: 'CANCELADA'
+        name: 'Cancelada'
     },
 
 ]
