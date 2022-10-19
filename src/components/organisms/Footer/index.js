@@ -23,7 +23,7 @@ const Footer = ({ previousPage, height, border , nextPage, currentPage = 1, firs
     return (
         <ContainerSettingsSectionFooter height={height} border={border}>
             <PagesBackAndForth>{`${currentPage} de ${lastPage}`}</PagesBackAndForth>
-            <ArrowContainer>
+            <ArrowContainer>    
                 <LeftArrowContainer onClick={(e) => LeftArrowClickHandler(e)}>
                     <Arrow/>
                 </LeftArrowContainer>

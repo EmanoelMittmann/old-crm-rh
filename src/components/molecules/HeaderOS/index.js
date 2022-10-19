@@ -8,17 +8,17 @@ const HeaderOS = ({sortByName}) => {
     <ListHeaderContainer>
        <ListHeaderProfessional>
         <ListHeaderTitle margin="0" right="1em">professional</ListHeaderTitle>
-        <Arrows onClick={sortByName} />
+        <Arrows onClick={() => sortByName} />
       </ListHeaderProfessional>
 
       <ListHeaderCNPJ>
         <ListHeaderTitle margin="0" right="1em">CNPJ</ListHeaderTitle>
-        <Arrows onClick={sortByName} />
+        <Arrows onClick={() => sortByName} />
       </ListHeaderCNPJ>
 
       <ListHeaderValueOs>
         <ListHeaderTitle margin="0" right="1em">Valor da Os</ListHeaderTitle>
-        <Arrows onClick={sortByName} />
+        <Arrows onClick={() => sortByName} />
       </ListHeaderValueOs>
     </ListHeaderContainer>
   )

@@ -5,7 +5,6 @@ import { ContainerOrdemServices, OrdemServiceItens } from "./style";
 
 const GenerateOSItens = ({ index, setCheckedProfissional, checkedProfissional }) => {
   const [check, setCheck] = useState([])
-  
   const handleClick = (professional) => {
     const Exist = checkedProfissional.includes(professional)
     if(Exist){
@@ -33,7 +32,7 @@ const GenerateOSItens = ({ index, setCheckedProfissional, checkedProfissional })
         />
         <p>{index.name}</p>
       </OrdemServiceItens>
-      <OrdemServiceItens width="33.3%" content="flex-end">
+      <OrdemServiceItens width="33.3%" content="center">
         {index.cnpj}
       </OrdemServiceItens>
       <OrdemServiceItens width="33.3%" content="end" right="2.5em">

@@ -38,7 +38,6 @@ export const ModalContainerButtons = styled.div`
   align-items: center;
   justify-content: flex-end;
   width: 100%;
-  height: 30%;
   border-radius: 0 0 15px 15px;
   margin-top: 3.6em;
   border-top: 1.5px solid #919eab52;
@@ -48,13 +47,9 @@ export const ModalContainerProfessional = styled.div`
   left: 35%;
   top: 0;
   width: 520px;
-  height: 540px;
+  height: 550px;
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 1px 0px rgba(0, 0, 0, 0.1);
   z-index: 10;
-
-  .container {
-    height: 80%;
-  }
 `;
