@@ -23,7 +23,6 @@ export const ModalOrdemServices = ({
   haveCommissionMeta,
   setPage,
   page,
-  setCheckedProfissional,
   checkedProfissional,
   setNewId,
 }) => {

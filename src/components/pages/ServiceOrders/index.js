@@ -9,7 +9,7 @@ const ServiceOrders = () => {
 
     return (
         <Container>
-            <ServiceOrdersInput/>
+
             <ServiceOrderSection/>
         </Container>
     )
