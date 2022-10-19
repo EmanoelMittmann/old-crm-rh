@@ -21,6 +21,7 @@ export const ContainerButtons = styled.div`
   justify-content: flex-end;
   position: relative;
   top:1em;
+  margin-bottom: ${props => props.bottom};
   
 `
 

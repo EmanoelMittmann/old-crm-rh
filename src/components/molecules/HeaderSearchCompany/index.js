@@ -5,9 +5,6 @@ import { optionsUF } from '../../organisms/RegisterProfessionalsData'
 import InputSelect from '../../atoms/InputSelect'
 import { optionsRegistions } from '../../organisms/RegisterCompany/status'
 
-
-
-
 const HeaderSearchCompany = ({ setSearchResult, setUf, uf, selectedStatusCompany, setSelectedStatusCompany }) => {
 
   return (

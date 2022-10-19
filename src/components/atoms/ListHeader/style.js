@@ -21,6 +21,7 @@ export const ListHeaderTitle = styled.h4`
   font-weight: 600;
   color: black;
   margin-left: ${(props) => (props.margin ? props.margin : '3em')};
+  padding-right: ${props => props.right};
   width: ${(props) => props.width};
   white-space: nowrap;
   cursor: pointer;

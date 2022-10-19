@@ -69,7 +69,7 @@ export const templates = [
     buttonPath: "/NewOs",
     secondButton:true,
     secondButtonText: "Gerar O.S.",
-    secondButtonPath:'/NewOs',
+    secondButtonPath:'/GenerateOs',
     icon: <ServiceOrdersIcon />,
     isRegisterPage: false,
     path: "/serviceOrders",

@@ -2,11 +2,11 @@ import styled from "styled-components";
 
 export const ContainerSettingsSectionFooter = styled.footer`
     width: 100%;
-    height: 100px;
+    height: ${(props) => (props.height ? props.height : '100px')};
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    border-top: 2px solid #F4F6F8;
+    border-top: ${(props) => (props.border ? props.border :'2px solid #F4F6F8') };
 `
 export const PagesBackAndForth = styled.span`
     font-family: "Poppins", sans-serif;

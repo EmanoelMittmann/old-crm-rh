@@ -19,11 +19,10 @@ import OvertimeListProfessional from '../components/pages/OvertimeListProfession
 import InvoiceSending from '../components/pages/InvoiceSending/InvoiceSending';
 import InvoiceUpload from '../components/pages/InvoiceUpload';
 import ReleaseHours from '../components/pages/ReleaseHours';
-import ListCompany from '../components/pages/ListCompany';
+import {ListCompany} from '../components/pages/ListCompany';
 import { RegisterCompanies } from '../components/pages/RegisterCompanies';
 import OrdemService from '../components/pages/OrdemServices';
-import { ModalOdemServices } from '../components/molecules/ModalOrdemServices';
-
+import GenerateOS from '../components/organisms/GenerateOrdemService';
 const Routes = () => {
   return (
     <BrowserRouter>
@@ -54,6 +53,7 @@ const Routes = () => {
         <PrivateRoute exact path="/Companies" component={RegisterCompanies} />
         <PrivateRoute path="/Companies/:id" component={RegisterCompanies} />
         <PrivateRoute path="/NewOs" component={OrdemService} />
+        <PrivateRoute path="/GenerateOs" component={GenerateOS} />
         
 
         <PrivateRoute

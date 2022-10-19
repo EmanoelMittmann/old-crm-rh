@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const ContainerSettingsSectionFooter = styled.footer`
-
     width: 100%;
     height:40px;
+    position: ${props => props.position ? props.position : null};
+    top: 4.4em;
     display: flex;
     justify-content: flex-end;
     align-items: center;
