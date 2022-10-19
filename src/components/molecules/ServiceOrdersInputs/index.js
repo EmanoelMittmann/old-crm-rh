@@ -5,7 +5,7 @@ import { ContainerInput, ContainerStyleOS } from './style'
 import InputDate from '../../atoms/InputDate'
 import { StatusOS } from '../OptionsFolders/statusOS'
 
-const ServiceOrdersInput = ({ searchResult, setSearchResult, statusSelected, setstatusSelected, finalDate, setFinalDate, initialDate, setInitialDate }) => {
+const ServiceOrdersInput = ({ searchResult, setSearchResult, statusSelected, setstatusSelected, finalDate, setFinalDate, initialDate, setInitialDate, referencesDate, setReferenceDate }) => {
 
     return (
         <ContainerStyleOS>
@@ -38,9 +38,10 @@ const ServiceOrdersInput = ({ searchResult, setSearchResult, statusSelected, set
                     
                 />
                 <InputDate
-                    date=""
+                    date={referencesDate}
                     width="230px"
                     placeholder='Referência'
+                    onChange={(e) => setReferenceDate(e.target.value)}
                    
                 />
             </ContainerInput>
