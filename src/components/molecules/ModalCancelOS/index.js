@@ -9,7 +9,7 @@ import {
     ModalTitle
 } from '../Modal/style.js'
 
-const ModalCancelOS = ({redButtonClickHandler,CloseButtonClickHandler ,deleteHandler, id}) => {
+const ModalCancelOS = ({redButtonClickHandler,CloseButtonClickHandler, text }) => {
 
     return (
         <div>
@@ -19,7 +19,7 @@ const ModalCancelOS = ({redButtonClickHandler,CloseButtonClickHandler ,deleteHan
                     <IconExclamation src={exclamation} alt="Info"/>
                     Cancelar O.S
                 </ModalTitle>
-                   <ModalDeleteMessage>Tem certeza que deseja cancelar a O.S?</ModalDeleteMessage>
+                   <ModalDeleteMessage>{text}</ModalDeleteMessage>
                 <ModalContainerButtons>
                     <CancelButton onClick={CloseButtonClickHandler}>não</CancelButton>
                     <RedButton

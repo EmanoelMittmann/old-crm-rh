@@ -8,7 +8,8 @@ const GenerateOSItens = ({
   setCheckedProfissional,
   checkedProfissional,
 }) => {
-  const [check, setCheck] = useState([]);
+  const [check, setCheck] = useState(true);
+
   const handleClick = (professional) => {
     const Exist = checkedProfissional.includes(professional);
     if (Exist) {
@@ -21,22 +22,24 @@ const GenerateOSItens = ({
   };
 
   useEffect(() => {
-    setCheck(checkedProfissional.includes(index.id));
-  }, [check]);
+    const ExistId = checkedProfissional.map(item => item)
+    setCheck(ExistId.includes(index.id))
+  },[checkedProfissional])
 
   return (
     <ContainerOrdemServices key={index.id}>
-      <OrdemServiceItens width="33.3%" content="flex-start">
+      <OrdemServiceItens width="43.3%" content="flex-start">
         <input
           type="checkbox"
           name="professional"
           id="box"
-          onChange={(e) => setCheck(e.target.value)}
+          checked={check}
+          onChange={(e) => setCheck(e.target.checked)}
           onClick={() => handleClick(index.id)}
         />
         <p>{index.name}</p>
       </OrdemServiceItens>
-      <OrdemServiceItens width="33.3%" content="center">
+      <OrdemServiceItens width="23.3%" content="flex-start">
         {index.cnpj}
       </OrdemServiceItens>
       <OrdemServiceItens width="33.3%" content="end" right="2.5em">

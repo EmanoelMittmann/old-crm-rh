@@ -59,7 +59,6 @@ const NewOrdemService = () => {
       setCheckedProfissional(allIds.map((item) => ({ professional_id: item })));
     }
   };
-  console.log("checkedProfissional: ", checkedProfissional);
 
   const handleSubmit = async (data) => {
     if (checkedProfissional.length > 0) {

@@ -4,7 +4,7 @@ export const ModalContainer = styled.div`
     position: absolute;
     top: 55%;
     left: 60%;
-    transform: translate(-50%, -50%);
+    transform: translate(-87%, -65%);
     width: 427px;
     height: 217px;
     background-color: white;

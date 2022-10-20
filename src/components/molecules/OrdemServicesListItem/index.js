@@ -74,7 +74,7 @@ const OrdemServiceListItem = ({
           onChange={(e) => {
             setCheck(e.target.checked);
           }}
-          onClick={handleClick}
+          onClick={() => handleClick()}
         />
         <p>{index.name}</p>
       </OrdemServiceItens>
