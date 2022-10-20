@@ -27,7 +27,8 @@ const ServiceOrderSection = () => {
   const getOsProfessionals = async () => {
     const { data } = await api({
       method: 'get',
-      url: `/orderOfService?limit=10&page=${params.page|1}&search=${searchResult}&cnpj=${searchResult}&os_number=${searchResult}&status=${statusSelected}&finalDate=${finalDate}&initialDate=${initialDate}&referencesDate=${referencesDate}`,
+      url: `/orderOfService?limit=10&search=${searchResult}&cnpj=${searchResult}&os_number=${searchResult}&status=${statusSelected}&finalDate=${finalDate}&initialDate=${initialDate}&referencesDate=${referencesDate}`,
+      params : params
     });
 
     setProfessionals(data.data);
@@ -60,14 +61,11 @@ const ServiceOrderSection = () => {
 
     if (pagesFilter === undefined) params.page = osProfessionalMeta.current_page;
 
-    if (searchResult !== '') {
-      params.search = searchResult;
-      params.page = osProfessionalMeta.first_page
-    }
+    
 
-    if (finalDate !== '' && finalDate < initialDate) {
-          toast.warn(<DefaultToast text="Período final precisa ser maior que o período inicial" />  
-    )}
+     if (finalDate !== '' && finalDate < initialDate) {
+           toast.warn(<DefaultToast text="Período final precisa ser maior que o período inicial" />  
+     )}
 
     if (order !== '') params.order = order;
 
@@ -80,7 +78,9 @@ const ServiceOrderSection = () => {
   }, [order, searchResult, statusSelected, finalDate, initialDate, referencesDate]);
   
 
-  console.log('página:', osProfessionalMeta.current_page)
+  console.log('search:', searchResult)
+  console.log('status:', statusSelected)
+  console.log('reference:', referencesDate)
   return (
     <>
     <ServiceOrdersInput
@@ -100,9 +100,9 @@ const ServiceOrderSection = () => {
       <Footer
         previousPage={previousPage}
         nextPage={nextPage}
-        currentPage={osProfessionalMeta.current_page}
-        firstPage={osProfessionalMeta.first_page}
-        lastPage={osProfessionalMeta.last_page}
+        lastPage={osProfessionalMeta?.last_page}
+        currentPage={osProfessionalMeta?.current_page}
+        firstPage={osProfessionalMeta?.first_page}  
       />
 
     </>
