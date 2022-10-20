@@ -24,11 +24,9 @@ import { openModal } from "../../../redux/actions";
 const GenerateOS = () => {
   const history = useHistory();
   const [FirstHalfProfessional, setFirstHalfProfessional] = useState([]);
-  console.log("FirstHalfProfessional: ", FirstHalfProfessional);
   const [LastHalfProfessional, setLastHalfProfessional] = useState([]);
   const [professionalMeta, setProfessionalMeta] = useState({});
   const [order, setOrder] = useState();
-  const [page, setPage] = useState(1)
   const [checkedProfissional, setCheckedProfissional] = useState([]);
   const Modal = useSelector(state => state.modalVisibility)
   const dispatch = useDispatch()

@@ -77,10 +77,6 @@ const ServiceOrderSection = () => {
     location.state && setProfessionals(location.state.professionals.data);
   }, [order, searchResult, statusSelected, finalDate, initialDate, referencesDate]);
   
-
-  console.log('search:', searchResult)
-  console.log('status:', statusSelected)
-  console.log('reference:', referencesDate)
   return (
     <>
     <ServiceOrdersInput

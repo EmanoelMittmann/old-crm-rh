@@ -6,7 +6,7 @@ import InputDate from '../../atoms/InputDate'
 import { StatusOS } from '../OptionsFolders/statusOS'
 
 
-const ServiceOrdersInput = ({searchResult, setSearchResult, statusSelected, setstatusSelected, finalDate, setFinalDate, initialDate, setInitialDate, referencesDate, setReferenceDate }) => {
+const ServiceOrdersInput = ({searchResult, setSearchResult, statusSelected, setstatusSelected, setFinalDate, setInitialDate, setReferenceDate }) => {
 
     return (
         <ContainerStyleOS>
