@@ -28,6 +28,7 @@ const GenerateOS = () => {
   const [professionalMeta, setProfessionalMeta] = useState({});
   const [order, setOrder] = useState();
   const [checkedProfissional, setCheckedProfissional] = useState([]);
+  const [searchResult, setSearchResult] = useState('')
   const Modal = useSelector(state => state.modalVisibility)
   const dispatch = useDispatch()
 
@@ -37,7 +38,7 @@ const GenerateOS = () => {
     try {
       await api({
         method: "GET",
-        url: `/orderOfServicePending?limit=14&`,
+        url: `/orderOfServicePending?limit=14&search=${searchResult}&cnpj=${searchResult}`,
         params:params
       }).then((data) => {
         setFirstHalfProfessional(data.data.data.slice(0, 7));
@@ -46,6 +47,7 @@ const GenerateOS = () => {
       });
     } catch (error) {}
   };
+console.log(searchResult)
 
   const nextPage = () => {
     handleFilterRequest('next')
@@ -76,8 +78,8 @@ const GenerateOS = () => {
 
 
   useEffect(() => {
-    GetProfessional();
-  }, []);
+    GetProfessional(searchResult);
+  }, [searchResult]);
   
 
   return (
@@ -112,7 +114,12 @@ const GenerateOS = () => {
         <ContainerChildren>
           <Childrens>
             <div className="Header">
-              <InputSearch lineWidth="18em" inputWidth="15em" />
+              <InputSearch
+                value={searchResult} 
+                setSearchResult={setSearchResult}
+                lineWidth="18em" 
+                inputWidth="15em" 
+              />
               <HeaderOS sortByName={sortByName}/>
               {FirstHalfProfessional?.map((index) => (
                 <GenerateOSItens
