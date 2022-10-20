@@ -1,12 +1,10 @@
 import React from 'react'
 import InputSearch from '../../atoms/InputSearch'
 import InputSelect from '../../atoms/InputSelect'
-import { ContainerInput, ContainerStyleOS } from './style'
 import InputDate from '../../atoms/InputDate'
 import { StatusOS } from '../OptionsFolders/statusOS'
-
-
-const ServiceOrdersInput = ({searchResult, setSearchResult, statusSelected, setstatusSelected, setFinalDate, setInitialDate, setReferenceDate }) => {
+import { ContainerInput, ContainerStyleOS } from './style'
+const ServiceOrdersInput = ({searchResult, setSearchResult, statusSelected, setstatusSelected, finalDate , setFinalDate, initialDate , setInitialDate , referencesDate , setReferenceDate }) => {
 
     return (
         <ContainerStyleOS>
@@ -25,26 +23,22 @@ const ServiceOrdersInput = ({searchResult, setSearchResult, statusSelected, sets
                     width="230px"
                 />
                 <InputDate
-                    value=""
+                    value={initialDate}
                     width="230px"
                     placeholder="Período inicial"
-                    onChange={(e) => setInitialDate(e.target.value)} 
-                   
+                    onChange={(e) => setInitialDate(e.target.value)}         
                 />
                 <InputDate
-                    value=""
+                    value={finalDate}
                     width="230px"
-                    placeholder={"Período final"}
-                    onChange={(e) => setFinalDate(e.target.value)}
-                    
-                    
+                    placeholder="Período final"
+                    onChange={(e) => setFinalDate(e.target.value)}   
                 />
                 <InputDate
-                    value=""
+                    value={referencesDate}
                     width="230px"
                     placeholder='Referência'
                     onChange={(e) => setReferenceDate(e.target.value)}
-                   
                 />
             </ContainerInput>
         </ContainerStyleOS >

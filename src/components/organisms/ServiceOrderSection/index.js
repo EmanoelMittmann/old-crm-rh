@@ -70,13 +70,15 @@ const ServiceOrderSection = () => {
     if (order !== '') params.order = order;
 
   }
-
+  
   useEffect(() => {
     handleFilterOsRequest()
     getOsProfessionals(searchResult, statusSelected, finalDate, initialDate, referencesDate)
     location.state && setProfessionals(location.state.professionals.data);
   }, [order, searchResult, statusSelected, finalDate, initialDate, referencesDate]);
   
+
+
   return (
     <>
     <ServiceOrdersInput
