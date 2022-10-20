@@ -79,6 +79,7 @@ const CompaniesList = () => {
     location.state && setCompanies(location.state.companies.data);
   }, [order, searchResult, uf, selectedStatusCompany]);
 
+  
   return (
     <Container>
       <HeaderSearchCompany

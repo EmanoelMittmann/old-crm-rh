@@ -12,7 +12,7 @@ import { DefaultToast } from '../../atoms/Toast/DefaultToast';
 
 const ServiceOrderSection = () => {
   const [order, setOrder] = useState('');
-  const [osProfessionalMeta, setOsProfessionalMeta] = useState('');
+  const [osProfessionalMeta, setOsProfessionalMeta] = useState([]);
   const [statusSelected, setstatusSelected] = useState('')
   const [referencesDate, setReferenceDate] = useState('')
   const [professionals, setProfessionals] = useState([]);
@@ -65,23 +65,9 @@ const ServiceOrderSection = () => {
       params.page = osProfessionalMeta.first_page
     }
 
-    if (initialDate !== '') {
-      params.initialDate = initialDate
-      params.page = osProfessionalMeta.first_page
-
-    }
-    if (finalDate !== '' && finalDate > '1000-01-01') {
-      finalDate < initialDate
-        ? toast.warn(<DefaultToast text="Período final precisa ser maior que o período inicial" />, {
-          toastId: "finalDate"
-        })
-        : params.finalDate = finalDate
-          params.page = osProfessionalMeta.first_page
-    }
-    if(referencesDate !== ''){
-      params.referencesDate = referencesDate
-      params.page = osProfessionalMeta.first_page
-    }
+    if (finalDate !== '' && finalDate < initialDate) {
+          toast.warn(<DefaultToast text="Período final precisa ser maior que o período inicial" />  
+    )}
 
     if (order !== '') params.order = order;
 
@@ -89,16 +75,12 @@ const ServiceOrderSection = () => {
 
   useEffect(() => {
     handleFilterOsRequest()
-    getOsProfessionals(searchResult, statusSelected, initialDate, finalDate, referencesDate)
+    getOsProfessionals(searchResult, statusSelected, finalDate, initialDate, referencesDate)
     location.state && setProfessionals(location.state.professionals.data);
   }, [order, searchResult, statusSelected, finalDate, initialDate, referencesDate]);
   
 
-  console.log('Profissionais', professionals);
-  console.log('referencia', referencesDate);
-  console.log(searchResult);
-
-
+  console.log('página:', osProfessionalMeta.current_page)
   return (
     <>
     <ServiceOrdersInput
