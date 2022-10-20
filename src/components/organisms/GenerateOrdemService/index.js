@@ -47,7 +47,6 @@ const GenerateOS = () => {
       });
     } catch (error) {}
   };
-console.log(searchResult)
 
   const nextPage = () => {
     handleFilterRequest('next')
