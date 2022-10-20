@@ -7,6 +7,10 @@ export const ContainerOrdemServices = styled.div`
   padding-bottom: 1.5em;
 
 `;
+export const ContainerOrdem = styled.div`
+ height: 600px;
+
+`;
 
 export const OrdemServiceItens = styled.div`
   display: inline-flex;
