@@ -24,5 +24,5 @@ export const ListHeaderTitle = styled.h4`
   padding-right: ${props => props.right};
   width: ${(props) => props.width};
   white-space: nowrap;
-  cursor: pointer;
+
 `;

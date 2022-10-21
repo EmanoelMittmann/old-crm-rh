@@ -20,19 +20,26 @@ import Footer from "../../organisms/Footer";
 import { useDispatch, useSelector } from "react-redux";
 import ModalGenerateOs from "../../molecules/ModalGenerateOs";
 import { openModal } from "../../../redux/actions";
+import ModalCancelOs from "../../molecules/ModalCancelOS";
+import { toast } from "react-toastify";
+import {DefaultToast} from '../../atoms/Toast/DefaultToast'
 
 const GenerateOS = () => {
   const history = useHistory();
   const [FirstHalfProfessional, setFirstHalfProfessional] = useState([]);
   const [LastHalfProfessional, setLastHalfProfessional] = useState([]);
   const [professionalMeta, setProfessionalMeta] = useState({});
-  const [order, setOrder] = useState();
+  const [ModalProfessional, setModalProfessional] = useState([]);
+  const [ModalProfessionalMeta, setModalProfessionalMeta] = useState({});
+  const [order, setOrder] = useState("");
+  const [ModalOs, setModalOs] = useState(false);
   const [checkedProfissional, setCheckedProfissional] = useState([]);
   const [searchResult, setSearchResult] = useState('')
   const Modal = useSelector(state => state.modalVisibility)
   const dispatch = useDispatch()
 
-  let params = {}
+
+  let params = {};
 
   const GetProfessional = async () => {
     try {
@@ -48,43 +55,75 @@ const GenerateOS = () => {
     } catch (error) {}
   };
 
+  const handleSubmit = async (checkedProfissional) => {
+    try {
+      await api({
+        method: "POST",
+        url: "/orderOfServiceIds?limit=14",
+        data: checkedProfissional,
+        params: params
+      }).then((res) => {
+        setModalProfessional(res.data.data);
+        setModalProfessionalMeta(res.data.meta);
+        dispatch(openModal({ type: "OPENMODAL" }));
+      });
+    } catch (error) {}
+  };
+
   const nextPage = () => {
-    handleFilterRequest('next')
-    GetProfessional()
-  }
+    handleFilterRequest("next");
+    GetProfessional();
+  };
 
   const previousPage = () => {
-    handleFilterRequest('previous')
-    GetProfessional()
-  }
+    handleFilterRequest("previous");
+    GetProfessional();
+  };
 
   const sortByName = () => {
-    order === "" && setOrder("asc");
+    order === "" && setOrder("desc");
     order === "asc" && setOrder("desc");
     order === "desc" && setOrder("asc");
   };
 
   const handleFilterRequest = (pagesFilter) => {
-    if (pagesFilter === 'previous')
+    if (pagesFilter === "previous")
       params.page = `${professionalMeta.current_page - 1}`;
 
-    if (pagesFilter === 'next') params.page = `${professionalMeta.current_page + 1}`;
+    if (pagesFilter === "next")
+      params.page = `${professionalMeta.current_page + 1}`;
 
     if (pagesFilter === undefined) params.page = professionalMeta.current_page;
 
-    if (order !== '') params.order = order;
+    if (order !== "") params.order = order
   };
 
 
   useEffect(() => {
     GetProfessional(searchResult);
-  }, [searchResult]);
+  }, [order, searchResult]);
   
+
 
   return (
     <>
       <Container>
-        {Modal && <ModalGenerateOs/>}
+        {Modal && (
+          <ModalGenerateOs
+            ModalProfessional={ModalProfessional}
+            ModalProfessionalMeta={ModalProfessionalMeta}
+            handleSubmit={handleSubmit}
+            checkedProfissional={checkedProfissional}
+            setCheckedProfissional={setCheckedProfissional}
+          />
+        )}
+        {ModalOs && (
+          <ModalCancelOs
+            text={'Tem certeza que deseja cancelar a O.S?'}
+            redButtonClickHandler={() => history.push("/serviceOrders")}
+            CloseButtonClickHandler={() => setModalOs((prev) => !prev)}
+          />
+        )}
         <ContainerButtonsHeader>
           <ContainerIconModal>
             <ArrowBackNew
@@ -98,13 +137,22 @@ const GenerateOS = () => {
         <ContainerButtons bottom="1.5em">
           <CancelButton
             margin="10px"
-            onClick={() => {
-              history.push("/serviceOrders");
-            }}
+            onClick={() => setModalOs((prev) => !prev)}
           >
             Cancelar
           </CancelButton>
-          <BlueButton width="108px" height="40px" onClick={() => {dispatch(openModal({type: 'OPENMODAL'}))}}>
+          <BlueButton
+            width="108px"
+            height="40px"
+            onClick={() => {
+              if(checkedProfissional.length > 0){
+                handleSubmit(checkedProfissional)
+              }else{
+                return toast.error(<DefaultToast text={'Selecione os profissionais'}/>)
+              }
+              }
+            }
+          >
             Confirmar
           </BlueButton>
         </ContainerButtons>
@@ -113,13 +161,14 @@ const GenerateOS = () => {
         <ContainerChildren>
           <Childrens>
             <div className="Header">
+
               <InputSearch
                 value={searchResult} 
                 setSearchResult={setSearchResult}
                 lineWidth="18em" 
                 inputWidth="15em" 
               />
-              <HeaderOS sortByName={sortByName}/>
+              <HeaderOS sortByName={sortByName} />
               {FirstHalfProfessional?.map((index) => (
                 <GenerateOSItens
                   key={index.id}
@@ -142,7 +191,6 @@ const GenerateOS = () => {
                   setCheckedProfissional={setCheckedProfissional}
                   checkedProfissional={checkedProfissional}
                 />
-              
               ))} 
               </SectionFooter> 
                 <Footer
@@ -154,7 +202,6 @@ const GenerateOS = () => {
                   lastPage={professionalMeta.last_page}
                   currentPage={professionalMeta.current_page}
                 />
-            
             </div>
             
           </Childrens>

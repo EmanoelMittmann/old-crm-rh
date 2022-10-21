@@ -33,7 +33,7 @@ export const ModalContainerProfessional = styled.div`
   left: 35%;
   top: 10;
   width: 36em;
-  height: 37em;
+  height: 40em;
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 1px 0px rgba(0, 0, 0, 0.1);
@@ -76,7 +76,7 @@ export const TitleComissionProfessional = styled.div`
 `
 
 export const ContainerAbsolute = styled.div`
-  height: 405px;
+  height: 459px;
 
   .shelf{
     width: 100%;
