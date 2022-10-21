@@ -25,7 +25,7 @@ import { toast } from "react-toastify";
 import {DefaultToast} from '../../atoms/Toast/DefaultToast'
 
 const GenerateOS = () => {
-  const history = useHistory();
+  
   const [FirstHalfProfessional, setFirstHalfProfessional] = useState([]);
   const [LastHalfProfessional, setLastHalfProfessional] = useState([]);
   const [professionalMeta, setProfessionalMeta] = useState({});
@@ -33,13 +33,13 @@ const GenerateOS = () => {
   const [ModalProfessionalMeta, setModalProfessionalMeta] = useState({});
   const [order, setOrder] = useState('');
   const [ModalOs, setModalOs] = useState(false);
+  const [searchResult, setSearchResult] = useState('')
   const [checkedProfissional, setCheckedProfissional] = useState([]);
   const [page, setPage] = useState(1)
   const [orderBy, setOrderBy] = useState('id')
   const Modal = useSelector((state) => state.modalVisibility);
   const dispatch = useDispatch();
-  const [searchResult, setSearchResult] = useState('')
-
+  const history = useHistory()
 
 
   let params = {};

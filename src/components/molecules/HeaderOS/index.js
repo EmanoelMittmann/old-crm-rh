@@ -8,7 +8,7 @@ const HeaderOS = ({sortByName, setOrderBy}) => {
     <ListHeaderContainer>
        <ListHeaderProfessional>
         <ListHeaderTitle margin="0" right="1em" onClick={() => setOrderBy('name')}>Professional</ListHeaderTitle>
-        <Arrows onClick={sortByName}/>
+        <Arrows className="arrow" onClick={sortByName}/>
       </ListHeaderProfessional>
 
       <ListHeaderCNPJ>
@@ -18,7 +18,7 @@ const HeaderOS = ({sortByName, setOrderBy}) => {
 
       <ListHeaderValueOs>
         <ListHeaderTitle margin="0" right="1em" onClick={() => setOrderBy('total')}>Valor da Os</ListHeaderTitle>
-        <Arrows onClick={sortByName} />
+        <Arrows className="arrow" onClick={sortByName} />
       </ListHeaderValueOs>
     </ListHeaderContainer>
   )
