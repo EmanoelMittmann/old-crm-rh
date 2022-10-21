@@ -9,7 +9,6 @@ const ServiceOrders = () => {
 
     return (
         <Container>
-
             <ServiceOrderSection/>
         </Container>
     )

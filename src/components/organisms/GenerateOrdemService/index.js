@@ -6,7 +6,7 @@ import {
   TitleOS,
 } from "../SelectorNewOs/style";
 import api from "../../../api/api";
-import { Childrens, Container, ContainerChildren } from "./style";
+import { Childrens, Container, ContainerChildren, SectionFooter } from "./style";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as ArrowBackNew } from "../../../assets/icons/arrowBackNew.svg";
 import CancelButton from "../../atoms/Buttons/CancelButton/style";
@@ -34,8 +34,10 @@ const GenerateOS = () => {
   const [order, setOrder] = useState("");
   const [ModalOs, setModalOs] = useState(false);
   const [checkedProfissional, setCheckedProfissional] = useState([]);
-  const Modal = useSelector((state) => state.modalVisibility);
-  const dispatch = useDispatch();
+  const [searchResult, setSearchResult] = useState('')
+  const Modal = useSelector(state => state.modalVisibility)
+  const dispatch = useDispatch()
+
 
   let params = {};
 
@@ -43,7 +45,7 @@ const GenerateOS = () => {
     try {
       await api({
         method: "GET",
-        url: `/orderOfServicePending?limit=14`,
+        url: `/orderOfServicePending?limit=14&search=${searchResult}&cnpj=${searchResult}`,
         params:params
       }).then((data) => {
         setFirstHalfProfessional(data.data.data.slice(0, 7));
@@ -98,9 +100,10 @@ const GenerateOS = () => {
 
 
   useEffect(() => {
-    GetProfessional();
-    handleFilterRequest();
-  }, [order]);
+    GetProfessional(searchResult);
+  }, [order, searchResult]);
+  
+
 
   return (
     <>
@@ -158,7 +161,13 @@ const GenerateOS = () => {
         <ContainerChildren>
           <Childrens>
             <div className="Header">
-              <InputSearch lineWidth="18em" inputWidth="15em" />
+
+              <InputSearch
+                value={searchResult} 
+                setSearchResult={setSearchResult}
+                lineWidth="18em" 
+                inputWidth="15em" 
+              />
               <HeaderOS sortByName={sortByName} />
               {FirstHalfProfessional?.map((index) => (
                 <GenerateOSItens
@@ -171,8 +180,10 @@ const GenerateOS = () => {
             </div>
           </Childrens>
           <Childrens>
+             
             <div className="continuation">
               <HeaderOS sortByName={sortByName} />
+              <SectionFooter> 
               {LastHalfProfessional?.map((index) => (
                 <GenerateOSItens
                   key={index.id}
@@ -180,19 +191,21 @@ const GenerateOS = () => {
                   setCheckedProfissional={setCheckedProfissional}
                   checkedProfissional={checkedProfissional}
                 />
-              ))}
-
-              <Footer
-                height="3em"
-                border="2px solid #ccc"
-                firstPage={professionalMeta.first_page}
-                nextPage={() => nextPage()}
-                previousPage={() => previousPage()}
-                lastPage={professionalMeta.last_page}
-                currentPage={professionalMeta.current_page}
-              />
+              ))} 
+              </SectionFooter> 
+                <Footer
+                  height="3em"
+                  border="2px solid #ccc"
+                  firstPage={professionalMeta.first_page}
+                  nextPage={() => nextPage()}
+                  previousPage={() => previousPage()}
+                  lastPage={professionalMeta.last_page}
+                  currentPage={professionalMeta.current_page}
+                />
             </div>
+            
           </Childrens>
+        
         </ContainerChildren>
       </Container>
     </>
