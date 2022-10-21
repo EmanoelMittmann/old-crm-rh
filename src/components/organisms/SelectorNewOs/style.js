@@ -12,6 +12,19 @@ export const Container = styled.div`
   @media (min-width: 1000px) {
     width: 95%;
   }
+
+  .header{
+    width: 30%;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .Box{
+    display: flex;
+    white-space: nowrap;
+    font-weight: bold;
+  }
 `;
 
 export const ContainerButtons = styled.div`

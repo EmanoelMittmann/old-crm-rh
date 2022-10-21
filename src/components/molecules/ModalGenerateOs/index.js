@@ -1,88 +1,121 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { closeModal } from "../../../redux/actions";
+import { closeModal, openModal } from "../../../redux/actions";
 import CancelButton from "../../atoms/Buttons/CancelButton/style";
 import SaveButton from "../../atoms/Buttons/SaveButton/style";
 import FooterModais from "../../organisms/FooterModais";
 import { ModalOverlay, ModalTitle } from "../Modal/style";
-import CloseButtonCircle from '../../atoms/Buttons/CloseButtonCircle'
-import { ContainerAbsolute, ModalContainerButtons, ModalContainerProfessional, TitleComissionProfessional } from "./style";
-import { useState } from "react";
+import CloseButtonCircle from "../../atoms/Buttons/CloseButtonCircle";
+import {
+  ContainerAbsolute,
+  ModalContainerButtons,
+  ModalContainerProfessional,
+  TitleComissionProfessional,
+} from "./style";
 import Shelf from "./shelf";
+import { useEffect } from "react";
+import ModalCancelOS from "../ModalCancelOS";
+import { useState } from "react";
 
-const ModalGenerateOs = () => {
-    const [state,setState] = useState([
-      
-    ])
-    const dispatch = useDispatch()
+const ModalGenerateOs = ({
+  ModalProfessional,
+  ModalProfessionalMeta,
+  handleSubmit,
+  checkedProfissional,
+  setCheckedProfissional,
+}) => {
+  const [Modal, setModal] = useState(false);
+  const dispatch = useDispatch();
+
+  let params = {};
+
+  const nextPage = () => {
+    handleFilterRequest("next");
+    handleSubmit();
+  };
+
+  const previousPage = () => {
+    handleFilterRequest("previous");
+    handleSubmit();
+  };
+
+  const handleFilterRequest = (pagesFilter) => {
+    if (pagesFilter === "previous")
+      params.page = `${ModalProfessionalMeta.current_page - 1}`;
+
+    if (pagesFilter === "next")
+      params.page = `${ModalProfessionalMeta.current_page + 1}`;
+
+    if (pagesFilter === undefined)
+      params.page = ModalProfessionalMeta.current_page;
+  };
+
+  const handleDelete = (index) => {
+    setCheckedProfissional(
+      checkedProfissional.filter((item) => item !== index)
+    );
+  };
+
+  useEffect(() => {
+    handleSubmit(checkedProfissional);
+  }, [checkedProfissional]);
 
   return (
-    <div>
-      <ModalContainerProfessional>
-        <CloseButtonCircle
-          onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
-        />
-        <ContainerAbsolute>
-          <ModalTitle padding="1em">Confirmar Profissionais</ModalTitle>
-          <TitleComissionProfessional>
-          </TitleComissionProfessional>
-
-        <div className="shelf">
-          {state?.map((professional) => (
-            <Shelf
-              key={professional.id}
-              professional={professional}
-             
+    <>
+      {!Modal ? (
+        <>
+          <ModalContainerProfessional>
+            <CloseButtonCircle
+              onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
             />
-          ))}
-        </div>
-        </ContainerAbsolute>
+            <ContainerAbsolute>
+              <ModalTitle padding="1em">Confirmar Profissionais</ModalTitle>
+              <div className="shelf">
+                {ModalProfessional?.map((professional) => (
+                  <Shelf
+                    key={professional.id}
+                    professional={professional}
+                    onDelete={handleDelete}
+                  />
+                ))}
+              </div>
+            </ContainerAbsolute>
 
-        <FooterModais
-          position='relative'
-        //   previousPage={previousPage}
-        //   nextPage={nextPage}
-        //   lastPage={haveCommissionMeta?.last_page}
-        //   currentPage={haveCommissionMeta?.current_page}
-        //   firstPage={haveCommissionMeta?.first_page}
+            <FooterModais
+              position="relative"
+              previousPage={previousPage}
+              nextPage={nextPage}
+              lastPage={ModalProfessionalMeta?.last_page}
+              currentPage={ModalProfessionalMeta?.current_page}
+              firstPage={ModalProfessionalMeta?.first_page}
+            />
+            <ModalContainerButtons>
+              <CancelButton
+                onClick={() => {
+                  setModal((prev) => !prev);
+                }}
+              >
+                Cancelar
+              </CancelButton>
+              <SaveButton
+                onClick={() => {
+                  dispatch(closeModal({ type: "CLOSEMODAL" }));
+                }}
+              >
+                Confirmar
+              </SaveButton>
+            </ModalContainerButtons>
+          </ModalContainerProfessional>
+          <ModalOverlay />
+        </>
+      ) : (
+        <ModalCancelOS
+          text={"Tem certeza que deseja cancelar a OS?"}
+          CloseButtonClickHandler={() => setModal((prev) => !prev)}
+          redButtonClickHandler={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
         />
-        <ModalContainerButtons>
-          <CancelButton
-            onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
-          >
-            Cancelar
-          </CancelButton>
-          <SaveButton
-            // onClick={() => {
-            //   const filterHaveCommission = checkedProfissional.filter(
-            //     (profissional) => profissional?.commission !== ""
-            //   );
-            //   const isEmptyCommision = valuesCommission.find(
-            //     (commission) => commission.value === ""
-            //   );
-            //   if (
-            //     valuesCommission.length === filterHaveCommission.length &&
-            //     !isEmptyCommision
-            //   ) {
-            //     dispatch(valueOfCommission(valuesCommission));
-            //     dispatch(closeModal({ type: "CLOSEMODAL" }));
-            //   } else {
-            //     return toast.error(
-            //       <DefaultToast
-            //         text={
-            //           "Há Campo vazio! Exclua-o, ou inclua um valor maior que 0"
-            //         }
-            //       />
-            //     );
-            //   }
-            // }}
-          >
-            Confirmar
-          </SaveButton>
-        </ModalContainerButtons>
-      </ModalContainerProfessional>
-      <ModalOverlay />
-    </div>
+      )}
+    </>
   );
 };
 

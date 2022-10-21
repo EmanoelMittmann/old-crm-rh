@@ -9,23 +9,17 @@ import {
     ModalTitle
 } from '../Modal/style.js'
 
-const ModalCancelOS = ({CloseButtonClickHandler, deleteHandler, id}) => {
-
-    const redButtonClickHandler = () => {
-        deleteHandler(id)
-        CloseButtonClickHandler()
-    }
-
+const ModalCancelOS = ({redButtonClickHandler,CloseButtonClickHandler, text }) => {
 
     return (
         <div>
             <ModalContainer>
-                <CloseButtonCirle CloseButtonClickHandler={CloseButtonClickHandler}/>
+                <CloseButtonCirle/>
                 <ModalTitle padding="1.6em 1.6em 0.7em 1.6em">
                     <IconExclamation src={exclamation} alt="Info"/>
                     Cancelar O.S
                 </ModalTitle>
-                   <ModalDeleteMessage>Tem certeza que deseja cancelar a O.S?</ModalDeleteMessage>
+                   <ModalDeleteMessage>{text}</ModalDeleteMessage>
                 <ModalContainerButtons>
                     <CancelButton onClick={CloseButtonClickHandler}>não</CancelButton>
                     <RedButton
