@@ -6,7 +6,7 @@ import {
   TitleOS,
 } from "../SelectorNewOs/style";
 import api from "../../../api/api";
-import { Childrens, Container, ContainerChildren } from "./style";
+import { Childrens, Container, ContainerChildren, SectionFooter } from "./style";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as ArrowBackNew } from "../../../assets/icons/arrowBackNew.svg";
 import CancelButton from "../../atoms/Buttons/CancelButton/style";
@@ -32,21 +32,23 @@ const GenerateOS = () => {
   const [ModalProfessional, setModalProfessional] = useState([]);
   const [ModalProfessionalMeta, setModalProfessionalMeta] = useState({});
   const [order, setOrder] = useState('');
-  console.log("order: ", order);
   const [ModalOs, setModalOs] = useState(false);
   const [checkedProfissional, setCheckedProfissional] = useState([]);
   const [page, setPage] = useState(1)
-  const [orderBy, setOrderBy] = useState('')
+  const [orderBy, setOrderBy] = useState('id')
   const Modal = useSelector((state) => state.modalVisibility);
   const dispatch = useDispatch();
-  
+  const [searchResult, setSearchResult] = useState('')
+
+
+
   let params = {};
   
   const GetProfessional = async () => {
     try {
       await api({
         method: "GET",
-        url: `/orderOfServicePending?limit=14&orderField=${orderBy}&order=${order}`,
+        url: `/orderOfServicePending?limit=14&search=${searchResult}&cnpj=${searchResult}&orderField=${orderBy}&order=${order}`,
         params:params
       }).then((data) => {
         console.log(data)
@@ -96,15 +98,14 @@ const GenerateOS = () => {
 
     if (pagesFilter === undefined) params.page = professionalMeta.current_page;
 
-
-    // if (orderBy !== "") params.orderField = orderBy
   };
 
 
   useEffect(() => {
-    GetProfessional();
+    GetProfessional(searchResult);
     handleFilterRequest(order);
-  }, [order, orderBy]);
+  }, [order, orderBy, searchResult]);
+
 
   return (
     <>
@@ -164,8 +165,14 @@ const GenerateOS = () => {
         <ContainerChildren>
           <Childrens>
             <div className="Header">
-              <InputSearch lineWidth="18em" inputWidth="15em" />
-              <HeaderOS sortByName={sortByName} setOrderBy={setOrderBy}/>
+
+              <InputSearch
+                value={searchResult} 
+                setSearchResult={setSearchResult}
+                lineWidth="18em" 
+                inputWidth="15em" 
+              />
+              <HeaderOS sortByName={sortByName}  setOrderBy={setOrderBy}/>
               {FirstHalfProfessional?.map((index) => (
                 <GenerateOSItens
                   key={index.id}
@@ -177,8 +184,11 @@ const GenerateOS = () => {
             </div>
           </Childrens>
           <Childrens>
+             
             <div className="continuation">
               <HeaderOS sortByName={sortByName} setOrderBy={setOrderBy}/>
+              <SectionFooter> 
+
               {LastHalfProfessional?.map((index) => (
                 <GenerateOSItens
                   key={index.id}
@@ -186,19 +196,21 @@ const GenerateOS = () => {
                   setCheckedProfissional={setCheckedProfissional}
                   checkedProfissional={checkedProfissional}
                 />
-              ))}
-
-              <Footer
-                height="3em"
-                border="2px solid #ccc"
-                firstPage={professionalMeta.first_page}
-                nextPage={() => nextPage()}
-                previousPage={() => previousPage()}
-                lastPage={professionalMeta.last_page}
-                currentPage={professionalMeta.current_page}
-              />
+              ))} 
+              </SectionFooter> 
+                <Footer
+                  height="3em"
+                  border="2px solid #ccc"
+                  firstPage={professionalMeta.first_page}
+                  nextPage={() => nextPage()}
+                  previousPage={() => previousPage()}
+                  lastPage={professionalMeta.last_page}
+                  currentPage={professionalMeta.current_page}
+                />
             </div>
+            
           </Childrens>
+        
         </ContainerChildren>
       </Container>
     </>

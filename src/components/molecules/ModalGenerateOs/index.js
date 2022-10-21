@@ -58,8 +58,6 @@ const ModalGenerateOs = ({
     );
   };
 
-  console.log("ModalProfessionalMeta: ", ModalProfessionalMeta);
-
   useEffect(() => {
     handleSubmit(checkedProfissional);
   }, [checkedProfissional,page]);

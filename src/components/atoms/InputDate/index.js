@@ -10,7 +10,7 @@ const InputDate = ({value, onChange, placeholder, margin,disabled, width}) => {
     return (
         <InputLine width={width ? width : "260px"} margin={margin}>
             <DefaultInput 
-                displayDate={onFocus || value !== "" ? "block" : "none"}
+                displayDate={onFocus || value === '' ? "block" : "none"}
                 width="70px"
                 type="date"
                 disabled={disabled}
@@ -20,7 +20,8 @@ const InputDate = ({value, onChange, placeholder, margin,disabled, width}) => {
                 max="2999-12-31"
                 padding="0 1.5em"
             ></DefaultInput>
-            {!onFocus && value === "" && <PlaceHolder>{placeholder}</PlaceHolder>}
+            
+            {!onFocus && value !== "" && <PlaceHolder>{placeholder}</PlaceHolder>}
         </InputLine>
     )
 }
