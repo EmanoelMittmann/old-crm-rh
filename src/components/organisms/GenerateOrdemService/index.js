@@ -25,29 +25,33 @@ import { toast } from "react-toastify";
 import {DefaultToast} from '../../atoms/Toast/DefaultToast'
 
 const GenerateOS = () => {
-  const history = useHistory();
+  
   const [FirstHalfProfessional, setFirstHalfProfessional] = useState([]);
   const [LastHalfProfessional, setLastHalfProfessional] = useState([]);
   const [professionalMeta, setProfessionalMeta] = useState({});
   const [ModalProfessional, setModalProfessional] = useState([]);
   const [ModalProfessionalMeta, setModalProfessionalMeta] = useState({});
-  const [order, setOrder] = useState("");
+  const [order, setOrder] = useState('');
   const [ModalOs, setModalOs] = useState(false);
-  const [checkedProfissional, setCheckedProfissional] = useState([]);
   const [searchResult, setSearchResult] = useState('')
-  const Modal = useSelector(state => state.modalVisibility)
-  const dispatch = useDispatch()
+  const [checkedProfissional, setCheckedProfissional] = useState([]);
+  const [page, setPage] = useState(1)
+  const [orderBy, setOrderBy] = useState('id')
+  const Modal = useSelector((state) => state.modalVisibility);
+  const dispatch = useDispatch();
+  const history = useHistory()
 
 
   let params = {};
-
+  
   const GetProfessional = async () => {
     try {
       await api({
         method: "GET",
-        url: `/orderOfServicePending?limit=14&search=${searchResult}&cnpj=${searchResult}`,
+        url: `/orderOfServicePending?limit=14&search=${searchResult}&cnpj=${searchResult}&orderField=${orderBy}&order=${order}`,
         params:params
       }).then((data) => {
+        console.log(data)
         setFirstHalfProfessional(data.data.data.slice(0, 7));
         setLastHalfProfessional(data.data.data.slice(7, 14));
         setProfessionalMeta(data.data.meta);
@@ -59,9 +63,8 @@ const GenerateOS = () => {
     try {
       await api({
         method: "POST",
-        url: "/orderOfServiceIds?limit=14",
+        url: `/orderOfServiceIds?limit=14&page=${page}`,
         data: checkedProfissional,
-        params: params
       }).then((res) => {
         setModalProfessional(res.data.data);
         setModalProfessionalMeta(res.data.meta);
@@ -95,14 +98,13 @@ const GenerateOS = () => {
 
     if (pagesFilter === undefined) params.page = professionalMeta.current_page;
 
-    if (order !== "") params.order = order
   };
 
 
   useEffect(() => {
     GetProfessional(searchResult);
-  }, [order, searchResult]);
-  
+    handleFilterRequest(order);
+  }, [order, orderBy, searchResult]);
 
 
   return (
@@ -115,6 +117,8 @@ const GenerateOS = () => {
             handleSubmit={handleSubmit}
             checkedProfissional={checkedProfissional}
             setCheckedProfissional={setCheckedProfissional}
+            page={page} 
+            setPage={setPage}
           />
         )}
         {ModalOs && (
@@ -168,7 +172,7 @@ const GenerateOS = () => {
                 lineWidth="18em" 
                 inputWidth="15em" 
               />
-              <HeaderOS sortByName={sortByName} />
+              <HeaderOS sortByName={sortByName}  setOrderBy={setOrderBy}/>
               {FirstHalfProfessional?.map((index) => (
                 <GenerateOSItens
                   key={index.id}
@@ -182,8 +186,9 @@ const GenerateOS = () => {
           <Childrens>
              
             <div className="continuation">
-              <HeaderOS sortByName={sortByName} />
+              <HeaderOS sortByName={sortByName} setOrderBy={setOrderBy}/>
               <SectionFooter> 
+
               {LastHalfProfessional?.map((index) => (
                 <GenerateOSItens
                   key={index.id}

@@ -43,19 +43,14 @@ const GenerateOSItens = ({
         {index.cnpj}
       </OrdemServiceItens>
       <OrdemServiceItens width="33.3%" content="end" right="2.5em">
-        {index.user.commission_?.commission ? 
+        {
             Number(
-              index.user.commission_.commission + index.user.fixed_payment_value
+              index.total
             ).toLocaleString("pt-br", {
               style: "currency",
               currency: "BRL",
             })
-          : Number(
-              index.user.fixed_payment_value
-            ).toLocaleString("pt-br", {
-              style: "currency",
-              currency: "BRL",
-        })}
+        }
       </OrdemServiceItens>
     </ContainerOrdemServices>
   );

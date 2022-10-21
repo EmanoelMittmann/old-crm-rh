@@ -3,12 +3,12 @@ import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg';
 import { ListHeaderTitle } from '../../atoms/ListHeader/style';
 import { ListHeaderCNPJ, ListHeaderProfessional, ListHeaderValueOs,ListHeaderContainer } from './style';
 
-const HeaderOS = ({sortByName}) => {
+const HeaderOS = ({sortByName, setOrderBy}) => {
   return (
     <ListHeaderContainer>
        <ListHeaderProfessional>
-        <ListHeaderTitle margin="0" right="1em" >Professional</ListHeaderTitle>
-        <Arrows onClick={sortByName}/>
+        <ListHeaderTitle margin="0" right="1em" onClick={() => setOrderBy('name')}>Professional</ListHeaderTitle>
+        <Arrows className="arrow" onClick={sortByName}/>
       </ListHeaderProfessional>
 
       <ListHeaderCNPJ>
@@ -17,8 +17,8 @@ const HeaderOS = ({sortByName}) => {
       </ListHeaderCNPJ>
 
       <ListHeaderValueOs>
-        <ListHeaderTitle margin="0" right="1em">Valor da Os</ListHeaderTitle>
-        <Arrows onClick={sortByName} />
+        <ListHeaderTitle margin="0" right="1em" onClick={() => setOrderBy('total')}>Valor da Os</ListHeaderTitle>
+        <Arrows className="arrow" onClick={sortByName} />
       </ListHeaderValueOs>
     </ListHeaderContainer>
   )

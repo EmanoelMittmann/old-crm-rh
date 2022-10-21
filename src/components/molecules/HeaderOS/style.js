@@ -11,6 +11,10 @@ export const ListHeaderContainer = styled.div`
   justify-content: space-between;
   margin-top: 2em;
   padding: 1em;
+
+  .arrow{
+    cursor: pointer;
+  }
 `;
 
 export const ListHeaderProfessional = styled.div`

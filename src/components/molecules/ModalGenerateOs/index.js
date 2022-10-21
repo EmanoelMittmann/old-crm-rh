@@ -23,6 +23,8 @@ const ModalGenerateOs = ({
   handleSubmit,
   checkedProfissional,
   setCheckedProfissional,
+  page,
+  setPage
 }) => {
   const [Modal, setModal] = useState(false);
   const dispatch = useDispatch();
@@ -30,25 +32,25 @@ const ModalGenerateOs = ({
   let params = {};
 
   const nextPage = () => {
-    handleFilterRequest("next");
+    setPage(page + 1)
     handleSubmit();
   };
 
   const previousPage = () => {
-    handleFilterRequest("previous");
+    setPage(page - 1);
     handleSubmit();
   };
 
-  const handleFilterRequest = (pagesFilter) => {
-    if (pagesFilter === "previous")
-      params.page = `${ModalProfessionalMeta.current_page - 1}`;
+  // const handleFilterRequest = (pagesFilter) => {
+  //   if (pagesFilter === "previous")
+  //     params.page = `${ModalProfessionalMeta.current_page - 1}`;
 
-    if (pagesFilter === "next")
-      params.page = `${ModalProfessionalMeta.current_page + 1}`;
+  //   if (pagesFilter === "next")
+  //     params.page = `${ModalProfessionalMeta.current_page + 1}`;
 
-    if (pagesFilter === undefined)
-      params.page = ModalProfessionalMeta.current_page;
-  };
+  //   if (pagesFilter === undefined)
+  //     params.page = ModalProfessionalMeta.current_page;
+  // };
 
   const handleDelete = (index) => {
     setCheckedProfissional(
@@ -58,11 +60,11 @@ const ModalGenerateOs = ({
 
   useEffect(() => {
     handleSubmit(checkedProfissional);
-  }, [checkedProfissional]);
+  }, [checkedProfissional,page]);
 
   return (
     <>
-      {!Modal ? (
+      {!Modal && checkedProfissional.length > 0 ? (
         <>
           <ModalContainerProfessional>
             <CloseButtonCircle
