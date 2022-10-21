@@ -31,21 +31,25 @@ const GenerateOS = () => {
   const [professionalMeta, setProfessionalMeta] = useState({});
   const [ModalProfessional, setModalProfessional] = useState([]);
   const [ModalProfessionalMeta, setModalProfessionalMeta] = useState({});
-  const [order, setOrder] = useState("");
+  const [order, setOrder] = useState('');
+  console.log("order: ", order);
   const [ModalOs, setModalOs] = useState(false);
   const [checkedProfissional, setCheckedProfissional] = useState([]);
+  const [page, setPage] = useState(1)
+  const [orderBy, setOrderBy] = useState('')
   const Modal = useSelector((state) => state.modalVisibility);
   const dispatch = useDispatch();
-
+  
   let params = {};
-
+  
   const GetProfessional = async () => {
     try {
       await api({
         method: "GET",
-        url: `/orderOfServicePending?limit=14`,
+        url: `/orderOfServicePending?limit=14&orderField=${orderBy}&order=${order}`,
         params:params
       }).then((data) => {
+        console.log(data)
         setFirstHalfProfessional(data.data.data.slice(0, 7));
         setLastHalfProfessional(data.data.data.slice(7, 14));
         setProfessionalMeta(data.data.meta);
@@ -57,9 +61,8 @@ const GenerateOS = () => {
     try {
       await api({
         method: "POST",
-        url: "/orderOfServiceIds?limit=14",
+        url: `/orderOfServiceIds?limit=14&page=${page}`,
         data: checkedProfissional,
-        params: params
       }).then((res) => {
         setModalProfessional(res.data.data);
         setModalProfessionalMeta(res.data.meta);
@@ -93,14 +96,15 @@ const GenerateOS = () => {
 
     if (pagesFilter === undefined) params.page = professionalMeta.current_page;
 
-    if (order !== "") params.order = order
+
+    // if (orderBy !== "") params.orderField = orderBy
   };
 
 
   useEffect(() => {
     GetProfessional();
-    handleFilterRequest();
-  }, [order]);
+    handleFilterRequest(order);
+  }, [order, orderBy]);
 
   return (
     <>
@@ -112,6 +116,8 @@ const GenerateOS = () => {
             handleSubmit={handleSubmit}
             checkedProfissional={checkedProfissional}
             setCheckedProfissional={setCheckedProfissional}
+            page={page} 
+            setPage={setPage}
           />
         )}
         {ModalOs && (
@@ -159,7 +165,7 @@ const GenerateOS = () => {
           <Childrens>
             <div className="Header">
               <InputSearch lineWidth="18em" inputWidth="15em" />
-              <HeaderOS sortByName={sortByName} />
+              <HeaderOS sortByName={sortByName} setOrderBy={setOrderBy}/>
               {FirstHalfProfessional?.map((index) => (
                 <GenerateOSItens
                   key={index.id}
@@ -172,7 +178,7 @@ const GenerateOS = () => {
           </Childrens>
           <Childrens>
             <div className="continuation">
-              <HeaderOS sortByName={sortByName} />
+              <HeaderOS sortByName={sortByName} setOrderBy={setOrderBy}/>
               {LastHalfProfessional?.map((index) => (
                 <GenerateOSItens
                   key={index.id}
