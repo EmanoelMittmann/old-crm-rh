@@ -25,14 +25,14 @@ const ServiceOrdersInput = ({searchResult, setSearchResult, statusSelected, sets
                     width="230px"
                 />
                 <InputDate
-                    value=""
+                    value={initialDate}
                     width="230px"
                     placeholder="Período inicial"
                     onChange={(e) => setInitialDate(e.target.value)} 
                    
                 />
                 <InputDate
-                    value=""
+                    value={finalDate}
                     width="230px"
                     placeholder={"Período final"}
                     onChange={(e) => setFinalDate(e.target.value)}
