@@ -22,18 +22,21 @@ import ModalGenerateOs from "../../molecules/ModalGenerateOs";
 import { openModal } from "../../../redux/actions";
 
 const GenerateOS = () => {
-  const history = useHistory();
+  
   const [FirstHalfProfessional, setFirstHalfProfessional] = useState([]);
   const [LastHalfProfessional, setLastHalfProfessional] = useState([]);
-  const [professionalMeta, setProfessionalMeta] = useState({});
-  const [order, setOrder] = useState();
   const [checkedProfissional, setCheckedProfissional] = useState([]);
+  const [professionalMeta, setProfessionalMeta] = useState({});
   const [searchResult, setSearchResult] = useState('')
+  const [order, setOrder] = useState();
+
   const Modal = useSelector(state => state.modalVisibility)
   const dispatch = useDispatch()
-
+  const history = useHistory();
+ 
   let params = {}
-
+  
+  
   const GetProfessional = async () => {
     try {
       await api({
@@ -104,7 +107,11 @@ const GenerateOS = () => {
           >
             Cancelar
           </CancelButton>
-          <BlueButton width="108px" height="40px" onClick={() => {dispatch(openModal({type: 'OPENMODAL'}))}}>
+          <BlueButton 
+            width="108px" 
+            height="40px" 
+            onClick={() => {
+            dispatch(openModal({type: 'OPENMODAL'}))}}>
             Confirmar
           </BlueButton>
         </ContainerButtons>

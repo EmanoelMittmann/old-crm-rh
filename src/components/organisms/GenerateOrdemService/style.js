@@ -42,6 +42,6 @@ export const Childrens = styled.div`
 
 export const SectionFooter = styled.div`
    height: 445px;
-  position: relative;
+
 
 `;
