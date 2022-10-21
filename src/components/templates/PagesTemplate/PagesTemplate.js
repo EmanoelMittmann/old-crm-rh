@@ -31,8 +31,8 @@ export const PagesTemplate = (props) => {
           {hasButton ? (
             <DarkButton
               onClick={() => history.push(buttonPath)}
-              width="200px"
-              height="42px"
+              width="151px"
+              height="44px"
               margin="0 5% 0 0"
             >
               {buttonText}
@@ -43,8 +43,8 @@ export const PagesTemplate = (props) => {
           {secondButton && (
             <DarkButton
               onClick={() => history.push(secondButtonPath)}
-              width="200px"
-              height="42px"
+              width="116px"
+              height="44px"
               margin="0 5% 0 0"
             >
             {secondButtonText}

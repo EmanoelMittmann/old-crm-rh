@@ -39,6 +39,7 @@ const GenerateOS = () => {
   const dispatch = useDispatch();
   const history = useHistory()
 
+
   let params = {};
 
   const GetProfessional = async () => {
@@ -102,7 +103,7 @@ const GenerateOS = () => {
   useEffect(() => {
     GetProfessional(searchResult);
   }, [order, searchResult]);
-  
+
 
   return (
     <>
@@ -160,13 +161,14 @@ const GenerateOS = () => {
         <ContainerChildren>
           <Childrens>
             <div className="Header">
+
               <InputSearch
                 value={searchResult} 
                 setSearchResult={setSearchResult}
                 lineWidth="18em" 
                 inputWidth="15em" 
               />
-              <HeaderOS sortByName={sortByName}/>
+              <HeaderOS sortByName={sortByName} />
               {FirstHalfProfessional?.map((index) => (
                 <GenerateOSItens
                   key={index.id}
@@ -188,16 +190,17 @@ const GenerateOS = () => {
                   setCheckedProfissional={setCheckedProfissional}
                   checkedProfissional={checkedProfissional}
                 />
+
               ))}
-              </SectionFooter>
-              <Footer 
-                height="3em" 
-                border="2px solid #ccc" 
-                firstPage={professionalMeta.first_page}
-                nextPage={() => nextPage()}
-                previousPage={() => previousPage()}
-                lastPage={professionalMeta.last_page}
-                currentPage={professionalMeta.current_page}
+              </SectionFooter>   
+                <Footer
+                  height="3em"
+                  border="2px solid #ccc"
+                  firstPage={professionalMeta.first_page}
+                  nextPage={() => nextPage()}
+                  previousPage={() => previousPage()}
+                  lastPage={professionalMeta.last_page}
+                  currentPage={professionalMeta.current_page}
                 />
             </div>
             
