@@ -208,7 +208,7 @@ const NewOrdemService = () => {
           <InputSearch
             value={searchResult}
             setSearchResult={setSearchResult}
-            inputWidth="230px"
+            inputWidth="280px"
           />
           <div className="InputBox">
           <input
