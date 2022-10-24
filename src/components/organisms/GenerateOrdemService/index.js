@@ -100,7 +100,6 @@ const GenerateOS = () => {
 
   };
 
-
   useEffect(() => {
     GetProfessional(searchResult);
     handleFilterRequest(order);
