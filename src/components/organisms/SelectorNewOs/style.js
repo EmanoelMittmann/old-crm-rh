@@ -30,6 +30,7 @@ export const Container = styled.div`
     display: flex;
     white-space: nowrap;
     font-weight: bold;
+    cursor: pointer;
  
   }
 `;
