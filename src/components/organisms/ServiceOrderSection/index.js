@@ -9,6 +9,7 @@ import ServiceOrderListItens from '../../molecules/ServicesOrderListItens'
 import { ContainerHeight } from './style';
 import ServiceOrdersInput from '../../molecules/ServiceOrdersInputs';
 import { DefaultToast } from '../../atoms/Toast/DefaultToast';
+import { string } from 'yup';
 
 const ServiceOrderSection = () => {
   const [order, setOrder] = useState('');
@@ -61,16 +62,18 @@ const ServiceOrderSection = () => {
 
     if (pagesFilter === undefined) params.page = osProfessionalMeta.current_page;
 
-    
-
-     if (finalDate !== '' && finalDate < initialDate) {
+  
+    if (finalDate !== '' && finalDate < initialDate) {
            toast.warn(<DefaultToast text="Período final precisa ser maior que o período inicial" />  
-     )}
-
+     )}  
     if (order !== '') params.order = order;
 
   }
-  
+  console.log('Inicio', initialDate);
+  console.log('final', finalDate);
+  console.log('status', statusSelected);
+
+
   useEffect(() => {
     handleFilterOsRequest()
     getOsProfessionals(searchResult, statusSelected, finalDate, initialDate, referencesDate)

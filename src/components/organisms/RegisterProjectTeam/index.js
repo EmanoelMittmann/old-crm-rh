@@ -63,7 +63,7 @@ const RegisterProjectTeam = ({ payloadTeam, setPayloadTeam }) => {
 
         //Informações do profissional selecionado
         const newTeamMember = allProfessionals.filter((profes) => {
-            return profes.id == professionalSelected
+            return profes.id === professionalSelected
         })
 
         const [{ id, name, avatar, job_id }] = newTeamMember
@@ -79,7 +79,7 @@ const RegisterProjectTeam = ({ payloadTeam, setPayloadTeam }) => {
 
         //Validação para se o membro do time já existe
         const memberAlreadyExist = teamMembers.find((member) => {
-            return member.user_id == id
+            return member.user_id === id
         })
 
         if (!memberAlreadyExist) {
