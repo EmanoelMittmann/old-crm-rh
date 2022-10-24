@@ -206,10 +206,11 @@ const NewOrdemService = () => {
       <Container>
         <div className="header">
           <InputSearch
+            value={searchResult}
             setSearchResult={setSearchResult}
-            lineWidth="280px"
-            inputWidth="15em"
+            inputWidth="230px"
           />
+          <div className="InputBox">
           <input
             type="checkbox"
             onClick={() => handleClick()}
@@ -220,6 +221,7 @@ const NewOrdemService = () => {
           <label for="box" className="Box">
             Selecionar Todos
           </label>
+          </div>
         </div>
         <OrdemServiceHeader sortByName={sortByName} />
         <ScrollContainer>

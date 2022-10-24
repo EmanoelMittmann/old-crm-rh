@@ -14,7 +14,7 @@ const InputSearch = ({setSearchResult, lineWidth, inputWidth}) => {
                 type="search"
                 placeholder="Buscar..."
                 width={inputWidth}
-                padding="0.2em 0 0em 0em"/>
+                padding="0.2em 0 0em 1em"/>
         </InputLine>
     )
 }
