@@ -12,8 +12,7 @@ const HeaderOS = ({sortByName, setOrderBy}) => {
       </ListHeaderProfessional>
 
       <ListHeaderCNPJ>
-        <ListHeaderTitle margin="0" right="1em">CNPJ</ListHeaderTitle>
-        <Arrows  />
+        <ListHeaderTitle margin="0" right="2em">CNPJ</ListHeaderTitle>
       </ListHeaderCNPJ>
 
       <ListHeaderValueOs>

@@ -35,7 +35,7 @@ const NewOrdemService = () => {
   const [checkedProfissional, setCheckedProfissional] = useState([]);
   const [order, setOrder] = useState("");
   const [newId, setNewId] = useState([]);
-  const [check, setCheck] = useState(true)
+  const [check, setCheck] = useState(true);
   const [haveCommission, setHaveCommission] = useState([]);
   const [haveCommissionMeta, setHaveCommissionMeta] = useState({});
   const [page, setPage] = useState(1);
@@ -54,8 +54,7 @@ const NewOrdemService = () => {
 
   const handleClick = () => {
     const allIds = professionals.map((item) => item.id);
-
-    if(check){
+    if (check) {
       setCheckedProfissional(allIds.map((item) => ({ professional_id: item })));
     }
   };
@@ -65,7 +64,7 @@ const NewOrdemService = () => {
       try {
         await api({
           method: "POST",
-          url: `/findProfessionalCommission?page=${page}&limit=5`,
+          url: `/findProfessionalCommission?&limit=5`,
           data: data,
           params: params,
         }).then((res) => {
@@ -116,6 +115,16 @@ const NewOrdemService = () => {
     }
   };
 
+  const handleFilterModalRequest = (pagesFilter) => {
+    if (pagesFilter === "previous")
+      params.page = `${haveCommissionMeta.current_page - 1}`;
+
+    if (pagesFilter === "next")
+      params.page = `${haveCommissionMeta.current_page + 1}`;
+
+    if (pagesFilter === undefined) params.page = haveCommissionMeta.current_page;
+  };
+
   const getProfessionals = async () => {
     const { data } = await api({
       method: "get",
@@ -123,24 +132,17 @@ const NewOrdemService = () => {
     });
     setProfessionals(data.data);
   };
+
   useEffect(() => {
     getProfessionals();
   }, [searchResult]);
 
   useEffect(() => {
-    handleSubmit(checkedProfissional);
-  }, [page]);
-
-  useEffect(() => {
-    if (haveCommission[1] !== undefined) {
-      handleSubmit(
-        newId.map((item) => ({ professional_id: item.professional_id }))
-      );
-      setCheckedProfissional(newId);
-    } else {
-      setCheckedProfissional(newId);
-      dispatch(closeModal({ type: "CLOSEMODAL" }));
-    }
+    handleFilterModalRequest()
+    handleSubmit(
+      newId.map((item) => ({ professional_id: item.professional_id }))
+    );
+    setCheckedProfissional(newId);
   }, [newId]);
 
   useEffect(() => {
@@ -191,8 +193,8 @@ const NewOrdemService = () => {
               checkedProfissional={checkedProfissional}
               haveCommission={haveCommission}
               setHaveCommission={setHaveCommission}
-              setPage={setPage}
-              page={page}
+              handleFilterModalRequest={handleFilterModalRequest}
+              handleSubmit={handleSubmit}
               setCheckedProfissional={setCheckedProfissional}
               newId={newId}
               setNewId={setNewId}
@@ -213,7 +215,7 @@ const NewOrdemService = () => {
           <input
             type="checkbox"
             onClick={() => handleClick()}
-            onChange={(e) => setCheck(prev => !prev)}
+            onChange={(e) => setCheck((prev) => !prev)}
             className="Box"
             id="box"
           />
