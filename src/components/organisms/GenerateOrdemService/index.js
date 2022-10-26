@@ -23,22 +23,25 @@ import { openModal } from "../../../redux/actions";
 import ModalCancelOs from "../../molecules/ModalCancelOS";
 import { toast } from "react-toastify";
 import {DefaultToast} from '../../atoms/Toast/DefaultToast'
+import ModalCompanies from "../../molecules/ModalCompanies";
 
 const GenerateOS = () => {
   
+  const [CompanyModal, setCompanyModal] = useState(false)
+  const [checkedProfissional, setCheckedProfissional] = useState([]);
+  const dispatch = useDispatch();
   const [FirstHalfProfessional, setFirstHalfProfessional] = useState([]);
+  const history = useHistory()
+  const [OrdemServicesData,setOrdemServicesData] = useState({})
   const [LastHalfProfessional, setLastHalfProfessional] = useState([]);
-  const [professionalMeta, setProfessionalMeta] = useState({});
   const [ModalProfessional, setModalProfessional] = useState([]);
   const [ModalProfessionalMeta, setModalProfessionalMeta] = useState({});
-  const [order, setOrder] = useState('');
   const [ModalOs, setModalOs] = useState(false);
-  const [searchResult, setSearchResult] = useState('')
-  const [checkedProfissional, setCheckedProfissional] = useState([]);
-  const [orderBy, setOrderBy] = useState('id')
   const Modal = useSelector((state) => state.modalVisibility);
-  const dispatch = useDispatch();
-  const history = useHistory()
+  const [order, setOrder] = useState('');
+  const [orderBy, setOrderBy] = useState('id')
+  const [professionalMeta, setProfessionalMeta] = useState({});
+  const [searchResult, setSearchResult] = useState('')
 
 
   let params = {};
@@ -127,11 +130,19 @@ const GenerateOS = () => {
   return (
     <>
       <Container>
+        {CompanyModal && <ModalCompanies CancelEvent={() => {
+            setCompanyModal(prev => !prev)
+            OrdemServicesData={OrdemServicesData}
+            ModalProfessional={ModalProfessional}
+            setOrdemServicesData={setOrdemServicesData}
+            dispatch(openModal({type: 'OPENMODAL'}))
+        }}/>}
         {Modal && (
           <ModalGenerateOs
             ModalProfessional={ModalProfessional}
             ModalProfessionalMeta={ModalProfessionalMeta}
             handleSubmit={handleSubmit}
+            setCompanyModal={setCompanyModal}
             handleFilterModalRequest={handleFilterModalRequest}
             checkedProfissional={checkedProfissional}
             setCheckedProfissional={setCheckedProfissional}

@@ -10,17 +10,18 @@ import {
   ContainerAbsolute,
   ModalContainerButtons,
   ModalContainerProfessional,
-  TitleComissionProfessional,
 } from "./style";
 import Shelf from "./shelf";
 import { useEffect } from "react";
 import ModalCancelOS from "../ModalCancelOS";
 import { useState } from "react";
+import ModalCompanies from "../ModalCompanies";
 
 const ModalGenerateOs = ({
   ModalProfessional,
   ModalProfessionalMeta,
   handleSubmit,
+  setCompanyModal,
   handleFilterModalRequest,
   checkedProfissional,
   setCheckedProfissional,
@@ -88,7 +89,8 @@ const ModalGenerateOs = ({
               </CancelButton>
               <SaveButton
                 onClick={() => {
-                  dispatch(closeModal({ type: "CLOSEMODAL" }));
+                  dispatch(closeModal({ type: "CLOSEMODAL" }))
+                  setCompanyModal(prev => !prev)
                 }}
               >
                 Confirmar
