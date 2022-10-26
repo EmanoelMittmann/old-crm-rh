@@ -41,6 +41,8 @@ const NewOrdemService = () => {
   const [page, setPage] = useState(1);
   const ValueCommission = useSelector((state) => state.valueOfCommission);
   const Modal = useSelector((state) => state.modalVisibility);
+  const currentPage = haveCommissionMeta?.current_page
+  const totalpages = Math.ceil(haveCommissionMeta?.total / 5)
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -56,9 +58,10 @@ const NewOrdemService = () => {
     const allIds = professionals.map((item) => item.id);
 
     if(check){
-      setCheckedProfissional(allIds.map((item) => ({ professional_id: item })));
+      setCheckedProfissional(allIds.map((item) => ({ professional_id: item})));
     }
   };
+
 
   const handleSubmit = async (data) => {
     if (checkedProfissional.length > 0) {
@@ -82,7 +85,7 @@ const NewOrdemService = () => {
             setHaveCommissionMeta(res.data.meta);
           }
         });
-      } catch (err) {}
+      } catch (err) { }
     }
   };
 
@@ -107,7 +110,6 @@ const NewOrdemService = () => {
         return item;
       });
       setProfessionals(reloadProfissional);
-
       dispatch(
         valueOfCommission(
           ValueCommission.filter((item) => item.id !== index.id)
@@ -131,8 +133,13 @@ const NewOrdemService = () => {
     handleSubmit(checkedProfissional);
   }, [page]);
 
+
   useEffect(() => {
-    if (haveCommission[1] !== undefined) {
+    if (haveCommission[1] === undefined && currentPage === totalpages && totalpages > 1) {
+      setCheckedProfissional(newId)
+      setPage(page - 1)
+    }
+    else if (haveCommission[1] !== undefined) {
       handleSubmit(
         newId.map((item) => ({ professional_id: item.professional_id }))
       );
@@ -147,7 +154,6 @@ const NewOrdemService = () => {
     filteredProfessionals();
   }, [ValueCommission]);
 
-  console.log('Item deletado',haveCommission);
 
   return (
     <>
@@ -213,16 +219,16 @@ const NewOrdemService = () => {
             inputWidth="280px"
           />
           <div className="InputBox">
-          <input
-            type="checkbox"
-            onClick={() => handleClick()}
-            onChange={(e) => setCheck(prev => !prev)}
-            className="Box"
-            id="box"
-          />
-          <label for="box" className="Box">
-            Selecionar Todos
-          </label>
+            <input
+              type="checkbox"
+              onClick={() => handleClick()}
+              onChange={(e) => setCheck(prev => !prev)}
+              className="Box"
+              id="box"
+            />
+            <label for="box" className="Box">
+              Selecionar Todos
+            </label>
           </div>
         </div>
         <OrdemServiceHeader sortByName={sortByName} />
