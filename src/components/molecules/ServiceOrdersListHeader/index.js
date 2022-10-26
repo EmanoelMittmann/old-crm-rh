@@ -28,7 +28,7 @@ const ServiseOrdersListHeader = ({ sortByName }) => {
                 <Arrows onClick={sortByName} />
             </ListHeaderNumbersOS>
             <ListHeaderdate>
-                <ListHeaderTitle margin="0" >Geração da OS</ListHeaderTitle>
+                <ListHeaderTitle margin="0" >Criação da OS</ListHeaderTitle>
                 <Arrows onClick={sortByName} />
             </ListHeaderdate>
 

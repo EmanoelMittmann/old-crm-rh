@@ -185,8 +185,8 @@ const GenerateOS = () => {
               <InputSearch
                 value={searchResult} 
                 setSearchResult={setSearchResult}
-                lineWidth="18em" 
-                inputWidth="15em" 
+                lineWidth="280px" 
+                inputWidth="310px" 
               />
               <HeaderOS sortByName={sortByName}  setOrderBy={setOrderBy}/>
               {FirstHalfProfessional?.map((index) => (
