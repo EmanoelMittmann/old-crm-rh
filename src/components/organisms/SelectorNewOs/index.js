@@ -81,7 +81,7 @@ const NewOrdemService = () => {
             setHaveCommissionMeta(res.data.meta);
           }
         });
-      } catch (err) {}
+      } catch (err) { }
     }
   };
 
@@ -106,7 +106,6 @@ const NewOrdemService = () => {
         return item;
       });
       setProfessionals(reloadProfissional);
-
       dispatch(
         valueOfCommission(
           ValueCommission.filter((item) => item.id !== index.id)
@@ -138,11 +137,32 @@ const NewOrdemService = () => {
   }, [searchResult]);
 
   useEffect(() => {
+    handleSubmit(checkedProfissional);
+  }, [page]);
+
+  const currentPage = haveCommissionMeta?.current_page
+  const totalpages = Math.ceil(haveCommissionMeta?.total / 5)
+
+  useEffect(() => {
+    if (haveCommission[1] === undefined && currentPage === totalpages && totalpages > 1) {
+      setCheckedProfissional(newId)
+      setPage(page - 1)
+    }
+    else if (haveCommission[1] !== undefined) {
+      handleSubmit(
+        newId.map((item) => ({ professional_id: item.professional_id }))
+      );
+      setCheckedProfissional(newId);
+    } else {
+      setCheckedProfissional(newId);
+      dispatch(closeModal({ type: "CLOSEMODAL" }));
+    }
     handleFilterModalRequest()
     handleSubmit(
       newId.map((item) => ({ professional_id: item.professional_id }))
     );
     setCheckedProfissional(newId);
+
   }, [newId]);
 
   useEffect(() => {
@@ -213,16 +233,16 @@ const NewOrdemService = () => {
             inputWidth="280px"
           />
           <div className="InputBox">
-          <input
-            type="checkbox"
-            onClick={() => handleClick()}
-            onChange={(e) => setCheck((prev) => !prev)}
-            className="Box"
-            id="box"
-          />
-          <label for="box" className="Box">
-            Selecionar Todos
-          </label>
+            <input
+              type="checkbox"
+              onClick={() => handleClick()}
+              onChange={(e) => setCheck(prev => !prev)}
+              className="Box"
+              id="box"
+            />
+            <label for="box" className="Box">
+              Selecionar Todos
+            </label>
           </div>
         </div>
         <OrdemServiceHeader sortByName={sortByName} />
