@@ -14,16 +14,24 @@ export const Container = styled.div`
   }
 
   .header{
-    width: 30%;
+    width: 25%;
     align-items: center;
     display: flex;
     justify-content: space-between;
+    gap: 3em;
+
+  .InputBox{
+    display: flex;
+    gap: 0.5em;
   }
+}
 
   .Box{
     display: flex;
     white-space: nowrap;
     font-weight: bold;
+    cursor: pointer;
+ 
   }
 `;
 

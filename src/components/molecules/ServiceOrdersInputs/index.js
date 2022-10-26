@@ -11,10 +11,9 @@ const ServiceOrdersInput = ({searchResult, setSearchResult, statusSelected, sets
             <ContainerInput>
                 <InputSearch
                     value={searchResult}
-                    lineWidth="310px"
                     inputWidth="230px"
                     setSearchResult={setSearchResult}
-                     />
+                 />
                 <InputSelect
                     value={statusSelected}
                     onChange={e => setstatusSelected(e.target.value)}
