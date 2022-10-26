@@ -28,7 +28,7 @@ const GenerateOSItens = ({
 
   return (
     <ContainerOrdemServices key={index.id}>
-      <OrdemServiceItens width="43.3%" content="flex-start">
+      <OrdemServiceItens width="54%" content="flex-start">
         <input
           type="checkbox"
           name="professional"
@@ -39,10 +39,10 @@ const GenerateOSItens = ({
         />
         <p>{index.name}</p>
       </OrdemServiceItens>
-      <OrdemServiceItens width="23.3%" content="flex-start">
+      <OrdemServiceItens width="47%" content="flex-start">
         {index.cnpj}
       </OrdemServiceItens>
-      <OrdemServiceItens width="33.3%" content="end" right="2.5em">
+      <OrdemServiceItens width="19%" content="flex-start">
         {
             Number(
               index.total

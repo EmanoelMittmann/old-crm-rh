@@ -27,7 +27,6 @@ const RegisterProject = (props) => {
   const [team, setTeam] = useState([]);
   const [teamPayload, setTeamPayload] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
-  const [cancelRegisterProject, setCancelRegisterProject] = useState(false);
   const [modalWarningIsVisible, setModalWarningIsVisible] = useState(false);
   const { id } = useParams();
 
@@ -129,7 +128,6 @@ const RegisterProject = (props) => {
       method: 'get',
       url: `/projectTypeNoFilter`,
     });
-
     const formattedOptions = formatFirstLetter(data);
     setTypeOptions(formattedOptions);
   }, []);
@@ -139,7 +137,6 @@ const RegisterProject = (props) => {
       method: 'get',
       url: `/projectStatusNoFilter`,
     });
-
     const formattedStatusOptions = formatFirstLetter(data);
     setStatusOptions(formattedStatusOptions);
   }, []);
@@ -152,8 +149,8 @@ const RegisterProject = (props) => {
     setAllUsers(data.data);
   }, []);
 
-  const getTeam = () => {
-    api({
+  const getTeam = async () => {
+    await api({
       method: 'get',
       url: `/userProjects/project/${id}`,
     }).then((response) => {

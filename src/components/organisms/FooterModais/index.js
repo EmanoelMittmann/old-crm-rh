@@ -11,12 +11,12 @@ import { ReactComponent as Arrow } from '../../../assets/icons/arrow.svg'
 const FooterModais = ({ previousPage, nextPage, currentPage = 1, firstPage = 1, lastPage = 1 , position}) => {
 
     const RightArrowClickHandler = (e) => {
-       e.preventDefault()
+        if(currentPage === lastPage) return
         nextPage()
     }
 
     const LeftArrowClickHandler = (e) => {
-        e.preventDefault()
+        if(currentPage === firstPage) return
         previousPage()
     }
 
