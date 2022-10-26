@@ -69,9 +69,6 @@ const ServiceOrderSection = () => {
     if (order !== '') params.order = order;
 
   }
-  console.log('Inicio', initialDate);
-  console.log('final', finalDate);
-  console.log('status', statusSelected);
 
 
   useEffect(() => {

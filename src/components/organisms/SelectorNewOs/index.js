@@ -55,7 +55,7 @@ const NewOrdemService = () => {
   const handleClick = () => {
     const allIds = professionals.map((item) => item.id);
 
-    if(check){
+    if (check) {
       setCheckedProfissional(allIds.map((item) => ({ professional_id: item })));
     }
   };
@@ -82,7 +82,7 @@ const NewOrdemService = () => {
             setHaveCommissionMeta(res.data.meta);
           }
         });
-      } catch (err) {}
+      } catch (err) { }
     }
   };
 
@@ -107,7 +107,6 @@ const NewOrdemService = () => {
         return item;
       });
       setProfessionals(reloadProfissional);
-
       dispatch(
         valueOfCommission(
           ValueCommission.filter((item) => item.id !== index.id)
@@ -131,8 +130,15 @@ const NewOrdemService = () => {
     handleSubmit(checkedProfissional);
   }, [page]);
 
+  const currentPage = haveCommissionMeta?.current_page
+  const totalpages = Math.ceil(haveCommissionMeta?.total / 5)
+
   useEffect(() => {
-    if (haveCommission[1] !== undefined) {
+    if (haveCommission[1] === undefined && currentPage === totalpages && totalpages > 1) {
+      setCheckedProfissional(newId)
+      setPage(page - 1)
+    }
+    else if (haveCommission[1] !== undefined) {
       handleSubmit(
         newId.map((item) => ({ professional_id: item.professional_id }))
       );
@@ -141,6 +147,7 @@ const NewOrdemService = () => {
       setCheckedProfissional(newId);
       dispatch(closeModal({ type: "CLOSEMODAL" }));
     }
+
   }, [newId]);
 
   useEffect(() => {
@@ -211,16 +218,16 @@ const NewOrdemService = () => {
             inputWidth="280px"
           />
           <div className="InputBox">
-          <input
-            type="checkbox"
-            onClick={() => handleClick()}
-            onChange={(e) => setCheck(prev => !prev)}
-            className="Box"
-            id="box"
-          />
-          <label for="box" className="Box">
-            Selecionar Todos
-          </label>
+            <input
+              type="checkbox"
+              onClick={() => handleClick()}
+              onChange={(e) => setCheck(prev => !prev)}
+              className="Box"
+              id="box"
+            />
+            <label for="box" className="Box">
+              Selecionar Todos
+            </label>
           </div>
         </div>
         <OrdemServiceHeader sortByName={sortByName} />
