@@ -35,7 +35,6 @@ const GenerateOS = () => {
   const [ModalOs, setModalOs] = useState(false);
   const [searchResult, setSearchResult] = useState('')
   const [checkedProfissional, setCheckedProfissional] = useState([]);
-  const [page, setPage] = useState(1)
   const [orderBy, setOrderBy] = useState('id')
   const Modal = useSelector((state) => state.modalVisibility);
   const dispatch = useDispatch();
@@ -51,7 +50,6 @@ const GenerateOS = () => {
         url: `/orderOfServicePending?limit=14&search=${searchResult}&cnpj=${searchResult}&orderField=${orderBy}&order=${order}`,
         params:params
       }).then((data) => {
-        console.log(data)
         setFirstHalfProfessional(data.data.data.slice(0, 7));
         setLastHalfProfessional(data.data.data.slice(7, 14));
         setProfessionalMeta(data.data.meta);
@@ -63,14 +61,17 @@ const GenerateOS = () => {
     try {
       await api({
         method: "POST",
-        url: `/orderOfServiceIds?limit=14&page=${page}`,
+        url: `/orderOfServiceIds?limit=14`,
         data: checkedProfissional,
+        params: params
       }).then((res) => {
         setModalProfessional(res.data.data);
         setModalProfessionalMeta(res.data.meta);
         dispatch(openModal({ type: "OPENMODAL" }));
       });
-    } catch (error) {}
+    } catch (err) {
+      console.error(err)
+    }
   };
 
   const nextPage = () => {
@@ -97,7 +98,16 @@ const GenerateOS = () => {
       params.page = `${professionalMeta.current_page + 1}`;
 
     if (pagesFilter === undefined) params.page = professionalMeta.current_page;
+  };
 
+  const handleFilterModalRequest = (pagesFilter) => {
+    if (pagesFilter === "previous")
+      params.page = `${ModalProfessionalMeta.current_page - 1}`;
+
+    if (pagesFilter === "next")
+      params.page = `${ModalProfessionalMeta.current_page + 1}`;
+
+    if (pagesFilter === undefined) params.page = ModalProfessionalMeta.current_page;
   };
 
   useEffect(() => {
@@ -105,6 +115,14 @@ const GenerateOS = () => {
     handleFilterRequest(order);
   }, [order, orderBy, searchResult]);
 
+  useEffect(() => {
+    if(ModalProfessionalMeta.current_page > ModalProfessionalMeta.last_page) {
+      return (
+        params.page = ModalProfessionalMeta.last_page,
+        handleSubmit(checkedProfissional)
+      )
+    }
+  },[ModalProfessionalMeta])
 
   return (
     <>
@@ -114,10 +132,9 @@ const GenerateOS = () => {
             ModalProfessional={ModalProfessional}
             ModalProfessionalMeta={ModalProfessionalMeta}
             handleSubmit={handleSubmit}
+            handleFilterModalRequest={handleFilterModalRequest}
             checkedProfissional={checkedProfissional}
             setCheckedProfissional={setCheckedProfissional}
-            page={page} 
-            setPage={setPage}
           />
         )}
         {ModalOs && (

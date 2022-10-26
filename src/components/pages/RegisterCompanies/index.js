@@ -1,6 +1,5 @@
 import { useHistory, useParams } from "react-router-dom";
 import RegisterCompany from "../../organisms/RegisterCompany";
-import axios from "axios";
 import api from "../../../api/api";
 import { useFormik } from "formik";
 import { cleanMask } from "../../utils/cleanMask";
@@ -21,6 +20,7 @@ import * as Yup from "yup";
 import { useEffect } from "react";
 import { handleErrorMessages } from "../../utils/handleErrorMessages";
 import { useSelector } from "react-redux";
+import { handleCEP } from "../../utils/validateCep";
 
 export const RegisterCompanies = () => {
   const { id } = useParams();
@@ -41,7 +41,14 @@ export const RegisterCompanies = () => {
       .test("CEP válido", "CEP não encontrado", () => {
         if (values.cep.length === 9 && values.cep !== uniqueCEP) {
           setUniqueCEP(values.cep);
-          handleCEP(values.cep);
+          handleCEP(values.cep).then((data) => {
+            if (data.data.erro) return setFieldError("cep", "Cep Invalido!");
+            const { bairro, localidade, logradouro, uf } = data.data;
+            if (localidade) setFieldValue("city_name", localidade);
+            if (uf) setFieldValue("uf", uf);
+            if (logradouro) setFieldValue("street_name", logradouro);
+            if (bairro) setFieldValue("neighborhood_name", bairro);
+          });
         }
         return true;
       }),
@@ -135,28 +142,6 @@ export const RegisterCompanies = () => {
 
   const { values, setFieldValue, setFieldError } = formik;
 
-  const handleCEP = async (cep) => {
-    await axios
-      .get(`https://viacep.com.br/ws/${cep}/json/`, {
-        transformRequest: (data, headers) => {
-          delete headers.common;
-          return data;
-        },
-      })
-      .then((data) => {
-        if (data.data.erro) return setFieldError("cep", "Cep Invalido!");
-        const { bairro, localidade, logradouro, uf } = data.data;
-        if (localidade) setFieldValue("city_name", localidade);
-        if (uf) setFieldValue("uf", uf);
-        if (logradouro) setFieldValue("street_name", logradouro);
-        if (bairro) setFieldValue("neighborhood_name", bairro);
-      })
-      .catch((error) => {
-        toast.error(<DefaultToast text={error.message} />);
-      });
-  };
-
-
   const goBackClickHandler = () => {
     history.push("/Company");
   };
@@ -202,6 +187,7 @@ export const RegisterCompanies = () => {
         });
     }
   }, []);
+
   return (
     <>
       <RegisterProfessionalTitleContainer>
@@ -214,9 +200,7 @@ export const RegisterCompanies = () => {
           <SituationCadastion data={formik} disabled={isDisable} />
         </form>
         {isDisable ? (
-          <RegisterFooter
-            cancelButtonHandler={goBackClickHandler}
-          />
+          <RegisterFooter cancelButtonHandler={goBackClickHandler} />
         ) : (
           <RegisterFooter
             cancelButtonHandler={goBackClickHandler}

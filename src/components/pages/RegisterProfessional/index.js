@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../../api/api";
@@ -268,12 +267,11 @@ const RegisterProfessional = () => {
   const { values, setFieldValue, setFieldError, setErrors } = formik;
 
   const reloadProjects = useCallback(async () => {
-    await api({
+    const {data} = await api({
       method: "get",
       url: `/userProjects/user/${id}`,
-    }).then((response) => {
-      setProjects(response.data);
-    });
+    })
+    setProjects(data.data);
   }, []);
 
   const validateCpf = async (cpf) => {

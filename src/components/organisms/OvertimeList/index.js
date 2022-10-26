@@ -23,7 +23,6 @@ const headers = [
     endContainer: true
   }
 ]
-
 export function OvertimeList({ data, meta, nextPage, previousPage, sortById, status }) {
   return (
     <>

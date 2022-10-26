@@ -2,25 +2,19 @@ import styled from "styled-components"
 
 export const ContainerWap = styled.div`
     display: flex;
-    
-    margin-bottom: 0.5em;
-
-
-    &:last-child {
-        margin-bottom: 1em;
-    }
+    align-items: center;
 `
 
 export const ContainerLabelProfessional = styled.div`
-    width: 22em;
+    width: 23em;
     height:48px;
-    background-color: #F4F6F8;
+    background-color: #F2F5F8 ;
     border-radius: 8px;
     display: flex;
     align-items: center;
     font-size: 12px;
     padding: 0 0.5em 0 1em;
-    margin: -0.1em 0.5em 0.8em 1.2em ;
+    margin: 1px -2px 7px 16px;
 
     svg{
         margin-left: 1em;
@@ -30,11 +24,11 @@ export const ContainerLabelProfessional = styled.div`
 `
 export const ModalContainerProfessional = styled.div`
   position: absolute;
-  left: 35%;
+  left: 32.5%;
   top: 10;
-  width: 36em;
-  height: 40em;
-  background-color: white;
+  width: 37.5em;
+  height: 36em;
+  background-color: #FFFFFF;
   border-radius: 15px;
   box-shadow: 0 1px 0px rgba(0, 0, 0, 0.1);
   z-index: 10;
@@ -76,10 +70,10 @@ export const TitleComissionProfessional = styled.div`
 `
 
 export const ContainerAbsolute = styled.div`
-  height: 459px;
+  height: 395px;
 
   .shelf{
-    width: 100%;
+    width: 90%;
     height: 100%;
     display: flex;
     flex-wrap: wrap;

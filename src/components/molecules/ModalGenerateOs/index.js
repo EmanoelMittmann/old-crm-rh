@@ -21,36 +21,22 @@ const ModalGenerateOs = ({
   ModalProfessional,
   ModalProfessionalMeta,
   handleSubmit,
+  handleFilterModalRequest,
   checkedProfissional,
   setCheckedProfissional,
-  page,
-  setPage
 }) => {
   const [Modal, setModal] = useState(false);
   const dispatch = useDispatch();
 
-  let params = {};
-
   const nextPage = () => {
-    setPage(page + 1)
-    handleSubmit();
+    handleFilterModalRequest('next')
+    handleSubmit(checkedProfissional);
   };
 
-  const previousPage = () => {
-    setPage(page - 1);
-    handleSubmit();
+  const previousPage = () => {  
+    handleFilterModalRequest('previous')
+    handleSubmit(checkedProfissional); 
   };
-
-  // const handleFilterRequest = (pagesFilter) => {
-  //   if (pagesFilter === "previous")
-  //     params.page = `${ModalProfessionalMeta.current_page - 1}`;
-
-  //   if (pagesFilter === "next")
-  //     params.page = `${ModalProfessionalMeta.current_page + 1}`;
-
-  //   if (pagesFilter === undefined)
-  //     params.page = ModalProfessionalMeta.current_page;
-  // };
 
   const handleDelete = (index) => {
     setCheckedProfissional(
@@ -59,8 +45,9 @@ const ModalGenerateOs = ({
   };
 
   useEffect(() => {
+    handleFilterModalRequest()
     handleSubmit(checkedProfissional);
-  }, [checkedProfissional,page]);
+  }, [checkedProfissional]);
 
   return (
     <>
