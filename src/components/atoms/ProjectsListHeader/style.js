@@ -21,11 +21,11 @@ export const ListHeaderBeginning = styled.div`
 export const ListHeaderTime = styled.div`
     display: flex;
     align-items: center;
-    width: 20%;
+    width: 21%;
 `
 
 export const ListHeaderStatus = styled.div`
     display: flex;
     align-items: center;
-    width: 17.5%;
+    width: 20%;
 `
