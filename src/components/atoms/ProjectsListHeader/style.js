@@ -9,7 +9,7 @@ export const ListHeaderProjeto = styled.div`
 export const ListHeaderType = styled.div`
     display: flex;
     align-items: center;
-    width: 13%;
+    width: 12.5%;
 `
 
 export const ListHeaderBeginning = styled.div`
@@ -22,6 +22,7 @@ export const ListHeaderTime = styled.div`
     display: flex;
     align-items: center;
     width: 21%;
+    
 `
 
 export const ListHeaderStatus = styled.div`

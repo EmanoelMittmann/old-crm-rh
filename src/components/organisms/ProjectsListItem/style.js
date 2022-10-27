@@ -14,21 +14,21 @@ export const ProjectsListItemProject = styled.div`
 `
 
 export const ProjectsListItemType = styled.div`
-    width: 13%;
+    width: 15%;
     align-items: center;
     padding-left: 3em;
 `
 
 export const ProjectsListItemBeginning = styled.div`
-    width: 18%;  
-    padding-left: 5em;
+    width: 16%;  
+    padding-left: 3em;
     `
 
 export const ProjectsListItemTime = styled.div`
     display: flex;
     width: 23%;
     padding-left: 3em;
-    position: relative;
+
 `
 export const ProjectsListItemStatus = styled.div`
     width: 10%;
