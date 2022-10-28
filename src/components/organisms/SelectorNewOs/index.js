@@ -35,12 +35,14 @@ const NewOrdemService = () => {
   const [checkedProfissional, setCheckedProfissional] = useState([]);
   const [order, setOrder] = useState("");
   const [newId, setNewId] = useState([]);
-  const [check, setCheck] = useState(true);
+  const [check, setCheck] = useState(true)
   const [haveCommission, setHaveCommission] = useState([]);
   const [haveCommissionMeta, setHaveCommissionMeta] = useState({});
   const [page, setPage] = useState(1);
   const ValueCommission = useSelector((state) => state.valueOfCommission);
   const Modal = useSelector((state) => state.modalVisibility);
+  const currentPage = haveCommissionMeta?.current_page
+  const totalpages = Math.ceil(haveCommissionMeta?.total / 5)
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -63,6 +65,7 @@ const NewOrdemService = () => {
       }))
     }
   };
+
 
   const handleSubmit = async (data) => {
     if (checkedProfissional.length > 0) {
@@ -136,7 +139,6 @@ const NewOrdemService = () => {
     });
     setProfessionals(data.data);
   };
-
   useEffect(() => {
     getProfessionals();
   }, [searchResult]);
@@ -144,9 +146,6 @@ const NewOrdemService = () => {
   useEffect(() => {
     handleSubmit(checkedProfissional);
   }, [page]);
-
-  const currentPage = haveCommissionMeta?.current_page
-  const totalpages = Math.ceil(haveCommissionMeta?.total / 5)
 
   useEffect(() => {
     if (haveCommission[1] === undefined && currentPage === totalpages && totalpages > 1) {
@@ -167,11 +166,13 @@ const NewOrdemService = () => {
       newId.map((item) => ({ professional_id: item.professional_id }))
     );
     setCheckedProfissional(newId);
+
   }, [newId]);
 
   useEffect(() => {
     filteredProfessionals();
   }, [ValueCommission]);
+
 
   return (
     <>
@@ -217,8 +218,6 @@ const NewOrdemService = () => {
               checkedProfissional={checkedProfissional}
               haveCommission={haveCommission}
               setHaveCommission={setHaveCommission}
-              handleFilterModalRequest={handleFilterModalRequest}
-              handleSubmit={handleSubmit}
               setCheckedProfissional={setCheckedProfissional}
               newId={newId}
               setNewId={setNewId}

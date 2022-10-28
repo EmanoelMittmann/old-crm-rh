@@ -9,35 +9,35 @@ export const ProjectsListItemContainer = styled.div`
 
 export const ProjectsListItemProject = styled.div`
     display: flex;
-    width: 20%;
+    width: 22.5%;
     padding-left: 3em;
 `
 
 export const ProjectsListItemType = styled.div`
-    width: 13%;
+    width: 15%;
+    align-items: center;
     padding-left: 3em;
 `
 
 export const ProjectsListItemBeginning = styled.div`
-    width: 17%;
+    width: 16%;  
     padding-left: 3em;
     `
 
 export const ProjectsListItemTime = styled.div`
-    width: 20%;
-    padding-left: 0em;
     display: flex;
-    position: relative;
-`
-
-export const ProjectsListItemStatus = styled.div`
-    width: 17.5%;
+    width: 23%;
     padding-left: 3em;
+
+`
+export const ProjectsListItemStatus = styled.div`
+    width: 10%;
+    padding-left: 5em;
 `
 export const ProjectListOptions = styled.div`
     display: flex;
     justify-content: flex-end;
-    width: 10%;
+    width: 13%;
 
     svg {
         fill: ${props => props.optionsColor};
