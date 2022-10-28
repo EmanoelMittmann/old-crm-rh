@@ -125,7 +125,7 @@ export const ModalOrdemServices = ({
                 return toast.error(
                   <DefaultToast
                     text={
-                      "Alerta! Há campo vazio ou com valor negativo!"
+                      "Há campo vazio ou com valor negativo!"
                     }
                   />
                 );
