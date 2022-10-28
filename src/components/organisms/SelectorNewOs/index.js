@@ -147,7 +147,6 @@ const NewOrdemService = () => {
       setCheckedProfissional(newId);
       dispatch(closeModal({ type: "CLOSEMODAL" }));
     }
-    handleFilterModalRequest()
     handleSubmit(
       newId.map((item) => ({ professional_id: item.professional_id }))
     );
