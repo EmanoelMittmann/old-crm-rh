@@ -73,6 +73,7 @@ export const ModalOrdemServices = ({
       )
       );  
     };
+  console.log('valor de comissão',valuesCommission);
 
   return (
     <div>
@@ -116,7 +117,7 @@ export const ModalOrdemServices = ({
                 (profissional) => profissional?.commission !== 0
                 );
               const isEmptyCommision = valuesCommission.find(
-                (commission) => commission.value === 0
+                (commission) => commission.value < '0'
               );
               if (valuesCommission.length === filterHaveCommission.length && !isEmptyCommision) {
                 dispatch(valueOfCommission(valuesCommission));
@@ -125,7 +126,7 @@ export const ModalOrdemServices = ({
                 return toast.error(
                   <DefaultToast
                     text={
-                      "Há Campo vazio! Exclua-o, ou inclua um valor maior que 0"
+                      "Alerta! Há campos vazios ou com valor negativo!"
                     }
                   />
                 );
