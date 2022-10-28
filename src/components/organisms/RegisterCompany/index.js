@@ -86,7 +86,7 @@ const RegisterCompany = ({ data, disabled }) => {
             disabled={disabled}
           />
           <ContainerInputRadio>
-            <Matriz>Essa é empresa uma matriz?</Matriz>
+            <Matriz>Empresa Matriz?</Matriz>
             <ContainerRadios>
               <Container
                 onChange={(e) => {
@@ -141,7 +141,7 @@ const RegisterCompany = ({ data, disabled }) => {
             touched={touched.state_registration}
             label="Inscrição Estadual"
             name="Inscrição Estadual"
-            type="number"
+            type="text"
             width="90%"
             disabled={disabled}
             widthContainer="50%"
@@ -154,7 +154,7 @@ const RegisterCompany = ({ data, disabled }) => {
             touched={touched.municipal_registration}
             label="Inscrição Municipal"
             name="Inscrição Municipal"
-            type="number"
+            type="text"
             disabled={disabled}
             width="90%"
             handleBlur={setFieldTouched}
