@@ -59,6 +59,17 @@ const NewOrdemService = () => {
 
     if (check) {
       setCheckedProfissional(allIds.map((item) => ({ professional_id: item })));
+
+  const selectAll = () => { 
+    if (check) {
+      setCheckedProfissional(professionals.map(item => {
+        if(item.commission){
+          return {...checkedProfissional ,professional_id: item.id}
+        }else{
+          return {...checkedProfissional, professional_id: item.id, commission: 0}
+        }
+      }))
+
     }
   };
 
@@ -69,6 +80,7 @@ const NewOrdemService = () => {
         await api({
           method: "POST",
           url: `/findProfessionalCommission?&page=${page}&limit=5`,
+
           data: data,
           params: params,
         }).then((res) => {
@@ -148,6 +160,10 @@ const NewOrdemService = () => {
       setCheckedProfissional(newId);
       dispatch(closeModal({ type: "CLOSEMODAL" }));
     }
+    handleSubmit(
+      newId.map((item) => ({ professional_id: item.professional_id }))
+    );
+    setCheckedProfissional(newId);
 
   }, [newId]);
 
@@ -206,6 +222,8 @@ const NewOrdemService = () => {
               setCheckedProfissional={setCheckedProfissional}
               newId={newId}
               setNewId={setNewId}
+              setPage={setPage}
+              page={page}
               haveCommissionMeta={haveCommissionMeta}
               setHaveCommissionMeta={setHaveCommissionMeta}
             />
@@ -223,7 +241,7 @@ const NewOrdemService = () => {
           <div className="InputBox">
             <input
               type="checkbox"
-              onClick={() => handleClick()}
+              onClick={() => selectAll()}
               onChange={(e) => setCheck(prev => !prev)}
               className="Box"
               id="box"

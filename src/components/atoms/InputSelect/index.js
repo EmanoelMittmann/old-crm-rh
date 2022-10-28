@@ -43,7 +43,7 @@ const InputSelect = ({
               key={index}
               value={`${option.id ? option.id : ''}`}
             >
-              {option.name}
+              {option.name || option.razao_social}
             </InputSelectOption>
           ))}
         </InputSelectContainer>
