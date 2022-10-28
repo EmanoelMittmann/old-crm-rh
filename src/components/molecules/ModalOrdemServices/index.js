@@ -71,8 +71,8 @@ export const ModalOrdemServices = ({
       valuesCommission.filter(
         (item) => item.id !== professional.id
       )
-    );
-  };
+      );  
+    };
 
   return (
     <div>

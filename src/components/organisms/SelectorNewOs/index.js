@@ -54,15 +54,18 @@ const NewOrdemService = () => {
     order === "desc" && setOrder("asc");
   };
 
-  const handleClick = () => {
-    const allIds = professionals.map((item) => item.id);
-
+  const selectAll = () => { 
     if (check) {
-      setCheckedProfissional(allIds.map((item) => ({ professional_id: item })));
+      setCheckedProfissional(professionals.map(item => {
+        if(item.commission){
+          return {...checkedProfissional ,professional_id: item.id}
+        }else{
+          return {...checkedProfissional, professional_id: item.id, commission: 0}
+        }
+      }))
     }
   };
-
-
+  
   const handleSubmit = async (data) => {
     if (checkedProfissional.length > 0) {
       try {
@@ -115,7 +118,7 @@ const NewOrdemService = () => {
           ValueCommission.filter((item) => item.id !== index.id)
         )
       );
-    }
+     }   
   };
 
   const getProfessionals = async () => {
@@ -148,9 +151,13 @@ const NewOrdemService = () => {
       setCheckedProfissional(newId);
       dispatch(closeModal({ type: "CLOSEMODAL" }));
     }
+    handleSubmit(
+      newId.map((item) => ({ professional_id: item.professional_id }))
+    );
+    setCheckedProfissional(newId);
 
   }, [newId]);
-
+  
   useEffect(() => {
     filteredProfessionals();
   }, [ValueCommission]);
@@ -223,7 +230,7 @@ const NewOrdemService = () => {
           <div className="InputBox">
             <input
               type="checkbox"
-              onClick={() => handleClick()}
+              onClick={() => selectAll()}
               onChange={(e) => setCheck(prev => !prev)}
               className="Box"
               id="box"
@@ -244,9 +251,7 @@ const NewOrdemService = () => {
                 index={index}
                 setCheckedProfissional={setCheckedProfissional}
                 checkedProfissional={checkedProfissional}
-                deleteProfessionalWithCommission={
-                  deleteProfessionalWithCommission
-                }
+                deleteProfessionalWithCommission={deleteProfessionalWithCommission}
               />
             );
           })}
@@ -255,5 +260,5 @@ const NewOrdemService = () => {
     </>
   );
 };
-
+  
 export default NewOrdemService;
