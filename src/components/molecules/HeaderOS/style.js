@@ -7,8 +7,6 @@ export const ListHeaderContainer = styled.div`
   border-radius: 8px;
   display: flex;
   margin: auto;
-  align-items: center;
-  justify-content: space-between;
   margin-top: 2em;
   padding: 1em;
 
@@ -18,22 +16,22 @@ export const ListHeaderContainer = styled.div`
 `;
 
 export const ListHeaderProfessional = styled.div`
-  width: 33.3%;
+  width: 45%;
   align-items: center;
   display: flex;
   justify-content: flex-start;
 `;
 
 export const ListHeaderCNPJ = styled.div`
-  width: 33.3%;
+  width: 39%;
   align-items: center;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 export const ListHeaderValueOs = styled.div`
-  width: 33.3%;
+  width: 16%;
   align-items: center;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
 `;
