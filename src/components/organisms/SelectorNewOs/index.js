@@ -133,7 +133,6 @@ const NewOrdemService = () => {
     handleSubmit(checkedProfissional);
   }, [page]);
 
-
   useEffect(() => {
     if (haveCommission[1] === undefined && currentPage === totalpages && totalpages > 1) {
       setCheckedProfissional(newId)
@@ -148,6 +147,11 @@ const NewOrdemService = () => {
       setCheckedProfissional(newId);
       dispatch(closeModal({ type: "CLOSEMODAL" }));
     }
+    handleFilterModalRequest()
+    handleSubmit(
+      newId.map((item) => ({ professional_id: item.professional_id }))
+    );
+    setCheckedProfissional(newId);
   }, [newId]);
 
   useEffect(() => {
