@@ -19,6 +19,7 @@ import { toast } from "react-toastify";
 import { DefaultToast } from "../../atoms/Toast/DefaultToast";
 import { useEffect } from "react";
 
+
 export const ModalOrdemServices = ({
   haveCommission,
   haveCommissionMeta,
@@ -46,14 +47,14 @@ export const ModalOrdemServices = ({
   const nextPage = () => {
     dispatch(valueOfCommission(valuesCommission));
     if (page === haveCommissionMeta.last_page) {
-      return setPage(page -1);
+      return setPage(page - 1);
     }
     return setPage(page + 1);
   };
 
   const previousPage = () => {
     if (page === "") {
-      return setPage(page - 1 );
+      return setPage(page - 1);
     } else if (page > 1) {
       return setPage(page - 1);
     }
@@ -63,14 +64,14 @@ export const ModalOrdemServices = ({
       checkedProfissional.filter(
         (item) => item.professional_id !== professional.id
       )
-  
+
     );
-   
+
     setValuesCommission(
       valuesCommission.filter(
         (item) => item.id !== professional.id
       )
-    );  
+    );
   };
 
   return (

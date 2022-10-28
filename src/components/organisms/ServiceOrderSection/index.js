@@ -9,7 +9,6 @@ import ServiceOrderListItens from '../../molecules/ServicesOrderListItens'
 import { ContainerHeight } from './style';
 import ServiceOrdersInput from '../../molecules/ServiceOrdersInputs';
 import { DefaultToast } from '../../atoms/Toast/DefaultToast';
-import { string } from 'yup';
 
 const ServiceOrderSection = () => {
   const [order, setOrder] = useState('');
@@ -62,14 +61,19 @@ const ServiceOrderSection = () => {
 
     if (pagesFilter === undefined) params.page = osProfessionalMeta.current_page;
 
-  
+    if (initialDate !== '') params.page = osProfessionalMeta.first_page;
+    
     if (finalDate !== '' && finalDate < initialDate) {
-           toast.warn(<DefaultToast text="Período final precisa ser maior que o período inicial" />  
-     )}  
+          params.page = osProfessionalMeta.first_page; 
+           toast.warn(<DefaultToast text="Período final precisa ser maior que o período inicial" />    
+     )}
+    if (searchResult !== '' || referencesDate !== '' || statusSelected !== '') { 
+      params.page = osProfessionalMeta.first_page
+    };
     if (order !== '') params.order = order;
-
   }
 
+  console.log('cnpj', searchResult)
 
   useEffect(() => {
     handleFilterOsRequest()
@@ -77,8 +81,6 @@ const ServiceOrderSection = () => {
     location.state && setProfessionals(location.state.professionals.data);
   }, [order, searchResult, statusSelected, finalDate, initialDate, referencesDate]);
   
-
-
   return (
     <>
     <ServiceOrdersInput
