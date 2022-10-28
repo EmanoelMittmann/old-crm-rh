@@ -29,7 +29,7 @@ export const ModalOrdemServices = ({
 }) => {
   const state = useSelector((state) => state.valueOfCommission);
   const [valuesCommission, setValuesCommission] = useState(state);
-
+  
   const dispatch = useDispatch();
   const AddOrUpdate = (object) => {
     const findId = valuesCommission.find((item) => item.id === object.id);
@@ -70,8 +70,8 @@ export const ModalOrdemServices = ({
       valuesCommission.filter(
         (item) => item.id !== professional.id
       )
-    );  
-  };
+      );  
+    };
 
   return (
     <div>
@@ -112,10 +112,10 @@ export const ModalOrdemServices = ({
           <SaveButton
             onClick={() => {
               const filterHaveCommission = checkedProfissional.filter(
-                (profissional) => profissional?.commission !== ""
-              );
+                (profissional) => profissional?.commission !== 0
+                );
               const isEmptyCommision = valuesCommission.find(
-                (commission) => commission.value === ''
+                (commission) => commission.value === 0
               );
               if (valuesCommission.length === filterHaveCommission.length && !isEmptyCommision) {
                 dispatch(valueOfCommission(valuesCommission));

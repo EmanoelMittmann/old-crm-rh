@@ -23,6 +23,7 @@ const OrdemServiceListItem = ({
       );
     } else {
       const isHaveComission = professionals.find((obj) => obj.id === index.id);
+      
       if (isHaveComission.commission) {
         setCheckedProfissional([
           ...checkedProfissional,
@@ -31,7 +32,7 @@ const OrdemServiceListItem = ({
       } else {
         setCheckedProfissional([
           ...checkedProfissional,
-          { professional_id: index.id, commission: '' },
+          { professional_id: index.id, commission: 0 },
         ]);
       }
     }

@@ -60,7 +60,7 @@ const GenerateOS = () => {
     } catch (error) {}
   };
 
-  const handleSubmit = async (checkedProfissional) => {
+  const handleSubmit = async () => {
     try {
       await api({
         method: "POST",
@@ -122,7 +122,7 @@ const GenerateOS = () => {
     if(ModalProfessionalMeta.current_page > ModalProfessionalMeta.last_page) {
       return (
         params.page = ModalProfessionalMeta.last_page,
-        handleSubmit(checkedProfissional)
+        handleSubmit()
       )
     }
   },[ModalProfessionalMeta])
@@ -131,12 +131,13 @@ const GenerateOS = () => {
     <>
       <Container>
         {CompanyModal && <ModalCompanies CancelEvent={() => {
-            setCompanyModal(prev => !prev)
-            OrdemServicesData={OrdemServicesData}
-            ModalProfessional={ModalProfessional}
-            setOrdemServicesData={setOrdemServicesData}
-            dispatch(openModal({type: 'OPENMODAL'}))
-        }}/>}
+          dispatch(openModal({type: 'OPENMODAL'}))
+          setCompanyModal(prev => !prev)
+        }}
+        OrdemServicesData={OrdemServicesData}
+        checkedProfissional={checkedProfissional}
+        setOrdemServicesData={setOrdemServicesData}
+        />}
         {Modal && (
           <ModalGenerateOs
             ModalProfessional={ModalProfessional}

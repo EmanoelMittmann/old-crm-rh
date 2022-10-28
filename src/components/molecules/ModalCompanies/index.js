@@ -13,35 +13,59 @@ import CancelButton from "../../atoms/Buttons/CancelButton/style";
 import { useState } from "react";
 import api from "../../../api/api";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
+import { DefaultToast } from "../../atoms/Toast/DefaultToast";
 
-//obj exemple
-// {
-//   company_id: 1,
-//   professionals: [1,2,3,4,5]
-// }
-
-const ModalCompanies = ({ CancelEvent, ConfirmEvent,OrdemServicesData, setOrdemServicesData,ModalProfessional }) => {
+const ModalCompanies = ({
+  CancelEvent,
+  ConfirmEvent,
+  setOrdemServicesData,
+  OrdemServicesData,
+  checkedProfissional
+}) => {
   const [Companies, setCompanies] = useState([]);
-
+  const [id, setId] = useState();
   const getCompanies = async () => {
     const { data } = await api({
       method: "GET",
       url: "/companies",
     });
-    setCompanies(data.data)
+    setCompanies(data.data);
   };
 
-  const handleSelectCompany = () => {
-    setOrdemServicesData({
-      company_id: Companies.id,
-      professionals:ModalProfessional
-    })
-  }
-    console.log("OrdemServicesData: ", OrdemServicesData);
+  const history = useHistory()
+
+  console.log("OrdemServicesData: ", OrdemServicesData);
 
   useEffect(() => {
-    getCompanies()
-  },[Companies])
+    getCompanies();
+  }, []);
+
+  useEffect(() => {
+    setOrdemServicesData({
+      company_id: Number(id),
+      professional_id: checkedProfissional,
+    });
+  }, [id]);
+
+  const handleSubmit = async () => {
+    try {
+      await api({
+        method: 'POST',
+        url: `/generationOrderOfService`
+      }).then(() => {
+        toast.success(<DefaultToast text='Ordem de serviço gerada com sucesso!'/>,{
+          toastId: "post",
+        })
+        history.push('/serviceOrders')
+      }).catch(() => {
+        toast.error(<DefaultToast text='Erro Interno, Error:500'/>)
+      })
+    } catch (error) {
+      console.error(error)    
+    }
+  }
 
   return (
     <div>
@@ -58,7 +82,8 @@ const ModalCompanies = ({ CancelEvent, ConfirmEvent,OrdemServicesData, setOrdemS
           <InputSelect
             lineWidth="24em"
             placeHolder="Empresas"
-            onChange={() => handleSelectCompany()}
+            value={id}
+            onChange={(e) => setId(e.target.value)}
             options={Companies}
             width="100%"
           />

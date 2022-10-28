@@ -52,10 +52,15 @@ const NewOrdemService = () => {
     order === "desc" && setOrder("asc");
   };
 
-  const handleClick = () => {
-    const allIds = professionals.map((item) => item.id);
+  const selectAll = () => { 
     if (check) {
-      setCheckedProfissional(allIds.map((item) => ({ professional_id: item })));
+      setCheckedProfissional(professionals.map(item => {
+        if(item.commission){
+          return {...checkedProfissional ,professional_id: item.id}
+        }else{
+          return {...checkedProfissional, professional_id: item.id, commission: 0}
+        }
+      }))
     }
   };
 
@@ -64,7 +69,7 @@ const NewOrdemService = () => {
       try {
         await api({
           method: "POST",
-          url: `/findProfessionalCommission?&limit=5`,
+          url: `/findProfessionalCommission?&limit=5&page=${page}`,
           data: data,
           params: params,
         }).then((res) => {
@@ -162,7 +167,6 @@ const NewOrdemService = () => {
       newId.map((item) => ({ professional_id: item.professional_id }))
     );
     setCheckedProfissional(newId);
-
   }, [newId]);
 
   useEffect(() => {
@@ -218,6 +222,8 @@ const NewOrdemService = () => {
               setCheckedProfissional={setCheckedProfissional}
               newId={newId}
               setNewId={setNewId}
+              setPage={setPage}
+              page={page}
               haveCommissionMeta={haveCommissionMeta}
               setHaveCommissionMeta={setHaveCommissionMeta}
             />
@@ -235,7 +241,7 @@ const NewOrdemService = () => {
           <div className="InputBox">
             <input
               type="checkbox"
-              onClick={() => handleClick()}
+              onClick={() => selectAll()}
               onChange={(e) => setCheck(prev => !prev)}
               className="Box"
               id="box"
