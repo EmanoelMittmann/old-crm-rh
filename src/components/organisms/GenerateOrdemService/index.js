@@ -135,7 +135,7 @@ const GenerateOS = () => {
           setCompanyModal(prev => !prev)
         }}
         OrdemServicesData={OrdemServicesData}
-        checkedProfissional={checkedProfissional}
+        ModalProfessional={ModalProfessional}
         setOrdemServicesData={setOrdemServicesData}
         />}
         {Modal && (
