@@ -73,7 +73,6 @@ const ServiceOrderSection = () => {
     if (order !== '') params.order = order;
   }
 
-  console.log('cnpj', searchResult)
 
   useEffect(() => {
     handleFilterOsRequest()
