@@ -71,6 +71,7 @@ const ServiceOrderSection = () => {
     if (order !== '') params.order = order;
   }
 
+
   useEffect(() => {
     handleFilterOsRequest()
     getOsProfessionals()

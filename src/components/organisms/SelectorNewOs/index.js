@@ -35,7 +35,7 @@ const NewOrdemService = () => {
   const [checkedProfissional, setCheckedProfissional] = useState([]);
   const [order, setOrder] = useState("");
   const [newId, setNewId] = useState([]);
-  const [check, setCheck] = useState(true)
+  const [check, setCheck] = useState(true);
   const [haveCommission, setHaveCommission] = useState([]);
   const [haveCommissionMeta, setHaveCommissionMeta] = useState({});
   const [page, setPage] = useState(1);
@@ -65,14 +65,13 @@ const NewOrdemService = () => {
       }))
     }
   };
-
-
+  
   const handleSubmit = async (data) => {
     if (checkedProfissional.length > 0) {
       try {
         await api({
           method: "POST",
-          url: `/findProfessionalCommission?&limit=5&page=${page}`,
+          url: `/findProfessionalCommission?&page=${page}&limit=5`,
           data: data,
           params: params,
         }).then((res) => {
@@ -119,7 +118,7 @@ const NewOrdemService = () => {
           ValueCommission.filter((item) => item.id !== index.id)
         )
       );
-    }
+     }   
   };
 
   const getProfessionals = async () => {
@@ -129,6 +128,7 @@ const NewOrdemService = () => {
     });
     setProfessionals(data.data);
   };
+
   useEffect(() => {
     getProfessionals();
   }, [searchResult]);
@@ -157,7 +157,7 @@ const NewOrdemService = () => {
     setCheckedProfissional(newId);
 
   }, [newId]);
-
+  
   useEffect(() => {
     filteredProfessionals();
   }, [ValueCommission]);
@@ -207,11 +207,12 @@ const NewOrdemService = () => {
               checkedProfissional={checkedProfissional}
               haveCommission={haveCommission}
               setHaveCommission={setHaveCommission}
+              page={page}
+              setPage={setPage}
+              handleSubmit={handleSubmit}
               setCheckedProfissional={setCheckedProfissional}
               newId={newId}
               setNewId={setNewId}
-              setPage={setPage}
-              page={page}
               haveCommissionMeta={haveCommissionMeta}
               setHaveCommissionMeta={setHaveCommissionMeta}
             />
@@ -250,9 +251,7 @@ const NewOrdemService = () => {
                 index={index}
                 setCheckedProfissional={setCheckedProfissional}
                 checkedProfissional={checkedProfissional}
-                deleteProfessionalWithCommission={
-                  deleteProfessionalWithCommission
-                }
+                deleteProfessionalWithCommission={deleteProfessionalWithCommission}
               />
             );
           })}
@@ -261,5 +260,5 @@ const NewOrdemService = () => {
     </>
   );
 };
-
+  
 export default NewOrdemService;
