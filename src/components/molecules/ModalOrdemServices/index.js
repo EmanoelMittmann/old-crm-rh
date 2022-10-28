@@ -17,7 +17,7 @@ import Shelf from "./list/shelf.js";
 import { closeModal, valueOfCommission } from "../../../redux/actions/index.js";
 import { toast } from "react-toastify";
 import { DefaultToast } from "../../atoms/Toast/DefaultToast";
-import { useEffect } from "react";
+
 
 
 export const ModalOrdemServices = ({
@@ -113,10 +113,10 @@ export const ModalOrdemServices = ({
           <SaveButton
             onClick={() => {
               const filterHaveCommission = checkedProfissional.filter(
-                (profissional) => profissional?.commission !== ""
+                (profissional) => profissional?.commission !== 0
               );
               const isEmptyCommision = valuesCommission.find(
-                (commission) => commission.value === ''
+                (commission) => commission.value < '0'
               );
               if (valuesCommission.length === filterHaveCommission.length && !isEmptyCommision) {
                 dispatch(valueOfCommission(valuesCommission));
@@ -125,7 +125,7 @@ export const ModalOrdemServices = ({
                 return toast.error(
                   <DefaultToast
                     text={
-                      "Há Campo vazio! Exclua-o, ou inclua um valor maior que 0"
+                      "Alerta! Há campo vazio ou com valor negativo!"
                     }
                   />
                 );
