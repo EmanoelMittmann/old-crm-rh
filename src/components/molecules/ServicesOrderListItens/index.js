@@ -21,7 +21,7 @@ const ServiceOrderListItens = ({ professional }) => {
         <ContainerOSListItem key={professional.id}>
             <ProfessionalName>{professional.name}</ProfessionalName>
             <ProfessionalCNPJ>{professional.cnpj}</ProfessionalCNPJ>
-            <NumberOS>{professional.os_number}</NumberOS>
+            <NumberOS>{professional.id}</NumberOS>
             <DateGerationOS>{professional.os_generation.split('-').reverse().join('/')}</DateGerationOS>
             <ReferenceOS>{professional.reference}</ReferenceOS>
             <ProfessionalStatusOS>

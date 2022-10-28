@@ -54,11 +54,15 @@ const NewOrdemService = () => {
     order === "desc" && setOrder("asc");
   };
 
-  const handleClick = () => {
-    const allIds = professionals.map((item) => item.id);
-
-    if(check){
-      setCheckedProfissional(allIds.map((item) => ({ professional_id: item})));
+  const selectAll = () => { 
+    if (check) {
+      setCheckedProfissional(professionals.map(item => {
+        if(item.commission){
+          return {...checkedProfissional ,professional_id: item.id}
+        }else{
+          return {...checkedProfissional, professional_id: item.id, commission: 0}
+        }
+      }))
     }
   };
 
@@ -68,7 +72,7 @@ const NewOrdemService = () => {
       try {
         await api({
           method: "POST",
-          url: `/findProfessionalCommission?page=${page}&limit=5`,
+          url: `/findProfessionalCommission?&limit=5&page=${page}`,
           data: data,
           params: params,
         }).then((res) => {
@@ -147,11 +151,11 @@ const NewOrdemService = () => {
       setCheckedProfissional(newId);
       dispatch(closeModal({ type: "CLOSEMODAL" }));
     }
-    handleFilterModalRequest()
     handleSubmit(
       newId.map((item) => ({ professional_id: item.professional_id }))
     );
     setCheckedProfissional(newId);
+
   }, [newId]);
 
   useEffect(() => {
@@ -203,11 +207,11 @@ const NewOrdemService = () => {
               checkedProfissional={checkedProfissional}
               haveCommission={haveCommission}
               setHaveCommission={setHaveCommission}
-              setPage={setPage}
-              page={page}
               setCheckedProfissional={setCheckedProfissional}
               newId={newId}
               setNewId={setNewId}
+              setPage={setPage}
+              page={page}
               haveCommissionMeta={haveCommissionMeta}
               setHaveCommissionMeta={setHaveCommissionMeta}
             />
@@ -225,7 +229,7 @@ const NewOrdemService = () => {
           <div className="InputBox">
             <input
               type="checkbox"
-              onClick={() => handleClick()}
+              onClick={() => selectAll()}
               onChange={(e) => setCheck(prev => !prev)}
               className="Box"
               id="box"
