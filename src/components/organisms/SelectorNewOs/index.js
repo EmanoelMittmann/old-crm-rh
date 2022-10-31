@@ -54,6 +54,8 @@ const NewOrdemService = () => {
     order === "desc" && setOrder("asc");
   };
 
+
+
   const selectAll = () => { 
     if (check) {
       setCheckedProfissional(professionals.map(item => {
@@ -64,8 +66,10 @@ const NewOrdemService = () => {
         }
       }))
     }
+    else{
+      setCheckedProfissional([])
+    }
   };
-  
   const handleSubmit = async (data) => {
     if (checkedProfissional.length > 0) {
       try {

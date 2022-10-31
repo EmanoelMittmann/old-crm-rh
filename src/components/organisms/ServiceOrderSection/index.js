@@ -30,10 +30,8 @@ const ServiceOrderSection = () => {
       url: `/orderOfService?limit=10&search=${searchResult}&cnpj=${searchResult}&os_number=${searchResult}&status=${statusSelected}&finalDate=${finalDate}&initialDate=${initialDate}&referencesDate=${referencesDate}`,
       params : params
     });
-
     setProfessionals(data.data);
     setOsProfessionalMeta(data.meta);
-
   };
 
   const nextPage = () => {
@@ -76,10 +74,10 @@ const ServiceOrderSection = () => {
 
   useEffect(() => {
     handleFilterOsRequest()
-    getOsProfessionals(searchResult, statusSelected, finalDate, initialDate, referencesDate)
+    getOsProfessionals()
     location.state && setProfessionals(location.state.professionals.data);
   }, [order, searchResult, statusSelected, finalDate, initialDate, referencesDate]);
-  
+
   return (
     <>
     <ServiceOrdersInput
