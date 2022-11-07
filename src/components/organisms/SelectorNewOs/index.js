@@ -86,6 +86,7 @@ const NewOrdemService = () => {
             dispatch(openModal({ type: "OPENMODAL" }));
             setHaveCommission(res.data.data);
             setHaveCommissionMeta(res.data.meta);
+
           }
         });
       } catch (err) { }
@@ -150,6 +151,7 @@ const NewOrdemService = () => {
     } else {
       setCheckedProfissional(newId);
       dispatch(closeModal({ type: "CLOSEMODAL" }));
+      return;
     }
     handleSubmit(
       newId.map((item) => ({ professional_id: item.professional_id }))

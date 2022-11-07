@@ -1,22 +1,16 @@
 import React from 'react'
-import {
-  ContainerRegisterCompanySituation,
-    RegisterCompanyForm, ContainerInputRadio,
-    Matriz,
-    Container,
-    ContainerRadios
-  } from '../RegisterCompany/style'
+import { ContainerRegisterCompanySituation, RegisterCompanyForm } from '../RegisterCompany/style'
 import InputSelect from '../../atoms/InputSelect'
 import InputDate from '../../atoms/InputDate'
 import InputWithLabel from '../../atoms/InputWithLabel'
 import { ContainerRow } from '../RegisterCompany/style'
 import { optionsRegistions } from '../RegisterCompany/status'
 
-export const SituationCadastion = ({data,disabled}) => {
+export const SituationCadastion = ({ data, disabled }) => {
   const { values, handleChange, errors, touched, setFieldTouched } = data
-  return(
+  return (
     <ContainerRegisterCompanySituation>
-        <RegisterCompanyForm>
+      <RegisterCompanyForm>
         <ContainerRow>
           <InputSelect
             value={values.registration_status}
@@ -95,8 +89,8 @@ export const SituationCadastion = ({data,disabled}) => {
             widthContainer="30%"
             handleBlur={setFieldTouched}
           />
-          </ContainerRow>
-        </RegisterCompanyForm>
+        </ContainerRow>
+      </RegisterCompanyForm>
     </ContainerRegisterCompanySituation>
   )
 }

@@ -73,10 +73,11 @@ export const ModalOrdemServices = ({
       )
       );  
     };
-  console.log('valor de comissão',valuesCommission);
+
+  console.log(haveCommission);
 
   return (
-    <div>
+    <>
       <ModalContainerProfessional>
         <CloseButtonCircle
           onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
@@ -126,7 +127,7 @@ export const ModalOrdemServices = ({
                 return toast.error(
                   <DefaultToast
                     text={
-                      "Alerta! Há campos vazios ou com valor negativo!"
+                      "Há campos vazios ou com valor negativo!"
                     }
                   />
                 );
@@ -138,6 +139,6 @@ export const ModalOrdemServices = ({
         </ModalContainerButtons>
       </ModalContainerProfessional>
       <ModalOverlay />
-    </div>
+    </>
   );
 };
