@@ -86,7 +86,7 @@ const NewOrdemService = () => {
             return toast.success(
               <DefaultToast text={"Os criada com sucesso"} />
             );
-          } else {
+          }else{
             dispatch(openModal({ type: "OPENMODAL" }));
             setHaveCommission(res.data.data);
             setHaveCommissionMeta(res.data.meta);
@@ -154,6 +154,7 @@ const NewOrdemService = () => {
     } else {
       setCheckedProfissional(newId);
       dispatch(closeModal({ type: "CLOSEMODAL" }));
+      return;
     }
     handleSubmit(
       newId.map((item) => ({ professional_id: item.professional_id }))
