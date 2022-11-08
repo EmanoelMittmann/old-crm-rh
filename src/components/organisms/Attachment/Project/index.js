@@ -96,7 +96,7 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
     function handleRows() {
         setRows([])
         if(id) {
-            projects.map( project => {
+            projects?.map( project => {
                 const addProjectRows = {
                     id : project.id,
                     firstRow: project.name, 
@@ -195,10 +195,6 @@ const AttachmentProject = ({ attachment, allOptions, data}) => {
         })
         setOptions(optionsValid)
         handleRows()
-
-        if(!projects.length) {
-
-        }
     },[allOptions, projects])
 
     useEffect(() => {

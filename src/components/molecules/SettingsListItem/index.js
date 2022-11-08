@@ -102,7 +102,6 @@ const SettingsListItem = () => {
     }
 
     const toggleStatusOptions = (info) => {
-        
             const updateStatusJob = async () => {
                 try {
 
