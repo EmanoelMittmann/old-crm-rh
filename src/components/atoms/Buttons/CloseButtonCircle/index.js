@@ -2,10 +2,10 @@ import React from 'react'
 import {ReactComponent as CloseButtonCircleIcon} from '../../../../assets/icons/closeCircle.svg'
 import { CloseButtonContainer } from './style.js'
 
-const CloseButton = ({onClick}) => {
+const CloseButton = ({CloseButtonClickHandler}) => {
 
     return(
-        <CloseButtonContainer onClick={onClick}>
+        <CloseButtonContainer onClick={CloseButtonClickHandler}>
             <CloseButtonCircleIcon />
         </CloseButtonContainer>
     )

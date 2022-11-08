@@ -14,7 +14,7 @@ const ModalCancelOS = ({redButtonClickHandler,CloseButtonClickHandler, text }) =
     return (
         <div>
             <ModalContainer>
-                <CloseButtonCirle/>
+                <CloseButtonCirle CloseButtonClickHandler={CloseButtonClickHandler}/>
                 <ModalTitle padding="1.6em 1.6em 0.7em 1.6em">
                     <IconExclamation src={exclamation} alt="Info"/>
                     Cancelar O.S
