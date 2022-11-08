@@ -10,42 +10,43 @@ export const ContainerCompaniesListItem = styled.div`
 
 export const CompanyRazaoSocial = styled.div`
   display: flex;
-  width: 16%;
+  width: 19.5%;
   padding-left: 3em;
 `;
 
 export const CompanyCNPJ = styled.div`
   display: flex;
   width: 16%;
-  margin-left: 2em;
-  position: relative;
+  justify-content: flex-start;
 `;
 
 export const CompanyDate = styled.div`
-  transform: translateX(10px);
   display: flex;
-  width: 16%;
-  position: relative;
+  width: 17%;
+  justify-content: flex-start;
 `;
 
 export const CompanyCity = styled.div`
-  transform: translateX(-40px);
   display: flex;
-  width: 16%;
-  padding-left: 2.5em;
+  width: 14%;
 `;
 
-export const CompanyUF = styled.div`
-  transform: translateX(76px);
+export const Companytype = styled.div`
   display: flex;
-  width: 16%;
-  position: relative;
+  width: 12%;
+  justify-content: flex-start;
+`
+
+export const CompanyUF = styled.div`
+  display: flex;
+  width: 12%;
+  justify-content: flex-start;
 `;
 
 export const CompanySituation = styled.div`
   transform: translateX(-43px);
   display: flex;
-  width: 16%;
+  width: 14.2%;
   padding-left: 2em;
 `;
 
