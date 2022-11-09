@@ -90,6 +90,7 @@ const NewOrdemService = () => {
             dispatch(openModal({ type: "OPENMODAL" }));
             setHaveCommission(res.data.data);
             setHaveCommissionMeta(res.data.meta);
+
           }
         });
       } catch (err) { }
