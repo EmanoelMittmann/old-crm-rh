@@ -60,13 +60,13 @@ export const RegisterCompanies = () => {
     secondary_cnae: Yup.array()
       .min(1, "Campo obrigatório")
       .required(messages.required),
-    code_and_description_of_the_legal_status: Yup.array()
+      code_and_description_of_the_legal_status: Yup.array()
       .min(1, "Campo obrigatório")
       .required(messages.required),
-    registration_status: Yup.string().required(messages.required),
-    house_number: Yup.number().required(messages.required),
-    neighborhood_name: Yup.string().required(messages.required),
-    phone_number: Yup.string().required(messages.required),
+      registration_status: Yup.string().required(messages.required),
+      house_number: Yup.number().required(messages.required),
+      neighborhood_name: Yup.string().required(messages.required),
+      phone_number: Yup.string().required(messages.required),
     city_name: Yup.string().required(messages.required),
     uf: Yup.string().required(messages.required),
     phone_number: Yup.string().required(messages.required),
@@ -74,8 +74,9 @@ export const RegisterCompanies = () => {
     registration_status: Yup.string().required(messages.required),
     date_of_registration_status: Yup.string().required(messages.required),
     reason_for_registration_status: Yup.string().required(messages.required),
+    type_company: Yup.string().required(messages.required)
   });
-
+  
   const formik = useFormik({
     initialValues: {
       razao_social: "",
@@ -103,8 +104,9 @@ export const RegisterCompanies = () => {
       registration_status: "",
       date_of_registration_status: "",
       reason_for_registration_status: "",
-      special_situation: "",
       date_of_special_situation: "",
+      special_situation: "",
+      type_company: "",
     },
     onSubmit: async (values) => {
       await api({
@@ -112,11 +114,12 @@ export const RegisterCompanies = () => {
         url: id ? `/companies/${id}` : "/companies",
         data: id
           ? {
-              ...values,
-            }
+            ...values,
+          
+          }
           : {
-              ...values,
-            },
+            ...values,
+          },
       })
         .then(() => {
           toast.success(<DefaultToast text="Empresa cadastrada." />, {
@@ -134,19 +137,21 @@ export const RegisterCompanies = () => {
           const errors = error.response.data.errors;
           setErrors(handleErrorMessages(errors));
         });
+        
     },
     validationSchema: schema,
     isValidating: false,
     enableReinitialize: true,
   });
 
+  
   const { values, setFieldValue, setFieldError } = formik;
 
   const goBackClickHandler = () => {
     history.push("/Company");
   };
 
-  useEffect(async () => {
+  const getCompanyData = async () =>{
     if (id) {
       await api({
         method: "get",
@@ -172,12 +177,15 @@ export const RegisterCompanies = () => {
               setFieldValue(property, data);
             } else if (property.includes("opening_date")) {
               setFieldValue(property, getDate(value));
-            } else if (property.includes("date_of_special_situation")) {
+            }else if (property.includes("type_company")) {
+              setFieldValue(property, value);
+          }else if (property.includes("date_of_special_situation")) {
               if (value === null) {
                 return null;
               }
               setFieldValue(property, getDate(value));
-            } else {
+            } 
+            else {
               setFieldValue(property, value);
             }
           });
@@ -186,7 +194,13 @@ export const RegisterCompanies = () => {
           new Error(error.message);
         });
     }
+
+  }
+
+  useEffect(() => {
+    getCompanyData()
   }, []);
+
 
   return (
     <>
@@ -204,7 +218,7 @@ export const RegisterCompanies = () => {
         ) : (
           <RegisterFooter
             cancelButtonHandler={goBackClickHandler}
-            registerButtonHandler={() => {}}
+            registerButtonHandler={() => { }}
             buttonDescription={id ? "Atualizar" : "Cadastrar"}
             type="submit"
             form="Company"
