@@ -171,14 +171,14 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
                     options={options}
                     placeholder="Time"
                     width="100%"
-                    lineWidth="40%"
+                    lineWidth="38%"
                     label="Selecionar time"
                     reset={reset}
                 />
                 <InputText
                     width="100%"
-                    widthLine="20%"
-                    placeholder="Horas/mês"
+                    widthLine="22%"
+                    placeholder="Horas Mensais Estimadas"
                     onChange={e => setHoursMonth(e.target.value)}
                     value={hoursMonth}
                     type="number"
@@ -187,7 +187,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
                  <InputText
                     width="100%"
                     widthLine="20%"
-                    placeholder="Horas extras"
+                    placeholder="Horas Extras Estimadas"
                     onChange={e => setOvertime(e.target.value)}
                     value={overtime}
                     type="number"
@@ -198,19 +198,31 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
                 </BlueButton>
             </AttachmentForm>
             <ListHeaderContainer>
-                <ListHeaderTitle width="27%" margin="3em" >
+                <ListHeaderTitle width="12.5%" margin="3em" >
                     Profissional
                 </ListHeaderTitle>
-                <ListHeaderTitle width="21%" margin="0">
+                <ListHeaderTitle width="12.5%" margin="0">
                     Cargo
                 </ListHeaderTitle>
-                <ListHeaderTitle width="20%" margin="0">
-                    Horas mensais
+                <ListHeaderTitle width="15" margin="0">
+                Horas Mensais Estimadas
                 </ListHeaderTitle>
-                <ListHeaderTitle width="23%" margin="0">
-                    Horas Extras
+                <ListHeaderTitle width="12.5" margin="0">
+                Horas Mensais Realizadas
                 </ListHeaderTitle>
-                <ListHeaderTitle width="10%" margin="0">
+                <ListHeaderTitle width="10%" left="1em">
+                    %
+                </ListHeaderTitle>
+                <ListHeaderTitle width="15%" margin="0">
+                Horas Extras Estimadas
+                </ListHeaderTitle>
+                <ListHeaderTitle width="12.5%" margin="0">
+                Horas Extras Realizadas
+                </ListHeaderTitle>
+                <ListHeaderTitle width="10%" left="1em">
+                    %
+                </ListHeaderTitle>
+                <ListHeaderTitle width="0%" margin="0">
                 </ListHeaderTitle>
             </ListHeaderContainer>
             { rows.map((member, index) => (

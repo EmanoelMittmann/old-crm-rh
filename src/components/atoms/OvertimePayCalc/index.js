@@ -145,50 +145,7 @@ const OvertimePayCalc = ({ data }) => {
                 </ContainerHourlyPayRate>
             </OvertimePay>
             <LimitOvertime>
-                <OvertimePayCalcLabel>Limitar hora extra?</OvertimePayCalcLabel>
-
-                <ContainerLimitOvertime>
-                    <ContainerLimitOvertimeButtons onChange={(e) => {
-                       e.target.value === 'limitOvertime' ? setFieldValue('limited_extra_hours', true) : setFieldValue('limited_extra_hours', false)
-                       setComponentJustRendered(false)
-                    }}>
-                        <ContainerLimitOvertimeButton>
-                            <InputRadio
-                                {...limitAllowed}
-                                type="radio"
-                                name="extraHour"
-                                value="limitOvertime"
-                                id="limitOvertime"
-                            />
-                            <LabelInputRadio for="limitOvertime"> Sim </LabelInputRadio>
-                        </ContainerLimitOvertimeButton>
-                    
-                        <ContainerLimitOvertimeButton>
-                            <InputRadio
-                                {...limitNotAllowed}
-                                margin="0 0 0 3em"
-                                type="radio"
-                                name="extraHour"
-                                value="noLimitOvertime"
-                                id="noLimitOvertime"
-                            />
-                            <LabelInputRadio for="noLimitOvertime"> Não </LabelInputRadio>
-                        </ContainerLimitOvertimeButton>
-                    </ContainerLimitOvertimeButtons>
-                        {
-                        values.limited_extra_hours !== false &&
-                        <InputWithLabel
-                            name="extra_hour_limit"
-                            value={values.extra_hour_limit}
-                            onChange={handleChange('extra_hour_limit')}
-                            label="Limite de horas"
-                            widthLine="300px"
-                            padding="0 0 0 3em"
-                            type="number"
-                            handleBlur={data.setFieldTouched}
-                        />
-                        }
-                </ContainerLimitOvertime>
+                
             </LimitOvertime>
         </ContainerOvertimePayCalcLabel>
     )
