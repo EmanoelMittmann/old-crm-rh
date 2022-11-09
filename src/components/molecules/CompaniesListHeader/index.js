@@ -9,6 +9,7 @@ import {
   ListHeaderDate,
   ListHeaderRazaoSocial,
   ListHeaderSituation,
+  ListHeaderType,
   ListHeaderUF,
 } from './style';
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg';
@@ -38,10 +39,16 @@ export const CompaniesListHeader = () => {
         <Arrows onClick={sortByName} />
       </ListHeaderDate>
 
+
       <ListHeaderCity>
         <ListHeaderTitle margin="0">Cidade</ListHeaderTitle>
         <Arrows onClick={sortByName} />
       </ListHeaderCity>
+      
+      <ListHeaderType>
+        <ListHeaderTitle margin="0">Tipos</ListHeaderTitle>
+        <Arrows onClick={sortByName} />
+      </ListHeaderType>
 
       <ListHeaderUF>
         <ListHeaderTitle margin="0">UF</ListHeaderTitle>
