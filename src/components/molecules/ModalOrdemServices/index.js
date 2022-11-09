@@ -75,7 +75,7 @@ export const ModalOrdemServices = ({
     };
 
   return (
-    <div>
+    <>
       <ModalContainerProfessional>
         <CloseButtonCircle
           CloseButtonClickHandler={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
@@ -125,7 +125,7 @@ export const ModalOrdemServices = ({
                 return toast.error(
                   <DefaultToast
                     text={
-                      "Há campo vazio ou com valor negativo!"
+                      "Há campos vazios ou com valor negativo!"
                     }
                   />
                 );
@@ -137,6 +137,6 @@ export const ModalOrdemServices = ({
         </ModalContainerButtons>
       </ModalContainerProfessional>
       <ModalOverlay />
-    </div>
+    </>
   );
 };

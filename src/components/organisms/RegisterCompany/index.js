@@ -6,6 +6,9 @@ import {
   Matriz,
   Container,
   ContainerRadios,
+  Typecompany,
+  ContainerTypecompany,
+  ContainerRadiosCompany
 } from './style';
 import { ContainerRow } from '../RegisterProfessionalsData/style';
 import InputWithLabel from '../../atoms/InputWithLabel/index';
@@ -28,12 +31,14 @@ const RegisterCompany = ({ data, disabled }) => {
     setFieldTouched,
     setFieldValue,
   } = data;
-  const [componentJustRenderedCommission, setComponentJustRenderedComission] =
-    useState(false);
+  const [componentJustRenderedCommission, setComponentJustRenderedComission] = useState(false);
+  const [typeCompany, setTypeCompany] = useState("");
+
 
   useEffect(() => {
     setComponentJustRenderedComission(true);
-  }, []);
+    handleTypeCompany()
+  }, [typeCompany]);
 
   const allowMatriz = {
     ...(componentJustRenderedCommission &&
@@ -43,12 +48,56 @@ const RegisterCompany = ({ data, disabled }) => {
   const noAllowMatriz = {
     ...(componentJustRenderedCommission &&
       (values === undefined || values.is_matriz === false) && {
-        checked: true,
-      }),
+      checked: true,
+    }),
   };
-
+  function handleTypeCompany(e) {
+    setFieldValue("type_company", typeCompany) 
+  }
   return (
     <ContainerRegisterCompanyData>
+      <ContainerTypecompany>
+        <Typecompany>
+          <Matriz>Tipos de Empresa</Matriz>
+          <ContainerRadiosCompany>
+            <InputRadio
+              type="radio"
+              disabled={disabled}
+              name="typeCompany"
+              value='UBISTART'
+              id="UBISTART"
+              checked={values.type_company === "UBISTART"}
+              onChange={(e) => setTypeCompany(e.target.value)}
+            />
+            <LabelInputRadio for="typeCompany"> Ubistart </LabelInputRadio>
+          </ContainerRadiosCompany>
+          <ContainerRadiosCompany>
+            <InputRadio
+              type="radio"
+              disabled={disabled}
+              name="typeCompany"
+              value="CLIENT"
+              id="CLIENT"
+              checked={values.type_company === "CLIENT"}
+              onChange={(e) => setTypeCompany(e.target.value)}
+            />
+            <LabelInputRadio for="typeCompany"> Cliente </LabelInputRadio>
+          </ContainerRadiosCompany>
+          <ContainerRadiosCompany>
+            <InputRadio
+              type="radio"
+              disabled={disabled}
+              name="typeCompany"
+              value="SUPPLIER"
+              id="SUPPLIER"
+              checked={values.type_company === "SUPPLIER"}
+              onChange={(e) => setTypeCompany(e.target.value)}       
+            />
+            <LabelInputRadio for="typeCompany"> Fornecedor </LabelInputRadio>
+          </ContainerRadiosCompany>
+        </Typecompany>
+
+      </ContainerTypecompany>
       <SecondaryText margin="2.5em">Dados da empresa</SecondaryText>
       <RegisterCompanyForm>
         <ContainerRow>
@@ -119,7 +168,6 @@ const RegisterCompany = ({ data, disabled }) => {
               </Container>
             </ContainerRadios>
           </ContainerInputRadio>
-
           <InputWithLabel
             value={values.opening_date}
             onChange={handleChange('opening_date')}

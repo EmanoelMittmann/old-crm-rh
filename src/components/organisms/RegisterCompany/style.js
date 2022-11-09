@@ -17,8 +17,8 @@ export const Container = styled.div`
 export const ContainerRadios = styled.div`
     width: 100%;
     display: flex;
-    flex-direction: row;
-    
+    flex-direction: row; 
+
 `
 export const ContainerRow = styled.div`
     display: flex;
@@ -49,3 +49,21 @@ export const ContainerRegisterCompanySituation = styled.div`
     padding: 1em 3em 0 3em;
     height:16em;
 `
+
+export const Typecompany = styled.div`
+    display: flex;
+    flex-direction: column;
+
+`
+
+export const ContainerTypecompany = styled.div`
+    display: flex;
+    padding: 0em 0.5em 1em 0em;
+
+`
+export const ContainerRadiosCompany = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row; 
+    margin-top  : 0.8em;
+    `

@@ -382,7 +382,8 @@ const RegisterProfessional = () => {
         });
       });
   }
-  useEffect(async () => {
+
+  const getProfessionalData = async   () => {
     if (!jobs.length) optionsJob();
     if (!allProjects.length) getAllProjects();
     if (id) {
@@ -436,6 +437,10 @@ const RegisterProfessional = () => {
       setJobs([]);
       setAllProjects([]);
     };
+
+  }
+  useEffect(() => {
+    getProfessionalData()
   }, [id]);
 
   useEffect(() => {
