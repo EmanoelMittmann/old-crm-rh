@@ -55,9 +55,6 @@ const ModalGenerateOs = ({
       {!Modal && checkedProfissional.length > 0 ? (
         <>
           <ModalContainerProfessional>
-            <CloseButtonCircle
-              onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
-            />
             <ContainerAbsolute>
               <ModalTitle padding="1em">Confirmar Profissionais</ModalTitle>
               <div className="shelf">

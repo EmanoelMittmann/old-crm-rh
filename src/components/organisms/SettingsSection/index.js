@@ -41,7 +41,8 @@ export const SettingsSection = () => {
         return handleDisplayTitle[route]
     }
 
-    const modelVisibility = state.modelVisibility
+    const modelVisibility = state.modalVisibility
+
     const token = state.authentication.token
     const jobList = state.jobs
     const lastPage = state.settingsPagesFilter.last_page
