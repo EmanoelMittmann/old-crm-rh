@@ -77,7 +77,6 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
 
   return (
     <>
-      {" "}
       {data.map((project) => {
         return (
           <ProjectsListItemContainer key={project.id}>
@@ -147,7 +146,7 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
             )}
           </ProjectsListItemContainer>
         );
-      })}{" "}
+      })}
     </>
   );
 };

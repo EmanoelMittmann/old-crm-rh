@@ -77,10 +77,15 @@ const CompaniesList = () => {
     handleFilterRequest();
 
     searchResult || uf || selectedStatusCompany || typeCompany
-      ? handleFilterCompanies(searchResult, uf, selectedStatusCompany,typeCompany)
+      ? handleFilterCompanies(
+          searchResult,
+          uf,
+          selectedStatusCompany,
+          typeCompany
+        )
       : getCompany();
     location.state && setCompanies(location.state.companies.data);
-  }, [order, searchResult, uf, selectedStatusCompany,typeCompany]);
+  }, [order, searchResult, uf, selectedStatusCompany, typeCompany]);
 
   return (
     <Container>
@@ -93,9 +98,11 @@ const CompaniesList = () => {
         setSelectedStatusCompany={setSelectedStatusCompany}
       />
       <CompaniesListHeader OrderForList={OrderForList} />
-      {companies?.map((corporation) => (
-        <CompaniesListItem key={corporation.id} corporation={corporation} />
-      ))}
+      <div className="shelf">
+        {companies?.map((corporation) => (
+          <CompaniesListItem key={corporation.id} corporation={corporation} />
+        ))}
+      </div>
       <Footer
         previousPage={previousPage}
         nextPage={nextPage}

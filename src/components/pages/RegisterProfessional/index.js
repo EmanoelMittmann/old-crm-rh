@@ -169,11 +169,11 @@ const RegisterProfessional = () => {
       street_name: "",
       house_number: "",
       complement: "",
-      tools: "",
       neighbourhood_name: "",
       city_name: "",
       country: "Brazil",
       uf: "",
+      tools: "",
       telephone_number: cleanMask(""),
       email: "",
       start_date: "",
@@ -464,6 +464,8 @@ const RegisterProfessional = () => {
       );
     }
   }, [values.variable1, values.variable2]);
+
+  console.log('values: ',values.tools);
 
   return (
     <>

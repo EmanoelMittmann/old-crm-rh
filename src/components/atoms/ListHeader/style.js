@@ -16,9 +16,9 @@ export const ListHeaderContainer = styled.div`
   }
 `;
 
-export const ListHeaderTitle = styled.h4`
+export const ListHeaderTitle = styled.h5`
   font-family: 'Poppins', sans-serif;
-  font-weight: 600;
+  font-weight: 400;
   color: black;
   margin-left: ${(props) => (props.margin ? props.margin : '3em')};
   padding-right: ${props => props.right};
