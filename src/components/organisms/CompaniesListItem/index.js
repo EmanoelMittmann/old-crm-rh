@@ -10,6 +10,7 @@ import {
   CompanyRazaoSocial,
   CompanySituation,
   CompanyUF,
+  Companytype,
   ContainerCompaniesListItem,
   CompanyTextStatus,
 } from './style';
@@ -41,7 +42,10 @@ const CompaniesListItem = ({ corporation }) => {
       corporation.registration_status === 'SUSPENDED' ? '#FFAE00' :  
         corporation.registration_status === 'NULL' ? '#000000' :
           corporation.registration_status === 'UNFIT' ? '#FF3541' : '#FF3541'
-
+  const textTypeCompany =
+    corporation.type_company === 'UBISTART' ? 'Ubistart' :
+      corporation.type_company === 'CLIENT' ? 'Cliente' :
+        corporation.type_company === 'SUPPLIER' && 'Fornecedor'
 
   const menuOptionsClicked = (companyId) => {
     setMenuOptionsisClicked(!menuOptionsisClicked);
@@ -64,6 +68,7 @@ const CompaniesListItem = ({ corporation }) => {
       <CompanyCNPJ>{corporation.cnpj}</CompanyCNPJ>
       <CompanyDate>{formatDate(corporation.opening_date)}</CompanyDate>
       <CompanyCity>{corporation.city_name}</CompanyCity>
+      <Companytype>{textTypeCompany}</Companytype>
       <CompanyUF>{corporation.uf}</CompanyUF>
       <CompanySituation>
         <CompanyTextStatus bg={colorBg} text={colorText}>

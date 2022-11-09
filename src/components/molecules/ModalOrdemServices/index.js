@@ -80,7 +80,7 @@ export const ModalOrdemServices = ({
     <>
       <ModalContainerProfessional>
         <CloseButtonCircle
-          onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
+          CloseButtonClickHandler={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
         />
         <ContainerAbsolute>
           <ModalTitle padding="1em">Confirmar Comissões</ModalTitle>

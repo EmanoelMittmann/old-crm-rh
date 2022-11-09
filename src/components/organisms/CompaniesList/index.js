@@ -1,28 +1,29 @@
-import React from 'react';
-import { useState } from 'react';
-import api from '../../../api/api';
-import { useLocation } from 'react-router-dom';
-import { CompaniesListHeader } from '../../molecules/CompaniesListHeader';
-import CompaniesListItem from '../CompaniesListItem';
-import { useEffect } from 'react';
-import Footer from '../Footer';
-import HeaderSearchCompany from '../../molecules/HeaderSearchCompany';
-import { Container } from '../../atoms/Container';
+import React from "react";
+import { useState } from "react";
+import api from "../../../api/api";
+import { useLocation } from "react-router-dom";
+import { CompaniesListHeader } from "../../molecules/CompaniesListHeader";
+import CompaniesListItem from "../CompaniesListItem";
+import { useEffect } from "react";
+import Footer from "../Footer";
+import HeaderSearchCompany from "../../molecules/HeaderSearchCompany";
+import { Container } from "../../atoms/Container";
 
 const CompaniesList = () => {
   const location = useLocation();
   const [companyMeta, setCompanyMeta] = useState([]);
-  const [searchResult, setSearchResult] = useState('');
-  const [uf, setUf] = useState('');
+  const [typeCompany, setTypeCompany] = useState("");
+  const [searchResult, setSearchResult] = useState("");
+  const [uf, setUf] = useState("");
   const [companies, setCompanies] = useState([]);
-  const [order, setOrder] = useState('');
-  const [selectedStatusCompany, setSelectedStatusCompany] = useState('')
+  const [order, setOrder] = useState("");
+  const [selectedStatusCompany, setSelectedStatusCompany] = useState("");
 
   let params = {};
 
   const getCompany = async () => {
     const { data } = await api({
-      method: 'GET',
+      method: "GET",
       url: `/companies/?limit=5`,
       params: params,
     });
@@ -32,8 +33,8 @@ const CompaniesList = () => {
 
   const handleFilterCompanies = async () => {
     const { data } = await api({
-      method: 'GET',
-      url: `/findCompanies?razao_social=${searchResult}&uf=${uf}&cnpj=${searchResult}&city_name=${searchResult}&status=${selectedStatusCompany}`,
+      method: "GET",
+      url: `/findCompanies?razao_social=${searchResult}&uf=${uf}&cnpj=${searchResult}&city_name=${searchResult}&status=${selectedStatusCompany}&type_company=${typeCompany}`,
       params: params,
     });
     setCompanies(data.data);
@@ -41,49 +42,52 @@ const CompaniesList = () => {
   };
 
   const nextPage = () => {
-    handleFilterRequest('next');
+    handleFilterRequest("next");
     getCompany();
   };
 
   const previousPage = () => {
-    handleFilterRequest('previous');
+    handleFilterRequest("previous");
     getCompany();
   };
 
   const OrderForList = () => {
-    order === '' && setOrder('asc');
-    order === 'asc' && setOrder('desc');
-    order === 'desc' && setOrder('asc');
+    order === "" && setOrder("asc");
+    order === "asc" && setOrder("desc");
+    order === "desc" && setOrder("asc");
   };
 
   const handleFilterRequest = (pagesFilter) => {
-    if (pagesFilter === 'previous')
+    if (pagesFilter === "previous")
       params.page = `${companyMeta.current_page - 1}`;
 
-    if (pagesFilter === 'next') params.page = `${companyMeta.current_page + 1}`;
+    if (pagesFilter === "next") params.page = `${companyMeta.current_page + 1}`;
 
     if (pagesFilter === undefined) params.page = companyMeta.current_page;
 
-    if (searchResult !== '') {
+    if (searchResult !== "") {
       params.search = searchResult;
       params.page = companyMeta.first_page;
     }
 
-    if (order !== '') params.order = order;
+    if (order !== "") params.order = order;
   };
 
   useEffect(() => {
     handleFilterRequest();
 
-    searchResult || uf || selectedStatusCompany ?  handleFilterCompanies(searchResult, uf, selectedStatusCompany) : getCompany();
+    searchResult || uf || selectedStatusCompany || typeCompany
+      ? handleFilterCompanies(searchResult, uf, selectedStatusCompany,typeCompany)
+      : getCompany();
     location.state && setCompanies(location.state.companies.data);
-  }, [order, searchResult, uf, selectedStatusCompany]);
+  }, [order, searchResult, uf, selectedStatusCompany,typeCompany]);
 
-  
   return (
     <Container>
       <HeaderSearchCompany
         setSearchResult={setSearchResult}
+        setTypeCompany={setTypeCompany}
+        typeCompany={typeCompany}
         setUf={setUf}
         uf={uf}
         setSelectedStatusCompany={setSelectedStatusCompany}
