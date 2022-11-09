@@ -141,8 +141,8 @@ const RegisterProjectTeam = ({ payloadTeam, setPayloadTeam }) => {
     return (
         <ContainerRegisterProjectTeam>
             <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
-
             <RegisterProjectTeamForm>
+                
                 <InputSelectWithLabel
                     setSelectedOption={setProfessionalSelected}
                     options={allProfessionals}

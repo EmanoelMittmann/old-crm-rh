@@ -1,4 +1,4 @@
-import { CompanyIcon, HomeIcon, InvoiceIcon, JobIcon, OvertimeIcon, ProjectsIcon, ReportsIcon, ServiceOrdersIcon, SettingsIcon } from "../components/atoms/icons/NavIcons";
+import { CompanyIcon, iconProject, HomeIcon, InvoiceIcon, JobIcon, OvertimeIcon, ProjectsIcon, ReportsIcon, ServiceOrdersIcon, SettingsIcon } from "../components/atoms/icons/NavIcons";
 
 export const templates = [
   {
