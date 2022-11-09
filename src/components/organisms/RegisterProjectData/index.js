@@ -12,9 +12,12 @@ import {
     ContainerSecondRow,
     ContainerFirstRow,
     ContainerThirdLine,
+    ContainerSecond,
     ContainerRegisterProjectData
 } from './style.js'
 import { useEffect } from 'react'
+import InputDate from '../../atoms/InputDate/index.js'
+import { Container } from '../../atoms/Container/index.js'
 
 const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
     const { values, handleChange, errors, touched, setFieldTouched, setFieldValue } = data
@@ -28,76 +31,88 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
         decimalLimit: 2
     })
 
-
+    console.log(values);
     return (
-        <ContainerRegisterProjectData>
+        <Container>
             <SecondaryText margin="0 0 2.5em 0">Dados do projeto</SecondaryText>
             <RegisterProjectForm>
                 <ContainerFirstRow>
-                    <ContainerInputWithLabel>
-                        <InputWithLabel
-                            placeHolder="Projeto..."
-                            label="Nome do projeto"
-                            value={values.name}
-                            onChange={handleChange('name')}
-                            name="name"
-                            widthContainer="95%"
-                            error={errors.name}
-                            touched={touched.name}
-                            handleBlur={setFieldTouched}
-                        />
-                    </ContainerInputWithLabel>
-                    <ContainerInputProjectTypeSelect>
-                        <InputSelect
-                            value={values.project_type_id}
-                            onChange={handleChange('project_type_id')}
-                            options={typeOptions}
-                            placeHolder="Tipo de projeto"
-                            width="100%"
-                        />
-                    </ContainerInputProjectTypeSelect>
-                </ContainerFirstRow>
-
-                <ContainerSecondRow>
+                    <ContainerSecondRow>
                     <InputWithLabel
+                        placeHolder="Projeto..."
+                        label="Nome do projeto"
+                        value={values.name}
+                        onChange={handleChange('name')}
+                        name="name"
+                        width='100%'
+                        widthContainer="100%"
+                        error={errors.name}
+                        touched={touched.name}
+                        handleBlur={setFieldTouched}
+                    />
+                    </ContainerSecondRow>
+                    <ContainerSecondRow>
+                    <InputWithLabel
+                        placeHolder="ID do projeto"
+                        label="ID do projeto"
+                        value={values.id}
+                        onChange={handleChange('id')}
+                        name="idProject"
+                        width='100%'
+                        widthContainer="100%"
+                        error={errors.id}
+                        touched={touched.id}
+                        handleBlur={setFieldTouched}
+                    />
+                    <InputSelect
+                        value={values.project_type_id}
+                        onChange={handleChange('project_type_id')}
+                        options={typeOptions}
+                        placeHolder="Tipo de projeto"
+                        width="100%"
+                        lineWidth="100%"
+                    />
+                    </ContainerSecondRow>
+                </ContainerFirstRow>
+                <ContainerFirstRow>
+                    <ContainerSecondRow>
+                    <InputDate
                         onChange={handleChange('date_start')}
-                        label="Data início"
-                        value={values.date_start}
+                        placeholder="Data início Efetivo"
+                        date={values.date_start}
                         type="date"
                         error={errors.date_start}
                         touched={touched.date_start}
                         handleBlur={setFieldTouched}
                         name="date_start"
-                        widthContainer="30%"
-                        padding="0 3em 0 0"
+                        width="100%"
+                        widthContainer="50%"
                     />
-                    <InputWithLabel
+                    <InputDate
                         onChange={handleChange('date_end')}
-                        label="Data final estimado"
-                        value={values.date_end}
+                        placeholder="Data final Efetivo"
+                        date={values.date_end}
                         type="date"
                         error={errors.date_end}
                         touched={touched.date_end}
                         handleBlur={setFieldTouched}
                         name="date_end"
-                        widthContainer="30%"
-                        padding="0 3em 0 0"
+                        width="100%"
+                        widthContainer="50%"
                     />
-                    <ContainerInputProjectStatusSelect>
-                        <InputSelect
-                            value={values.project_status_id}
-                            onChange={handleChange('project_status_id')}
-                            options={statusOptions}
-                            placeHolder="Status do projeto"
-                            width="100%"
+                    </ContainerSecondRow>
+                    <ContainerSecondRow>
+                    <InputSelect
+                        value={values.project_status_id}
+                        onChange={handleChange('project_status_id')}
+                        options={statusOptions}
+                        placeHolder="Status do projeto"
+                        width="100%"
+                        lineWidth="100%"
                         />
-                    </ContainerInputProjectStatusSelect>
-                </ContainerSecondRow>
-
-                <ContainerThirdLine>
                     <InputMasked
                         mask={team_cost_mask}
-                        label="Custo estimado de equipe"
+                        label="R$ Custo estimado"
                         id="team_cost"
                         name="team_cost"
                         value={values.team_cost}
@@ -105,25 +120,39 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         error={errors.team_cost}
                         touched={touched.team_cost}
                         width="100%"
-                        padding="0 3em 0 0"
-                        widthContainer="30%"
+                        widthContainer="100%"
                         handleBlur={setFieldTouched}
+                        />
+                    </ContainerSecondRow>
+                </ContainerFirstRow>
+                <ContainerFirstRow>
+                <ContainerSecond>
+                    <InputDate
+                        onChange={handleChange('date_start_performed')}
+                        placeholder="Data Iníco do contrato"
+                        date={values.date_start_performed}
+                        type="date"
+                        error={errors.date_start_performed}
+                        touched={touched.date_start_performed}
+                        handleBlur={setFieldTouched}
+                        name="date_start_performed"
+                        width="100%"
                     />
-                    <InputWithLabel
+                    <InputDate
                         onChange={handleChange('date_end_performed')}
-                        label="Data final realizado"
-                        value={values.date_end_performed}
+                        placeholder="Data Término do contrato"
+                        date={values.date_end_performed}
                         type="date"
                         error={errors.date_end_performed}
                         touched={touched.date_end_performed}
                         handleBlur={setFieldTouched}
                         name="date_end_performed"
-                        widthContainer="30%"
-                        padding="0 3em 0 0"
+                        width="100%"
                     />
-                </ContainerThirdLine>
+                </ContainerSecond>
+                </ContainerFirstRow>
             </RegisterProjectForm>
-        </ContainerRegisterProjectData>
+        </Container>
     )
 }
 

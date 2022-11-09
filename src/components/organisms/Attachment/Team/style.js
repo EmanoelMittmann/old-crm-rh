@@ -47,3 +47,9 @@ export const ProfilePicture = styled.img`
     border-radius: 50%;
     margin-right: 1em;
 `
+
+export const ContainerLabel = styled.div`
+    width: 100%;
+     gap: 1em;
+     margin-bottom: 2em;
+`

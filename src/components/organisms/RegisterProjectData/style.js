@@ -8,20 +8,29 @@ export const RegisterProjectForm = styled.form`
    display: flex;
    flex-direction: column;
 
+
 `
 export const ContainerFirstRow = styled.div`
     display: flex;
     width: 100%;
     margin-bottom: 2em;
+    gap: 2em;
 `
 
 export const ContainerSecondRow = styled.div`
     display: flex;
-    width: 100%;
+    width: 50%;
+    gap: 2em;
+`
+export const ContainerSecond = styled.div`
+    display: flex;
+    width: 49%;
+    gap: 2em;
 `
 
 export const ContainerInputWithLabel = styled.div`
     width: 80%;
+     gap: 1em;
 `
 
 export const ContainerInputProjectStatusSelect = styled.div`

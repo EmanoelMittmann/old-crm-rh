@@ -16,7 +16,8 @@ import {
     ProfessionalStatus,
     ProfilePicture,
     ProfessionalOvertime,
-    ProfessionalProfilePicture
+    ProfessionalProfilePicture,
+    ContainerLabel,
 } from './style.js'
 import User from '../../../../assets/user.png'
 import { BlueButton } from '../../../atoms/Buttons/BlueButton/style.js'
@@ -28,6 +29,7 @@ import MenuOptions from '../../../atoms/MenuOptions'
 import { Badge } from '../../../atoms/Badge'
 import ModalRed from '../../../molecules/ModalRed'
 import ModalEditAttachment from '../../../molecules/ModalEditAttachment'
+
 
 const status = {
     ATIVO: {
@@ -51,6 +53,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     const [rows, setRows] = useState([])
     const [options, setOptions] = useState([])
     const [professionalSelected, setProfessionalSelected] = useState(null)
+    const [selectLeader, setSelectLeader] = useState(null)
     const [hoursMonth, setHoursMonth] = useState('')
     const [overtime, setOvertime] = useState('')
     const [reset, setReset] = useState(true)
@@ -113,7 +116,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     function handleEditMember() {
         if(!id) {
             const edited = team.map((member) => {
-                if(member.id == professionalClicked){
+                if(member.id === professionalClicked){
                     return {...member, workload: hoursMonthEdit, extra_hours_limit: overtimeEdit}
                 }
                 if(member.id !== professionalClicked){
@@ -165,6 +168,18 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     return (
         <AttachmentContainer>
             <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
+            <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
+            <ContainerLabel>
+                <InputSelectWithLabel
+                    setSelectedOption={e => setSelectLeader(e.target.value)}
+                    options={options}
+                    placeholder="Lider"
+                    width="100%"
+                    lineWidth="38%"
+                    label="selecionar o Lider"
+                    reset={reset}
+                />
+            </ContainerLabel>
             <AttachmentForm>
                 <InputSelectWithLabel
                     setSelectedOption={e => setProfessionalSelected(e.target.value)}
