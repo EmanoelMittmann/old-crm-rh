@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ContainerRegisterFooter = styled.div`
-    width: 100%;
+    width: 95%;
     height: 100px;
     display: flex;
     align-items: center;

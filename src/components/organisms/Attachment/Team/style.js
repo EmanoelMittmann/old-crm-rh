@@ -48,7 +48,7 @@ export const ProfessionalOvertime = styled.span`
 `;
 
 export const ProfessionalPercent = styled.span`
-  width:10.5%;
+  width:9.5%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -66,8 +66,14 @@ export const ProfessionalProfilePicture = styled.div`
 `;
 
 export const ProfilePicture = styled.img`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 1em;
-`;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 1em;
+`
+
+export const ContainerLabel = styled.div`
+    width: 100%;
+     gap: 1em;
+     margin-bottom: 2em;
+`

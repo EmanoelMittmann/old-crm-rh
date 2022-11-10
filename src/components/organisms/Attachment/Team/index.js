@@ -18,6 +18,7 @@ import {
   ProfessionalOvertime,
   ProfessionalProfilePicture,
   ProfessionalPercent,
+  ContainerLabel,
 } from "./style.js";
 import User from "../../../../assets/user.png";
 import { BlueButton } from "../../../atoms/Buttons/BlueButton/style.js";
@@ -32,6 +33,7 @@ import MenuOptions from "../../../atoms/MenuOptions";
 import { Badge } from "../../../atoms/Badge";
 import ModalRed from "../../../molecules/ModalRed";
 import ModalEditAttachment from "../../../molecules/ModalEditAttachment";
+
 
 const status = {
   ATIVO: {
@@ -51,20 +53,21 @@ const status = {
 };
 
 const AttachmentTeam = ({ attachment, allOptions }) => {
-  const { team, setTeam, addMember, removerMember, editMember } = attachment;
-  const [rows, setRows] = useState([]);
-  const [options, setOptions] = useState([]);
-  const [professionalSelected, setProfessionalSelected] = useState(null);
-  const [hoursMonth, setHoursMonth] = useState("");
-  const [overtime, setOvertime] = useState("");
-  const [reset, setReset] = useState(true);
-  const [modalIsVisible, setModalIsVisible] = useState(false);
-  const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false);
-  const [professionalClicked, setProfessionalClicked] = useState("");
-  const [openModalEdit, setOpenModalEdit] = useState(false);
-  const [hoursMonthEdit, setHoursMonthEdit] = useState("");
-  const [overtimeEdit, setOvertimeEdit] = useState("");
-  const { id } = useParams();
+    const { team, setTeam, addMember, removerMember, editMember } = attachment
+    const [rows, setRows] = useState([])
+    const [options, setOptions] = useState([])
+    const [professionalSelected, setProfessionalSelected] = useState(null)
+    const [selectLeader, setSelectLeader] = useState(null)
+    const [hoursMonth, setHoursMonth] = useState('')
+    const [overtime, setOvertime] = useState('')
+    const [reset, setReset] = useState(true)
+    const [modalIsVisible, setModalIsVisible] = useState(false)
+    const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false)
+    const [professionalClicked, setProfessionalClicked] = useState('')
+    const [openModalEdit, setOpenModalEdit] = useState(false)
+    const [hoursMonthEdit, setHoursMonthEdit] = useState('')
+    const [overtimeEdit, setOvertimeEdit] = useState('')
+    const { id } = useParams()
 
   useLayoutEffect(() => {
     const optionsValid = checkArraysDifference({
@@ -119,27 +122,21 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     resetInputs();
   }
 
-  function handleEditMember() {
-    if (!id) {
-      const edited = team.map((member) => {
-        if (member.id == professionalClicked) {
-          return {
-            ...member,
-            workload: hoursMonthEdit,
-            extra_hours_limit: overtimeEdit,
-          };
+    function handleEditMember() {
+        if(!id) {
+            const edited = team.map((member) => {
+                if(member.id === professionalClicked){
+                    return {...member, workload: hoursMonthEdit, extra_hours_limit: overtimeEdit}
+                }
+                if(member.id !== professionalClicked){
+                    return member
+                }
+            })
+            setTeam(edited)
+            setOpenModalEdit(false)
+            return
         }
-        if (member.id !== professionalClicked) {
-          return member;
-        }
-      });
-      setTeam(edited);
-      setOpenModalEdit(false);
-      return;
     }
-    editMember(professionalClicked, hoursMonthEdit, overtimeEdit);
-    setOpenModalEdit(false);
-  }
 
   function handleRemoveMember() {
     if (!id) {
@@ -178,6 +175,18 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   return (
     <AttachmentContainer>
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
+            <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
+            <ContainerLabel>
+                <InputSelectWithLabel
+                    setSelectedOption={e => setSelectLeader(e.target.value)}
+                    options={options}
+                    placeholder="Lider"
+                    width="100%"
+                    lineWidth="36%"
+                    label="selecionar o Lider"
+                    reset={reset}
+                />
+            </ContainerLabel>
       <AttachmentForm>
         <InputSelectWithLabel
           setSelectedOption={(e) => setProfessionalSelected(e.target.value)}
@@ -255,7 +264,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           <ProfessionalOvertime width="10%">
             0
           </ProfessionalOvertime>
-          <ProfessionalOvertime width='8.5%'>
+          <ProfessionalOvertime width='9.5%'>
             0
           </ProfessionalOvertime>
           <ProfessionalPercent>0%</ProfessionalPercent>

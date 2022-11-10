@@ -11,6 +11,7 @@ import { ReactComponent as Reports } from '../../../../assets/icons/reports.svg'
 import { ReactComponent as ServiceOrders } from '../../../../assets/icons/serviceOrders.svg';
 import { ReactComponent as Settings } from '../../../../assets/icons/settings.svg';
 import { ReactComponent as Company } from '../../../../assets/icons/Vector.svg';
+import {ReactComponent as iconProject} from '../../../../assets/icons/iconProject.svg'
 
 //Home Icon
 

@@ -19,6 +19,7 @@ import { formatFirstLetter } from '../../utils/formatFirstLetter.js';
 import { getDate } from '../../utils/getDate.js';
 import { DefaultToast } from '../../atoms/Toast/DefaultToast.js';
 import { toast } from 'react-toastify';
+import { Container } from '../../atoms/Container/index.js';
 
 const RegisterProject = (props) => {
   const history = useHistory();
@@ -42,12 +43,13 @@ const RegisterProject = (props) => {
       .test('Data válida', 'Insira uma data maior que a data inicial', () =>
         validDate()
       ),
+    date_start_performed:Yup.string().required(messages.required),
     date_end_performed: Yup.string().test(
       'Data válida',
       'Insira uma data maior que a data inicial',
       () => {
-        if (values.date_start !== '' && values.date_end_performed !== '') {
-          if (values.date_start > values.date_end_performed) {
+        if (values.date_start !== '' && values.date_start_performed !== '' && values.date_end_performed !== '') {
+          if (values.date_start > values.date_end_performed && values.date_start_performed > values.date_end_performed ) {
             return false;
           }
           return true;
@@ -58,6 +60,7 @@ const RegisterProject = (props) => {
     project_status_id: Yup.number().required(messages.required),
     project_type_id: Yup.number().required(messages.required),
     team_cost: Yup.string().required(messages.required),
+    id: Yup.number().required(messages.required),
   });
 
   const formik = useFormik({
@@ -69,6 +72,8 @@ const RegisterProject = (props) => {
       project_status_id: 0,
       project_type_id: 0,
       team_cost: '',
+      id: '',
+      date_start_performed:'',
     },
 
     onSubmit: async (values) => {
@@ -314,7 +319,7 @@ const RegisterProject = (props) => {
         <SectionTitle>{id ? 'Edição de projeto' : 'Novo Projeto'}</SectionTitle>
       </RegisterProjectTitleContainer>
 
-      <RegisterProjectContainer>
+      <Container>
         <form id="register" onSubmit={formik.handleSubmit}>
           <RegisterProjectData
             data={formik}
@@ -330,7 +335,7 @@ const RegisterProject = (props) => {
           type="submit"
           form="register"
         />
-      </RegisterProjectContainer>
+      </Container>
     </>
   );
 };
