@@ -74,8 +74,6 @@ export const ModalOrdemServices = ({
       );  
     };
 
-  console.log(haveCommission);
-
   return (
     <>
       <ModalContainerProfessional>

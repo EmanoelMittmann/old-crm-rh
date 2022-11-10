@@ -22,6 +22,7 @@ import { getDate } from "../../utils/getDate";
 import { messages } from "../../../settings/YupValidates";
 import { handleErrorMessages } from "../../utils/handleErrorMessages";
 import { handleCEP } from "../../utils/validateCep";
+import InputWithLabel from "../../atoms/InputWithLabel";
 
 const RegisterProfessional = () => {
   const [jobs, setJobs] = useState([]);
@@ -76,13 +77,13 @@ const RegisterProfessional = () => {
         ) {
           setUniqueCEP(values.cep);
           handleCEP(values.cep).then((data) => {
-          if (data.data.erro) return setFieldError("cep", "Cep Invalido!");
-          const { bairro, localidade, logradouro, uf } = data.data;
-          if (localidade) setFieldValue("city_name", localidade);
-          if (uf) setFieldValue("uf", uf);
-          if (logradouro) setFieldValue("street_name", logradouro);
-          if (bairro) setFieldValue("neighbourhood_name", bairro);
-        });
+            if (data.data.erro) return setFieldError("cep", "Cep Invalido!");
+            const { bairro, localidade, logradouro, uf } = data.data;
+            if (localidade) setFieldValue("city_name", localidade);
+            if (uf) setFieldValue("uf", uf);
+            if (logradouro) setFieldValue("street_name", logradouro);
+            if (bairro) setFieldValue("neighbourhood_name", bairro);
+          });
         }
         return true;
       }),
@@ -120,17 +121,26 @@ const RegisterProfessional = () => {
             values.professional_data.company_cep !== anotherCep
           ) {
             setAnotherCEP(values.professional_data.company_cep);
-            handleCEP(values.professional_data.company_cep).then(data => {
-            if (data.data.erro) return setFieldError("cep", "Cep Invalido!");
-            const { bairro, localidade, logradouro, uf } = data.data;
-            if (localidade)
-              setFieldValue("professional_data.company_city_name", localidade);
-            if (uf) setFieldValue("professional_data.uf_company", uf);
-            if (logradouro)
-              setFieldValue("professional_data.company_street_name", logradouro);
-            if (bairro)
-              setFieldValue("professional_data.company_neighborhood_name", bairro);
-            })
+            handleCEP(values.professional_data.company_cep).then((data) => {
+              if (data.data.erro) return setFieldError("cep", "Cep Invalido!");
+              const { bairro, localidade, logradouro, uf } = data.data;
+              if (localidade)
+                setFieldValue(
+                  "professional_data.company_city_name",
+                  localidade
+                );
+              if (uf) setFieldValue("professional_data.uf_company", uf);
+              if (logradouro)
+                setFieldValue(
+                  "professional_data.company_street_name",
+                  logradouro
+                );
+              if (bairro)
+                setFieldValue(
+                  "professional_data.company_neighborhood_name",
+                  bairro
+                );
+            });
           }
           return true;
         }),
@@ -163,6 +173,7 @@ const RegisterProfessional = () => {
       city_name: "",
       country: "Brazil",
       uf: "",
+      tools: "",
       telephone_number: cleanMask(""),
       email: "",
       start_date: "",
@@ -264,13 +275,14 @@ const RegisterProfessional = () => {
     enableReinitialize: true,
   });
 
-  const { values, setFieldValue, setFieldError, setErrors } = formik;
+  const { values, setFieldValue, setFieldError, setErrors, setFieldTouched, touched, errors, handleChange} =
+    formik;
 
   const reloadProjects = useCallback(async () => {
-    const {data} = await api({
+    const { data } = await api({
       method: "get",
       url: `/userProjects/user/${id}`,
-    })
+    });
     setProjects(data.data);
   }, []);
 
@@ -371,7 +383,7 @@ const RegisterProfessional = () => {
       });
   }
 
-  const getProfessionalData = async  () => {
+  const getProfessionalData = async   () => {
     if (!jobs.length) optionsJob();
     if (!allProjects.length) getAllProjects();
     if (id) {
@@ -453,6 +465,8 @@ const RegisterProfessional = () => {
     }
   }, [values.variable1, values.variable2]);
 
+  console.log('values: ',values.tools);
+
   return (
     <>
       <RegisterProfessionalTitleContainer>
@@ -481,6 +495,19 @@ const RegisterProfessional = () => {
           allOptions={allProjects}
           attachment={attachment}
           data={formik}
+        />
+        <InputWithLabel
+          name="tools"
+          width="100%"
+          widthContainer="30%"
+          label="Ferramentas"
+          justify="center"
+          padding="0 1em 0 3.5em"
+          handleBlur={setFieldTouched}
+          error={errors.tools}
+          touched={touched.tools}
+          value={values.tools}
+          onChange={handleChange("tools")}
         />
         <RegisterFooter
           cancelButtonHandler={goBackClickHandler}
