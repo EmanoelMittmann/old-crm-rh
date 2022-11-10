@@ -98,7 +98,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   function handleAddMember() {
     if (!professionalSelected) return;
     const selected = allOptions.find(
-      (member) => member.id == professionalSelected
+      (member) => member.id === professionalSelected
     );
 
     if (!id) {
@@ -121,12 +121,14 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     addMember(professionalSelected, hoursMonth, overtime);
     resetInputs();
   }
+console.log(team);
 
     function handleEditMember() {
         if(!id) {
             const edited = team.map((member) => {
                 if(member.id === professionalClicked){
-                    return {...member, workload: hoursMonthEdit, extra_hours_limit: overtimeEdit}
+                    return {...member, workload: hoursMonthEdit, extra_hours_limit: overtimeEdit, avatar: member.avatar, name: member.name}
+                    
                 }
                 if(member.id !== professionalClicked){
                     return member

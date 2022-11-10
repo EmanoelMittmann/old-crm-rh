@@ -15,7 +15,13 @@ export const ContainerInputs = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
-    text-align: center;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 1em;
+    padding: 1em;
+`
+export const ProfessionalData = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1em;
 `

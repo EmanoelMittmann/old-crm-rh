@@ -31,7 +31,6 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
         decimalLimit: 2
     })
 
-    console.log(values);
     return (
         <Container>
             <SecondaryText margin="0 0 2.5em 0">Dados do projeto</SecondaryText>

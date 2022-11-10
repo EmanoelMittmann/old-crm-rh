@@ -1,5 +1,4 @@
-import React from 'react'
-import CloseButton from '../../atoms/Buttons/CloseButton/index.js'
+import React, { useState, useEffect } from 'react'
 import SaveButton from '../../atoms/Buttons/SaveButton/style.js'
 import CancelButton from '../../atoms/Buttons/CancelButton/style.js'
 import InputWithLabel from '../../atoms/InputWithLabel/index.js'
@@ -8,48 +7,58 @@ import {
     ModalContainer,
     ModalOverlay
 } from '../Modal/style.js'
-import { ContainerInputs, ContainerButtons } from './style.js'
+import { ContainerInputs, ContainerButtons, ProfessionalData } from './style.js'
+import CloseButtonCircle from '../../atoms/Buttons/CloseButtonCircle'
+import api from '../../../api/api.js'
 
-const ModalEditAttachment = ({CloseButtonClickHandler, saveHandler, setWorkload, workload, overtime, setOvertime}) => {
+
+
+const ModalEditAttachment = ({ CloseButtonClickHandler, saveHandler, setWorkload, workload, overtime, setOvertime}) => {
+    const [hoursPofessional, sethoursProfessional] = useState([])
+
+   
+
     return (
         <div>
             <ModalContainer>
-                <CloseButton CloseButtonClickHandler={CloseButtonClickHandler}/>
                 <ModalTitle padding="1.3em 1.3em 1.3em 1.6em">
-                    Editar
+                    <CloseButtonCircle CloseButtonClickHandler={CloseButtonClickHandler} />
+                    Editar Dados do Profissional
                 </ModalTitle>
+                    <ProfessionalData>
+
+                    </ProfessionalData>
+
                 <ContainerInputs>
                     <InputWithLabel
                         value={workload}
                         onChange={e => setWorkload(e.target.value)}
                         label="Horas Mensais"
-                        width="100%"
-                        widthContainer="80%"
+                        widthContainer="50%"
                         padding="0em 0 1em 0"
-                        handleBlur={() => {}}
-                        error={() => {}}
+                        handleBlur={() => { }}
+                        error={() => { }}
                     />
-                     <InputWithLabel
+                    <InputWithLabel
                         value={overtime}
                         onChange={e => setOvertime(e.target.value)}
                         label="Horas extras"
-                        width="100%"
-                        widthContainer="80%"
-                        handleBlur={() => {}}
-                        error={() => {}}
+                        widthContainer="50%"
+                        handleBlur={() => { }}
+                        error={() => { }}
                     />
                 </ContainerInputs>
                 <ContainerButtons>
                     <CancelButton onClick={CloseButtonClickHandler}>Cancelar</CancelButton>
-                    <SaveButton 
-                        onClick={saveHandler} 
+                    <SaveButton
+                        onClick={saveHandler}
                         margin="0 3.5em 0 1.7em"
                     >
                         Salvar
                     </SaveButton>
                 </ContainerButtons>
             </ModalContainer>
-            <ModalOverlay/>
+            <ModalOverlay />
         </div>
     )
 }
