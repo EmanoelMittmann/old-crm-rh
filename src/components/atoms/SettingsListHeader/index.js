@@ -61,10 +61,10 @@ const SettingsListHeader = () => {
 
     return (
         <ListHeaderContainer>
-            <ListHeaderTitle onClick={() => orderSettingsList()}>
+            <ListHeaderTitle onClick={() => orderSettingsList()} left='3em'>
                 {displayListTitle(path)}
             </ListHeaderTitle>
-            <Arrows onClick={() => orderSettingsList()}/>
+            {/* <Arrows onClick={() => orderSettingsList()}/> */}
         </ListHeaderContainer>
     )
 }

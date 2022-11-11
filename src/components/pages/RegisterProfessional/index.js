@@ -181,6 +181,7 @@ const RegisterProfessional = () => {
       job_type: "",
       weekly_hours: "",
       mounth_hours: "",
+      techLead: true,
       fixed_payment_value: cleanMask(""),
       extra_hour_activated: true,
       variable1: "",
@@ -464,8 +465,6 @@ const RegisterProfessional = () => {
       );
     }
   }, [values.variable1, values.variable2]);
-
-  console.log('values: ',values.tools);
 
   return (
     <>

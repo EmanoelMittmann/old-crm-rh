@@ -4,8 +4,8 @@ export const ProfessionalInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-left: 0.7em;
-  width: 22.5%;
+  width: 26.7%;
+  padding-left: 1em;
 
   .professional {
     display: flex;
@@ -38,7 +38,6 @@ export const ProfessionalHours = styled.span`
   align-items: center;
   justify-content: flex-start;
   width: 11%;
-  padding-left: 1.5em;
 `;
 
 export const ProfessionalOvertime = styled.span`
@@ -48,7 +47,7 @@ export const ProfessionalOvertime = styled.span`
 `;
 
 export const ProfessionalPercent = styled.span`
-  width:9.5%;
+  width:${props => props.w ? props.w : '9.5%'};
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -56,8 +55,9 @@ export const ProfessionalPercent = styled.span`
 
 export const ProfessionalStatus = styled.span`
   display: flex;
+  width: 7%;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 export const ProfessionalProfilePicture = styled.div`

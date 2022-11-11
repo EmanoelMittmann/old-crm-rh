@@ -11,7 +11,6 @@ import { ReactComponent as Reports } from '../../../../assets/icons/reports.svg'
 import { ReactComponent as ServiceOrders } from '../../../../assets/icons/serviceOrders.svg';
 import { ReactComponent as Settings } from '../../../../assets/icons/settings.svg';
 import { ReactComponent as Company } from '../../../../assets/icons/Vector.svg';
-import {ReactComponent as iconProject} from '../../../../assets/icons/iconProject.svg'
 
 //Home Icon
 
@@ -163,12 +162,10 @@ const ProjectsIconContainer = styled.div`
   width: 55px;
 
   svg {
-    fill: ${(props) =>
-
-    props.location === '/projects' || props.location === '/registerProject'
+    fill: ${(props) => props.location === '/projects' || props.location === '/registerProject'
       ? 'black'
       : '#B7BDC2'};
-    cursor: pointer;
+    cursor: pointer;  
     height: 45px;
     transition: 0.4s fill ease-in-out;
   }

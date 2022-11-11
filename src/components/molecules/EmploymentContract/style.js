@@ -44,6 +44,7 @@ export const Commissioncontract = styled.div`
     display: flex;
     margin-bottom: 20px;
     align-items: center;
+    font-weight: ${props => props.weight};
 `
 
 export const ContainerCommission = styled.div`

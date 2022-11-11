@@ -224,14 +224,16 @@ const RegisterProject = (props) => {
     });
   }
 
-  function addMember(user_id, workload, extra_hours_limit) {
+  function addMember() {
     api({
       method: 'post',
       url: `/userProjects/project/${id}`,
       data: {
-        user_id: user_id,
-        workload: workload,
-        extra_hours_limit: extra_hours_limit,
+        // user_id: user_id,
+        // hours_mounths_estimated_professional: hours_mounths_estimated_professional,
+        // hours_mounths_estimated_professionalv: hours_mounths_performed_professional,
+        // extra_hours_estimated_professional:extra_hours_estimated_professional,
+        // extra_hours_performed_professional:extra_hours_performed_professional
       },
     })
       .then(async (response) => {
