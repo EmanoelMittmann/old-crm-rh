@@ -4,13 +4,13 @@ import { useSelector } from 'react-redux';
 
 import { ReactComponent as Home } from '../../../../assets/icons/home.svg';
 import { ReactComponent as Job } from '../../../../assets/icons/job.svg';
+import { ReactComponent as Projects } from '../../../../assets/icons/projects.svg';
 import { ReactComponent as Overtime } from '../../../../assets/icons/overtime.svg';
 import { ReactComponent as Invoice } from '../../../../assets/icons/invoice.svg';
 import { ReactComponent as Reports } from '../../../../assets/icons/reports.svg';
 import { ReactComponent as ServiceOrders } from '../../../../assets/icons/serviceOrders.svg';
 import { ReactComponent as Settings } from '../../../../assets/icons/settings.svg';
 import { ReactComponent as Company } from '../../../../assets/icons/Vector.svg';
-import { ReactComponent as Project } from '../../../../assets/icons/project.svg'
 
 //Home Icon
 
@@ -162,8 +162,10 @@ const ProjectsIconContainer = styled.div`
   width: 55px;
 
   svg {
-    fill: ${(props) => props.location === '/project' || props.location === '/registerProject' ? 'black' : '#F4F6F8'};
-    cursor: pointer;
+    fill: ${(props) => props.location === '/projects' || props.location === '/registerProject'
+      ? 'black'
+      : '#B7BDC2'};
+    cursor: pointer;  
     height: 45px;
     transition: 0.4s fill ease-in-out;
   }

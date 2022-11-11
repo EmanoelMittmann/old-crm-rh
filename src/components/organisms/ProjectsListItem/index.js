@@ -82,7 +82,7 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
           <ProjectsListItemContainer key={project.id}>
             <ProjectsListItemProject>{project.name}</ProjectsListItemProject>
             <ProjectsListItemType>
-              {project.project_type.name}
+              {project.project_type?.name}
             </ProjectsListItemType>
             <ProjectsListItemBeginning>
               {formatDate(project.date_start)}
