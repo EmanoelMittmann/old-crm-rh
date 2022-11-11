@@ -10,10 +10,7 @@ import RegisterFooter from '../../molecules/RegisterFooter/index.js';
 import ModalRed from '../../molecules/ModalRed/index.js';
 import RegisterProjectData from '../../organisms/RegisterProjectData';
 import AttachmentTeam from '../../organisms/Attachment/Team';
-import {
-  RegisterProjectTitleContainer,
-  RegisterProjectContainer,
-} from './style.js';
+import { RegisterProjectTitleContainer} from './style.js';
 import { messages } from '../../../settings/YupValidates.js';
 import { formatFirstLetter } from '../../utils/formatFirstLetter.js';
 import { getDate } from '../../utils/getDate.js';
@@ -161,7 +158,9 @@ const RegisterProject = (props) => {
     }).then((response) => {
       const members = response.data;
       setTeam(members);
+      console.log("UserProjects",response.data);
     });
+    
   };
 
   useEffect(() => {

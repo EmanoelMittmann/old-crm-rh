@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState,  useLayoutEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { checkArraysDifference } from "../../../utils/checkArraysDifference";
@@ -53,7 +53,7 @@ const status = {
 };
 
 const AttachmentTeam = ({ attachment, allOptions }) => {
-  const { team, setTeam, addMember, removerMember, editMember } = attachment
+  const { team, setTeam, addMember, removerMember} = attachment
   const [rows, setRows] = useState([])
   const [options, setOptions] = useState([])
   const [professionalSelected, setProfessionalSelected] = useState(null)
@@ -86,7 +86,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         id: member.id,
         avatar: member.avatar,
         name: member?.name,
-        job: member.job?.name || member.job,
+        job: member.job_ ? member.job_ : member.job.name,
         status: member?.is_active || member.status,
         hours_estimed: member?.hours_mounths_estimated,
         hours_perfomed: member?.hours_mounths_performed,
@@ -96,6 +96,8 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       setRows((oldState) => [...oldState, item]);
     });
   }
+
+
 
 
   function handleAddMember() {
@@ -265,7 +267,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           <ProfessionalOvertime width='10%'>
             {member?.hours_perfomed || 0}
           </ProfessionalOvertime>
-          <ProfessionalPercent w='12%'>{(member?.hours_estimed/member?.hours_perfomed * 100).toFixed(1)}%</ProfessionalPercent>
+          <ProfessionalPercent width='12%'>{(member?.hours_estimed/member?.hours_perfomed * 100).toFixed(1)}%</ProfessionalPercent>
           <ProfessionalOvertime width="11%">
             {member?.extrasHours_estimed || 0}
           </ProfessionalOvertime>
@@ -311,13 +313,16 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
             <ModalEditAttachment
               professionalClicked={professionalClicked}
               CloseButtonClickHandler={() => setOpenModalEdit(false)}
+              setOpenModalEdit={setOpenModalEdit}
               setWorkload={setHoursMonthEdit}
               setOvertime={setOvertimeEdit}
               overtime={overtimeEdit}
               saveHandler={handleEditMember}
               team={team}
+              status={status}
 
             />
+            
           )}
         </AttachmentTableLine>
       ))}
