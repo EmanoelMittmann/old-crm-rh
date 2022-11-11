@@ -278,6 +278,7 @@ const RegisterProject = (props) => {
         user_id: user_id,
         workload: workload,
         extra_hours_limit: extra_hours_limit,
+        
       },
     })
       .then(async (response) => {
@@ -291,7 +292,9 @@ const RegisterProject = (props) => {
           toastId: 'put',
         });
       });
+
   }
+
 
   const attachment = {
     team,

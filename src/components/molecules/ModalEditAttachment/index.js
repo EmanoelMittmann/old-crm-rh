@@ -45,11 +45,13 @@ const ModalEditAttachment = ({ CloseButtonClickHandler, saveHandler, setWorkload
                     Editar Dados do Profissional
                 </ModalTitle>
                 <ProfessionalData padding="0.8em 2em 0.8em 0.8em">
-                    <Img src={hoursPofessional.avatar} /> <p>{hoursPofessional.name}</p><DivHours>{hoursPofessional.workload}</DivHours>
+                    <Img src={hoursPofessional.avatar} /> <p>{hoursPofessional.name}</p><DivHours>{hoursPofessional.extra_hours_performed
+}</DivHours>
                 </ProfessionalData>
                 <ContainerInputs>
                     <InputWithLabel
-                        value={hoursPofessional.workload}
+                        value={hoursPofessional.extra_hours_performed
+}
                         onChange={e => setWorkload(e.target.value)}
                         label="Horas Mensais"
                         widthContainer="50%"

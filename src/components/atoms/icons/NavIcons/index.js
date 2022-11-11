@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { ReactComponent as Home } from '../../../../assets/icons/home.svg';
 import { ReactComponent as Job } from '../../../../assets/icons/job.svg';
-import { ReactComponent as Projects } from '../../../../assets/icons/projects.svg';
+import { ReactComponent as Project } from '../../../../assets/icons/projects.svg';
 import { ReactComponent as Overtime } from '../../../../assets/icons/overtime.svg';
 import { ReactComponent as Invoice } from '../../../../assets/icons/invoice.svg';
 import { ReactComponent as Reports } from '../../../../assets/icons/reports.svg';
