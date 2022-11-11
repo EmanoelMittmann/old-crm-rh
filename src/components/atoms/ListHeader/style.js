@@ -16,13 +16,14 @@ export const ListHeaderContainer = styled.div`
   }
 `;
 
-export const ListHeaderTitle = styled.h5`
+export const ListHeaderTitle = styled.h4`
   font-family: 'Poppins', sans-serif;
-  font-weight: 400;
+  font-weight: 500;
   color: black;
-  margin-left: ${(props) => (props.margin ? props.margin : '3em')};
+  display: flex;
+  justify-content:flex-start ;
+  margin-left: ${(props) => (props.margin)};
   padding-right: ${props => props.right};
   padding-left: ${props => props.left};
   width: ${(props) => props.width};
-  white-space: ${props => props.wrap};
 `;

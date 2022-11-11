@@ -19,16 +19,16 @@ const ProjectsListHeader = ({ fnOrder }) => {
     return (
         <ListHeaderContainer>
             <ListHeaderProjeto>
-                <ListHeaderTitle onClick={() => fnOrder(fields.NAME)}>Projeto</ListHeaderTitle>
+                <ListHeaderTitle onClick={() => fnOrder(fields.NAME)} left='3em'>Projeto</ListHeaderTitle>
                 <Arrows onClick={() => fnOrder(fields.NAME)}/>
             </ListHeaderProjeto>
 
             <ListHeaderType>
-                <ListHeaderTitle>Tipo</ListHeaderTitle>
+                <ListHeaderTitle left='3em'>Tipo</ListHeaderTitle>
             </ListHeaderType>
 
             <ListHeaderBeginning>
-                <ListHeaderTitle onClick={()=> fnOrder(fields.DATA_START)}>Início</ListHeaderTitle>
+                <ListHeaderTitle onClick={()=> fnOrder(fields.DATA_START)} left='3em'>Início</ListHeaderTitle>
                 <Arrows onClick={() => fnOrder(fields.DATA_START)}/>
             </ListHeaderBeginning>
 
@@ -37,7 +37,7 @@ const ProjectsListHeader = ({ fnOrder }) => {
             </ListHeaderTime>
 
             <ListHeaderStatus>
-                <ListHeaderTitle>Status</ListHeaderTitle>
+                <ListHeaderTitle left='1.5em'>Status</ListHeaderTitle>
             </ListHeaderStatus>
         </ListHeaderContainer>
     )
