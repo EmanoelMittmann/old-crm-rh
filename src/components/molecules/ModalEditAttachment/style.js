@@ -20,8 +20,30 @@ export const ContainerInputs = styled.div`
     padding: 1em;
 `
 export const ProfessionalData = styled.div`
+    width: 93%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: ${(props) => props.padding};
+    background: #F2F5F8;
+    align-items: center;
+    margin-left:1em;
+    border-radius:8px;
+`
+export const Img = styled.img`
+    width: 40px;
+    border-radius:20px;
+`
+
+export const DivHours = styled.div`
+    gap:3em;
+    padding: 0 0 0 3em;
+
+`
+
+export const ContainerInputsSelect = styled.div`
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
     padding: 1em;
 `

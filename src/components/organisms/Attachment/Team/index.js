@@ -53,21 +53,21 @@ const status = {
 };
 
 const AttachmentTeam = ({ attachment, allOptions }) => {
-    const { team, setTeam, addMember, removerMember, editMember } = attachment
-    const [rows, setRows] = useState([])
-    const [options, setOptions] = useState([])
-    const [professionalSelected, setProfessionalSelected] = useState(null)
-    const [selectLeader, setSelectLeader] = useState(null)
-    const [hoursMonth, setHoursMonth] = useState('')
-    const [overtime, setOvertime] = useState('')
-    const [reset, setReset] = useState(true)
-    const [modalIsVisible, setModalIsVisible] = useState(false)
-    const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false)
-    const [professionalClicked, setProfessionalClicked] = useState('')
-    const [openModalEdit, setOpenModalEdit] = useState(false)
-    const [hoursMonthEdit, setHoursMonthEdit] = useState('')
-    const [overtimeEdit, setOvertimeEdit] = useState('')
-    const { id } = useParams()
+  const { team, setTeam, addMember, removerMember, editMember } = attachment
+  const [rows, setRows] = useState([])
+  const [options, setOptions] = useState([])
+  const [professionalSelected, setProfessionalSelected] = useState(null)
+  const [selectLeader, setSelectLeader] = useState(null)
+  const [hoursMonth, setHoursMonth] = useState('')
+  const [overtime, setOvertime] = useState('')
+  const [reset, setReset] = useState(true)
+  const [modalIsVisible, setModalIsVisible] = useState(false)
+  const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false)
+  const [professionalClicked, setProfessionalClicked] = useState('')
+  const [openModalEdit, setOpenModalEdit] = useState(false)
+  const [hoursMonthEdit, setHoursMonthEdit] = useState('')
+  const [overtimeEdit, setOvertimeEdit] = useState('')
+  const { id } = useParams()
 
   useLayoutEffect(() => {
     const optionsValid = checkArraysDifference({
@@ -84,16 +84,17 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     team.map((member) => {
       const item = {
         id: member.id,
-        avatar: member.avatar,
-        name: member.name,
-        job: member.job.name || member.job,
-        status: member.is_active || member.status,
-        workload: member.workload,
-        extra_hours_limit: member.extra_hours_limit,
+        avatar: member?.avatar,
+        name: member?.name,
+        job: member?.job.name || member.job,
+        status: member?.is_active || member.status,
+        workload: member?.workload,
+        extra_hours_limit: member?.extra_hours_limit,
       };
       setRows((oldState) => [...oldState, item]);
     });
   }
+
 
   function handleAddMember() {
     if (!professionalSelected) return;
@@ -118,27 +119,27 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       return;
     }
 
-    addMember(professionalSelected, hoursMonth, overtime);
+    addMember(professionalSelected, hoursMonth, overtime, selected.name, selected.avatar, selected.job.name);
     resetInputs();
   }
-console.log(team);
+  // console.log(team);
 
-    function handleEditMember() {
-        if(!id) {
-            const edited = team.map((member) => {
-                if(member.id === professionalClicked){
-                    return {...member, workload: hoursMonthEdit, extra_hours_limit: overtimeEdit, avatar: member.avatar, name: member.name}
-                    
-                }
-                if(member.id !== professionalClicked){
-                    return member
-                }
-            })
-            setTeam(edited)
-            setOpenModalEdit(false)
-            return
+  function handleEditMember() {
+    if (!id) {
+      const edited = team.map((member) => {
+        if (member.id === professionalClicked) {
+          return { ...member, workload: hoursMonthEdit, extra_hours_limit: overtimeEdit }
+
         }
+        if (member.id !== professionalClicked) {
+          return member
+        }
+      })
+      setTeam(edited)
+      setOpenModalEdit(false)
+      return
     }
+  }
 
   function handleRemoveMember() {
     if (!id) {
@@ -167,6 +168,7 @@ console.log(team);
     setMenuOptionsIsVisible(false);
     setHoursMonthEdit(hoursMonth);
     setOvertimeEdit(overtime);
+
   }
 
   function handleRemoveModal() {
@@ -177,18 +179,18 @@ console.log(team);
   return (
     <AttachmentContainer>
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
-            <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
-            <ContainerLabel>
-                <InputSelectWithLabel
-                    setSelectedOption={e => setSelectLeader(e.target.value)}
-                    options={options}
-                    placeholder="Lider"
-                    width="100%"
-                    lineWidth="36%"
-                    label="selecionar o Lider"
-                    reset={reset}
-                />
-            </ContainerLabel>
+      <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
+      <ContainerLabel>
+        <InputSelectWithLabel
+          setSelectedOption={e => setSelectLeader(e.target.value)}
+          options={options}
+          placeholder="Lider"
+          width="100%"
+          lineWidth="36%"
+          label="selecionar o Lider"
+          reset={reset}
+        />
+      </ContainerLabel>
       <AttachmentForm>
         <InputSelectWithLabel
           setSelectedOption={(e) => setProfessionalSelected(e.target.value)}
@@ -270,7 +272,7 @@ console.log(team);
             0
           </ProfessionalOvertime>
           <ProfessionalPercent>0%</ProfessionalPercent>
-           <ProfessionalStatus>
+          <ProfessionalStatus>
             <Badge
               status={member?.status === 1 ? status.ATIVO : status.INATIVO}
             />
@@ -306,12 +308,14 @@ console.log(team);
           )}
           {openModalEdit && (
             <ModalEditAttachment
+              professionalClicked={professionalClicked}
               CloseButtonClickHandler={() => setOpenModalEdit(false)}
               setWorkload={setHoursMonthEdit}
-              workload={hoursMonthEdit}
               setOvertime={setOvertimeEdit}
               overtime={overtimeEdit}
               saveHandler={handleEditMember}
+              team={team}
+
             />
           )}
         </AttachmentTableLine>
