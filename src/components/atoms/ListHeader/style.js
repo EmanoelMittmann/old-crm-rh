@@ -7,7 +7,7 @@ export const ListHeaderContainer = styled.div`
   border-radius: 8px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start ;
   margin-top: 2em;
 
   svg {
