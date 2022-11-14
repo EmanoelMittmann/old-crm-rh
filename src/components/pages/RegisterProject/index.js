@@ -158,7 +158,6 @@ const RegisterProject = (props) => {
     }).then((response) => {
       const members = response.data;
       setTeam(members);
-      console.log("UserProjects",response.data);
     });
     
   };
@@ -248,6 +247,31 @@ const RegisterProject = (props) => {
       });
   }
 
+  function addMemberTeachLead() {
+    api({
+      method: 'post',
+      url: `/userProjects/project/${id}`,
+      data: {
+        // user_id: user_id,
+        // hours_mounths_estimated_professional: hours_mounths_estimated_professional,
+        // hours_mounths_estimated_professionalv: hours_mounths_performed_professional,
+        // extra_hours_estimated_professional:extra_hours_estimated_professional,
+        // extra_hours_performed_professional:extra_hours_performed_professional
+      },
+    })
+      .then(async (response) => {
+        toast.success(<DefaultToast text="Profissional adicionado." />, {
+          toastId: 'post',
+        });
+        getTeam();
+      })
+      .catch((error) => {
+        toast.error(<DefaultToast text="Erro ao adicionar profissional." />, {
+          toastId: 'post',
+        });
+      });
+  }
+
   function removerMember(user_id) {
     api({
       method: 'delete',
@@ -302,6 +326,7 @@ const RegisterProject = (props) => {
     addMember,
     removerMember,
     editMember,
+    addMemberTeachLead,
   };
 
   return (

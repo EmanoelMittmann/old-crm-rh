@@ -1,4 +1,4 @@
-import React, { useState,  useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { checkArraysDifference } from "../../../utils/checkArraysDifference";
@@ -25,35 +25,16 @@ import { BlueButton } from "../../../atoms/Buttons/BlueButton/style.js";
 import SecondaryText from "../../../atoms/SecondaryText/style";
 import InputSelectWithLabel from "../../../atoms/InputSelectWithLabel";
 import InputText from "../../../atoms/InputText";
-import {
-  ListHeaderContainer,
-  ListHeaderTitle,
-} from "../../../atoms/ListHeader/style.js";
 import MenuOptions from "../../../atoms/MenuOptions";
 import { Badge } from "../../../atoms/Badge";
 import ModalRed from "../../../molecules/ModalRed";
 import ModalEditAttachment from "../../../molecules/ModalEditAttachment";
+import { status } from "./OptionStatus";
+import ListHeader from "./ListHeader";
 
-
-const status = {
-  ATIVO: {
-    name: "Ativo",
-    color: {
-      button_color: "#E4F8DD",
-      text_color: "#229A16",
-    },
-  },
-  INATIVO: {
-    name: "Inativo",
-    color: {
-      button_color: "#FFE2E1",
-      text_color: "#BB2B3F",
-    },
-  },
-};
 
 const AttachmentTeam = ({ attachment, allOptions }) => {
-  const { team, setTeam, addMember, removerMember} = attachment
+  const { team, setTeam, addMember, removerMember, addMemberTeachLead } = attachment
   const [rows, setRows] = useState([])
   const [options, setOptions] = useState([])
   const [professionalSelected, setProfessionalSelected] = useState(null)
@@ -87,7 +68,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         avatar: member.avatar,
         name: member?.name,
         job: member.job_ ? member.job_ : member.job.name,
-        status: member?.is_active || member.status,
+        status: member?.status || member.is_active,
         hours_estimed: member?.hours_mounths_estimated,
         hours_perfomed: member?.hours_mounths_performed,
         extrasHours_estimed: member?.extra_hours_estimated,
@@ -96,9 +77,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       setRows((oldState) => [...oldState, item]);
     });
   }
-
-
-
 
   function handleAddMember() {
     if (!professionalSelected) return;
@@ -123,9 +101,32 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       return;
     }
 
-    addMember(professionalSelected, hoursMonth, overtime, selected.name, selected.avatar, selected.job.name);
+    if (!professionalSelected) return;
+    const selectedTechLead = allOptions.find(
+      (member) => member.id === professionalSelected.is_techlead
+    );
+    if (!id) {
+      setTeam((oldState) => [
+        ...oldState,
+        {
+          id: selectedTechLead.id,
+          name: selectedTechLead.name,
+          workload: hoursMonth,
+          extra_hours_limit: overtime,
+          avatar: selectedTechLead.avatar,
+          job: selectedTechLead.job.name,
+          status: selectedTechLead.is_active,
+        },
+      ]);
+      resetInputs();
+      return;
+    }
+
+    addMember(professionalSelected, hoursMonth, overtime, selected.name, selected.avatar, selected.job.name, selected.is_active);
+    addMemberTeachLead(professionalSelected, hoursMonth, overtime, selectedTechLead.name, selectedTechLead.avatar, selectedTechLead.job.name, selectedTechLead.is_active)
     resetInputs();
   }
+
 
   function handleEditMember() {
     if (!id) {
@@ -226,32 +227,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           Vincular
         </BlueButton>
       </AttachmentForm>
-      <ListHeaderContainer>
-        <ListHeaderTitle width="26.7%" wrap="nowrap" left='1em'> 
-          Profissional e Cargo
-        </ListHeaderTitle>
-        <ListHeaderTitle width="11%">
-          Horas Mensais Estimadas
-        </ListHeaderTitle>
-        <ListHeaderTitle width="10%">
-          Horas Mensais Realizadas
-        </ListHeaderTitle>
-        <ListHeaderTitle width="12%">
-          %
-        </ListHeaderTitle>
-        <ListHeaderTitle width="11%" >
-          Horas Extras Estimadas
-        </ListHeaderTitle>
-        <ListHeaderTitle width="10%" >
-          Horas Extras Realizadas
-        </ListHeaderTitle>
-        <ListHeaderTitle width="10%">
-          %
-        </ListHeaderTitle>
-        <ListHeaderTitle width="17%" >
-          Status
-        </ListHeaderTitle>
-      </ListHeaderContainer>
+
+      <ListHeader />
+
       {rows.map((member, index) => (
         <AttachmentTableLine key={index}>
           <ProfessionalInfo>
@@ -263,19 +241,19 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
               <ProfessionalJob>{member?.job}</ProfessionalJob>
             </div>
           </ProfessionalInfo>
-          <ProfessionalHours>{member?.hours_estimed || 0 }</ProfessionalHours>
+          <ProfessionalHours>{member?.hours_estimed || 0}</ProfessionalHours>
           <ProfessionalOvertime width='10%'>
             {member?.hours_perfomed || 0}
           </ProfessionalOvertime>
-          <ProfessionalPercent width='12%'>{(member?.hours_estimed/member?.hours_perfomed * 100).toFixed(1)}%</ProfessionalPercent>
+          <ProfessionalPercent width='12%'>{(member?.hours_estimed / member?.hours_perfomed * 100).toFixed(1)}%</ProfessionalPercent>
           <ProfessionalOvertime width="11%">
             {member?.extrasHours_estimed || 0}
           </ProfessionalOvertime>
           <ProfessionalOvertime width='10%'>
-            {member?.extrasHours_performed || 0} 
+            {member?.extrasHours_performed || 0}
           </ProfessionalOvertime>
-          <ProfessionalPercent w='10%'>{(member?.extrasHours_estimed/member?.extrasHours_performed * 100).toFixed(1)}%</ProfessionalPercent>
-           <ProfessionalStatus>
+          <ProfessionalPercent width='10%'>{(member?.extrasHours_estimed / member?.extrasHours_performed * 100).toFixed(1)}%</ProfessionalPercent>
+          <ProfessionalStatus>
             <Badge
               status={member?.status === 1 ? status.ATIVO : status.INATIVO}
             />
@@ -321,8 +299,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
               team={team}
               status={status}
 
+
             />
-            
+
           )}
         </AttachmentTableLine>
       ))}

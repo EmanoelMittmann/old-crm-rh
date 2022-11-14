@@ -6,13 +6,11 @@ import {
     ModalTitle,
     ModalOverlay
 } from '../Modal/style.js'
-import { ContainerInputs, ContainerButtons, ProfessionalData, Img, ModalStatus, DivHours,OpenModal,ContainerInputsSelect, ModalContainer } from './style.js'
+import { ContainerInputs, ContainerButtons, ProfessionalData, Img, ModalStatus, DivHours, OpenModal, ContainerInputsSelect, ModalContainer } from './style.js'
 import CloseButtonCircle from '../../atoms/Buttons/CloseButtonCircle'
 import api from '../../../api/api.js'
 import InputSelect from '../../atoms/InputSelect/index.js'
 import { BsThreeDotsVertical } from 'react-icons/bs'
-import { Badge } from '../../atoms/Badge/index.js'
-import MenuOptions from '../../atoms/MenuOptions/index.js'
 import ModalRed from '../ModalRed/index.js'
 import { BadgeProject } from '../../atoms/BadgeProject/index.js'
 import MenuOptionsEditProject from '../../atoms/MenuOptionsEditProject/index.js'
@@ -21,26 +19,30 @@ import MenuOptionsEditProject from '../../atoms/MenuOptionsEditProject/index.js'
 
 
 const ModalEditAttachment = (
-    { CloseButtonClickHandler, redButtonClickHandler, setWorkload, setOvertime, team, setOpenModalEdit, professionalClicked, status }) => {
+    { CloseButtonClickHandler, setWorkload, setOvertime, team, setOpenModalEdit, professionalClicked, status }) => {
     const [DataProfessional] = useState(team.find(professional => professional.id === professionalClicked))
     const [jobsMember, setJobsMember] = useState([]);
-    const [isActive , setisActive] = useState(true)
+    const [isActive, setisActive] = useState(status)
     const [jobSelected, setJobSelected] = useState(DataProfessional.job_ ? DataProfessional.job_ : DataProfessional.job.name);
     const [isOpenModal, setIsOpenModal] = useState(false)
     const [modalIsVisible, setModalIsVisible] = useState(false)
-    const[userStatus, setUserstatus] = useState(status)
-    
+
+
+    console.log("status", isActive)
+
+    console.log("time", team);
+
     console.log("DataProfessional: ", DataProfessional);
 
-    console.log("status",status)
 
     const professionalClickHandler = () => {
         setIsOpenModal(prev => !prev)
         setOpenModalEdit(true)
-        
+
     }
-    const saveHandlerModal =() =>{
+    const handlerModal = () => {
         setModalIsVisible(true)
+
     };
 
     const getJobsMember = async () => {
@@ -51,15 +53,23 @@ const ModalEditAttachment = (
         setJobsMember(data.data);
     };
 
-    const saveHandler = () =>{
-        if (professionalClicked){
-
+    const editDataModal = () => {
+        if (DataProfessional === professionalClicked){
+            return DataProfessional.hours_mounths_estimated && 
+            DataProfessional.extra_hours_estimated
         }
+        if (DataProfessional === professionalClicked){
+            return status.selected.is_active
+           
+        }
+
     }
+
 
     useEffect(() => {
         getJobsMember();
-        saveHandler()
+        editDataModal()
+
     }, [jobSelected]);
 
     return (
@@ -105,30 +115,30 @@ const ModalEditAttachment = (
                     />
                     <ModalStatus >
                         <BadgeProject
-                            status={isActive === false ? status.ATIVO : status.INATIVO}
+                            status={DataProfessional.is_active === isActive? status.ATIVO : status.INATIVO}
                         />
-                          <OpenModal>
-                        <BsThreeDotsVertical 
-                            color="#919EAB"
-                            fontSize="25px"
-                            onClick={() => professionalClickHandler()}
-                        />
+                        <OpenModal>
+                            <BsThreeDotsVertical
+                                color="#919EAB"
+                                fontSize="25px"
+                                onClick={() => professionalClickHandler()}
+                            />
                         </OpenModal>
                     </ModalStatus>
 
                     {isOpenModal &&
                         <MenuOptionsEditProject padding="0.1em 0.1em 0.1em 1em"
-                        positionMenu="3em"
-                        firstChosenOption={() => setisActive(prev => !prev)}
-                        firstOptionDescription={isActive === false ? "Ativo" : "Inativo"}
+                            positionMenu="3em"
+                            firstChosenOption={() => setisActive(prev => !prev)}
+                        firstOptionDescription={DataProfessional.is_active === isActive? "Ativo" : "Inativo"}
                         />
                     }
                 </ContainerInputsSelect>
                 <ContainerButtons>
                     <CancelButton onClick={CloseButtonClickHandler}>Cancelar</CancelButton>
-                   
+
                     <SaveButton
-                        onClick={() => saveHandlerModal(modalIsVisible)}
+                        onClick={() => handlerModal(modalIsVisible)}
                         margin="0 3.5em 0 1.7em"
                     >
                         Salvar
@@ -136,7 +146,7 @@ const ModalEditAttachment = (
                     {modalIsVisible && (
                         <ModalRed
                             id={professionalClicked}
-                            redButtonClickHandler={() => saveHandler()}
+                            redButtonClickHandler={() => setOpenModalEdit(false)}
                             CloseButtonClickHandler={() => setModalIsVisible(false)}
                             title="Alterar dados do profissional"
                             message="Deseja realmente alterar dados do profissional?"
