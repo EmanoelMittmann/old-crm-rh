@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { InputLine } from '../../atoms/DefaultInput/style'
+import { InputLine } from '../DefaultInput/style'
 import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg'
 import { Label } from './style.js'
 import {

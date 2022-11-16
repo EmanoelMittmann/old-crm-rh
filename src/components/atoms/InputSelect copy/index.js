@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { InputLine } from '../../atoms/DefaultInput/style';
+import { InputLine } from '../DefaultInput/style';
 import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg';
 import {
   Img,
@@ -8,7 +8,7 @@ import {
   InputSelectOption,
   InputSelectOptionPlaceholder,
 } from './style.js';
-
+import { ErrorMessage } from '../InputWithLabel/style';
 
 const InputSelect = ({
   onChange,

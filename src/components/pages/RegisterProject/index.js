@@ -230,7 +230,7 @@ const RegisterProject = (props) => {
     });
   }
 
-  function addMember(professionalSelected, hoursMonth, overtime) {
+  function addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobProject) {
     api({
       method: 'post',
       url: `/userProjects/project/${id}`,
@@ -240,6 +240,9 @@ const RegisterProject = (props) => {
         hours_mounths_performed: null,
         extra_hours_estimated: overtime,
         extra_hours_performed: null,
+        isTechLead:isTechLead,
+        job_: jobProject,
+   
       },
     })
       .then(async (response) => {

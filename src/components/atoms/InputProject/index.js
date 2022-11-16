@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { InputLine } from '../../atoms/DefaultInput/style'
+import { InputLine } from '../DefaultInput/style'
 import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg'
-import { Label } from './style.js'
+import { Label} from './style.js'
 import {
     Img,
     InputSelectContainer,
@@ -10,7 +10,9 @@ import {
     InputSelectOptionPlaceholder,
 } from '../InputSelect/style.js'
 
-const InputSelectWithLabel = ({setSelectedOption, options, placeholder, width, lineWidth, label, reset}) => {
+const InputProject = ({ setSelectedOption, options, placeholder,width, lineWidth, label, reset}) => {
+
+    console.log(placeholder);
     return ( 
         <InputLine width={lineWidth}>
             {label && <Label>{label}</Label>}
@@ -24,12 +26,12 @@ const InputSelectWithLabel = ({setSelectedOption, options, placeholder, width, l
                     </InputSelectOptionPlaceholder>
                 }
                 { !options.length ? 
-                    <InputSelectOption disabled>
-                        Sem { placeholder }
+                    <InputSelectOption disabled >
+                       {placeholder}
                     </InputSelectOption>
                     :
                     options.map(option => (
-                        <InputSelectOption key={option.id} value={option.id || option.name} >
+                        <InputSelectOption key={option.id} value={option.name} >
                             { option.name }
                         </InputSelectOption>
                 ))}
@@ -39,4 +41,4 @@ const InputSelectWithLabel = ({setSelectedOption, options, placeholder, width, l
     )
 }
 
-export default InputSelectWithLabel
+export default InputProject

@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect, useRef } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { checkArraysDifference } from "../../../utils/checkArraysDifference";
@@ -23,7 +23,6 @@ import {
 import User from "../../../../assets/user.png";
 import { BlueButton } from "../../../atoms/Buttons/BlueButton/style.js";
 import SecondaryText from "../../../atoms/SecondaryText/style";
-import InputSelectWithLabel from "../../../atoms/InputSelectWithLabel";
 import InputText from "../../../atoms/InputText";
 import MenuOptions from "../../../atoms/MenuOptions";
 import { Badge } from "../../../atoms/Badge";
@@ -34,10 +33,12 @@ import ListHeader from "./ListHeader";
 import api from "../../../../api/api";
 import InputSelect from "../../../atoms/InputSelect";
 import { useEffect } from "react";
-import { toBeDisabled } from "@testing-library/jest-dom/dist/matchers";
+
+import InputProject from "../../../atoms/InputProject";
 
 
-const AttachmentTeam = ({ attachment, allOptions}) => {
+
+const AttachmentTeam = ({ attachment, allOptions }) => {
   const { team, setTeam, addMember, removerMember } = attachment
   const [rows, setRows] = useState([])
   const [jobsMember, setJobsMember] = useState([]);
@@ -54,8 +55,9 @@ const AttachmentTeam = ({ attachment, allOptions}) => {
   const [hoursMonthEdit, setHoursMonthEdit] = useState('')
   const [overtimeEdit, setOvertimeEdit] = useState('')
   const { id } = useParams()
-  const [isDesable, setIsDesable] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false)
   const [jobProject, setJobProject] = useState("")
+
 
 
   useLayoutEffect(() => {
@@ -69,22 +71,34 @@ const AttachmentTeam = ({ attachment, allOptions}) => {
 
   }, [allOptions, team]);
 
-  useEffect(()=>{
+  useEffect(() => {
     getJobs()
-  },[])
+  }, [])
 
 
-function desibleInput(){
-  
-}
+  // function desibleInput() {
+  //   if(professionalSelected === InputSelect === "isTechLead"){
+  //     return isDisabled
 
+  //   }else{
+  //     setIsDisabled(!isDisabled)
+  //   }
+
+
+  // }
+
+  console.log("Time", team);
+  console.log("cargo", jobProject);
 
   const getJobs = async () => {
     const { data } = await api({
       method: 'get',
       url: `/job/?limit=undefined`,
+
     });
     setJobsMember(data.data);
+
+
   };
 
 
@@ -95,7 +109,7 @@ function desibleInput(){
         id: member.id,
         avatar: member.avatar,
         name: member?.name,
-        job: member.job?.name || member.job_ || member.isTechLead,
+        job: member?.job_ ? member.job_ : member.job.name,
         status: member?.is_active || member.status,
         hours_estimed: member?.hours_mounths_estimated || member?.hours_estimed,
         hours_perfomed: member?.hours_mounths_performed,
@@ -111,7 +125,7 @@ function desibleInput(){
   function handleAddMember() {
     if (!professionalSelected) return;
     const selected = allOptions.find(
-      (member) => member.id === professionalSelected
+      (member) => member.id !== professionalSelected
     );
     if (!id) {
       setTeam((oldState) => [
@@ -124,14 +138,16 @@ function desibleInput(){
           avatar: selected.avatar,
           job: selected.job.name,
           status: selected.is_active,
-          isTechLead: selected.isTechLead,
+          isTechLead: isTechLead,
+
         },
       ]);
       resetInputs();
       return;
     }
-    addMember(professionalSelected, hoursMonth, overtime, isTechLead);
+    addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobProject);
     resetInputs();
+
 
   }
 
@@ -166,12 +182,15 @@ function desibleInput(){
     setProfessionalSelected(null);
     setHoursMonth("");
     setOvertime("");
-  
+    setIsTechLead(false)
+
+
   }
 
   function professionalClickHandler(memberId) {
     setMenuOptionsIsVisible(!menuOptionsIsVisible);
     setProfessionalClicked(memberId);
+ 
   }
 
   function handleEditModal(hoursMonth, overtime) {
@@ -192,36 +211,31 @@ function desibleInput(){
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
       <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
       <ContainerLabel>
-        <InputSelect 
-          setSelectedOption={(e) => setProfessionalSelected(e.target.value)}
+        <InputSelect
+          onChange={(e) => setProfessionalSelected(e.target.value)}
           options={options}
-          placeholder="Lider"
+          placeHolder="selecionar o Lider"
           width="100%"
           lineWidth="25%"
-          label="selecionar o Lider"
           reset={reset}
         />
       </ContainerLabel>
       <AttachmentForm>
         <InputSelect
-        setSelectedOption={(e) => setProfessionalSelected(e.target.value)}
+          onChange={(e) => setProfessionalSelected(e.target.value)}
           options={options}
-          placeholder="Time"
+          placeHolder="Selecionar time"
           width="100%"
           lineWidth="25%"
-          label="Selecionar time"
           reset={reset}
         />
-  
-        <InputSelect
-          onChange={(e) => setJobProject(e.target.value)}
-          // setSelectedOption={(e) => setJobProject(e.target.value)}
+        <InputProject
+          setSelectedOption={(e) => setJobProject(e.target.value)}
           options={jobsMember}
-          placeHolder="Cargo"
+          placeholder="Cargos"
           width="100%"
           lineWidth="15%"
-          label="Cargo"
-
+          reset={reset}
         />
         <InputText
           width="100%"
