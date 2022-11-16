@@ -1,13 +1,13 @@
-import React, { useState, useLayoutEffect } from "react";
-import { BsThreeDotsVertical } from "react-icons/bs";
-import { useParams } from "react-router-dom";
-import { checkArraysDifference } from "../../../utils/checkArraysDifference";
+import React, { useState, useLayoutEffect } from 'react';
+import { BsThreeDotsVertical } from 'react-icons/bs';
+import { useParams } from 'react-router-dom';
+import { checkArraysDifference } from '../../../utils/checkArraysDifference';
 import {
   AttachmentContainer,
   AttachmentForm,
   AttachmentTableLine,
   ContainerIcon,
-} from "../style";
+} from '../style';
 import {
   ProfessionalInfo,
   ProfessionalName,
@@ -19,84 +19,79 @@ import {
   ProfessionalProfilePicture,
   ProfessionalPercent,
   ContainerLabel,
-} from "./style.js";
-import User from "../../../../assets/user.png";
-import { BlueButton } from "../../../atoms/Buttons/BlueButton/style.js";
-import SecondaryText from "../../../atoms/SecondaryText/style";
-import InputSelectWithLabel from "../../../atoms/InputSelectWithLabel";
-import InputText from "../../../atoms/InputText";
-import MenuOptions from "../../../atoms/MenuOptions";
-import { Badge } from "../../../atoms/Badge";
-import ModalRed from "../../../molecules/ModalRed";
-import ModalEditAttachment from "../../../molecules/ModalEditAttachment";
-import { status } from "./OptionStatus";
-import ListHeader from "./ListHeader";
-import api from "../../../../api/api";
-import InputSelect from "../../../atoms/InputSelect";
-import { useEffect } from "react";
-import { toBeDisabled } from "@testing-library/jest-dom/dist/matchers";
-
+} from './style.js';
+import User from '../../../../assets/user.png';
+import { BlueButton } from '../../../atoms/Buttons/BlueButton/style.js';
+import SecondaryText from '../../../atoms/SecondaryText/style';
+import InputSelectWithLabel from '../../../atoms/InputSelectWithLabel';
+import InputText from '../../../atoms/InputText';
+import MenuOptions from '../../../atoms/MenuOptions';
+import { Badge } from '../../../atoms/Badge';
+import ModalRed from '../../../molecules/ModalRed';
+import ModalEditAttachment from '../../../molecules/ModalEditAttachment';
+import api from '../../../../api/api';
+import InputSelect from '../../../atoms/InputSelect';
+import { useEffect } from 'react';
+import {
+  ListHeaderContainer,
+  ListHeaderTitle,
+} from '../../../atoms/ListHeader/style';
 
 const status = {
   ATIVO: {
-    name: "Ativo",
+    name: 'Ativo',
     color: {
-      button_color: "#E4F8DD",
-      text_color: "#229A16",
+      button_color: '#E4F8DD',
+      text_color: '#229A16',
     },
   },
   INATIVO: {
-    name: "Inativo",
+    name: 'Inativo',
     color: {
-      button_color: "#FFE2E1",
-      text_color: "#BB2B3F",
+      button_color: '#FFE2E1',
+      text_color: '#BB2B3F',
     },
   },
 };
 
-const AttachmentTeam = ({ attachment, allOptions}) => {
-  const { team, setTeam, addMember, removerMember } = attachment
-  const [rows, setRows] = useState([])
+const AttachmentTeam = ({ attachment, allOptions }) => {
+  const { team, setTeam, addMember, removerMember } = attachment;
+  const [dataTechLead, setDataTechLead] = useState([]);
+  const [dataTeam, setDataTeam] = useState([]);
+  const [rows, setRows] = useState([]);
   const [jobsMember, setJobsMember] = useState([]);
-  const [options, setOptions] = useState([])
-  const [professionalSelected, setProfessionalSelected] = useState(null)
-  const [isTechLead, setIsTechLead] = useState(false)
-  const [hoursMonth, setHoursMonth] = useState('')
-  const [overtime, setOvertime] = useState('')
-  const [reset, setReset] = useState(true)
-  const [modalIsVisible, setModalIsVisible] = useState(false)
-  const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false)
-  const [professionalClicked, setProfessionalClicked] = useState('')
-  const [openModalEdit, setOpenModalEdit] = useState(false)
-  const [hoursMonthEdit, setHoursMonthEdit] = useState('')
-  const [overtimeEdit, setOvertimeEdit] = useState('')
-  const { id } = useParams()
-  const [isDesable, setIsDesable] = useState(false)
-  const [jobProject, setJobProject] = useState("")
-
-
+  const [options, setOptions] = useState([]);
+  const [professionalSelected, setProfessionalSelected] = useState('');
+  const [isTechLead, setIsTechLead] = useState(false);
+  const [hoursMonth, setHoursMonth] = useState('');
+  const [overtime, setOvertime] = useState('');
+  const [reset, setReset] = useState(true);
+  const [modalIsVisible, setModalIsVisible] = useState(false);
+  const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false);
+  const [professionalClicked, setProfessionalClicked] = useState('');
+  const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [hoursMonthEdit, setHoursMonthEdit] = useState('');
+  const [overtimeEdit, setOvertimeEdit] = useState('');
+  const { id } = useParams();
+  const [jobProject, setJobProject] = useState('');
 
   useLayoutEffect(() => {
     const optionsValid = checkArraysDifference({
       completeArray: allOptions,
       comparisonArray: team,
-      key: "id",
+      key: 'id',
     });
     setOptions(optionsValid);
+    setDataTechLead(optionsValid);
+    setDataTeam(optionsValid);
     handleRows();
-
   }, [allOptions, team]);
 
-=======
-  useEffect(()=>{
-    getJobs()
-  },[])
+  useEffect(() => {
+    getJobs();
+  }, []);
 
-
-function desibleInput(){
-  
-}
-
+  // function desibleInput() {}
 
   const getJobs = async () => {
     const { data } = await api({
@@ -113,7 +108,7 @@ function desibleInput(){
         id: member.id,
         avatar: member.avatar,
         name: member?.name,
-        job: member.job?.name || member.job_ || member.isTechLead,
+        job: member?.job_ || member.job?.name,
         status: member?.is_active || member.status,
         hours_estimed: member?.hours_mounths_estimated || member?.hours_estimed,
         hours_perfomed: member?.hours_mounths_performed,
@@ -125,12 +120,13 @@ function desibleInput(){
     });
   }
 
-
-
   function handleAddMember() {
+    const jobName = jobsMember.find(
+      (job) => job.id === Number(jobProject)
+    )?.name;
     if (!professionalSelected) return;
     const selected = allOptions.find(
-      (member) => member.id === professionalSelected
+      (member) => member.id !== professionalSelected
     );
     if (!id) {
       setTeam((oldState) => [
@@ -141,32 +137,35 @@ function desibleInput(){
           hours_estimed: hoursMonth,
           extrasHours_estimed: overtime,
           avatar: selected.avatar,
-          job: selected.job.name,
+          job_: jobName,
           status: selected.is_active,
-          isTechLead: selected.isTechLead,
+          isTechLead: isTechLead,
         },
       ]);
       resetInputs();
       return;
     }
-    addMember(professionalSelected, hoursMonth, overtime, isTechLead);
+    addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName);
     resetInputs();
-
   }
 
   function handleEditMember() {
     if (!id) {
       const edited = team.map((member) => {
         if (member.id === professionalClicked) {
-          return { ...member, workload: hoursMonthEdit, extra_hours_limit: overtimeEdit }
+          return {
+            ...member,
+            workload: hoursMonthEdit,
+            extra_hours_limit: overtimeEdit,
+          };
         }
         if (member.id !== professionalClicked) {
-          return member
+          return member;
         }
-      })
-      setTeam(edited)
-      setOpenModalEdit(false)
-      return
+      });
+      setTeam(edited);
+      setOpenModalEdit(false);
+      return;
     }
   }
 
@@ -183,9 +182,8 @@ function desibleInput(){
 
   function resetInputs() {
     setProfessionalSelected(null);
-    setHoursMonth("");
-    setOvertime("");
-  
+    setHoursMonth('');
+    setOvertime('');
   }
 
   function professionalClickHandler(memberId) {
@@ -198,7 +196,6 @@ function desibleInput(){
     setMenuOptionsIsVisible(false);
     setHoursMonthEdit(hoursMonth);
     setOvertimeEdit(overtime);
-
   }
 
   function handleRemoveModal() {
@@ -211,10 +208,18 @@ function desibleInput(){
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
       <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
       <ContainerLabel>
-
         <InputSelectWithLabel
-          setSelectedOption={(e) => setSelectLeader(e.target.value)}
-          options={options}
+          onFocus={() =>
+            setDataTechLead(
+              options.filter((professional) => professional.id !== 0)
+            )
+          }
+          setSelectedOption={(e) => {
+            setProfessionalSelected(e.target.value);
+            setIsTechLead(true);
+            setDataTeam([]);
+          }}
+          options={dataTechLead}
           placeholder="Lider"
           width="100%"
           lineWidth="36%"
@@ -224,36 +229,30 @@ function desibleInput(){
       </ContainerLabel>
       <AttachmentForm>
         <InputSelectWithLabel
-        <InputSelect 
-          setSelectedOption={(e) => setProfessionalSelected(e.target.value)}
-          options={options}
-          placeholder="Lider"
-          width="100%"
-          lineWidth="25%"
-          label="selecionar o Lider"
-          reset={reset}
-        />
-      </ContainerLabel>
-      <AttachmentForm>
-        <InputSelect
-        setSelectedOption={(e) => setProfessionalSelected(e.target.value)}
-          options={options}
+          onFocus={() =>
+            setDataTeam(options.filter((professional) => professional.id !== 0))
+          }
+          setSelectedOption={(e) => {
+            setProfessionalSelected(e.target.value);
+            setIsTechLead(false);
+            setDataTechLead([]);
+          }}
+          options={dataTeam}
           placeholder="Time"
           width="100%"
           lineWidth="25%"
           label="Selecionar time"
           reset={reset}
         />
-  
+
         <InputSelect
           onChange={(e) => setJobProject(e.target.value)}
-          // setSelectedOption={(e) => setJobProject(e.target.value)}
           options={jobsMember}
+          disabled={isTechLead}
           placeHolder="Cargo"
           width="100%"
           lineWidth="15%"
           label="Cargo"
-
         />
         <InputText
           width="100%"
@@ -374,10 +373,7 @@ function desibleInput(){
               saveHandler={handleEditMember}
               team={team}
               status={status}
-
-
             />
-
           )}
         </AttachmentTableLine>
       ))}
