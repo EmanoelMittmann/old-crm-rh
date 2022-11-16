@@ -9,7 +9,6 @@ import {
   InputSelectOptionPlaceholder,
 } from './style.js';
 
-
 const InputSelect = ({
   onChange,
   options,
@@ -21,7 +20,6 @@ const InputSelect = ({
   lineWidth,
   value,
   margin,
-
 }) => {
   const attributeValue = {
     ...(value && { value: value }),
