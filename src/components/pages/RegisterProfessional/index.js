@@ -181,7 +181,7 @@ const RegisterProfessional = () => {
       job_type: "",
       weekly_hours: "",
       mounth_hours: "",
-      techLead: true,
+      is_tech_lead: true,
       fixed_payment_value: cleanMask(""),
       extra_hour_activated: true,
       variable1: "",

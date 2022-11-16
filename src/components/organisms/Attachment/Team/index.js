@@ -79,39 +79,38 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     handleRows();
   }, [allOptions, team]);
 
+
   function handleRows() {
     setRows([]);
     team.map((member) => {
       const item = {
-        id: member.id,
+        id: member.id,  
         avatar: member.avatar,
         name: member?.name,
         job: member.job?.name || member.job,
         status: member?.is_active || member.status,
-        hours_estimed: member?.hours_mounths_estimated,
+        hours_estimed: member.hours_estimed || member.hours_mounths_estimated,
         hours_perfomed: member?.hours_mounths_performed,
-        extrasHours_estimed: member?.extra_hours_estimated,
+        extrasHours_estimed: member.extrasHours_estimed || member.extra_hours_estimated,
         extrasHours_performed: member?.extra_hours_performed,
       };
       setRows((oldState) => [...oldState, item]);
     });
   }
 
-
   function handleAddMember() {
     if (!professionalSelected) return;
     const selected = allOptions.find(
       (member) => member.id == professionalSelected
     );
-
     if (!id) {
       setTeam((oldState) => [
         ...oldState,
         {
           id: selected.id,
           name: selected.name,
-          workload: hoursMonth,
-          extra_hours_limit: overtime,
+          hours_estimed: hoursMonth,
+          extrasHours_estimed: overtime,
           avatar: selected.avatar,
           job: selected.job.name,
           status: selected.is_active,
@@ -120,12 +119,11 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       resetInputs();
       return;
     }
-
     addMember(professionalSelected, hoursMonth, overtime);
     resetInputs();
   }
 
-    function handleEditMember() {
+  function handleEditMember() {
         if(!id) {
             const edited = team.map((member) => {
                 if(member.id === professionalClicked){
@@ -223,28 +221,28 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         </BlueButton>
       </AttachmentForm>
       <ListHeaderContainer>
-        <ListHeaderTitle width="26.7%" wrap="nowrap" left='1em'> 
+        <ListHeaderTitle width="23.5em" wrap="nowrap" left='1em'> 
           Profissional e Cargo
         </ListHeaderTitle>
-        <ListHeaderTitle width="11%">
+        <ListHeaderTitle width="10em">
           Horas Mensais Estimadas
         </ListHeaderTitle>
-        <ListHeaderTitle width="10%">
+        <ListHeaderTitle width="10em">
           Horas Mensais Realizadas
         </ListHeaderTitle>
-        <ListHeaderTitle width="12%">
+        <ListHeaderTitle width="6em">
           %
         </ListHeaderTitle>
-        <ListHeaderTitle width="11%" >
+        <ListHeaderTitle width="11em" >
           Horas Extras Estimadas
         </ListHeaderTitle>
-        <ListHeaderTitle width="10%" >
+        <ListHeaderTitle width="10em" >
           Horas Extras Realizadas
         </ListHeaderTitle>
-        <ListHeaderTitle width="10%">
+        <ListHeaderTitle width="20em">
           %
         </ListHeaderTitle>
-        <ListHeaderTitle width="17%" >
+        <ListHeaderTitle width="10em" >
           Status
         </ListHeaderTitle>
       </ListHeaderContainer>
@@ -259,21 +257,21 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
               <ProfessionalJob>{member?.job}</ProfessionalJob>
             </div>
           </ProfessionalInfo>
-          <ProfessionalHours>{member?.hours_estimed || 0 }</ProfessionalHours>
-          <ProfessionalOvertime width='10%'>
+          <ProfessionalHours>{member?.hours_estimed}</ProfessionalHours>
+          <ProfessionalOvertime width='10em'>
             {member?.hours_perfomed || 0}
           </ProfessionalOvertime>
-          <ProfessionalPercent w='12%'>{(member?.hours_estimed/member?.hours_perfomed * 100).toFixed(1)}%</ProfessionalPercent>
-          <ProfessionalOvertime width="11%">
-            {member?.extrasHours_estimed || 0}
+          <ProfessionalPercent w='6em'>{member.hours_perfomed ? (member?.hours_estimed/member?.hours_perfomed * 100).toFixed(1) : 0}%</ProfessionalPercent>
+          <ProfessionalOvertime width="11em">
+            {member?.extrasHours_estimed}
           </ProfessionalOvertime>
-          <ProfessionalOvertime width='10%'>
+          <ProfessionalOvertime width='10em'>
             {member?.extrasHours_performed || 0} 
           </ProfessionalOvertime>
-          <ProfessionalPercent w='10%'>{(member?.extrasHours_estimed/member?.extrasHours_performed * 100).toFixed(1)}%</ProfessionalPercent>
+          <ProfessionalPercent w='20em'>{member.extrasHours_performed ? (member?.extrasHours_estimed/member?.extrasHours_performed * 100).toFixed(1) : 0 }%</ProfessionalPercent>
            <ProfessionalStatus>
             <Badge
-              status={member?.status === 1 ? status.ATIVO : status.INATIVO}
+              status={member?.status === true ? status.ATIVO : status.INATIVO}
             />
           </ProfessionalStatus>
 
