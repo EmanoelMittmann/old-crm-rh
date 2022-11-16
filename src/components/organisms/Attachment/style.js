@@ -6,9 +6,10 @@ export const AttachmentContainer = styled.div`
     margin-top: 1em;
 `
 export const AttachmentForm = styled.div`
-    width: 95%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
+    gap: 20px;
 `
 
 export const AttachmentTableLine= styled.div`

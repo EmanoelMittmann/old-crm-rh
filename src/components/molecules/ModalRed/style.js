@@ -6,7 +6,7 @@ export const ModalContainer = styled.div`
     left: 49.5%;
     transform: translate(-50%, -50%);
     width: 450px;
-    height: 217px;
+    height: 240px;
     background-color: white;
     border-radius: 15px;
     box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
@@ -18,7 +18,7 @@ export const ModalContainerButtons = styled.div`
     align-items: center;
     justify-content: flex-end;
     width: 100%;
-    height: 40%;
+    height: 35%;
     border-radius: 0 0 15px 15px;
     margin-top: 2em;
     border-top: 1.5px solid #919EAB52;
