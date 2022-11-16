@@ -159,6 +159,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
           );
       return;
     }
+    /* */
 
     if (!id) {
       setProjects((oldState) => [
@@ -287,7 +288,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
         <InputWithLabel
           width="100%"
           widthContainer="25%"
-          label="Horas/mês"
+          label="Horas Mensais Estimadas"
           onChange={(e) => setHoursMonthProject(e.target.value)}
           value={hoursMonthProject}
           type="number"
@@ -299,7 +300,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
         <InputWithLabel
           width="100%"
           widthContainer="25%"
-          label="Horas extras"
+          label="Horas Extras Estimadas"
           onChange={(e) => setOvertime(e.target.value)}
           value={overtime}
           type="number"

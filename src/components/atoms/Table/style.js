@@ -15,10 +15,10 @@ export const Styles = styled.div`
 
    th,
    td {
-     padding: 0.5rem;
+     padding: 0.1rem;
      border-bottom: 1px solid #F4F6F8;
      text-align: left;
-     padding-left: 3em;
+     padding-left:3em;
 
      :last-child {
        border-right: 0;

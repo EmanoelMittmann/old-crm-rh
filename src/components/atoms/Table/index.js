@@ -27,8 +27,8 @@ const Table = ({rows, setOpenModalDelete, setOpenModalEdit, rowClicked, setRowCl
                 <tr>
                     <th>Projeto</th>
                     <th>Início do projeto</th>
-                    <th>Horas mensais</th>
-                    <th>Horas extras</th>
+                    <th>Horas Mensais Estimadas</th>
+                    <th>Horas Extras Estimadas</th>
                     <th>%</th>
                     <th></th>
                 </tr>

@@ -30,29 +30,10 @@ import { Badge } from "../../../atoms/Badge";
 import ModalRed from "../../../molecules/ModalRed";
 import ModalEditAttachment from "../../../molecules/ModalEditAttachment";
 import { status } from "./OptionStatus";
-import ListHeader from "./ListHeader";
 import api from "../../../../api/api";
 import InputSelect from "../../../atoms/InputSelect";
 import { useEffect } from "react";
-import { toBeDisabled } from "@testing-library/jest-dom/dist/matchers";
-
-
-const status = {
-  ATIVO: {
-    name: "Ativo",
-    color: {
-      button_color: "#E4F8DD",
-      text_color: "#229A16",
-    },
-  },
-  INATIVO: {
-    name: "Inativo",
-    color: {
-      button_color: "#FFE2E1",
-      text_color: "#BB2B3F",
-    },
-  },
-};
+import { ListHeaderContainer, ListHeaderTitle } from "../../../atoms/ListHeader/style";
 
 const AttachmentTeam = ({ attachment, allOptions}) => {
   const { team, setTeam, addMember, removerMember } = attachment
@@ -64,6 +45,7 @@ const AttachmentTeam = ({ attachment, allOptions}) => {
   const [hoursMonth, setHoursMonth] = useState('')
   const [overtime, setOvertime] = useState('')
   const [reset, setReset] = useState(true)
+  const [selectLeader,setSelectLeader] = useState('')
   const [modalIsVisible, setModalIsVisible] = useState(false)
   const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false)
   const [professionalClicked, setProfessionalClicked] = useState('')
@@ -71,7 +53,6 @@ const AttachmentTeam = ({ attachment, allOptions}) => {
   const [hoursMonthEdit, setHoursMonthEdit] = useState('')
   const [overtimeEdit, setOvertimeEdit] = useState('')
   const { id } = useParams()
-  const [isDesable, setIsDesable] = useState(false)
   const [jobProject, setJobProject] = useState("")
 
 
@@ -87,15 +68,9 @@ const AttachmentTeam = ({ attachment, allOptions}) => {
 
   }, [allOptions, team]);
 
-=======
   useEffect(()=>{
     getJobs()
   },[])
-
-
-function desibleInput(){
-  
-}
 
 
   const getJobs = async () => {
@@ -151,7 +126,6 @@ function desibleInput(){
     }
     addMember(professionalSelected, hoursMonth, overtime, isTechLead);
     resetInputs();
-
   }
 
   function handleEditMember() {
@@ -198,7 +172,6 @@ function desibleInput(){
     setMenuOptionsIsVisible(false);
     setHoursMonthEdit(hoursMonth);
     setOvertimeEdit(overtime);
-
   }
 
   function handleRemoveModal() {
@@ -211,21 +184,8 @@ function desibleInput(){
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
       <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
       <ContainerLabel>
-
         <InputSelectWithLabel
           setSelectedOption={(e) => setSelectLeader(e.target.value)}
-          options={options}
-          placeholder="Lider"
-          width="100%"
-          lineWidth="36%"
-          label="selecionar o Lider"
-          reset={reset}
-        />
-      </ContainerLabel>
-      <AttachmentForm>
-        <InputSelectWithLabel
-        <InputSelect 
-          setSelectedOption={(e) => setProfessionalSelected(e.target.value)}
           options={options}
           placeholder="Lider"
           width="100%"
@@ -234,11 +194,12 @@ function desibleInput(){
           reset={reset}
         />
       </ContainerLabel>
+  
       <AttachmentForm>
         <InputSelect
-        setSelectedOption={(e) => setProfessionalSelected(e.target.value)}
+          onChange={(e) => setProfessionalSelected(e.target.value)}
           options={options}
-          placeholder="Time"
+          placeHolder="Time"
           width="100%"
           lineWidth="25%"
           label="Selecionar time"
@@ -247,7 +208,6 @@ function desibleInput(){
   
         <InputSelect
           onChange={(e) => setJobProject(e.target.value)}
-          // setSelectedOption={(e) => setJobProject(e.target.value)}
           options={jobsMember}
           placeHolder="Cargo"
           width="100%"
@@ -299,7 +259,7 @@ function desibleInput(){
               <ProfessionalJob>{member.job}</ProfessionalJob>
             </div>
           </ProfessionalInfo>
-          <ProfessionalHours>{member?.hours_estimed}</ProfessionalHours>
+          <ProfessionalHours>{member?.hours_estimed || 0}</ProfessionalHours>
           <ProfessionalOvertime width="10em">
             {member?.hours_perfomed || 0}
           </ProfessionalOvertime>
@@ -314,7 +274,7 @@ function desibleInput(){
             %
           </ProfessionalPercent>
           <ProfessionalOvertime width="11em">
-            {member?.extrasHours_estimed}
+            {member?.extrasHours_estimed || 0}
           </ProfessionalOvertime>
           <ProfessionalOvertime width="10em">
             {member?.extrasHours_performed || 0}
@@ -374,8 +334,6 @@ function desibleInput(){
               saveHandler={handleEditMember}
               team={team}
               status={status}
-
-
             />
 
           )}

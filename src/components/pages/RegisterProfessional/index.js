@@ -323,8 +323,13 @@ const RegisterProfessional = () => {
       url: `/userProjects/user/${id}`,
       data: {
         id: id_project,
-        workload: workload,
-        extra_hours_limit: extra_hours_limit,
+        extra_hours_estimated: workload,
+        extra_hours_performed:null,
+        hours_mounths_estimated: extra_hours_limit,
+        hours_mounths_performed:null,
+        isTechLead: null,
+        job_: null,
+        status: null
       },
     })
       .then(() => {
