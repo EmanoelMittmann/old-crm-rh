@@ -1,25 +1,22 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useHistory, useParams } from "react-router";
-import api from "../../../api/api.js";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { handleErrorMessages } from "../../utils/handleErrorMessages";
-import ArrowRegister from "../../atoms/ArrowRegister/index.js";
-import { SectionTitle } from "../../atoms/PageTitle/style.js";
-import RegisterFooter from "../../molecules/RegisterFooter/index.js";
-import ModalRed from "../../molecules/ModalRed/index.js";
-import RegisterProjectData from "../../organisms/RegisterProjectData";
-import AttachmentTeam from "../../organisms/Attachment/Team";
-import {
-  RegisterProjectTitleContainer,
-  RegisterProjectContainer,
-} from "./style.js";
-import { messages } from "../../../settings/YupValidates.js";
-import { formatFirstLetter } from "../../utils/formatFirstLetter.js";
-import { getDate } from "../../utils/getDate.js";
-import { DefaultToast } from "../../atoms/Toast/DefaultToast.js";
-import { toast } from "react-toastify";
-import { Container } from "../../atoms/Container/index.js";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useHistory, useParams } from 'react-router';
+import api from '../../../api/api.js';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { handleErrorMessages } from '../../utils/handleErrorMessages';
+import ArrowRegister from '../../atoms/ArrowRegister/index.js';
+import { SectionTitle } from '../../atoms/PageTitle/style.js';
+import RegisterFooter from '../../molecules/RegisterFooter/index.js';
+import ModalRed from '../../molecules/ModalRed/index.js';
+import RegisterProjectData from '../../organisms/RegisterProjectData';
+import AttachmentTeam from '../../organisms/Attachment/Team';
+import { RegisterProjectTitleContainer} from './style.js';
+import { messages } from '../../../settings/YupValidates.js';
+import { formatFirstLetter } from '../../utils/formatFirstLetter.js';
+import { getDate } from '../../utils/getDate.js';
+import { DefaultToast } from '../../atoms/Toast/DefaultToast.js';
+import { toast } from 'react-toastify';
+import { Container } from '../../atoms/Container/index.js';
 
 const RegisterProject = (props) => {
   const history = useHistory();
@@ -168,6 +165,7 @@ const RegisterProject = (props) => {
     }).then(({ data }) => {
       setTeam(data);
     });
+    
   };
 
   useEffect(() => {
@@ -234,7 +232,7 @@ const RegisterProject = (props) => {
 
   function addMember(professionalSelected, hoursMonth, overtime) {
     api({
-      method: "post",
+      method: 'post',
       url: `/userProjects/project/${id}`,
       data: {
         user_id: professionalSelected,
@@ -246,13 +244,13 @@ const RegisterProject = (props) => {
     })
       .then(async (response) => {
         toast.success(<DefaultToast text="Profissional adicionado." />, {
-          toastId: "post",
+          toastId: 'post',
         });
         getTeam();
       })
       .catch((error) => {
         toast.error(<DefaultToast text="Erro ao adicionar profissional." />, {
-          toastId: "post",
+          toastId: 'post',
         });
       });
   }
@@ -286,6 +284,7 @@ const RegisterProject = (props) => {
         user_id: user_id,
         workload: workload,
         extra_hours_limit: extra_hours_limit,
+        
       },
     })
       .then(async (response) => {
@@ -299,7 +298,9 @@ const RegisterProject = (props) => {
           toastId: "put",
         });
       });
+
   }
+
 
   const attachment = {
     team,

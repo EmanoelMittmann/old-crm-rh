@@ -21,6 +21,7 @@ const InputSelect = ({
   lineWidth,
   value,
   margin,
+
 }) => {
   const attributeValue = {
     ...(value && { value: value }),

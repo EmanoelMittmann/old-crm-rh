@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { checkArraysDifference } from "../../../utils/checkArraysDifference";
@@ -25,14 +25,17 @@ import { BlueButton } from "../../../atoms/Buttons/BlueButton/style.js";
 import SecondaryText from "../../../atoms/SecondaryText/style";
 import InputSelectWithLabel from "../../../atoms/InputSelectWithLabel";
 import InputText from "../../../atoms/InputText";
-import {
-  ListHeaderContainer,
-  ListHeaderTitle,
-} from "../../../atoms/ListHeader/style.js";
 import MenuOptions from "../../../atoms/MenuOptions";
 import { Badge } from "../../../atoms/Badge";
 import ModalRed from "../../../molecules/ModalRed";
 import ModalEditAttachment from "../../../molecules/ModalEditAttachment";
+import { status } from "./OptionStatus";
+import ListHeader from "./ListHeader";
+import api from "../../../../api/api";
+import InputSelect from "../../../atoms/InputSelect";
+import { useEffect } from "react";
+import { toBeDisabled } from "@testing-library/jest-dom/dist/matchers";
+
 
 const status = {
   ATIVO: {
@@ -51,22 +54,27 @@ const status = {
   },
 };
 
-const AttachmentTeam = ({ attachment, allOptions }) => {
-  const { team, setTeam, addMember, removerMember, editMember } = attachment;
-  const [rows, setRows] = useState([]);
-  const [options, setOptions] = useState([]);
-  const [professionalSelected, setProfessionalSelected] = useState(null);
-  const [selectLeader, setSelectLeader] = useState(null);
-  const [hoursMonth, setHoursMonth] = useState("");
-  const [overtime, setOvertime] = useState("");
-  const [reset, setReset] = useState(true);
-  const [modalIsVisible, setModalIsVisible] = useState(false);
-  const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false);
-  const [professionalClicked, setProfessionalClicked] = useState("");
-  const [openModalEdit, setOpenModalEdit] = useState(false);
-  const [hoursMonthEdit, setHoursMonthEdit] = useState("");
-  const [overtimeEdit, setOvertimeEdit] = useState("");
-  const { id } = useParams();
+const AttachmentTeam = ({ attachment, allOptions}) => {
+  const { team, setTeam, addMember, removerMember } = attachment
+  const [rows, setRows] = useState([])
+  const [jobsMember, setJobsMember] = useState([]);
+  const [options, setOptions] = useState([])
+  const [professionalSelected, setProfessionalSelected] = useState(null)
+  const [isTechLead, setIsTechLead] = useState(false)
+  const [hoursMonth, setHoursMonth] = useState('')
+  const [overtime, setOvertime] = useState('')
+  const [reset, setReset] = useState(true)
+  const [modalIsVisible, setModalIsVisible] = useState(false)
+  const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false)
+  const [professionalClicked, setProfessionalClicked] = useState('')
+  const [openModalEdit, setOpenModalEdit] = useState(false)
+  const [hoursMonthEdit, setHoursMonthEdit] = useState('')
+  const [overtimeEdit, setOvertimeEdit] = useState('')
+  const { id } = useParams()
+  const [isDesable, setIsDesable] = useState(false)
+  const [jobProject, setJobProject] = useState("")
+
+
 
   useLayoutEffect(() => {
     const optionsValid = checkArraysDifference({
@@ -76,7 +84,27 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     });
     setOptions(optionsValid);
     handleRows();
+
   }, [allOptions, team]);
+
+=======
+  useEffect(()=>{
+    getJobs()
+  },[])
+
+
+function desibleInput(){
+  
+}
+
+
+  const getJobs = async () => {
+    const { data } = await api({
+      method: 'get',
+      url: `/job/?limit=undefined`,
+    });
+    setJobsMember(data.data);
+  };
 
   function handleRows() {
     setRows([]);
@@ -85,9 +113,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         id: member.id,
         avatar: member.avatar,
         name: member?.name,
-        job: member.job?.name || member.job,
+        job: member.job?.name || member.job_ || member.isTechLead,
         status: member?.is_active || member.status,
-        hours_estimed: member.hours_estimed || member.hours_mounths_estimated,
+        hours_estimed: member?.hours_mounths_estimated || member?.hours_estimed,
         hours_perfomed: member?.hours_mounths_performed,
         extrasHours_estimed:
           member.extrasHours_estimed || member.extra_hours_estimated,
@@ -97,10 +125,12 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     });
   }
 
+
+
   function handleAddMember() {
     if (!professionalSelected) return;
     const selected = allOptions.find(
-      (member) => member.id == professionalSelected
+      (member) => member.id === professionalSelected
     );
     if (!id) {
       setTeam((oldState) => [
@@ -113,32 +143,30 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           avatar: selected.avatar,
           job: selected.job.name,
           status: selected.is_active,
+          isTechLead: selected.isTechLead,
         },
       ]);
       resetInputs();
       return;
     }
-    addMember(professionalSelected, hoursMonth, overtime);
+    addMember(professionalSelected, hoursMonth, overtime, isTechLead);
     resetInputs();
+
   }
 
   function handleEditMember() {
     if (!id) {
       const edited = team.map((member) => {
         if (member.id === professionalClicked) {
-          return {
-            ...member,
-            workload: hoursMonthEdit,
-            extra_hours_limit: overtimeEdit,
-          };
+          return { ...member, workload: hoursMonthEdit, extra_hours_limit: overtimeEdit }
         }
         if (member.id !== professionalClicked) {
-          return member;
+          return member
         }
-      });
-      setTeam(edited);
-      setOpenModalEdit(false);
-      return;
+      })
+      setTeam(edited)
+      setOpenModalEdit(false)
+      return
     }
   }
 
@@ -157,6 +185,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     setProfessionalSelected(null);
     setHoursMonth("");
     setOvertime("");
+  
   }
 
   function professionalClickHandler(memberId) {
@@ -169,6 +198,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     setMenuOptionsIsVisible(false);
     setHoursMonthEdit(hoursMonth);
     setOvertimeEdit(overtime);
+
   }
 
   function handleRemoveModal() {
@@ -181,6 +211,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
       <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
       <ContainerLabel>
+
         <InputSelectWithLabel
           setSelectedOption={(e) => setSelectLeader(e.target.value)}
           options={options}
@@ -193,13 +224,36 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       </ContainerLabel>
       <AttachmentForm>
         <InputSelectWithLabel
+        <InputSelect 
           setSelectedOption={(e) => setProfessionalSelected(e.target.value)}
+          options={options}
+          placeholder="Lider"
+          width="100%"
+          lineWidth="25%"
+          label="selecionar o Lider"
+          reset={reset}
+        />
+      </ContainerLabel>
+      <AttachmentForm>
+        <InputSelect
+        setSelectedOption={(e) => setProfessionalSelected(e.target.value)}
           options={options}
           placeholder="Time"
           width="100%"
-          lineWidth="38%"
+          lineWidth="25%"
           label="Selecionar time"
           reset={reset}
+        />
+  
+        <InputSelect
+          onChange={(e) => setJobProject(e.target.value)}
+          // setSelectedOption={(e) => setJobProject(e.target.value)}
+          options={jobsMember}
+          placeHolder="Cargo"
+          width="100%"
+          lineWidth="15%"
+          label="Cargo"
+
         />
         <InputText
           width="100%"
@@ -208,7 +262,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           onChange={(e) => setHoursMonth(e.target.value)}
           value={hoursMonth}
           type="number"
-          margin="0 2em 0 2em"
         />
         <InputText
           width="100%"
@@ -217,12 +270,12 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           onChange={(e) => setOvertime(e.target.value)}
           value={overtime}
           type="number"
-          margin="0 2em 0 0"
         />
         <BlueButton width="13%" onClick={handleAddMember} type="button">
           Vincular
         </BlueButton>
       </AttachmentForm>
+
       <ListHeaderContainer>
         <ListHeaderTitle width="23.5em" wrap="nowrap" left="1em">
           Profissional e Cargo
@@ -243,13 +296,14 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
             </ProfessionalProfilePicture>
             <div className="professional">
               <ProfessionalName>{member?.name}</ProfessionalName>
-              <ProfessionalJob>{member?.job}</ProfessionalJob>
+              <ProfessionalJob>{member.job}</ProfessionalJob>
             </div>
           </ProfessionalInfo>
           <ProfessionalHours>{member?.hours_estimed}</ProfessionalHours>
           <ProfessionalOvertime width="10em">
             {member?.hours_perfomed || 0}
           </ProfessionalOvertime>
+
           <ProfessionalPercent w="6em">
             {member.hours_perfomed
               ? (
@@ -311,13 +365,19 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           )}
           {openModalEdit && (
             <ModalEditAttachment
+              professionalClicked={professionalClicked}
               CloseButtonClickHandler={() => setOpenModalEdit(false)}
+              setOpenModalEdit={setOpenModalEdit}
               setWorkload={setHoursMonthEdit}
-              workload={hoursMonthEdit}
               setOvertime={setOvertimeEdit}
               overtime={overtimeEdit}
               saveHandler={handleEditMember}
+              team={team}
+              status={status}
+
+
             />
+
           )}
         </AttachmentTableLine>
       ))}
