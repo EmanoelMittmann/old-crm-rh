@@ -47,12 +47,12 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
     
     const limitAllowed = {
     ...(componentJustRenderedCommission &&
-      values.techLead === true && { checked: true }),
+      values.is_tech_lead === true && { checked: true }),
   };
 
   const limitNotAllowed = {
       ...(componentJustRenderedCommission &&
-      (values === undefined || values.techLead === false) && {
+      (values === undefined || values.is_tech_lead === false) && {
         checked: true,
       }),
   };
@@ -240,8 +240,8 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
         <FullcCommissionAllowance
            onChange={(e) => {
              e.target.value === 'limit'
-               ? setFieldValue('techLead', true)
-               : setFieldValue('techLead', false);
+               ? setFieldValue('is_tech_lead', true)
+               : setFieldValue('is_tech_lead', false);
              setComponentJustRenderedComission(false);
            }}
         >
