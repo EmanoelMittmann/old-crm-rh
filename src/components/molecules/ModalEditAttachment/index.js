@@ -28,11 +28,6 @@ const ModalEditAttachment = (
     const [modalIsVisible, setModalIsVisible] = useState(false)
 
 
-    console.log("status", isActive)
-
-    console.log("time", team);
-
-    console.log("DataProfessional: ", DataProfessional);
 
 
     const professionalClickHandler = () => {
@@ -55,8 +50,8 @@ const ModalEditAttachment = (
 
     const editDataModal = () => {
         if (DataProfessional === professionalClicked){
-            return DataProfessional.hours_mounths_estimated && 
-            DataProfessional.extra_hours_estimated
+            return DataProfessional.hours_estimed && 
+                DataProfessional.extrasHours_estimed
         }
         if (DataProfessional === professionalClicked){
             return status.selected.is_active
@@ -83,12 +78,12 @@ const ModalEditAttachment = (
                     <Img src={DataProfessional.avatar} />
                     <p>{DataProfessional.name}</p>
                     <DivHours>
-                        {DataProfessional.hours_mounths_estimated}
+                        {DataProfessional.hours_estimed}
                     </DivHours>
                 </ProfessionalData>
                 <ContainerInputs>
                     <InputWithLabel
-                        value={DataProfessional.hours_mounths_estimated}
+                        value={DataProfessional.hours_estimed}
                         onChange={e => setWorkload(e.target.value)}
                         label="Horas Mensais"
                         widthContainer="45%"
@@ -97,7 +92,7 @@ const ModalEditAttachment = (
                         error={() => { }}
                     />
                     <InputWithLabel
-                        value={DataProfessional.extra_hours_estimated}
+                        value={DataProfessional.extrasHours_estimed}
                         onChange={e => setOvertime(e.target.value)}
                         label="Horas extras"
                         widthContainer="45%"

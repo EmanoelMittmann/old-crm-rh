@@ -31,14 +31,19 @@ import ModalRed from "../../../molecules/ModalRed";
 import ModalEditAttachment from "../../../molecules/ModalEditAttachment";
 import { status } from "./OptionStatus";
 import ListHeader from "./ListHeader";
+import api from "../../../../api/api";
+import InputSelect from "../../../atoms/InputSelect";
+import { useEffect } from "react";
+import { toBeDisabled } from "@testing-library/jest-dom/dist/matchers";
 
 
-const AttachmentTeam = ({ attachment, allOptions }) => {
-  const { team, setTeam, addMember, removerMember, addMemberTeachLead } = attachment
+const AttachmentTeam = ({ attachment, allOptions}) => {
+  const { team, setTeam, addMember, removerMember } = attachment
   const [rows, setRows] = useState([])
+  const [jobsMember, setJobsMember] = useState([]);
   const [options, setOptions] = useState([])
   const [professionalSelected, setProfessionalSelected] = useState(null)
-  const [selectLeader, setSelectLeader] = useState(null)
+  const [isTechLead, setIsTechLead] = useState(false)
   const [hoursMonth, setHoursMonth] = useState('')
   const [overtime, setOvertime] = useState('')
   const [reset, setReset] = useState(true)
@@ -49,6 +54,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   const [hoursMonthEdit, setHoursMonthEdit] = useState('')
   const [overtimeEdit, setOvertimeEdit] = useState('')
   const { id } = useParams()
+  const [isDesable, setIsDesable] = useState(false)
+  const [jobProject, setJobProject] = useState("")
+
 
   useLayoutEffect(() => {
     const optionsValid = checkArraysDifference({
@@ -58,31 +66,52 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     });
     setOptions(optionsValid);
     handleRows();
+
   }, [allOptions, team]);
+
+  useEffect(()=>{
+    getJobs()
+  },[])
+
+
+function desibleInput(){
+  
+}
+
+
+  const getJobs = async () => {
+    const { data } = await api({
+      method: 'get',
+      url: `/job/?limit=undefined`,
+    });
+    setJobsMember(data.data);
+  };
 
 
   function handleRows() {
     setRows([]);
     team.map((member) => {
       const item = {
-        id: member.id,  
+        id: member.id,
         avatar: member.avatar,
         name: member?.name,
-        job: member.job?.name || member.job,
+        job: member.job?.name || member.job_ || member.isTechLead,
         status: member?.is_active || member.status,
-        hours_estimed: member.hours_estimed || member.hours_mounths_estimated,
+        hours_estimed: member?.hours_mounths_estimated || member?.hours_estimed,
         hours_perfomed: member?.hours_mounths_performed,
-        extrasHours_estimed: member.extrasHours_estimed || member.extra_hours_estimated,
+        extrasHours_estimed: member?.extrasHours_estimed || member?.extra_hours_estimated,
         extrasHours_performed: member?.extra_hours_performed,
       };
       setRows((oldState) => [...oldState, item]);
     });
   }
 
+
+
   function handleAddMember() {
     if (!professionalSelected) return;
     const selected = allOptions.find(
-      (member) => member.id == professionalSelected
+      (member) => member.id === professionalSelected
     );
     if (!id) {
       setTeam((oldState) => [
@@ -95,53 +124,32 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           avatar: selected.avatar,
           job: selected.job.name,
           status: selected.is_active,
+          isTechLead: selected.isTechLead,
         },
       ]);
       resetInputs();
       return;
     }
-
-    if (!professionalSelected) return;
-    const selectedTechLead = allOptions.find(
-      (member) => member.id === professionalSelected.is_techlead
-    );
-    if (!id) {
-      setTeam((oldState) => [
-        ...oldState,
-        {
-          id: selectedTechLead.id,
-          name: selectedTechLead.name,
-          workload: hoursMonth,
-          extra_hours_limit: overtime,
-          avatar: selectedTechLead.avatar,
-          job: selectedTechLead.job.name,
-          status: selectedTechLead.is_active,
-        },
-      ]);
-      resetInputs();
-      return;
-    }
-
-    addMember(professionalSelected, hoursMonth, overtime, selected.name, selected.avatar, selected.job.name, selected.is_active);
-    addMemberTeachLead(professionalSelected, hoursMonth, overtime, selectedTechLead.name, selectedTechLead.avatar, selectedTechLead.job.name, selectedTechLead.is_active)
+    addMember(professionalSelected, hoursMonth, overtime, isTechLead);
     resetInputs();
+
   }
 
   function handleEditMember() {
-        if(!id) {
-            const edited = team.map((member) => {
-                if(member.id === professionalClicked){
-                    return {...member, workload: hoursMonthEdit, extra_hours_limit: overtimeEdit}
-                }
-                if(member.id !== professionalClicked){
-                    return member
-                }
-            })
-            setTeam(edited)
-            setOpenModalEdit(false)
-            return
+    if (!id) {
+      const edited = team.map((member) => {
+        if (member.id === professionalClicked) {
+          return { ...member, workload: hoursMonthEdit, extra_hours_limit: overtimeEdit }
         }
+        if (member.id !== professionalClicked) {
+          return member
+        }
+      })
+      setTeam(edited)
+      setOpenModalEdit(false)
+      return
     }
+  }
 
   function handleRemoveMember() {
     if (!id) {
@@ -158,6 +166,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     setProfessionalSelected(null);
     setHoursMonth("");
     setOvertime("");
+  
   }
 
   function professionalClickHandler(memberId) {
@@ -183,25 +192,36 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
       <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
       <ContainerLabel>
-        <InputSelectWithLabel
-          setSelectedOption={e => setSelectLeader(e.target.value)}
+        <InputSelect 
+          setSelectedOption={(e) => setProfessionalSelected(e.target.value)}
           options={options}
           placeholder="Lider"
           width="100%"
-          lineWidth="36%"
+          lineWidth="25%"
           label="selecionar o Lider"
           reset={reset}
         />
       </ContainerLabel>
       <AttachmentForm>
-        <InputSelectWithLabel
-          setSelectedOption={(e) => setProfessionalSelected(e.target.value)}
+        <InputSelect
+        setSelectedOption={(e) => setProfessionalSelected(e.target.value)}
           options={options}
           placeholder="Time"
           width="100%"
-          lineWidth="38%"
+          lineWidth="25%"
           label="Selecionar time"
           reset={reset}
+        />
+  
+        <InputSelect
+          onChange={(e) => setJobProject(e.target.value)}
+          // setSelectedOption={(e) => setJobProject(e.target.value)}
+          options={jobsMember}
+          placeHolder="Cargo"
+          width="100%"
+          lineWidth="15%"
+          label="Cargo"
+
         />
         <InputText
           width="100%"
@@ -210,7 +230,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           onChange={(e) => setHoursMonth(e.target.value)}
           value={hoursMonth}
           type="number"
-          margin="0 2em 0 2em"
         />
         <InputText
           width="100%"
@@ -219,7 +238,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           onChange={(e) => setOvertime(e.target.value)}
           value={overtime}
           type="number"
-          margin="0 2em 0 0"
         />
         <BlueButton width="13%" onClick={handleAddMember} type="button">
           Vincular
@@ -228,7 +246,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
 
       <ListHeader />
 
-      {rows.map((member, index) => (
+      {rows.map((member, index,) => (
         <AttachmentTableLine key={index}>
           <ProfessionalInfo>
             <ProfessionalProfilePicture>
@@ -236,7 +254,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
             </ProfessionalProfilePicture>
             <div className="professional">
               <ProfessionalName>{member?.name}</ProfessionalName>
-              <ProfessionalJob>{member?.job}</ProfessionalJob>
+              <ProfessionalJob>{member.job}</ProfessionalJob>
             </div>
           </ProfessionalInfo>
           <ProfessionalHours>{member?.hours_estimed}</ProfessionalHours>
@@ -248,10 +266,10 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
             {member?.extrasHours_estimed}
           </ProfessionalOvertime>
           <ProfessionalOvertime width='10em'>
-            {member?.extrasHours_performed || 0} 
+            {member?.extrasHours_performed || 0}
           </ProfessionalOvertime>
-          <ProfessionalPercent w='20em'>{member.extrasHours_performed ? (member?.extrasHours_estimed/member?.extrasHours_performed * 100).toFixed(1) : 0 }%</ProfessionalPercent>
-           <ProfessionalStatus>
+          <ProfessionalPercent w='20em'>{member.extrasHours_performed ? (member?.extrasHours_estimed / member?.extrasHours_performed * 100).toFixed(1) : 0}%</ProfessionalPercent>
+          <ProfessionalStatus>
             <Badge
               status={member?.status === true ? status.ATIVO : status.INATIVO}
             />

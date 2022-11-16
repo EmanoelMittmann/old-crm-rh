@@ -230,41 +230,16 @@ const RegisterProject = (props) => {
     });
   }
 
-  function addMember() {
+  function addMember(professionalSelected, hoursMonth, overtime) {
     api({
       method: 'post',
       url: `/userProjects/project/${id}`,
       data: {
-        // user_id: user_id,
-        // hours_mounths_estimated_professional: hours_mounths_estimated_professional,
-        // hours_mounths_estimated_professionalv: hours_mounths_performed_professional,
-        // extra_hours_estimated_professional:extra_hours_estimated_professional,
-        // extra_hours_performed_professional:extra_hours_performed_professional
-      },
-    })
-      .then(async (response) => {
-        toast.success(<DefaultToast text="Profissional adicionado." />, {
-          toastId: 'post',
-        });
-        getTeam();
-      })
-      .catch((error) => {
-        toast.error(<DefaultToast text="Erro ao adicionar profissional." />, {
-          toastId: 'post',
-        });
-      });
-  }
-
-  function addMemberTeachLead() {
-    api({
-      method: 'post',
-      url: `/userProjects/project/${id}`,
-      data: {
-        // user_id: user_id,
-        // hours_mounths_estimated_professional: hours_mounths_estimated_professional,
-        // hours_mounths_estimated_professionalv: hours_mounths_performed_professional,
-        // extra_hours_estimated_professional:extra_hours_estimated_professional,
-        // extra_hours_performed_professional:extra_hours_performed_professional
+        user_id: professionalSelected,
+        hours_mounths_estimated: hoursMonth,
+        hours_mounths_performed: null,
+        extra_hours_estimated: overtime,
+        extra_hours_performed: null,
       },
     })
       .then(async (response) => {
@@ -334,7 +309,6 @@ const RegisterProject = (props) => {
     addMember,
     removerMember,
     editMember,
-    addMemberTeachLead,
   };
 
   return (
