@@ -37,6 +37,23 @@ import { useEffect } from "react";
 import { toBeDisabled } from "@testing-library/jest-dom/dist/matchers";
 
 
+const status = {
+  ATIVO: {
+    name: "Ativo",
+    color: {
+      button_color: "#E4F8DD",
+      text_color: "#229A16",
+    },
+  },
+  INATIVO: {
+    name: "Inativo",
+    color: {
+      button_color: "#FFE2E1",
+      text_color: "#BB2B3F",
+    },
+  },
+};
+
 const AttachmentTeam = ({ attachment, allOptions}) => {
   const { team, setTeam, addMember, removerMember } = attachment
   const [rows, setRows] = useState([])
@@ -58,6 +75,7 @@ const AttachmentTeam = ({ attachment, allOptions}) => {
   const [jobProject, setJobProject] = useState("")
 
 
+
   useLayoutEffect(() => {
     const optionsValid = checkArraysDifference({
       completeArray: allOptions,
@@ -69,6 +87,7 @@ const AttachmentTeam = ({ attachment, allOptions}) => {
 
   }, [allOptions, team]);
 
+=======
   useEffect(()=>{
     getJobs()
   },[])
@@ -87,7 +106,6 @@ function desibleInput(){
     setJobsMember(data.data);
   };
 
-
   function handleRows() {
     setRows([]);
     team.map((member) => {
@@ -99,7 +117,8 @@ function desibleInput(){
         status: member?.is_active || member.status,
         hours_estimed: member?.hours_mounths_estimated || member?.hours_estimed,
         hours_perfomed: member?.hours_mounths_performed,
-        extrasHours_estimed: member?.extrasHours_estimed || member?.extra_hours_estimated,
+        extrasHours_estimed:
+          member.extrasHours_estimed || member.extra_hours_estimated,
         extrasHours_performed: member?.extra_hours_performed,
       };
       setRows((oldState) => [...oldState, item]);
@@ -192,6 +211,19 @@ function desibleInput(){
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
       <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
       <ContainerLabel>
+
+        <InputSelectWithLabel
+          setSelectedOption={(e) => setSelectLeader(e.target.value)}
+          options={options}
+          placeholder="Lider"
+          width="100%"
+          lineWidth="36%"
+          label="selecionar o Lider"
+          reset={reset}
+        />
+      </ContainerLabel>
+      <AttachmentForm>
+        <InputSelectWithLabel
         <InputSelect 
           setSelectedOption={(e) => setProfessionalSelected(e.target.value)}
           options={options}
@@ -244,9 +276,19 @@ function desibleInput(){
         </BlueButton>
       </AttachmentForm>
 
-      <ListHeader />
-
-      {rows.map((member, index,) => (
+      <ListHeaderContainer>
+        <ListHeaderTitle width="23.5em" wrap="nowrap" left="1em">
+          Profissional e Cargo
+        </ListHeaderTitle>
+        <ListHeaderTitle width="10em">Horas Mensais Estimadas</ListHeaderTitle>
+        <ListHeaderTitle width="10em">Horas Mensais Realizadas</ListHeaderTitle>
+        <ListHeaderTitle width="6em">%</ListHeaderTitle>
+        <ListHeaderTitle width="11em">Horas Extras Estimadas</ListHeaderTitle>
+        <ListHeaderTitle width="10em">Horas Extras Realizadas</ListHeaderTitle>
+        <ListHeaderTitle width="20em">%</ListHeaderTitle>
+        <ListHeaderTitle width="10em">Status</ListHeaderTitle>
+      </ListHeaderContainer>
+      {rows.map((member, index) => (
         <AttachmentTableLine key={index}>
           <ProfessionalInfo>
             <ProfessionalProfilePicture>
@@ -258,17 +300,35 @@ function desibleInput(){
             </div>
           </ProfessionalInfo>
           <ProfessionalHours>{member?.hours_estimed}</ProfessionalHours>
-          <ProfessionalOvertime width='10em'>
+          <ProfessionalOvertime width="10em">
             {member?.hours_perfomed || 0}
           </ProfessionalOvertime>
-          <ProfessionalPercent width='6em'>{member.hours_perfomed ? (member?.hours_estimed / member?.hours_perfomed * 100).toFixed(1) : 0}%</ProfessionalPercent>
+
+          <ProfessionalPercent w="6em">
+            {member.hours_perfomed
+              ? (
+                  (member?.hours_estimed / member?.hours_perfomed) *
+                  100
+                ).toFixed(1)
+              : 0}
+            %
+          </ProfessionalPercent>
           <ProfessionalOvertime width="11em">
             {member?.extrasHours_estimed}
           </ProfessionalOvertime>
-          <ProfessionalOvertime width='10em'>
+          <ProfessionalOvertime width="10em">
             {member?.extrasHours_performed || 0}
           </ProfessionalOvertime>
-          <ProfessionalPercent w='20em'>{member.extrasHours_performed ? (member?.extrasHours_estimed / member?.extrasHours_performed * 100).toFixed(1) : 0}%</ProfessionalPercent>
+          <ProfessionalPercent w="20em">
+            {member.extrasHours_performed
+              ? (
+                  (member?.extrasHours_estimed /
+                    member?.extrasHours_performed) *
+                  100
+                ).toFixed(1)
+              : 0}
+            %
+          </ProfessionalPercent>
           <ProfessionalStatus>
             <Badge
               status={member?.status === true ? status.ATIVO : status.INATIVO}
@@ -326,4 +386,3 @@ function desibleInput(){
 };
 
 export default AttachmentTeam;
-
