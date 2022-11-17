@@ -33,15 +33,10 @@ const ModalEditAttachment = (
     // console.log("DataProfessional: ", DataProfessional.job_);
 
 
-    const optionStatus = [
-        {
-            id: 1,
-            name: 'Ativo',
-        },
-        {
-            id: 0,
-            name: 'Inativo',
-        }
+    const optionStatus = 
+    [
+        {id: 1, name: 'Ativo',},
+        {id: 0, name: 'Inativo',}
     ]
 
     const handlerModal = () => {
