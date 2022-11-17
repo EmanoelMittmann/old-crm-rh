@@ -73,7 +73,6 @@ export const ProfilePicture = styled.img`
 `
 
 export const ContainerLabel = styled.div`
-    width: 100%;
-     gap: 1em;
-     margin-bottom: 2em;
+    width: 69%;
+    margin-bottom: 2em;
 `

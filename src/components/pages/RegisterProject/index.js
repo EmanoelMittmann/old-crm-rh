@@ -167,6 +167,7 @@ const RegisterProject = (props) => {
     });
   };
 
+  console.log(values);
   useEffect(() => {
     if (!typeOptions.length) getProjectTypeOption();
     if (!typeOptions.length) getStatusOptions();
@@ -246,7 +247,7 @@ const RegisterProject = (props) => {
         extra_hours_estimated: overtime,
         extra_hours_performed: null,
         isTechLead: isTechLead,
-        job_: jobProject,
+        job_: isTechLead ? "TechLead": jobProject
       },
     })
       .then(async (response) => {
