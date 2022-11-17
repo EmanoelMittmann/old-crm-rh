@@ -53,8 +53,8 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [hoursMonthEdit, setHoursMonthEdit] = useState('');
   const [overtimeEdit, setOvertimeEdit] = useState('');
-  const { id } = useParams();
   const [jobProject, setJobProject] = useState('');
+  const { id } = useParams();
 
   useLayoutEffect(() => {
     const optionsValid = checkArraysDifference({
@@ -72,7 +72,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     getJobs()
   },[])
 
-  // function desibleInput() {}
 
   const getJobs = async () => {
     const { data } = await api({
