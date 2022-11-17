@@ -55,7 +55,7 @@ const status = {
 };
 
 const AttachmentTeam = ({ attachment, allOptions }) => {
-  const { team, setTeam, addMember, removerMember } = attachment;
+  const { team, setTeam, addMember, removerMember, editMember } = attachment;
   const [dataTechLead, setDataTechLead] = useState([]);
   const [dataTeam, setDataTeam] = useState([]);
   const [rows, setRows] = useState([]);
@@ -366,6 +366,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
             <ModalEditAttachment
               professionalClicked={professionalClicked}
               CloseButtonClickHandler={() => setOpenModalEdit(false)}
+              editMember={editMember}
               setOpenModalEdit={setOpenModalEdit}
               setWorkload={setHoursMonthEdit}
               setOvertime={setOvertimeEdit}
