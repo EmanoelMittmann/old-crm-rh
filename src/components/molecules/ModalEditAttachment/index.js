@@ -22,7 +22,7 @@ const ModalEditAttachment = (
     const [DataProfessional] = useState(team.find(professional => professional.id === professionalClicked))
     const [jobsMember, setJobsMember] = useState([]);
     const [status, setStatus] = useState('')
-    const [jobSelected, setJobSelected] = useState(DataProfessional?.job_ ? DataProfessional?.job_ : DataProfessional.job.name)
+    const [jobSelected, setJobSelected] = useState(DataProfessional?.job_)
     const [isOpenModal, setIsOpenModal] = useState(false)
     const [modalIsVisible, setModalIsVisible] = useState(false)
     const [changeEstimatedTime, setChangeEstimatedTime] = useState(DataProfessional?.hours_mounths_estimated)
