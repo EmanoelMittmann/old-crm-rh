@@ -77,7 +77,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                     <ContainerSecondRow>
                     <InputDate
                         onChange={handleChange('date_start')}
-                        placeholder="Data início Efetivo"
+                        placeholder={values.date_start ? values.date_start :"Data início Efetivo"}
                         date={values.date_start}
                         type="date"
                         error={errors.date_start}
@@ -89,7 +89,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                     />
                     <InputDate
                         onChange={handleChange('date_end')}
-                        placeholder="Data final Efetivo"
+                        placeholder={values.date_end ? values.date_end :"Data final Efetivo"}
                         date={values.date_end}
                         type="date"
                         error={errors.date_end}
@@ -128,7 +128,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                 <ContainerSecond>
                     <InputDate
                         onChange={handleChange('date_start_performed')}
-                        placeholder="Data Iníco do contrato"
+                        placeholder={values.date_start_performed ? values.date_start_performed: "Data Iníco do contrato"}
                         date={values.date_start_performed}
                         type="date"
                         error={errors.date_start_performed}
@@ -139,7 +139,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                     />
                     <InputDate
                         onChange={handleChange('date_end_performed')}
-                        placeholder="Data Término do contrato"
+                        placeholder= {values.date_end_performed ? values.date_end_performed : "Data Término do contrato"}
                         date={values.date_end_performed}
                         type="date"
                         error={errors.date_end_performed}

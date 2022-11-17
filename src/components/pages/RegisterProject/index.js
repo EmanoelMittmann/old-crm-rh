@@ -167,6 +167,7 @@ const RegisterProject = (props) => {
     });
   };
 
+  console.log(values);
   useEffect(() => {
     if (!typeOptions.length) getProjectTypeOption();
     if (!typeOptions.length) getStatusOptions();
