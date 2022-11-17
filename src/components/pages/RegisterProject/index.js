@@ -10,7 +10,7 @@ import RegisterFooter from '../../molecules/RegisterFooter/index.js';
 import ModalRed from '../../molecules/ModalRed/index.js';
 import RegisterProjectData from '../../organisms/RegisterProjectData';
 import AttachmentTeam from '../../organisms/Attachment/Team';
-import { RegisterProjectTitleContainer} from './style.js';
+import { RegisterProjectTitleContainer } from './style.js';
 import { messages } from '../../../settings/YupValidates.js';
 import { formatFirstLetter } from '../../utils/formatFirstLetter.js';
 import { getDate } from '../../utils/getDate.js';
@@ -32,23 +32,23 @@ const RegisterProject = (props) => {
     name: Yup.string().required(messages.required),
     date_start: Yup.string()
       .required(messages.required)
-      .test("Data válida", "Insira uma data menor que a data final", () =>
+      .test('Data válida', 'Insira uma data menor que a data final', () =>
         validDate()
       ),
     date_end: Yup.string()
       .required(messages.required)
-      .test("Data válida", "Insira uma data maior que a data inicial", () =>
+      .test('Data válida', 'Insira uma data maior que a data inicial', () =>
         validDate()
       ),
     date_start_performed: Yup.string().required(messages.required),
     date_end_performed: Yup.string().test(
-      "Data válida",
-      "Insira uma data maior que a data inicial",
+      'Data válida',
+      'Insira uma data maior que a data inicial',
       () => {
         if (
-          values.date_start !== "" &&
-          values.date_start_performed !== "" &&
-          values.date_end_performed !== ""
+          values.date_start !== '' &&
+          values.date_start_performed !== '' &&
+          values.date_end_performed !== ''
         ) {
           if (
             values.date_start > values.date_end_performed &&
@@ -69,15 +69,15 @@ const RegisterProject = (props) => {
 
   const formik = useFormik({
     initialValues: {
-      name: "",
-      date_start: "",
-      date_end: "",
-      date_end_performed: "",
+      name: '',
+      date_start: '',
+      date_end: '',
+      date_end_performed: '',
       project_status_id: 0,
       project_type_id: 0,
-      team_cost: "",
-      id: "",
-      date_start_performed: "",
+      team_cost: '',
+      id: '',
+      date_start_performed: '',
     },
 
     onSubmit: async (values) => {
@@ -85,23 +85,23 @@ const RegisterProject = (props) => {
         delete values.users;
       }
       await api({
-        method: id ? "put" : "post",
-        url: id ? `/project/${id}` : "/project",
+        method: id ? 'put' : 'post',
+        url: id ? `/project/${id}` : '/project',
         data: id
           ? {
               ...values,
               team_cost: values.team_cost
-                .replace("R$", "")
-                .replace(".", "")
-                .replace(",", "."),
+                .replace('R$', '')
+                .replace('.', '')
+                .replace(',', '.'),
             }
           : {
               ...values,
               users: teamPayload,
               team_cost: values.team_cost
-                .replace("R$", "")
-                .replace(".", "")
-                .replace(",", "."),
+                .replace('R$', '')
+                .replace('.', '')
+                .replace(',', '.'),
             },
       })
         .then(() => {
@@ -122,7 +122,7 @@ const RegisterProject = (props) => {
   const { values, setFieldValue, setErrors } = formik;
 
   function validDate() {
-    if (values.date_end !== "" && values.date_start !== "") {
+    if (values.date_end !== '' && values.date_start !== '') {
       if (values.date_start > values.date_end) {
         return false;
       }
@@ -134,7 +134,7 @@ const RegisterProject = (props) => {
 
   const getProjectTypeOption = useCallback(async () => {
     const { data } = await api({
-      method: "get",
+      method: 'get',
       url: `/projectTypeNoFilter`,
     });
     const formattedOptions = formatFirstLetter(data);
@@ -143,7 +143,7 @@ const RegisterProject = (props) => {
 
   const getStatusOptions = useCallback(async () => {
     const { data } = await api({
-      method: "get",
+      method: 'get',
       url: `/projectStatusNoFilter`,
     });
     const formattedStatusOptions = formatFirstLetter(data);
@@ -152,7 +152,7 @@ const RegisterProject = (props) => {
 
   const getAllProfessionals = useCallback(async () => {
     const { data } = await api({
-      method: "get",
+      method: 'get',
       url: `/professionals/?limit=undefined`,
     });
     setAllUsers(data.data.filter((item) => item.is_active === true));
@@ -160,12 +160,11 @@ const RegisterProject = (props) => {
 
   const getTeam = async () => {
     await api({
-      method: "get",
+      method: 'get',
       url: `/userProjects/project/${id}`,
     }).then(({ data }) => {
       setTeam(data);
     });
-    
   };
 
   useEffect(() => {
@@ -174,15 +173,15 @@ const RegisterProject = (props) => {
     if (!allUsers.length) getAllProfessionals();
     if (id) {
       api({
-        method: "get",
+        method: 'get',
         url: `/project/${id}`,
       }).then(async (response) => {
         const data = response.data[0];
         Object.entries(data).forEach(([property, value]) => {
-          if (property.includes("date")) {
+          if (property.includes('date')) {
             setFieldValue(property, getDate(value));
-          } else if (property.includes("team_cost")) {
-            setFieldValue(property, "R$" + String(value).replace(".", ","));
+          } else if (property.includes('team_cost')) {
+            setFieldValue(property, 'R$' + String(value).replace('.', ','));
           } else {
             setFieldValue(property, value);
           }
@@ -204,7 +203,7 @@ const RegisterProject = (props) => {
   }, [team]);
 
   const goBackClickHandler = () => {
-    history.push("/projects");
+    history.push('/projects');
   };
 
   const CloseButtonClickHandler = () => {
@@ -224,13 +223,19 @@ const RegisterProject = (props) => {
           hours_mounths_estimated: user.hours_estimed,
           extra_hours_estimated: user.extrasHours_estimed,
           job_: user.job,
-          isTechLead : false
+          isTechLead: false,
         },
       ]);
     });
   }
 
-  function addMember(professionalSelected, hoursMonth, overtime) {
+  function addMember(
+    professionalSelected,
+    hoursMonth,
+    overtime,
+    isTechLead,
+    jobProject
+  ) {
     api({
       method: 'post',
       url: `/userProjects/project/${id}`,
@@ -240,6 +245,8 @@ const RegisterProject = (props) => {
         hours_mounths_performed: null,
         extra_hours_estimated: overtime,
         extra_hours_performed: null,
+        isTechLead: isTechLead,
+        job_: jobProject,
       },
     })
       .then(async (response) => {
@@ -257,7 +264,7 @@ const RegisterProject = (props) => {
 
   function removerMember(user_id) {
     api({
-      method: "delete",
+      method: 'delete',
       url: `/userProjects/project/${id}`,
       data: {
         user_id: user_id,
@@ -265,42 +272,39 @@ const RegisterProject = (props) => {
     })
       .then(async (response) => {
         toast.success(<DefaultToast text="Profissional removido." />, {
-          toastId: "delete",
+          toastId: 'delete',
         });
         getTeam();
       })
       .catch((error) => {
         toast.error(<DefaultToast text="Erro ao remover profissional." />, {
-          toastId: "delete",
+          toastId: 'delete',
         });
       });
   }
 
   function editMember(user_id, workload, extra_hours_limit) {
     api({
-      method: "put",
+      method: 'put',
       url: `/userProjects/project/${id}`,
       data: {
         user_id: user_id,
         workload: workload,
         extra_hours_limit: extra_hours_limit,
-        
       },
     })
       .then(async (response) => {
         toast.success(<DefaultToast text="Profissional atualizado." />, {
-          toastId: "put",
+          toastId: 'put',
         });
         getTeam();
       })
       .catch((error) => {
         toast.error(<DefaultToast text="Erro ao atualizar profissional." />, {
-          toastId: "put",
+          toastId: 'put',
         });
       });
-
   }
-
 
   const attachment = {
     team,
@@ -317,17 +321,17 @@ const RegisterProject = (props) => {
         <ModalRed
           CloseButtonClickHandler={CloseButtonClickHandler}
           redButtonClickHandler={goBackClickHandler}
-          title={id ? "Cancelar alterações" : "Cancelar cadastro"}
+          title={id ? 'Cancelar alterações' : 'Cancelar cadastro'}
           message={
             id
-              ? "Tem certeza que deseja cancelar as alterações?"
-              : "Tem certeza que deseja cancelar a operação?"
+              ? 'Tem certeza que deseja cancelar as alterações?'
+              : 'Tem certeza que deseja cancelar a operação?'
           }
         />
       )}
       <RegisterProjectTitleContainer>
         <ArrowRegister clickHandler={goBackClickHandler} />
-        <SectionTitle>{id ? "Edição de projeto" : "Novo Projeto"}</SectionTitle>
+        <SectionTitle>{id ? 'Edição de projeto' : 'Novo Projeto'}</SectionTitle>
       </RegisterProjectTitleContainer>
 
       <Container>
@@ -342,7 +346,7 @@ const RegisterProject = (props) => {
         <RegisterFooter
           cancelButtonHandler={footerCancelButtonHandler}
           registerButtonHandler={() => {}}
-          buttonDescription={id ? "Atualizar" : "Cadastrar"}
+          buttonDescription={id ? 'Atualizar' : 'Cadastrar'}
           type="submit"
           form="register"
         />

@@ -8,7 +8,6 @@ import {
   InputSelectOption,
   InputSelectOptionPlaceholder,
 } from './style.js';
-import { ErrorMessage } from '../InputWithLabel/style';
 
 const InputSelect = ({
   onChange,
@@ -21,7 +20,6 @@ const InputSelect = ({
   lineWidth,
   value,
   margin,
-
 }) => {
   const attributeValue = {
     ...(value && { value: value }),
