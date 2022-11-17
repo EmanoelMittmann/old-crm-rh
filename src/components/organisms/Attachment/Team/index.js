@@ -41,23 +41,20 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   const [dataTeam, setDataTeam] = useState([]);
   const [rows, setRows] = useState([]);
   const [jobsMember, setJobsMember] = useState([]);
-  const [options, setOptions] = useState([])
-  const [professionalSelected, setProfessionalSelected] = useState(null)
-  const [isTechLead, setIsTechLead] = useState(false)
-  const [hoursMonth, setHoursMonth] = useState('')
-  const [overtime, setOvertime] = useState('')
-  const [reset, setReset] = useState(true)
-  const [selectLeader,setSelectLeader] = useState('')
-  const [modalIsVisible, setModalIsVisible] = useState(false)
-  const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false)
-  const [professionalClicked, setProfessionalClicked] = useState('')
-  const [openModalEdit, setOpenModalEdit] = useState(false)
-  const [hoursMonthEdit, setHoursMonthEdit] = useState('')
-  const [overtimeEdit, setOvertimeEdit] = useState('')
-  const { id } = useParams()
-  const [jobProject, setJobProject] = useState("")
-
-
+  const [options, setOptions] = useState([]);
+  const [professionalSelected, setProfessionalSelected] = useState('');
+  const [isTechLead, setIsTechLead] = useState(false);
+  const [hoursMonth, setHoursMonth] = useState('');
+  const [overtime, setOvertime] = useState('');
+  const [reset, setReset] = useState(true);
+  const [modalIsVisible, setModalIsVisible] = useState(false);
+  const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false);
+  const [professionalClicked, setProfessionalClicked] = useState('');
+  const [openModalEdit, setOpenModalEdit] = useState(false);
+  const [hoursMonthEdit, setHoursMonthEdit] = useState('');
+  const [overtimeEdit, setOvertimeEdit] = useState('');
+  const { id } = useParams();
+  const [jobProject, setJobProject] = useState('');
 
   useLayoutEffect(() => {
     const optionsValid = checkArraysDifference({
@@ -75,6 +72,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     getJobs()
   },[])
 
+  // function desibleInput() {}
 
   const getJobs = async () => {
     const { data } = await api({
@@ -92,7 +90,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         avatar: member.avatar,
         name: member?.name,
         job: member?.job_ || member.job?.name,
-        status: member?.is_active || member.status,
+        status: member.status,
         hours_estimed: member?.hours_mounths_estimated || member?.hours_estimed,
         hours_perfomed: member?.hours_mounths_performed,
         extrasHours_estimed:
@@ -109,8 +107,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     )?.name;
     if (!professionalSelected) return;
     const selected = allOptions.find(
-      (member) => member.id !== professionalSelected
+      (member) => member.id == professionalSelected
     );
+
     if (!id) {
       setTeam((oldState) => [
         ...oldState,
@@ -120,8 +119,8 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           hours_estimed: hoursMonth,
           extrasHours_estimed: overtime,
           avatar: selected.avatar,
-          job_: jobName,
-          status: selected.is_active,
+          job_:isTechLead? "TechLead": jobName, 
+          status: selected.status,
           isTechLead: isTechLead,
         },
       ]);
@@ -138,8 +137,8 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         if (member.id === professionalClicked) {
           return {
             ...member,
-            workload: hoursMonthEdit,
-            extra_hours_limit: overtimeEdit,
+            hoursMonth: hoursMonthEdit,
+            overtime: overtimeEdit,
           };
         }
         if (member.id !== professionalClicked) {
@@ -284,9 +283,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           <ProfessionalPercent w="6em">
             {member.hours_perfomed
               ? (
-                  (member?.hours_estimed / member?.hours_perfomed) *
-                  100
-                ).toFixed(1)
+                (member?.hours_estimed / member?.hours_perfomed) *
+                100
+              ).toFixed(1)
               : 0}
             %
           </ProfessionalPercent>
@@ -299,10 +298,10 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           <ProfessionalPercent w="20em">
             {member.extrasHours_performed
               ? (
-                  (member?.extrasHours_estimed /
-                    member?.extrasHours_performed) *
-                  100
-                ).toFixed(1)
+                (member?.extrasHours_estimed /
+                  member?.extrasHours_performed) *
+                100
+              ).toFixed(1)
               : 0}
             %
           </ProfessionalPercent>
@@ -330,10 +329,10 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           {menuOptionsIsVisible && member?.id === professionalClicked && (
             <MenuOptions
               positionMenu="25px"
-              firstOptionDescription="Editar"
+              firstOptionDescription={id ? "Editar" : null}
               secondOptionDescription="Remover"
               firstChosenOption={() =>
-                handleEditModal(member?.hours_estimed, member?.hours_perfomed)
+                handleEditModal(member?.hours_estimed, member?.extrasHours_estimed)
               }
               secondChosenOption={handleRemoveModal}
               padding="0.3em 0.5em 0.3em 1.7em"

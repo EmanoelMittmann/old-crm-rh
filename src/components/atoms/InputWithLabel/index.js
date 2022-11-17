@@ -14,6 +14,7 @@ const InputWithLabel = ({
   justify,
   padding,
   error,
+  margin,
   touched,
   type,
   handleBlur,
@@ -34,6 +35,7 @@ const InputWithLabel = ({
     <InputWithLabelContainer
       padding={padding}
       justify={justify}
+      margin={margin}
       widthContainer={widthContainer}
     >
       <InputLine width={width} error={touched && error}>

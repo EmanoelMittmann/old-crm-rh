@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { BsThreeDotsVertical } from "react-icons/bs"
 import MenuOptions from '../MenuOptions/index'
-import { Styles, Total } from './style'
+import { Column, ColumnValues, Styles, Total } from './style'
 
-const Table = ({rows, setOpenModalDelete, setOpenModalEdit, rowClicked, setRowClicked, totalHours, totalOvertime, totalPercentage}) => {
+const Table = ({rows, setOpenModalDelete, setOpenModalEdit, totalOvertimeExtras,totalPercentageMonth,totalPerformedHours, rowClicked, setRowClicked, totalHours, totalOvertime, totalPercentage}) => {
     const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false)
 
     const projectClickedHandler = (project) => {
@@ -25,23 +25,29 @@ const Table = ({rows, setOpenModalDelete, setOpenModalEdit, rowClicked, setRowCl
         <Styles>
             <table>
                 <tr>
-                    <th>Projeto</th>
-                    <th>Início do projeto</th>
-                    <th>Horas Mensais Estimadas</th>
-                    <th>Horas Extras Estimadas</th>
-                    <th>%</th>
-                    <th></th>
+                    <Column w='13em'>Projeto</Column>
+                    <Column w='14em'>Início do projeto</Column>
+                    <Column w='9.5em'>Horas Mensais Estimadas</Column>
+                    <Column w='9.5em'>Horas Mensais Realizadas</Column>
+                    <Column w='1em'>%</Column>
+                    <Column w='10em'>Horas Extras Estimadas</Column> 
+                    <Column w='10em'>Horas Extras Realizadas</Column>
+                    <Column w='1em'>%</Column>
+                    <Column w='15em'></Column>
                 </tr>
                 {rows.map((row) => (
                     <tr key={row.id}>
-                        <td>{row.firstRow}</td>
-                        <td>{row.secondRow}</td>
-                        <td>{row.thirdRow}</td>
-                        <td>{row.fourthRow}</td>
-                        <td>{row.fifthRow}</td>
-                        <td onClick={() => projectClickedHandler(row.id)}>
-                            <BsThreeDotsVertical color="#919EAB"/>
-                        </td>
+                        <ColumnValues w='13em'>{row.firstRow}</ColumnValues>
+                        <ColumnValues w='14em'>{row.secondRow}</ColumnValues>
+                        <ColumnValues w='9.5em'>{row.thirdRow || 0 }</ColumnValues>
+                        <ColumnValues w='9.5em'>{row.fourthRow || 0}</ColumnValues>
+                        <ColumnValues w='1em'>{(row.percentMonth).toFixed(0) || 0}%</ColumnValues>
+                        <ColumnValues w='10em'>{row.fifthRow}</ColumnValues>
+                        <ColumnValues w='10em'>{row.sixrow || 0}</ColumnValues>
+                        <ColumnValues w='1em'>{(row.percentExtras).toFixed(0)}%</ColumnValues>
+                        <ColumnValues w='15em' onClick={() => projectClickedHandler(row.id)}>
+                            <BsThreeDotsVertical color="#919EAB" className='icon'/>
+                        </ColumnValues>
                         { menuOptionsIsVisible && row.id == rowClicked &&
                             <MenuOptions
                                 positionMenu="25px"
@@ -59,8 +65,11 @@ const Table = ({rows, setOpenModalDelete, setOpenModalEdit, rowClicked, setRowCl
                     <td></td>
                     <td>TOTAL</td>
                     <Total>{totalHours}</Total>
+                    <Total>{totalPerformedHours|| 0}</Total>
+                    <Total>{(totalPercentageMonth).toFixed(0) || 0}%</Total>
                     <Total>{totalOvertime}</Total>
-                    <Total>{totalPercentage}</Total>
+                    <Total>{totalOvertimeExtras}</Total>
+                    <Total>{(totalPercentage).toFixed(0)}%</Total>
                     <td></td>
                 </tr>
             </table>
