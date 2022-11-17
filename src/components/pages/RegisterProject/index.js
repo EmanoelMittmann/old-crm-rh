@@ -245,6 +245,8 @@ const RegisterProject = (props) => {
         hours_mounths_performed: null,
         extra_hours_estimated: overtime,
         extra_hours_performed: null,
+        isTechLead: isTechLead,
+        job_: isTechLead ? "TechLead": jobProject
       },
     })
       .then(async (response) => {

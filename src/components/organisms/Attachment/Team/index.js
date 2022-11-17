@@ -91,25 +91,14 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     getJobs();
   }, []);
 
-
-  // function desibleInput() {
-  //   if(professionalSelected === InputSelect === "isTechLead"){
-  //     return isDisabled
-
-  //   }else{
-  //     setIsDisabled(!isDisabled)
-  //   }
-
+  // function desibleInput() {}
 
   const getJobs = async () => {
     const { data } = await api({
       method: 'get',
       url: `/job/?limit=undefined`,
-
     });
     setJobsMember(data.data);
-
-
   };
 
   function handleRows() {
@@ -120,7 +109,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         avatar: member.avatar,
         name: member?.name,
         job: member?.job_ || member.job?.name,
-        status: member?.is_active || member.status,
+        status: member.status,
         hours_estimed: member?.hours_mounths_estimated || member?.hours_estimed,
         hours_perfomed: member?.hours_mounths_performed,
         extrasHours_estimed:
@@ -148,8 +137,8 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           hours_estimed: hoursMonth,
           extrasHours_estimed: overtime,
           avatar: selected.avatar,
-          job_: jobName,
-          status: selected.is_active,
+          job_:isTechLead? "TechLead": jobName, 
+          status: selected.status,
           isTechLead: isTechLead,
         },
       ]);
@@ -158,7 +147,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     }
     addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName);
     resetInputs();
-
   }
 
   function handleEditMember() {
@@ -201,7 +189,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   function professionalClickHandler(memberId) {
     setMenuOptionsIsVisible(!menuOptionsIsVisible);
     setProfessionalClicked(memberId);
- 
   }
 
   function handleEditModal(hoursMonth, overtime) {
@@ -254,6 +241,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           placeholder="Time"
           width="100%"
           lineWidth="25%"
+          label="Selecionar time"
           reset={reset}
         />
 
@@ -318,9 +306,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           <ProfessionalPercent w="6em">
             {member.hours_perfomed
               ? (
-                  (member?.hours_estimed / member?.hours_perfomed) *
-                  100
-                ).toFixed(1)
+                (member?.hours_estimed / member?.hours_perfomed) *
+                100
+              ).toFixed(1)
               : 0}
             %
           </ProfessionalPercent>
@@ -333,10 +321,10 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           <ProfessionalPercent w="20em">
             {member.extrasHours_performed
               ? (
-                  (member?.extrasHours_estimed /
-                    member?.extrasHours_performed) *
-                  100
-                ).toFixed(1)
+                (member?.extrasHours_estimed /
+                  member?.extrasHours_performed) *
+                100
+              ).toFixed(1)
               : 0}
             %
           </ProfessionalPercent>
