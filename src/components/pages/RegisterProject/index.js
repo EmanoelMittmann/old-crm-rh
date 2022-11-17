@@ -283,12 +283,6 @@ const RegisterProject = (props) => {
   }
 
   function editMember(user_id, workload, extra_hours_limit, jobProject, status) {
-    console.log("jobProject: ", jobProject);
-    console.log("extra_hours_limit: ", extra_hours_limit);
-    console.log("workload: ", workload);
-    console.log("user_id: ", user_id);
-    console.log("status: ", status);
-
     api({
       method: 'put',
       url: `/userProjects/project/${id}`,

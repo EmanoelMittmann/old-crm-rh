@@ -10,40 +10,32 @@ import { ContainerInputs, ContainerButtons, ProfessionalData, Img, DivHours, Con
 import CloseButtonCircle from '../../atoms/Buttons/CloseButtonCircle'
 import api from '../../../api/api.js'
 import ModalRed from '../ModalRed/index.js'
-import MenuOptionsEditProject from '../../atoms/MenuOptionsEditProject/index.js'
-import InputSelectWithLabel from '../../atoms/InputSelectWithLabel/index.js'
 import InputSelect from '../../atoms/InputSelect/index.js'
 
 
 
-
 const ModalEditAttachment = (
-    { CloseButtonClickHandler, team, professionalClicked, editMember }) => {
+    { CloseButtonClickHandler, team, professionalClicked, editMember, setOpenModalEdit }) => {
     const [DataProfessional] = useState(team.find(professional => professional.id === professionalClicked))
     const [jobsMember, setJobsMember] = useState([]);
-    const [status, setStatus] = useState('')
-    const [jobSelected, setJobSelected] = useState(DataProfessional?.job_)
-    const [isOpenModal, setIsOpenModal] = useState(false)
+    const [status, setStatus] = useState(DataProfessional?.status ? "Ativo" : "Inativo")
+    const [jobSelected, setJobSelected] = useState(DataProfessional?.job_ ? DataProfessional.job_ : DataProfessional.job.name)
     const [modalIsVisible, setModalIsVisible] = useState(false)
     const [changeEstimatedTime, setChangeEstimatedTime] = useState(DataProfessional?.hours_mounths_estimated)
     const [changeEstimatedOvertime, setChangeEstimatedOvertime] = useState(DataProfessional?.extra_hours_estimated)
     const [newJob, setNewJob] = useState('')
- 
 
-    // console.log("DataProfessional: ", DataProfessional.job_);
+    const optionStatus = [
+        { id: "Ativo", name: 'Ativo' },
+        { id: "Inativo", name: 'Inativo' }]
 
 
-    const optionStatus = 
-    [
-        {id: 1, name: 'Ativo',},
-        {id: 0, name: 'Inativo',}
-    ]
 
     const handlerModal = () => {
         setModalIsVisible(true)
 
     };
-
+    
     const getJobsMember = async () => {
         const { data } = await api({
             method: 'get',
@@ -51,8 +43,6 @@ const ModalEditAttachment = (
         });
         setJobsMember(data.data);
     };
-
-
 
     useEffect(() => {
         getJobsMember();
@@ -107,15 +97,9 @@ const ModalEditAttachment = (
                         onChange={(e) => setStatus(e.target.value)}
                         value={status}
                         options={optionStatus}
-                        placeHolder="Alterar status"
+                        placeHolder={status}
                         width="175px"
                     />
-                    {isOpenModal &&
-                        <MenuOptionsEditProject padding="0.1em 0.1em 0.1em 1em"
-                            positionMenu="3em"
-                            firstChosenOption={() => setStatus(prev => !prev)}
-                        />
-                    }
                 </ContainerInputsSelect>
                 <ContainerButtons>
                     <CancelButton onClick={CloseButtonClickHandler}>Cancelar</CancelButton>
@@ -130,6 +114,7 @@ const ModalEditAttachment = (
                         <ModalRed
                             id={professionalClicked}
                             redButtonClickHandler={() => {
+                                setOpenModalEdit(false)
                                 const jobName = jobsMember.find(
                                     (job) => job.id === Number(newJob)
                                 )?.name
