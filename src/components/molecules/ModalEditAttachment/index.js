@@ -18,16 +18,16 @@ const ModalEditAttachment = (
     { CloseButtonClickHandler, team, professionalClicked, editMember, setOpenModalEdit }) => {
     const [DataProfessional] = useState(team.find(professional => professional.id === professionalClicked))
     const [jobsMember, setJobsMember] = useState([]);
-    const [status, setStatus] = useState(DataProfessional?.status ? "Ativo" : "Inativo")
-    const [jobSelected, setJobSelected] = useState(DataProfessional?.job_ ? DataProfessional.job_ : DataProfessional.job.name)
+    const [status] = useState(DataProfessional?.status ? "Ativo" : "Inativo")
+    const [jobSelected] = useState(DataProfessional?.job_ ? DataProfessional.job_ : DataProfessional.job.name)
     const [modalIsVisible, setModalIsVisible] = useState(false)
     const [changeEstimatedTime, setChangeEstimatedTime] = useState(DataProfessional?.hours_mounths_estimated)
     const [changeEstimatedOvertime, setChangeEstimatedOvertime] = useState(DataProfessional?.extra_hours_estimated)
     const [newJob, setNewJob] = useState('')
-
+    const[newStatus, setNewStatus] = useState(false)
     const optionStatus = [
-        { id: "Ativo", name: 'Ativo' },
-        { id: "Inativo", name: 'Inativo' }]
+        { id: true , name: 'Ativo' },
+        { id: false , name: 'Inativo' }]
 
 
 
@@ -94,8 +94,7 @@ const ModalEditAttachment = (
                         label="Cargo"
                     />
                     <InputSelect
-                        onChange={(e) => setStatus(e.target.value)}
-                        value={status}
+                        onChange={(e) => setNewStatus(e.target.value)}
                         options={optionStatus}
                         placeHolder={status}
                         width="175px"
@@ -117,8 +116,24 @@ const ModalEditAttachment = (
                                 setOpenModalEdit(false)
                                 const jobName = jobsMember.find(
                                     (job) => job.id === Number(newJob)
-                                )?.name
-                                editMember(professionalClicked, changeEstimatedTime, changeEstimatedOvertime, jobName, status)
+                                )?.name;
+                                if (jobName === undefined) {
+                                    editMember(
+                                        professionalClicked,
+                                        changeEstimatedTime,
+                                        changeEstimatedOvertime,
+                                        jobSelected,
+                                        newStatus
+                                    );
+                                } else {
+                                    editMember(
+                                        professionalClicked,
+                                        changeEstimatedTime,
+                                        changeEstimatedOvertime,
+                                        jobName,
+                                        newStatus
+                                    );
+                                }
                             }}
                             CloseButtonClickHandler={() => setModalIsVisible(false)}
                             title="Alterar dados do profissional"

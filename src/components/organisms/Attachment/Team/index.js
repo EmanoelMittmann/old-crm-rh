@@ -32,27 +32,9 @@ import ModalEditAttachment from '../../../molecules/ModalEditAttachment';
 import api from '../../../../api/api';
 import InputSelect from '../../../atoms/InputSelect';
 import { useEffect } from 'react';
-import {
-  ListHeaderContainer,
-  ListHeaderTitle,
-} from '../../../atoms/ListHeader/style';
-
-const status = {
-  ATIVO: {
-    name: 'Ativo',
-    color: {
-      button_color: '#E4F8DD',
-      text_color: '#229A16',
-    },
-  },
-  INATIVO: {
-    name: 'Inativo',
-    color: {
-      button_color: '#FFE2E1',
-      text_color: '#BB2B3F',
-    },
-  },
-};
+import {ListHeaderContainer} from '../../../atoms/ListHeader/style';
+import { status } from './OptionStatus';
+import ListHeader from './ListHeader';
 
 const AttachmentTeam = ({ attachment, allOptions }) => {
   const { team, setTeam, addMember, removerMember, editMember } = attachment;
@@ -65,7 +47,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   const [isTechLead, setIsTechLead] = useState(false);
   const [hoursMonth, setHoursMonth] = useState('');
   const [overtime, setOvertime] = useState('');
-  const [reset, setReset] = useState(true);
+  const [reset] = useState(true);
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false);
   const [professionalClicked, setProfessionalClicked] = useState('');
@@ -274,18 +256,8 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           Vincular
         </BlueButton>
       </AttachmentForm>
-
       <ListHeaderContainer>
-        <ListHeaderTitle width="23.5em" wrap="nowrap" left="1em">
-          Profissional e Cargo
-        </ListHeaderTitle>
-        <ListHeaderTitle width="10em">Horas Mensais Estimadas</ListHeaderTitle>
-        <ListHeaderTitle width="10em">Horas Mensais Realizadas</ListHeaderTitle>
-        <ListHeaderTitle width="6em">%</ListHeaderTitle>
-        <ListHeaderTitle width="11em">Horas Extras Estimadas</ListHeaderTitle>
-        <ListHeaderTitle width="10em">Horas Extras Realizadas</ListHeaderTitle>
-        <ListHeaderTitle width="20em">%</ListHeaderTitle>
-        <ListHeaderTitle width="10em">Status</ListHeaderTitle>
+     <ListHeader/>
       </ListHeaderContainer>
       {rows.map((member, index) => (
         <AttachmentTableLine key={index}>
