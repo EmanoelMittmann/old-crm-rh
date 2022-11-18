@@ -89,20 +89,20 @@ const RegisterProject = (props) => {
         url: id ? `/project/${id}` : '/project',
         data: id
           ? {
-              ...values,
-              team_cost: values.team_cost
-                .replace('R$', '')
-                .replace('.', '')
-                .replace(',', '.'),
-            }
+            ...values,
+            team_cost: values.team_cost
+              .replace('R$', '')
+              .replace('.', '')
+              .replace(',', '.'),
+          }
           : {
-              ...values,
-              users: teamPayload,
-              team_cost: values.team_cost
-                .replace('R$', '')
-                .replace('.', '')
-                .replace(',', '.'),
-            },
+            ...values,
+            users: teamPayload,
+            team_cost: values.team_cost
+              .replace('R$', '')
+              .replace('.', '')
+              .replace(',', '.'),
+          },
       })
         .then((res) => {
           console.log(res)
@@ -171,7 +171,6 @@ const RegisterProject = (props) => {
       setTeam(data);
     });
   };
-
   useEffect(() => {
     if (!typeOptions.length) getProjectTypeOption();
     if (!typeOptions.length) getStatusOptions();
@@ -251,7 +250,7 @@ const RegisterProject = (props) => {
         extra_hours_estimated: overtime,
         extra_hours_performed: null,
         isTechLead: isTechLead,
-        job_: isTechLead ? "TechLead": jobProject
+        job_: isTechLead ? "TechLead" : jobProject
       },
     })
       .then(async (response) => {
@@ -288,14 +287,18 @@ const RegisterProject = (props) => {
       });
   }
 
-  function editMember(user_id, workload, extra_hours_limit) {
+  function editMember(user_id, workload, extra_hours_limit, jobProject, status) {
     api({
       method: 'put',
       url: `/userProjects/project/${id}`,
       data: {
         user_id: user_id,
-        workload: workload,
-        extra_hours_limit: extra_hours_limit,
+        hours_mounths_estimated: workload,
+        hours_mounths_performed: null,
+        extra_hours_estimated: extra_hours_limit,
+        extra_hours_performed: null,
+        job_: jobProject,
+        status: status
       },
     })
       .then(async (response) => {
@@ -350,7 +353,7 @@ const RegisterProject = (props) => {
         <AttachmentTeam allOptions={allUsers} attachment={attachment} />
         <RegisterFooter
           cancelButtonHandler={footerCancelButtonHandler}
-          registerButtonHandler={() => {}}
+          registerButtonHandler={() => { }}
           buttonDescription={id ? 'Atualizar' : 'Cadastrar'}
           type="submit"
           form="register"
