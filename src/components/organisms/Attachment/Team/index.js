@@ -127,29 +127,10 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       resetInputs();
       return;
     }
-    addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName);
+    addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName, status);
     resetInputs();
   }
 
-  function handleEditMember() {
-    if (!id) {
-      const edited = team.map((member) => {
-        if (member.id === professionalClicked) {
-          return {
-            ...member,
-            hoursMonth: hoursMonthEdit,
-            overtime: overtimeEdit,
-          };
-        }
-        if (member.id !== professionalClicked) {
-          return member;
-        }
-      });
-      setTeam(edited);
-      setOpenModalEdit(false);
-      return;
-    }
-  }
 
   function handleRemoveMember() {
     if (!id) {
@@ -173,11 +154,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     setProfessionalClicked(memberId);
   }
 
-  function handleEditModal(hoursMonth, overtime) {
+  function handleEditModal() {
     setOpenModalEdit(true);
     setMenuOptionsIsVisible(false);
-    setHoursMonthEdit(hoursMonth);
-    setOvertimeEdit(overtime);
   }
 
   function handleRemoveModal() {
@@ -326,9 +305,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
               positionMenu="25px"
               firstOptionDescription={id ? "Editar" : null}
               secondOptionDescription="Remover"
-              firstChosenOption={() =>
-                handleEditModal(member?.hours_estimed, member?.extrasHours_estimed)
-              }
+              firstChosenOption={() => handleEditModal()}
               secondChosenOption={handleRemoveModal}
               padding="0.3em 0.5em 0.3em 1.7em"
               id={member?.id}
@@ -343,7 +320,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
               setWorkload={setHoursMonthEdit}
               setOvertime={setOvertimeEdit}
               overtime={overtimeEdit}
-              saveHandler={handleEditMember}
+              saveHandler={editMember}
               team={team}
               status={status}
             />
