@@ -6,31 +6,35 @@ import {
     ModalTitle,
     ModalOverlay
 } from '../Modal/style.js'
-import { ContainerInputs, ContainerButtons, ProfessionalData, Img, DivHours, ContainerInputsSelect, ModalContainer } from './style.js'
+import { ContainerInputs, ContainerButtons, ProfessionalData, Img, ModalStatus, DivHours, OpenModal, ContainerInputsSelect, ModalContainer } from './style.js'
 import CloseButtonCircle from '../../atoms/Buttons/CloseButtonCircle'
 import api from '../../../api/api.js'
-import ModalRed from '../ModalRed/index.js'
 import InputSelect from '../../atoms/InputSelect/index.js'
+import { BsThreeDotsVertical } from 'react-icons/bs'
+import ModalRed from '../ModalRed/index.js'
+import { BadgeProject } from '../../atoms/BadgeProject/index.js'
+import MenuOptionsEditProject from '../../atoms/MenuOptionsEditProject/index.js'
+
 
 
 
 const ModalEditAttachment = (
-    { CloseButtonClickHandler, team, professionalClicked, editMember, setOpenModalEdit }) => {
+    { CloseButtonClickHandler, setWorkload, setOvertime, team, setOpenModalEdit, professionalClicked, status }) => {
     const [DataProfessional] = useState(team.find(professional => professional.id === professionalClicked))
     const [jobsMember, setJobsMember] = useState([]);
-    const [status] = useState(DataProfessional?.status ? "Ativo" : "Inativo")
-    const [jobSelected] = useState(DataProfessional?.job_ ? DataProfessional.job_ : DataProfessional.job.name)
+    const [isActive, setisActive] = useState(status)
+    const [jobSelected, setJobSelected] = useState(DataProfessional.job_ ? DataProfessional.job_ : DataProfessional.job.name);
+    const [isOpenModal, setIsOpenModal] = useState(false)
     const [modalIsVisible, setModalIsVisible] = useState(false)
-    const [changeEstimatedTime, setChangeEstimatedTime] = useState(DataProfessional?.hours_mounths_estimated)
-    const [changeEstimatedOvertime, setChangeEstimatedOvertime] = useState(DataProfessional?.extra_hours_estimated)
-    const [newJob, setNewJob] = useState('')
-    const [newStatus, setNewStatus] = useState(false)
-
-    const optionStatus = [
-        { id: true, name: 'Ativo' },
-        { id: false, name: 'Inativo' }]
 
 
+
+
+    const professionalClickHandler = () => {
+        setIsOpenModal(prev => !prev)
+        setOpenModalEdit(true)
+
+    }
     const handlerModal = () => {
         setModalIsVisible(true)
 
@@ -44,8 +48,22 @@ const ModalEditAttachment = (
         setJobsMember(data.data);
     };
 
+    const editDataModal = () => {
+        if (DataProfessional === professionalClicked){
+            return DataProfessional.hours_estimed && 
+                DataProfessional.extrasHours_estimed
+        }
+        if (DataProfessional === professionalClicked){
+            return status.selected.is_active
+           
+        }
+
+    }
+
+
     useEffect(() => {
         getJobsMember();
+        editDataModal()
 
     }, [jobSelected]);
 
@@ -60,14 +78,13 @@ const ModalEditAttachment = (
                     <Img src={DataProfessional.avatar} />
                     <p>{DataProfessional.name}</p>
                     <DivHours>
-                        {DataProfessional.hours_mounths_estimated}
+                        {DataProfessional.hours_estimed}
                     </DivHours>
                 </ProfessionalData>
                 <ContainerInputs>
                     <InputWithLabel
-                        value={changeEstimatedTime}
-                        onChange={e => setChangeEstimatedTime(e.target.value)}
-                        type="text"
+                        value={DataProfessional.hours_estimed}
+                        onChange={e => setWorkload(e.target.value)}
                         label="Horas Mensais"
                         widthContainer="45%"
                         padding="0em 0 1em 0"
@@ -75,30 +92,42 @@ const ModalEditAttachment = (
                         error={() => { }}
                     />
                     <InputWithLabel
-                        value={changeEstimatedOvertime}
-                        onChange={e => setChangeEstimatedOvertime(e.target.value)}
-                        type="text"
+                        value={DataProfessional.extrasHours_estimed}
+                        onChange={e => setOvertime(e.target.value)}
                         label="Horas extras"
                         widthContainer="45%"
                         handleBlur={() => { }}
                         error={() => { }}
                     />
                 </ContainerInputs>
+
                 <ContainerInputsSelect>
                     <InputSelect
-                        onChange={(e) => setNewJob(e.target.value)}
-                        value={jobSelected}
+                        onChange={(e) => setJobSelected(e.target.value)}
                         options={jobsMember}
                         placeHolder={jobSelected}
                         width="175px"
-                        label="Cargo"
                     />
-                    <InputSelect
-                        onChange={(e) => setNewStatus(e.target.value)}
-                        options={optionStatus}
-                        placeHolder={status}
-                        width="175px"
-                    />
+                    <ModalStatus >
+                        <BadgeProject
+                            status={DataProfessional.is_active === isActive? status.ATIVO : status.INATIVO}
+                        />
+                        <OpenModal>
+                            <BsThreeDotsVertical
+                                color="#919EAB"
+                                fontSize="25px"
+                                onClick={() => professionalClickHandler()}
+                            />
+                        </OpenModal>
+                    </ModalStatus>
+
+                    {isOpenModal &&
+                        <MenuOptionsEditProject padding="0.1em 0.1em 0.1em 1em"
+                            positionMenu="3em"
+                            firstChosenOption={() => setisActive(prev => !prev)}
+                        firstOptionDescription={DataProfessional.is_active === isActive? "Ativo" : "Inativo"}
+                        />
+                    }
                 </ContainerInputsSelect>
                 <ContainerButtons>
                     <CancelButton onClick={CloseButtonClickHandler}>Cancelar</CancelButton>

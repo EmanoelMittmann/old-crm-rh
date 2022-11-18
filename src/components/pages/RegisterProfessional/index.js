@@ -284,7 +284,7 @@ const RegisterProfessional = () => {
       method: "get",
       url: `/userProjects/user/${id}`,
     });
-    setProjects(data.data);
+    setProjects(data);
   }, []);
 
   const validateCpf = async (cpf) => {
@@ -313,18 +313,22 @@ const RegisterProfessional = () => {
       method: "get",
       url: "/project",
     });
-
     setAllProjects(data.data);
   }, []);
 
-  async function addProject(id_project, workload, extra_hours_limit) {
+  async function addProject(id_project, workload, extra_hours_limit , is_tech_lead) {
     await api({
       method: "post",
       url: `/userProjects/user/${id}`,
       data: {
         id: id_project,
-        workload: workload,
-        extra_hours_limit: extra_hours_limit,
+        extra_hours_estimated: extra_hours_limit,
+        extra_hours_performed:null,
+        hours_mounths_estimated: workload,
+        hours_mounths_performed:null,
+        isTechLead: is_tech_lead,
+        job_: null,
+        status: null
       },
     })
       .then(() => {
@@ -498,6 +502,7 @@ const RegisterProfessional = () => {
         <InputWithLabel
           name="tools"
           width="100%"
+          margin='10px'
           widthContainer="30%"
           label="Ferramentas"
           justify="center"

@@ -32,9 +32,27 @@ import ModalEditAttachment from '../../../molecules/ModalEditAttachment';
 import api from '../../../../api/api';
 import InputSelect from '../../../atoms/InputSelect';
 import { useEffect } from 'react';
-import {ListHeaderContainer} from '../../../atoms/ListHeader/style';
-import { status } from './OptionStatus';
-import ListHeader from './ListHeader';
+import {
+  ListHeaderContainer,
+  ListHeaderTitle,
+} from '../../../atoms/ListHeader/style';
+
+const status = {
+  ATIVO: {
+    name: 'Ativo',
+    color: {
+      button_color: '#E4F8DD',
+      text_color: '#229A16',
+    },
+  },
+  INATIVO: {
+    name: 'Inativo',
+    color: {
+      button_color: '#FFE2E1',
+      text_color: '#BB2B3F',
+    },
+  },
+};
 
 const AttachmentTeam = ({ attachment, allOptions }) => {
   const { team, setTeam, addMember, removerMember, editMember } = attachment;
@@ -69,9 +87,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     handleRows();
   }, [allOptions, team]);
 
-  useEffect(() => {
-    getJobs();
-  }, []);
+  useEffect(()=>{
+    getJobs()
+  },[])
 
 
   const getJobs = async () => {
@@ -169,6 +187,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
       <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
       <ContainerLabel>
+
         <InputSelectWithLabel
           onFocus={() =>
             setDataTechLead(
@@ -183,11 +202,12 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           options={dataTechLead}
           placeholder="Lider"
           width="100%"
-          lineWidth="36%"
+          lineWidth="25%"
           label="selecionar o Lider"
           reset={reset}
         />
       </ContainerLabel>
+  
       <AttachmentForm>
         <InputSelectWithLabel
           onFocus={() =>
@@ -249,7 +269,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
               <ProfessionalJob>{member.job}</ProfessionalJob>
             </div>
           </ProfessionalInfo>
-          <ProfessionalHours>{member?.hours_estimed}</ProfessionalHours>
+          <ProfessionalHours>{member?.hours_estimed || 0}</ProfessionalHours>
           <ProfessionalOvertime width="10em">
             {member?.hours_perfomed || 0}
           </ProfessionalOvertime>
@@ -264,7 +284,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
             %
           </ProfessionalPercent>
           <ProfessionalOvertime width="11em">
-            {member?.extrasHours_estimed}
+            {member?.extrasHours_estimed || 0}
           </ProfessionalOvertime>
           <ProfessionalOvertime width="10em">
             {member?.extrasHours_performed || 0}
