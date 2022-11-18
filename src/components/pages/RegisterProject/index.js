@@ -104,9 +104,14 @@ const RegisterProject = (props) => {
                 .replace(',', '.'),
             },
       })
-        .then(() => {
-          toast.success(<DefaultToast text="Projeto salvo!" />);
-          goBackClickHandler();
+        .then((res) => {
+          console.log(res)
+          if(res.data = `Project with ID: ${values.id} already exists and cannot be duplicated`){
+            return toast.error(<DefaultToast text="Id do projeto ja Existente !" />);
+          }else{
+            toast.success(<DefaultToast text="Projeto salvo!" />);
+            goBackClickHandler();
+          }
         })
         .catch((error) => {
           toast.error(<DefaultToast text="Há erros de validação!" />);

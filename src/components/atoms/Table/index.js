@@ -42,7 +42,7 @@ const Table = ({rows, setOpenModalDelete, setOpenModalEdit, totalOvertimeExtras,
                         <ColumnValues w='9.5em'>{row.thirdRow || 0 }</ColumnValues>
                         <ColumnValues w='9.5em'>{row.fourthRow || 0}</ColumnValues>
                         <ColumnValues w='1em'>{(row.percentMonth).toFixed(0) || 0}%</ColumnValues>
-                        <ColumnValues w='10em'>{row.fifthRow}</ColumnValues>
+                        <ColumnValues w='10em'>{row.fifthRow || 0}</ColumnValues>
                         <ColumnValues w='10em'>{row.sixrow || 0}</ColumnValues>
                         <ColumnValues w='1em'>{(row.percentExtras).toFixed(0)}%</ColumnValues>
                         <ColumnValues w='15em' onClick={() => projectClickedHandler(row.id)}>
