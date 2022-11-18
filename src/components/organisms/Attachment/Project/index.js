@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 
 import { AttachmentContainer, AttachmentForm } from "../style";
 
-import api from "../../../../api/api";
 import { formatDate } from "../../../utils/formatDate";
 import { checkArraysDifference } from "../../../utils/checkArraysDifference";
 
@@ -40,6 +39,9 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
   const [totalHours, setTotalHours] = useState(0);
   const [totalOvertime, setTotalOvertime] = useState(0);
   const [totalPercentage, setTotalPercentage] = useState(0);
+  const [totalPerformedHours, setTotalPerformedHours] = useState(0)
+  const [totalPercentageMonth, settotalPercentageMonth] = useState(0)
+  const [totalOvertimeExtras,setTotalOvertimeExtras] = useState(0)
   const [onlyError, setOnlyError] = useState("");
   const [overtimeProjetctErr, setOvertimeProjectErr] = useState("");
   const [componentJustRenderedCommission, setComponentJustRenderedComission] = useState(false);
@@ -62,10 +64,9 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
   const { id } = useParams();
 
   const { projects, setProjects, addProject, removeProject, editProject } =
-    attachment;
-
-  const calcPercentage = (projectHours) =>
-    Math.trunc((100 * projectHours) / values.mounth_hours);
+  attachment;
+  
+  const calcPercentage = (projectHours) => Math.trunc((projectHours / values.mounth_hours) * 100);
 
   const resetInputs = () => {
     setProjectSelected(null);
@@ -92,9 +93,29 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
     setTotalHours(totalWorkload);
   };
 
+  const calcMensalHoursTotal = () => {
+    const allPerformedHours = rows?.map((project) => {
+      return project.fourthRow
+    });
+    const TotalPerformedHours = allPerformedHours.reduce(function (acc,hours){
+      return +acc + +hours;
+    })
+    return setTotalPerformedHours(TotalPerformedHours)
+  }
+
+  const calcPercentMonth = () => {
+    const allPerformedHours = rows?.map((project) => {
+      return project.percentMonth
+    });
+    const TotalPerformedHours = allPerformedHours.reduce(function (acc,hours){
+      return +acc + +hours;
+    })
+    settotalPercentageMonth(TotalPerformedHours)
+  }
+
   const calcTotalOvertime = () => {
     const allOvertime = rows?.map((project) => {
-      return project.fourthRow;
+      return project.fifthRow;
     });
     const totalOvertime = allOvertime.reduce(function (acc, overtime) {
       return +acc + +overtime;
@@ -102,9 +123,20 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
     return setTotalOvertime(totalOvertime);
   };
 
+  const calcTotalOvertimeExtras = () => {
+    const allOvertime = rows?.map((project) => {
+      return project.sixrow;
+    });
+    const totalOvertime = allOvertime.reduce(function (acc, overtime) {
+      return +acc + +overtime;
+    });
+    return setTotalOvertimeExtras(totalOvertime);
+  };
+
+
   const calcTotalPercentage = () => {
     const allPercentage = rows?.map((project) => {
-      return project.fifthRow;
+      return project.percentExtras;
     });
     const totalPercentage = allPercentage.reduce(function (acc, overtime) {
       return +acc + +overtime;
@@ -120,9 +152,12 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
           id: project.id,
           firstRow: project.name,
           secondRow: formatDate(project.date_start),
-          thirdRow: project.workload,
-          fourthRow: project.extra_hours_limit,
-          fifthRow: calcPercentage(project.workload),
+          thirdRow: project.hours_mounths_estimated,
+          fourthRow: project.hours_mounths_performed,
+          percentMonth: Number(project.hours_mounths_performed) !== 0 ? (project.hours_mounths_estimated/project.hours_mounths_performed) * 100 : 0 ,
+          fifthRow: project.extra_hours_estimated,
+          sixrow: project.extra_hours_performed,
+          percentExtras: Number(project.extra_hours_performed) !== 0 ? (project.extra_hours_estimated/project.extra_hours_performed) * 100 : 0,
         };
         setRows((oldState) => [...oldState, addProjectRows]);
       });
@@ -130,12 +165,15 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
       projects.map((project) => {
         const data = allOptions.find((item) => item.id == project.id);
         const addProjectRows = {
-          id: data.id,
-          firstRow: data.name,
-          secondRow: formatDate(data.date_start),
-          thirdRow: project.workload,
-          fourthRow: project.extra_hours_limit,
-          fifthRow: calcPercentage(project.workload),
+          id: project.id,
+          firstRow: project.name,
+          secondRow: formatDate(project.date_start),
+          thirdRow: project.hours_mounths_estimated,
+          fourthRow: project.hours_mounths_performed,
+          percentMonth: Number(project.hours_mounths_performed) !== 0 ? (project.hours_mounths_estimated/project.hours_mounths_performed) * 100 : 0 ,
+          fifthRow: project.extra_hours_estimated,
+          sixrow: project.extra_hours_performed,
+          percentExtras: Number(project.extra_hours_performed) !== 0 ? (project.extra_hours_estimated/project.extra_hours_performed) * 100 : 0,
         };
         setRows((oldState) => [...oldState, addProjectRows]);
       });
@@ -159,14 +197,18 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
           );
       return;
     }
+    /* */
 
     if (!id) {
       setProjects((oldState) => [
         ...oldState,
         {
           id: selected.id,
-          workload: hoursMonthProject,
-          extra_hours_limit: overtime,
+          hours_mounths_estimated: hoursMonthProject,
+          hours_mounths_performed:null,
+          extra_hours_estimated:overtime,
+          extra_hours_performed:null,
+          job_: null,
         },
     ]);
       resetInputs();
@@ -227,6 +269,9 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
     calcTotalHours();
     calcTotalOvertime();
     calcTotalPercentage();
+    calcMensalHoursTotal()
+    calcPercentMonth()
+    calcTotalOvertimeExtras()
   }, [rows]);
 
   useEffect(() => {
@@ -287,7 +332,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
         <InputWithLabel
           width="100%"
           widthContainer="25%"
-          label="Horas/mês"
+          label="Horas Mensais Estimadas"
           onChange={(e) => setHoursMonthProject(e.target.value)}
           value={hoursMonthProject}
           type="number"
@@ -299,7 +344,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
         <InputWithLabel
           width="100%"
           widthContainer="25%"
-          label="Horas extras"
+          label="Horas Extras Estimadas"
           onChange={(e) => setOvertime(e.target.value)}
           value={overtime}
           type="number"
@@ -320,6 +365,9 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
         rowClicked={projectClicked}
         setRowClicked={setProjectClicked}
         totalHours={totalHours}
+        totalPerformedHours={totalPerformedHours}
+        totalPercentageMonth={totalPercentageMonth}
+        totalOvertimeExtras={totalOvertimeExtras}
         totalOvertime={totalOvertime}
         totalPercentage={totalPercentage}
       />

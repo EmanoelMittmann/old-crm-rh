@@ -6,16 +6,10 @@ import InputMasked from '../../atoms/InputMasked'
 import createNumberMask from 'text-mask-addons/dist/createNumberMask'
 import {
     RegisterProjectForm,
-    ContainerInputWithLabel,
-    ContainerInputProjectStatusSelect,
-    ContainerInputProjectTypeSelect,
     ContainerSecondRow,
     ContainerFirstRow,
-    ContainerThirdLine,
     ContainerSecond,
-    ContainerRegisterProjectData
 } from './style.js'
-import { useEffect } from 'react'
 import InputDate from '../../atoms/InputDate/index.js'
 import { Container } from '../../atoms/Container/index.js'
 

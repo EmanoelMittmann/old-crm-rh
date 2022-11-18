@@ -40,7 +40,7 @@ const InputSelect = ({
           {options?.map((option, index) => (
             <InputSelectOption
               key={index}
-              value={`${option.id ? option.id : ''}`}
+              value={`${option.id}`}
             >
               {option.name || option.razao_social}
             </InputSelectOption>

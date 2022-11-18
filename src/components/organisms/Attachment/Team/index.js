@@ -32,30 +32,13 @@ import ModalEditAttachment from '../../../molecules/ModalEditAttachment';
 import api from '../../../../api/api';
 import InputSelect from '../../../atoms/InputSelect';
 import { useEffect } from 'react';
-import {
-  ListHeaderContainer,
-  ListHeaderTitle,
-} from '../../../atoms/ListHeader/style';
+import {ListHeaderContainer} from '../../../atoms/ListHeader/style';
+import { status } from './OptionStatus';
+import ListHeader from './ListHeader';
 
-const status = {
-  ATIVO: {
-    name: 'Ativo',
-    color: {
-      button_color: '#E4F8DD',
-      text_color: '#229A16',
-    },
-  },
-  INATIVO: {
-    name: 'Inativo',
-    color: {
-      button_color: '#FFE2E1',
-      text_color: '#BB2B3F',
-    },
-  },
-};
 
 const AttachmentTeam = ({ attachment, allOptions }) => {
-  const { team, setTeam, addMember, removerMember } = attachment;
+  const { team, setTeam, addMember, removerMember, editMember } = attachment;
   const [dataTechLead, setDataTechLead] = useState([]);
   const [dataTeam, setDataTeam] = useState([]);
   const [rows, setRows] = useState([]);
@@ -65,7 +48,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   const [isTechLead, setIsTechLead] = useState(false);
   const [hoursMonth, setHoursMonth] = useState('');
   const [overtime, setOvertime] = useState('');
-  const [reset, setReset] = useState(true);
+  const [reset] = useState(true);
   const [modalIsVisible, setModalIsVisible] = useState(false);
   const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false);
   const [professionalClicked, setProfessionalClicked] = useState('');
@@ -87,9 +70,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     handleRows();
   }, [allOptions, team]);
 
-  useEffect(() => {
-    getJobs();
-  }, []);
+  useEffect(()=>{
+    getJobs()
+  },[])
 
 
   const getJobs = async () => {
@@ -145,29 +128,10 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       resetInputs();
       return;
     }
-    addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName);
+    addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName, status);
     resetInputs();
   }
 
-  function handleEditMember() {
-    if (!id) {
-      const edited = team.map((member) => {
-        if (member.id === professionalClicked) {
-          return {
-            ...member,
-            hoursMonth: hoursMonthEdit,
-            overtime: overtimeEdit,
-          };
-        }
-        if (member.id !== professionalClicked) {
-          return member;
-        }
-      });
-      setTeam(edited);
-      setOpenModalEdit(false);
-      return;
-    }
-  }
 
   function handleRemoveMember() {
     if (!id) {
@@ -191,11 +155,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     setProfessionalClicked(memberId);
   }
 
-  function handleEditModal(hoursMonth, overtime) {
+  function handleEditModal() {
     setOpenModalEdit(true);
     setMenuOptionsIsVisible(false);
-    setHoursMonthEdit(hoursMonth);
-    setOvertimeEdit(overtime);
   }
 
   function handleRemoveModal() {
@@ -208,6 +170,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
       <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
       <ContainerLabel>
+
         <InputSelectWithLabel
           onFocus={() =>
             setDataTechLead(
@@ -222,11 +185,12 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           options={dataTechLead}
           placeholder="Lider"
           width="100%"
-          lineWidth="36%"
+          lineWidth="25%"
           label="selecionar o Lider"
           reset={reset}
         />
       </ContainerLabel>
+  
       <AttachmentForm>
         <InputSelectWithLabel
           onFocus={() =>
@@ -274,18 +238,8 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           Vincular
         </BlueButton>
       </AttachmentForm>
-
       <ListHeaderContainer>
-        <ListHeaderTitle width="23.5em" wrap="nowrap" left="1em">
-          Profissional e Cargo
-        </ListHeaderTitle>
-        <ListHeaderTitle width="10em">Horas Mensais Estimadas</ListHeaderTitle>
-        <ListHeaderTitle width="10em">Horas Mensais Realizadas</ListHeaderTitle>
-        <ListHeaderTitle width="6em">%</ListHeaderTitle>
-        <ListHeaderTitle width="11em">Horas Extras Estimadas</ListHeaderTitle>
-        <ListHeaderTitle width="10em">Horas Extras Realizadas</ListHeaderTitle>
-        <ListHeaderTitle width="20em">%</ListHeaderTitle>
-        <ListHeaderTitle width="10em">Status</ListHeaderTitle>
+     <ListHeader/>
       </ListHeaderContainer>
       {rows.map((member, index) => (
         <AttachmentTableLine key={index}>
@@ -298,7 +252,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
               <ProfessionalJob>{member.job}</ProfessionalJob>
             </div>
           </ProfessionalInfo>
-          <ProfessionalHours>{member?.hours_estimed}</ProfessionalHours>
+          <ProfessionalHours>{member?.hours_estimed || 0}</ProfessionalHours>
           <ProfessionalOvertime width="10em">
             {member?.hours_perfomed || 0}
           </ProfessionalOvertime>
@@ -313,7 +267,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
             %
           </ProfessionalPercent>
           <ProfessionalOvertime width="11em">
-            {member?.extrasHours_estimed}
+            {member?.extrasHours_estimed || 0}
           </ProfessionalOvertime>
           <ProfessionalOvertime width="10em">
             {member?.extrasHours_performed || 0}
@@ -354,9 +308,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
               positionMenu="25px"
               firstOptionDescription={id ? "Editar" : null}
               secondOptionDescription="Remover"
-              firstChosenOption={() =>
-                handleEditModal(member?.hours_estimed, member?.extrasHours_estimed)
-              }
+              firstChosenOption={() => handleEditModal()}
               secondChosenOption={handleRemoveModal}
               padding="0.3em 0.5em 0.3em 1.7em"
               id={member?.id}
@@ -366,11 +318,12 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
             <ModalEditAttachment
               professionalClicked={professionalClicked}
               CloseButtonClickHandler={() => setOpenModalEdit(false)}
+              editMember={editMember}
               setOpenModalEdit={setOpenModalEdit}
               setWorkload={setHoursMonthEdit}
               setOvertime={setOvertimeEdit}
               overtime={overtimeEdit}
-              saveHandler={handleEditMember}
+              saveHandler={editMember}
               team={team}
               status={status}
             />
