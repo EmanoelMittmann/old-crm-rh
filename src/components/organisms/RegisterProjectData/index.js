@@ -64,6 +64,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         placeHolder="Tipo de projeto"
                         width="100%"
                         lineWidth="100%"
+                       label="Tipo de Projeto"
                     />
                     </ContainerSecondRow>
                 </ContainerFirstRow>

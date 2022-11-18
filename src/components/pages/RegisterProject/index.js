@@ -28,6 +28,7 @@ const RegisterProject = (props) => {
   const [modalWarningIsVisible, setModalWarningIsVisible] = useState(false);
   const { id } = useParams();
 
+
   const schema = Yup.object().shape({
     name: Yup.string().required(messages.required),
     date_start: Yup.string()
@@ -221,8 +222,8 @@ const RegisterProject = (props) => {
           user_id: user.id,
           hours_mounths_estimated: user.hours_estimed,
           extra_hours_estimated: user.extrasHours_estimed,
-          job_: user.job,
-          isTechLead: false,
+          job_: user.job_,
+          isTechLead: user.isTechLead,
         },
       ]);
     });
@@ -293,7 +294,7 @@ const RegisterProject = (props) => {
         extra_hours_estimated: extra_hours_limit,
         extra_hours_performed: null,
         job_: jobProject,
-        status: status
+        status: status,
       },
     })
       .then(async (response) => {

@@ -35,8 +35,8 @@ const ModalEditAttachment = (
     const [newStatus, setNewStatus] = useState(false)
 
     const optionStatus = [
-        { id: true, name: 'Ativo' },
-        { id: false, name: 'Inativo' }]
+        { id: 1, name: 'Ativo' },
+        { id: 0, name: 'Inativo' }]
 
 
     const handlerModal = () => {
@@ -75,7 +75,7 @@ const ModalEditAttachment = (
                     <InputWithLabel
                         value={changeEstimatedTime}
                         onChange={e => setChangeEstimatedTime(e.target.value)}
-                        type="text"
+                        type="number"
                         label="Horas Mensais"
                         widthContainer="45%"
                         padding="0em 0 1em 0"
@@ -85,7 +85,7 @@ const ModalEditAttachment = (
                     <InputWithLabel
                         value={changeEstimatedOvertime}
                         onChange={e => setChangeEstimatedOvertime(e.target.value)}
-                        type="text"
+                        type="number"
                         label="Horas extras"
                         widthContainer="45%"
                         handleBlur={() => { }}
