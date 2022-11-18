@@ -11,6 +11,8 @@ import {
 } from '../InputSelect/style.js'
 
 const InputProject = ({ setSelectedOption, options, placeholder,width, lineWidth, label, reset}) => {
+
+    console.log(placeholder);
     return ( 
         <InputLine width={lineWidth}>
             {label && <Label>{label}</Label>}

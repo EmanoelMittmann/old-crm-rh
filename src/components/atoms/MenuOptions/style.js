@@ -11,7 +11,7 @@ export const OptionsMenu = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  left: -140px;
+  left: -170px;
   top: ${(props) => props.positionMenu};
   width: 134px;
   height: 90px;

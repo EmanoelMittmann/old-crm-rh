@@ -32,27 +32,10 @@ import ModalEditAttachment from '../../../molecules/ModalEditAttachment';
 import api from '../../../../api/api';
 import InputSelect from '../../../atoms/InputSelect';
 import { useEffect } from 'react';
-import {
-  ListHeaderContainer,
-  ListHeaderTitle,
-} from '../../../atoms/ListHeader/style';
+import {ListHeaderContainer} from '../../../atoms/ListHeader/style';
+import { status } from './OptionStatus';
+import ListHeader from './ListHeader';
 
-const status = {
-  ATIVO: {
-    name: 'Ativo',
-    color: {
-      button_color: '#E4F8DD',
-      text_color: '#229A16',
-    },
-  },
-  INATIVO: {
-    name: 'Inativo',
-    color: {
-      button_color: '#FFE2E1',
-      text_color: '#BB2B3F',
-    },
-  },
-};
 
 const AttachmentTeam = ({ attachment, allOptions }) => {
   const { team, setTeam, addMember, removerMember, editMember } = attachment;
