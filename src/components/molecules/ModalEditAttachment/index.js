@@ -24,18 +24,18 @@ const ModalEditAttachment = (
     const [changeEstimatedTime, setChangeEstimatedTime] = useState(DataProfessional?.hours_mounths_estimated)
     const [changeEstimatedOvertime, setChangeEstimatedOvertime] = useState(DataProfessional?.extra_hours_estimated)
     const [newJob, setNewJob] = useState('')
-    const[newStatus, setNewStatus] = useState(false)
-    const optionStatus = [
-        { id: true , name: 'Ativo' },
-        { id: false , name: 'Inativo' }]
+    const [newStatus, setNewStatus] = useState(false)
 
+    const optionStatus = [
+        { id: true, name: 'Ativo' },
+        { id: false, name: 'Inativo' }]
 
 
     const handlerModal = () => {
         setModalIsVisible(true)
 
     };
-    
+
     const getJobsMember = async () => {
         const { data } = await api({
             method: 'get',
