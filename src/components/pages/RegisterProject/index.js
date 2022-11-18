@@ -105,8 +105,7 @@ const RegisterProject = (props) => {
           },
       })
         .then((res) => {
-          console.log(res)
-          if(res.data = `Project with ID: ${values.id} already exists and cannot be duplicated`){
+          if(res.data === `Project with ID: ${values.id} already exists and cannot be duplicated`){
             return toast.error(<DefaultToast text="Id do projeto ja Existente !" />);
           }else{
             toast.success(<DefaultToast text="Projeto salvo!" />);

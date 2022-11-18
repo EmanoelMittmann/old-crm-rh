@@ -151,7 +151,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
         const addProjectRows = {
           id: project.id,
           firstRow: project.name,
-          secondRow: formatDate(project.date_start),
+          secondRow:formatDate(project.date_start),
           thirdRow: project.hours_mounths_estimated,
           fourthRow: project.hours_mounths_performed,
           percentMonth: Number(project.hours_mounths_performed) !== 0 ? (project.hours_mounths_estimated/project.hours_mounths_performed) * 100 : 0 ,
@@ -163,11 +163,11 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
       });
     } else {
       projects.map((project) => {
-        const data = allOptions.find((item) => item.id == project.id);
+        const data = allOptions.find((item) => item.id === project.id);
         const addProjectRows = {
           id: project.id,
-          firstRow: project.name,
-          secondRow: formatDate(project.date_start),
+          firstRow: data.name,
+          secondRow: formatDate(data.date_start),
           thirdRow: project.hours_mounths_estimated,
           fourthRow: project.hours_mounths_performed,
           percentMonth: Number(project.hours_mounths_performed) !== 0 ? (project.hours_mounths_estimated/project.hours_mounths_performed) * 100 : 0 ,
@@ -197,7 +197,6 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
           );
       return;
     }
-    /* */
 
     if (!id) {
       setProjects((oldState) => [

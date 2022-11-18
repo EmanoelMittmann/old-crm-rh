@@ -51,7 +51,6 @@ const Table = ({rows, setOpenModalDelete, setOpenModalEdit, totalOvertimeExtras,
                         { menuOptionsIsVisible && row.id == rowClicked &&
                             <MenuOptions
                                 positionMenu="25px"
-                                firstOptionDescription="Editar"
                                 secondOptionDescription="Excluir"
                                 firstChosenOption={editHandler}
                                 secondChosenOption={deleteHandler}
@@ -67,8 +66,8 @@ const Table = ({rows, setOpenModalDelete, setOpenModalEdit, totalOvertimeExtras,
                     <Total>{totalHours}</Total>
                     <Total>{totalPerformedHours|| 0}</Total>
                     <Total>{(totalPercentageMonth).toFixed(0) || 0}%</Total>
-                    <Total>{totalOvertime}</Total>
-                    <Total>{totalOvertimeExtras}</Total>
+                    <Total>{totalOvertime || 0}</Total>
+                    <Total>{totalOvertimeExtras || 0}</Total>
                     <Total>{(totalPercentage).toFixed(0)}%</Total>
                     <td></td>
                 </tr>
