@@ -23,19 +23,28 @@ export const Login = () => {
   let history = useHistory();
   const state = useSelector((state) => state.authentication);
   const [user, setUser] = useState(false);
+  const [version, setVersion] = useState('')
 
   const handleSign = (user) => {
     accessLogin(user);
   };
+  const api = axios.create({
+    baseURL: process.env.REACT_APP_URL_API,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const getVersion = async() => {
+    const { data } = await api({
+      method:'GET',
+      url:'/version'
+    })
+    setVersion(data.version)
+  }
 
   const accessLogin = async (googleData) => {
     const decodeJwt = jwt_decode(googleData.credential);
-    const api = axios.create({
-      baseURL: process.env.REACT_APP_URL_API,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
 
     try {
       const { data } = await api({
@@ -55,6 +64,8 @@ export const Login = () => {
           responseValidToken: true,
         })
       );
+
+
 
       history.push('/home');
     } catch (error) {
@@ -83,6 +94,10 @@ export const Login = () => {
     handlePushCredentialInGoogle();
   }, [handleSign, window.google, buttonref.current]);
 
+  useEffect(() => {
+    getVersion()
+  },[])
+  
   return (
     <ContainerLogin>
       <Column1>
@@ -90,6 +105,7 @@ export const Login = () => {
           <LogoUbistart width="200px" margin="0 0 3em 0" />
         </ContainerLogo>
         <ImgTeam src={teamLogin} alt="Comunicação entre o time" />
+        <h4 className='version'>Version: {version}</h4>
       </Column1>
       <Column2>
         <TitleLogin>Faça seu login</TitleLogin>

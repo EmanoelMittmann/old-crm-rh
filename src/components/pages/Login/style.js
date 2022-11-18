@@ -15,6 +15,12 @@ export const Column1 = styled.section`
     align-items: flex-end;
     flex-direction: column;
     justify-content:center;
+    
+    .version{
+        position: relative;
+        top:4em;
+        right: -43em;
+    }
 `
 
 export const Column2 = styled.section`
