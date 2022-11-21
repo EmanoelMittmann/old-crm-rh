@@ -238,9 +238,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           Vincular
         </BlueButton>
       </AttachmentForm>
-      <ListHeaderContainer>
      <ListHeader/>
-      </ListHeaderContainer>
       {rows.map((member, index) => (
         <AttachmentTableLine key={index}>
           <ProfessionalInfo>
@@ -306,7 +304,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           {menuOptionsIsVisible && member?.id === professionalClicked && (
             <MenuOptions
               positionMenu="25px"
-              firstOptionDescription={id ? "Editar" : null}
               secondOptionDescription="Remover"
               firstChosenOption={() => handleEditModal()}
               secondChosenOption={handleRemoveModal}

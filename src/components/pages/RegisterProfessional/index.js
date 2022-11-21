@@ -469,7 +469,6 @@ const RegisterProfessional = () => {
       );
     }
   }, [values.variable1, values.variable2]);
-
   return (
     <>
       <RegisterProfessionalTitleContainer>
