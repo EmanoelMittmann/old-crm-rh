@@ -57,6 +57,8 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   const [overtimeEdit, setOvertimeEdit] = useState('');
   const [jobProject, setJobProject] = useState('');
   const { id } = useParams();
+  
+  
 
   useLayoutEffect(() => {
     const optionsValid = checkArraysDifference({
@@ -74,7 +76,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     getJobs()
   },[])
 
-
   const getJobs = async () => {
     const { data } = await api({
       method: 'get',
@@ -91,12 +92,13 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         avatar: member.avatar,
         name: member?.name,
         job: member?.job_ || member.job?.name,
-        status: member.status,
+        status:member.status,
         hours_estimed: member?.hours_mounths_estimated || member?.hours_estimed,
         hours_perfomed: member?.hours_mounths_performed,
         extrasHours_estimed:
           member.extrasHours_estimed || member.extra_hours_estimated,
         extrasHours_performed: member?.extra_hours_performed,
+        isTechLead : member.isTechLead
       };
       setRows((oldState) => [...oldState, item]);
     });
@@ -121,7 +123,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           extrasHours_estimed: overtime,
           avatar: selected.avatar,
           job_:isTechLead? "TechLead": jobName, 
-          status: selected.status,
+          status: true,
           isTechLead: isTechLead,
         },
       ]);
@@ -131,6 +133,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName, status);
     resetInputs();
   }
+
 
 
   function handleRemoveMember() {
@@ -165,12 +168,15 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     setMenuOptionsIsVisible(false);
   }
 
+ 
+
+
+
   return (
     <AttachmentContainer>
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
       <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
       <ContainerLabel>
-
         <InputSelectWithLabel
           onFocus={() =>
             setDataTechLead(
@@ -183,11 +189,12 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
             setDataTeam([]);
           }}
           options={dataTechLead}
+         /*  disabled={team.find(professional => professional.isTechLead === true)} */
           placeholder="Lider"
           width="100%"
           lineWidth="25%"
           label="selecionar o Lider"
-          reset={reset}
+          reset={resetInputs}
         />
       </ContainerLabel>
   
@@ -217,6 +224,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           width="100%"
           lineWidth="15%"
           label="Cargo"
+          reset={reset}
         />
         <InputText
           width="100%"
@@ -225,14 +233,16 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           onChange={(e) => setHoursMonth(e.target.value)}
           value={hoursMonth}
           type="number"
+          label="Horas Mensais Estimadas"
         />
         <InputText
-          width="100%"
+          width="230px"
           widthLine="20%"
           placeholder="Horas Extras Estimadas"
           onChange={(e) => setOvertime(e.target.value)}
           value={overtime}
           type="number"
+          label="Horas Extras Estimadas"
         />
         <BlueButton width="13%" onClick={handleAddMember} type="button">
           Vincular

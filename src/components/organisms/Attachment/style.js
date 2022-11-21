@@ -9,7 +9,7 @@ export const AttachmentForm = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
-    gap: 20px;
+    gap: 15px;
 `
 
 export const AttachmentTableLine= styled.div`

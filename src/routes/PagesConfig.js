@@ -1,4 +1,4 @@
-import { HomeIcon, InvoiceIcon, JobIcon, OvertimeIcon, ProjectsIcon, ReportsIcon, ServiceOrdersIcon, SettingsIcon } from "../components/atoms/icons/NavIcons";
+import { CompanyIcon, HomeIcon, InvoiceIcon, JobIcon, OvertimeIcon, ProjectsIcon, ReportsIcon, ServiceOrdersIcon, SettingsIcon } from "../components/atoms/icons/NavIcons";
 
 export const templates = [
   {
@@ -141,7 +141,7 @@ export const templates = [
     hasButton: true,
     buttonText: "Cadastrar Nova",
     buttonPath: "/Companies",
-    icon: <ProjectsIcon />,
+    icon: <CompanyIcon/>,
     isRegisterPage: false,
     path: "/Company"
   },
