@@ -17,9 +17,6 @@ function InvoiceUpload() {
   const [fileData, setFileData] = useState(null)
   const [fileXml, setFileXml] = useState(null)
   const [modalIsVisible, setModalIsVisible] = useState(false)
-  console.log("fileXml: ", fileXml);
-  console.log("fileData: ", fileData);
-  
 
   function handleUpload(file) {
     const data = {
@@ -47,20 +44,20 @@ function InvoiceUpload() {
     
     const data = new FormData()
     data.append('param_name_file', fileData.file[0])
+    data.append('param_name_xml', fileXml.file[0])
     
-    console.log(data)
-    // api.post('fiscalNotesProfissionals', data, {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data'
-    //   },
-    // })
-    // .then(() => {
-    //   toast.success(<DefaultToast text="Nota fiscal enviada!" />)
-    //   return history.push("/invoiceSending")
-    // })
-    // .catch(err => {
-    //   return toast.error(<DefaultToast text="Não foi possível completar o upload!" />)
-    // })
+    api.post('fiscalNotesProfissionals', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      },
+    })
+    .then(() => {
+      toast.success(<DefaultToast text="Nota fiscal enviada!" />)
+      return history.push("/invoiceSending")
+    })
+    .catch(err => {
+      return toast.error(<DefaultToast text="Não foi possível completar o upload!" />)
+    })
   }
 
   function cancelUpload() {
@@ -88,11 +85,13 @@ function InvoiceUpload() {
           onUpload={handleUpload} 
           data={fileData}
           type="application/pdf" 
+          
         />
         <DropZone 
           onUpload={handleUploadXML} 
           data={fileXml}
           type="text/xml"
+          xml='xml'
         />
         <RegisterFooter
           cancelButtonHandler={cancelUpload}
