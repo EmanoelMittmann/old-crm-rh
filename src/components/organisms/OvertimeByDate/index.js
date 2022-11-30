@@ -1,4 +1,5 @@
 import React from 'react'
+import InputDate from '../../atoms/InputDate'
 import InputSelect from '../../atoms/InputSelect'
 import InputWithLabel from '../../atoms/InputWithLabel'
 import { Column, Main } from './style'
@@ -10,14 +11,12 @@ export function OvertimeByDate({ data, options }) {
   return (
     <Main>
       <Column>
-        <InputWithLabel
-          label="Data"
-          width="100%"
-          widthContainer="25%"
+        <InputDate
+          width="30%"
+          placeholder="Data da hora extra"
           padding="0 1em 0 0"
-          type="date"
           name="launch_date"
-          value={values.launch_date}
+          date={values.launch_date}
           onChange={handleChange('launch_date')}
           error={errors.launch_date}
           touched={touched.launch_date}
@@ -35,8 +34,8 @@ export function OvertimeByDate({ data, options }) {
             name="hour_quantity"
             value={values.hour_quantity}
             onChange={handleChange('hour_quantity')}
-            label="Quant. horas"
-            widthContainer="25%"
+            label="Quantidade de horas"
+            widthContainer="30%"
             padding="0 0 0 1em"
             type="number"
             handleBlur={setFieldTouched}
@@ -50,7 +49,7 @@ export function OvertimeByDate({ data, options }) {
             value={values.justification}
             onChange={handleChange('justification')}
             label="Justificativa"
-            widthContainer="90%"
+            widthContainer="100%"
             padding="2em 0"
             handleBlur={setFieldTouched}
             error={errors.justification}
