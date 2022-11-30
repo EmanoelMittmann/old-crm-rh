@@ -8,6 +8,7 @@ import { SearchSection } from '../../molecules/SearchSection'
 import { OvertimeList } from '../../organisms/OvertimeList'
 import InputWithLabel from '../../atoms/InputWithLabel'
 import { SearchContainer } from './style'
+import InputDate from '../../atoms/InputDate'
 
 const OvertimeListProfessional = (props) => {
   const [data, setData] = useState()
@@ -56,6 +57,7 @@ const OvertimeListProfessional = (props) => {
   })
   .catch((error) => toast.error(error.message))
   }
+
 
   const handleFilterRequest = (pagesFilter) => {
     if(pagesFilter === undefined) params.page = meta.current_page
@@ -136,38 +138,36 @@ const OvertimeListProfessional = (props) => {
 
   return (
     <Container>
-      <SearchSection fnSearch={setSearch} width="100%" >
+      <SearchSection 
+      fnSearch={setSearch} 
+      width="100%">
         <SearchContainer>
           <InputSelect 
             options={projects}
             onChange={e => setProjectParams(e.target.value)}
             placeHolder="Projeto"
-            width="250px"
+            lineWidth="30%"
           />
           <InputSelect 
             options={status}
             onChange={ e => setStatusParams(e.target.value)}
             placeHolder="Status"
-            width="215px"
+            lineWidth="30%"
           />
-        </SearchContainer>
-        <SearchContainer ml="auto">
-          <InputWithLabel
+          <InputDate
             onChange={e => setInitialDate(e.target.value)}
-            label="Período inicial"
-            value={initialDate}
-            width="250px"
-            widthContainer="100%"
+            placeholder="Período inicial"
+            date={initialDate}
+            width="30%"
             type="date"
             handleBlur={() => {}}
             name="initial_period"
           />
-           <InputWithLabel
+           <InputDate
             onChange={e => setFinalDate(e.target.value)}
-            label="Período final"
-            value={finalDate}
-            width="250px"
-            widthContainer="100%"
+            placeholder="Período final"
+            date={finalDate}
+            width="30%"
             type="date"
             handleBlur={() => {}}
             name="initial_period"
