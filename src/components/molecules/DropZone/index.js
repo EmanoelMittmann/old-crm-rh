@@ -1,10 +1,10 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
 import RedButton from '../../atoms/Buttons/RedButton/style'
-import { DropContainer, Column, Message, Text } from './style'
+import { DropContainer, Column, Message, Text,Span } from './style'
 import {ReactComponent as Img} from '../../../assets/invoice.svg'
 
-function DropZone({onUpload, data}) {
+function DropZone({onUpload, data,type}) {
 
   function renderMessage(isDragActive, isDragReject) {
     if(!isDragActive) {
@@ -19,7 +19,7 @@ function DropZone({onUpload, data}) {
 
   return (
     <Dropzone 
-      accept="application/pdf" 
+      accept={type}
       onDropAccepted={onUpload} 
       maxFiles={1}
       maxSize={5242880}
@@ -34,7 +34,7 @@ function DropZone({onUpload, data}) {
           {!data ? 
             <Column>
               {renderMessage(isDragActive,isDragReject)}
-              <Text>Largue os arquivos aqui ou <span>clique aqui</span> para fazer upload</Text>
+              <Text>Largue os arquivos aqui ou <Span>clique aqui</Span> para fazer upload</Text>
             </Column>
             : 
             <Column>
