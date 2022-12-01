@@ -1,6 +1,4 @@
 import React from 'react'
-import { useState } from 'react'
-import { Badge } from '../../atoms/Badge'
 import { formatDate } from '../../utils/formatDate'
 import { Main, Container, StatusHoursExtra } from './style'
 
