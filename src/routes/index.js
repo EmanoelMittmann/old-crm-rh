@@ -23,6 +23,7 @@ import {ListCompany} from '../components/pages/ListCompany';
 import { RegisterCompanies } from '../components/pages/RegisterCompanies';
 import OrdemService from '../components/pages/OrdemServices';
 import GenerateOS from '../components/organisms/GenerateOrdemService';
+import DetailsRelease from '../components/organisms/DetailsRelease';
 const Routes = () => {
   return (
     <BrowserRouter>
@@ -63,6 +64,7 @@ const Routes = () => {
         <PrivateRoute path="/invoiceSending" component={InvoiceSending} />
         <PrivateRoute path="/invoiceUpload" component={InvoiceUpload} />
         <PrivateRoute path="/releaseHours" component={ReleaseHours} />
+        <PrivateRoute path="/DetailsRelease" component={DetailsRelease} />
       </Switch>
     </BrowserRouter>
   );
