@@ -171,6 +171,8 @@ const RegisterProject = (props) => {
       setTeam(data);
     });
   };
+
+
   useEffect(() => {
     if (!typeOptions.length) getProjectTypeOption();
     if (!typeOptions.length) getStatusOptions();

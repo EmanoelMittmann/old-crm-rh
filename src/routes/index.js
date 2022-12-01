@@ -26,7 +26,7 @@ import GenerateOS from '../components/organisms/GenerateOrdemService';
 import DetailsRelease from '../components/organisms/DetailsRelease';
 const Routes = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter> 
       <Switch>
         <Route exact path="/" component={Login} />
         <PrivateRoute path="/home" component={Home} />

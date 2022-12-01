@@ -33,6 +33,10 @@ export const Column = styled.div`
   margin-left: 4em;
 `
 
+export const Span = styled.span`
+  cursor: pointer;  
+`
+
 export const Message = styled.h3`
 `
 

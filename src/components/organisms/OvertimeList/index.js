@@ -5,7 +5,7 @@ import Footer from '../Footer'
 
 const headers = [
   {
-    name: "#",
+    name: "Item",
     order: true,
     field: "id"
   },

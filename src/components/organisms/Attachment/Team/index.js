@@ -32,7 +32,6 @@ import ModalEditAttachment from '../../../molecules/ModalEditAttachment';
 import api from '../../../../api/api';
 import InputSelect from '../../../atoms/InputSelect';
 import { useEffect } from 'react';
-import {ListHeaderContainer} from '../../../atoms/ListHeader/style';
 import { status } from './OptionStatus';
 import ListHeader from './ListHeader';
 
@@ -169,9 +168,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   }
 
  
-
-
-
   return (
     <AttachmentContainer>
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
@@ -314,6 +310,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           {menuOptionsIsVisible && member?.id === professionalClicked && (
             <MenuOptions
               positionMenu="25px"
+              firstOptionDescription={id ? "Editar" : null}
               secondOptionDescription="Remover"
               firstChosenOption={() => handleEditModal()}
               secondChosenOption={handleRemoveModal}
