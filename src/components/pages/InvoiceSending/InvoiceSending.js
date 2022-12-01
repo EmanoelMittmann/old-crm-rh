@@ -116,7 +116,7 @@ const InvoiceSending = (props) => {
   return (
     <Container>
       <SearchSection fnSearch={setSearch}>
-        <InputDate 
+        <InputDate
           placeholder="Período inicial" 
           onChange={(e) => setInitialDate(e.target.value)} 
           date={initialDate}

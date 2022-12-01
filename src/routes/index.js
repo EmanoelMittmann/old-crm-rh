@@ -25,7 +25,7 @@ import OrdemService from '../components/pages/OrdemServices';
 import GenerateOS from '../components/organisms/GenerateOrdemService';
 const Routes = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter> 
       <Switch>
         <Route exact path="/" component={Login} />
         <PrivateRoute path="/home" component={Home} />

@@ -7,6 +7,7 @@ export const Main = styled.div`
 
 export const Column = styled.div`
   margin: 0em 4em 0em;
-  width: 100%;
+  width: 90%;
+  gap: 2em;
   display: flex;
 `

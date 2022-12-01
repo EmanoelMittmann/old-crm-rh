@@ -29,7 +29,7 @@ const admin = [
 
 const professional = [
   {
-    name: "#",
+    name: "Item",
     order: true,
     field: "id"
   },
