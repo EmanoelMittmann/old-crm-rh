@@ -5,12 +5,12 @@ export const Main = styled.div`
     height: 40px;
     background-color: #F4F6F8;
     border-radius: 8px;
-    display: grid;
+    display: flex;
     grid-template-columns: ${props => props.template};
     padding-left: 3em;
     align-items: center;
     margin-top: 2em;
-
+    gap:8em;
     svg{
         margin-left: 1em;
         cursor: pointer;
@@ -20,15 +20,23 @@ export const Main = styled.div`
 export const Container = styled.div`
     display: flex;
     align-items: center;
+
+     
 `
 
 export const Title = styled.h4`
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     color: black;
+   
+
 `
 export const LastContainer = styled.div`
     display: flex;
     align-items: center;
-    margin-left: 1em;
+
+`
+export const ContainerMain = styled.div`
+    display: flex;
+
 `
