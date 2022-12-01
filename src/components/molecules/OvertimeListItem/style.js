@@ -17,3 +17,8 @@ export const StatusContainer = styled.div`
     align-items: center;
     margin-left: 1em;
 `
+export const ContainerIcon = styled.div`
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+`

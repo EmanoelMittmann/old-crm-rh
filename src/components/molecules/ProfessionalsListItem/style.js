@@ -29,12 +29,14 @@ export const ProfessionalStatus = styled.div`
 
 export const Badge = styled.div`
   width: ${(props) => props.width ? props.width : '150px'};
+  height: ${(props) => props.h};
   padding: 4px 24px;
   border-radius: 50px;
   text-align: center;
   font-size: 0.9rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   white-space: nowrap;
   font-weight: 700;
   background-color: ${(props) => props.bg};

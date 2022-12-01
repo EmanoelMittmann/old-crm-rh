@@ -1,0 +1,32 @@
+import React from "react";
+import { Badge } from "../../../molecules/ProfessionalsListItem/style";
+
+export const Status = ({ data }) => {
+  return (
+    <>
+      {data.status.id === 1 ? (
+        <Badge bg="#FFAE0026" color="#FFAE00" width="200px">
+          {data.status.name}
+        </Badge>
+      ) : data.status.id === 2 ? (
+        <Badge bg="#FFAE0026" color="#FFAE00" width="200px">
+          {data.status.name}
+        </Badge>
+      ) : data.status.id === 4 ? (
+        <Badge bg="#1ECB4F26" color="#1ECB4F" width="200px">
+          {data.status.name}
+        </Badge>
+      ) : data.status.id === 5 ? (
+        <Badge bg="#1ECB4F" color="#FFF" width="200px">
+          {data.status.name}
+        </Badge>
+      ) : data.status.id === 6 ? (
+        <Badge bg="#FF354126" color="#FF3541" width="200px">
+          {data.status.name}
+        </Badge>
+      ) : (
+        ""
+      )}
+    </>
+  );
+};
