@@ -70,6 +70,8 @@ function ReleaseHours() {
     setProjects(data)        
 },[])
 
+
+
   useEffect(() => {
     if(!projects.length) getAllProjects()
   },[])

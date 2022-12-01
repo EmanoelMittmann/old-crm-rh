@@ -12,8 +12,15 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
 `
-export const StatusContainer = styled.div`
-    display: flex;
-    align-items: center;
-    margin-left: 1em;
+
+export const StatusHoursExtra = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 230px;
+  height: 30px;
+  background-color:${props => props.bg};
+  color:${props => props.text};
+  border-radius: 40px;
+  font-weight: 700;
 `
