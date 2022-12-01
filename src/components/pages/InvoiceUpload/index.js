@@ -8,15 +8,16 @@ import AlertInvoice from '../../atoms/AlertInvoice'
 import DropZone from '../../molecules/DropZone'
 import RegisterFooter from '../../molecules/RegisterFooter'
 import TitleContainer from '../../molecules/TitleContainer'
-import { getDate } from '../../utils/getDate'
 import { Container, Text } from './style'
 import ModalRed from '../../molecules/ModalRed'
+import fileSize from 'filesize'
 
 function InvoiceUpload() {
   const history = useHistory()
   const [fileData, setFileData] = useState(null)
+  const [fileXml, setFileXml] = useState(null)
   const [modalIsVisible, setModalIsVisible] = useState(false)
-  
+
   function handleUpload(file) {
     const data = {
       file,
@@ -25,17 +26,26 @@ function InvoiceUpload() {
     return setFileData(data)
   }
 
-  const processUpload = () => {
+  function handleUploadXML(file){
+    const data = {
+      file,
+      filesize: fileSize(file[0].size)
+    }
+    return setFileXml(data)
+  }
 
-    if(fileData === null) {
+  const processUpload = () => {
+    
+    if(fileData === null || fileXml === null) {
       return toast.warn(<DefaultToast text="Arraste ou selecione o arquivo primeiro."/>, {
         toastId: "fileEmpty"
       })
     }
-
+    
     const data = new FormData()
     data.append('param_name_file', fileData.file[0])
-
+    data.append('param_name_xml', fileXml.file[0])
+    
     api.post('fiscalNotesProfissionals', data, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -74,6 +84,14 @@ function InvoiceUpload() {
         <DropZone 
           onUpload={handleUpload} 
           data={fileData}
+          type="application/pdf" 
+          
+        />
+        <DropZone 
+          onUpload={handleUploadXML} 
+          data={fileXml}
+          type="text/xml"
+          xml='xml'
         />
         <RegisterFooter
           cancelButtonHandler={cancelUpload}
