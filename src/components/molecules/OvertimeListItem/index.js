@@ -53,9 +53,9 @@ console.log("Dados", data);
           }
         </ContainerDataIntial>
         <ContainerDataFinal>
-          {item.type === 'BY_DATE'
+          {item.end_date 
             ? formatDate(new Date(item.end_date), { timeZone: 'UTC' })
-            : `${formatDate(new Date(item.end_date), { timeZone: 'UTC' })}`
+            : `${formatDate(new Date(item.launch_date), { timeZone: 'UTC' })}`
           }
         </ContainerDataFinal>
 
