@@ -39,6 +39,18 @@ const professional = [
     field: "created_at"
   },
   {
+    name: "Data de Emissão da NF",
+    order: false
+  },
+  {
+    name: "Número da NF",
+    order: false
+  },
+  {
+    name: "Valor da NF",
+    order: false
+  },
+  {
     name: "Arquivo",
     order: false
   }

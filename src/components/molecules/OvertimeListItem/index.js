@@ -8,9 +8,8 @@ import {
   ContainerCodigo, 
   ContainerDataIntial, 
   ContainerDataFinal, 
-  ContainerDataLancament, 
   ContainerProject, 
-  ContainerIconOptions 
+  ContainerIconOptions,
 } from './style'
 import MenuOptionsEditProject from '../../atoms/MenuOptionsEditProject';
 

@@ -7,6 +7,36 @@ export const Main = styled.div`
     align-items: center;
 `
 
+export const ContainerCodigo = styled.div`
+    display: flex;
+    width: 180px;
+    padding-right:8em;
+    padding-left: 3.3em;
+      position: relative;
+
+`
+export const ContainerDataIntial = styled.div`
+    display: flex;
+     width: 180px;
+     padding-left: 7em;
+       position: relative;
+
+`
+export const ContainerDataFinal = styled.div`
+    display: flex;
+     width: 180px;
+     padding-left: 12.5em;
+       position: relative;
+
+`
+export const ContainerProject = styled.div`
+    display: flex;
+      position: absolute;
+     padding-left: 15.5em;
+     padding-right: 15em;
+     position: relative;
+
+`
 export const StatusHoursExtra = styled.div`
   display: flex;
   justify-content: center;
@@ -20,44 +50,14 @@ export const StatusHoursExtra = styled.div`
   padding-left: 1em;
 `
 
-export const ContainerCodigo = styled.div`
-    display: flex;
-    width: 180px;
-    padding-right:7em;
-    padding-left: 3em;
-
-`
-export const ContainerDataIntial = styled.div`
-    display: flex;
-     width: 180px;
-     padding-left: 5em;
-
-`
-export const ContainerDataFinal = styled.div`
-    display: flex;
-     width: 180px;
-     padding-left: 8.5em;
-
-`
-export const ContainerProject = styled.div`
-    display: flex;
-     padding-left: 10em;
-     padding-right: 4.5em;
-
-`
 export const ContainerIconOptions = styled.div`
   padding: 1em;
   cursor: pointer;
   @media (max-width: 1030px) {
     padding: -6em;
+  }
+`;
 
-`
-export const ContainerDataLancament = styled.div`
-    display: flex;
-     padding-left: 11em;
-      padding-right: 3em;
-
-`
 export const HoursListOptions = styled.div`
   display: flex;
   justify-content: center;
