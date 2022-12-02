@@ -5,12 +5,16 @@ import Footer from '../Footer'
 
 const headers = [
   {
-    name: "Item",
+    name: "Código",
     order: true,
     field: "id"
   },
   {
-    name: "Período",
+    name: "Priodo Inicial",
+    order: false,
+  },
+  {
+    name: "Priodo Final",
     order: false,
   },
   {
