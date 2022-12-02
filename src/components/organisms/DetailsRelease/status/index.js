@@ -12,6 +12,10 @@ export const Status = ({ data }) => {
         <Badge bg="#FFAE0026" color="#FFAE00" width="200px">
           {data.status.name}
         </Badge>
+      ) : data.status.id === 3 ? (
+        <Badge bg="#0066FF26" color="#0066FF" width="200px">
+          {data.status.name}
+        </Badge>
       ) : data.status.id === 4 ? (
         <Badge bg="#1ECB4F26" color="#1ECB4F" width="200px">
           {data.status.name}

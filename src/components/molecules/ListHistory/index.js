@@ -1,49 +1,25 @@
 import React from "react";
+import { Status } from "../../organisms/DetailsRelease/status";
 import { Badge } from "../ProfessionalsListItem/style";
-import { Container, Row } from "./style";
+import { Column, Container, Row } from "./style";
 
-export const ListHistory = () => {
+export const ListHistory = ({ data }) => {
   return (
     <>
       <Container>
         <Row>
-          <div className="col">
-            <Badge bg="#FF354126" color="#FF3541" width="20em" h="2em">
-              Negado
-            </Badge>
-          </div>
-          <div className="col">
-            <p4>12/12/2001</p4>
-          </div>
-          <div className="col">
-            <p2 className='text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sagittis sem non purus efficitur, nec vehicula nisl malesuada. Suspendisse urna massa, bibendum ac lacus sit amet, facilisis scelerisque felis.</p2>
-          </div>
-        </Row>
-        <Row>
-          <div className="col">
-            <Badge bg="#FF354126" color="#FF3541" width="20em" h="2em">
-              Negado
-            </Badge>
-          </div>
-          <div className="col">
-            <p4>12/12/2001</p4>
-          </div>
-          <div className="col">
-            <p2 className='text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sagittis sem non purus efficitur, nec vehicula nisl malesuada. Suspendisse urna massa, bibendum ac lacus sit amet, facilisis scelerisque felis.</p2>
-          </div>
-        </Row>
-        <Row>
-          <div className="col">
-            <Badge bg="#FF354126" color="#FF3541" width="20em" h="2em">
-              Negado
-            </Badge>
-          </div>
-          <div className="col">
-            <p4>12/12/2001</p4>
-          </div>
-          <div className="col">
-            <p2 className='text'>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sagittis sem non purus efficitur, nec vehicula nisl malesuada. Suspendisse urna massa, bibendum ac lacus sit amet, facilisis scelerisque felis.</p2>
-          </div>
+          <Column>
+            <Status data={data} />
+          </Column>
+          <Column>{data.env_data}</Column>
+          <Column>
+            <div className="popover__wrapper">
+              <p className="popover__title">{data.justification}</p>
+              <div className="popover__content">
+                <p className="popover__message">{data.justification}</p>
+              </div>
+            </div>
+          </Column>
         </Row>
       </Container>
     </>

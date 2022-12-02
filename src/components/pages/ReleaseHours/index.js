@@ -38,7 +38,7 @@ function ReleaseHours() {
       end_date: '',
       project_id: '',
       type: 'BY_DATE',
-      extra_hours_status_id: 1
+      extra_hours_status_id: 1,
     },
     onSubmit: async (values) => {
       await api({
@@ -69,6 +69,8 @@ function ReleaseHours() {
     })
     setProjects(data)        
 },[])
+
+
 
   useEffect(() => {
     if(!projects.length) getAllProjects()

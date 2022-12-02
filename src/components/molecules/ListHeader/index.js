@@ -1,20 +1,23 @@
 import React from 'react';
-import { Main, Container, Title, LastContainer } from './style';
+import { Main, Container, Title, LastContainer, ContainerMain } from './style';
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg';
 import { LocalStorageKeys } from '../../../settings/LocalStorageKeys';
 
 const componentes = (data, fnOrder) => {
   return data.map((item, index) =>
     item.endContainer ? (
+      <ContainerMain>
       <LastContainer key={index}>
         <Title>{item.name}</Title>
       </LastContainer>
+      </ContainerMain>
     ) : (
       <Container key={index}>
         <Title>{item.name}</Title>
         {item.order ? <Arrows onClick={() => fnOrder(item.field)} /> : <></>}
       </Container>
     )
+     
   );
 };
 

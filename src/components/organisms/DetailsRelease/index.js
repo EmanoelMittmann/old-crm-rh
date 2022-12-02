@@ -18,6 +18,8 @@ import {
 import { useState } from "react";
 import { useEffect } from "react";
 import { Status } from "./status";
+import { history } from "./mock";
+
 const DetailsRelease = () => {
   const [requestData, setRequestData] = useState([]);
   let { id } = useParams();
@@ -26,7 +28,7 @@ const DetailsRelease = () => {
     try {
       const { data } = await api({
         method: "GET",
-        url: `/extraHoursReleases/15`,
+        url: `/extraHoursReleases/${id}`,
       });
       setRequestData(data);
     } catch (error) {
@@ -35,19 +37,8 @@ const DetailsRelease = () => {
   };
 
   useEffect(() => {
-    getLaunchedHours();
+    getLaunchedHours(id);
   }, [id]);
-
-  // const colorBg = 
-  //   corporation.registration_status === 'ACTIVE' ? '#ddf7e5' : 
-  //     corporation.registration_status === 'SUSPENDED' ? '#fff3d9' : 
-  //       corporation.registration_status === 'NULL' ? '#F5F5F5' :
-  //         corporation.registration_status === 'UNFIT' ? '#FFE1E3' : '#FFE1E3'
-  // const colorText = 
-  //   corporation.registration_status === 'ACTIVE' ? '#1ECB4F' : 
-  //     corporation.registration_status === 'SUSPENDED' ? '#FFAE00' :  
-  //       corporation.registration_status === 'NULL' ? '#000000' :
-  //         corporation.registration_status === 'UNFIT' ? '#FF3541' : '#FF3541'
 
   return (
     <>
@@ -56,24 +47,21 @@ const DetailsRelease = () => {
         <Container>
           <Flex>
             <Text>Lançamento #{data.id}</Text>
-            <Status data={data}/>
+            <Status data={data} />
           </Flex>
           <Flex mt="10px">
             <p1 className="text">{data.project.name}</p1>
-            <p2>
-              Lançado{" "}
-              {data.launch_date && formatDate(data.launch_date)}
-            </p2>
+            <p2>Lançado {data.launch_date && formatDate(data.launch_date)}</p2>
           </Flex>
           <Table>
             <HeaderTable />
-            <RowsTable data={data}/>
+            <RowsTable data={data} />
           </Table>
           <Flex mt="2em">
             <h3>Histórico</h3>
           </Flex>
           <History>
-            <ListHistory />
+            {history.map(item => <ListHistory data={item}/>)} 
           </History>
         </Container>
       ))}

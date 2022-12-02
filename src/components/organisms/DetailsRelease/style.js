@@ -10,9 +10,10 @@ export const Container = styled.div`
 `;
 
 export const History = styled.div`
-    display: flex;
-    flex-direction: column;
-`
+  display: flex;
+  height: 17.5em;
+  flex-direction: column;
+`;
 
 export const Flex = styled.div`
   display: flex;
@@ -40,5 +41,5 @@ export const Table = styled.table`
   margin-top: 50px;
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid #CCD1D6;
+  border-bottom: 1px solid #ccd1d6;
 `;
