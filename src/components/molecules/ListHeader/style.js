@@ -6,11 +6,10 @@ export const Main = styled.div`
     background-color: #F4F6F8;
     border-radius: 8px;
     display: flex;
-    grid-template-columns: ${props => props.template};
     padding-left: 3em;
     align-items: center;
     margin-top: 2em;
-    gap:8em;
+    gap:10em;
     svg{
         margin-left: 1em;
         cursor: pointer;
@@ -34,6 +33,7 @@ export const Title = styled.h4`
 export const LastContainer = styled.div`
     display: flex;
     align-items: center;
+        padding-left: 10em;
 
 `
 export const ContainerMain = styled.div`

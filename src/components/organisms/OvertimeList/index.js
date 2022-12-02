@@ -17,11 +17,6 @@ const headers = [
     name: "Priodo Final",
     order: false,
   },
-
-  {
-    name: "Data de Lançamento",
-    order: false,
-  },
   {
     name: "Projeto",
     order: false,

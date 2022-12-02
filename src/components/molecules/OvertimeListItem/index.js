@@ -38,7 +38,6 @@ return [colorBg, colortext]
 );
   };
 
-
 console.log("Dados", data);
   return (
     data ? data.map((item, index) =>
@@ -58,13 +57,6 @@ console.log("Dados", data);
             : `${formatDate(new Date(item.launch_date), { timeZone: 'UTC' })}`
           }
         </ContainerDataFinal>
-
-        <ContainerDataLancament>
-          {item.type === 'BY_DATE'
-            ? formatDate(new Date(item.launch_date), { timeZone: 'UTC' })
-            : `${formatDate(new Date(item.launch_date), { timeZone: 'UTC' })}`
-          }
-        </ContainerDataLancament>
         <ContainerProject>
           {item.project.name}
         </ContainerProject>
