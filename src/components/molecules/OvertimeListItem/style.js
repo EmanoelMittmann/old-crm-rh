@@ -50,13 +50,12 @@ export const ContainerIconOptions = styled.div`
   cursor: pointer;
   @media (max-width: 1030px) {
     padding: -6em;
-
+  }
 `
 export const ContainerDataLancament = styled.div`
     display: flex;
      padding-left: 11em;
       padding-right: 3em;
-
 `
 export const HoursListOptions = styled.div`
   display: flex;
@@ -69,3 +68,8 @@ export const HoursListOptions = styled.div`
   }
 `;
 
+export const ContainerIcon = styled.div`
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+`

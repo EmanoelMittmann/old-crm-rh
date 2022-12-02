@@ -127,7 +127,6 @@ const OvertimeListProfessional = (props) => {
     })
   }
 
-
   useEffect(() => {
     getProjects()
     getStatus()

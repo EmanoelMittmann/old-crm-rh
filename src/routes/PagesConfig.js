@@ -1,4 +1,14 @@
-import { CompanyIcon, HomeIcon, InvoiceIcon, JobIcon, OvertimeIcon, ProjectsIcon, ReportsIcon, ServiceOrdersIcon, SettingsIcon } from "../components/atoms/icons/NavIcons";
+import {
+  CompanyIcon,
+  HomeIcon,
+  InvoiceIcon,
+  JobIcon,
+  OvertimeIcon,
+  ProjectsIcon,
+  ReportsIcon,
+  ServiceOrdersIcon,
+  SettingsIcon,
+} from "../components/atoms/icons/NavIcons";
 
 export const templates = [
   {
@@ -9,7 +19,7 @@ export const templates = [
     buttonPath: "",
     icon: <HomeIcon />,
     isRegisterPage: false,
-    path: "/home"
+    path: "/home",
   },
   {
     id: 2,
@@ -19,7 +29,7 @@ export const templates = [
     buttonPath: "/professional",
     icon: <JobIcon />,
     isRegisterPage: false,
-    path: "/professionals"
+    path: "/professionals",
   },
   {
     id: 3,
@@ -29,7 +39,7 @@ export const templates = [
     buttonPath: "/project",
     icon: <ProjectsIcon />,
     isRegisterPage: false,
-    path: "/projects"
+    path: "/projects",
   },
   {
     id: 4,
@@ -39,7 +49,7 @@ export const templates = [
     buttonPath: "",
     icon: <OvertimeIcon />,
     isRegisterPage: false,
-    path: "/overtime"
+    path: "/overtime",
   },
   {
     id: 5,
@@ -49,7 +59,7 @@ export const templates = [
     buttonPath: "",
     icon: <InvoiceIcon />,
     isRegisterPage: false,
-    path: "/invoice"
+    path: "/invoice",
   },
   {
     id: 6,
@@ -59,7 +69,7 @@ export const templates = [
     buttonPath: "",
     icon: <ReportsIcon />,
     isRegisterPage: false,
-    path: "/reports"
+    path: "/reports",
   },
   {
     id: 7,
@@ -67,9 +77,9 @@ export const templates = [
     hasButton: true,
     buttonText: "Criar nova O.S.",
     buttonPath: "/NewOs",
-    secondButton:true,
+    secondButton: true,
     secondButtonText: "Gerar O.S.",
-    secondButtonPath:'/GenerateOs',
+    secondButtonPath: "/GenerateOs",
     icon: <ServiceOrdersIcon />,
     isRegisterPage: false,
     path: "/serviceOrders",
@@ -83,7 +93,7 @@ export const templates = [
     buttonPath: "",
     icon: <SettingsIcon />,
     isRegisterPage: false,
-    path: "/job"
+    path: "/job",
   },
   {
     id: 9,
@@ -93,7 +103,7 @@ export const templates = [
     buttonPath: "",
     icon: <SettingsIcon />,
     isRegisterPage: false,
-    path: "/projectType"
+    path: "/projectType",
   },
   {
     id: 10,
@@ -103,7 +113,7 @@ export const templates = [
     buttonPath: "",
     icon: <SettingsIcon />,
     isRegisterPage: false,
-    path: "/projectStatus"
+    path: "/projectStatus",
   },
   {
     id: 11,
@@ -113,7 +123,7 @@ export const templates = [
     buttonPath: "/releaseHours",
     icon: <OvertimeIcon />,
     isRegisterPage: false,
-    path: "/timeSending"
+    path: "/timeSending",
   },
   {
     id: 12,
@@ -123,7 +133,7 @@ export const templates = [
     buttonPath: "/invoiceUpload",
     icon: <InvoiceIcon />,
     isRegisterPage: false,
-    path: "/invoiceSending"
+    path: "/invoiceSending",
   },
   {
     id: 13,
@@ -133,7 +143,7 @@ export const templates = [
     buttonPath: "",
     icon: <SettingsIcon />,
     isRegisterPage: false,
-    path: "/occupation"
+    path: "/occupation",
   },
   {
     id: 14,
@@ -141,12 +151,11 @@ export const templates = [
     hasButton: true,
     buttonText: "Cadastrar Nova",
     buttonPath: "/Companies",
-    icon: <CompanyIcon/>,
+    icon: <CompanyIcon />,
     isRegisterPage: false,
-    path: "/Company"
+    path: "/Company",
   },
-
-]
+];
 
 export const noTemplate = {
   name: "Sem template",
@@ -155,4 +164,4 @@ export const noTemplate = {
   buttonPath: "",
   icon: <></>,
   isRegisterPage: true,
-}
+};

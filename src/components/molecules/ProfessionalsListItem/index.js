@@ -5,7 +5,6 @@ import api from '../../../api/api'
 import ModalRed from '../../molecules/ModalRed'
 import MenuOptions from '../../atoms/MenuOptions'
 import {ReactComponent as OptionsIcon} from '../../../assets/icons/options.svg'
-import { TeamMemberPic } from '../../atoms/TeamMemberPic/style.js'
 import { 
     ContainerProfessionalsListItem,
     ProfessionalEmail,
