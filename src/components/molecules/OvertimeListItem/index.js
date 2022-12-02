@@ -37,8 +37,7 @@ return [colorBg, colortext]
     setOptionClicked(extra_hours_status_id
 );
   };
-
-console.log("Dados", data);
+  
   return (
     data ? data.map((item, index) =>
       <Main key={index}>
