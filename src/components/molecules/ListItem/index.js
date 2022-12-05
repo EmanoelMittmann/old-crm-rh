@@ -42,7 +42,7 @@ const professional = (data, downloadFile) =>
           {formatDate(new Date(item.file_xml.date_emission_nf), { timeZone: 'UTC' })}
         </ContainerDateEmissaoNF>
         <ContainerNumberNF>{item.file_xml.number_nf}</ContainerNumberNF>
-        <ContainervalueNF>{item.file_xml.value_nf}</ContainervalueNF>
+        <ContainervalueNF>R$ {item.file_xml.value_nf}</ContainervalueNF>
         <ContainerArquivo>
           <Button onClick={() => downloadFile(item.file_id, item.file.name)}>
             {item.file.name}
