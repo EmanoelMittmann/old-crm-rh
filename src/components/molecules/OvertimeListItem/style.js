@@ -63,11 +63,12 @@ export const ContainerDataLancament = styled.div`
 export const HoursListOptions = styled.div`
   display: flex;
   justify-content: center;
-  position: absolute;
+  position:absolute;
   left: 85%;
 
   svg {
     fill: ${(props) => props.optionsColor};
+
   }
 `;
 

@@ -31,24 +31,18 @@ export const ListHeaderDataInicio = styled.div`
 `;
 export const ListHeaderDataFinal = styled.div`
   display: flex;
-  width: 25.5%;
+  width: 18.5%;
 
 `;
 
 
 export const ListHeadeProjeto = styled.div`
   display: flex;
-  width: 20%;
-   margin-left:-8em;
+  width: 15%;
 `;
 
 export const ListHeaderStatus = styled.div`
   display: flex;
-  width: 35%;
+  width: 39.5%;
 `;
 
-
-export const ArquivoNF = styled.div`
-  display: flex;
-  width: 18%;
-`;
