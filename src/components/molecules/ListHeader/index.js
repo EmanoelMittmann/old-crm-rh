@@ -6,11 +6,9 @@ import { LocalStorageKeys } from '../../../settings/LocalStorageKeys';
 const componentes = (data, fnOrder) => {
   return data.map((item, index) =>
     item.endContainer ? (
-      <ContainerMain>
       <LastContainer key={index}>
         <Title>{item.name}</Title>
       </LastContainer>
-      </ContainerMain>
     ) : (
       <Container key={index}>
         <Title>{item.name}</Title>

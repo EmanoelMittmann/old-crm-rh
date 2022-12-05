@@ -19,10 +19,8 @@ export const Main = styled.div`
 export const Container = styled.div`
     display: flex;
     align-items: center;
-
-     
+  
 `
-
 export const Title = styled.h4`
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
@@ -36,7 +34,4 @@ export const LastContainer = styled.div`
         padding-left: 10em;
 
 `
-export const ContainerMain = styled.div`
-    display: flex;
 
-`

@@ -2,7 +2,7 @@ import React from 'react';
 import { LocalStorageKeys } from '../../../settings/LocalStorageKeys';
 import { TeamMemberPic } from '../../atoms/TeamMemberPic/style';
 import { formatDate } from '../../utils/formatDate';
-import { Main, Container, Button } from './style';
+import { Main, Container, Button, ContainerId, ContainerDateLançamento, ContainerNumberNF, ContainervalueNF, ContainerArquivo, ContainerDateEmissaoNF } from './style';
 
 const admin = (data, downloadFile) =>
   data.map((item, index) => {
@@ -34,17 +34,24 @@ const professional = (data, downloadFile) =>
   data.map((item, index) => {
     return (
       <Main template=".5fr 1fr 2fr 1fr" key={index}>
-        <Container>{item.id}</Container>
-        <Container>
+        <ContainerId>{item.id}</ContainerId>
+        <ContainerDateLançamento>
           {formatDate(new Date(item.created_at), { timeZone: 'UTC' })}
-        </Container>
-        <Container>
+        </ContainerDateLançamento>
+        <ContainerDateEmissaoNF>
+          {formatDate(new Date(item.file_xml.date_emission_nf), { timeZone: 'UTC' })}
+        </ContainerDateEmissaoNF>
+        <ContainerNumberNF>{item.file_xml.number_nf}</ContainerNumberNF>
+        <ContainervalueNF>{item.file_xml.value_nf}</ContainervalueNF>
+        <ContainerArquivo>
           <Button onClick={() => downloadFile(item.file_id, item.file.name)}>
             {item.file.name}
           </Button>
-        </Container>
+        </ContainerArquivo>
       </Main>
+      
     );
+ 
   });
 
 function ListItem({ data, downloadFile }) {
