@@ -1,97 +1,107 @@
-import React, { useState } from 'react'
-import { useHistory } from "react-router-dom"
-import filesize from 'filesize'
-import api from '../../../api/api'
-import { toast } from 'react-toastify'
-import { DefaultToast } from '../../atoms/Toast/DefaultToast'
-import AlertInvoice from '../../atoms/AlertInvoice'
-import DropZone from '../../molecules/DropZone'
-import RegisterFooter from '../../molecules/RegisterFooter'
-import TitleContainer from '../../molecules/TitleContainer'
-import { Container, Text } from './style'
-import ModalRed from '../../molecules/ModalRed'
-import fileSize from 'filesize'
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import filesize from "filesize";
+import api from "../../../api/api";
+import { toast } from "react-toastify";
+import { DefaultToast } from "../../atoms/Toast/DefaultToast";
+import AlertInvoice from "../../atoms/AlertInvoice";
+import DropZone from "../../molecules/DropZone";
+import RegisterFooter from "../../molecules/RegisterFooter";
+import TitleContainer from "../../molecules/TitleContainer";
+import { Container, Text } from "./style";
+import ModalRed from "../../molecules/ModalRed";
+import fileSize from "filesize";
+import { requestCheckDataInvalid } from "../../utils/requestCheckDataInvalid";
 
 function InvoiceUpload() {
-  const history = useHistory()
-  const [fileData, setFileData] = useState(null)
-  const [fileXml, setFileXml] = useState(null)
-  const [modalIsVisible, setModalIsVisible] = useState(false)
+  const history = useHistory();
+  const [fileData, setFileData] = useState(null);
+  const [fileXml, setFileXml] = useState(null);
+  const [modalIsVisible, setModalIsVisible] = useState(false);
 
   function handleUpload(file) {
     const data = {
       file,
       fileSize: filesize(file[0].size),
-    }
-    return setFileData(data)
+    };
+    return setFileData(data);
   }
 
-  function handleUploadXML(file){
+  function handleUploadXML(file) {
     const data = {
       file,
-      filesize: fileSize(file[0].size)
-    }
-    return setFileXml(data)
+      filesize: fileSize(file[0].size),
+    };
+    return setFileXml(data);
   }
 
   const processUpload = () => {
-    
-    if(fileData === null || fileXml === null) {
-      return toast.warn(<DefaultToast text="Arraste ou selecione o arquivo primeiro."/>, {
-        toastId: "fileEmpty"
-      })
+    if (fileData === null || fileXml === null) {
+      return toast.warn(
+        <DefaultToast text="Arraste ou selecione o arquivo primeiro." />,
+        {
+          toastId: "fileEmpty",
+        }
+      );
     }
-    
-    const data = new FormData()
-    data.append('param_name_file', fileData.file[0])
-    data.append('param_name_xml', fileXml.file[0])
-    
-    api.post('fiscalNotesProfissionals', data, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      },
-    })
-    .then(() => {
-      toast.success(<DefaultToast text="Nota fiscal enviada!" />)
-      return history.push("/invoiceSending")
-    })
-    .catch(err => {
-      return toast.error(<DefaultToast text="Não foi possível completar o upload!" />)
-    })
-  }
+
+    const data = new FormData();
+    data.append("param_name_file", fileData.file[0]);
+    data.append("param_name_xml", fileXml.file[0]);
+
+    api
+      .post("fiscalNotesProfissionals", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        if (response.data.error) {
+          requestCheckDataInvalid(response);
+        } else {
+          toast.success(<DefaultToast text="Nota fiscal enviada!" />);
+          return history.push("/invoiceSending");
+        }
+      })
+      .catch((err) => {
+        return toast.error(
+          <DefaultToast text="Não foi possível completar o upload!" />
+        );
+      });
+  };
 
   function cancelUpload() {
-    !fileData ? history.push("/invoiceSending") : setModalIsVisible(true)
+    !fileData ? history.push("/invoiceSending") : setModalIsVisible(true);
   }
 
-  return ( 
+  return (
     <>
-      { modalIsVisible && 
+      {modalIsVisible && (
         <ModalRed
-          CloseButtonClickHandler={() => {setModalIsVisible(false)}}
-          redButtonClickHandler={() => {history.push("/invoiceSending")}}
+          CloseButtonClickHandler={() => {
+            setModalIsVisible(false);
+          }}
+          redButtonClickHandler={() => {
+            history.push("/invoiceSending");
+          }}
           title="Cancelar o upload"
           message="Tem certeza que deseja cancelar o upload?"
-        /> }
+        />
+      )}
       <TitleContainer backToPath="/invoiceSending" title="Enviar NF" />
       <Container>
-        <AlertInvoice 
-          text="O envio das NF devem ser feitas até o dia 25 de cada mês."
-        />
-        <Text>
-          Upload Nota Fiscal
-        </Text>
-        <DropZone 
-          onUpload={handleUpload} 
+        <AlertInvoice text="O envio das NF devem ser feitas até o dia 25 de cada mês." />
+        <Text>Upload Nota Fiscal</Text>
+        <DropZone
+          onUpload={handleUpload}
           data={fileData}
-          type="application/pdf" 
-          
+          type="application/pdf"
         />
-        <DropZone 
-          onUpload={handleUploadXML} 
+        <DropZone
+          onUpload={handleUploadXML}
           data={fileXml}
           type="text/xml"
-          xml='xml'
+          xml="xml"
         />
         <RegisterFooter
           cancelButtonHandler={cancelUpload}
@@ -99,8 +109,8 @@ function InvoiceUpload() {
           buttonDescription="Enviar"
         />
       </Container>
-    </> 
-  ) 
+    </>
+  );
 }
 
-export default InvoiceUpload
+export default InvoiceUpload;
