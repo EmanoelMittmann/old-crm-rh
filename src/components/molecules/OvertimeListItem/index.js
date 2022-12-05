@@ -12,10 +12,12 @@ import {
   ContainerIconOptions,
 } from './style'
 import MenuOptionsEditProject from '../../atoms/MenuOptionsEditProject';
+import { useHistory } from 'react-router-dom';
 
 export function OvertimeListItem({ data }) {
   const [optionClicked, setOptionClicked] = useState();
   const [menuOptionsisClicked, setMenuOptionsisClicked] = useState(false);
+  const history = useHistory()
   const transformColor = (status) => {
     const colorBg = status === 1 ? "#fff3d9"
       : status === 2 ? "#fff3d9"
@@ -76,6 +78,7 @@ return [colorBg, colortext]
           <MenuOptionsEditProject
             positionMenu="13px"
             firstOptionDescription="Detalhes"
+            firstChosenOption={() => history.push(`/DetailsRelease/${item.id}`)}
             padding="0.3em 0.5em 0.3em 1.7em"
             id={optionClicked}
           />
