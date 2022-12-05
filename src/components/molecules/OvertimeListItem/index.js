@@ -30,11 +30,9 @@ export function OvertimeListItem({ data }) {
 return [colorBg, colortext]
 }
 
-  const menuOptionsClicked = (extra_hours_status_id
-) => {
+  const menuOptionsClicked = (extra_hours_status_id) => {
     setMenuOptionsisClicked(!menuOptionsisClicked);
-    setOptionClicked(extra_hours_status_id
-);
+    setOptionClicked(extra_hours_status_id);
   };
   
   return (

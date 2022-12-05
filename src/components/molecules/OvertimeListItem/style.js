@@ -9,45 +9,42 @@ export const Main = styled.div`
 
 export const ContainerCodigo = styled.div`
     display: flex;
-    width: 180px;
-    padding-right:8em;
+    width: 5%;
     padding-left: 3.3em;
-      position: relative;
 
 `
 export const ContainerDataIntial = styled.div`
     display: flex;
-     width: 180px;
-     padding-left: 7em;
-       position: relative;
+     width: 20%;
+     padding-left: 8em;
 
 `
 export const ContainerDataFinal = styled.div`
     display: flex;
-     width: 180px;
-     padding-left: 12.5em;
-       position: relative;
+     width: 20%;
+     padding-left:5em;
+
 
 `
 export const ContainerProject = styled.div`
     display: flex;
-      position: absolute;
-     padding-left: 15.5em;
-     padding-right: 15em;
-     position: relative;
+    width: 18%;
+     padding-left: 3em;
+
 
 `
 export const StatusHoursExtra = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 230px;
+  width: 235px;
   height: 30px;
   background-color:${props => props.bg};
   color:${props => props.text};
   border-radius: 40px;
   font-weight: 700;
   padding-left: 1em;
+  padding-right: 1em;
 `
 
 export const ContainerIconOptions = styled.div`

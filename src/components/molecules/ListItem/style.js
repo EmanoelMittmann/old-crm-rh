@@ -14,37 +14,34 @@ export const Container = styled.div`
 
 export const ContainerId = styled.div`
     display: flex;
-    align-items: center;
-        padding-left: 3.3em;
+    width: 10%;
+    padding-left: 3.3em;
 `
 export const ContainerDateLançamento = styled.div`
     display: flex;
-    align-items: center;
-        padding-left: 8.5em;
-
+    width: 20%;
 `
 export const ContainerDateEmissaoNF = styled.div`
     display: flex;
-    align-items: center;
-        padding-left: 11em;
-        padding-right: 8em;
-
+    width: 20%;
+    padding-left: 1em;
+    padding-right:4em;
 `
 export const ContainerNumberNF = styled.div`
     display: flex;
-    align-items: center;
-        padding-left: 4.3em;
-        padding-right: 6em;
+    width:15%;
+        padding-left: 3em;
+        padding-right: 1em;
 `
 export const ContainervalueNF = styled.div`
     display: flex;
-    align-items: center;
-        padding-left: 4em;
-        padding-right: 1em;
+    width: 15%;
+    padding-left: 2.5em;
+    padding-right: 1em;
 `
 export const ContainerArquivo = styled.div`
     display: flex;
-    align-items: center;
+    width: 35%;
 `
 
 export const Button = styled.button`

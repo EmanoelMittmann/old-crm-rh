@@ -2,6 +2,8 @@ import React from 'react'
 import { LocalStorageKeys } from '../../../settings/LocalStorageKeys'
 
 import ListHeader from '../../molecules/ListHeader'
+import ListHeaderInvoice from '../../molecules/ListHeaderInvoice'
+import ListHeaderHoursExtra from '../../molecules/ListHeaderInvoice'
 import ListItem from '../../molecules/ListItem'
 import Footer from '../../organisms/Footer'
 
@@ -61,10 +63,8 @@ function InvoiceList({ data, meta, nextPage, previousPage, sortById, fnDownload 
 
   return ( 
     <>
-      <ListHeader 
-        data={user.user_type_id === 1 ? admin : professional}
-        fnOrder={sortById}
-      />
+    <ListHeaderInvoice/>
+
       <ListItem 
         data={data}
         downloadFile={fnDownload}
