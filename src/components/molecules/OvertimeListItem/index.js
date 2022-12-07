@@ -4,13 +4,13 @@ import { ReactComponent as OptionsIcon } from "../../../assets/icons/options.svg
 import {
   Main,
   HoursListOptions,
-  StatusHoursExtra, 
-  ContainerCodigo, 
-  ContainerDataIntial, 
-  ContainerDataFinal, 
-  ContainerDataLancament, 
-  ContainerProject, 
-  ContainerIconOptions 
+  StatusHoursExtra,
+  ContainerCodigo,
+  ContainerDataIntial,
+  ContainerDataFinal,
+  ContainerDataLancament,
+  ContainerProject,
+  ContainerIconOptions
 } from './style'
 import MenuOptionsEditProject from '../../atoms/MenuOptionsEditProject';
 import { useHistory } from "react-router-dom";
@@ -30,13 +30,13 @@ export function OvertimeListItem({ data }) {
         : status === 4 ? "#1ECB4F"
           : status === 5 ? "#FFFFFF"
             : " #FF3541"
-return [colorBg, colortext]
-}
+    return [colorBg, colortext]
+  }
 
   const menuOptionsClicked = (extra_hours_status_id) => {
     setMenuOptionsisClicked(!menuOptionsisClicked);
     setOptionClicked(extra_hours_status_id
-);
+    );
   };
 
   return data ? (
@@ -68,9 +68,9 @@ return [colorBg, colortext]
           }
         >
           <ContainerIconOptions
-            onClick={() => menuOptionsClicked(item.id)}
-          ></ContainerIconOptions>
-          <OptionsIcon />
+            onClick={() => menuOptionsClicked(item.id)}>
+            <OptionsIcon />
+          </ContainerIconOptions>
         </HoursListOptions>
         {menuOptionsisClicked && item.id === optionClicked && (
           <MenuOptionsEditProject
