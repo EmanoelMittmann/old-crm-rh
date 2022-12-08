@@ -31,6 +31,7 @@ export const ListHeaderTitle = styled.h4`
   color: black;
   display: flex;
   justify-content:flex-start ;
+  white-space: nowrap;
   margin-left: ${(props) => (props.margin)};
   padding-right: ${props => props.right};
   padding-left: ${props => props.left};
