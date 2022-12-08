@@ -1,8 +1,18 @@
-import React from 'react';
-import { LocalStorageKeys } from '../../../settings/LocalStorageKeys';
-import { TeamMemberPic } from '../../atoms/TeamMemberPic/style';
-import { formatDate } from '../../utils/formatDate';
-import { Main, Container, Button, ContainerId, ContainerDateLançamento, ContainerNumberNF, ContainervalueNF, ContainerArquivo, ContainerDateEmissaoNF } from './style';
+import React from "react";
+import { LocalStorageKeys } from "../../../settings/LocalStorageKeys";
+import { TeamMemberPic } from "../../atoms/TeamMemberPic/style";
+import { formatDate } from "../../utils/formatDate";
+import {
+  Main,
+  Container,
+  Button,
+  ContainerId,
+  ContainerDateLançamento,
+  ContainerNumberNF,
+  ContainervalueNF,
+  ContainerArquivo,
+  ContainerDateEmissaoNF,
+} from "./style";
 
 const admin = (data, downloadFile) =>
   data.map((item, index) => {
@@ -18,7 +28,7 @@ const admin = (data, downloadFile) =>
           {item.name}
         </Container>
         <Container>
-          {formatDate(new Date(item.created_at), { timeZone: 'UTC' })}
+          {formatDate(new Date(item.created_at), { timeZone: "UTC" })}
         </Container>
         <Container>Dia 25 do mês</Container>
         <Container>
@@ -36,10 +46,12 @@ const professional = (data, downloadFile) =>
       <Main template=".5fr 1fr 2fr 1fr" key={index}>
         <ContainerId>{item.id}</ContainerId>
         <ContainerDateLançamento>
-          {formatDate(new Date(item.created_at), { timeZone: 'UTC' })}
+          {formatDate(new Date(item.created_at), { timeZone: "UTC" })}
         </ContainerDateLançamento>
         <ContainerDateEmissaoNF>
-          {formatDate(new Date(item.file_xml.date_emission_nf), { timeZone: 'UTC' })}
+          {formatDate(new Date(item.file_xml.date_emission_nf), {
+            timeZone: "UTC",
+          })}
         </ContainerDateEmissaoNF>
         <ContainerNumberNF>{item.file_xml.number_nf}</ContainerNumberNF>
         <ContainervalueNF>{item.file_xml.value_nf}</ContainervalueNF>
@@ -49,9 +61,7 @@ const professional = (data, downloadFile) =>
           </Button>
         </ContainerArquivo>
       </Main>
-      
     );
- 
   });
 
 function ListItem({ data, downloadFile }) {
