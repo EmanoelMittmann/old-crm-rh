@@ -32,4 +32,4 @@ $ npm run start
 - [x] Cadastro de Status do Projeto/Listagem
 - [x] Cadastro de Tipos de Projeto/Listagem
 - [X] Criação de Ordem de serviço/Listagem
-- [ ] Gerar Ordem de serviço/Listagem
+- [X] Gerar Ordem de serviço/Listagem

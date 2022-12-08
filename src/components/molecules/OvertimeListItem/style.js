@@ -61,10 +61,11 @@ export const ContainerDataLancament = styled.div`
 
 `
 export const HoursListOptions = styled.div`
-  display: flex;
-  justify-content: center;
+ display: flex;
+ align-items:center;
   position:absolute;
   left: 85%;
+
 
   svg {
     fill: ${(props) => props.optionsColor};
@@ -73,7 +74,9 @@ export const HoursListOptions = styled.div`
 `;
 
 export const ContainerIcon = styled.div`
-    display: flex;
-    cursor: pointer;
-    align-items: center;
+  cursor: pointer;
+  @media (max-width: 1030px) {
+    padding: -6em;
+  }
+
 `

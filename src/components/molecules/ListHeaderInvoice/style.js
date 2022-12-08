@@ -9,8 +9,7 @@ export const HeaderContainer = styled.div`
     align-items: center;
     margin-top: 2em;
     justify-content: space-between;
-
-
+    white-space:nowrap;
     svg{
         margin-left: 1em;
         cursor: pointer;
