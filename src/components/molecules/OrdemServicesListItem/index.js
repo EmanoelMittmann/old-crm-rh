@@ -1,8 +1,8 @@
-import React from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { ContainerOrdemServices, OrdemServiceItens } from './style';
+import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { ContainerOrdemServices, OrdemServiceItens } from "./style";
 
 const OrdemServiceListItem = ({
   index,
@@ -23,7 +23,7 @@ const OrdemServiceListItem = ({
       );
     } else {
       const isHaveComission = professionals.find((obj) => obj.id === index.id);
-      
+
       if (isHaveComission.commission) {
         setCheckedProfissional([
           ...checkedProfissional,
@@ -66,7 +66,7 @@ const OrdemServiceListItem = ({
 
   return (
     <ContainerOrdemServices key={index.id}>
-      <OrdemServiceItens width="36%" content="flex-start">
+      <OrdemServiceItens width="37%" content="flex-start">
         <input
           type="checkbox"
           name="professional"
@@ -79,28 +79,36 @@ const OrdemServiceListItem = ({
         />
         <p>{index.name}</p>
       </OrdemServiceItens>
-      <OrdemServiceItens width="29%" content="start">
+      <OrdemServiceItens width="20%" content="start">
         {index.professional_data?.cnpj}
       </OrdemServiceItens>
-      <OrdemServiceItens width="20%" content="start">
+      <OrdemServiceItens width="18%" content="start">
         R$ {index.fixed_payment_value},00
       </OrdemServiceItens>
-      <OrdemServiceItens width="30%" content="space-evenly">
+      <OrdemServiceItens width="17%" content="flex-start">
         {index.value
-          ? ` ${Number(index.value).toLocaleString('pt-br', {
-              style: 'currency',
-              currency: 'BRL',
+          ? ` ${Number(index.value).toLocaleString("pt-br", {
+              style: "currency",
+              currency: "BRL",
             })}`
-          : ' - '}
+          : " - "}
       </OrdemServiceItens>
-      <OrdemServiceItens width="20%" content="center">
+      <OrdemServiceItens width="25%" content="flex-start">
+        {index.extra_hour_value
+          ? Number(index.extra_hour_value).toLocaleString("pt-br", {
+              style: "currency",
+              currency: "BRL",
+            })
+          : "-"}
+      </OrdemServiceItens>
+      <OrdemServiceItens width="10%" content="flex">
         {index.value
           ? (
               Number(index.value) + Number(index.fixed_payment_value)
-            ).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
-          : Number(index.fixed_payment_value).toLocaleString('pt-br', {
-              style: 'currency',
-              currency: 'BRL',
+            ).toLocaleString("pt-br", { style: "currency", currency: "BRL" })
+          : Number(index.fixed_payment_value).toLocaleString("pt-br", {
+              style: "currency",
+              currency: "BRL",
             })}
       </OrdemServiceItens>
     </ContainerOrdemServices>

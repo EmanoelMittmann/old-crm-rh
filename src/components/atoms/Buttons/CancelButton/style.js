@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 const CancelButton = styled.button`
-    width: 108px;
+    width: ${(props) => props.width ? props.width : '108px'};
+    padding: ${(props) => props.padding};
     height: 40px;
     display: flex;
     align-items: center;
@@ -10,6 +11,7 @@ const CancelButton = styled.button`
     color:#212B36;
     font-family: "Poppins", sans-serif;
     font-size: 0.84rem;
+    white-space: nowrap;
     font-weight: 700;
     border-radius: 8px;
     cursor: pointer;

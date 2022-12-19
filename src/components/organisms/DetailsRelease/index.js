@@ -58,7 +58,7 @@ const DetailsRelease = () => {
             <RowsTable data={data} />
           </Table>
           <Flex mt="2em">
-            <h3>Histórico</h3>
+            <h3>Histórico de Aprovação</h3>
           </Flex>
           <History>
             {history.map(item => <ListHistory data={item}/>)} 
