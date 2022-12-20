@@ -4,7 +4,7 @@ import { Img } from './style.js'
 import SearchIcon from '../../../assets/icons/search.svg'
 
 
-const InputSearch = ({setSearchResult, lineWidth, inputWidth}) => {
+const InputSearch = ({setSearchResult, lineWidth, inputWidth, placeholder}) => {
 
     return ( 
         <InputLine width={lineWidth}>
@@ -12,7 +12,7 @@ const InputSearch = ({setSearchResult, lineWidth, inputWidth}) => {
             <DefaultInput
                 onChange={(e) => setSearchResult(e.target.value)}
                 type="search"
-                placeholder="Buscar..."
+                placeholder={"Buscar..."}
                 width={inputWidth}
                 padding="0.2em 0 0em 1em"/>
         </InputLine>
