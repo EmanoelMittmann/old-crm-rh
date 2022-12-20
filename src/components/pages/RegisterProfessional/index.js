@@ -110,6 +110,9 @@ const RegisterProfessional = () => {
       bank: Yup.string(),
       agency: Yup.string().max(5, "Invalido"),
       account_type: Yup.string(),
+      type_of_transfer:Yup.string(),
+      pix_key_type: Yup.string(),
+      pix_key: Yup.string(),
       account_number: Yup.number(),
       company_email: Yup.string(),
       company_cep: Yup.string()
@@ -208,6 +211,9 @@ const RegisterProfessional = () => {
         account_type: "",
         agency: "",
         account_number: "",
+        type_of_transfer:"",
+        pix_key_type:"",
+        pix_key:"",
       },
     },
     onSubmit: async (values) => {

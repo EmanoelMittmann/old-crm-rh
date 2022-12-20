@@ -45,7 +45,8 @@ export const Login = () => {
 
   const accessLogin = async (googleData) => {
     const decodeJwt = jwt_decode(googleData.credential);
-
+    
+console.log(user)
     try {
       const { data } = await api({
         method: 'post',

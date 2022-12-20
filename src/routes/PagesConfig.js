@@ -117,7 +117,7 @@ export const templates = [
   },
   {
     id: 11,
-    name: "Lançamento de horas extras",
+    name: "Lançamento de horas Extra",
     hasButton: true,
     buttonText: "Novo lançamento",
     buttonPath: "/releaseHours",

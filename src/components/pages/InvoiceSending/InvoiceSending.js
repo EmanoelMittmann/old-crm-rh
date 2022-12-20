@@ -9,7 +9,6 @@ import InputDate from '../../atoms/InputDate'
 import { SearchSection } from '../../molecules/SearchSection'
 import InvoiceList from '../../organisms/InvoiceList'
 import { SearchContainer } from './style'
-import InputSearch from '../../atoms/InputSearch'
 
 const InvoiceSending = (props) => {
   const [data, setData] = useState()
@@ -46,7 +45,6 @@ const InvoiceSending = (props) => {
       params.date_emission_nf = date_emission_nf
       params.page = meta.first_page
     }
-
 
     if (initialDate !== "") {
       params.date_start = initialDate
