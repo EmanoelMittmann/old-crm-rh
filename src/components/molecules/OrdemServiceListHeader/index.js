@@ -7,6 +7,7 @@ import {
   ListHeadeSalarioOs,
   ListHeaderProfessional,
   ListHeaderTotal,
+  ListHeaderValueExtraHour,
 } from "./style";
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
 
@@ -29,12 +30,17 @@ const OrdemServiceHeader = ({sortByName}) => {
       </ListHeadeSalarioOs>
 
       <ListHeaderComission>
-        <ListHeaderTitle  margin='3em'>Comissão</ListHeaderTitle>
+        <ListHeaderTitle  margin='2em'>Comissão</ListHeaderTitle>
         <Arrows onClick={sortByName} />
       </ListHeaderComission>
 
+      <ListHeaderValueExtraHour>
+        <ListHeaderTitle  margin='3em'>Valor Horas Extras</ListHeaderTitle>
+        <Arrows onClick={sortByName} />
+      </ListHeaderValueExtraHour>
+
       <ListHeaderTotal>
-        <ListHeaderTitle  margin='3em'>Total</ListHeaderTitle>
+        <ListHeaderTitle  margin='-1em'>Total</ListHeaderTitle>
         <Arrows onClick={sortByName} />
       </ListHeaderTotal>
 

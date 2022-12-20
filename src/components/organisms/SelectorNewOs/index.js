@@ -41,8 +41,8 @@ const NewOrdemService = () => {
   const [page, setPage] = useState(1);
   const ValueCommission = useSelector((state) => state.valueOfCommission);
   const Modal = useSelector((state) => state.modalVisibility);
-  const currentPage = haveCommissionMeta?.current_page
-  const totalpages = Math.ceil(haveCommissionMeta?.total / 5)
+  const currentPage = haveCommissionMeta?.current_page;
+  const totalpages = Math.ceil(haveCommissionMeta?.total / 5);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -54,20 +54,23 @@ const NewOrdemService = () => {
     order === "desc" && setOrder("asc");
   };
 
-
-
-  const selectAll = () => { 
+  const selectAll = () => {
     if (check) {
-      setCheckedProfissional(professionals.map(item => {
-        if(item.commission){
-          return {...checkedProfissional ,professional_id: item.id}
-        }else{
-          return {...checkedProfissional, professional_id: item.id, commission: 0}
-        }
-      }))
-    }
-    else{
-      setCheckedProfissional([])
+      setCheckedProfissional(
+        professionals.map((item) => {
+          if (item.commission) {
+            return { ...checkedProfissional, professional_id: item.id };
+          } else {
+            return {
+              ...checkedProfissional,
+              professional_id: item.id,
+              commission: 0,
+            };
+          }
+        })
+      );
+    } else {
+      setCheckedProfissional([]);
     }
   };
   const handleSubmit = async (data) => {
@@ -86,14 +89,13 @@ const NewOrdemService = () => {
             return toast.success(
               <DefaultToast text={"Os criada com sucesso"} />
             );
-          }else{
+          } else {
             dispatch(openModal({ type: "OPENMODAL" }));
             setHaveCommission(res.data.data);
             setHaveCommissionMeta(res.data.meta);
-
           }
         });
-      } catch (err) { }
+      } catch (err) {}
     }
   };
 
@@ -123,7 +125,7 @@ const NewOrdemService = () => {
           ValueCommission.filter((item) => item.id !== index.id)
         )
       );
-     }   
+    }
   };
 
   const getProfessionals = async () => {
@@ -143,11 +145,14 @@ const NewOrdemService = () => {
   }, [page]);
 
   useEffect(() => {
-    if (haveCommission[1] === undefined && currentPage === totalpages && totalpages > 1) {
-      setCheckedProfissional(newId)
-      setPage(page - 1)
-    }
-    else if (haveCommission[1] !== undefined) {
+    if (
+      haveCommission[1] === undefined &&
+      currentPage === totalpages &&
+      totalpages > 1
+    ) {
+      setCheckedProfissional(newId);
+      setPage(page - 1);
+    } else if (haveCommission[1] !== undefined) {
       handleSubmit(
         newId.map((item) => ({ professional_id: item.professional_id }))
       );
@@ -161,13 +166,11 @@ const NewOrdemService = () => {
       newId.map((item) => ({ professional_id: item.professional_id }))
     );
     setCheckedProfissional(newId);
-
   }, [newId]);
-  
+
   useEffect(() => {
     filteredProfessionals();
   }, [ValueCommission]);
-
 
   return (
     <>
@@ -184,6 +187,15 @@ const NewOrdemService = () => {
           <TitleOS>Criar nova O.S</TitleOS>
         </ContainerButtonsHeader>
         <ContainerButtons>
+          <CancelButton
+            width='10em'
+            onClick={() => {
+              selectAll();
+              setCheck((prev) => !prev);
+            }}
+          >
+            Selecionar Todos
+          </CancelButton>
           <CancelButton
             margin="10px"
             onClick={() => {
@@ -233,18 +245,6 @@ const NewOrdemService = () => {
             setSearchResult={setSearchResult}
             inputWidth="280px"
           />
-          <div className="InputBox">
-            <input
-              type="checkbox"
-              onClick={() => selectAll()}
-              onChange={(e) => setCheck(prev => !prev)}
-              className="Box"
-              id="box"
-            />
-            <label for="box" className="Box">
-              Selecionar Todos
-            </label>
-          </div>
         </div>
         <OrdemServiceHeader sortByName={sortByName} />
         <ScrollContainer>
@@ -257,7 +257,9 @@ const NewOrdemService = () => {
                 index={index}
                 setCheckedProfissional={setCheckedProfissional}
                 checkedProfissional={checkedProfissional}
-                deleteProfessionalWithCommission={deleteProfessionalWithCommission}
+                deleteProfessionalWithCommission={
+                  deleteProfessionalWithCommission
+                }
               />
             );
           })}
@@ -266,5 +268,5 @@ const NewOrdemService = () => {
     </>
   );
 };
-  
+
 export default NewOrdemService;

@@ -1,21 +1,20 @@
 import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
-    max-width: 100%;
-    height: 40px;
-    background-color: #F4F6F8;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    margin-top: 2em;
-    justify-content: space-between;
+  max-width: 100%;
+  height: 40px;
+  background-color: #f4f6f8;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  margin-top: 2em;
+  justify-content: space-between;
 
-
-    svg{
-        margin-left: 1em;
-        cursor: pointer;
-    }
-`
+  svg {
+    margin-left: 1em;
+    cursor: pointer;
+  }
+`;
 
 export const ListHeaderProfessional = styled.div`
   display: flex;
@@ -28,28 +27,34 @@ export const ListHeaderCNPJ = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  width: 30%;
-  margin-left:3em;
+  width: 20%;
+  margin-left: 3em;
 `;
 
 export const ListHeadeSalarioOs = styled.div`
   display: flex;
   align-items: center;
-  width: 28%;
+  width: 18%;
   margin-left: -0.7em;
 `;
 
 export const ListHeaderComission = styled.div`
   display: flex;
   align-items: center;
-  width: 18%;
-  margin-left: 5em;
+  width: 17%;
 `;
 
+export const ListHeaderValueExtraHour = styled.div`
+  display: flex;
+  align-items: center;
+  width: 25%;
+  margin-left: -0.7em;
+`;
 
 export const ListHeaderTotal = styled.div`
   display: flex;
+  justify-content: flex-start;
   align-items: center;
-  width: 19%;
+  width: 10%;
   margin-left: 3.5em;
 `;
