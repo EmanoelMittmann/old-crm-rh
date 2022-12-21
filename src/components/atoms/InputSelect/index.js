@@ -20,6 +20,7 @@ const InputSelect = ({
   lineWidth,
   value,
   margin,
+  onClick,
 }) => {
   const attributeValue = {
     ...(value && { value: value }),
@@ -33,6 +34,7 @@ const InputSelect = ({
           width={width}
           disabled={disabled}
           onChange={onChange}
+          onClick={onClick}
         >
           <InputSelectOptionPlaceholder disabled selected>
             {placeHolder}
