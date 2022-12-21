@@ -17,6 +17,18 @@ export const PagesBackAndForth = styled.span`
     padding: 0.5em 0.5em 0.7em 0.5em;
 `
 
+export const ContainerFlex = styled.div`
+    width: 100%;
+    display: flex;
+    white-space: nowrap;
+    gap: 22em;
+    align-items: center;
+    .price{
+        display: flex;
+        align-items: center;
+    }
+`
+
 export const ArrowContainer = styled.div`
     width: 10%;
     display: flex;

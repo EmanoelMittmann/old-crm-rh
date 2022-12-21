@@ -56,7 +56,6 @@ export const Login = () => {
           access_token: googleData.credential,
         },
       });
-
       dispatch(
         loggingIn({
           googleData: { decodeJwt: decodeJwt, data: data.data[0] },
@@ -64,9 +63,6 @@ export const Login = () => {
           responseValidToken: true,
         })
       );
-
-
-
       history.push('/home');
     } catch (error) {
       console.log(error.message);

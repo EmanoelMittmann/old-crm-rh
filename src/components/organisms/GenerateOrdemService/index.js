@@ -6,7 +6,12 @@ import {
   TitleOS,
 } from "../SelectorNewOs/style";
 import api from "../../../api/api";
-import { Childrens, Container, ContainerChildren, SectionFooter } from "./style";
+import {
+  Childrens,
+  Container,
+  ContainerChildren,
+  SectionFooter,
+} from "./style";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as ArrowBackNew } from "../../../assets/icons/arrowBackNew.svg";
 import CancelButton from "../../atoms/Buttons/CancelButton/style";
@@ -22,36 +27,34 @@ import ModalGenerateOs from "../../molecules/ModalGenerateOs";
 import { openModal } from "../../../redux/actions";
 import ModalCancelOs from "../../molecules/ModalCancelOS";
 import { toast } from "react-toastify";
-import {DefaultToast} from '../../atoms/Toast/DefaultToast'
+import { DefaultToast } from "../../atoms/Toast/DefaultToast";
 import ModalCompanies from "../../molecules/ModalCompanies";
 
 const GenerateOS = () => {
-  
-  const [CompanyModal, setCompanyModal] = useState(false)
+  const [CompanyModal, setCompanyModal] = useState(false);
   const [checkedProfissional, setCheckedProfissional] = useState([]);
-  const dispatch = useDispatch();
   const [FirstHalfProfessional, setFirstHalfProfessional] = useState([]);
-  const history = useHistory()
-  const [OrdemServicesData,setOrdemServicesData] = useState({})
+  const [OrdemServicesData, setOrdemServicesData] = useState({});
   const [LastHalfProfessional, setLastHalfProfessional] = useState([]);
   const [ModalProfessional, setModalProfessional] = useState([]);
   const [ModalProfessionalMeta, setModalProfessionalMeta] = useState({});
   const [ModalOs, setModalOs] = useState(false);
-  const Modal = useSelector((state) => state.modalVisibility);
-  const [order, setOrder] = useState('');
-  const [orderBy, setOrderBy] = useState('id')
+  const [order, setOrder] = useState("");
+  const [orderBy, setOrderBy] = useState("id");
   const [professionalMeta, setProfessionalMeta] = useState({});
-  const [searchResult, setSearchResult] = useState('')
-
+  const [searchResult, setSearchResult] = useState("");
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const Modal = useSelector((state) => state.modalVisibility);
 
   let params = {};
-  
+
   const GetProfessional = async () => {
     try {
       await api({
         method: "GET",
         url: `/orderOfServicePending?limit=14&search=${searchResult}&cnpj=${searchResult}&orderField=${orderBy}&order=${order}`,
-        params:params
+        params: params,
       }).then((data) => {
         setFirstHalfProfessional(data.data.data.slice(0, 7));
         setLastHalfProfessional(data.data.data.slice(7, 14));
@@ -65,15 +68,15 @@ const GenerateOS = () => {
       await api({
         method: "POST",
         url: `/orderOfServiceIds?limit=14`,
-        data: checkedProfissional,
-        params: params
+        data: checkedProfissional.map(item => item.id),
+        params: params,
       }).then((res) => {
         setModalProfessional(res.data.data);
         setModalProfessionalMeta(res.data.meta);
         dispatch(openModal({ type: "OPENMODAL" }));
       });
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
   };
 
@@ -110,7 +113,8 @@ const GenerateOS = () => {
     if (pagesFilter === "next")
       params.page = `${ModalProfessionalMeta.current_page + 1}`;
 
-    if (pagesFilter === undefined) params.page = ModalProfessionalMeta.current_page;
+    if (pagesFilter === undefined)
+      params.page = ModalProfessionalMeta.current_page;
   };
 
   useEffect(() => {
@@ -119,25 +123,25 @@ const GenerateOS = () => {
   }, [order, orderBy, searchResult]);
 
   useEffect(() => {
-    if(ModalProfessionalMeta.current_page > ModalProfessionalMeta.last_page) {
-      return (
-        params.page = ModalProfessionalMeta.last_page,
-        handleSubmit()
-      )
+    if (ModalProfessionalMeta.current_page > ModalProfessionalMeta.last_page) {
+      return (params.page = ModalProfessionalMeta.last_page), handleSubmit();
     }
-  },[ModalProfessionalMeta])
+  }, [ModalProfessionalMeta]);
 
   return (
     <>
       <Container>
-        {CompanyModal && <ModalCompanies CancelEvent={() => {
-          dispatch(openModal({type: 'OPENMODAL'}))
-          setCompanyModal(prev => !prev)
-        }}
-        OrdemServicesData={OrdemServicesData}
-        ModalProfessional={ModalProfessional}
-        setOrdemServicesData={setOrdemServicesData}
-        />}
+        {CompanyModal && (
+          <ModalCompanies
+            CancelEvent={() => {
+              dispatch(openModal({ type: "OPENMODAL" }));
+              setCompanyModal((prev) => !prev);
+            }}
+            OrdemServicesData={OrdemServicesData}
+            ModalProfessional={ModalProfessional}
+            setOrdemServicesData={setOrdemServicesData}
+          />
+        )}
         {Modal && (
           <ModalGenerateOs
             ModalProfessional={ModalProfessional}
@@ -151,7 +155,7 @@ const GenerateOS = () => {
         )}
         {ModalOs && (
           <ModalCancelOs
-            text={'Tem certeza que deseja cancelar a O.S?'}
+            text={"Tem certeza que deseja cancelar a O.S?"}
             redButtonClickHandler={() => history.push("/serviceOrders")}
             CloseButtonClickHandler={() => setModalOs((prev) => !prev)}
           />
@@ -177,13 +181,14 @@ const GenerateOS = () => {
             width="108px"
             height="40px"
             onClick={() => {
-              if(checkedProfissional.length > 0){
-                handleSubmit(checkedProfissional)
-              }else{
-                return toast.error(<DefaultToast text={'Selecione os profissionais'}/>)
+              if (checkedProfissional.length > 0) {
+                handleSubmit(checkedProfissional);
+              } else {
+                return toast.error(
+                  <DefaultToast text={"Selecione os profissionais"} />
+                );
               }
-              }
-            }
+            }}
           >
             Confirmar
           </BlueButton>
@@ -193,14 +198,13 @@ const GenerateOS = () => {
         <ContainerChildren>
           <Childrens>
             <div className="Header">
-
               <InputSearch
-                value={searchResult} 
+                value={searchResult}
                 setSearchResult={setSearchResult}
-                lineWidth="280px" 
-                inputWidth="310px" 
+                lineWidth="280px"
+                inputWidth="310px"
               />
-              <HeaderOS sortByName={sortByName}  setOrderBy={setOrderBy}/>
+              <HeaderOS sortByName={sortByName} setOrderBy={setOrderBy} />
               {FirstHalfProfessional?.map((index) => (
                 <GenerateOSItens
                   key={index.id}
@@ -212,33 +216,30 @@ const GenerateOS = () => {
             </div>
           </Childrens>
           <Childrens>
-             
             <div className="continuation">
-              <HeaderOS sortByName={sortByName} setOrderBy={setOrderBy}/>
-              <SectionFooter> 
-
-              {LastHalfProfessional?.map((index) => (
-                <GenerateOSItens
-                  key={index.id}
-                  index={index}
-                  setCheckedProfissional={setCheckedProfissional}
-                  checkedProfissional={checkedProfissional}
-                />
-              ))} 
-              </SectionFooter> 
-                <Footer
-                  height="3em"
-                  border="2px solid #ccc"
-                  firstPage={professionalMeta.first_page}
-                  nextPage={() => nextPage()}
-                  previousPage={() => previousPage()}
-                  lastPage={professionalMeta.last_page}
-                  currentPage={professionalMeta.current_page}
-                />
+              <HeaderOS sortByName={sortByName} setOrderBy={setOrderBy} />
+              <SectionFooter>
+                {LastHalfProfessional?.map((index) => (
+                  <GenerateOSItens
+                    key={index.id}
+                    index={index}
+                    setCheckedProfissional={setCheckedProfissional}
+                    checkedProfissional={checkedProfissional}
+                  />
+                ))}
+              </SectionFooter>
+              <Footer
+                onPrice={checkedProfissional}
+                height="3em"
+                border="2px solid #ccc"
+                firstPage={professionalMeta.first_page}
+                nextPage={() => nextPage()}
+                previousPage={() => previousPage()}
+                lastPage={professionalMeta.last_page}
+                currentPage={professionalMeta.current_page}
+              />
             </div>
-            
           </Childrens>
-        
         </ContainerChildren>
       </Container>
     </>
