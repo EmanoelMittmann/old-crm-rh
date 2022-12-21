@@ -9,22 +9,6 @@ const GenerateOSItens = ({
   checkedProfissional,
 }) => {
   const [check, setCheck] = useState(true);
-  
-  // const handleClick = (professional,number) => {
-  //   const Exist = checkedProfissional.includes(professional);
-  //   const Existvalue = checkedValues.includes(number)
-  //   if (Exist | Existvalue) { 
-  //     const position = checkedProfissional.indexOf(professional);
-  //     const index = checkedValues.indexOf(number);
-  //     checkedProfissional.splice(position, 1);
-  //     checkedValues.splice(index, 1)
-  //     setCheckedProfissional(checkedProfissional);
-  //     setCheckedValues([...checkedValues])
-  //   } else {
-  //     setCheckedProfissional([...checkedProfissional, professional]);
-  //     setCheckedValues([...checkedValues,number])
-  //   }
-  // };
 
   const handleClick = (professional, number) => {
     const Exist = checkedProfissional.find(item => item.id === professional)
