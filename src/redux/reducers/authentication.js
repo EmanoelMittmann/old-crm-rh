@@ -15,6 +15,7 @@ const authentication = (state = inicialState, action) => {
       });
       localStorage.setItem(LocalStorageKeys.TOKEN, token);
       localStorage.setItem(LocalStorageKeys.USER, user);
+
       return payload;
     default:
       return state;

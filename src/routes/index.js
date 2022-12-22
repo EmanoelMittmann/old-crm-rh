@@ -24,6 +24,9 @@ import { RegisterCompanies } from '../components/pages/RegisterCompanies';
 import OrdemService from '../components/pages/OrdemServices';
 import GenerateOS from '../components/organisms/GenerateOrdemService';
 import DetailsRelease from '../components/organisms/DetailsRelease';
+import OvertimeListIsTechLead from '../components/pages/OvertimeListIstechLead';
+
+
 const Routes = () => {
   return (
     <BrowserRouter> 
@@ -57,10 +60,8 @@ const Routes = () => {
         <PrivateRoute path="/GenerateOs" component={GenerateOS} />
         
 
-        <PrivateRoute
-          path="/timeSending"
-          component={OvertimeListProfessional}
-        />
+        <PrivateRoute path="/timeSending"component={OvertimeListProfessional}/>
+        <PrivateRoute path="/timeIstechLead" component={OvertimeListIsTechLead}/>
         <PrivateRoute path="/invoiceSending" component={InvoiceSending} />
         <PrivateRoute path="/invoiceUpload" component={InvoiceUpload} />
         <PrivateRoute path="/releaseHours" component={ReleaseHours} />

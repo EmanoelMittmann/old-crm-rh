@@ -17,6 +17,10 @@ export function requestCheckDataInvalid(response) {
           <DefaultToast text="Valor da nota fiscal  não corresponde a Ordem de serviço" />
         );
         break;
+      case "Nenhuma ordem de serviço foi gerada para o usuário":
+        toast.error(
+          <DefaultToast text="Nenhuma ordem de serviço foi gerada para o usuário"/>
+        )
       default:
         break;
     }

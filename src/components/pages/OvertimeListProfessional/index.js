@@ -6,11 +6,15 @@ import InputSelect from '../../atoms/InputSelect'
 import { DefaultToast } from '../../atoms/Toast/DefaultToast'
 import { SearchSection } from '../../molecules/SearchSection'
 import { OvertimeList } from '../../organisms/OvertimeList'
-import InputWithLabel from '../../atoms/InputWithLabel'
-import { SearchContainer } from './style'
+import { SearchContainer} from './style'
 import InputDate from '../../atoms/InputDate'
+import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import DarkButton from '../../atoms/Buttons/DarkButton/style'
 
-const OvertimeListProfessional = (props) => {
+
+
+const OvertimeListProfessional = () => {
   const [data, setData] = useState()
   const [meta, setMeta] = useState({})
   const [status, setStatus] = useState([])
@@ -21,8 +25,10 @@ const OvertimeListProfessional = (props) => {
   const [order, setOrder] = useState({order: "desc", field: ""})
   const [initialDate, setInitialDate] = useState("")
   const [finalDate, setFinalDate] = useState("")
+  const isTechLead = useSelector((state) => state.validTechLead)
   let params = {}
-
+  const history = useHistory()
+  
   const getOvertimes = async () => {
     await api({
          method:'get',     
@@ -133,12 +139,15 @@ const OvertimeListProfessional = (props) => {
     handleFilterRequest()
     getOvertimes() 
   },[search, order, statusParams, projectParams, initialDate, finalDate])
+  
+
 
   return (
     <Container>
       <SearchSection 
       fnSearch={setSearch} 
-      width="100%">
+      width="100%"
+      >
         <SearchContainer>
           <InputSelect 
             options={projects}
@@ -172,6 +181,12 @@ const OvertimeListProfessional = (props) => {
           />
         </SearchContainer>
       </SearchSection>
+      
+      {isTechLead ?
+        <DarkButton style={{ padding: "10px" }}> Aprovação</DarkButton>
+        : ""
+      }
+      
       <OvertimeList 
         data={data} 
         meta={meta}

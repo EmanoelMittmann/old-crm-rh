@@ -41,6 +41,7 @@ import {
   SETCOMPANYCLICKED,
   SETVALUECOMMISSION,
   DISABLEEDITOR,
+  TECHLEAD,
 } from '../types';
 
 export const loggingIn = (payload) => ({
@@ -247,3 +248,7 @@ export const valueOfCommission = (payload) => ({
   type: SETVALUECOMMISSION,
   payload,
 });
+export const IsTechLead = (payload) => ({
+  type: TECHLEAD,
+  payload
+})

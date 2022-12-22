@@ -20,6 +20,7 @@ const ListHeaderHoursExtra = ({ sortByName }) => {
           </ListHeaderItem>
           <ListHeaderDataInicio>
               <ListHeaderTitle margin='3em'>Periodo Inicial</ListHeaderTitle>
+              <Arrows onClick={sortByName} />
           </ListHeaderDataInicio>
           <ListHeaderDataFinal>
               <ListHeaderTitle margin='3em'>Periodo Final</ListHeaderTitle>

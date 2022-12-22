@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router';
-
 import { LocalStorageKeys } from '../../../settings/LocalStorageKeys';
 import { userTypes } from '../../../models/userTypes';
 
@@ -30,6 +29,7 @@ const NavHome = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [isAdmin, setIsAdmin] = useState(false);
+  const isTechLead = useSelector((state) => state.validTechLead)
 
   const MenuItemClickHandler = (id) => {
     dispatch(menuItemClicked(id));
@@ -49,7 +49,7 @@ const NavHome = () => {
       return setIsAdmin(true);
     }
     return;
-  }, [isAdmin]);
+  }, [isAdmin]);  
 
   return (
     <Nav>
@@ -100,13 +100,22 @@ const NavHome = () => {
           <Link to="/overtime">
             <OvertimeIcon />
           </Link>
-        ) : (
-          <Link to="/timeSending">
+
+        )  : isTechLead === true ?  (
+            <Link to="/timeIstechLead">
             <OvertimeIcon />
           </Link>
+
+        )  :  (
+              <Link to="/timeSending">
+          <OvertimeIcon />
+        </Link>
+
         )}
         {location.pathname === '/overtime' && <ActiveIcon />}
+        {location.pathname === '/timeIstechLead' && <ActiveIcon />}
         {location.pathname === '/timeSending' && <ActiveIcon />}
+
       </ActiveIconContainer>
       <ActiveIconContainer
         onClick={() => MenuItemClickHandler(5)}
