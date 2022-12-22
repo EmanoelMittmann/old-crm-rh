@@ -18,8 +18,9 @@ const OvertimeListIsTechLead = ({ status }) => {
   const [statusParams, setStatusParams] = useState("");
   const [projects, setProjects] = useState([]);
   const [projectParams, setProjectParams] = useState("");
+  const [orderField,setOrderField] = useState("")
   const [search, setSearch] = useState("");
-  const [order, setOrder] = useState({ order: "desc", field: "" });
+  const [order, setOrder] = useState('');
   const [initialDate, setInitialDate] = useState("");
   const [finalDate, setFinalDate] = useState("");
   const isTechLead = useSelector(state => state.validTechLead)
@@ -28,7 +29,7 @@ const OvertimeListIsTechLead = ({ status }) => {
   const getOvertimes = async () => {
     await api({
       method: "get",
-      url: "/indexUserHoursExtrasReleasesPending?limit=7",
+      url: `/indexUserHoursExtrasReleasesPending?limit=7&orderField=${orderField}`,
       params: params,
     })
       .then((response) => {
@@ -99,10 +100,10 @@ const OvertimeListIsTechLead = ({ status }) => {
 
     if (pagesFilter === "next") params.page = `${meta.current_page + 1}`;
 
-    if (order.order !== "") {
-      params.orderField = order.orderField;
-      params.order = order.order;
+    if (order !== "") {
+      params.order = order;
     }
+
   };
 
   const nextPage = () => {
@@ -115,24 +116,18 @@ const OvertimeListIsTechLead = ({ status }) => {
     return getOvertimes();
   };
 
-  const sortByField = (field) => {
-    order.order === "desc"
-      ? setOrder({
-          order: "asc",
-          orderField: field,
-        })
-      : setOrder({
-          order: "desc",
-          orderField: field,
-        });
+  const sortByField = () => {
+    order === '' && setOrder('desc');
+    order === 'asc' && setOrder('desc');
+    order === 'desc' && setOrder('asc');
   };
 
   useEffect(() => {
     getProjects();
     getStatus();
     handleFilterRequest();
-    getOvertimes();
-  }, [search, order, statusParams, projectParams, initialDate, finalDate]);
+    getOvertimes()
+  }, [search, statusParams, projectParams, initialDate, order,finalDate]);
 
   return (
     <Container>
@@ -142,7 +137,7 @@ const OvertimeListIsTechLead = ({ status }) => {
         initialDate={initialDate}
         finalDate={finalDate}
       />
-      <TechnicalLeadApproval />
+      <TechnicalLeadApproval sortByName={sortByField} setOrderField={setOrderField}/>
       <Height>
         <OvertimeListTechnicalLeadApproval data={data} status={status} />
       </Height>

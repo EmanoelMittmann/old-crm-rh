@@ -1,12 +1,8 @@
 import React from 'react'
 
-
 const Overtime = () => {
-
-    return (
-        <>
-        </>
-    )
+  return (
+    <div>index</div>
+  )
 }
-
 export default Overtime
