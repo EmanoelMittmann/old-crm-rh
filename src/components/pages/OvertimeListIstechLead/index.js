@@ -11,7 +11,7 @@ import { OvertimeListTechnicalLeadApproval } from "../../molecules/OvertimeListT
 import { Height } from "./style";
 import { useSelector } from "react-redux";
 
-const OvertimeListIsTechLead = ({ status }) => {
+const OvertimeListIsTechLead = () => {
   const [data, setData] = useState();
   const [meta, setMeta] = useState({});
   const [statusProject, setStatusProject] = useState([]);
@@ -139,7 +139,7 @@ const OvertimeListIsTechLead = ({ status }) => {
       />
       <TechnicalLeadApproval sortByName={sortByField} setOrderField={setOrderField}/>
       <Height>
-        <OvertimeListTechnicalLeadApproval data={data} status={status} />
+        <OvertimeListTechnicalLeadApproval data={data} />
       </Height>
       <Footer
         height='3.5em'
