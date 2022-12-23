@@ -9,7 +9,7 @@ export const Main = styled.div`
   padding: 1em;
 `;
 
-export const ContainerUser = styled.div`
+export const ContainerUser = styled.link`
   display: flex;
   width: 52%;
   gap: 1em;
@@ -50,4 +50,17 @@ export const Text = styled.h4`
   font-family: "Poppins";
   font-weight: 500;
   color: #3b454f;
+`;
+
+export const ListOptions = styled.div`
+ display: flex;
+ align-items:center;
+  position:absolute;
+  left: 85%;
+
+
+  svg {
+    fill: ${(props) => props.optionsColor};
+
+  }
 `;

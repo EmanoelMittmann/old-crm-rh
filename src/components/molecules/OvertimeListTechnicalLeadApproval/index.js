@@ -6,15 +6,20 @@ import {
   Text,
   ContainerUser,
   ContainerStatus,
+  ListOptions,
 } from "./style";
 import { useHistory } from "react-router-dom";
 import { formatDate } from "../../utils/formatDate";
 import { Status } from "../../organisms/DetailsRelease/status";
+import { ContainerIconOptions } from "../ProfessionalsListItem/style";
+import { ReactComponent as OptionsIcon } from "../../../assets/icons/options.svg";
+import MenuOptionsEditProject from "../../atoms/MenuOptionsEditProject";
 
 export function OvertimeListTechnicalLeadApproval({ data }) {
   const [optionClicked, setOptionClicked] = useState();
   const [menuOptionsisClicked, setMenuOptionsisClicked] = useState(false);
   const history = useHistory();
+
   const transformColor = (status) => {
     const colorBg =
       status === 1
@@ -39,15 +44,15 @@ export function OvertimeListTechnicalLeadApproval({ data }) {
     return [colorBg, colortext];
   };
 
-  const menuOptionsClicked = (extra_hours_status_id) => {
+  const menuOptionsClicked = () => {
     setMenuOptionsisClicked(!menuOptionsisClicked);
-    setOptionClicked(extra_hours_status_id);
+    
   };
 
   return data ? (
     data.map((values, index) => (
       <Main key={index}>
-        <ContainerUser>
+        <ContainerUser to="ApprovalIsTechLead/:id">
             <img src={values.avatar} className='img'/>
             <Text>{values.user_name}</Text>
         </ContainerUser>
@@ -60,6 +65,27 @@ export function OvertimeListTechnicalLeadApproval({ data }) {
         <ContainerStatus>
           <Status data={values}/>
         </ContainerStatus>
+        <ListOptions
+          optionsColor={
+            values === optionClicked && menuOptionsisClicked
+              ? "#407BFF"
+              : "#B7BDC2"
+          }
+        >
+          <ContainerIconOptions
+            onClick={() => menuOptionsClicked(values)}>
+            <OptionsIcon />
+          </ContainerIconOptions>
+        </ListOptions>
+        {menuOptionsisClicked && values === optionClicked && (
+          <MenuOptionsEditProject
+            positionMenu="13px"
+            firstOptionDescription="Aprovação"
+            firstChosenOption={() => history.push(`ApprovalIsTechLead/:id${values}`)}
+            padding="10px"
+            id={optionClicked}
+          />
+        )}
       </Main>
     ))
   ) : (
