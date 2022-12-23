@@ -28,6 +28,7 @@ import OvertimeListIsTechLead from '../components/pages/OvertimeListIstechLead';
 
 
 const Routes = () => {
+
   return (
     <BrowserRouter> 
       <Switch>
@@ -58,10 +59,9 @@ const Routes = () => {
         <PrivateRoute path="/Companies/:id" component={RegisterCompanies} />
         <PrivateRoute path="/NewOs" component={OrdemService} />
         <PrivateRoute path="/GenerateOs" component={GenerateOS} />
-        
 
         <PrivateRoute path="/timeSending"component={OvertimeListProfessional}/>
-        <PrivateRoute path="/timeIstechLead" component={OvertimeListIsTechLead}/>
+        <PrivateRoute path="/timeIstechLead" component={OvertimeListIsTechLead} />
         <PrivateRoute path="/invoiceSending" component={InvoiceSending} />
         <PrivateRoute path="/invoiceUpload" component={InvoiceUpload} />
         <PrivateRoute path="/releaseHours" component={ReleaseHours} />
