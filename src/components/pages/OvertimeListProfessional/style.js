@@ -8,11 +8,11 @@ export const SearchContainer = styled.div`
   margin-left: ${props => props.ml};
 
 `
-export const StyleButtonIstechLead = styled.div`
+export const StyleIsTechLead = styled.div`
   display: flex;
   position: absolute;
-  justify-content: flex-end;
-  align-items: flex-end;
-  width: 80%;
-  top: 5.4em;
+  justify-content: flex-start;
+  align-items: flex-start;
+  top:5em;
+  margin-left: -3em;
 `
