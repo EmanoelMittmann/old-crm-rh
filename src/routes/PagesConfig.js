@@ -1,5 +1,4 @@
 
-import { useSelector } from "react-redux";
 import {
   CompanyIcon,
   HomeIcon,
@@ -162,7 +161,7 @@ export const templates = [
     id: 15,
     name: "Aprovação de horas Extra - Lider técnico",
     hasButton: true,
-    buttonText: "Lançamento",
+    buttonText: "Lançar Horas",
     buttonPath: "/timeSending",
     icon: <OvertimeIcon />,
     isRegisterPage: false,

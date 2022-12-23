@@ -6,11 +6,11 @@ import InputSelect from '../../atoms/InputSelect'
 import { DefaultToast } from '../../atoms/Toast/DefaultToast'
 import { SearchSection } from '../../molecules/SearchSection'
 import { OvertimeList } from '../../organisms/OvertimeList'
-import { SearchContainer} from './style'
+import { SearchContainer, StyleIsTechLead} from './style'
 import InputDate from '../../atoms/InputDate'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import DarkButton from '../../atoms/Buttons/DarkButton/style'
+import ArrowRegister from '../../atoms/ArrowRegister'
 
 
 
@@ -132,6 +132,9 @@ const OvertimeListProfessional = () => {
       orderField: field
     })
   }
+  const getIstechLead = () => {
+    history.push("/timeSending");
+  };
 
   useEffect(() => {
     getProjects()
@@ -141,9 +144,14 @@ const OvertimeListProfessional = () => {
   },[search, order, statusParams, projectParams, initialDate, finalDate])
   
 
-
   return (
     <Container>
+      <ArrowRegister clickHandler={getIstechLead} />
+      {isTechLead === true ?
+        <StyleIsTechLead>
+          <ArrowRegister clickHandler={getIstechLead} />
+        </StyleIsTechLead>
+        : ""}
       <SearchSection 
       fnSearch={setSearch} 
       width="100%"
@@ -181,12 +189,6 @@ const OvertimeListProfessional = () => {
           />
         </SearchContainer>
       </SearchSection>
-      
-      {isTechLead ?
-        <DarkButton style={{ padding: "10px" }}> Aprovação</DarkButton>
-        : ""
-      }
-      
       <OvertimeList 
         data={data} 
         meta={meta}
