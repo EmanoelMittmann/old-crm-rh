@@ -18,7 +18,7 @@ const OvertimeListIsTechLead = ({ status }) => {
   const [statusParams, setStatusParams] = useState("");
   const [projects, setProjects] = useState([]);
   const [projectParams, setProjectParams] = useState("");
-  const [orderField,setOrderField] = useState("")
+  const [orderField,setOrderField] = useState("id")
   const [search, setSearch] = useState("");
   const [order, setOrder] = useState('');
   const [initialDate, setInitialDate] = useState("");

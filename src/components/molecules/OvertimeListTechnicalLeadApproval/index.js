@@ -48,11 +48,11 @@ export function OvertimeListTechnicalLeadApproval({ data }) {
     data.map((values, index) => (
       <Main key={index}>
         <ContainerUser>
-            <img src={values.user.avatar} className='img'/>
-            <Text>{values.user.name}</Text>
+            <img src={values.avatar} className='img'/>
+            <Text>{values.user_name}</Text>
         </ContainerUser>
         <ContainerProject>
-          <Text>{values.project.name}</Text>
+          <Text>{values.name_project}</Text>
         </ContainerProject>
         <ContainerLaunch_date>
           {formatDate(values.launch_date)}
