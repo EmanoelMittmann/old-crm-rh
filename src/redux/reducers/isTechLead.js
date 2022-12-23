@@ -1,16 +1,19 @@
 import { TECHLEAD } from "../types"
 
-const inicialState = false
+const inicialState = false;
+
 const validTechLead = (state = inicialState, action) => {
     const { type, payload } = action;
-    
+
     switch (type) {
         case TECHLEAD:
-            state = JSON.parse(localStorage.getItem('@UbiRH/USER')).isTechLead;
+            state = payload
             return state;
-
         default:
-            return state;
+            if (JSON.parse(localStorage.getItem('@UbiRH/USER'))) {
+                return JSON.parse(localStorage.getItem('@UbiRH/USER')).isTechLead
+            }
+            return state
     }
 }
 
