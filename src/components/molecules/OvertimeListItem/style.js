@@ -29,8 +29,7 @@ export const ContainerDataFinal = styled.div`
 export const ContainerProject = styled.div`
     display: flex;
     width: 18%;
-     padding-left: 3em;
-
+    padding-left: 3em;
 
 `
 export const StatusHoursExtra = styled.div`

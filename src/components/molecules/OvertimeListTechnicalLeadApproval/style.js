@@ -9,11 +9,12 @@ export const Main = styled.div`
   padding: 1em;
 `;
 
-export const ContainerUser = styled.link`
+export const ContainerUser = styled.h4`
   display: flex;
   width: 52%;
   gap: 1em;
   align-items: center;
+
   .img {
     width: 3em;
     border-radius: 50%;
@@ -52,15 +53,14 @@ export const Text = styled.h4`
   color: #3b454f;
 `;
 
-export const ListOptions = styled.div`
- display: flex;
- align-items:center;
-  position:absolute;
-  left: 85%;
+export const User_name = styled.h4`
+  font-family: "Poppins";
+  font-weight: 500;
+  color: #3b454f;
 
-
-  svg {
-    fill: ${(props) => props.optionsColor};
-
+  &:hover{
+        cursor: pointer;
+        color: #407BFF;
+        font-weight: 500;
   }
 `;

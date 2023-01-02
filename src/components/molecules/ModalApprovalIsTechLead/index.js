@@ -1,65 +1,145 @@
 import React from 'react'
-import { ModalContainer, ModalTitle, ModalOverlay, ContainerButtons } from './style';
 import CloseButton from '../../atoms/Buttons/CloseButtonCircle';
 import CancelButton from '../../atoms/Buttons/CancelButton/style';
-import { BlueButton } from '../../atoms/Buttons/BlueButton/style';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import api from '../../../api/api';
-import { toast } from 'react-toastify';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import SaveButton from '../../atoms/Buttons/SaveButton/style';
+import { formatDate } from '../../utils/formatDate';
+import InputSelectAproval from '../../atoms/InputSelectApproval';
 
+import {
+    ModalContainer,
+    ModalTitle,
+    ModalOverlay,
+    ContainerAbsolute,
+    ModalContainerButtons,
+    ContainerData,
+    StyleName,
+    StyleDate,
+    StyleTitle,
+    ContainerTitles,
+    StyleDataDate,
+    ContainerDataJustify,
+    StyleDataJustify,
+    InputAprovalStyle
+} from './style';
+import InputWithLabel from '../../atoms/InputWithLabel';
+import { Status } from '../../organisms/DetailsRelease/status';
 
-const OvertimeLounchScreen = () => {
-    const [dataLounch, setDataLounch] = useState([])
+const ApprovalIsTechLead = () => {
+    const [approveHours, setApproveHours] = useState();
+    const [justification, setJustification] = useState('')
+    const [toAccept, setToAccept] = useState("")
     const history = useHistory()
+    let { id } = useParams();
 
-    const getLounchScreen = async () => {
-        await api({
-            method: 'get',
-            url: '/',
-        })
-            .then((response) => {
-                setDataLounch(response.data)
-            })
-            .catch((error) => toast.error(error.message))
-    }
 
+    const optionsApproval = [
+        { name: 'Aceito', id: 'Aceito' },
+        { name: 'Negado', id: 'Negado' },
+    ];
+
+
+    const getApproveHours = async (id) => {
+        try {
+            const { data } = await api({
+                method: "GET",
+                url: `/extraHoursReleases/${id}`,
+            });
+            setApproveHours(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     useEffect(() => {
-        getLounchScreen()
-    }, [])
+        getApproveHours(id)
+    }, [id])
 
     return (
         <div>
-            <ModalContainer>
-                <ModalTitle padding="1.6em">
-                    <CloseButton
-                        CloseButtonClickHandler={() => {
-                            history.push("/timeIstechLead");
-                        }} />
-                    Lançamento #1234223
-                </ModalTitle>
-                <ContainerButtons>
-                    <CancelButton
-                        margin="2em 0 0 0"
-                        onClick={() => {
-                            history.push("/timeIstechLead");
-                        }}
-                    >
-                        Cancelar
-                    </CancelButton>
-                    <BlueButton
-                        margin="2em 0 0 0"
-                        width="108px"
-                        height="40px">
-                        Confirmar
-                    </BlueButton>
-                </ContainerButtons>
-            </ModalContainer>
-            <ModalOverlay />
+            {approveHours?.map((item, index) => (
+                <>
+                    <ModalContainer key={index}>
+                        <ModalTitle padding="1.6em">
+                            <CloseButton
+                                CloseButtonClickHandler={() => {
+                                    history.push("/timeIstechLead");
+                                }} />
+                            Lançamento # {item.id}
+                        </ModalTitle>
+                    <ContainerAbsolute>
+                        <StyleName>{item.project.name}</StyleName>
+                    <ContainerData>
+                        <StyleDate>
+                            Lançado em {item.type === "BY_DATE"
+                                ? formatDate(new Date(item.created_at), { timeZone: "UTC" })
+                                : `${formatDate(new Date(item.created_at), { timeZone: "UTC" })}`}
+                        </StyleDate>
+                    <Status data={item}/>
+                    </ContainerData>
+
+                    <ContainerTitles>
+                        <StyleTitle>Período</StyleTitle>
+                        <StyleTitle>Horas</StyleTitle>
+                    </ContainerTitles>
+
+                    <ContainerTitles>
+                        <StyleDataDate>
+                            {item.type === "BY_DATE"
+                                ? formatDate(new Date(item.launch_date), { timeZone: "UTC" })
+                                : `${formatDate(new Date(item.launch_date), { timeZone: "UTC" })}`
+                            }</StyleDataDate>
+                        <StyleDataDate>{item.hour_quantity}</StyleDataDate>
+                    </ContainerTitles>
+
+                    <ContainerDataJustify>
+                        <StyleTitle>Justificativa</StyleTitle>
+                        <StyleDataJustify>{item.justification}</StyleDataJustify>
+                    </ContainerDataJustify>
+
+                    <InputAprovalStyle>
+                        <InputSelectAproval
+                            value={toAccept}
+                            onChange={(e) => setToAccept(e.target.value)}
+                            options={optionsApproval}
+                            placeHolder="Aceito"
+                        />
+                    </InputAprovalStyle>
+                        {toAccept === "Negado" ?
+                            <InputWithLabel
+                                name="justification"
+                                type={"text"}
+                                value={justification}
+                                onChange={(e) => setJustification(e.target.value)}
+                                label="Justificativa"
+                                widthContainer="100%"
+                                handleBlur={() => { }}
+                                padding="2em 2em"
+                            /> : ""}
+                    </ContainerAbsolute>
+                    <ModalContainerButtons>
+                        <CancelButton
+                            onClick={() => {
+                                history.push("/timeIstechLead");
+                            }}>
+                            Cancelar
+                        </CancelButton>
+                        <SaveButton
+                            onClick={() => {
+                                    history.push("/timeIstechLead");
+                            }}>
+                            Confirmar
+                        </SaveButton>
+                    </ModalContainerButtons>
+                    </ModalContainer>
+                    <ModalOverlay />
+                </>
+            ))}
         </div>
-    );
+    )
 }
 
-export default OvertimeLounchScreen;
+export default ApprovalIsTechLead;

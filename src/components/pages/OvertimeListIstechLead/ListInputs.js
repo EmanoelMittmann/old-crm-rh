@@ -8,8 +8,7 @@ const ListInputs = ({
     initialDate, 
     finalDate, 
     statusProject, 
-    projects,
-    fnSearch, 
+    projects, 
     setSearch,
     setProjectParams, 
     setStatusParams, 
@@ -17,7 +16,7 @@ const ListInputs = ({
     setFinalDate }) => {
     return (
         <SearchSection
-            fnSearch={setSearch}
+            fnSearch={setSearch} 
             width="100%"
         >
             <SearchContainer>

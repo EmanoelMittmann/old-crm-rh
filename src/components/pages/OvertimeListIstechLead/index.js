@@ -23,7 +23,6 @@ const OvertimeListIsTechLead = () => {
   const [order, setOrder] = useState('');
   const [initialDate, setInitialDate] = useState("");
   const [finalDate, setFinalDate] = useState("");
-  const isTechLead = useSelector(state => state.validTechLead)
   let params = {};
 
   const getOvertimes = async () => {
@@ -133,6 +132,7 @@ const OvertimeListIsTechLead = () => {
     <Container>
       <ListInputs
         search={search}
+        projects={projects}
         statusProject={statusProject}
         initialDate={initialDate}
         finalDate={finalDate}
