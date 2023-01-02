@@ -29,55 +29,48 @@ import InputWithLabel from '../../atoms/InputWithLabel';
 import { Status } from '../../organisms/DetailsRelease/status';
 
 const ApprovalIsTechLead = () => {
-    const [approveHours, setApproveHours] = useState();
-    const [justification, setJustification] = useState('')
-    const [toAccept, setToAccept] = useState("")
+    const [approveData, setApproveData] = useState();
+    const [currentJustification, setCurrentJustification] = useState('')
+    const [toAccept, setToAccept] = useState(true)
     const history = useHistory()
     let { id } = useParams();
-    let params = {}
-
-
+  
     const optionsApproval = [
         { name: 'Aceito', id: 'Aceito' },
         { name: 'Negado', id: 'Negado' },
     ];
 
-
-    const getApproveHours = async (id) => {
-        try {
-            const { data } = await api({
+const getApproveHours = async (id) => {
+    try {
+        const { data } = await api({
                 method: "GET",
                 url: `/findUserHoursExtrasReleasesDetails/${id}`,
             });
-            setApproveHours(data);
+            setApproveData(data);
         } catch (error) {
             console.error(error);
         }
     };
 
-const postApprovalHours = async () => {
-    try {
-        await api ({
-            method: "POST",
-            url:`/approvalUserHoursExtrasReleases`,
-            data: approveHours.map(item => item.id),
-            params: params,
-        }).then((res)=> {
+const handleApprovalHours = async () => {
+  try{
+      await api.post(`/approvalUserHoursExtrasReleases`, {
+        releases_id: parseInt(id),
+        approved: toAccept,
+        justification: currentJustification,
 
-        })
-    }catch (err) {
-        console.error(err)
-    }
-   
-}
+      });
+    }catch(err){
+    console.error(err);
+}}
+
     useEffect(() => {
         getApproveHours(id)
-        postApprovalHours()
     }, [id])
 
     return (
         <div>
-            {approveHours?.map((item, index) => (
+            {approveData?.map((item, index) => (
                 <>
                     <ModalContainer key={index}>
                         <ModalTitle padding="1.6em">
@@ -120,22 +113,22 @@ const postApprovalHours = async () => {
                     <InputAprovalStyle>
                         <InputSelectAproval
                             value={toAccept}
-                            onChange={(e) => setToAccept(e.target.value)}
+                            onChange={() => setToAccept(prev => !prev)}
                             options={optionsApproval}
                             placeHolder="Aceito"
                         />
                     </InputAprovalStyle>
-                        {toAccept === "Negado" ?
+                        {!toAccept &&
                             <InputWithLabel
                                 name="justification"
                                 type={"text"}
-                                value={justification}
-                                onChange={(e) => setJustification(e.target.value)}
+                                value={currentJustification}
+                                onChange={(e) => setCurrentJustification(e.target.value)}
                                 label="Justificativa"
                                 widthContainer="100%"
                                 handleBlur={() => { }}
                                 padding="2em 2em"
-                            /> : ""}
+                            />}
                     </ContainerAbsolute>
                     <ModalContainerButtons>
                         <CancelButton
@@ -146,8 +139,9 @@ const postApprovalHours = async () => {
                         </CancelButton>
                         <SaveButton
                             onClick={() => {
-                                    history.push("/timeIstechLead");
-                            }}>
+                                handleApprovalHours()
+                                    history.push("/timeIstechLead")
+                                }}>
                             Confirmar
                         </SaveButton>
                     </ModalContainerButtons>
