@@ -70,7 +70,6 @@ const postApprovalHours = async () => {
     }
    
 }
-
     useEffect(() => {
         getApproveHours(id)
         postApprovalHours()
@@ -79,7 +78,6 @@ const postApprovalHours = async () => {
     return (
         <div>
             {approveHours?.map((item, index) => (
-                console.log("item: ", item),
                 <>
                     <ModalContainer key={index}>
                         <ModalTitle padding="1.6em">
