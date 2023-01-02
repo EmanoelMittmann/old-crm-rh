@@ -133,7 +133,7 @@ const OvertimeListProfessional = () => {
     })
   }
   const getIstechLead = () => {
-    history.push("/timeSending");
+    history.push("/timeIstechLead");
   };
 
   useEffect(() => {
@@ -146,11 +146,8 @@ const OvertimeListProfessional = () => {
 
   return (
     <Container>
-      <ArrowRegister clickHandler={getIstechLead} />
       {isTechLead === true ?
-        <StyleIsTechLead>
-          <ArrowRegister clickHandler={getIstechLead} />
-        </StyleIsTechLead>
+        <StyleIsTechLead><ArrowRegister clickHandler={getIstechLead} /></StyleIsTechLead> 
         : ""}
       <SearchSection 
       fnSearch={setSearch} 

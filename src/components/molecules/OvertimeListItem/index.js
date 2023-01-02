@@ -8,7 +8,6 @@ import {
   ContainerCodigo,
   ContainerDataIntial,
   ContainerDataFinal,
-  ContainerDataLancament,
   ContainerProject,
   ContainerIconOptions
 } from './style'
@@ -39,6 +38,7 @@ export function OvertimeListItem({ data }) {
     );
   };
 
+
   return data ? (
     data.map((item, index) => (
       <Main key={index}>
@@ -53,7 +53,9 @@ export function OvertimeListItem({ data }) {
             ? formatDate(new Date(item.end_date), { timeZone: "UTC" })
             : `${formatDate(new Date(item.launch_date), { timeZone: "UTC" })}`}
         </ContainerDataFinal>
-        <ContainerProject>{item.project.name}</ContainerProject>
+        <ContainerProject>
+          {item.project.name}
+        </ContainerProject>
         <StatusHoursExtra
           bg={transformColor(item.status.id)[0]}
           text={transformColor(item.status.id)[1]}

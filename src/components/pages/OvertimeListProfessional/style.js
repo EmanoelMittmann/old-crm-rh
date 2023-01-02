@@ -13,6 +13,6 @@ export const StyleIsTechLead = styled.div`
   position: absolute;
   justify-content: flex-start;
   align-items: flex-start;
-  top:5em;
+  top:6em;
   margin-left: -3em;
 `
