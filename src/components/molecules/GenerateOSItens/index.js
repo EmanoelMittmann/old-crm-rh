@@ -10,19 +10,19 @@ const GenerateOSItens = ({
 }) => {
   const [check, setCheck] = useState(true);
 
-  const handleClick = (professional) => {
-    const Exist = checkedProfissional.includes(professional);
-    if (Exist) {
-      const position = checkedProfissional.indexOf(professional);
-      checkedProfissional.splice(position, 1);
-      setCheckedProfissional(checkedProfissional);
-    } else {
-      setCheckedProfissional([...checkedProfissional, professional]);
+  const handleClick = (professional, number) => {
+    const Exist = checkedProfissional.find(item => item.id === professional)
+    if(Exist){
+      const position = checkedProfissional.indexOf(Exist)
+      checkedProfissional.splice(position,1);
+      setCheckedProfissional([...checkedProfissional])
+    }else{
+      setCheckedProfissional([...checkedProfissional,{id: professional, value: number}])
     }
-  };
+  }
 
   useEffect(() => {
-    const ExistId = checkedProfissional.map(item => item)
+    const ExistId = checkedProfissional.map(item => item.id)
     setCheck(ExistId.includes(index.id))
   },[checkedProfissional])
 
@@ -35,7 +35,9 @@ const GenerateOSItens = ({
           id="box"
           checked={check}
           onChange={(e) => setCheck(e.target.checked)}
-          onClick={() => handleClick(index.id)}
+          onClick={() => {
+            handleClick(index.id, index.total)
+          }}
         />
         <p>{index.name}</p>
       </OrdemServiceItens>

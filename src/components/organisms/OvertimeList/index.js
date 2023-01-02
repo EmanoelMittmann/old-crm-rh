@@ -1,7 +1,5 @@
 import React from 'react'
 import ListHeaderHoursExtra from '../../molecules/ListHeaderHoursExtra'
-
-
 import { OvertimeListItem } from '../../molecules/OvertimeListItem'
 import Footer from '../Footer'
 

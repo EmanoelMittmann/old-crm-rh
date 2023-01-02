@@ -14,7 +14,7 @@ import {
 } from './style';
 import jwt_decode from 'jwt-decode';
 import LogoUbistart from '../../../components/atoms/LogoUbistart';
-import { loggingIn } from '../../../redux/actions';
+import { IsTechLead, loggingIn } from '../../../redux/actions';
 import { useEffect } from 'react';
 
 export const Login = () => {
@@ -45,8 +45,6 @@ export const Login = () => {
 
   const accessLogin = async (googleData) => {
     const decodeJwt = jwt_decode(googleData.credential);
-    
-console.log(user)
     try {
       const { data } = await api({
         method: 'post',
@@ -57,17 +55,14 @@ console.log(user)
           access_token: googleData.credential,
         },
       });
-
       dispatch(
         loggingIn({
-          googleData: { decodeJwt: decodeJwt, data: data.data[0] },
+          googleData: { decodeJwt: decodeJwt, data: data.data[0], isTechLead: data.isTechLead},
           token: data.token.token,
           responseValidToken: true,
         })
-      );
-
-
-
+      ); 
+      dispatch(IsTechLead(data.isTechLead))
       history.push('/home');
     } catch (error) {
       console.log(error.message);

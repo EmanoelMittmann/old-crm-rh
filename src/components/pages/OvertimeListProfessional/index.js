@@ -6,11 +6,15 @@ import InputSelect from '../../atoms/InputSelect'
 import { DefaultToast } from '../../atoms/Toast/DefaultToast'
 import { SearchSection } from '../../molecules/SearchSection'
 import { OvertimeList } from '../../organisms/OvertimeList'
-import InputWithLabel from '../../atoms/InputWithLabel'
-import { SearchContainer } from './style'
+import { SearchContainer, StyleIsTechLead} from './style'
 import InputDate from '../../atoms/InputDate'
+import { useHistory } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import ArrowRegister from '../../atoms/ArrowRegister'
 
-const OvertimeListProfessional = (props) => {
+
+
+const OvertimeListProfessional = () => {
   const [data, setData] = useState()
   const [meta, setMeta] = useState({})
   const [status, setStatus] = useState([])
@@ -21,8 +25,10 @@ const OvertimeListProfessional = (props) => {
   const [order, setOrder] = useState({order: "desc", field: ""})
   const [initialDate, setInitialDate] = useState("")
   const [finalDate, setFinalDate] = useState("")
+  const isTechLead = useSelector((state) => state.validTechLead)
   let params = {}
-
+  const history = useHistory()
+  
   const getOvertimes = async () => {
     await api({
          method:'get',     
@@ -126,6 +132,9 @@ const OvertimeListProfessional = (props) => {
       orderField: field
     })
   }
+  const getIstechLead = () => {
+    history.push("/timeSending");
+  };
 
   useEffect(() => {
     getProjects()
@@ -133,12 +142,20 @@ const OvertimeListProfessional = (props) => {
     handleFilterRequest()
     getOvertimes() 
   },[search, order, statusParams, projectParams, initialDate, finalDate])
+  
 
   return (
     <Container>
+      <ArrowRegister clickHandler={getIstechLead} />
+      {isTechLead === true ?
+        <StyleIsTechLead>
+          <ArrowRegister clickHandler={getIstechLead} />
+        </StyleIsTechLead>
+        : ""}
       <SearchSection 
       fnSearch={setSearch} 
-      width="100%">
+      width="100%"
+      >
         <SearchContainer>
           <InputSelect 
             options={projects}

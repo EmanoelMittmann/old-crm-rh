@@ -28,25 +28,25 @@ export const CompanyDate = styled.div`
 
 export const CompanyCity = styled.div`
   display: flex;
-  width: 14%;
+  width: 14.5%;
 `;
 
 export const Companytype = styled.div`
   display: flex;
-  width: 12%;
+  width: 10%;
   justify-content: flex-start;
 `
 
 export const CompanyUF = styled.div`
   display: flex;
-  width: 12%;
+  width: 11%;
   justify-content: flex-start;
 `;
 
 export const CompanySituation = styled.div`
   transform: translateX(-43px);
   display: flex;
-  width: 14.2%;
+  width: 16.2%;
   padding-left: 2em;
 `;
 

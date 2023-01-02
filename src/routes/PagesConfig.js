@@ -1,3 +1,4 @@
+
 import {
   CompanyIcon,
   HomeIcon,
@@ -9,6 +10,7 @@ import {
   ServiceOrdersIcon,
   SettingsIcon,
 } from "../components/atoms/icons/NavIcons";
+
 
 export const templates = [
   {
@@ -155,6 +157,17 @@ export const templates = [
     isRegisterPage: false,
     path: "/Company",
   },
+  {
+    id: 15,
+    name: "Aprovação de horas Extra - Lider técnico",
+    hasButton: true,
+    buttonText: "Lançar Horas",
+    buttonPath: "/timeSending",
+    icon: <OvertimeIcon />,
+    isRegisterPage: false,
+    path: "/timeIstechLead",
+  },
+  
 ];
 
 export const noTemplate = {

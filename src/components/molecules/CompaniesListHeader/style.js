@@ -3,30 +3,26 @@ import styled from "styled-components";
 export const ListHeaderRazaoSocial = styled.div`
   display: flex;
   align-items: center;
-  width: 14.2%;
+  width: 18.9%;
   padding-left: 3em;
 `;
 
 export const ListHeaderCNPJ = styled.div`
-  transform: translateX(-50px);
   display: flex;
-  width: 14.2%;
+  width: 15%;
   align-items: center;
-  padding-left: 6em;
 `;
 
 export const ListHeaderDate = styled.div`
   display: flex;
-  width: 14.2%;
-  align-items: center;
-  padding-left: 2em;
+  width: 16.2%;
+  justify-content: flex-start;
 `;
 
 export const ListHeaderCity = styled.div`
   display: flex;
   width: 14.2%;
-  align-items: center;
-  padding-left: 2.5em;
+  justify-content: flex-start;
 `;
 
 export const ListHeaderUF = styled.div`
@@ -38,7 +34,7 @@ export const ListHeaderUF = styled.div`
 
 export const ListHeaderSituation = styled.div`
   display: flex;
-  width: 14.2%;
+  width: 17.1%;
   align-items: center;
   padding-left: -2em;
 `;

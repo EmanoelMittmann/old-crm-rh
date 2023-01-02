@@ -28,6 +28,7 @@ import valueOfCommission from './valueOfCommission';
 import companiesList from './companyList';
 import occupationId from './occupationId';
 import disableEditor from './disableEditor.js';
+import validTechLead from './isTechLead.js';
 
 export const Reducers = combineReducers({
   authentication,
@@ -59,4 +60,5 @@ export const Reducers = combineReducers({
   companiesList,
   disableEditor,
   valueOfCommission,
+  validTechLead,
 });

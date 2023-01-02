@@ -6,13 +6,8 @@ export const SearchContainer = styled.div`
   gap: 1em;
   width: 90%;
   margin-left: ${props => props.ml};
-
 `
-export const StyleIsTechLead = styled.div`
-  display: flex;
-  position: absolute;
-  justify-content: flex-start;
-  align-items: flex-start;
-  top:5em;
-  margin-left: -3em;
+
+export const Height = styled.div`
+  height: 34em;
 `
