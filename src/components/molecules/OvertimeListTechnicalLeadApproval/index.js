@@ -19,11 +19,11 @@ import { Status } from "../../organisms/DetailsRelease/status";
     data.map((values, index) => (
       <Main key={index}>
         <ContainerUser onClick={() => history.push(`ApprovalIsTechLead/${values.id}`)}>
-          <img src={values?.avatar} className='img' />
-          <User_name>{values?.user_name}</User_name>
+          <img src={values.user.avatar} className='img' />
+          <User_name>{values?.user.name}</User_name>
         </ContainerUser>
         <ContainerProject>
-          <Text>{values.name_project}</Text>
+          <Text>{values.project.name}</Text>
         </ContainerProject>
         <ContainerLaunch_date>
           {formatDate(values.launch_date)}

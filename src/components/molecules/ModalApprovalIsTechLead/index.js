@@ -34,6 +34,7 @@ const ApprovalIsTechLead = () => {
     const [toAccept, setToAccept] = useState("")
     const history = useHistory()
     let { id } = useParams();
+    let params = {}
 
 
     const optionsApproval = [
@@ -46,7 +47,7 @@ const ApprovalIsTechLead = () => {
         try {
             const { data } = await api({
                 method: "GET",
-                url: `/extraHoursReleases/${id}`,
+                url: `/findUserHoursExtrasReleasesDetails/${id}`,
             });
             setApproveHours(data);
         } catch (error) {
@@ -54,13 +55,31 @@ const ApprovalIsTechLead = () => {
         }
     };
 
+const postApprovalHours = async () => {
+    try {
+        await api ({
+            method: "POST",
+            url:`/approvalUserHoursExtrasReleases`,
+            data: approveHours.map(item => item.id),
+            params: params,
+        }).then((res)=> {
+
+        })
+    }catch (err) {
+        console.error(err)
+    }
+   
+}
+
     useEffect(() => {
         getApproveHours(id)
+        postApprovalHours()
     }, [id])
 
     return (
         <div>
             {approveHours?.map((item, index) => (
+                console.log("item: ", item),
                 <>
                     <ModalContainer key={index}>
                         <ModalTitle padding="1.6em">
