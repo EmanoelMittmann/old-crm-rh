@@ -38,27 +38,22 @@ const OvertimeListIsTechLead = () => {
       .catch((error) => toast.error(error.message));
   };
 
-
   const getStatus = async () => {
-    await api({
+    const {data} = await api({
       method: "get",
       url: "/extraHoursStatus",
-    })
-      .then((response) => {
-        setStatusProject(response.data.data);
-      })
-      .catch((error) => toast.error(error.message));
+    });
+    data.data.push({ id: "", name: "Todos" })
+    setStatusProject(data.data);   
   };
 
   const getProjects = async () => {
-    await api({
+    const { data } = await api({
       method: "get",
       url: "/userProjects/user",
     })
-      .then((response) => {
-        setProjects(response.data);
-      })
-      .catch((error) => toast.error(error.message));
+    data.push({ id: "", name: "Todos" })
+    setProjects(data);
   };
 
   const handleFilterRequest = (pagesFilter) => {
@@ -171,7 +166,7 @@ const OvertimeListIsTechLead = () => {
         sortByName={sortByField}
         setOrderField={setOrderField}
       />
-      
+
       <Height>
         <OvertimeListTechnicalLeadApproval data={data} />
       </Height>
