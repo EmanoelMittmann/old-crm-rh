@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Main = styled.div`
   display: flex;
   width: 100%;
-  height: 4em;
+  height: 2.5em;
   align-items: center;
   margin-top: 1em;
   padding: 1em;
@@ -16,7 +16,7 @@ export const ContainerUser = styled.h4`
   align-items: center;
 
   .img {
-    width: 3em;
+    width: 2.8em;
     border-radius: 50%;
   }
 `;

@@ -28,7 +28,7 @@ const OvertimeListIsTechLead = () => {
   const getOvertimes = async () => {
     await api({
       method: "get",
-      url: `/indexUserHoursExtrasReleasesPending?limit=7&orderField=${orderField}`,
+      url: `/indexUserHoursExtrasReleasesPending?limit=5&orderField=${orderField}`,
       params: params,
     })
       .then((response) => {
@@ -135,6 +135,7 @@ const OvertimeListIsTechLead = () => {
       <SearchContainer>
         <SearchSection
           fnSearch={setSearch}
+          placeholder="Buscar por projeto"
           width="100%"
         >
           <InputSelect
@@ -176,7 +177,7 @@ const OvertimeListIsTechLead = () => {
       </Height>
 
       <Footer
-        height='3.5em'
+        height='5em'
         border={"1px solid #CCD1D6"}
         previousPage={previousPage}
         nextPage={nextPage}
