@@ -11,8 +11,6 @@ import InputDate from '../../atoms/InputDate'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import ArrowRegister from '../../atoms/ArrowRegister'
-import InputSearch from '../../atoms/InputSearch'
-
 
 
 const OvertimeListProfessional = () => {
