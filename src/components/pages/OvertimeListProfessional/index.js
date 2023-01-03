@@ -152,7 +152,7 @@ const OvertimeListProfessional = () => {
         : ""}
       <SearchSection
       fnSearch={setSearch}
-      placeholder="Buscar por projeto"
+      placeholder="Buscar pelo código"
       width="100%"
       >
         <SearchContainer>

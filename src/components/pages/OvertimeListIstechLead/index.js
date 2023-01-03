@@ -18,7 +18,7 @@ const OvertimeListIsTechLead = () => {
   const [statusParams, setStatusParams] = useState("");
   const [projects, setProjects] = useState([]);
   const [projectParams, setProjectParams] = useState("");
-  const [orderField, setOrderField] = useState("id")
+  const [orderField, setOrderField] = useState("users.id")
   const [search, setSearch] = useState("");
   const [order, setOrder] = useState('');
   const [initialDate, setInitialDate] = useState("");
@@ -135,7 +135,7 @@ const OvertimeListIsTechLead = () => {
       <SearchContainer>
         <SearchSection
           fnSearch={setSearch}
-          placeholder="Buscar por projeto"
+          placeholder="Buscar por profissional"
           width="100%"
         >
           <InputSelect
