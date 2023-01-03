@@ -15,9 +15,9 @@ const ProfessionalsInputs = ({
   const getJobs = async () => {
     const { data } = await api({
       method: 'get',
-      url: `/job/?limit=undefined`,
+      url: `/job/?limit=1000`,
     });
-    data.data.push({ name: 'Todos' });
+    data.data.push({ id: '',name: 'Todos' });
     setJobs(data.data);
   };
 
