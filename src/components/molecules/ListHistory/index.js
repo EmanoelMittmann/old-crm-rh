@@ -1,5 +1,6 @@
 import React from "react";
 import { Status } from "../../organisms/DetailsRelease/status";
+import { formatDate } from "../../utils/formatDate";
 import { Badge } from "../ProfessionalsListItem/style";
 import { Column, Container, Row } from "./style";
 
@@ -11,7 +12,7 @@ export const ListHistory = ({ data }) => {
           <Column>
             <Status data={data} />
           </Column>
-          <Column>{data.env_data}</Column>
+          <Column>{formatDate(data.created_at)}</Column>
           <Column>
             <div className="popover__wrapper">
               <p className="popover__title">{data.justification}</p>

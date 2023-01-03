@@ -22,14 +22,12 @@ import { history } from "./mock";
 
 const DetailsRelease = () => {
   const [requestData, setRequestData] = useState([]);
+  const [history, setHistory] = useState([])
   let { id } = useParams();
-
+  
   const getLaunchedHours = async (id) => {
     try {
-      const { data } = await api({
-        method: "GET",
-        url: `/extraHoursReleases/${id}`,
-      });
+      const {data} = await api.get(`/extraHoursReleases/${id}`)
       setRequestData(data);
     } catch (error) {
       console.error(error);
@@ -61,7 +59,7 @@ const DetailsRelease = () => {
             <h3>Histórico de Aprovação</h3>
           </Flex>
           <History>
-            {history.map(item => <ListHistory data={item}/>)} 
+            {data.historic?.map(item => <ListHistory data={item}/>)} 
           </History>
         </Container>
       ))}
