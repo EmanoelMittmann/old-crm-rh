@@ -1,19 +1,16 @@
-export const StatusOS  = [
-    {  id: undefined, 
-        name: 'Todos'
- },
-    {
-        id: 'SENT', 
-        name: 'Enviada'
-    },
+export const StatusOS = [
+  { id: "", name: "Todos" },
+  {
+    id: "SENT",
+    name: "Enviada",
+  },
 
-    {
-        id: 'PENDING',
-        name: 'Pendente'
-    },
-    {
-        id: 'CANCELED',
-        name: 'Cancelada'
-    },
-
-]
+  {
+    id: "PENDING",
+    name: "Pendente",
+  },
+  {
+    id: "CANCELED",
+    name: "Cancelada",
+  },
+];

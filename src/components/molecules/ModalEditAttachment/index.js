@@ -47,7 +47,7 @@ const ModalEditAttachment = (
     const getJobsMember = async () => {
         const { data } = await api({
             method: 'get',
-            url: `/job/?limit=undefined`,
+            url: `/job/?limit=`,
         });
         setJobsMember(data.data);
     };

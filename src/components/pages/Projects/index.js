@@ -85,7 +85,7 @@ const Projects = () => {
       method: "get",
       url: `/projectType`,
     });
-    data.data.push({ name: "Todos" });
+    data.data.push({id:'',name: "Todos" });
     setTypesOptions(data.data);
   };
 
@@ -94,10 +94,9 @@ const Projects = () => {
       method: "get",
       url: `/projectStatus`,
     });
-
     setStatusOptions(data.data);
   };
-  const allOptions = [...statusOptions, { name: "Todos" }];
+  const allOptions = [...statusOptions, { id: '' ,name: "Todos" }];
 
   useEffect(() => {
     getProjects();
