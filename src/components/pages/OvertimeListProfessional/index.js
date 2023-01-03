@@ -11,6 +11,7 @@ import InputDate from '../../atoms/InputDate'
 import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import ArrowRegister from '../../atoms/ArrowRegister'
+import InputSearch from '../../atoms/InputSearch'
 
 
 
@@ -149,8 +150,9 @@ const OvertimeListProfessional = () => {
       {isTechLead === true ?
         <StyleIsTechLead><ArrowRegister clickHandler={getIstechLead} /></StyleIsTechLead> 
         : ""}
-      <SearchSection 
-      fnSearch={setSearch} 
+      <SearchSection
+      fnSearch={setSearch}
+      placeholder="Buscar pelo código"
       width="100%"
       >
         <SearchContainer>

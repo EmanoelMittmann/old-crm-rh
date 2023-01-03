@@ -3,7 +3,7 @@ import InputSearch from '../../atoms/InputSearch'
 import useDebounce from '../../../hooks/debounce'
 import { Main } from './style.js'
 
-export function SearchSection({fnSearch, width, children}) {
+export function SearchSection({ fnSearch, width, children, placeholder }) {
   const debouncedChange = useDebounce(fnSearch, 400)
 
   return ( 
@@ -12,6 +12,7 @@ export function SearchSection({fnSearch, width, children}) {
         setSearchResult={debouncedChange} 
         lineWidth="280px" 
         inputWidth="230px"
+        placeholder={placeholder}
       />
       { children }
     </Main>

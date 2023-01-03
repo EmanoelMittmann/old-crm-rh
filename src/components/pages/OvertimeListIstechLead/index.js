@@ -3,13 +3,13 @@ import api from "../../../api/api";
 import { toast } from "react-toastify";
 import { Container } from "../../atoms/Container";
 import { DefaultToast } from "../../atoms/Toast/DefaultToast";
-import { OvertimeList } from "../../organisms/OvertimeList";
-import ListInputs from "./ListInputs";
 import Footer from "../../organisms/Footer";
 import TechnicalLeadApproval from "../../molecules/ListHeaderTechnicalLeadApproval";
 import { OvertimeListTechnicalLeadApproval } from "../../molecules/OvertimeListTechnicalLeadApproval";
-import { Height } from "./style";
-import { useSelector } from "react-redux";
+import { Height, SearchContainer } from "./style";
+import InputSelect from "../../atoms/InputSelect";
+import InputDate from "../../atoms/InputDate";
+import { SearchSection } from "../../molecules/SearchSection";
 
 const OvertimeListIsTechLead = () => {
   const [data, setData] = useState();
@@ -18,7 +18,7 @@ const OvertimeListIsTechLead = () => {
   const [statusParams, setStatusParams] = useState("");
   const [projects, setProjects] = useState([]);
   const [projectParams, setProjectParams] = useState("");
-  const [orderField,setOrderField] = useState("id")
+  const [orderField, setOrderField] = useState("users.id")
   const [search, setSearch] = useState("");
   const [order, setOrder] = useState('');
   const [initialDate, setInitialDate] = useState("");
@@ -28,7 +28,7 @@ const OvertimeListIsTechLead = () => {
   const getOvertimes = async () => {
     await api({
       method: "get",
-      url: `/indexUserHoursExtrasReleasesPending?limit=7&orderField=${orderField}`,
+      url: `/indexUserHoursExtrasReleasesPending?limit=5&orderField=${orderField}`,
       params: params,
     })
       .then((response) => {
@@ -37,6 +37,7 @@ const OvertimeListIsTechLead = () => {
       })
       .catch((error) => toast.error(error.message));
   };
+
 
   const getStatus = async () => {
     await api({
@@ -86,11 +87,11 @@ const OvertimeListIsTechLead = () => {
     if (finalDate !== "" && finalDate > "1000-01-01") {
       finalDate < initialDate
         ? toast.warn(
-            <DefaultToast text="Período final precisa ser maior que o período inicial" />,
-            {
-              toastId: "finalDate",
-            }
-          )
+          <DefaultToast text="Período final precisa ser maior que o período inicial" />,
+          {
+            toastId: "finalDate",
+          }
+        )
         : (params.date_end = finalDate);
       params.page = meta.first_page;
     }
@@ -126,31 +127,64 @@ const OvertimeListIsTechLead = () => {
     getStatus();
     handleFilterRequest();
     getOvertimes()
-  }, [search, statusParams, projectParams, initialDate, order,finalDate]);
+  }, [search, statusParams, projectParams, initialDate, order, finalDate]);
+
 
   return (
     <Container>
-      <ListInputs
-        search={search}
-        projects={projects}
-        statusProject={statusProject}
-        initialDate={initialDate}
-        finalDate={finalDate}
+      <SearchContainer>
+        <SearchSection
+          fnSearch={setSearch}
+          placeholder="Buscar por profissional"
+          width="100%"
+        >
+          <InputSelect
+            options={projects}
+            onChange={e => setProjectParams(e.target.value)}
+            placeHolder="Projeto"
+            lineWidth="30%" />
+          <InputSelect
+            options={statusProject}
+            onChange={e => setStatusParams(e.target.value)}
+            placeHolder="Status"
+            lineWidth="30%" />
+          <InputDate
+            onChange={e => setInitialDate(e.target.value)}
+            placeholder="Período inicial"
+            date={initialDate}
+            width="30%"
+            type="date"
+            handleBlur={() => { }}
+            name="initial_period" />
+          <InputDate
+            onChange={e => setFinalDate(e.target.value)}
+            placeholder="Período final"
+            date={finalDate}
+            width="30%"
+            type="date"
+            handleBlur={() => { }}
+            name="initial_period" />
+        </SearchSection>
+      </SearchContainer>
+
+      <TechnicalLeadApproval
+        sortByName={sortByField}
+        setOrderField={setOrderField}
       />
-      <TechnicalLeadApproval sortByName={sortByField} setOrderField={setOrderField}/>
+      
       <Height>
         <OvertimeListTechnicalLeadApproval data={data} />
       </Height>
+
       <Footer
-        height='3.5em'
+        height='5em'
         border={"1px solid #CCD1D6"}
         previousPage={previousPage}
         nextPage={nextPage}
         sortById={sortByField}
         currentPage={meta?.current_page}
         firstPage={meta?.first_page}
-        lastPage={meta?.last_page}
-      />
+        lastPage={meta?.last_page} />
     </Container>
   );
 };

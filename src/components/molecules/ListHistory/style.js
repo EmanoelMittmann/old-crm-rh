@@ -1,8 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  border-top: 1px solid #ccd1d6;
-  height: 6.5em;
+  height: 5.5em;
 `;
 
 export const Row = styled.div`
