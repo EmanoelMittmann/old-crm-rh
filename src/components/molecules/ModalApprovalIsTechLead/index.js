@@ -115,6 +115,7 @@ const handleApprovalHours = async () => {
                             value={toAccept}
                             onChange={() => setToAccept(prev => !prev)}
                             options={optionsApproval}
+                            width="100%"
                             placeHolder="Aceito"
                         />
                     </InputAprovalStyle>

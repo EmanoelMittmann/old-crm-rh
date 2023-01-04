@@ -8,8 +8,8 @@ import TechnicalLeadApproval from "../../molecules/ListHeaderTechnicalLeadApprov
 import { OvertimeListTechnicalLeadApproval } from "../../molecules/OvertimeListTechnicalLeadApproval";
 import { Height, SearchContainer } from "./style";
 import InputSelect from "../../atoms/InputSelect";
-import InputDate from "../../atoms/InputDate";
 import { SearchSection } from "../../molecules/SearchSection";
+import InputWithLabel from "../../atoms/InputWithLabel";
 
 const OvertimeListIsTechLead = () => {
   const [data, setData] = useState();
@@ -39,21 +39,29 @@ const OvertimeListIsTechLead = () => {
   };
 
   const getStatus = async () => {
-    const {data} = await api({
-      method: "get",
-      url: "/extraHoursStatus",
-    });
-    data.data.push({ id: "", name: "Todos" })
-    setStatusProject(data.data);   
+    try {
+      const { data } = await api({
+        method: "get",
+        url: "/extraHoursStatus",
+      });
+      data.data.push({ id: "", name: "Todos" })
+      setStatusProject(data.data);
+    } catch (error) {
+      console.error(error)
+    }
   };
 
   const getProjects = async () => {
-    const { data } = await api({
-      method: "get",
-      url: "/userProjects/user",
-    })
-    data.push({ id: "", name: "Todos" })
-    setProjects(data);
+    try {
+      const { data } = await api({
+        method: "get",
+        url: "/userProjects/user",
+      })
+      data.push({ id: "", name: "Todos" })
+      setProjects(data);
+    } catch (error) {
+      console.error(error)
+    }
   };
 
   const handleFilterRequest = (pagesFilter) => {
@@ -137,26 +145,30 @@ const OvertimeListIsTechLead = () => {
             options={projects}
             onChange={e => setProjectParams(e.target.value)}
             placeHolder="Projeto"
+            width="100%"
             lineWidth="30%" />
           <InputSelect
             options={statusProject}
             onChange={e => setStatusParams(e.target.value)}
             placeHolder="Status"
+            width="100%"
             lineWidth="30%" />
-          <InputDate
-            onChange={e => setInitialDate(e.target.value)}
-            placeholder="Período inicial"
-            date={initialDate}
-            width="30%"
+          <InputWithLabel
             type="date"
+            onChange={e => setInitialDate(e.target.value)}
+            label="Período inicial"
+            value={initialDate}
+            width="100%"
+            widthContainer="30%"
             handleBlur={() => { }}
             name="initial_period" />
-          <InputDate
-            onChange={e => setFinalDate(e.target.value)}
-            placeholder="Período final"
-            date={finalDate}
-            width="30%"
+          <InputWithLabel
             type="date"
+            onChange={e => setFinalDate(e.target.value)}
+            label="Período final"
+            value={finalDate}
+            width="100%"
+            widthContainer="30%"
             handleBlur={() => { }}
             name="initial_period" />
         </SearchSection>

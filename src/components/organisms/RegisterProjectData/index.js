@@ -10,7 +10,6 @@ import {
     ContainerFirstRow,
     ContainerSecond,
 } from './style.js'
-import InputDate from '../../atoms/InputDate/index.js'
 import { Container } from '../../atoms/Container/index.js'
 
 const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
@@ -64,35 +63,37 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         placeHolder="Tipo de projeto"
                         width="100%"
                         lineWidth="100%"
-                       label="Tipo de Projeto"
+                        label="Tipo de Projeto"
                     />
                     </ContainerSecondRow>
                 </ContainerFirstRow>
                 <ContainerFirstRow>
                     <ContainerSecondRow>
-                    <InputDate
-                        onChange={handleChange('date_start')}
-                        placeholder={values.date_start ? values.date_start :"Data início Efetivo"}
-                        date={values.date_start}
+                    <InputWithLabel
                         type="date"
+                        onChange={handleChange('date_start')}
+                        placeHolder="Data início Efetivo"
+                        label="Data início Efetivo"
+                        value={values.date_start}
                         error={errors.date_start}
                         touched={touched.date_start}
                         handleBlur={setFieldTouched}
                         name="date_start"
                         width="100%"
-                        widthContainer="50%"
+                        widthContainer="100%"
                     />
-                    <InputDate
+                    <InputWithLabel
                         onChange={handleChange('date_end')}
-                        placeholder={values.date_end ? values.date_end :"Data final Efetivo"}
-                        date={values.date_end}
+                        placeholder="Data final Efetivo"
+                        label="Data final Efetivo"
+                        value={values.date_end}
                         type="date"
                         error={errors.date_end}
                         touched={touched.date_end}
                         handleBlur={setFieldTouched}
                         name="date_end"
                         width="100%"
-                        widthContainer="50%"
+                        widthContainer="100%"
                     />
                     </ContainerSecondRow>
                     <ContainerSecondRow>
@@ -109,39 +110,43 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         label="R$ Custo estimado"
                         id="team_cost"
                         name="team_cost"
+                        width="100%"
+                        widthContainer="100%"
                         value={values.team_cost}
                         onChange={handleChange('team_cost')}
                         error={errors.team_cost}
                         touched={touched.team_cost}
-                        width="100%"
-                        widthContainer="100%"
                         handleBlur={setFieldTouched}
                         />
                     </ContainerSecondRow>
                 </ContainerFirstRow>
                 <ContainerFirstRow>
                 <ContainerSecond>
-                    <InputDate
-                        onChange={handleChange('date_start_performed')}
-                        placeholder={values.date_start_performed ? values.date_start_performed: "Data Iníco do contrato"}
-                        date={values.date_start_performed}
+                    <InputWithLabel
                         type="date"
+                        onChange={handleChange('date_start_performed')}
+                        placeholder="Data Iníco do contrato"
+                        label="Data Iníco do contrato"
+                        name="date_start_performed"
+                        width="100%"
+                        widthContainer="100%"
+                        value={values.date_start_performed}
                         error={errors.date_start_performed}
                         touched={touched.date_start_performed}
                         handleBlur={setFieldTouched}
-                        name="date_start_performed"
-                        width="100%"
                     />
-                    <InputDate
-                        onChange={handleChange('date_end_performed')}
-                        placeholder= {values.date_end_performed ? values.date_end_performed : "Data Término do contrato"}
-                        date={values.date_end_performed}
+                        <InputWithLabel
                         type="date"
+                        onChange={handleChange('date_end_performed')}
+                        placeholder= "Data Término do contrato"
+                        label="Data Término do contrato"
+                        name="date_end_performed"
+                        width="100%"
+                        widthContainer="100%"
+                        value={values.date_end_performed}
                         error={errors.date_end_performed}
                         touched={touched.date_end_performed}
                         handleBlur={setFieldTouched}
-                        name="date_end_performed"
-                        width="100%"
                     />
                 </ContainerSecond>
                 </ContainerFirstRow>

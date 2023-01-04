@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react'
 import api from '../../../api/api'
 import { toast } from 'react-toastify'
 import { saveAs } from 'file-saver'
-
 import { Container } from '../../atoms/Container'
 import { DefaultToast } from '../../atoms/Toast/DefaultToast'
-import InputDate from '../../atoms/InputDate'
 import { SearchSection } from '../../molecules/SearchSection'
 import InvoiceList from '../../organisms/InvoiceList'
 import { SearchContainer } from './style'
+import InputWithLabel from '../../atoms/InputWithLabel'
 
 const InvoiceSending = (props) => {
   const [data, setData] = useState()
@@ -38,7 +37,7 @@ const InvoiceSending = (props) => {
     if (pagesFilter === undefined) params.page = meta.current_page
 
     if (search !== "") {
-      params.search= search
+      params.search = search
       params.page = meta.first_page
     }
     if (date_emission_nf !== "") {
@@ -119,30 +118,39 @@ const InvoiceSending = (props) => {
 
   return (
     <Container>
-        <SearchSection
-          fnSearch={setSearch}
-        >
-      <SearchContainer>
-        <InputDate
-          placeholder="Período inicial"
-          onChange={(e) => setInitialDate(e.target.value)}
-          date={initialDate}
-          width="260px"
-        />
-        <InputDate
-          placeholder="Período final"
-          onChange={(e) => setFinalDate(e.target.value)}
-          date={finalDate}
-          width="260px"
-        />
-        <InputDate
-          placeholder="Data Emissão da NF"
-          onChange={(e) => setDateEmissionNF(e.target.value)}
-          date={date_emission_nf}
-          width="310px"
-        />
+      <SearchSection
+        fnSearch={setSearch}
+      >
+        <SearchContainer>
+          <InputWithLabel
+            type="date"
+            placeholder="Período inicial"
+            label="Período inicial"
+            onChange={(e) => setInitialDate(e.target.value)}
+            value={initialDate}
+            handleBlur={() => { }}
+            width="260px"
+          />
+          <InputWithLabel
+            type="date"
+            placeholder="Período final"
+            label="Periodo final"
+            onChange={(e) => setFinalDate(e.target.value)}
+            value={finalDate}
+            handleBlur={() => { }}
+            width="260px"
+          />
+          <InputWithLabel
+            type="date"
+            placeholder="Data Emissão da NF"
+            label="Data Emissão da NF"
+            onChange={(e) => setDateEmissionNF(e.target.value)}
+            value={date_emission_nf}
+            handleBlur={() => { }}
+            width="260px"
+          />
         </SearchContainer>
-        </SearchSection>
+      </SearchSection>
       <InvoiceList
         data={data}
         meta={meta}
