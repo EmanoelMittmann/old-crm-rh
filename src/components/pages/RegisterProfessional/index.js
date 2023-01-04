@@ -264,7 +264,7 @@ const RegisterProfessional = () => {
             },
       })
         .then(() => {
-          toast.success(<DefaultToast text="Profissional cadastrado." />, {
+          toast.success(<DefaultToast text={id ? 'Profissional Atualizado' :'Profissional cadastrado'} />, {
             toastId: "post",
           });
           return history.push("/professionals");
