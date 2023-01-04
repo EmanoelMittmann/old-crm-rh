@@ -27,8 +27,6 @@ export const ContainerIcon = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    width: 5em;
-    padding-right: 1.5em;
 
     svg:hover {
         cursor: pointer;

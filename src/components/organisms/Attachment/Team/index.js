@@ -257,11 +257,11 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
             </div>
           </ProfessionalInfo>
           <ProfessionalHours>{member?.hours_estimed || 0}</ProfessionalHours>
-          <ProfessionalOvertime width="10em">
+          <ProfessionalOvertime width="20em">
             {member?.hours_perfomed || 0}
           </ProfessionalOvertime>
 
-          <ProfessionalPercent w="6em">
+          <ProfessionalPercent w="7em">
             {member.hours_perfomed
               ? (
                 (member?.hours_estimed / member?.hours_perfomed) *
@@ -270,13 +270,13 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
               : 0}
             %
           </ProfessionalPercent>
-          <ProfessionalOvertime width="11em">
+          <ProfessionalOvertime width="19em">
             {member?.extrasHours_estimed || 0}
           </ProfessionalOvertime>
-          <ProfessionalOvertime width="10em">
+          <ProfessionalOvertime width="20em">
             {member?.extrasHours_performed || 0}
           </ProfessionalOvertime>
-          <ProfessionalPercent w="20em">
+          <ProfessionalPercent w="8em">
             {member.extrasHours_performed
               ? (
                 (member?.extrasHours_estimed /

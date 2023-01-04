@@ -4,7 +4,7 @@ export const ProfessionalInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 23.5em;
+  width: 23.7em;
   padding-left: 1em;
 
   .professional {
@@ -37,7 +37,7 @@ export const ProfessionalHours = styled.span`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 10em;
+  width: 19em;
 `;
 
 export const ProfessionalOvertime = styled.span`
@@ -55,7 +55,7 @@ export const ProfessionalPercent = styled.span`
 
 export const ProfessionalStatus = styled.span`
   display: flex;
-  width: 5em;
+  width: 10em;
   align-items: center;
   justify-content: flex-start;
 `;

@@ -2,11 +2,12 @@ import React from "react";
 import { Badge } from "../../../molecules/ProfessionalsListItem/style";
 
 export const Status = ({ data }) => {
+
   return (
     <>
       {data.status.id === 1 | data.status_id === 1 ? (
         <Badge bg="#FFAE0026" color="#FFAE00" width="200px">
-          {data.status.name || data.status}
+          {data.status.name || data.status_name}
         </Badge>
       ) : data.status.id === 2 | data.status_id === 2 ? (
         <Badge bg="#FFAE0026" color="#FFAE00" width="200px">
