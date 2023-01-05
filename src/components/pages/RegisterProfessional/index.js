@@ -64,7 +64,7 @@ const RegisterProfessional = () => {
         return true;
       }),
 
-    rg: Yup.string().required(messages.required),
+    rg: Yup.string().required(messages.required).max(11, "RG deve conter no maximo 11 dígitos"),
     birth_date: Yup.string().required(messages.required),
     cep: Yup.string()
       .required(messages.required)
@@ -110,7 +110,7 @@ const RegisterProfessional = () => {
       bank: Yup.string(),
       agency: Yup.string().max(5, "Invalido"),
       account_type: Yup.string(),
-      type_of_transfer:Yup.string(),
+      type_of_transfer: Yup.string(),
       pix_key_type: Yup.string(),
       pix_key: Yup.string(),
       account_number: Yup.number(),
@@ -211,9 +211,9 @@ const RegisterProfessional = () => {
         account_type: "",
         agency: "",
         account_number: "",
-        type_of_transfer:"",
-        pix_key_type:"",
-        pix_key:"",
+        type_of_transfer: "",
+        pix_key_type: "",
+        pix_key: "",
       },
     },
     onSubmit: async (values) => {
@@ -222,49 +222,49 @@ const RegisterProfessional = () => {
         url: id ? `/user/${id}` : "/user",
         data: !id
           ? {
-              ...values,
-              extra_hour_value: parseFloat(
-                values.extra_hour_value.replace("R$", "").replace(",", ".")
-              ),
-              fixed_payment_value: values.fixed_payment_value
-                .replace("R$", "")
-                .replace(".", "")
-                .replace(",00", ""),
-              telephone_number: values.telephone_number
-                .toString()
-                .replace("(", "")
-                .replace(")", "")
-                .replace(" ", "")
-                .replace(" ", "")
-                .replace("-", ""),
-              cpf: cleanMask(values.cpf),
-              cep: cleanMask(values.cep),
-              rg: values.rg.toString(),
-              projects,
-            }
+            ...values,
+            extra_hour_value: parseFloat(
+              values.extra_hour_value.replace("R$", "").replace(",", ".")
+            ),
+            fixed_payment_value: values.fixed_payment_value
+              .replace("R$", "")
+              .replace(".", "")
+              .replace(",00", ""),
+            telephone_number: values.telephone_number
+              .toString()
+              .replace("(", "")
+              .replace(")", "")
+              .replace(" ", "")
+              .replace(" ", "")
+              .replace("-", ""),
+            cpf: cleanMask(values.cpf),
+            cep: cleanMask(values.cep),
+            rg: values.rg.toString(),
+            projects,
+          }
           : {
-              ...values,
-              extra_hour_value: parseFloat(
-                values.extra_hour_value.replace("R$", "").replace(",", ".")
-              ),
-              fixed_payment_value: values.fixed_payment_value
-                .replace("R$", "")
-                .replace(".", "")
-                .replace(",00", ""),
-              telephone_number: values.telephone_number
-                .toString()
-                .replace("(", "")
-                .replace(")", "")
-                .replace(" ", "")
-                .replace(" ", "")
-                .replace("-", ""),
-              cpf: cleanMask(values.cpf),
-              cep: cleanMask(values.cep),
-              rg: values.rg.toString(),
-            },
+            ...values,
+            extra_hour_value: parseFloat(
+              values.extra_hour_value.replace("R$", "").replace(",", ".")
+            ),
+            fixed_payment_value: values.fixed_payment_value
+              .replace("R$", "")
+              .replace(".", "")
+              .replace(",00", ""),
+            telephone_number: values.telephone_number
+              .toString()
+              .replace("(", "")
+              .replace(")", "")
+              .replace(" ", "")
+              .replace(" ", "")
+              .replace("-", ""),
+            cpf: cleanMask(values.cpf),
+            cep: cleanMask(values.cep),
+            rg: values.rg.toString(),
+          },
       })
         .then(() => {
-          toast.success(<DefaultToast text="Profissional cadastrado." />, {
+          toast.success(<DefaultToast text={id ? 'Profissional Atualizado' : 'Profissional cadastrado'} />, {
             toastId: "post",
           });
           return history.push("/professionals");
@@ -282,7 +282,7 @@ const RegisterProfessional = () => {
     enableReinitialize: true,
   });
 
-  const { values, setFieldValue, setFieldError, setErrors, setFieldTouched, touched, errors, handleChange} =
+  const { values, setFieldValue, setFieldError, setErrors, setFieldTouched, touched, errors, handleChange } =
     formik;
 
   const reloadProjects = useCallback(async () => {
@@ -322,16 +322,16 @@ const RegisterProfessional = () => {
     setAllProjects(data.data);
   }, []);
 
-  async function addProject(id_project, workload, extra_hours_limit , is_tech_lead) {
+  async function addProject(id_project, workload, extra_hours_limit, is_tech_lead) {
     await api({
       method: "post",
       url: `/userProjects/user/${id}`,
       data: {
         id: id_project,
         extra_hours_estimated: extra_hours_limit,
-        extra_hours_performed:null,
+        extra_hours_performed: null,
         hours_mounths_estimated: workload,
-        hours_mounths_performed:null,
+        hours_mounths_performed: null,
         isTechLead: is_tech_lead,
         job_: null,
         status: null
@@ -394,7 +394,7 @@ const RegisterProfessional = () => {
       });
   }
 
-  const getProfessionalData = async   () => {
+  const getProfessionalData = async () => {
     if (!jobs.length) optionsJob();
     if (!allProjects.length) getAllProjects();
     if (id) {
@@ -520,7 +520,7 @@ const RegisterProfessional = () => {
         />
         <RegisterFooter
           cancelButtonHandler={goBackClickHandler}
-          registerButtonHandler={() => {}}
+          registerButtonHandler={() => { }}
           buttonDescription={id ? "Atualizar" : "Cadastrar"}
           type="submit"
           form="professional"

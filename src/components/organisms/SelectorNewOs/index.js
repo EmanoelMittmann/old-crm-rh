@@ -59,10 +59,9 @@ const NewOrdemService = () => {
       setCheckedProfissional(
         professionals.map((item) => {
           if (item.commission) {
-            return { ...checkedProfissional, professional_id: item.id };
-          } else {
+            return {professional_id: item.id };
+          }else {
             return {
-              ...checkedProfissional,
               professional_id: item.id,
               commission: 0,
             };
@@ -172,6 +171,8 @@ const NewOrdemService = () => {
     filteredProfessionals();
   }, [ValueCommission]);
 
+  console.log("checkedProfissional: ", checkedProfissional);
+
   return (
     <>
       <ContainerButtonGeral>
@@ -188,7 +189,7 @@ const NewOrdemService = () => {
         </ContainerButtonsHeader>
         <ContainerButtons>
           <CancelButton
-            width='10em'
+            width="10em"
             onClick={() => {
               selectAll();
               setCheck((prev) => !prev);
