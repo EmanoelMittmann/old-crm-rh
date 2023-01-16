@@ -167,6 +167,7 @@ const RegisterProfessionalsData = ({ data }) => {
             handleBlur={setFieldTouched}
             name="rg"
             type="number"
+            limit="11"
           />
           <PhoneInternational
             country={'br'}

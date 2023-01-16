@@ -3,6 +3,7 @@ import { ListHeaderTitle } from '../../atoms/ListHeader/style'
 import { 
     HeaderContainer, 
     ListHeadeProjeto, 
+    ListHeadeQntHours, 
     ListHeaderDataFinal, 
     ListHeaderDataInicio, 
     ListHeaderItem,
@@ -25,6 +26,9 @@ const ListHeaderHoursExtra = ({ sortByName }) => {
           <ListHeaderDataFinal>
               <ListHeaderTitle margin='3em'>Periodo Final</ListHeaderTitle>
           </ListHeaderDataFinal>
+          <ListHeadeQntHours>
+              <ListHeaderTitle margin='3em'>Quantidade de Horas </ListHeaderTitle>
+          </ListHeadeQntHours>
           <ListHeadeProjeto>
               <ListHeaderTitle margin='3em'>Projeto</ListHeaderTitle>
           </ListHeadeProjeto>

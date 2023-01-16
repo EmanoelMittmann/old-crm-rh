@@ -15,20 +15,25 @@ export const ContainerCodigo = styled.div`
 `
 export const ContainerDataIntial = styled.div`
     display: flex;
-     width: 20%;
-     padding-left: 8em;
+     width: 16.5%;
+     padding-left: 7em;
 
 `
 export const ContainerDataFinal = styled.div`
     display: flex;
-     width: 20%;
+     width: 15%;
      padding-left:5em;
+`
 
+export const ContainerQntHours = styled.div`
+    display: flex;
+    width: 17%;
+    padding-left: 3em;
 
 `
 export const ContainerProject = styled.div`
     display: flex;
-    width: 18%;
+    width: 15%;
     padding-left: 3em;
 
 `

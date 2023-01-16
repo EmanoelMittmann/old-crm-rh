@@ -7,6 +7,7 @@ import {
   ContainerUser,
   ContainerStatus,
   User_name,
+  ContainerQntHours,
 } from "./style";
 import { useHistory } from "react-router-dom";
 import { formatDate } from "../../utils/formatDate";
@@ -31,6 +32,9 @@ export function OvertimeListTechnicalLeadApproval({ data }) {
             <User_name>{values?.user_name}</User_name>
           </ContainerUser>
         )}
+        <ContainerQntHours>
+          <Text>{values.hour_quantity}hr</Text>
+        </ContainerQntHours>
         <ContainerProject>
           <Text>{values.project_name}</Text>
         </ContainerProject>
