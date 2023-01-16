@@ -5,12 +5,11 @@ import {
   InvoiceIcon,
   JobIcon,
   OvertimeIcon,
-  ProjectsIcon,
   ReportsIcon,
   ServiceOrdersIcon,
   SettingsIcon,
 } from "../components/atoms/icons/NavIcons";
-
+import { ReactComponent as Project } from "../assets/icons/project.svg";
 import { ReactComponent as Invoice } from "../assets/icons/invoice.svg";
 import { ReactComponent as Overtime } from "../assets/icons/overtime.svg";
 
@@ -42,13 +41,13 @@ export const templates = [
     hasButton: true,
     buttonText: "Cadastrar novo",
     buttonPath: "/project",
-    icon: <ProjectsIcon />,
+    icon: <Project />,
     isRegisterPage: false,
     path: "/projects",
   },
   {
     id: 4,
-    name: "Horas extras",
+    name: "Aprovação de Horas Extras - RH",
     hasButton: false,
     buttonText: "",
     buttonPath: "",
