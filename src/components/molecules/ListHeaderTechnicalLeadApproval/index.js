@@ -22,7 +22,6 @@ const TechnicalLeadApproval = ({ sortByName, setOrderField }) => {
           }}
         />
       </ListHeaderProfessional>
-
       <ListHeadeQntHours>
         <ListHeaderTitle margin="3em">Quantidade de Horas</ListHeaderTitle>
         <Arrows
@@ -32,7 +31,6 @@ const TechnicalLeadApproval = ({ sortByName, setOrderField }) => {
           }}
         />
       </ListHeadeQntHours>
-
       <ListHeadeProject>
         <ListHeaderTitle margin="3em">Projeto</ListHeaderTitle>
         <Arrows
