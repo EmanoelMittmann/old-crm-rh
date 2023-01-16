@@ -23,7 +23,10 @@ const OvertimeListIsTechLead = () => {
   const [order, setOrder] = useState('');
   const [initialDate, setInitialDate] = useState("");
   const [finalDate, setFinalDate] = useState("");
-  let params = {};
+  let params = {
+    limit: 5,
+    orderFIeld: orderField
+  };
 
   const getOvertimes = async () => {
     await api({
@@ -39,12 +42,12 @@ const OvertimeListIsTechLead = () => {
   };
 
   const getStatus = async () => {
-    const {data} = await api({
+    const { data } = await api({
       method: "get",
       url: "/extraHoursStatus",
     });
     data.data.push({ id: "", name: "Todos" })
-    setStatusProject(data.data);   
+    setStatusProject(data.data);
   };
 
   const getProjects = async () => {
