@@ -152,9 +152,12 @@ const RegisterProfessionalsData = ({ data }) => {
             widthContainer="100%"
             handleBlur={setFieldTouched}
           />
-          <InputWithLabel
+          <InputMasked
             onChange={handleChange('rg')}
             value={values.rg}
+            mask={[
+              /\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/,/\d/
+            ]}
             label="RG"
             width="100%"
             widthContainer="100%"
