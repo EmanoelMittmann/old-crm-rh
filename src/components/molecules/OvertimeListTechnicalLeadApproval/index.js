@@ -7,6 +7,7 @@ import {
   ContainerUser,
   ContainerStatus,
   User_name,
+  ContainerQntHours,
 } from "./style";
 import { useHistory } from "react-router-dom";
 import { formatDate } from "../../utils/formatDate";
@@ -14,7 +15,7 @@ import { Badge } from "../../molecules/ProfessionalsListItem/style";
 
 export function OvertimeListTechnicalLeadApproval({ data }) {
   const history = useHistory();
-
+console.log('Dados Aprovação', data)
   return data ? (
     data.map((values, index) => (
       <Main key={index}>
@@ -31,6 +32,9 @@ export function OvertimeListTechnicalLeadApproval({ data }) {
             <User_name>{values?.user_name}</User_name>
           </ContainerUser>
         )}
+        <ContainerQntHours>
+          <Text>{values.hour_quantity}hr</Text>
+        </ContainerQntHours>
         <ContainerProject>
           <Text>{values.project_name}</Text>
         </ContainerProject>

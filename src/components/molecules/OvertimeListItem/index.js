@@ -9,7 +9,8 @@ import {
   ContainerDataIntial,
   ContainerDataFinal,
   ContainerProject,
-  ContainerIconOptions
+  ContainerIconOptions,
+  ContainerQntHours
 } from './style'
 import MenuOptionsEditProject from '../../atoms/MenuOptionsEditProject';
 import { useHistory } from "react-router-dom";
@@ -53,6 +54,11 @@ export function OvertimeListItem({ data }) {
             ? formatDate(new Date(item.end_date), { timeZone: "UTC" })
             : `${formatDate(new Date(item.launch_date), { timeZone: "UTC" })}`}
         </ContainerDataFinal>
+        
+        <ContainerQntHours>
+          {item.hour_quantity}hr
+        </ContainerQntHours>
+        
         <ContainerProject>
           {item.project.name}
         </ContainerProject>

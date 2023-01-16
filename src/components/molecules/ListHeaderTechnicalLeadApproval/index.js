@@ -3,6 +3,7 @@ import { ListHeaderTitle } from "../../atoms/ListHeader/style";
 import {
   HeaderContainer,
   ListHeadeProject,
+  ListHeadeQntHours,
   ListHeaderLaunch,
   ListHeaderProfessional,
   ListHeaderStatus,
@@ -21,6 +22,16 @@ const TechnicalLeadApproval = ({ sortByName, setOrderField }) => {
           }}
         />
       </ListHeaderProfessional>
+
+      <ListHeadeQntHours>
+        <ListHeaderTitle margin="3em">Quantidade de Horas</ListHeaderTitle>
+        <Arrows
+          onClick={() => {
+            sortByName()
+            setOrderField("hour_quantity");
+          }}
+        />
+      </ListHeadeQntHours>
 
       <ListHeadeProject>
         <ListHeaderTitle margin="3em">Projeto</ListHeaderTitle>

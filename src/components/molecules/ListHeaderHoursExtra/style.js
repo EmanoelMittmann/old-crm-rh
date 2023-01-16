@@ -20,7 +20,7 @@ export const HeaderContainer = styled.div`
 export const ListHeaderItem = styled.div`
   display: flex;
   align-items: center;
-  width: 9.5%;
+  width: 10.2%;
 `;
 
 export const ListHeaderDataInicio = styled.div`
@@ -31,8 +31,12 @@ export const ListHeaderDataInicio = styled.div`
 `;
 export const ListHeaderDataFinal = styled.div`
   display: flex;
-  width: 18.5%;
+  width: 15.3%;
 
+`;
+export const ListHeadeQntHours = styled.div`
+  display: flex;
+  width: 20%;
 `;
 
 

@@ -11,7 +11,7 @@ export const Main = styled.div`
 
 export const ContainerUser = styled.h4`
   display: flex;
-  width: 52%;
+  width: 28%;
   gap: 1em;
   align-items: center;
 
@@ -28,6 +28,10 @@ export const ContainerLaunch_date = styled.div`
 export const ContainerStatus = styled.div`
   display: flex;
   width: 15%;
+`;
+export const ContainerQntHours = styled.div`
+  display: flex;
+  width: 20.2%;
 `;
 
 export const ContainerProject = styled.div`
