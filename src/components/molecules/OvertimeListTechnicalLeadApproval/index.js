@@ -15,7 +15,7 @@ import { Badge } from "../../molecules/ProfessionalsListItem/style";
 
 export function OvertimeListTechnicalLeadApproval({ data }) {
   const history = useHistory();
-console.log('Dados Aprovação', data)
+
   return data ? (
     data.map((values, index) => (
       <Main key={index}>
