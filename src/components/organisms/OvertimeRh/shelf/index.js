@@ -19,6 +19,8 @@ const Shelf = ({ values }) => {
       <Main key={values.id} padding="2em 0 0 2em">
         <ContainerUser
           w="32.5%"
+          
+          // onClick={() => history.push(`ApprovalHoursAdm/${values.id}`)}
         >
           <img src={values.avatar} className="img" />
           <User_name>{values?.user_name}</User_name>
