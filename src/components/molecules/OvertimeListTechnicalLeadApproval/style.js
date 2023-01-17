@@ -6,12 +6,13 @@ export const Main = styled.div`
   height: 2.5em;
   align-items: center;
   margin-top: 1em;
-  padding: 1em;
+  margin:${props => props.margin ? props.margin : '0 0 2em 0'};
+  padding: ${props => props.padding ? props.padding : '1em'};
 `;
 
 export const ContainerUser = styled.h4`
   display: flex;
-  width: 28%;
+  width: ${props => props.w ? props.w : '28%'};
   gap: 1em;
   align-items: center;
 
@@ -22,7 +23,7 @@ export const ContainerUser = styled.h4`
 `;
 export const ContainerLaunch_date = styled.div`
   display: flex;
-  width: 20%;
+  width: ${props => props.w ? props.w : '20%'};
 `;
 
 export const ContainerStatus = styled.div`
@@ -36,7 +37,7 @@ export const ContainerQntHours = styled.div`
 
 export const ContainerProject = styled.div`
   display: flex;
-  width: 20%;
+  width: ${props => props.w ? props.w : '20%'};
 `;
 export const StatusHoursExtra = styled.div`
   display: flex;

@@ -19,6 +19,7 @@ const ServiceOrderSection = () => {
   const [searchResult, setSearchResult] = useState("");
   const [initialDate, setInitialDate] = useState("");
   const [finalDate, setFinalDate] = useState("");
+  
 
   const location = useLocation();
 

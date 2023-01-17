@@ -4,16 +4,27 @@ import InputSelect from "../../atoms/InputSelect";
 import InputWithLabel from "../../atoms/InputWithLabel";
 import HeaderOvertimeRh from "../../molecules/HeaderOvertimeRh";
 import { SearchSection } from "../../molecules/SearchSection";
+import Footer from "../Footer";
 import Shelf from "./shelf";
 import { Container, ContainerListing, ContainerSearch } from "./style";
 
-const OvertimeRh = ({ projects, status, sortByName}) => {
-  const [search, setSearch] = useState("");
-  const [projectParams, setProjectParams] = useState("");
-  const [statusParams, setStatusParams] = useState("");
-  const [initialDate, setInitialDate] = useState("");
-  const [finalDate, setFinalDate] = useState("");
-
+const OvertimeRh = ({
+  projects,
+  status,
+  sortByName,
+  data,
+  dataMeta,
+  next,
+  prev,
+  finalDate,
+  setOrderField,
+  setProjectParams,
+  setInitialDate,
+  setFinalDate,
+  initialDate,
+  setSearch,
+  setStatusParams,
+}) => {
   return (
     <Container>
       <ContainerSearch>
@@ -59,9 +70,23 @@ const OvertimeRh = ({ projects, status, sortByName}) => {
         </SearchSection>
       </ContainerSearch>
       <ContainerListing>
-        <HeaderOvertimeRh sortByName={sortByName}/>
-        {/* <Shelf values={data}/> */}
+        <HeaderOvertimeRh
+          sortByName={sortByName}
+          setOrderField={setOrderField}
+        />
+        <div className="height">
+          {data.map((item) => (
+            <Shelf values={item} />
+          ))}
+        </div>
       </ContainerListing>
+      <Footer
+        currentPage={dataMeta.current_page}
+        firstPage={dataMeta.first_page}
+        lastPage={dataMeta.last_page}
+        nextPage={() => next()}
+        previousPage={() => prev()}
+      />
     </Container>
   );
 };

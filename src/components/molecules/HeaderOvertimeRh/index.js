@@ -3,7 +3,7 @@ import { ListHeaderTitle } from "../../atoms/ListHeader/style";
 import { HeaderContainer, ListHeadeProject, ListHeaderLaunch, ListHeaderProfessional, ListHeaderStatus } from "../ListHeaderTechnicalLeadApproval/style";
 import { ReactComponent as Arrows } from "../../../assets/icons/arrows.svg";
 
-const HeaderOvertimeRh = ({sortByName}) => {
+const HeaderOvertimeRh = ({sortByName,setOrderField}) => {
   return (
     <>
       <HeaderContainer>
@@ -11,7 +11,8 @@ const HeaderOvertimeRh = ({sortByName}) => {
           <ListHeaderTitle margin="2em">Profissional</ListHeaderTitle>
           <Arrows
             onClick={() => {
-              sortByName();
+              sortByName()
+              setOrderField('user_id')            
             }}
           />
         </ListHeaderProfessional>
@@ -20,7 +21,8 @@ const HeaderOvertimeRh = ({sortByName}) => {
           <ListHeaderTitle margin="3em">Projeto</ListHeaderTitle>
           <Arrows
             onClick={() => {
-              sortByName();
+              sortByName()
+              setOrderField('project_id')    
             }}
           />
         </ListHeadeProject>
@@ -29,7 +31,8 @@ const HeaderOvertimeRh = ({sortByName}) => {
           <ListHeaderTitle margin="3em">Data de lançamento</ListHeaderTitle>
           <Arrows
             onClick={() => {
-              sortByName();
+              sortByName()
+              setOrderField('launch_date')    
             }}
           />
         </ListHeaderLaunch>
