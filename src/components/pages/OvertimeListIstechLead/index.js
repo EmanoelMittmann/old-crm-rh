@@ -31,7 +31,7 @@ const OvertimeListIsTechLead = () => {
   const getOvertimes = async () => {
     await api({
       method: "get",
-      url: `/extrasHoursReleases/pending?limit=5&orderField=${orderField}`,
+      url: `/extrasHoursReleases/pending`,
       params: params,
     })
       .then((response) => {
