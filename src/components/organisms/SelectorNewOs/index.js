@@ -171,7 +171,6 @@ const NewOrdemService = () => {
     filteredProfessionals();
   }, [ValueCommission]);
 
-  console.log("checkedProfissional: ", checkedProfissional);
 
   return (
     <>

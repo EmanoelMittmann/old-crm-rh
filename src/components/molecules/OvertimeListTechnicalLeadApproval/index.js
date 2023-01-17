@@ -7,6 +7,7 @@ import {
   ContainerUser,
   ContainerStatus,
   User_name,
+  ContainerQntHours,
 } from "./style";
 import { useHistory } from "react-router-dom";
 import { formatDate } from "../../utils/formatDate";
@@ -17,7 +18,7 @@ export function OvertimeListTechnicalLeadApproval({ data }) {
 
   return data ? (
     data.map((values, index) => (
-      <Main key={index}>
+      <Main key={index} margin='1.5em 0 0 0em' padding='0em 0 0 2em'>
         {values.status_name === "Pendente - Líder Técnico" ? (
           <ContainerUser
             onClick={() => history.push(`ApprovalIsTechLead/${values.id}`)}
@@ -31,6 +32,9 @@ export function OvertimeListTechnicalLeadApproval({ data }) {
             <User_name>{values?.user_name}</User_name>
           </ContainerUser>
         )}
+        <ContainerQntHours>
+          <Text>{values.hour_quantity}hr</Text>
+        </ContainerQntHours>
         <ContainerProject>
           <Text>{values.project_name}</Text>
         </ContainerProject>

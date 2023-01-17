@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
-    max-width: 100%;
+    max-width: 98%;
     height: 40px;
+    margin: auto;
     background-color: #F4F6F8;
     border-radius: 8px;
     display: flex;
@@ -20,7 +21,7 @@ export const HeaderContainer = styled.div`
 export const ListHeaderProfessional = styled.div`
   display: flex;
   align-items: center;
-  width: 50%;
+  width: 26%;
 `;
 
 export const ListHeaderLaunch = styled.div`
@@ -33,6 +34,10 @@ export const ListHeaderLaunch = styled.div`
 export const ListHeadeProject = styled.div`
   display: flex;
   width: 20%;
+`;
+export const ListHeadeQntHours = styled.div`
+  display: flex;
+  width: 21%;
 `;
 
 export const ListHeaderStatus = styled.div`

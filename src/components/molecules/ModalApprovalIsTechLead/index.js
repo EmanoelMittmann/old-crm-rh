@@ -44,7 +44,7 @@ const getApproveHours = async (id) => {
     try {
         const { data } = await api({
                 method: "GET",
-                url: `/findUserHoursExtrasReleasesDetails/${id}`,
+            url: `/extrasHoursReleases/details/${id}`,
             });
             setApproveData(data);
         } catch (error) {
@@ -54,7 +54,7 @@ const getApproveHours = async (id) => {
 
 const handleApprovalHours = async () => {
   try{
-      await api.post(`/approvalUserHoursExtrasReleases`, {
+      await api.post(`/extrasHoursReleases/approval`, {
         releases_id: parseInt(id),
         approved: toAccept,
         justification: currentJustification,

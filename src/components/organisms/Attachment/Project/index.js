@@ -13,16 +13,9 @@ import InputWithLabel from "../../../atoms/InputWithLabel";
 import SecondaryText from "../../../atoms/SecondaryText/style";
 import ModalEditAttachment from "../../../molecules/ModalEditAttachment";
 import ModalRed from "../../../molecules/ModalRed";
-import {
-  CommissionApproval,
-  Commissioncontract,
-  ContainerCommission,
-  FullcCommissionAllowance,
-} from "../../../molecules/EmploymentContract/style";
-import { InputRadio, LabelInputRadio } from "../../../atoms/InputRadio/style";
 
 const AttachmentProject = ({ attachment, allOptions, data }) => {
-  const { values,setFieldValue } = data;
+  const { values, setFieldValue } = data;
   const [rows, setRows] = useState([]);
 
   const [projectSelected, setProjectSelected] = useState(null);
@@ -39,34 +32,23 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
   const [totalHours, setTotalHours] = useState(0);
   const [totalOvertime, setTotalOvertime] = useState(0);
   const [totalPercentage, setTotalPercentage] = useState(0);
-  const [totalPerformedHours, setTotalPerformedHours] = useState(0)
-  const [totalPercentageMonth, settotalPercentageMonth] = useState(0)
-  const [totalOvertimeExtras,setTotalOvertimeExtras] = useState(0)
+  const [totalPerformedHours, setTotalPerformedHours] = useState(0);
+  const [totalPercentageMonth, settotalPercentageMonth] = useState(0);
+  const [totalOvertimeExtras, setTotalOvertimeExtras] = useState(0);
   const [onlyError, setOnlyError] = useState("");
   const [overtimeProjetctErr, setOvertimeProjectErr] = useState("");
-  const [componentJustRenderedCommission, setComponentJustRenderedComission] = useState(false);
-
-    
-    const limitAllowed = {
-    ...(componentJustRenderedCommission &&
-      values.is_tech_lead === true && { checked: true }),
-  };
-
-  const limitNotAllowed = {
-      ...(componentJustRenderedCommission &&
-      (values === undefined || values.is_tech_lead === false) && {
-        checked: true,
-      }),
-  };
+  const [componentJustRenderedCommission, setComponentJustRenderedComission] =
+    useState(false);
 
   const [options, setOptions] = useState([]);
 
   const { id } = useParams();
 
   const { projects, setProjects, addProject, removeProject, editProject } =
-  attachment;
-  
-  const calcPercentage = (projectHours) => Math.trunc((projectHours / values.mounth_hours) * 100);
+    attachment;
+
+  const calcPercentage = (projectHours) =>
+    Math.trunc((projectHours / values.mounth_hours) * 100);
 
   const resetInputs = () => {
     setProjectSelected(null);
@@ -95,23 +77,23 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
 
   const calcMensalHoursTotal = () => {
     const allPerformedHours = rows?.map((project) => {
-      return project.fourthRow
+      return project.fourthRow;
     });
-    const TotalPerformedHours = allPerformedHours.reduce(function (acc,hours){
+    const TotalPerformedHours = allPerformedHours.reduce(function (acc, hours) {
       return +acc + +hours;
-    })
-    return setTotalPerformedHours(TotalPerformedHours)
-  }
+    });
+    return setTotalPerformedHours(TotalPerformedHours);
+  };
 
   const calcPercentMonth = () => {
     const allPerformedHours = rows?.map((project) => {
-      return project.percentMonth
+      return project.percentMonth;
     });
-    const TotalPerformedHours = allPerformedHours.reduce(function (acc,hours){
+    const TotalPerformedHours = allPerformedHours.reduce(function (acc, hours) {
       return +acc + +hours;
-    })
-    settotalPercentageMonth(TotalPerformedHours)
-  }
+    });
+    settotalPercentageMonth(TotalPerformedHours);
+  };
 
   const calcTotalOvertime = () => {
     const allOvertime = rows?.map((project) => {
@@ -133,7 +115,6 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
     return setTotalOvertimeExtras(totalOvertime);
   };
 
-
   const calcTotalPercentage = () => {
     const allPercentage = rows?.map((project) => {
       return project.percentExtras;
@@ -151,13 +132,23 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
         const addProjectRows = {
           id: project.id,
           firstRow: project.name,
-          secondRow:formatDate(project.date_start),
+          secondRow: formatDate(project.date_start),
           thirdRow: project.hours_mounths_estimated,
           fourthRow: project.hours_mounths_performed,
-          percentMonth: Number(project.hours_mounths_performed) !== 0 ? (project.hours_mounths_estimated/project.hours_mounths_performed) * 100 : 0 ,
+          percentMonth:
+            Number(project.hours_mounths_performed) !== 0
+              ? (project.hours_mounths_estimated /
+                  project.hours_mounths_performed) *
+                100
+              : 0,
           fifthRow: project.extra_hours_estimated,
           sixrow: project.extra_hours_performed,
-          percentExtras: Number(project.extra_hours_performed) !== 0 ? (project.extra_hours_estimated/project.extra_hours_performed) * 100 : 0,
+          percentExtras:
+            Number(project.extra_hours_performed) !== 0
+              ? (project.extra_hours_estimated /
+                  project.extra_hours_performed) *
+                100
+              : 0,
         };
         setRows((oldState) => [...oldState, addProjectRows]);
       });
@@ -170,10 +161,20 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
           secondRow: formatDate(data.date_start),
           thirdRow: project.hours_mounths_estimated,
           fourthRow: project.hours_mounths_performed,
-          percentMonth: Number(project.hours_mounths_performed) !== 0 ? (project.hours_mounths_estimated/project.hours_mounths_performed) * 100 : 0 ,
+          percentMonth:
+            Number(project.hours_mounths_performed) !== 0
+              ? (project.hours_mounths_estimated /
+                  project.hours_mounths_performed) *
+                100
+              : 0,
           fifthRow: project.extra_hours_estimated,
           sixrow: project.extra_hours_performed,
-          percentExtras: Number(project.extra_hours_performed) !== 0 ? (project.extra_hours_estimated/project.extra_hours_performed) * 100 : 0,
+          percentExtras:
+            Number(project.extra_hours_performed) !== 0
+              ? (project.extra_hours_estimated /
+                  project.extra_hours_performed) *
+                100
+              : 0,
         };
         setRows((oldState) => [...oldState, addProjectRows]);
       });
@@ -193,8 +194,8 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
 
     if (overtime === "" || overtime < "0") {
       setOvertimeProjectErr(
-          "O Campo Hora/Extra não pode ser vazio, inclua o zero caso não exista valor de hora extra"
-          );
+        "O Campo Hora/Extra não pode ser vazio, inclua o zero caso não exista valor de hora extra"
+      );
       return;
     }
 
@@ -204,12 +205,12 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
         {
           id: selected.id,
           hours_mounths_estimated: hoursMonthProject,
-          hours_mounths_performed:null,
-          extra_hours_estimated:overtime,
-          extra_hours_performed:null,
+          hours_mounths_performed: null,
+          extra_hours_estimated: overtime,
+          extra_hours_performed: null,
           job_: null,
         },
-    ]);
+      ]);
       resetInputs();
       return;
     }
@@ -229,7 +230,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
           };
         }
         if (project.id !== projectClicked) {
-            return project;
+          return project;
         }
       });
       setProjects(edited);
@@ -268,9 +269,9 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
     calcTotalHours();
     calcTotalOvertime();
     calcTotalPercentage();
-    calcMensalHoursTotal()
-    calcPercentMonth()
-    calcTotalOvertimeExtras()
+    calcMensalHoursTotal();
+    calcPercentMonth();
+    calcTotalOvertimeExtras();
   }, [rows]);
 
   useEffect(() => {
@@ -279,43 +280,6 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
 
   return (
     <AttachmentContainer>
-      <Commissioncontract weight="600">Lider Técnico</Commissioncontract>
-     
-        <FullcCommissionAllowance
-           onChange={(e) => {
-             e.target.value === 'limit'
-               ? setFieldValue('is_tech_lead', true)
-               : setFieldValue('is_tech_lead', false);
-             setComponentJustRenderedComission(false);
-           }}
-        >
-          <CommissionApproval>
-            <ContainerCommission>
-              <InputRadio
-                 {...limitAllowed}
-                type="radio"
-                name="techLead"
-                value="limit"
-                id="limit"
-              />
-              <LabelInputRadio for="limit"> Sim </LabelInputRadio>
-            </ContainerCommission>
-
-            <ContainerCommission>
-              <InputRadio
-                 {...limitNotAllowed}
-                margin="0 0 0 3em"
-                type="radio"
-                name="techLead"
-                value="nolimit"
-                id="nolimit"
-              />
-              <LabelInputRadio for="nolimit"> Não </LabelInputRadio>
-            </ContainerCommission>
-          </CommissionApproval>
-        </FullcCommissionAllowance>
-      
-
       <SecondaryText margin="0 0 2.5em 0">Vincular Projetos</SecondaryText>
 
       <AttachmentForm>

@@ -64,6 +64,7 @@ const OrdemServiceListItem = ({
     setCheckedProfissional(newArr);
   }, [state]);
 
+
   return (
     <ContainerOrdemServices key={index.id}>
       <OrdemServiceItens width="37%" content="flex-start">
@@ -104,9 +105,9 @@ const OrdemServiceListItem = ({
       <OrdemServiceItens width="10%" content="flex">
         {index.value
           ? (
-              Number(index.value) + Number(index.fixed_payment_value)
+              Number(index.value) + Number(index.fixed_payment_value) + Number(index.extra_hour_value)
             ).toLocaleString("pt-br", { style: "currency", currency: "BRL" })
-          : Number(index.fixed_payment_value).toLocaleString("pt-br", {
+          : (Number(index.fixed_payment_value) + Number(index.extra_hour_value)).toLocaleString("pt-br", {
               style: "currency",
               currency: "BRL",
             })}

@@ -56,6 +56,7 @@ const InputWithLabel = ({
           width={width}
           padding="0.3em 0 0 1.5em"
           max="2999-12-31"
+          
         />
       </InputLine>
       {error && touched && <ErrorMessage visible={error}>{error}</ErrorMessage>}
