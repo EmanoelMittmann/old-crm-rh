@@ -352,7 +352,7 @@ const RegisterProfessionalsData = ({ data }) => {
               ]}
               label="CNPJ"
               error={errors?.professional_data?.cnpj}
-              touched={errors?.professional_data?.cnpj}
+              touched={touched?.professional_data?.cnpj}
               padding="0em 2em 0 0em"
               width="100%"
               widthContainer="30%"
@@ -526,8 +526,8 @@ const RegisterProfessionalsData = ({ data }) => {
             label="Agência"
             width="100%"
             widthContainer="40%"
-            error={errors.agency}
-            touched={touched.agency}
+            error={errors?.professional_data?.agency}
+            touched={touched?.professional_data?.agency}
             handleBlur={setFieldTouched}
             name="professional_data.agency"
             type="number"
@@ -539,8 +539,8 @@ const RegisterProfessionalsData = ({ data }) => {
             label="Número da conta"
             width="100%"
             widthContainer="60%"
-            error={errors.account_number}
-            touched={touched.account_number}
+            error={errors?.professional_data?.account_number}
+            touched={touched?.professional_data?.account_number}
             handleBlur={setFieldTouched}
             name="professional_data.account_number"
             type="number"
@@ -552,6 +552,8 @@ const RegisterProfessionalsData = ({ data }) => {
             onChange={handleChange('professional_data.bank')}
             padding="0em 2em 0 0em"
             placeHolder={'Banco'}
+            error={errors?.professional_data?.bank}
+            touched={touched?.professional_data?.bank}
             label="Banco"
             width="100%"
             lineWidth="68%"
