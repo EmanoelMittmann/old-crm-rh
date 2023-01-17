@@ -1,16 +1,16 @@
-import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import styled from "styled-components";
+import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import { ReactComponent as Home } from '../../../../assets/icons/home.svg';
-import { ReactComponent as Job } from '../../../../assets/icons/job.svg';
-import { ReactComponent as Project} from '../../../../assets/icons/project.svg';
-import { ReactComponent as Overtime } from '../../../../assets/icons/overtime.svg';
-import { ReactComponent as Invoice } from '../../../../assets/icons/invoice.svg';
-import { ReactComponent as Reports } from '../../../../assets/icons/reports.svg';
-import { ReactComponent as ServiceOrders } from '../../../../assets/icons/serviceOrders.svg';
-import { ReactComponent as Settings } from '../../../../assets/icons/settings.svg';
-import { ReactComponent as Company } from '../../../../assets/icons/Vector.svg';
+import { ReactComponent as Home } from "../../../../assets/icons/home.svg";
+import { ReactComponent as Job } from "../../../../assets/icons/job.svg";
+import { ReactComponent as Project } from "../../../../assets/icons/project.svg";
+import { ReactComponent as Overtime } from "../../../../assets/icons/overtime.svg";
+import { ReactComponent as Invoice } from "../../../../assets/icons/invoice.svg";
+import { ReactComponent as Reports } from "../../../../assets/icons/reports.svg";
+import { ReactComponent as ServiceOrders } from "../../../../assets/icons/serviceOrders.svg";
+import { ReactComponent as Settings } from "../../../../assets/icons/settings.svg";
+import { ReactComponent as Company } from "../../../../assets/icons/Vector.svg";
 
 //Home Icon
 
@@ -21,7 +21,7 @@ const HomeIconContainer = styled.div`
   width: 55px;
 
   svg {
-    fill: ${(props) => (props.location === '/home' ? 'black' : '#B7BDC2')};
+    fill: ${(props) => (props.location === "/home" ? "black" : "#B7BDC2")};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
@@ -29,7 +29,7 @@ const HomeIconContainer = styled.div`
 
   &:hover {
     background-color: ${(props) =>
-    props.location === "/home" ? "white" : "#F4F6F8"};
+      props.location === "/home" ? "white" : "#F4F6F8"};
     border-radius: 10px;
 
     svg {
@@ -38,8 +38,8 @@ const HomeIconContainer = styled.div`
   }
 
   &:after {
-    content: 'Início';
-    display: ${(props) => (props.location === '/home' ? 'none' : props.hover)};
+    content: "Início";
+    display: ${(props) => (props.location === "/home" ? "none" : props.hover)};
     width: 70px;
     height: 35px;
     background-color: white;
@@ -57,8 +57,8 @@ const HomeIconContainer = styled.div`
   }
 
   &:before {
-    content: '';
-    display: ${(props) => (props.location === '/home' ? 'none' : props.hover)};
+    content: "";
+    display: ${(props) => (props.location === "/home" ? "none" : props.hover)};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -72,7 +72,7 @@ export const HomeIcon = () => {
   const location = useLocation();
   const state = useSelector((state) => state.headerMenu[0]);
 
-  const displayDescription = state.descriptionIsAppearing ? 'flex' : 'none';
+  const displayDescription = state.descriptionIsAppearing ? "flex" : "none";
 
   return (
     <HomeIconContainer location={location.pathname} hover={displayDescription}>
@@ -91,7 +91,7 @@ const JobIconContainer = styled.div`
 
   svg {
     fill: ${(props) =>
-    props.location === '/professionals' ? 'black' : '#B7BDC2'};
+      props.location === "/professionals" ? "black" : "#B7BDC2"};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
@@ -99,7 +99,7 @@ const JobIconContainer = styled.div`
 
   &:hover {
     background-color: ${(props) =>
-    props.location === '/professionals' ? 'white' : '#F4F6F8'};
+      props.location === "/professionals" ? "white" : "#F4F6F8"};
     border-radius: 10px;
 
     svg {
@@ -108,9 +108,9 @@ const JobIconContainer = styled.div`
   }
 
   &:after {
-    content: 'Profissionais';
+    content: "Profissionais";
     display: ${(props) =>
-    props.location === '/professionals' ? 'none' : props.hover};
+      props.location === "/professionals" ? "none" : props.hover};
     width: 100px;
     height: 35px;
     background-color: white;
@@ -128,9 +128,9 @@ const JobIconContainer = styled.div`
   }
 
   &:before {
-    content: '';
+    content: "";
     display: ${(props) =>
-    props.location === '/professionals' ? 'none' : props.hover};
+      props.location === "/professionals" ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -144,7 +144,7 @@ export const JobIcon = () => {
   const location = useLocation();
   const state = useSelector((state) => state.headerMenu[1]);
 
-  const displayDescription = state.descriptionIsAppearing ? 'flex' : 'none';
+  const displayDescription = state.descriptionIsAppearing ? "flex" : "none";
 
   return (
     <JobIconContainer location={location.pathname} hover={displayDescription}>
@@ -162,17 +162,20 @@ const ProjectsIconContainer = styled.div`
   width: 55px;
 
   svg {
-    fill: ${(props) => props.location === '/project' || props.location === '/registerProject'
-      ? 'black'
-      : '#B7BDC2'};
-    cursor: pointer;  
+    fill: ${(props) =>
+      props.location === "/project" || props.location === "/registerProject"
+        ? "black"
+        : "#B7BDC2"};
+    cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
   }
 
   &:hover {
     background-color: ${(props) =>
-    props.location === "/project" || props.location === "/registerProject" ? "white" : "#F4F6F8"};
+      props.location === "/project" || props.location === "/registerProject"
+        ? "white"
+        : "#F4F6F8"};
     border-radius: 10px;
 
     svg {
@@ -181,11 +184,11 @@ const ProjectsIconContainer = styled.div`
   }
 
   &:after {
-    content: 'Projetos';
+    content: "Projetos";
     display: ${(props) =>
-  props.location === "/project" || props.location === "/registerProject"
-      ? "none"
-      : props.hover};
+      props.location === "/project" 
+        ? "none"
+        : props.hover};
     width: 70px;
     height: 35px;
     background-color: white;
@@ -204,12 +207,11 @@ const ProjectsIconContainer = styled.div`
   }
 
   &:before {
-    content: '';
+    content: "";
     display: ${(props) =>
-  props.location === "/project" || props.location === "/registerProject"
-      ? "none"
-      : props.hover};
-
+      props.location === "/project" || props.location === "/registerProject"
+        ? "none"
+        : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -223,7 +225,7 @@ export const ProjectsIcon = () => {
   const location = useLocation();
   const state = useSelector((state) => state.headerMenu[2]);
 
-  const displayDescription = state.descriptionIsAppearing ? 'flex' : 'none';
+  const displayDescription = state.descriptionIsAppearing ? "flex" : "none";
 
   return (
     <ProjectsIconContainer
@@ -244,7 +246,7 @@ const OvertimeIconContainer = styled.div`
   width: 55px;
 
   svg {
-    fill: ${(props) => (props.location === '/overtime' ? 'black' : '#B7BDC2')};
+    fill: ${(props) => (props.location === "/overtime" ? "black" : "#B7BDC2")};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
@@ -252,7 +254,7 @@ const OvertimeIconContainer = styled.div`
 
   &:hover {
     background: ${(props) =>
-    props.location === "/overtime" ? "white" : "#F4F6F8"};
+      props.location === "/overtime" ? "white" : "#F4F6F8"};
     border-radius: 10px;
 
     svg {
@@ -261,9 +263,9 @@ const OvertimeIconContainer = styled.div`
   }
 
   &:after {
-    content: 'Horas extras';
+    content: "Horas extras";
     display: ${(props) =>
-    props.location === "/overtime" ? "none" : props.hover};
+      props.location === "/overtime" ? "none" : props.hover};
     width: 100px;
     height: 35px;
     background-color: white;
@@ -271,7 +273,7 @@ const OvertimeIconContainer = styled.div`
       5px 25px 14px -13px rgba(0, 0, 0, 0);
     position: absolute;
     border-radius: 8px;
-    top: 122%;
+    transform: translateY(5.5em);
     color: black;
     font-size: 0.7rem;
     font-weight: 700;
@@ -281,13 +283,13 @@ const OvertimeIconContainer = styled.div`
   }
 
   &:before {
-    content: '';
+    content: "";
     display: ${(props) =>
-    props.location === "/overtime" ? "none" : props.hover};
+      props.location === "/overtime" ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    position: absolute;
+    position: fixed;
     top: 65px;
     background-color: white;
   }
@@ -297,7 +299,7 @@ export const OvertimeIcon = () => {
   const location = useLocation();
   const state = useSelector((state) => state.headerMenu[3]);
 
-  const displayDescription = state.descriptionIsAppearing ? 'flex' : 'none';
+  const displayDescription = state.descriptionIsAppearing ? "flex" : "none";
 
   return (
     <OvertimeIconContainer
@@ -318,7 +320,7 @@ const InvoiceIconContainer = styled.div`
   width: 55px;
 
   svg {
-    fill: ${(props) => (props.location === '/invoice' ? 'black' : '#B7BDC2')};
+    fill: ${(props) => (props.location === "/invoice" ? "black" : "#B7BDC2")};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
@@ -334,9 +336,9 @@ const InvoiceIconContainer = styled.div`
   }
 
   &:after {
-    content: 'Notas fiscais';
+    content: "Notas fiscais";
     display: ${(props) =>
-    props.location === "/invoice" ? "none" : props.hover};
+      props.location === "/invoice" ? "none" : props.hover};
     width: 100px;
     height: 35px;
     background-color: white;
@@ -344,7 +346,7 @@ const InvoiceIconContainer = styled.div`
       5px 25px 14px -13px rgba(0, 0, 0, 0);
     position: absolute;
     border-radius: 8px;
-    top: 122%;
+    transform: translateY(5em);
     color: black;
     font-size: 0.7rem;
     font-weight: 700;
@@ -354,9 +356,9 @@ const InvoiceIconContainer = styled.div`
   }
 
   &:before {
-    content: '';
+    content: "";
     display: ${(props) =>
-    props.location === "/invoice" ? "none" : props.hover};
+      props.location === "/invoice" ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -369,7 +371,7 @@ const InvoiceIconContainer = styled.div`
 export const InvoiceIcon = () => {
   const location = useLocation();
   const state = useSelector((state) => state.headerMenu[4]);
-  const displayDescription = state.descriptionIsAppearing ? 'flex' : 'none';
+  const displayDescription = state.descriptionIsAppearing ? "flex" : "none";
 
   return (
     <InvoiceIconContainer
@@ -390,7 +392,7 @@ const ReportsIconContainer = styled.div`
   width: 55px;
 
   svg {
-    fill: ${(props) => (props.location === '/reports' ? 'black' : '#B7BDC2')};
+    fill: ${(props) => (props.location === "/reports" ? "black" : "#B7BDC2")};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
@@ -406,9 +408,9 @@ const ReportsIconContainer = styled.div`
   }
 
   &:after {
-    content: 'Relatórios';
+    content: "Relatórios";
     display: ${(props) =>
-    props.location === "/reports" ? "none" : props.hover};
+      props.location === "/reports" ? "none" : props.hover};
     width: 100px;
     height: 35px;
     background-color: white;
@@ -426,9 +428,9 @@ const ReportsIconContainer = styled.div`
   }
 
   &:before {
-    content: '';
+    content: "";
     display: ${(props) =>
-    props.location === "/reports" ? "none" : props.hover};
+      props.location === "/reports" ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -441,7 +443,7 @@ const ReportsIconContainer = styled.div`
 export const ReportsIcon = () => {
   const location = useLocation();
   const state = useSelector((state) => state.headerMenu[5]);
-  const displayDescription = state.descriptionIsAppearing ? 'flex' : 'none';
+  const displayDescription = state.descriptionIsAppearing ? "flex" : "none";
 
   return (
     <ReportsIconContainer
@@ -463,7 +465,7 @@ const ServiceOrdersIconContainer = styled.div`
 
   svg {
     fill: ${(props) =>
-    props.location === "/serviceOrders" ? "black" : "#B7BDC2"};
+      props.location === "/serviceOrders" ? "black" : "#B7BDC2"};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
@@ -471,7 +473,7 @@ const ServiceOrdersIconContainer = styled.div`
 
   &:hover {
     background-color: ${(props) =>
-    props.location === "/serviceOrders" ? "white" : "#F4F6F8"};
+      props.location === "/serviceOrders" ? "white" : "#F4F6F8"};
     border-radius: 10px;
 
     svg {
@@ -480,9 +482,9 @@ const ServiceOrdersIconContainer = styled.div`
   }
 
   &:after {
-    content: 'Ordens de serviço';
+    content: "Ordens de serviço";
     display: ${(props) =>
-    props.location === "/serviceOrders" ? "none" : props.hover};
+      props.location === "/serviceOrders" ? "none" : props.hover};
     width: 130px;
     height: 35px;
     background-color: white;
@@ -500,9 +502,9 @@ const ServiceOrdersIconContainer = styled.div`
   }
 
   &:before {
-    content: '';
+    content: "";
     display: ${(props) =>
-    props.location === "/serviceOrders" ? "none" : props.hover};
+      props.location === "/serviceOrders" ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -516,7 +518,7 @@ export const ServiceOrdersIcon = () => {
   const location = useLocation();
   const state = useSelector((state) => state.headerMenu[6]);
 
-  const displayDescription = state.descriptionIsAppearing ? 'flex' : 'none';
+  const displayDescription = state.descriptionIsAppearing ? "flex" : "none";
 
   return (
     <ServiceOrdersIconContainer
@@ -537,15 +539,15 @@ const SettingsIconContainer = styled.div`
   width: 55px;
 
   svg {
-    fill: ${(props) => (props.isSettings ? 'black' : '#B7BDC2')};
+    fill: ${(props) => (props.isSettings ? "black" : "#B7BDC2")};
     cursor: pointer;
     height: 45px;
     transition: 0.3s fill ease-in-out;
-    stroke: ${(props) => (props.isSettings ? 'black' : '#B7BDC2')};
+    stroke: ${(props) => (props.isSettings ? "black" : "#B7BDC2")};
   }
 
   &:hover {
-    background: ${(props) => (props.isSettings ? 'white' : '#F4F6F8')};
+    background: ${(props) => (props.isSettings ? "white" : "#F4F6F8")};
     border-radius: 10px;
 
     svg {
@@ -555,8 +557,8 @@ const SettingsIconContainer = styled.div`
   }
 
   &:after {
-    content: 'Configurações';
-    display: ${(props) => (props.isSettings ? 'none' : props.hover)};
+    content: "Configurações";
+    display: ${(props) => (props.isSettings ? "none" : props.hover)};
     width: 120px;
     height: 35px;
     background-color: white;
@@ -574,8 +576,8 @@ const SettingsIconContainer = styled.div`
   }
 
   &:before {
-    content: '';
-    display: ${(props) => (props.isSettings ? 'none' : props.hover)};
+    content: "";
+    display: ${(props) => (props.isSettings ? "none" : props.hover)};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -595,7 +597,7 @@ const handleIsSettings = {
 export const SettingsIcon = () => {
   const location = useLocation();
   const state = useSelector((state) => state.headerMenu[7]);
-  const displayDescription = state.descriptionIsAppearing ? 'flex' : 'none';
+  const displayDescription = state.descriptionIsAppearing ? "flex" : "none";
   const url = location.pathname.slice(1);
 
   const isSettings = handleIsSettings[url] || false;
@@ -614,7 +616,7 @@ const CompanyIconContainer = styled.div`
   width: 55px;
 
   svg {
-    fill: ${(props) => (props.location === '/company' ? 'black' : '#B7BDC2')};
+    fill: ${(props) => (props.location === "/company" ? "black" : "#B7BDC2")};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
@@ -622,7 +624,7 @@ const CompanyIconContainer = styled.div`
 
   &:hover {
     background-color: ${(props) =>
-    props.location === '/company' ? 'white' : '#F4F6F8'};
+      props.location === "/company" ? "white" : "#F4F6F8"};
     border-radius: 10px;
 
     svg {
@@ -631,9 +633,9 @@ const CompanyIconContainer = styled.div`
   }
 
   &:after {
-    content: 'Empresas';
+    content: "Empresas";
     display: ${(props) =>
-    props.location === '/company' ? 'none' : props.hover};
+      props.location === "/company" ? "none" : props.hover};
     width: 130px;
     height: 35px;
     background-color: white;
@@ -651,9 +653,9 @@ const CompanyIconContainer = styled.div`
   }
 
   &:before {
-    content: '';
+    content: "";
     display: ${(props) =>
-    props.location === '/company' ? 'none' : props.hover};
+      props.location === "/company" ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -666,9 +668,12 @@ const CompanyIconContainer = styled.div`
 export const CompanyIcon = () => {
   const location = useLocation();
   const state = useSelector((state) => state.headerMenu[8]);
-  const displayDescription = state.descriptionIsAppearing ? 'flex' : 'none';
+  const displayDescription = state.descriptionIsAppearing ? "flex" : "none";
   return (
-    <CompanyIconContainer location={location.pathname} hover={displayDescription}>
+    <CompanyIconContainer
+      location={location.pathname}
+      hover={displayDescription}
+    >
       <Company />
     </CompanyIconContainer>
   );

@@ -8,8 +8,8 @@ import TechnicalLeadApproval from "../../molecules/ListHeaderTechnicalLeadApprov
 import { OvertimeListTechnicalLeadApproval } from "../../molecules/OvertimeListTechnicalLeadApproval";
 import { Height, SearchContainer } from "./style";
 import InputSelect from "../../atoms/InputSelect";
-import InputDate from "../../atoms/InputDate";
 import { SearchSection } from "../../molecules/SearchSection";
+import InputWithLabel from "../../atoms/InputWithLabel";
 
 const OvertimeListIsTechLead = () => {
   const [data, setData] = useState();
@@ -18,9 +18,9 @@ const OvertimeListIsTechLead = () => {
   const [statusParams, setStatusParams] = useState("");
   const [projects, setProjects] = useState([]);
   const [projectParams, setProjectParams] = useState("");
-  const [orderField, setOrderField] = useState("users.id")
+  const [orderField, setOrderField] = useState("users.id");
   const [search, setSearch] = useState("");
-  const [order, setOrder] = useState('');
+  const [order, setOrder] = useState("");
   const [initialDate, setInitialDate] = useState("");
   const [finalDate, setFinalDate] = useState("");
   let params = {
@@ -42,21 +42,25 @@ const OvertimeListIsTechLead = () => {
   };
 
   const getStatus = async () => {
-    const { data } = await api({
+    const {data} = await api({
       method: "get",
       url: "/extraHoursStatus",
     });
     data.data.push({ id: "", name: "Todos" })
-    setStatusProject(data.data);
+    setStatusProject(data.data);   
   };
 
   const getProjects = async () => {
-    const { data } = await api({
-      method: "get",
-      url: "/userProjects/user",
-    })
-    data.push({ id: "", name: "Todos" })
-    setProjects(data);
+    try {
+      const { data } = await api({
+        method: "get",
+        url: "/userProjects/user",
+      });
+      data.push({ id: "", name: "Todos" });
+      setProjects(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleFilterRequest = (pagesFilter) => {
@@ -85,11 +89,11 @@ const OvertimeListIsTechLead = () => {
     if (finalDate !== "" && finalDate > "1000-01-01") {
       finalDate < initialDate
         ? toast.warn(
-          <DefaultToast text="Período final precisa ser maior que o período inicial" />,
-          {
-            toastId: "finalDate",
-          }
-        )
+            <DefaultToast text="Período final precisa ser maior que o período inicial" />,
+            {
+              toastId: "finalDate",
+            }
+          )
         : (params.date_end = finalDate);
       params.page = meta.first_page;
     }
@@ -101,7 +105,6 @@ const OvertimeListIsTechLead = () => {
     if (order !== "") {
       params.order = order;
     }
-
   };
 
   const nextPage = () => {
@@ -115,18 +118,17 @@ const OvertimeListIsTechLead = () => {
   };
 
   const sortByField = () => {
-    order === '' && setOrder('desc');
-    order === 'asc' && setOrder('desc');
-    order === 'desc' && setOrder('asc');
+    order === "" && setOrder("desc");
+    order === "asc" && setOrder("desc");
+    order === "desc" && setOrder("asc");
   };
 
   useEffect(() => {
     getProjects();
     getStatus();
     handleFilterRequest();
-    getOvertimes()
+    getOvertimes();
   }, [search, statusParams, projectParams, initialDate, order, finalDate]);
-
 
   return (
     <Container>
@@ -138,30 +140,38 @@ const OvertimeListIsTechLead = () => {
         >
           <InputSelect
             options={projects}
-            onChange={e => setProjectParams(e.target.value)}
+            onChange={(e) => setProjectParams(e.target.value)}
             placeHolder="Projeto"
-            lineWidth="30%" />
+            width="100%"
+            lineWidth="30%"
+          />
           <InputSelect
             options={statusProject}
-            onChange={e => setStatusParams(e.target.value)}
+            onChange={(e) => setStatusParams(e.target.value)}
             placeHolder="Status"
-            lineWidth="30%" />
-          <InputDate
-            onChange={e => setInitialDate(e.target.value)}
-            placeholder="Período inicial"
-            date={initialDate}
-            width="30%"
+            width="100%"
+            lineWidth="30%"
+          />
+          <InputWithLabel
             type="date"
-            handleBlur={() => { }}
-            name="initial_period" />
-          <InputDate
-            onChange={e => setFinalDate(e.target.value)}
-            placeholder="Período final"
-            date={finalDate}
-            width="30%"
+            onChange={(e) => setInitialDate(e.target.value)}
+            label="Período inicial"
+            value={initialDate}
+            width="100%"
+            widthContainer="30%"
+            handleBlur={() => {}}
+            name="initial_period"
+          />
+          <InputWithLabel
             type="date"
-            handleBlur={() => { }}
-            name="initial_period" />
+            onChange={(e) => setFinalDate(e.target.value)}
+            label="Período final"
+            value={finalDate}
+            width="100%"
+            widthContainer="30%"
+            handleBlur={() => {}}
+            name="initial_period"
+          />
         </SearchSection>
       </SearchContainer>
 
@@ -175,14 +185,15 @@ const OvertimeListIsTechLead = () => {
       </Height>
 
       <Footer
-        height='5em'
+        height="5em"
         border={"1px solid #CCD1D6"}
         previousPage={previousPage}
         nextPage={nextPage}
         sortById={sortByField}
         currentPage={meta?.current_page}
         firstPage={meta?.first_page}
-        lastPage={meta?.last_page} />
+        lastPage={meta?.last_page}
+      />
     </Container>
   );
 };

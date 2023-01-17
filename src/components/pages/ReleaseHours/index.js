@@ -50,7 +50,11 @@ function ReleaseHours() {
         toast.success(<DefaultToast text="Horas extras enviadas!" />)
         return goBack()
       })
-      .catch(error => toast.error(error))
+      .catch(error => {
+        if(error.response.data.message){
+          toast.warn(<DefaultToast text={'Você não tem permissão, porque não tem horas ativas!'}/>)
+        }
+      })
     },
     validationSchema: schema,
     isValidating: false,

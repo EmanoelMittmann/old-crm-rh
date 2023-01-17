@@ -23,6 +23,8 @@ import { messages } from "../../../settings/YupValidates";
 import { handleErrorMessages } from "../../utils/handleErrorMessages";
 import { handleCEP } from "../../utils/validateCep";
 import InputWithLabel from "../../atoms/InputWithLabel";
+import SecondaryText from "../../atoms/SecondaryText/style";
+import TechLeadAndDev from "../../molecules/techLeadAndDev";
 
 const RegisterProfessional = () => {
   const [jobs, setJobs] = useState([]);
@@ -64,7 +66,9 @@ const RegisterProfessional = () => {
         return true;
       }),
 
-    rg: Yup.string().required(messages.required),
+    rg: Yup.string()
+      .required(messages.required)
+      .max(11, "RG deve conter no maximo 11 dígitos"),
     birth_date: Yup.string().required(messages.required),
     cep: Yup.string()
       .required(messages.required)
@@ -110,7 +114,7 @@ const RegisterProfessional = () => {
       bank: Yup.string(),
       agency: Yup.string().max(5, "Invalido"),
       account_type: Yup.string(),
-      type_of_transfer:Yup.string(),
+      type_of_transfer: Yup.string(),
       pix_key_type: Yup.string(),
       pix_key: Yup.string(),
       account_number: Yup.number(),
@@ -184,7 +188,7 @@ const RegisterProfessional = () => {
       job_type: "",
       weekly_hours: "",
       mounth_hours: "",
-      is_tech_lead: true,
+      function_job: "",
       fixed_payment_value: cleanMask(""),
       extra_hour_activated: true,
       variable1: "",
@@ -211,9 +215,9 @@ const RegisterProfessional = () => {
         account_type: "",
         agency: "",
         account_number: "",
-        type_of_transfer:"",
-        pix_key_type:"",
-        pix_key:"",
+        type_of_transfer: "",
+        pix_key_type: "",
+        pix_key: "",
       },
     },
     onSubmit: async (values) => {
@@ -264,9 +268,14 @@ const RegisterProfessional = () => {
             },
       })
         .then(() => {
-          toast.success(<DefaultToast text="Profissional cadastrado." />, {
-            toastId: "post",
-          });
+          toast.success(
+            <DefaultToast
+              text={id ? "Profissional Atualizado" : "Profissional cadastrado"}
+            />,
+            {
+              toastId: "post",
+            }
+          );
           return history.push("/professionals");
         })
         .catch((error) => {
@@ -282,8 +291,16 @@ const RegisterProfessional = () => {
     enableReinitialize: true,
   });
 
-  const { values, setFieldValue, setFieldError, setErrors, setFieldTouched, touched, errors, handleChange} =
-    formik;
+  const {
+    values,
+    setFieldValue,
+    setFieldError,
+    setErrors,
+    setFieldTouched,
+    touched,
+    errors,
+    handleChange,
+  } = formik;
 
   const reloadProjects = useCallback(async () => {
     const { data } = await api({
@@ -322,19 +339,24 @@ const RegisterProfessional = () => {
     setAllProjects(data.data);
   }, []);
 
-  async function addProject(id_project, workload, extra_hours_limit , is_tech_lead) {
+  async function addProject(
+    id_project,
+    workload,
+    extra_hours_limit,
+    is_tech_lead
+  ) {
     await api({
       method: "post",
       url: `/userProjects/user/${id}`,
       data: {
         id: id_project,
         extra_hours_estimated: extra_hours_limit,
-        extra_hours_performed:null,
+        extra_hours_performed: null,
         hours_mounths_estimated: workload,
-        hours_mounths_performed:null,
+        hours_mounths_performed: null,
         isTechLead: is_tech_lead,
         job_: null,
-        status: null
+        status: null,
       },
     })
       .then(() => {
@@ -394,7 +416,7 @@ const RegisterProfessional = () => {
       });
   }
 
-  const getProfessionalData = async   () => {
+  const getProfessionalData = async () => {
     if (!jobs.length) optionsJob();
     if (!allProjects.length) getAllProjects();
     if (id) {
@@ -448,10 +470,9 @@ const RegisterProfessional = () => {
       setJobs([]);
       setAllProjects([]);
     };
-
-  }
+  };
   useEffect(() => {
-    getProfessionalData()
+    getProfessionalData();
   }, [id]);
 
   useEffect(() => {
@@ -475,6 +496,7 @@ const RegisterProfessional = () => {
       );
     }
   }, [values.variable1, values.variable2]);
+
   return (
     <>
       <RegisterProfessionalTitleContainer>
@@ -499,6 +521,11 @@ const RegisterProfessional = () => {
             <></>
           )}
         </form>
+        <div className="techlead">
+          <SecondaryText margin="2.5em 0 0 3em">Função</SecondaryText>
+          <TechLeadAndDev formik={formik} />
+        </div>
+
         <AttachmentProject
           allOptions={allProjects}
           attachment={attachment}
@@ -507,7 +534,7 @@ const RegisterProfessional = () => {
         <InputWithLabel
           name="tools"
           width="100%"
-          margin='10px'
+          margin="10px"
           widthContainer="30%"
           label="Ferramentas"
           justify="center"

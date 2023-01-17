@@ -7,6 +7,7 @@ import { SearchSection } from '../../molecules/SearchSection/index.js'
 import InvoiceList from '../../organisms/InvoiceList/index.js'
 import { toast } from 'react-toastify'
 import { saveAs } from 'file-saver'
+import InputWithLabel from '../../atoms/InputWithLabel/index.js'
 
 const Invoice = () => {
   const [data, setData] = useState([])
@@ -110,10 +111,10 @@ const Invoice = () => {
   return (
     <Container>
       <SearchSection fnSearch={setSearch}>
-        <InputDate 
+        <InputWithLabel
           placeholder="Período inicial" 
           onChange={(e) => setInitialDate(e.target.value)} 
-          date={initialDate}
+          value={initialDate}
         />
         <InputDate 
           placeholder="Período final" 

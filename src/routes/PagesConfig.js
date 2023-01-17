@@ -5,11 +5,13 @@ import {
   InvoiceIcon,
   JobIcon,
   OvertimeIcon,
-  ProjectsIcon,
   ReportsIcon,
   ServiceOrdersIcon,
   SettingsIcon,
 } from "../components/atoms/icons/NavIcons";
+import { ReactComponent as Project } from "../assets/icons/project.svg";
+import { ReactComponent as Invoice } from "../assets/icons/invoice.svg";
+import { ReactComponent as Overtime } from "../assets/icons/overtime.svg";
 
 
 export const templates = [
@@ -39,13 +41,13 @@ export const templates = [
     hasButton: true,
     buttonText: "Cadastrar novo",
     buttonPath: "/project",
-    icon: <ProjectsIcon />,
+    icon: <Project />,
     isRegisterPage: false,
     path: "/projects",
   },
   {
     id: 4,
-    name: "Horas extras",
+    name: "Aprovação de Horas Extras - RH",
     hasButton: false,
     buttonText: "",
     buttonPath: "",
@@ -123,7 +125,7 @@ export const templates = [
     hasButton: true,
     buttonText: "Novo lançamento",
     buttonPath: "/releaseHours",
-    icon: <OvertimeIcon />,
+    icon: <Overtime/>,
     isRegisterPage: false,
     path: "/timeSending",
   },
@@ -133,7 +135,7 @@ export const templates = [
     hasButton: true,
     buttonText: "Anexar NF",
     buttonPath: "/invoiceUpload",
-    icon: <InvoiceIcon />,
+    icon: <Invoice />,
     isRegisterPage: false,
     path: "/invoiceSending",
   },
@@ -163,7 +165,7 @@ export const templates = [
     hasButton: true,
     buttonText: "Lançar Horas",
     buttonPath: "/timeSending",
-    icon: <OvertimeIcon />,
+    icon: <Overtime/>,
     isRegisterPage: false,
     path: "/timeIstechLead",
   },

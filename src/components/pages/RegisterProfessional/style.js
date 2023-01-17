@@ -12,4 +12,8 @@ export const RegisterProfessionalContainer = styled.div`
     border-radius: 20px;
     padding: 2.5em 0 0.5em 0;
     min-height: 75vh;
+
+    .techlead{
+        border-top: #CCD1D6 solid 1px;
+    }
 `

@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
-    max-width: 100%;
+    max-width: 98%;
     height: 40px;
+    margin: auto;
     background-color: #F4F6F8;
     border-radius: 8px;
     display: flex;

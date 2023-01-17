@@ -22,7 +22,7 @@ export function OvertimeListTechnicalLeadApproval({ data }) {
   }
   return data ? (
     data.map((values, index) => (
-      <Main key={index}>
+      <Main key={index} margin='1.5em 0 0 0em' padding='0em 0 0 2em'>
         {values.status_name === "Pendente - Líder Técnico" ? (
           <ContainerUser
             onClick={() => history.push(`ApprovalIsTechLead/${values.id}`)}
