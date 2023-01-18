@@ -6,6 +6,7 @@ export const InputSelectContainer = styled.select`
   font-family: 'Poppins', sans-serif;
   width: ${(props) => props.width};
   height: 40px;
+  background-color: white;
   padding: 0.3em 2em 0 1em;
   outline: none;
   border: none;
