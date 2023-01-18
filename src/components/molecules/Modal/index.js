@@ -101,7 +101,7 @@ const Modal = () => {
                     return data.data && toast.success(<DefaultToast text="Cargo cadastrado!"/>)
                     
                 } catch (error) {
-                    return error.message
+                    return toast.warn(<DefaultToast text={'Escreva o cargo !'}/>)
                 }
             }
 
@@ -127,7 +127,7 @@ const Modal = () => {
                     return data.data && toast.success(<DefaultToast text="Tipo de Projeto cadastrado!"/>)
                     
                 } catch (error) {
-                    return error.message
+                    return toast.warn(<DefaultToast text={'Escreva o tipo de projeto !'}/>)
                 }
             }
 

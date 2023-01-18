@@ -85,7 +85,7 @@ const ModalColors = () => {
             return data.data && toast.success(<DefaultToast text="Status do Projeto cadastrado!" />)
 
         } catch (error) {
-            return error
+            return toast.warn(<DefaultToast text={'Escreva o Status!'}/>)
         }
     }
 
@@ -99,21 +99,23 @@ const ModalColors = () => {
                     color: selectedOption
                 }
             });
+            getStatus()
 
-            const { data } = await api({
-                method: 'get',
-                url: '/projectStatus',
-                params: params
-            });
-
-            dispatch(setStatusList(data.data))
-            dispatch(settingsPages(data.meta))
-
-            return data.data && toast.success(<DefaultToast text="Status do Projeto atualizado!" />)
-
+            return toast.success(<DefaultToast text="Status do Projeto atualizado!" />)
         } catch (error) {
             return error
         }
+    }
+    
+    const getStatus = async() => {
+        const { data } = await api({
+            method: 'get',
+            url: '/projectStatus',
+            params: params
+        });
+
+        dispatch(setStatusList(data.data))
+        dispatch(settingsPages(data.meta))
     }
 
     const saveButtonClickHandler = (e) => {
@@ -138,16 +140,13 @@ const ModalColors = () => {
         dispatch(closeModal())
     }
 
-    const editStatus = state.status.filter(status => {
-        if (state.statusId === status.id) return status
-    });
+    
+    const statusName = () => {        
+        const editStatus = state.status.find(status => {
+            if (state.statusId === status.id) return status
+        });
 
-    const statusName = () => {
-        if (state.modalFunctionality.edit !== true) return;
-
-        const [{ name }] = editStatus;
-        [{ colors_id: colorId }] = editStatus
-        return name
+        return {name: editStatus.name, colorId: editStatus.color.id}       
     };
 
     const getStatusColor = async () => {
@@ -163,11 +162,9 @@ const ModalColors = () => {
             console.log(error);
         }
     }
-
     useEffect(() => {
         getStatusColor()
     }, [])
-
 
     //pegar a cor selecionada referente a um status especifico
     //status especifico
@@ -188,7 +185,7 @@ const ModalColors = () => {
                     <InputWithLabel
                         label="Status"
                         onChange={e => setValue(e.target.value)}
-                        editValue={statusName()}
+                        value={statusName().name}
                         width="100%"
                         widthContainer="85%"
                         handleBlur={() => { }}
@@ -199,7 +196,7 @@ const ModalColors = () => {
                         (
                             <InputSelectEdit
                                 label="Status"
-                                optionId={colorId}
+                                optionId={statusName().colorId}
                                 setSelectedOption={setSelectedOption}
                                 width="85%"
                                 options={state.statusColors}
