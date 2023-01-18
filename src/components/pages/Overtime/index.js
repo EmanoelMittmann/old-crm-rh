@@ -75,7 +75,6 @@ const Overtime = () => {
     try {
       const { data } = await api.get(`/extrasHoursReleases/pending?limit=5`, {
         params: params});
-        console.log("params: ", params);
       setData(data.data);
       setDataMeta(data.meta);
     } catch (error) {
