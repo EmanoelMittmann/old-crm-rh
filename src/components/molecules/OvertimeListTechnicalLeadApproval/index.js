@@ -15,7 +15,11 @@ import { Badge } from "../../molecules/ProfessionalsListItem/style";
 
 export function OvertimeListTechnicalLeadApproval({ data }) {
   const history = useHistory();
-
+  const [modalIsVisible, setModalIsVisible] = useState(false)
+  
+  const CloseButtonClickHandler = () => {
+    setModalIsVisible(false)
+  }
   return data ? (
     data.map((values, index) => (
       <Main key={index} margin='1.5em 0 0 0em' padding='0em 0 0 2em'>

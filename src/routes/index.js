@@ -26,6 +26,11 @@ import GenerateOS from '../components/organisms/GenerateOrdemService';
 import DetailsRelease from '../components/organisms/DetailsRelease';
 import OvertimeListIsTechLead from '../components/pages/OvertimeListIstechLead';
 import ApprovalIsTechLead from '../components/molecules/ModalApprovalIsTechLead';
+import ApprovalHoursAdm from '../components/molecules/ModalApprovalHoursAdm';
+
+
+
+
 
 
 const Routes = () => {
@@ -68,6 +73,7 @@ const Routes = () => {
         <PrivateRoute path="/releaseHours" component={ReleaseHours} />
         <PrivateRoute path="/DetailsRelease/:id" component={DetailsRelease} />
         <PrivateRoute path="/ApprovalIsTechLead/:id" component={ApprovalIsTechLead}/>
+        <PrivateRoute path="/ApprovalHoursAdm/:id" component={ApprovalHoursAdm}/>
       </Switch>
     </BrowserRouter>
   );

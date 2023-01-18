@@ -12,18 +12,26 @@ import {
 import { Badge } from "../../../molecules/ProfessionalsListItem/style";
 import { formatDate } from "../../../utils/formatDate";
 
-const Shelf = ({ values }) => {
+const Shelf = ({ values, index }) => {
   const history = useHistory();
+
   return (
     <>
-      <Main key={values.id} padding="2em 0 0 2em">
-        <ContainerUser
-          w="32.5%"
-        >
-          <img src={values.avatar} className="img" />
-          <User_name>{values?.user_name}</User_name>
-        </ContainerUser>
-
+      <Main key={index} padding="2em 0 0 2em">
+        {values.status_name === 'Pendente - RH' ? (
+          <ContainerUser
+            onClick={() => history.push(`ApprovalHoursAdm/${values.id}`)}
+            w="32.5%"
+          >
+            <img src={values.avatar} className="img" />
+            <User_name>{values?.user_name}</User_name>
+          </ContainerUser>
+        ) : (
+            <ContainerUser w="32.5%">
+              <img src={values.avatar} className="img" />
+              <User_name>{values?.user_name}</User_name>
+            </ContainerUser>
+        )}
         <ContainerProject w="25%">
           <Text>{values.project_name}</Text>
         </ContainerProject>
