@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 import api from "../../../api/api";
 import OvertimeRh from "../../organisms/OvertimeRh";
+import { DefaultToast } from "../../atoms/Toast/DefaultToast";
+import { toast } from "react-toastify";
 
 const Overtime = () => {
   const [projects, setProjects] = useState([]);
@@ -36,6 +38,30 @@ const Overtime = () => {
   };
 
   const handleFilterRequest = (pagesFilter) => {
+    if (pagesFilter === '') params.append('page', dataMeta.current_page);
+
+    if (search !== "") {
+      params.append('search', search);
+    }
+    if (statusParams !== "") {
+      params.append('status_id', statusParams);
+    }
+    if (projectParams !== "") {
+      params.append('project_id' ,projectParams);
+    }
+    if (initialDate !== "") {
+      params.append('date_start' ,initialDate);
+    }
+    if (finalDate !== "" && finalDate > "1000-01-01") {
+      finalDate < initialDate
+        ? toast.warn(
+          <DefaultToast text="Período final precisa ser maior que o período inicial" />,
+          {
+            toastId: "finalDate",
+          }
+        ) : (params.append('date_end', finalDate));
+    }
+
     if (pagesFilter === "previous") params.append('page',dataMeta.current_page - 1)
 
     if (pagesFilter === "next") params.append('page',dataMeta.current_page + 1)
@@ -49,6 +75,7 @@ const Overtime = () => {
     try {
       const { data } = await api.get(`/extrasHoursReleases/pending?limit=5`, {
         params: params});
+        console.log("params: ", params);
       setData(data.data);
       setDataMeta(data.meta);
     } catch (error) {
@@ -78,7 +105,8 @@ const Overtime = () => {
     getStatus();
     getHoursPending();
     handleFilterRequest();
-  }, [order,orderField]);
+  }, [order, orderField, search, statusParams, projectParams, initialDate, finalDate]);
+
 
   return (
     <>
