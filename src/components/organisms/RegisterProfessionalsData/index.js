@@ -67,12 +67,77 @@ const optionsPixKeyType = [
 
 const RegisterProfessionalsData = ({ data }) => {
   const [optionsUFCountry, setOptionsUFCountry] = useState([]);
-  const { values, handleChange, errors, touched, setFieldTouched, setFieldValue} = data;
-  const [isDisabled, setIsDisabled] = useState(true)
-  const masks = 
-    values.professional_data.pix_key_type === "CPF" ? [/\d/,/\d/,/\d/,".",/\d/,/\d/,/\d/,".",/\d/,/\d/,/\d/,"-",/\d/,/\d/,] : 
-    values.professional_data.pix_key_type === "CNPJ" ? [/\d/,/\d/,'.',/\d/,/\d/,/\d/,'.',/\d/,/\d/,/\d/,'/',/\d/,/\d/,/\d/,/\d/,'-',/\d/,/\d/] : 
-    values.professional_data.pix_key_type === 'Phone' && ["(",/[1-9]/,/\d/,")"," ",/\d/," ",/\d/,/\d/,/\d/,/\d/,"-",/\d/,/\d/,/\d/,/\d/,] 
+  const {
+    values,
+    handleChange,
+    errors,
+    touched,
+    setFieldTouched,
+    setFieldValue,
+  } = data;
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  const masks =
+    values.professional_data.pix_key_type === "CPF"
+      ? [
+          /\d/,
+          /\d/,
+          /\d/,
+          ".",
+          /\d/,
+          /\d/,
+          /\d/,
+          ".",
+          /\d/,
+          /\d/,
+          /\d/,
+          "-",
+          /\d/,
+          /\d/,
+        ]
+      : values.professional_data.pix_key_type === "CNPJ"
+      ? [
+          /\d/,
+          /\d/,
+          ".",
+          /\d/,
+          /\d/,
+          /\d/,
+          ".",
+          /\d/,
+          /\d/,
+          /\d/,
+          "/",
+          /\d/,
+          /\d/,
+          /\d/,
+          /\d/,
+          "-",
+          /\d/,
+          /\d/,
+        ]
+      : values.professional_data.pix_key_type === "Phone"
+      ? [
+          "(",
+          /[1-9]/,
+          /\d/,
+          ")",
+          " ",
+          /\d/,
+          " ",
+          /\d/,
+          /\d/,
+          /\d/,
+          /\d/,
+          "-",
+          /\d/,
+          /\d/,
+          /\d/,
+          /\d/,
+        ]
+      : values.professional_data.pix_key_type === "E-mail"
+      ? [/[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/]
+      : [];
 
   useEffect(() => {
     if (values.country === "") return;
@@ -82,19 +147,15 @@ const RegisterProfessionalsData = ({ data }) => {
     ).isoCode;
     const states = State.getStatesOfCountry(filtro);
     setOptionsUFCountry(states);
-  }, [values.country])
+  }, [values.country]);
 
   useEffect(() => {
-      setFieldValue('professional_data.pix_key','')  
-  },[values.professional_data.pix_key_type])
-
-  useEffect(()=>{
-    if (values.professional_data.type_of_transfer === "PIX"){
+    if (values.professional_data.type_of_transfer === "PIX") {
       setIsDisabled(!isDisabled);
-    }else{
-      setIsDisabled(true)
+    } else {
+      setIsDisabled(true);
     }
-  }, [values.professional_data.type_of_transfer])
+  }, [values.professional_data.type_of_transfer]);
 
   return (
     <ContainerRegisterProfessionalsData>
@@ -610,20 +671,37 @@ const RegisterProfessionalsData = ({ data }) => {
             name="professional_data.pix_key_type"
             disabled={isDisabled}
           />
-          <InputMasked
-            name="professional_data.pix_key "
-            mask={masks}
-            error={errors?.professional_data?.pix_key}
-            touched={errors?.professional_data?.pix_key}
-            handleBlur={setFieldTouched}
-            onChange={handleChange("professional_data.pix_key")}
-            width="100%"
-            widthContainer="30%"
-            label="Chave Pix"
-            value={values?.professional_data?.pix_key}
-            type='text'
-            disabled={isDisabled}
-          />
+          {values.professional_data.pix_key_type === "E-mail" ||
+          values.professional_data.pix_key_type === "RandomKey" ? (
+            <InputWithLabel
+              name="professional_data.pix_key "
+              error={errors?.professional_data?.pix_key}
+              touched={touched?.professional_data?.pix_key}
+              handleBlur={setFieldTouched}
+              onChange={handleChange("professional_data.pix_key")}
+              width="100%"
+              widthContainer="30%"
+              label="Chave Pix"
+              value={values?.professional_data?.pix_key}
+              type="text"
+              disabled={isDisabled}
+            />
+          ) : (
+            <InputMasked
+              name="professional_data.pix_key "
+              mask={masks}
+              error={errors?.professional_data?.pix_key}
+              touched={touched?.professional_data?.pix_key}
+              handleBlur={setFieldTouched}
+              onChange={handleChange("professional_data.pix_key")}
+              width="100%"
+              widthContainer="30%"
+              label="Chave Pix"
+              value={values?.professional_data?.pix_key}
+              type="text"
+              disabled={isDisabled}
+            />
+          )}
         </ContainerRow>
       </RegisterProfessionalsForm>
     </ContainerRegisterProfessionalsData>

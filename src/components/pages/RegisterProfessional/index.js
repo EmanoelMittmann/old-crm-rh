@@ -498,6 +498,13 @@ const RegisterProfessional = () => {
     }
   }, [values.variable1, values.variable2]);
 
+  useEffect(() => {
+    setFieldValue("professional_data.pix_key", "");
+  }, [
+    values.professional_data.pix_key_type,
+    values.professional_data.type_of_transfer
+  ]);
+
 
   return (
     <>
