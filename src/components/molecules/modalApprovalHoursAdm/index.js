@@ -34,9 +34,7 @@ const ApprovalHoursAdm = ({ CloseButtonClickHandler, redButtonClickHandler, }) =
     const ClickHandler = () => {
         history.push('/overtime');
     };
-    const ClickHandlerApproval = () => {
-        history.push('/overtime');
-    };
+    
 
 
 
