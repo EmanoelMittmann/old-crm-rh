@@ -14,7 +14,7 @@ export const InputSelectContainer = styled.select`
     -moz-appearance: none;
     appearance: none;
     text-overflow: ellipsis;
-
+    background-color: white;
 `
 
 export const InputSelectOption = styled.option`

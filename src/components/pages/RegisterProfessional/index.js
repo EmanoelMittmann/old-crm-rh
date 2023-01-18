@@ -111,13 +111,14 @@ const RegisterProfessional = () => {
       company_house_number: Yup.string(),
       uf_campany: Yup.string(),
       company_phone_number: Yup.string(),
-      bank: Yup.string(),
-      agency: Yup.string().max(5, "Invalido"),
-      account_type: Yup.string(),
+      bank: Yup.string().required(messages.required),
+      account_number: Yup.string().required(messages.required),
+      agency: Yup.string().required(messages.required).max(5, "Invalido"),
+      account_type: Yup.string().required(messages.required),
       type_of_transfer: Yup.string(),
       pix_key_type: Yup.string(),
       pix_key: Yup.string(),
-      account_number: Yup.number(),
+      account_number: Yup.number().required(messages.required),
       company_email: Yup.string(),
       company_cep: Yup.string()
         .required(messages.required)
@@ -496,6 +497,14 @@ const RegisterProfessional = () => {
       );
     }
   }, [values.variable1, values.variable2]);
+
+  useEffect(() => {
+    setFieldValue("professional_data.pix_key", "");
+  }, [
+    values.professional_data.pix_key_type,
+    values.professional_data.type_of_transfer
+  ]);
+
 
   return (
     <>

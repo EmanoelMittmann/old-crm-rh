@@ -10,6 +10,7 @@ export const InputSelectContainer = styled.select`
     height: 40px;
     outline: none;
     -moz-appearance: none;
+    background-color: white;
     padding: 0.3em 2em 0 1em;
     text-overflow: ellipsis;
     -webkit-appearance: none;
