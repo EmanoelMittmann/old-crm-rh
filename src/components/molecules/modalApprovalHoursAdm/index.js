@@ -67,7 +67,7 @@ const ApprovalHoursAdm = () => {
                 justification: currentJustification,
 
             })
-                .then(() => {
+            .then(() => {
                     history.push("/overtime")
                 })
         } catch (err) {
