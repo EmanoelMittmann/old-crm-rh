@@ -24,3 +24,8 @@ export const ContainerListing = styled.div`
         height: 23em;
     }
 `
+export const ContainerQntHours = styled.div`
+    display: flex;
+    width: 24%;
+    padding-left: 3em;
+`;

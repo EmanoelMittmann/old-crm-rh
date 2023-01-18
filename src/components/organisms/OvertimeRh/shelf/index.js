@@ -11,6 +11,7 @@ import {
 } from "../../../molecules/OvertimeListTechnicalLeadApproval/style";
 import { Badge } from "../../../molecules/ProfessionalsListItem/style";
 import { formatDate } from "../../../utils/formatDate";
+import { ContainerQntHours } from "../style";
 
 const Shelf = ({ values, index }) => {
   const history = useHistory();
@@ -21,23 +22,29 @@ const Shelf = ({ values, index }) => {
         {values.status_name === 'Pendente - RH' ? (
           <ContainerUser
             onClick={() => history.push(`ApprovalHoursAdm/${values.id}`)}
-            w="32.5%"
+            w="22%"
           >
             <img src={values.avatar} className="img" />
             <User_name>{values?.user_name}</User_name>
           </ContainerUser>
         ) : (
-            <ContainerUser w="32.5%">
+            <ContainerUser w="22%">
               <img src={values.avatar} className="img" />
               <User_name>{values?.user_name}</User_name>
             </ContainerUser>
         )}
-        <ContainerProject w="25%">
+        <ContainerQntHours>
+          {values?.hour_quantity}hr
+        </ContainerQntHours>
+
+        <ContainerProject w="18%">
           <Text>{values.project_name}</Text>
         </ContainerProject>
-        <ContainerLaunch_date w='24%'>
+
+        <ContainerLaunch_date w='17%'>
           {formatDate(values.launch_date)}
         </ContainerLaunch_date>
+
         <ContainerStatus>
           {values.status_id === 1 ? (
             <Badge bg="#FFAE0026" color="#FFAE00" width="200px">

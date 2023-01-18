@@ -36,6 +36,7 @@ const ApprovalIsTechLead = () => {
     let { id } = useParams();
   
     const optionsApproval = [
+        { name: 'Aprovação - TechLead', id: 'Aprovação - TechLead' },
         { name: 'Aceito', id: 'Aceito' },
         { name: 'Negado', id: 'Negado' },
     ];
