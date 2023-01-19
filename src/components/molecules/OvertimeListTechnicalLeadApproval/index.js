@@ -9,23 +9,28 @@ import {
   User_name,
   ContainerQntHours,
 } from "./style";
-import { useHistory } from "react-router-dom";
 import { formatDate } from "../../utils/formatDate";
 import { Badge } from "../../molecules/ProfessionalsListItem/style";
+import ApprovalIsTechLead from "../ModalApprovalIsTechLead";
 
-export function OvertimeListTechnicalLeadApproval({ data }) {
-  const history = useHistory();
-  const [modalIsVisible, setModalIsVisible] = useState(false)
-  
-  const CloseButtonClickHandler = () => {
-    setModalIsVisible(false)
+export function OvertimeListTechnicalLeadApproval({ data, }) {
+  const [modalIsVisibleTechLead, setModalIsVisibleTechLead] = useState(false)
+
+  const ClickHandlerTechLead = () => {
+    setModalIsVisibleTechLead(true)
   }
+
   return data ? (
     data.map((values, index) => (
       <Main key={index} margin='1.5em 0 0 0em' padding='0em 0 0 2em'>
+        {modalIsVisibleTechLead && (
+          <ApprovalIsTechLead
+            id={values.id}
+            setModalIsVisibleTechLead={setModalIsVisibleTechLead} />
+        )}
         {values.status_name === "Pendente - Líder Técnico" ? (
           <ContainerUser
-            onClick={() => history.push(`ApprovalIsTechLead/${values.id}`)}
+            onClick={() => ClickHandlerTechLead()}
           >
             <img src={values.avatar} className="img" />
             <User_name>{values?.user_name}</User_name>

@@ -12,7 +12,16 @@ export const ModalContainer = styled.div`
     box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
     z-index: 10;
 `
-
+export const ContainerOverLay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.1);
+    z-index: 5;
+`
 export const ModalContainerButtons = styled.div`
     display: flex;
     align-items: center;

@@ -28,13 +28,12 @@ import InputWithLabel from '../../atoms/InputWithLabel';
 import { Status } from '../../organisms/DetailsRelease/status';
 import ModalRed from '../ModalRed';
 
-const ApprovalIsTechLead = () => {
+const ApprovalIsTechLead = ({ id, setModalIsVisibleTechLead }) => {
     const [approveData, setApproveData] = useState();
     const [currentJustification, setCurrentJustification] = useState('')
     const [modalIsVisible, setModalIsVisible] = useState(false)
     const [toAccept, setToAccept] = useState(true)
     const history = useHistory()
-    let { id } = useParams();
   
     const optionsApproval = [
         { name: 'Aceito', id: 'Aceito' },
@@ -62,7 +61,7 @@ const handleApprovalHours = async () => {
 
       })
         .then(() => {
-              history.push("/overtime")
+            ClickHandlerTechLead()
     })
     }catch(err){
     console.error(err);
@@ -70,11 +69,9 @@ const handleApprovalHours = async () => {
 
     const handlerModal = () => {
         setModalIsVisible(true)
-
     };
-
-    const ClickHandler = () => {
-        history.push('/timeIstechLead');
+    const ClickHandlerTechLead = () => {
+        setModalIsVisibleTechLead(prev => !prev)
     };
 
     useEffect(() => {
@@ -88,7 +85,7 @@ const handleApprovalHours = async () => {
                     <ModalContainer key={index}>
                         <ModalTitle padding="1.6em">
                             <CloseButton
-                                CloseButtonClickHandler={() => ClickHandler()} />
+                                CloseButtonClickHandler={() => ClickHandlerTechLead()} />
                             Lançamento # {item.id}
                         </ModalTitle>
                     <ContainerAbsolute>
@@ -140,7 +137,7 @@ const handleApprovalHours = async () => {
                     </ContainerAbsolute>
                     <ModalContainerButtons>
                         <CancelButton
-                            onClick={ClickHandler}>
+                                onClick={() => ClickHandlerTechLead()}>
                             Cancelar
                         </CancelButton>
                         <SaveButton

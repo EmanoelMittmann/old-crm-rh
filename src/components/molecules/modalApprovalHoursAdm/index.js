@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom';
 import api from '../../../api/api';
 import CloseButton from '../../atoms/Buttons/CloseButtonCircle';
 import { formatDate } from '../../utils/formatDate';
@@ -24,15 +23,14 @@ import {
     StyleTitle
 } from './style';
 import ModalRed from '../ModalRed';
+import { ContainerOverLay } from '../ModalRed/style';
 
 
-const ApprovalHoursAdm = () => {
+const ApprovalHoursAdm = ({ id, setModalIsVisibleRH }) => {
     const [admApproveData, setAdmApproveData] = useState();
     const [currentJustification, setCurrentJustification] = useState('')
     const [toAccept, setToAccept] = useState(true)
     const [modalIsVisible, setModalIsVisible] = useState(false)
-    const history = useHistory()
-    let { id } = useParams();
 
     const optionsApproval = [
         { name: 'Aceito', id: 'Aceito' },
@@ -44,7 +42,7 @@ const ApprovalHoursAdm = () => {
     };
 
     const ClickHandler = () => {
-        history.push('/overtime');
+        setModalIsVisibleRH(prev => !prev)
     };
 
     const getApproveHours = async (id) => {
@@ -65,9 +63,10 @@ const ApprovalHoursAdm = () => {
                 releases_id: parseInt(id),
                 approved: toAccept,
                 justification: currentJustification,
+
             })
-            .then(() => {
-                    history.push("/overtime")
+                .then(() => {
+                    ClickHandler()
                 })
         } catch (err) {
             console.error(err);
@@ -157,6 +156,7 @@ const ApprovalHoursAdm = () => {
                             )}
                         </ModalContainerButtons>
                     </ModalContainer>
+                    <ContainerOverLay />
                 </>
             ))}
         </>
