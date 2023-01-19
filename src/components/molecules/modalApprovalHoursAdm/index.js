@@ -139,7 +139,7 @@ const ApprovalHoursAdm = () => {
                         </ContainerAbsolute>
                         <ModalContainerButtons>
                             <CancelButton
-                                onClick={() => () => ClickHandler()}>
+                                onClick={ClickHandler}>
                                 Cancelar
                             </CancelButton>
                             <SaveButton

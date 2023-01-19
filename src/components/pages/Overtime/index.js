@@ -85,6 +85,7 @@ const Overtime = () => {
     try {
       const { data } = await api.get("/project");
       setProjects(data.data);
+      data.data.push({ id: '', name: 'Todos' });
     } catch (error) {
       console.error(error);
     }
@@ -94,6 +95,7 @@ const Overtime = () => {
     try {
       const { data } = await api.get("/extraHoursStatus");
       setStatus(data.data);
+      data.data.push({ id: '', name: 'Todos' });
     } catch (error) {
       console.error(error);
     }
