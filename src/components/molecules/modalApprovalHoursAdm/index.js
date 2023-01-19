@@ -65,7 +65,6 @@ const ApprovalHoursAdm = () => {
                 releases_id: parseInt(id),
                 approved: toAccept,
                 justification: currentJustification,
-
             })
             .then(() => {
                     history.push("/overtime")
@@ -139,7 +138,7 @@ const ApprovalHoursAdm = () => {
                         </ContainerAbsolute>
                         <ModalContainerButtons>
                             <CancelButton
-                                onClick={() => () => ClickHandler()}>
+                                onClick={ClickHandler}>
                                 Cancelar
                             </CancelButton>
                             <SaveButton
