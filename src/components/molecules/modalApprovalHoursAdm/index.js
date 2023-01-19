@@ -65,7 +65,6 @@ const ApprovalHoursAdm = () => {
                 releases_id: parseInt(id),
                 approved: toAccept,
                 justification: currentJustification,
-
             })
             .then(() => {
                     history.push("/overtime")
