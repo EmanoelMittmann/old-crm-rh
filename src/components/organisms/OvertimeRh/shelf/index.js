@@ -13,21 +13,34 @@ import { formatDate } from "../../../utils/formatDate";
 import { ContainerQntHours } from "../style";
 import { useState } from "react";
 import ApprovalHoursAdm from "../../../molecules/ModalApprovalHoursAdm";
+import api from "../../../../api/api";
 
 const Shelf = ({ values, index, }) => {
   const [modalIsVisibleRH, setModalIsVisibleRH] = useState(false)
+  const [admApproveData, setAdmApproveData] = useState();
 
-  const handlerModalRH = () => {
-    setModalIsVisibleRH(true)
+
+  const handlerModalRH = async () => {
+    try {
+      const { data } = await api({
+        method: "GET",
+        url: `/extrasHoursReleases/details/${values.id}`,
+      });
+      setAdmApproveData(data);
+      setModalIsVisibleRH(true)
+    } catch (error) {
+      console.error(error);
+    }
+    
   };
-
 
   return (
     <>
       {modalIsVisibleRH && (
         <ApprovalHoursAdm
           id={values.id}
-          setModalIsVisibleRH={setModalIsVisibleRH} />
+          setModalIsVisibleRH={setModalIsVisibleRH}
+          admApproveData={admApproveData} />
       )}
       <Main key={index} padding="2em 0 0 2em">
         {values.status_name === 'Pendente - RH' ? (

@@ -27,6 +27,7 @@ import {
 import InputWithLabel from '../../atoms/InputWithLabel';
 import { Status } from '../../organisms/DetailsRelease/status';
 import ModalRed from '../ModalRed';
+import ModalGreen from '../ModalGreen';
 
 const ApprovalIsTechLead = ({ id, setModalIsVisibleTechLead }) => {
     const [approveData, setApproveData] = useState();
@@ -61,7 +62,7 @@ const handleApprovalHours = async () => {
 
       })
         .then(() => {
-            ClickHandlerTechLead()
+           return ClickHandlerTechLead()
     })
     }catch(err){
     console.error(err);
@@ -146,15 +147,22 @@ const handleApprovalHours = async () => {
                                 }}>
                             Confirmar
                         </SaveButton>
-                            {modalIsVisible && (
+                            {toAccept && modalIsVisible && (
+                                <ModalGreen
+                                    CloseButtonClickHandler={() => setModalIsVisible(false)}
+                                    redButtonClickHandler={() => handleApprovalHours()}
+                                    title="Aprovar horas extras"
+                                    message="Deseja realmente aprovar as horas extras?"
+                                />
+                            )}
+                            {!toAccept && modalIsVisible && (
                                 <ModalRed
                                     CloseButtonClickHandler={() => setModalIsVisible(false)}
                                     redButtonClickHandler={() => handleApprovalHours()}
-                                    title={toAccept ? "Aprovar horas extras" : "Negar horas extras"}
-                                    message={toAccept ? "Deseja realmente aprovar as horas extras?" : "Deseja realmente reprovar as horas extras"}
-
+                                    title="Negar horas extras"
+                                    message="Deseja realmente reprovar as horas extras"
                                 />
-                            )}      
+                            )}
                     </ModalContainerButtons>
                     </ModalContainer>
                     <ModalOverlay />

@@ -15,6 +15,7 @@ import {
     InputAprovalStyle,
     ModalContainer,
     ModalContainerButtons,
+    ModalOverlay,
     ModalTitle,
     StyleDataDate,
     StyleDataJustify,
@@ -23,11 +24,10 @@ import {
     StyleTitle
 } from './style';
 import ModalRed from '../ModalRed';
-import { ContainerOverLay } from '../ModalRed/style';
+import ModalGreen from '../ModalGreen';
 
 
-const ApprovalHoursAdm = ({ id, setModalIsVisibleRH }) => {
-    const [admApproveData, setAdmApproveData] = useState();
+const ApprovalHoursAdm = ({ id, setModalIsVisibleRH, admApproveData }) => {
     const [currentJustification, setCurrentJustification] = useState('')
     const [toAccept, setToAccept] = useState(true)
     const [modalIsVisible, setModalIsVisible] = useState(false)
@@ -45,17 +45,7 @@ const ApprovalHoursAdm = ({ id, setModalIsVisibleRH }) => {
         setModalIsVisibleRH(prev => !prev)
     };
 
-    const getApproveHours = async (id) => {
-        try {
-            const { data } = await api({
-                method: "GET",
-                url: `/extrasHoursReleases/details/${id}`,
-            });
-            setAdmApproveData(data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
+   
 
     const handleApprovalHours = async () => {
         try {
@@ -65,17 +55,17 @@ const ApprovalHoursAdm = ({ id, setModalIsVisibleRH }) => {
                 justification: currentJustification,
 
             })
-                .then(() => {
-                    ClickHandler()
-                })
+                .then(() => { ClickHandler() })
         } catch (err) {
             console.error(err);
         }
+
     }
 
-    useEffect(() => {
-        getApproveHours(id)
-    }, [id])
+    // useEffect(() => {
+    //     getApproveHours(id)
+
+    // }, [id])
 
     return (
         <>
@@ -101,7 +91,6 @@ const ApprovalHoursAdm = ({ id, setModalIsVisibleRH }) => {
                                 <StyleTitle>Período</StyleTitle>
                                 <StyleTitle>Horas</StyleTitle>
                             </ContainerTitles>
-
                             <ContainerTitles>
                                 <StyleDataDate>
                                     {item.type === "BY_DATE"
@@ -146,17 +135,25 @@ const ApprovalHoursAdm = ({ id, setModalIsVisibleRH }) => {
                                 }}>
                                 Confirmar
                             </SaveButton>
-                            {modalIsVisible && (
+                            {toAccept && modalIsVisible && (
+                                <ModalGreen
+                                    CloseButtonClickHandler={() => setModalIsVisible(false)}
+                                    redButtonClickHandler={() => handleApprovalHours()}
+                                    title="Aprovar horas extras"
+                                    message="Deseja realmente aprovar as horas extras?"
+                                />
+                            )}
+                            {!toAccept && modalIsVisible && (
                                 <ModalRed
                                     CloseButtonClickHandler={() => setModalIsVisible(false)}
                                     redButtonClickHandler={() => handleApprovalHours()}
-                                    title={toAccept ? "Aprovar horas extras" : "Negar horas extras"}
-                                    message={toAccept ? "Deseja realmente aprovar as horas extras?" : "Deseja realmente reprovar as horas extras"}
+                                    title={"Negar horas extras"}
+                                    message="Deseja realmente reprovar as horas extras"
                                 />
                             )}
                         </ModalContainerButtons>
                     </ModalContainer>
-                    <ContainerOverLay />
+                    <ModalOverlay />
                 </>
             ))}
         </>

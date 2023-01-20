@@ -31,6 +31,7 @@ export const ModalOverlay = styled.div`
   width: 100%;
   min-height: 100%;
   overflow: auto;
+  border-radius: 15px;
   background-color: rgba(0, 0, 0, 0.1);
   z-index: 5;
 `;
