@@ -697,7 +697,7 @@ const RegisterProfessionalsData = ({ data }) => {
               width="100%"
               widthContainer="30%"
               label="Chave Pix"
-              value={values?.professional_data?.pix_key}
+              value={values.professional_data.pix_key}
               type="text"
               disabled={isDisabled}
             />
