@@ -1,7 +1,6 @@
 import React from 'react'
 import CloseButton from '../../atoms/Buttons/CloseButtonCircle';
 import CancelButton from '../../atoms/Buttons/CancelButton/style';
-import { useHistory, useParams } from 'react-router-dom';
 import api from '../../../api/api';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -34,7 +33,6 @@ const ApprovalIsTechLead = ({ id, setModalIsVisibleTechLead }) => {
     const [currentJustification, setCurrentJustification] = useState('')
     const [modalIsVisible, setModalIsVisible] = useState(false)
     const [toAccept, setToAccept] = useState(true)
-    const history = useHistory()
   
     const optionsApproval = [
         { name: 'Aceito', id: 'Aceito' },
@@ -66,7 +64,7 @@ const handleApprovalHours = async () => {
     })
     }catch(err){
     console.error(err);
-}}
+    }}
 
     const handlerModal = () => {
         setModalIsVisible(true)

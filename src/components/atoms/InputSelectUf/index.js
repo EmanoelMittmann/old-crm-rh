@@ -8,7 +8,7 @@ import {
     InputSelectOptionPlaceholder,
 } from './style.js'
 
-const InputSelectUf = ({ onChange, options, placeHolder, width, lineWidth, value, margin }) => {
+const InputSelectUf = ({ onChange, options, placeHolder, width, lineWidth, value, margin, disabled, onClick }) => {
     const attributeValue = {
         ...(value && { value: value })
     }
@@ -19,6 +19,8 @@ const InputSelectUf = ({ onChange, options, placeHolder, width, lineWidth, value
                 {...attributeValue}
                 width={width}
                 onChange={onChange}
+                disabled={disabled}
+                onClick={onClick}
             >
                 <InputSelectOptionPlaceholder disabled selected >
                     {placeHolder}

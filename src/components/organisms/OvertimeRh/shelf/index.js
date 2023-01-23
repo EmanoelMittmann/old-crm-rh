@@ -57,19 +57,15 @@ const Shelf = ({ values, index, }) => {
             <User_name>{values?.user_name}</User_name>
           </ContainerUser>
         )}
-
         <ContainerQntHours>
           {values?.hour_quantity}hr
         </ContainerQntHours>
-
         <ContainerProject w="18%">
           <Text>{values.project_name}</Text>
         </ContainerProject>
-
         <ContainerLaunch_date w='17%'>
           {formatDate(values.launch_date)}
         </ContainerLaunch_date>
-
         <ContainerStatus>
           {values.status_id === 1 ? (
             <Badge bg="#FFAE0026" color="#FFAE00" width="200px">
@@ -95,8 +91,7 @@ const Shelf = ({ values, index, }) => {
             <Badge bg="#FF354126" color="#FF3541" width="200px">
               {values.status_name}
             </Badge>
-          ) : (
-            ""
+          ) : ( ""
           )}
         </ContainerStatus>
       </Main>

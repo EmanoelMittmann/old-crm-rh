@@ -45,8 +45,6 @@ const ApprovalHoursAdm = ({ id, setModalIsVisibleRH, admApproveData }) => {
         setModalIsVisibleRH(prev => !prev)
     };
 
-   
-
     const handleApprovalHours = async () => {
         try {
             await api.post(`/extrasHoursReleases/approval`, {
@@ -59,13 +57,7 @@ const ApprovalHoursAdm = ({ id, setModalIsVisibleRH, admApproveData }) => {
         } catch (err) {
             console.error(err);
         }
-
     }
-
-    // useEffect(() => {
-    //     getApproveHours(id)
-
-    // }, [id])
 
     return (
         <>
