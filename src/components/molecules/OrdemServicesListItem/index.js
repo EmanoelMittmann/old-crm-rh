@@ -13,6 +13,9 @@ const OrdemServiceListItem = ({
 }) => {
   const [check, setCheck] = useState(false);
   const state = useSelector((state) => state.valueOfCommission);
+  const hourQuantity = index?.extrahour_release
+    .map((prop) => prop.hour_quantity)
+    .reduce((acc, cc) => acc + cc, 0);
   const handleClick = () => {
     const IsExist = checkedProfissional.find(
       (item) => item.professional_id === index.id
@@ -64,7 +67,6 @@ const OrdemServiceListItem = ({
     setCheckedProfissional(newArr);
   }, [state]);
 
-
   return (
     <ContainerOrdemServices key={index.id}>
       <OrdemServiceItens width="37%" content="flex-start">
@@ -95,19 +97,27 @@ const OrdemServiceListItem = ({
           : " - "}
       </OrdemServiceItens>
       <OrdemServiceItens width="25%" content="flex-start">
-        {index.extra_hour_value
-          ? Number(index.extra_hour_value).toLocaleString("pt-br", {
-              style: "currency",
-              currency: "BRL",
-            })
+        {hourQuantity
+          ? Number(hourQuantity * index.extra_hour_value).toLocaleString(
+              "pt-br",
+              {
+                style: "currency",
+                currency: "BRL",
+              }
+            )
           : "-"}
       </OrdemServiceItens>
       <OrdemServiceItens width="10%" content="flex">
         {index.value
           ? (
-              Number(index.value) + Number(index.fixed_payment_value) + Number(index.extra_hour_value)
+              Number(index.value) +
+              Number(index.fixed_payment_value) +
+              Number(hourQuantity * index.extra_hour_value)
             ).toLocaleString("pt-br", { style: "currency", currency: "BRL" })
-          : (Number(index.fixed_payment_value) + Number(index.extra_hour_value)).toLocaleString("pt-br", {
+          : (
+              Number(index.fixed_payment_value) +
+              Number(hourQuantity * index.extra_hour_value)
+            ).toLocaleString("pt-br", {
               style: "currency",
               currency: "BRL",
             })}
