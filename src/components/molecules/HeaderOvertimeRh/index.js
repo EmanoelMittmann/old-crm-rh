@@ -1,7 +1,7 @@
 import React from "react";
 import { ListHeaderTitle } from "../../atoms/ListHeader/style";
-import { HeaderContainer, ListHeadeProject, ListHeaderLaunch, ListHeaderProfessional, ListHeaderStatus } from "../ListHeaderTechnicalLeadApproval/style";
 import { ReactComponent as Arrows } from "../../../assets/icons/arrows.svg";
+import { HeaderContainer, ListHeadeProject, ListHeadeQntHours, ListHeaderLaunch, ListHeaderProfessional, ListHeaderStatus } from "./style";
 
 const HeaderOvertimeRh = ({sortByName,setOrderField}) => {
   return (
@@ -16,6 +16,16 @@ const HeaderOvertimeRh = ({sortByName,setOrderField}) => {
             }}
           />
         </ListHeaderProfessional>
+
+        <ListHeadeQntHours>
+          <ListHeaderTitle margin="3em">Quantidade de Horas</ListHeaderTitle>
+          <Arrows
+            onClick={() => {
+              sortByName()
+              setOrderField('project_id')
+            }}
+          />
+        </ListHeadeQntHours>
 
         <ListHeadeProject>
           <ListHeaderTitle margin="3em">Projeto</ListHeaderTitle>

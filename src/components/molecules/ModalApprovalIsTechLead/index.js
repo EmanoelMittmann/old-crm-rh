@@ -8,7 +8,6 @@ import { useEffect } from 'react';
 import SaveButton from '../../atoms/Buttons/SaveButton/style';
 import { formatDate } from '../../utils/formatDate';
 import InputSelectAproval from '../../atoms/InputSelectApproval';
-
 import {
     ModalContainer,
     ModalTitle,
@@ -27,10 +26,12 @@ import {
 } from './style';
 import InputWithLabel from '../../atoms/InputWithLabel';
 import { Status } from '../../organisms/DetailsRelease/status';
+import ModalRed from '../ModalRed';
 
 const ApprovalIsTechLead = () => {
     const [approveData, setApproveData] = useState();
     const [currentJustification, setCurrentJustification] = useState('')
+    const [modalIsVisible, setModalIsVisible] = useState(false)
     const [toAccept, setToAccept] = useState(true)
     const history = useHistory()
     let { id } = useParams();
@@ -59,10 +60,22 @@ const handleApprovalHours = async () => {
         approved: toAccept,
         justification: currentJustification,
 
-      });
+      })
+        .then(() => {
+              history.push("/overtime")
+    })
     }catch(err){
     console.error(err);
 }}
+
+    const handlerModal = () => {
+        setModalIsVisible(true)
+
+    };
+
+    const ClickHandler = () => {
+        history.push('/timeIstechLead');
+    };
 
     useEffect(() => {
         getApproveHours(id)
@@ -75,9 +88,7 @@ const handleApprovalHours = async () => {
                     <ModalContainer key={index}>
                         <ModalTitle padding="1.6em">
                             <CloseButton
-                                CloseButtonClickHandler={() => {
-                                    history.push("/timeIstechLead");
-                                }} />
+                                CloseButtonClickHandler={() => ClickHandler()} />
                             Lançamento # {item.id}
                         </ModalTitle>
                     <ContainerAbsolute>
@@ -90,12 +101,10 @@ const handleApprovalHours = async () => {
                         </StyleDate>
                     <Status data={item}/>
                     </ContainerData>
-
                     <ContainerTitles>
                         <StyleTitle>Período</StyleTitle>
                         <StyleTitle>Horas</StyleTitle>
                     </ContainerTitles>
-
                     <ContainerTitles>
                         <StyleDataDate>
                             {item.type === "BY_DATE"
@@ -104,12 +113,10 @@ const handleApprovalHours = async () => {
                             }</StyleDataDate>
                         <StyleDataDate>{item.hour_quantity}</StyleDataDate>
                     </ContainerTitles>
-
                     <ContainerDataJustify>
                         <StyleTitle>Justificativa</StyleTitle>
                         <StyleDataJustify>{item.justification}</StyleDataJustify>
                     </ContainerDataJustify>
-
                     <InputAprovalStyle>
                         <InputSelectAproval
                             value={toAccept}
@@ -133,18 +140,24 @@ const handleApprovalHours = async () => {
                     </ContainerAbsolute>
                     <ModalContainerButtons>
                         <CancelButton
-                            onClick={() => {
-                                history.push("/timeIstechLead");
-                            }}>
+                            onClick={ClickHandler}>
                             Cancelar
                         </CancelButton>
                         <SaveButton
                             onClick={() => {
-                                handleApprovalHours()
-                                    history.push("/timeIstechLead")
+                                    handlerModal(prev => !prev)
                                 }}>
                             Confirmar
                         </SaveButton>
+                            {modalIsVisible && (
+                                <ModalRed
+                                    CloseButtonClickHandler={() => setModalIsVisible(false)}
+                                    redButtonClickHandler={() => handleApprovalHours()}
+                                    title={toAccept ? "Aprovar horas extras" : "Negar horas extras"}
+                                    message={toAccept ? "Deseja realmente aprovar as horas extras?" : "Deseja realmente reprovar as horas extras"}
+
+                                />
+                            )}      
                     </ModalContainerButtons>
                     </ModalContainer>
                     <ModalOverlay />
