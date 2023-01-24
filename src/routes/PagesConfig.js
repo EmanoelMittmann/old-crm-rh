@@ -67,9 +67,9 @@ export const templates = [
   },
   {
     id: 6,
-    name: "Relatórios",
-    hasButton: false,
-    buttonText: "",
+    name: "Pagamentos",
+    hasButton: true,
+    buttonText: "Exportar Excel",
     buttonPath: "",
     icon: <ReportsIcon />,
     isRegisterPage: false,

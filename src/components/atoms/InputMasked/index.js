@@ -7,7 +7,7 @@ import { InputLine } from '../DefaultInput/style'
 import { DefaultInput } from '../DefaultInput/style'
 import {InputWithLabelContainer, Label, ErrorMessage} from '../InputWithLabel/style'
 
-const InputWithLabel = (
+const InputMasked = (
   { value, 
     label, 
     onChange, 
@@ -70,4 +70,4 @@ const InputWithLabel = (
   )
 }
 
-export default InputWithLabel
+export default InputMasked

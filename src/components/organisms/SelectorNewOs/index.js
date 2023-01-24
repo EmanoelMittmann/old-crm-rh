@@ -27,7 +27,7 @@ import {
   openModal,
   valueOfCommission,
 } from "../../../redux/actions";
-import { ReactComponent as ArrowBackNew } from "../../../assets/icons/arrowBackNew.svg";
+import ArrowRegister from "../../atoms/ArrowRegister";
 
 const NewOrdemService = () => {
   const [searchResult, setSearchResult] = useState("");
@@ -172,17 +172,16 @@ const NewOrdemService = () => {
   }, [ValueCommission]);
 
 
+  const goBackClickHandler = () => {
+    history.push("/serviceOrders");
+    dispatch(valueOfCommission([]));
+  };
   return (
     <>
       <ContainerButtonGeral>
         <ContainerButtonsHeader>
           <ContainerIconModal>
-            <ArrowBackNew
-              onClick={() => {
-                history.push("/serviceOrders");
-                dispatch(valueOfCommission([]));
-              }}
-            />
+            <ArrowRegister clickHandler={goBackClickHandler}/>
           </ContainerIconModal>
           <TitleOS>Criar nova O.S</TitleOS>
         </ContainerButtonsHeader>

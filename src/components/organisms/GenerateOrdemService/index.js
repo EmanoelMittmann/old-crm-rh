@@ -29,6 +29,7 @@ import ModalCancelOs from "../../molecules/ModalCancelOS";
 import { toast } from "react-toastify";
 import { DefaultToast } from "../../atoms/Toast/DefaultToast";
 import ModalCompanies from "../../molecules/ModalCompanies";
+import ArrowRegister from "../../atoms/ArrowRegister";
 
 const GenerateOS = () => {
   const [CompanyModal, setCompanyModal] = useState(false);
@@ -128,6 +129,10 @@ const GenerateOS = () => {
     }
   }, [ModalProfessionalMeta]);
 
+  const goBackClickHandler = () => {
+    history.push("/serviceOrders");
+  };
+
   return (
     <>
       <Container>
@@ -162,11 +167,7 @@ const GenerateOS = () => {
         )}
         <ContainerButtonsHeader>
           <ContainerIconModal>
-            <ArrowBackNew
-              onClick={() => {
-                history.push("/serviceOrders");
-              }}
-            />
+            <ArrowRegister clickHandler={goBackClickHandler} />
           </ContainerIconModal>
           <TitleOS>Gerar O.S</TitleOS>
         </ContainerButtonsHeader>

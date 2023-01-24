@@ -17,8 +17,9 @@ export function OvertimeListTechnicalLeadApproval({ data, }) {
   const [modalIsVisibleTechLead, setModalIsVisibleTechLead] = useState(false)
 
   const ClickHandlerTechLead = () => {
-    setModalIsVisibleTechLead(true)
+    return setModalIsVisibleTechLead(prev => !prev)
   }
+
 
   return data ? (
     data.map((values, index) => (

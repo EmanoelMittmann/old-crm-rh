@@ -39,7 +39,7 @@ const ApprovalIsTechLead = ({ id, setModalIsVisibleTechLead }) => {
         { name: 'Negado', id: 'Negado' },
     ];
 
-const getApproveHours = async (id) => {
+const getApproveHoursTechLead = async (id) => {
     try {
         const { data } = await api({
                 method: "GET",
@@ -51,7 +51,7 @@ const getApproveHours = async (id) => {
         }
     };
 
-const handleApprovalHours = async () => {
+const handleApprovalHoursTechLead = async () => {
   try{
       await api.post(`/extrasHoursReleases/approval`, {
         releases_id: parseInt(id),
@@ -64,17 +64,19 @@ const handleApprovalHours = async () => {
     })
     }catch(err){
     console.error(err);
-    }}
+    }
+    return;
+}
 
-    const handlerModal = () => {
-        setModalIsVisible(true)
+    const handlerModalTechLead = () => {
+        setModalIsVisible(prev => !prev)
     };
     const ClickHandlerTechLead = () => {
         setModalIsVisibleTechLead(prev => !prev)
     };
 
     useEffect(() => {
-        getApproveHours(id)
+        getApproveHoursTechLead(id)
     }, [id])
 
     return (
@@ -141,14 +143,14 @@ const handleApprovalHours = async () => {
                         </CancelButton>
                         <SaveButton
                             onClick={() => {
-                                    handlerModal(prev => !prev)
+                                    handlerModalTechLead()
                                 }}>
                             Confirmar
                         </SaveButton>
                             {toAccept && modalIsVisible && (
                                 <ModalGreen
                                     CloseButtonClickHandler={() => setModalIsVisible(false)}
-                                    redButtonClickHandler={() => handleApprovalHours()}
+                                    redButtonClickHandler={() => handleApprovalHoursTechLead()}
                                     title="Aprovar horas extras"
                                     message="Deseja realmente aprovar as horas extras?"
                                 />
@@ -156,7 +158,7 @@ const handleApprovalHours = async () => {
                             {!toAccept && modalIsVisible && (
                                 <ModalRed
                                     CloseButtonClickHandler={() => setModalIsVisible(false)}
-                                    redButtonClickHandler={() => handleApprovalHours()}
+                                    redButtonClickHandler={() => handleApprovalHoursTechLead()}
                                     title="Negar horas extras"
                                     message="Deseja realmente reprovar as horas extras"
                                 />

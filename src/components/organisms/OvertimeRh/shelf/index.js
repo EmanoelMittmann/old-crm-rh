@@ -27,11 +27,11 @@ const Shelf = ({ values, index, }) => {
         url: `/extrasHoursReleases/details/${values.id}`,
       });
       setAdmApproveData(data);
-      setModalIsVisibleRH(true)
+      setModalIsVisibleRH(prev => !prev)
     } catch (error) {
       console.error(error);
     }
-    
+    return
   };
 
   return (

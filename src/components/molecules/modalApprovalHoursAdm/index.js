@@ -38,14 +38,14 @@ const ApprovalHoursAdm = ({ id, setModalIsVisibleRH, admApproveData }) => {
     ];
 
     const handlerModal = () => {
-        setModalIsVisible(true)
+        setModalIsVisible(prev => !prev)
     };
 
     const ClickHandler = () => {
         setModalIsVisibleRH(prev => !prev)
     };
 
-    const handleApprovalHours = async () => {
+    const handleApprovalHours = async (id) => {
         try {
             await api.post(`/extrasHoursReleases/approval`, {
                 releases_id: parseInt(id),
@@ -57,6 +57,7 @@ const ApprovalHoursAdm = ({ id, setModalIsVisibleRH, admApproveData }) => {
         } catch (err) {
             console.error(err);
         }
+        return;
     }
 
     return (
