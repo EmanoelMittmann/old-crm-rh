@@ -67,7 +67,7 @@ export const templates = [
   },
   {
     id: 6,
-    name: "Relatórios",
+    name: "Pagamentos",
     hasButton: false,
     buttonText: "",
     buttonPath: "",
