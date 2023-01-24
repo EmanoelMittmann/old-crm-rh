@@ -88,6 +88,7 @@ const OvertimeRh = ({
         lastPage={dataMeta.last_page}
         nextPage={() => next()}
         previousPage={() => prev()}
+        height='3em'
       />
     </Container>
   );

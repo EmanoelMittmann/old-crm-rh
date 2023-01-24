@@ -17,11 +17,11 @@ export const ContainerSearch = styled.div`
 
 export const ContainerListing = styled.div`
     width: 100%;
-    min-height: 45vh;
+    min-height:30em;
     border-bottom: 1px solid #CCD1D6;
 
     .height{
-        height: 23em;
+        height: 24em;
     }
 `
 export const ContainerQntHours = styled.div`

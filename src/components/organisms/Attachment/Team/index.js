@@ -172,28 +172,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     <AttachmentContainer>
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
       <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
-      <ContainerLabel>
-        <InputSelectWithLabel
-          onFocus={() =>
-            setDataTechLead(
-              options.filter((professional) => professional.id !== 0)
-            )
-          }
-          setSelectedOption={(e) => {
-            setProfessionalSelected(e.target.value);
-            setIsTechLead(true);
-            setDataTeam([]);
-          }}
-          options={dataTechLead}
-         /*  disabled={team.find(professional => professional.isTechLead === true)} */
-          placeholder="Lider"
-          width="100%"
-          lineWidth="25%"
-          label="selecionar o Lider"
-          reset={resetInputs}
-        />
-      </ContainerLabel>
-  
       <AttachmentForm>
         <InputSelectWithLabel
           onFocus={() =>
@@ -215,7 +193,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         <InputSelect
           onChange={(e) => setJobProject(e.target.value)}
           options={jobsMember}
-          disabled={isTechLead}
           placeHolder="Cargo"
           width="100%"
           lineWidth="15%"
