@@ -25,7 +25,9 @@ import OrdemService from '../components/pages/OrdemServices';
 import GenerateOS from '../components/organisms/GenerateOrdemService';
 import DetailsRelease from '../components/organisms/DetailsRelease';
 import OvertimeListIsTechLead from '../components/pages/OvertimeListIstechLead';
-import RegisterReports from '../components/organisms/RegisterReports';
+import ApprovalIsTechLead from '../components/molecules/ModalApprovalIsTechLead';
+import ApprovalHoursAdm from '../components/molecules/ModalApprovalHoursAdm';
+
 
 
 

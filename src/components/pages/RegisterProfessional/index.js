@@ -33,6 +33,7 @@ const RegisterProfessional = () => {
   const [uniqueCpf, setUniqueCpf] = useState("");
   const [cpfValid, setCpfValid] = useState(false);
   const [uniqueCEP, setUniqueCEP] = useState("");
+  const [oldValue, setOldValue] = useState([]);
   const [anotherCep, setAnotherCEP] = useState("");
   const [extraHour, setExtraHour] = useState("");
   const history = useHistory();
@@ -218,7 +219,7 @@ const RegisterProfessional = () => {
         account_number: "",
         type_of_transfer: "",
         pix_key_type: "",
-        pix_key: "",
+        pix_key: cleanMask(""),
       },
     },
     onSubmit: async (values) => {
@@ -427,6 +428,7 @@ const RegisterProfessional = () => {
       })
         .then((response) => {
           const data = response.data[0];
+          setOldValue(data);
           Object.entries(data).forEach(([property, value]) => {
             if (property.includes("date")) {
               setFieldValue(property, getDate(value));
@@ -499,12 +501,20 @@ const RegisterProfessional = () => {
   }, [values.variable1, values.variable2]);
 
   useEffect(() => {
-    setFieldValue("professional_data.pix_key", "");
+    const verified =
+    oldValue?.professional_data?.pix_key_type ===
+    values.professional_data.pix_key_type &&
+    oldValue?.professional_data?.type_of_transfer ===
+    values.professional_data.type_of_transfer;
+    if (!verified) {
+      setFieldValue("professional_data.pix_key", "");
+    }
+    setOldValue([])
+    console.log("verified: ", verified);
   }, [
     values.professional_data.pix_key_type,
-    values.professional_data.type_of_transfer
+    values.professional_data.type_of_transfer,
   ]);
-
 
   return (
     <>
