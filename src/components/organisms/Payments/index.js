@@ -2,21 +2,22 @@ import React from "react";
 import InputSearch from "../../atoms/InputSearch";
 import InputSelect from "../../atoms/InputSelect";
 import InputWithLabel from "../../atoms/InputWithLabel";
+import MenuOptions from "../../atoms/MenuOptions";
 import HeaderPayments from "../../molecules/HeaderPayments";
 import Footer from "../Footer";
 import { data } from "./mock";
 import Shelf from "./shelf";
 import { Container, ContainerListing, ContainerSearch } from "./style";
 
-const Payments = () => {
+const Payments = ({ projects }) => {
   return (
     <>
       <Container>
         <ContainerSearch>
-          <InputSearch lineWidth={"29em"} placeholder='Buscar...'  />
+          <InputSearch lineWidth={"29em"} placeholder="Buscar..." />
 
           <InputSelect
-            options={[]}
+            options={projects}
             onChange={(e) => {}}
             placeHolder="Projeto"
             width="100%"
@@ -49,10 +50,13 @@ const Payments = () => {
           />
         </ContainerSearch>
         <ContainerListing>
-            <HeaderPayments/>
-            {data.map(item => <Shelf data={item}/>)}
+          <HeaderPayments />
+          {data.map((item) => (
+            <Shelf data={item}/>
+          ))}
+         
         </ContainerListing>
-        <Footer height='3em' border='1px solid #ccc'/>
+        <Footer height="3em" border="1px solid #ccc" />
       </Container>
     </>
   );

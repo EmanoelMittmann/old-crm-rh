@@ -1,7 +1,5 @@
 import React from "react";
-import {
-  Badge,
-} from "../../../molecules/ProfessionalsListItem/style";
+import { Badge } from "../../../molecules/ProfessionalsListItem/style";
 import {
   Container,
   ContainerCnpj,
@@ -14,9 +12,13 @@ import {
 } from "./style";
 import { ReactComponent as OptionsIcon } from "../../../../assets/icons/options.svg";
 import { ContainerIconOptions } from "../../ProjectsListItem/style";
+import MenuOptions from "../../../atoms/MenuOptions";
+import { useState } from "react";
 
 const Shelf = ({ data }) => {
   const { id } = data;
+  const [menuOptions, setMenuOptions] = useState(false);
+
   const colors =
     data.status === "Pago"
       ? "#1ECB4F"
@@ -53,9 +55,24 @@ const Shelf = ({ data }) => {
           <Badge color={colors} bg={bg} width="80%">
             {data.status}
           </Badge>
-          <ContainerIconOptions padding='0em' onClick={() => {}} optionsColor='#B7BDC2'>
+          <ContainerIconOptions
+            padding="0em"
+            onClick={() => setMenuOptions((prev) => !prev)}
+            optionsColor={menuOptions ? "#0066ff" : "#B7BDC2"}
+          >
             <OptionsIcon />
           </ContainerIconOptions>
+          {menuOptions && (
+            <MenuOptions
+              positionMenu="-10px"
+              height="8.5em"
+              padding="1em 0 0.5em 1.5em"
+              firstChosenOption={() => {}}
+              firstOptionDescription="Detalhes"
+              secondOptionDescription="Baixar PDF"
+              thirdOptionDescription="Baixar XML"
+            />
+          )}
         </ContainerStatus>
       </Container>
     </>

@@ -68,8 +68,8 @@ export const templates = [
   {
     id: 6,
     name: "Pagamentos",
-    hasButton: false,
-    buttonText: "",
+    hasButton: true,
+    buttonText: "Exportar Excel",
     buttonPath: "",
     icon: <ReportsIcon />,
     isRegisterPage: false,

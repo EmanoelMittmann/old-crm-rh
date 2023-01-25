@@ -111,6 +111,9 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
               }
             >
               <ContainerIconOptions
+                onClick={() =>
+                  menuOptionsClicked(project.id, project.project_status_id)
+                }
               >
                 <OptionsIcon />
               </ContainerIconOptions>
