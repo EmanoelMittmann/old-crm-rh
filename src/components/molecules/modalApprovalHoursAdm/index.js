@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom';
 import api from '../../../api/api';
 import CloseButton from '../../atoms/Buttons/CloseButtonCircle';
 import { formatDate } from '../../utils/formatDate';
@@ -16,6 +15,7 @@ import {
     InputAprovalStyle,
     ModalContainer,
     ModalContainerButtons,
+    ModalOverlay,
     ModalTitle,
     StyleDataDate,
     StyleDataJustify,
@@ -24,15 +24,13 @@ import {
     StyleTitle
 } from './style';
 import ModalRed from '../ModalRed';
+import ModalGreen from '../ModalGreen';
 
 
-const ApprovalHoursAdm = () => {
-    const [admApproveData, setAdmApproveData] = useState();
+const ApprovalHoursAdm = ({ id, setModalIsVisibleRH, admApproveData }) => {
     const [currentJustification, setCurrentJustification] = useState('')
     const [toAccept, setToAccept] = useState(true)
     const [modalIsVisible, setModalIsVisible] = useState(false)
-    const history = useHistory()
-    let { id } = useParams();
 
     const optionsApproval = [
         { name: 'Aceito', id: 'Aceito' },
@@ -40,43 +38,27 @@ const ApprovalHoursAdm = () => {
     ];
 
     const handlerModal = () => {
-        setModalIsVisible(true)
+        setModalIsVisible(prev => !prev)
     };
 
     const ClickHandler = () => {
-        history.push('/overtime');
+        setModalIsVisibleRH(prev => !prev)
     };
 
-    const getApproveHours = async (id) => {
-        try {
-            const { data } = await api({
-                method: "GET",
-                url: `/extrasHoursReleases/details/${id}`,
-            });
-            setAdmApproveData(data);
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const handleApprovalHours = async () => {
+    const handleApprovalHours = async (id) => {
         try {
             await api.post(`/extrasHoursReleases/approval`, {
                 releases_id: parseInt(id),
                 approved: toAccept,
                 justification: currentJustification,
+
             })
-            .then(() => {
-                    history.push("/overtime")
-                })
+                .then(() => { ClickHandler() })
         } catch (err) {
             console.error(err);
         }
+        return;
     }
-
-    useEffect(() => {
-        getApproveHours(id)
-    }, [id])
 
     return (
         <>
@@ -102,7 +84,6 @@ const ApprovalHoursAdm = () => {
                                 <StyleTitle>Período</StyleTitle>
                                 <StyleTitle>Horas</StyleTitle>
                             </ContainerTitles>
-
                             <ContainerTitles>
                                 <StyleDataDate>
                                     {item.type === "BY_DATE"
@@ -147,16 +128,25 @@ const ApprovalHoursAdm = () => {
                                 }}>
                                 Confirmar
                             </SaveButton>
-                            {modalIsVisible && (
+                            {toAccept && modalIsVisible && (
+                                <ModalGreen
+                                    CloseButtonClickHandler={() => setModalIsVisible(false)}
+                                    redButtonClickHandler={() => handleApprovalHours()}
+                                    title="Aprovar horas extras"
+                                    message="Deseja realmente aprovar as horas extras?"
+                                />
+                            )}
+                            {!toAccept && modalIsVisible && (
                                 <ModalRed
                                     CloseButtonClickHandler={() => setModalIsVisible(false)}
                                     redButtonClickHandler={() => handleApprovalHours()}
-                                    title={toAccept ? "Aprovar horas extras" : "Negar horas extras"}
-                                    message={toAccept ? "Deseja realmente aprovar as horas extras?" : "Deseja realmente reprovar as horas extras"}
+                                    title={"Negar horas extras"}
+                                    message="Deseja realmente reprovar as horas extras"
                                 />
                             )}
                         </ModalContainerButtons>
                     </ModalContainer>
+                    <ModalOverlay />
                 </>
             ))}
         </>

@@ -10,6 +10,7 @@ import {
     ProfessionalTextStatus
 
 } from './style'
+import { formatDate } from '../../utils/formatDate'
 
 const ServiceOrderListItens = ({ professional }) => {
     const tranformStatus = professional.status === 'PENDING' ? 'Pendente' : professional.status === 'SENT' ? 'Enviada' : 'Cancelada'
@@ -22,7 +23,7 @@ const ServiceOrderListItens = ({ professional }) => {
             <ProfessionalName>{professional.name}</ProfessionalName>
             <ProfessionalCNPJ>{professional.cnpj}</ProfessionalCNPJ>
             <NumberOS>{professional.id}</NumberOS>
-            <DateGerationOS>{professional.os_generation.split('-').reverse().join('/')}</DateGerationOS>
+            <DateGerationOS>{formatDate(professional.os_generation)}</DateGerationOS>
             <ReferenceOS>{professional.reference}</ReferenceOS>
             <ProfessionalStatusOS>
                 <ProfessionalTextStatus bg={colorBg} text={colortext}>

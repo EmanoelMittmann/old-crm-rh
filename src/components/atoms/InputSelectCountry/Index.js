@@ -16,8 +16,10 @@ const Index = ({
   onChange,
   placeHolder,
   options,
+  disabled,
   lineWidth,
   value,
+  onClick,
 }) => {
   const [countries, setCountries] = useState([]);
 
@@ -36,6 +38,8 @@ const Index = ({
           {...attributeValue}
           width={width}
           onChange={onChange}
+          disabled={disabled}
+          onClick={onClick}
         >
           <InputSelectOptionPlaceholder disabled selected>
             {placeHolder}

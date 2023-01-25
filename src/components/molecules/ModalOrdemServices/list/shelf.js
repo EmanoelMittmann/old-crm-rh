@@ -1,16 +1,30 @@
 import React from 'react';
 import { ContainerLabelProfessional, IconButton } from '../style';
 import { ReactComponent as Trash } from '../../../../assets/icons/trash.svg';
-import InputWithLabel from '../../../atoms/InputWithLabel';
 import { ContainerWap } from '../style';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
+import InputMasked from '../../../atoms/InputMasked';
+import createNumberMask from 'text-mask-addons/dist/createNumberMask';
+import InputWithLabel from '../../../atoms/InputWithLabel';
 
-const Shelf = ({ professional, handleDelete, AddOrUpdate, validatorError }) => {
+
+const Shelf = ({ professional, handleDelete, AddOrUpdate }) => {
   const state = useSelector((state) => state.valueOfCommission);
   const isExist = state.find((item) => item.id === professional.id);
   const [commission, setCommission] = useState(!!isExist ? isExist.value : '');
 
+
+  const maskCommission = createNumberMask({
+    prefix: 'R$',
+    thousandsSeparatorSymbol: '.',
+    includeThousandsSeparator: true,
+    allowDecimal: true,
+    decimalSymbol: ',',
+    requireDecimal:true,
+    decimalLimit: 2, //quantos dígitos permitidos após o decimal
+  })
+ 
   return (
     <>
       <ContainerWap>
@@ -20,7 +34,9 @@ const Shelf = ({ professional, handleDelete, AddOrUpdate, validatorError }) => {
             <Trash />
           </IconButton>
         </ContainerLabelProfessional>
-        <InputWithLabel
+        <InputMasked // usar <InputMasked/> para usar a máscara
+          mask={maskCommission}
+          id="commission"
           onChange={(e) => setCommission(e.target.value)}
           key={state.id}
           value={commission}
@@ -28,7 +44,7 @@ const Shelf = ({ professional, handleDelete, AddOrUpdate, validatorError }) => {
           label="R$ 0.00"
           type="number"
           handleBlur={() =>
-            AddOrUpdate({ id: professional.id, value: commission })
+            AddOrUpdate({ id: professional.id, value: commission})
           }
           name="comission"
           widthContainer="40%"

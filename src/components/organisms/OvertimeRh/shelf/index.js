@@ -1,5 +1,4 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
 import {
   ContainerLaunch_date,
   ContainerProject,
@@ -12,39 +11,61 @@ import {
 import { Badge } from "../../../molecules/ProfessionalsListItem/style";
 import { formatDate } from "../../../utils/formatDate";
 import { ContainerQntHours } from "../style";
+import { useState } from "react";
+import ApprovalHoursAdm from "../../../molecules/ModalApprovalHoursAdm";
+import api from "../../../../api/api";
 
-const Shelf = ({ values, index }) => {
-  const history = useHistory();
+const Shelf = ({ values, index, }) => {
+  const [modalIsVisibleRH, setModalIsVisibleRH] = useState(false)
+  const [admApproveData, setAdmApproveData] = useState();
+
+
+  const handlerModalRH = async () => {
+    try {
+      const { data } = await api({
+        method: "GET",
+        url: `/extrasHoursReleases/details/${values.id}`,
+      });
+      setAdmApproveData(data);
+      setModalIsVisibleRH(prev => !prev)
+    } catch (error) {
+      console.error(error);
+    }
+    return
+  };
 
   return (
     <>
+      {modalIsVisibleRH && (
+        <ApprovalHoursAdm
+          id={values.id}
+          setModalIsVisibleRH={setModalIsVisibleRH}
+          admApproveData={admApproveData} />
+      )}
       <Main key={index} padding="2em 0 0 2em">
         {values.status_name === 'Pendente - RH' ? (
           <ContainerUser
-            onClick={() => history.push(`ApprovalHoursAdm/${values.id}`)}
+            onClick={() => handlerModalRH()}
             w="22%"
           >
             <img src={values.avatar} className="img" />
             <User_name>{values?.user_name}</User_name>
           </ContainerUser>
         ) : (
-            <ContainerUser w="22%">
-              <img src={values.avatar} className="img" />
-              <User_name>{values?.user_name}</User_name>
-            </ContainerUser>
+          <ContainerUser w="22%">
+            <img src={values.avatar} className="img" />
+            <User_name>{values?.user_name}</User_name>
+          </ContainerUser>
         )}
         <ContainerQntHours>
           {values?.hour_quantity}hr
         </ContainerQntHours>
-
         <ContainerProject w="18%">
           <Text>{values.project_name}</Text>
         </ContainerProject>
-
         <ContainerLaunch_date w='17%'>
           {formatDate(values.launch_date)}
         </ContainerLaunch_date>
-
         <ContainerStatus>
           {values.status_id === 1 ? (
             <Badge bg="#FFAE0026" color="#FFAE00" width="200px">
@@ -70,8 +91,7 @@ const Shelf = ({ values, index }) => {
             <Badge bg="#FF354126" color="#FF3541" width="200px">
               {values.status_name}
             </Badge>
-          ) : (
-            ""
+          ) : ( ""
           )}
         </ContainerStatus>
       </Main>

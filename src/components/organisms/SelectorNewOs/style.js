@@ -71,7 +71,7 @@ export const ScrollContainer = styled.ul`
 
 export const ContainerIconModal = styled.div`
   cursor: pointer;
-  padding: 1.6em 1.8em 0em 1.8em;
+  padding: 1.1em 0em 0em 1.8em;
   display: flex;
 
 `
