@@ -25,8 +25,7 @@ import OrdemService from '../components/pages/OrdemServices';
 import GenerateOS from '../components/organisms/GenerateOrdemService';
 import DetailsRelease from '../components/organisms/DetailsRelease';
 import OvertimeListIsTechLead from '../components/pages/OvertimeListIstechLead';
-import ApprovalIsTechLead from '../components/molecules/ModalApprovalIsTechLead';
-import ApprovalHoursAdm from '../components/molecules/ModalApprovalHoursAdm';
+
 
 
 
@@ -63,7 +62,6 @@ const Routes = () => {
         <PrivateRoute path="/Companies/:id" component={RegisterCompanies} />
         <PrivateRoute path="/NewOs" component={OrdemService} />
         <PrivateRoute path="/GenerateOs" component={GenerateOS} />
-        <PrivateRoute path="/report" component={RegisterReports}/>
 
         <PrivateRoute path="/timeSending"component={OvertimeListProfessional}/>
         <PrivateRoute path="/timeIstechLead" component={OvertimeListIsTechLead} />
