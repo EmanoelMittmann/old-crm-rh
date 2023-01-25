@@ -8,7 +8,6 @@ export const ContainerWap = styled.div`
     margin-bottom: 0.5em;
     position: relative;
 
-
     &:last-child {
         margin-bottom: 1em;
     }
@@ -80,4 +79,12 @@ export const ContainerAbsolute = styled.div`
   height: 405px;
 
 
+`
+
+export const ContainerInputMasked = styled.div`
+    font-size: 28px;
+    padding: 8px 15px;
+    border: 0;
+    border-radius: 4px;
+    color: #333;
 `

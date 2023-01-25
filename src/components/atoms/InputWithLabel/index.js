@@ -19,6 +19,7 @@ const InputWithLabel = ({
   type,
   handleBlur,
   name,
+  onClick,
 }) => {
   const [focus, setFocus] = useState(false);
   const [blur, setBlur] = useState(false);
@@ -37,6 +38,8 @@ const InputWithLabel = ({
       justify={justify}
       margin={margin}
       widthContainer={widthContainer}
+      disabled={disabled}
+      onClick={onClick}
     >
       <InputLine width={width} error={touched && error}>
         <Label focus={focus || value !== ''} blur={blur || value !== ''}>

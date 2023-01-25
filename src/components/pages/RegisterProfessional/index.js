@@ -82,7 +82,7 @@ const RegisterProfessional = () => {
         ) {
           setUniqueCEP(values.cep);
           handleCEP(values.cep).then((data) => {
-            if (data.data.erro) return setFieldError("cep", "Cep Invalido!");
+            if (data.data.erro) return setFieldError("CEP", "CEP não encontrado!");
             const { bairro, localidade, logradouro, uf } = data.data;
             if (localidade) setFieldValue("city_name", localidade);
             if (uf) setFieldValue("uf", uf);

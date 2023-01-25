@@ -75,6 +75,7 @@ const NavHome = () => {
               <JobIcon />
             </Link>
             {location.pathname === '/professionals' && <ActiveIcon />}
+            {location.pathname === '/professional' && <ActiveIcon />}
           </ActiveIconContainer>
           <ActiveIconContainer
             onClick={() => MenuItemClickHandler(3)}
@@ -85,7 +86,7 @@ const NavHome = () => {
               <ProjectsIcon />
             </Link>
             {location.pathname === '/projects' && <ActiveIcon />}
-            {location.pathname === '/registerProject' && <ActiveIcon />}
+            {location.pathname === '/project' && <ActiveIcon />}
           </ActiveIconContainer>
         </>
       ) : (
@@ -156,6 +157,8 @@ const NavHome = () => {
               <ServiceOrdersIcon />
             </Link>
             {location.pathname === '/serviceOrders' && <ActiveIcon />}
+            {location.pathname === '/NewOs' && <ActiveIcon />}
+            {location.pathname === '/GenerateOs' && <ActiveIcon />}
           </ActiveIconContainer>
           <ActiveIconContainer
             onClick={() => MenuItemClickHandler(8)}
@@ -166,6 +169,8 @@ const NavHome = () => {
               <SettingsIcon />
             </Link>
             {location.pathname === '/job' && <ActiveIcon />}
+            {location.pathname === '/projectStatus' && <ActiveIcon />}
+            {location.pathname === '/projectType' && <ActiveIcon />}
           </ActiveIconContainer>
           
           <ActiveIconContainer
@@ -173,10 +178,11 @@ const NavHome = () => {
             onMouseOver={() => MenuItemOnMouseOverHandler(9)}
             onMouseOut={() => MenuItemOnMouseOutHandler(9)}
           >
-            <Link to="/company">
+            <Link to="/Company">
               <CompanyIcon />
             </Link>
-            {location.pathname === '/company' && <ActiveIcon />}
+            {location.pathname === '/Company' && <ActiveIcon />}
+            {location.pathname === '/Companies' && <ActiveIcon />}
           </ActiveIconContainer>
         </>
 

@@ -8,8 +8,8 @@ import {
   ReportsIcon,
   ServiceOrdersIcon,
   SettingsIcon,
+  ProjectsIcon,
 } from "../components/atoms/icons/NavIcons";
-import { ReactComponent as Project } from "../assets/icons/project.svg";
 import { ReactComponent as Invoice } from "../assets/icons/invoice.svg";
 import { ReactComponent as Overtime } from "../assets/icons/overtime.svg";
 
@@ -41,7 +41,7 @@ export const templates = [
     hasButton: true,
     buttonText: "Cadastrar novo",
     buttonPath: "/project",
-    icon: <Project />,
+    icon: <ProjectsIcon />,
     isRegisterPage: false,
     path: "/projects",
   },

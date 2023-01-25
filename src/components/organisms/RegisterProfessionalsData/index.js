@@ -73,30 +73,31 @@ const RegisterProfessionalsData = ({ data }) => {
     errors,
     touched,
     setFieldTouched,
-    setFieldValue,
+    setFieldError
   } = data;
   const [isDisabled, setIsDisabled] = useState(true);
+  const [disabled, setDisabled] = useState(true);
 
   const masks =
     values.professional_data.pix_key_type === "CPF"
       ? [
-          /\d/,
-          /\d/,
-          /\d/,
-          ".",
-          /\d/,
-          /\d/,
-          /\d/,
-          ".",
-          /\d/,
-          /\d/,
-          /\d/,
-          "-",
-          /\d/,
-          /\d/,
-        ]
+        /\d/,
+        /\d/,
+        /\d/,
+        ".",
+        /\d/,
+        /\d/,
+        /\d/,
+        ".",
+        /\d/,
+        /\d/,
+        /\d/,
+        "-",
+        /\d/,
+        /\d/,
+      ]
       : values.professional_data.pix_key_type === "CNPJ"
-      ? [
+        ? [
           /\d/,
           /\d/,
           ".",
@@ -116,28 +117,30 @@ const RegisterProfessionalsData = ({ data }) => {
           /\d/,
           /\d/,
         ]
-      : values.professional_data.pix_key_type === "Phone"
-      ? [
-          "(",
-          /[1-9]/,
-          /\d/,
-          ")",
-          " ",
-          /\d/,
-          " ",
-          /\d/,
-          /\d/,
-          /\d/,
-          /\d/,
-          "-",
-          /\d/,
-          /\d/,
-          /\d/,
-          /\d/,
-        ]
-      : values.professional_data.pix_key_type === "E-mail"
-      ? [/[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/]
-      : [];
+        : values.professional_data.pix_key_type === "Phone"
+          ? [
+            "(",
+            /[1-9]/,
+            /\d/,
+            ")",
+            " ",
+            /\d/,
+            " ",
+            /\d/,
+            /\d/,
+            /\d/,
+            /\d/,
+            "-",
+            /\d/,
+            /\d/,
+            /\d/,
+            /\d/,
+          ]
+          : values.professional_data.pix_key_type === "E-mail"
+            ? [/[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/]
+            : [];
+
+
 
   useEffect(() => {
     if (values.country === "") return;
@@ -150,12 +153,9 @@ const RegisterProfessionalsData = ({ data }) => {
   }, [values.country]);
 
   useEffect(() => {
-    if (values.professional_data.type_of_transfer === "PIX") {
-      setIsDisabled(!isDisabled);
-    } else {
-      setIsDisabled(true);
-    }
-  }, [values.professional_data.type_of_transfer]);
+    values.professional_data.type_of_transfer === "PIX" ? setIsDisabled(!isDisabled) : setIsDisabled(true);
+    errors?.cep === setFieldError('CEP não encontrado!') ? setDisabled(!disabled) : setDisabled(disabled)
+  }, [values.professional_data.type_of_transfer, errors.cep]);
 
   return (
     <ContainerRegisterProfessionalsData>
@@ -349,6 +349,8 @@ const RegisterProfessionalsData = ({ data }) => {
             value={values.country}
             error={errors.country}
             touched={touched.country}
+            disabled={disabled}
+        
           />
           <InputWithLabel
             onChange={handleChange("neighbourhood_name")}
@@ -373,6 +375,7 @@ const RegisterProfessionalsData = ({ data }) => {
             touched={touched.city_name}
             handleBlur={setFieldTouched}
             name="city_name"
+            disabled={disabled}
           />
           <InputSelectUf
             value={values.uf}
@@ -380,6 +383,8 @@ const RegisterProfessionalsData = ({ data }) => {
             options={optionsUFCountry}
             placeHolder="UF"
             width="230px"
+            erro={errors.uf}
+            disabled={disabled}
           />
         </ContainerRow>
         <ContainerRow>
@@ -566,6 +571,7 @@ const RegisterProfessionalsData = ({ data }) => {
               touched={touched.company_city_name}
               handleBlur={setFieldTouched}
               name="professional_data.company_city_name"
+              disabled={disabled}
             />
             <InputSelect
               value={values.professional_data.uf_company}
@@ -573,6 +579,7 @@ const RegisterProfessionalsData = ({ data }) => {
               options={optionsUF}
               placeHolder="UF"
               width="230px"
+              disabled={disabled}
             />
           </ContainerRow>
           <ContainerRow>
@@ -672,7 +679,7 @@ const RegisterProfessionalsData = ({ data }) => {
             disabled={isDisabled}
           />
           {values.professional_data.pix_key_type === "E-mail" ||
-          values.professional_data.pix_key_type === "RandomKey" ? (
+            values.professional_data.pix_key_type === "RandomKey" ? (
             <InputWithLabel
               name="professional_data.pix_key "
               error={errors?.professional_data?.pix_key}

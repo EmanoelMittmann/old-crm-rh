@@ -66,7 +66,7 @@ const OrdemServiceListItem = ({
     });
     setCheckedProfissional(newArr);
   }, [state]);
-
+  console.log("dados", index.value)
   return (
     <ContainerOrdemServices key={index.id}>
       <OrdemServiceItens width="37%" content="flex-start">
@@ -90,37 +90,37 @@ const OrdemServiceListItem = ({
       </OrdemServiceItens>
       <OrdemServiceItens width="17%" content="flex-start">
         {index.value
-          ? ` ${Number(index.value).toLocaleString("pt-br", {
-              style: "currency",
-              currency: "BRL",
-            })}`
+          ? ` ${Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2)).toLocaleString("pt-br", {
+            style: "currency",
+            currency: "BRL",
+          })}`
           : " - "}
       </OrdemServiceItens>
       <OrdemServiceItens width="25%" content="flex-start">
         {hourQuantity
           ? Number(hourQuantity * index.extra_hour_value).toLocaleString(
-              "pt-br",
-              {
-                style: "currency",
-                currency: "BRL",
-              }
-            )
+            "pt-br",
+            {
+              style: "currency",
+              currency: "BRL",
+            }
+          )
           : "-"}
       </OrdemServiceItens>
       <OrdemServiceItens width="10%" content="flex">
         {index.value
           ? (
-              Number(index.value) +
-              Number(index.fixed_payment_value) +
-              Number(hourQuantity * index.extra_hour_value)
-            ).toLocaleString("pt-br", { style: "currency", currency: "BRL" })
+            Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2)) +
+            Number(index.fixed_payment_value) +
+            Number(hourQuantity * index.extra_hour_value)
+          ).toLocaleString("pt-br", { style: "currency", currency: "BRL" })
           : (
-              Number(index.fixed_payment_value) +
-              Number(hourQuantity * index.extra_hour_value)
-            ).toLocaleString("pt-br", {
-              style: "currency",
-              currency: "BRL",
-            })}
+            Number(index.fixed_payment_value) +
+            Number(hourQuantity * index.extra_hour_value)
+          ).toLocaleString("pt-br", {
+            style: "currency",
+            currency: "BRL",
+          })}
       </OrdemServiceItens>
     </ContainerOrdemServices>
   );

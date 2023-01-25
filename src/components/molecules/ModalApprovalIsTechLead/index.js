@@ -1,7 +1,6 @@
 import React from 'react'
 import CloseButton from '../../atoms/Buttons/CloseButtonCircle';
 import CancelButton from '../../atoms/Buttons/CancelButton/style';
-import { useHistory, useParams } from 'react-router-dom';
 import api from '../../../api/api';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -27,21 +26,20 @@ import {
 import InputWithLabel from '../../atoms/InputWithLabel';
 import { Status } from '../../organisms/DetailsRelease/status';
 import ModalRed from '../ModalRed';
+import ModalGreen from '../ModalGreen';
 
-const ApprovalIsTechLead = () => {
+const ApprovalIsTechLead = ({ id, setModalIsVisibleTechLead }) => {
     const [approveData, setApproveData] = useState();
     const [currentJustification, setCurrentJustification] = useState('')
     const [modalIsVisible, setModalIsVisible] = useState(false)
     const [toAccept, setToAccept] = useState(true)
-    const history = useHistory()
-    let { id } = useParams();
   
     const optionsApproval = [
         { name: 'Aceito', id: 'Aceito' },
         { name: 'Negado', id: 'Negado' },
     ];
 
-const getApproveHours = async (id) => {
+const getApproveHoursTechLead = async (id) => {
     try {
         const { data } = await api({
                 method: "GET",
@@ -53,7 +51,7 @@ const getApproveHours = async (id) => {
         }
     };
 
-const handleApprovalHours = async () => {
+const handleApprovalHoursTechLead = async () => {
   try{
       await api.post(`/extrasHoursReleases/approval`, {
         releases_id: parseInt(id),
@@ -62,23 +60,23 @@ const handleApprovalHours = async () => {
 
       })
         .then(() => {
-              history.push("/overtime")
+           return ClickHandlerTechLead()
     })
     }catch(err){
     console.error(err);
-}}
+    }
+    return;
+}
 
-    const handlerModal = () => {
-        setModalIsVisible(true)
-
+    const handlerModalTechLead = () => {
+        setModalIsVisible(prev => !prev)
     };
-
-    const ClickHandler = () => {
-        history.push('/timeIstechLead');
+    const ClickHandlerTechLead = () => {
+        setModalIsVisibleTechLead(prev => !prev)
     };
 
     useEffect(() => {
-        getApproveHours(id)
+        getApproveHoursTechLead(id)
     }, [id])
 
     return (
@@ -88,7 +86,7 @@ const handleApprovalHours = async () => {
                     <ModalContainer key={index}>
                         <ModalTitle padding="1.6em">
                             <CloseButton
-                                CloseButtonClickHandler={() => ClickHandler()} />
+                                CloseButtonClickHandler={() => ClickHandlerTechLead()} />
                             Lançamento # {item.id}
                         </ModalTitle>
                     <ContainerAbsolute>
@@ -140,24 +138,31 @@ const handleApprovalHours = async () => {
                     </ContainerAbsolute>
                     <ModalContainerButtons>
                         <CancelButton
-                            onClick={ClickHandler}>
+                                onClick={() => ClickHandlerTechLead()}>
                             Cancelar
                         </CancelButton>
                         <SaveButton
                             onClick={() => {
-                                    handlerModal(prev => !prev)
+                                    handlerModalTechLead()
                                 }}>
                             Confirmar
                         </SaveButton>
-                            {modalIsVisible && (
+                            {toAccept && modalIsVisible && (
+                                <ModalGreen
+                                    CloseButtonClickHandler={() => setModalIsVisible(false)}
+                                    redButtonClickHandler={() => handleApprovalHoursTechLead()}
+                                    title="Aprovar horas extras"
+                                    message="Deseja realmente aprovar as horas extras?"
+                                />
+                            )}
+                            {!toAccept && modalIsVisible && (
                                 <ModalRed
                                     CloseButtonClickHandler={() => setModalIsVisible(false)}
-                                    redButtonClickHandler={() => handleApprovalHours()}
-                                    title={toAccept ? "Aprovar horas extras" : "Negar horas extras"}
-                                    message={toAccept ? "Deseja realmente aprovar as horas extras?" : "Deseja realmente reprovar as horas extras"}
-
+                                    redButtonClickHandler={() => handleApprovalHoursTechLead()}
+                                    title="Negar horas extras"
+                                    message="Deseja realmente reprovar as horas extras"
                                 />
-                            )}      
+                            )}
                     </ModalContainerButtons>
                     </ModalContainer>
                     <ModalOverlay />
