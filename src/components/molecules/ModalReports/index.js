@@ -45,11 +45,7 @@ const ModalReports = () => {
     }
 
     return (
-    <><div>
-            <button onClick={handlerModal}>
-                Mostrar modal
-            </button>
-        </div><>
+    <>
                 {modalIsVisible &&
                     <div>
                         {mock?.map((item, index) => (
@@ -85,7 +81,7 @@ const ModalReports = () => {
                         ))}
                         <ModalOverlay />
                     </div>}
-            </></>
+            </>
     )
 }
 
