@@ -23,9 +23,6 @@ const HeaderPayments = () => {
           <ListTitle>Profissional</ListTitle>
           <Arrows />
         </ListItemProfessional>
-        <ListItemProjects>
-          <ListTitle>Projetos</ListTitle>
-        </ListItemProjects>
         <ListItemCnpj>
           <ListTitle>CNPJ</ListTitle>
         </ListItemCnpj>

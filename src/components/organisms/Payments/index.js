@@ -5,11 +5,10 @@ import InputWithLabel from "../../atoms/InputWithLabel";
 import MenuOptions from "../../atoms/MenuOptions";
 import HeaderPayments from "../../molecules/HeaderPayments";
 import Footer from "../Footer";
-import { data } from "./mock";
 import Shelf from "./shelf";
 import { Container, ContainerListing, ContainerSearch } from "./style";
 
-const Payments = ({ projects }) => {
+const Payments = ({ projects, reports, reportsMeta, nextPage, prevPage }) => {
   return (
     <>
       <Container>
@@ -51,12 +50,19 @@ const Payments = ({ projects }) => {
         </ContainerSearch>
         <ContainerListing>
           <HeaderPayments />
-          {data.map((item) => (
-            <Shelf data={item}/>
+          {reports?.map((item) => (
+            <Shelf data={item} />
           ))}
-         
         </ContainerListing>
-        <Footer height="3em" border="1px solid #ccc" />
+        <Footer
+          height="3em"
+          border="1px solid #ccc"
+          firstPage={reportsMeta.first_page}
+          lastPage={reportsMeta.last_page}
+          nextPage={() => nextPage()}
+          previousPage={() => prevPage()}
+          currentPage={reportsMeta.current_page}
+        />
       </Container>
     </>
   );
