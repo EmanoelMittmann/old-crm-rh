@@ -29,7 +29,7 @@ const OvertimeListIsTechLead = () => {
     orderFIeld: orderField
   };
 
-  const getOvertimes = async () => {
+  const getOvertimesTechLead = async () => {
     await api({
       method: "get",
       url: `/extrasHoursReleases/pending`,
@@ -110,12 +110,12 @@ const OvertimeListIsTechLead = () => {
 
   const nextPage = () => {
     handleFilterRequest("next");
-    return getOvertimes();
+    return getOvertimesTechLead();
   };
 
   const previousPage = () => {
     handleFilterRequest("previous");
-    return getOvertimes();
+    return getOvertimesTechLead();
   };
 
   const sortByField = () => {
@@ -128,7 +128,7 @@ const OvertimeListIsTechLead = () => {
     getProjects();
     getStatus();
     handleFilterRequest();
-    getOvertimes();
+    getOvertimesTechLead();
   }, [search, statusParams, projectParams, initialDate, order, finalDate]);
 
   return (
@@ -179,10 +179,11 @@ const OvertimeListIsTechLead = () => {
       <TechnicalLeadApproval
         sortByName={sortByField}
         setOrderField={setOrderField}
+       
       />
 
       <Height>
-        <OvertimeListTechnicalLeadApproval data={data} />
+        <OvertimeListTechnicalLeadApproval data={data} getOvertimesTechLead={getOvertimesTechLead} />
       </Height>
 
       <Footer

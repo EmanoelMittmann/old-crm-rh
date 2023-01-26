@@ -15,7 +15,7 @@ import { useState } from "react";
 import ApprovalHoursAdm from "../../../molecules/ModalApprovalHoursAdm";
 import api from "../../../../api/api";
 
-const Shelf = ({ values, index, }) => {
+const Shelf = ({ values, index, getHoursPending }) => {
   const [modalIsVisibleRH, setModalIsVisibleRH] = useState(false)
   const [admApproveData, setAdmApproveData] = useState();
 
@@ -40,6 +40,7 @@ const Shelf = ({ values, index, }) => {
         <ApprovalHoursAdm
           id={values.id}
           setModalIsVisibleRH={setModalIsVisibleRH}
+          getHoursPending={getHoursPending}
           admApproveData={admApproveData} />
       )}
       <Main key={index} padding="2em 0 0 2em">

@@ -128,6 +128,7 @@ const Overtime = () => {
         initialDate={initialDate}
         setSearch={setSearch}
         setStatusParams={setStatusParams}
+        getHoursPending={getHoursPending}
       />
     </>
   );
