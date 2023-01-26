@@ -12,7 +12,7 @@ import { Badge } from "../../../molecules/ProfessionalsListItem/style";
 import { formatDate } from "../../../utils/formatDate";
 import { ContainerQntHours } from "../style";
 import { useState } from "react";
-import ApprovalHoursAdm from "../../../molecules/ModalApprovalHoursAdm";
+import ApprovalHoursAdm from "../../../molecules/modalApprovalHoursAdm";
 import api from "../../../../api/api";
 
 const Shelf = ({ values, index, }) => {

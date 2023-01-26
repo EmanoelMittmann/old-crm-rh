@@ -45,8 +45,12 @@ export const ProjectListOptions = styled.div`
 `
 
 export const ContainerIconOptions = styled.div`
-    padding: 1em;
+    padding: ${props => props.padding ? props.padding : '1em'};
     cursor: pointer;
+
+    svg{
+         fill: ${props => props.optionsColor};
+    }
 `
 
 export const ContainerTeamMemberPic = styled.div`

@@ -1,14 +1,27 @@
-import React from 'react'
-import RegisterReports from '../../organisms/RegisterReports'
-
+import React, { useEffect } from "react";
+import { useState } from "react";
+import api from "../../../api/api";
+import Payments from "../../organisms/Payments";
 
 const Reports = () => {
+    const [projects,setProjects] = useState([])
+    const [menuOptions, setMenuOptions] = useState(false)
+    const getProjects = async() => {
+        const {data} = await api.get('/project')
+        setProjects(data.data)
+    }
 
-    return (
-        <>
-            <RegisterReports />
-        </>
-    )
-}
+    useEffect(() => {
+      getProjects()
+    },[])
 
-export default Reports
+  return (
+    <>
+      <Payments 
+        projects={projects}
+      />
+    </>
+  );
+};
+
+export default Reports;

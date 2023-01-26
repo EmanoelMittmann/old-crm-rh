@@ -14,11 +14,11 @@ export const OptionsMenu = styled.div`
   left: -170px;
   top: ${(props) => props.positionMenu};
   width: 134px;
-  height: 90px;
+  height: ${props => props.height ? props.height : '90px'};
   border-radius: 8px;
   background-color: white;
   z-index: 5;
-  box-shadow: 0px 16px 32px #919eab66;
+  box-shadow: 0px 10px 20px 0px #00000040;
 `;
 export const OptionsMenuItem = styled.button`
   display: block;
