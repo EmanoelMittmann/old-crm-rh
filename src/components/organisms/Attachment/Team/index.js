@@ -57,7 +57,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   const [jobProject, setJobProject] = useState('');
   const { id } = useParams();
   
+  console.log("Profissional selecionado",professionalSelected)
   
+  console.log("isTechLead: ", isTechLead);
 
   useLayoutEffect(() => {
     const optionsValid = checkArraysDifference({
@@ -132,8 +134,11 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName, status);
     resetInputs();
   }
+useEffect(() => {
+if(isTechLead === true){
 
-
+}
+},[])
 
   function handleRemoveMember() {
     if (!id) {
@@ -179,7 +184,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           }
           setSelectedOption={(e) => {
             setProfessionalSelected(e.target.value);
-            setIsTechLead(false);
+            setIsTechLead(true);
             setDataTechLead([]);
           }}
           options={dataTeam}

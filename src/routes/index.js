@@ -47,7 +47,7 @@ const Routes = () => {
         <PrivateRoute path="/job" component={Settings} />
         <PrivateRoute path="/projectStatus" component={Status} />
         <PrivateRoute path="/projectType" component={ProjectType} />
-        <PrivateRoute exact path="/project" component={RegisterProject} />
+        <PrivateRoute exact path="/project/:id" component={RegisterProject} />
         
         <PrivateRoute
           exact
@@ -63,7 +63,6 @@ const Routes = () => {
         <PrivateRoute path="/Companies/:id" component={RegisterCompanies} />
         <PrivateRoute path="/NewOs" component={OrdemService} />
         <PrivateRoute path="/GenerateOs" component={GenerateOS} />
-
         <PrivateRoute path="/timeSending"component={OvertimeListProfessional}/>
         <PrivateRoute path="/timeIstechLead" component={OvertimeListIsTechLead} />
         <PrivateRoute path="/invoiceSending" component={InvoiceSending} />
