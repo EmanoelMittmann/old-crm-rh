@@ -8,6 +8,7 @@ const Reports = () => {
     const [reports, setReports] = useState([])
     const [reportsMeta, setReportsMeta] = useState({})
     const [menuOptions, setMenuOptions] = useState(false)
+    console.log("reportsMeta: ", reportsMeta.current_page);
 
     const params = new URLSearchParams()
 
@@ -17,7 +18,7 @@ const Reports = () => {
     }
 
     const getReports = async() => {
-      const {data} = await api.get('/reports?limit=7',params)
+      const {data} = await api.get('/reports?limit=7',{params})
       setReports(data.data)
       setReportsMeta(data.meta)
     }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import api from '../../../api/api';
 import CloseButton from '../../atoms/Buttons/CloseButtonCircle';
 import { formatDate } from '../../utils/formatDate';
@@ -27,7 +27,7 @@ import ModalRed from '../ModalRed';
 import ModalGreen from '../ModalGreen';
 
 
-const ApprovalHoursAdm = ({ id, setModalIsVisibleRH, admApproveData }) => {
+const ApprovalHoursAdm = ({ id, setModalIsVisibleRH, admApproveData, getHoursPending }) => {
     const [currentJustification, setCurrentJustification] = useState('')
     const [toAccept, setToAccept] = useState(true)
     const [modalIsVisible, setModalIsVisible] = useState(false)
@@ -45,7 +45,7 @@ const ApprovalHoursAdm = ({ id, setModalIsVisibleRH, admApproveData }) => {
         setModalIsVisibleRH(prev => !prev)
     };
 
-    const handleApprovalHours = async (id) => {
+    const handleApprovalHours = async () => {
         try {
             await api.post(`/extrasHoursReleases/approval`, {
                 releases_id: parseInt(id),
@@ -53,7 +53,7 @@ const ApprovalHoursAdm = ({ id, setModalIsVisibleRH, admApproveData }) => {
                 justification: currentJustification,
 
             })
-                .then(() => { ClickHandler() })
+                .then(() => ClickHandler(), getHoursPending())
         } catch (err) {
             console.error(err);
         }

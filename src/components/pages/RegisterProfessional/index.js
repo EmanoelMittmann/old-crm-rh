@@ -510,7 +510,7 @@ const RegisterProfessional = () => {
       setFieldValue("professional_data.pix_key", "");
     }
     setOldValue([])
-    console.log("verified: ", verified);
+
   }, [
     values.professional_data.pix_key_type,
     values.professional_data.type_of_transfer,

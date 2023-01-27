@@ -13,7 +13,7 @@ import { formatDate } from "../../utils/formatDate";
 import { Badge } from "../../molecules/ProfessionalsListItem/style";
 import ApprovalIsTechLead from "../ModalApprovalIsTechLead";
 
-export function OvertimeListTechnicalLeadApproval({ data, }) {
+export function OvertimeListTechnicalLeadApproval({ data, approveData, getOvertimesTechLead }) {
   const [modalIsVisibleTechLead, setModalIsVisibleTechLead] = useState(false)
 
   const ClickHandlerTechLead = () => {
@@ -27,7 +27,9 @@ export function OvertimeListTechnicalLeadApproval({ data, }) {
         {modalIsVisibleTechLead && (
           <ApprovalIsTechLead
             id={values.id}
-            setModalIsVisibleTechLead={setModalIsVisibleTechLead} />
+            approveData={approveData}
+            getOvertimesTechLead={getOvertimesTechLead}
+            setModalIsVisibleTechLead={setModalIsVisibleTechLead}/>
         )}
         {values.status_name === "Pendente - Líder Técnico" ? (
           <ContainerUser

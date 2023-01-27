@@ -52,7 +52,7 @@ function ReleaseHours() {
       })
       .catch(error => {
         if(error.response.data.message){
-          toast.warn(<DefaultToast text={'Você não tem permissão, porque não tem horas ativas!'}/>)
+          toast.warn(<DefaultToast text={error.response.data.message}/>)
         }
       })
     },
