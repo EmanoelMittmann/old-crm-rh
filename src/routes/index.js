@@ -19,22 +19,17 @@ import OvertimeListProfessional from '../components/pages/OvertimeListProfession
 import InvoiceSending from '../components/pages/InvoiceSending/InvoiceSending';
 import InvoiceUpload from '../components/pages/InvoiceUpload';
 import ReleaseHours from '../components/pages/ReleaseHours';
-import {ListCompany} from '../components/pages/ListCompany';
+import { ListCompany } from '../components/pages/ListCompany';
 import { RegisterCompanies } from '../components/pages/RegisterCompanies';
 import OrdemService from '../components/pages/OrdemServices';
 import GenerateOS from '../components/organisms/GenerateOrdemService';
 import DetailsRelease from '../components/organisms/DetailsRelease';
 import OvertimeListIsTechLead from '../components/pages/OvertimeListIstechLead';
 
-
-
-
-
-
 const Routes = () => {
 
   return (
-    <BrowserRouter> 
+    <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Login} />
         <PrivateRoute path="/home" component={Home} />
@@ -47,24 +42,16 @@ const Routes = () => {
         <PrivateRoute path="/job" component={Settings} />
         <PrivateRoute path="/projectStatus" component={Status} />
         <PrivateRoute path="/projectType" component={ProjectType} />
-        <PrivateRoute exact path="/project" component={RegisterProject} />
-        
-        <PrivateRoute
-          exact
-          path="/professional"
-          component={RegisterProfessional}
-        />
-        <PrivateRoute
-          path="/professional/:id"
-          component={RegisterProfessional}
-        />
+        <PrivateRoute exact path="/project/" component={RegisterProject} />
+        <PrivateRoute path="/project/:id" component={RegisterProject} />
+        <PrivateRoute exact path="/professional" component={RegisterProfessional} />
+        <PrivateRoute path="/professional/:id" component={RegisterProfessional} />
         <PrivateRoute path="/Company" component={ListCompany} />
         <PrivateRoute exact path="/Companies" component={RegisterCompanies} />
         <PrivateRoute path="/Companies/:id" component={RegisterCompanies} />
         <PrivateRoute path="/NewOs" component={OrdemService} />
         <PrivateRoute path="/GenerateOs" component={GenerateOS} />
-
-        <PrivateRoute path="/timeSending"component={OvertimeListProfessional}/>
+        <PrivateRoute path="/timeSending" component={OvertimeListProfessional} />
         <PrivateRoute path="/timeIstechLead" component={OvertimeListIsTechLead} />
         <PrivateRoute path="/invoiceSending" component={InvoiceSending} />
         <PrivateRoute path="/invoiceUpload" component={InvoiceUpload} />

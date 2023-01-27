@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const RegisterProjectTitleContainer = styled.header`
     display: flex;
-    padding: 2em 0 1em 10%;
+    padding: 2em 0 1em 5em;
 `
 
 export const RegisterProjectContainer = styled.div`

@@ -7,8 +7,6 @@ const Reports = () => {
     const [projects,setProjects] = useState([])
     const [reports, setReports] = useState([])
     const [reportsMeta, setReportsMeta] = useState({})
-    const [menuOptions, setMenuOptions] = useState(false)
-    console.log("reportsMeta: ", reportsMeta.current_page);
 
     const params = new URLSearchParams()
 
