@@ -8,6 +8,7 @@ export const HeaderContainer = styled.div`
     display: flex;
     align-items: center;
     margin-top: 2em;
+    padding: 1.5em;
     justify-content: space-between;
     white-space:nowrap;
     svg{
