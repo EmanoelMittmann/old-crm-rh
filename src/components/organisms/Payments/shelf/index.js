@@ -7,7 +7,6 @@ import {
   ContainerDatePayment,
   ContainerNFe,
   ContainerProfessional,
-  ContainerProject,
   ContainerStatus,
 } from "./style";
 import { ReactComponent as OptionsIcon } from "../../../../assets/icons/options.svg";
@@ -16,10 +15,20 @@ import MenuOptions from "../../../atoms/MenuOptions";
 import { useState } from "react";
 import {formatDate } from '../../../utils/formatDate'
 import { formatCnpj } from "../../../utils/formatCnpj";
+import { useHistory } from "react-router-dom";
+import DetailsReports from "../../DetailsReports";
 
 const Shelf = ({ data }) => {
   const { id } = data;
   const [menuOptions, setMenuOptions] = useState(false);
+  const history = useHistory();
+  const [optionClicked, setOptionClicked] = useState();
+  const [detailVisibled, setdetaisVisibled] = useState(false)
+
+  const viewDetails = () => {
+    setdetaisVisibled(true)
+   
+  };
 
   const colors =
     data.status_payment === "Pago"
@@ -41,6 +50,9 @@ const Shelf = ({ data }) => {
 
   return (
     <>
+      {detailVisibled && (
+        <DetailsReports setdetaisVisibled={setdetaisVisibled} />
+      )}
       <Container key={id}>
         <ContainerCompany>
           {data?.order?.companies?.razao_social?.toUpperCase()}
@@ -70,17 +82,20 @@ const Shelf = ({ data }) => {
           >
             <OptionsIcon />
           </ContainerIconOptions>
-          {menuOptions && (
+          {menuOptions &&(
             <MenuOptions
               positionMenu="-10px"
               height="8.5em"
               padding="1em 0 0.5em 1.5em"
-              firstChosenOption={() => {}}
               firstOptionDescription="Detalhes"
+              firstChosenOption={() => viewDetails()}
               secondOptionDescription="Baixar PDF"
+              secondChosenOption={() => {}}
               thirdOptionDescription="Baixar XML"
+              thirdChosenOption={()=> {}}
+              id={optionClicked}
             />
-          )}
+          )}    
         </ContainerStatus>
       </Container>
     </>
