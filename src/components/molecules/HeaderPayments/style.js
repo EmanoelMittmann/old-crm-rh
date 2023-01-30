@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ListItemCompany = styled.div`
   display: flex;
   padding: 0;
-  width: 17.2%;
+  width: 22.3%;
 `;
 export const ListItemProfessional = styled.div`
   display: flex;
@@ -11,7 +11,6 @@ export const ListItemProfessional = styled.div`
 `;
 export const ListItemProjects = styled.div`
   display: flex;
-  width: 11.2%;
 `;
 export const ListItemCnpj = styled.div`
   display: flex;
@@ -19,7 +18,7 @@ export const ListItemCnpj = styled.div`
 `;
 export const ListItemNfe = styled.div`
   display: flex;
-  width: 10.2%;
+  width: 16.3%;
 `;
 export const ListItemDatePayment = styled.div`
   display: flex;

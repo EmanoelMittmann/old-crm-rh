@@ -8,7 +8,7 @@ export const Container = styled.div`
 `;
 
 export const ContainerCompany = styled.div`
-  width: 17.2%;
+  width: 22.3%;
   padding-left: 10px;
 `;
 
@@ -17,7 +17,7 @@ export const ContainerProfessional = styled.div`
 `;
 
 export const ContainerProject = styled.div`
-  width: 11.2%;
+ 
 `;
 
 export const ContainerCnpj = styled.div`
@@ -25,7 +25,7 @@ export const ContainerCnpj = styled.div`
 `;
 
 export const ContainerNFe = styled.div`
-  width: 10.2%;
+  width: 16.3%;
 `;
 
 export const ContainerDatePayment = styled.div`

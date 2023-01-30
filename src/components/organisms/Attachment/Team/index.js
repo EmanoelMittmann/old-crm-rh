@@ -34,6 +34,8 @@ import InputSelect from '../../../atoms/InputSelect';
 import { useEffect } from 'react';
 import { status } from './OptionStatus';
 import ListHeader from './ListHeader';
+import { toast } from 'react-toastify';
+import { DefaultToast } from '../../../atoms/Toast/DefaultToast';
 
 
 const AttachmentTeam = ({ attachment, allOptions }) => {
@@ -56,8 +58,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   const [overtimeEdit, setOvertimeEdit] = useState('');
   const [jobProject, setJobProject] = useState('');
   const { id } = useParams();
-  
-  
+
+
+
 
   useLayoutEffect(() => {
     const optionsValid = checkArraysDifference({
@@ -71,9 +74,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     handleRows();
   }, [allOptions, team]);
 
-  useEffect(()=>{
+  useEffect(() => {
     getJobs()
-  },[])
+  }, [])
 
   const getJobs = async () => {
     const { data } = await api({
@@ -91,19 +94,20 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         avatar: member.avatar,
         name: member?.name,
         job: member?.job_ || member.job?.name,
-        status:member.status,
+        status: member.status,
         hours_estimed: member?.hours_mounths_estimated || member?.hours_estimed,
         hours_perfomed: member?.hours_mounths_performed,
         extrasHours_estimed:
           member.extrasHours_estimed || member.extra_hours_estimated,
         extrasHours_performed: member?.extra_hours_performed,
-        isTechLead : member.isTechLead
+        isTechLead: member.isTechLead
       };
       setRows((oldState) => [...oldState, item]);
     });
   }
 
   function handleAddMember() {
+
     const jobName = jobsMember.find(
       (job) => job.id === Number(jobProject)
     )?.name;
@@ -121,17 +125,22 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           hours_estimed: hoursMonth,
           extrasHours_estimed: overtime,
           avatar: selected.avatar,
-          job_:isTechLead? "TechLead": jobName, 
+          job_: isTechLead ? "TechLead" : jobName,
           status: true,
           isTechLead: isTechLead,
         },
       ]);
+      
       resetInputs();
       return;
+     
     }
+
     addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName, status);
     resetInputs();
+
   }
+ 
 
 
 
@@ -167,7 +176,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     setMenuOptionsIsVisible(false);
   }
 
- 
+
   return (
     <AttachmentContainer>
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
@@ -179,8 +188,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           }
           setSelectedOption={(e) => {
             setProfessionalSelected(e.target.value);
-            setIsTechLead(false);
-            setDataTechLead([]);
+            
           }}
           options={dataTeam}
           placeholder="Time"
@@ -191,7 +199,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         />
 
         <InputSelect
-          onChange={(e) => setJobProject(e.target.value)}
+          onChange={(e) => 
+            setJobProject(e.target.value)
+          }
           options={jobsMember}
           placeHolder="Cargo"
           width="100%"
@@ -217,11 +227,13 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           type="number"
           label="Horas Extras Estimadas"
         />
-        <BlueButton width="13%" onClick={handleAddMember} type="button">
+        <BlueButton width="13%"
+          onClick={() => handleAddMember()}
+          type="button">
           Vincular
         </BlueButton>
       </AttachmentForm>
-     <ListHeader/>
+      <ListHeader />
       {rows.map((member, index) => (
         <AttachmentTableLine key={index}>
           <ProfessionalInfo>

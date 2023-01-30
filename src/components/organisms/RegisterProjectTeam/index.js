@@ -137,7 +137,6 @@ const RegisterProjectTeam = ({ payloadTeam, setPayloadTeam }) => {
     }, [teamMembers, professionalSelected])
 
 
-
     return (
         <ContainerRegisterProjectTeam>
             <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>

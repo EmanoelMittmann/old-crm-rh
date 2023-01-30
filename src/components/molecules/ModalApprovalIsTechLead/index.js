@@ -28,7 +28,7 @@ import { Status } from '../../organisms/DetailsRelease/status';
 import ModalRed from '../ModalRed';
 import ModalGreen from '../ModalGreen';
 
-const ApprovalIsTechLead = ({ id, setModalIsVisibleTechLead }) => {
+const ApprovalIsTechLead = ({ id, setModalIsVisibleTechLead, getOvertimesTechLead}) => {
     const [approveData, setApproveData] = useState();
     const [currentJustification, setCurrentJustification] = useState('')
     const [modalIsVisible, setModalIsVisible] = useState(false)
@@ -39,10 +39,10 @@ const ApprovalIsTechLead = ({ id, setModalIsVisibleTechLead }) => {
         { name: 'Negado', id: 'Negado' },
     ];
 
-const getApproveHoursTechLead = async (id) => {
+const getApproveHoursTechLead = async () => {
     try {
         const { data } = await api({
-                method: "GET",
+            method: "GET",
             url: `/extrasHoursReleases/details/${id}`,
             });
             setApproveData(data);
@@ -59,9 +59,7 @@ const handleApprovalHoursTechLead = async () => {
         justification: currentJustification,
 
       })
-        .then(() => {
-           return ClickHandlerTechLead()
-    })
+          .then(() => ClickHandlerTechLead(), getOvertimesTechLead())
     }catch(err){
     console.error(err);
     }

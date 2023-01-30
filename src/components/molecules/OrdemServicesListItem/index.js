@@ -4,6 +4,14 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { ContainerOrdemServices, OrdemServiceItens } from "./style";
 
+//Retirando mascara do componente 'comission' => value
+// Expressão (/[^0-9,]*/g) - parseFloat(value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2);
+// 1 - /.../g: diz para o javascript substituir todas as incidências encontradas (g).
+// 2 - [^0-9,]*: manda remover tudo o que "não for numérico" e "não for virgula" (^);
+// 3 - O segundo "replace" substitui a virgula por ponto.
+// 4 - O "parseFloat" converte a string para um valor flutuante e o método 
+// 5 - Por fim, o "toFixed(2)" declara que deverão haver 2 casas decimais após o ponto.
+
 const OrdemServiceListItem = ({
   index,
   setCheckedProfissional,
@@ -58,7 +66,7 @@ const OrdemServiceListItem = ({
       if (findProfessionalInCommission) {
         return {
           ...professional,
-          commission: findProfessionalInCommission.value,
+          commission: parseFloat(findProfessionalInCommission.value.split('$')[1].replace(',','.'))
         };
       } else {
         return professional;
@@ -66,7 +74,8 @@ const OrdemServiceListItem = ({
     });
     setCheckedProfissional(newArr);
   }, [state]);
-  console.log("dados", index.value)
+
+
   return (
     <ContainerOrdemServices key={index.id}>
       <OrdemServiceItens width="37%" content="flex-start">

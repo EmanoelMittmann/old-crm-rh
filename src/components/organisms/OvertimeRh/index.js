@@ -24,6 +24,7 @@ const OvertimeRh = ({
   initialDate,
   setSearch,
   setStatusParams,
+  getHoursPending
 }) => {
 
 
@@ -78,7 +79,7 @@ const OvertimeRh = ({
         />
         <div className="height">
           {data.map((item, index) => (
-            <Shelf values={item} index={index} />
+            <Shelf values={item} index={index} getHoursPending={getHoursPending}/>
           ))}
         </div>
       </ContainerListing>
