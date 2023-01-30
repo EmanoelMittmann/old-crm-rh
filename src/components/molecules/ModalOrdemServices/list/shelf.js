@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import InputMasked from '../../../atoms/InputMasked';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
-import InputWithLabel from '../../../atoms/InputWithLabel';
+
 
 
 const Shelf = ({ professional, handleDelete, AddOrUpdate }) => {

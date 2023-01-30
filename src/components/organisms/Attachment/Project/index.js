@@ -194,7 +194,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
 
     if (overtime === "" || overtime < "0") {
       setOvertimeProjectErr(
-        "O Campo Hora/Extra não pode ser vazio, inclua o zero caso não exista valor de hora extra"
+        "Campo vazio, inclua zero caso não exista uma estimativa de horas/extras"
       );
       return;
     }
