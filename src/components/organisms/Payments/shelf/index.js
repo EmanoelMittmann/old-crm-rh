@@ -43,10 +43,10 @@ const Shelf = ({ data }) => {
     <>
       <Container key={id}>
         <ContainerCompany>
-          {data.order.companies.razao_social.toUpperCase()}
+          {data?.order?.companies?.razao_social?.toUpperCase()}
         </ContainerCompany>
         <ContainerProfessional>{data.user.name}</ContainerProfessional>
-        <ContainerCnpj>{formatCnpj(data.order.companies.cnpj)}</ContainerCnpj>
+        <ContainerCnpj>{formatCnpj(data.order.companies?.cnpj)}</ContainerCnpj>
         <ContainerNFe>
           {data.fiscalNote
             ? Number(data.valorNf).toLocaleString("pt-BR", {

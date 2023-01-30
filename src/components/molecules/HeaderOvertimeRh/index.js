@@ -19,12 +19,6 @@ const HeaderOvertimeRh = ({sortByName,setOrderField}) => {
 
         <ListHeadeQntHours>
           <ListHeaderTitle margin="3em">Quantidade de Horas</ListHeaderTitle>
-          <Arrows
-            onClick={() => {
-              sortByName()
-              setOrderField('project_id')
-            }}
-          />
         </ListHeadeQntHours>
 
         <ListHeadeProject>
