@@ -43,6 +43,7 @@ const ApprovalHoursAdm = ({ id, setModalIsVisibleRH, admApproveData, getHoursPen
 
     const ClickHandler = () => {
         setModalIsVisibleRH(prev => !prev)
+        getHoursPending()
     };
 
     const handleApprovalHours = async () => {
@@ -52,8 +53,7 @@ const ApprovalHoursAdm = ({ id, setModalIsVisibleRH, admApproveData, getHoursPen
                 approved: toAccept,
                 justification: currentJustification,
 
-            })
-                .then(() => ClickHandler(), getHoursPending())
+            }).then(() => ClickHandler())
         } catch (err) {
             console.error(err);
         }
