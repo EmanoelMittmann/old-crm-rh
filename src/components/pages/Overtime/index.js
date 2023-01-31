@@ -89,7 +89,6 @@ const Overtime = () => {
       console.error(error);
     }
   };
-
   const getStatus = async () => {
     try {
       const { data } = await api.get("/extraHoursStatus");
