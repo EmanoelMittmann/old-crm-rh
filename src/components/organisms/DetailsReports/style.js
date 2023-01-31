@@ -76,6 +76,7 @@ export const TitleBankC = styled.h5`
    margin-right:9em;
 `;
 export const DateBank = styled.div`
+    width:25%;
     font-size: 0.8rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
@@ -132,13 +133,13 @@ export const TitlePIX = styled.h5`
     margin-right:20em;
 `;
 export const DatePIX = styled.div`
-     font-size: 0.8rem;
+    width:25%;
+    font-size: 0.8rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     display: flex;
-    align-items: center;
     color: #5A646E;
-     padding: 0em 0 1em 0 ;
+    padding: 0em 0 1em 0 ;
     margin-top:-1em;
-    margin-right:12em;
+    margin-right:14.5em;
 `;

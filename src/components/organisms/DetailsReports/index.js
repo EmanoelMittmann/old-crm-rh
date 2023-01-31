@@ -1,6 +1,5 @@
 import React from 'react'
 import CloseButton from '../../atoms/Buttons/CloseButtonCircle/index.js'
-
 import {
     ModalContainer,
     ContainerHeader,
@@ -20,7 +19,6 @@ import {
     from './style.js'
 import { ModalOverlay } from '../../molecules/Modal/style.js'
 import { useHistory } from 'react-router-dom'
-import { useState } from 'react'
 import { Main } from '../../molecules/OvertimeListTechnicalLeadApproval/style.js'
 
 
