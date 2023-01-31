@@ -140,5 +140,5 @@ export const DatePIX = styled.div`
     color: #5A646E;
      padding: 0em 0 1em 0 ;
     margin-top:-1em;
-    margin-right:17.8em;
+    margin-right:12em;
 `;
