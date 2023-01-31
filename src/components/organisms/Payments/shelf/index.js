@@ -17,9 +17,6 @@ import {formatDate } from '../../../utils/formatDate'
 import { formatCnpj } from "../../../utils/formatCnpj";
 import { useHistory } from "react-router-dom";
 import DetailsReports from "../../DetailsReports";
-import DownloadXML from "../../Download/DownloadXML";
-import DownloadPDF from "../../Download/DownloadPDF";
-import DownloadExcel from "../../Download/DownloadExcel";
 
 const Shelf = ({ data, reports }) => {
   const { id } = data;
@@ -27,20 +24,9 @@ const Shelf = ({ data, reports }) => {
   const history = useHistory();
   const [optionClicked, setOptionClicked] = useState();
   const [detailVisibled, setdetaisVisibled] = useState(false)
-  const [visibleDownlaodXML, setVisibleDownlaodXML] = useState(false)
-  const [visibleDownlaodPDF, setVisibleDownlaodPDF] = useState(false)
 
   const viewDetails = () => {
     setdetaisVisibled(true)
-   
-  };
-  const viewDowlaondXML = () => {
-    setVisibleDownlaodXML(true)
-
-  };
-  const viewDowlaondPDF = () => {
-    setVisibleDownlaodPDF(true)
-
   };
 
   const colors =
@@ -68,16 +54,6 @@ const Shelf = ({ data, reports }) => {
         id={data.id}
         data={data}
         setdetaisVisibled={setdetaisVisibled} />
-      )}    
-      {visibleDownlaodXML &&(
-        <DownloadXML 
-        id={data.id}
-        setVisibleDownlaodXML={setVisibleDownlaodXML}/>
-      )}
-      {visibleDownlaodPDF &&(
-        <DownloadPDF
-          id={data.id}
-        setVisibleDownlaodPDF={setVisibleDownlaodPDF}/>
       )}
       <Container key={id}>
         <ContainerCompany>
@@ -116,9 +92,9 @@ const Shelf = ({ data, reports }) => {
               firstOptionDescription="Detalhes"
               firstChosenOption={() => viewDetails()}
               secondOptionDescription="Baixar PDF"
-              secondChosenOption={() => viewDowlaondPDF()}
+              secondChosenOption={() => {}}
               thirdOptionDescription="Baixar XML"
-              thirdChosenOption={() => viewDowlaondXML()}
+              thirdChosenOption={() => {}}
               id={optionClicked}
             />
           )}    

@@ -20,6 +20,7 @@ import { useHistory } from 'react-router-dom'
 const DownloadExcel = () => {
     const [modalIsVisible, setModalIsVisible] = useState(false)
     const [payingCompany, setPayingCompany] = useState()
+    const [dataCompany, setDataCompany] = useState('')
     const history = useHistory()
     let params = {};
     
@@ -52,12 +53,11 @@ const DownloadExcel = () => {
           
                 <ContainerInputsSelect>
                     <InputSelect
-                        onChange={(e) => setPayingCompany(e.target.value)}
+                        onClick={(e) => setDataCompany(e.target.value)}
                         options={payingCompany}
                         placeHolder="Empresa Pagadora"
                         width="380px"
-                        label="Empresa Pagadora"
-                        
+                        label="Empresa Pagadora"    
                     />
                 </ContainerInputsSelect>
                 <ContainerButtons>
