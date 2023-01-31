@@ -21,6 +21,7 @@ import { useEffect } from "react";
 import { handleErrorMessages } from "../../utils/handleErrorMessages";
 import { useSelector } from "react-redux";
 import { handleCEP } from "../../utils/validateCep";
+import DataBank from "../../molecules/DataBank";
 
 export const RegisterCompanies = () => {
   const { id } = useParams();
@@ -107,6 +108,10 @@ export const RegisterCompanies = () => {
       date_of_special_situation: "",
       special_situation: "",
       type_company: "",
+      agency:"",
+      account_number:"",
+      bank:"",
+      account_type:""
     },
     onSubmit: async (values) => {
       await api({
@@ -210,6 +215,7 @@ export const RegisterCompanies = () => {
       <RegisterProfessionalContainer>
         <form id="Company" onSubmit={formik.handleSubmit}>
           <RegisterCompany data={formik} disabled={isDisable} />
+          <DataBank data={formik }/>
           <AddressContact data={formik} disabled={isDisable} />
           <SituationCadastion data={formik} disabled={isDisable} />
         </form>

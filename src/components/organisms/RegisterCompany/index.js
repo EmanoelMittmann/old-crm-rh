@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   ContainerRegisterCompanyData,
   RegisterCompanyForm,
@@ -8,19 +8,21 @@ import {
   ContainerRadios,
   Typecompany,
   ContainerTypecompany,
-  ContainerRadiosCompany
-} from './style';
-import { ContainerRow } from '../RegisterProfessionalsData/style';
-import InputWithLabel from '../../atoms/InputWithLabel/index';
-import InputMasked from '../../atoms/InputMasked/index';
-import SecondaryText from '../../atoms/SecondaryText/style';
-import { InputRadio, LabelInputRadio } from '../../atoms/InputRadio/style';
-import InputSelect from '../../atoms/InputSelect';
-import { optionsPorte } from './Porte';
-import { useEffect } from 'react';
-import InputSearchCnae from '../../atoms/InputSearchCnae';
-import InputSearchCnaeSecundary from '../../atoms/InputSearchCnaeSecundary';
-import InputNature from '../../atoms/inputCnj';
+  ContainerRadiosCompany,
+} from "./style";
+import { BorderTop, ContainerRow } from "../RegisterProfessionalsData/style";
+import InputWithLabel from "../../atoms/InputWithLabel/index";
+import InputMasked from "../../atoms/InputMasked/index";
+import SecondaryText from "../../atoms/SecondaryText/style";
+import { InputRadio, LabelInputRadio } from "../../atoms/InputRadio/style";
+import InputSelect from "../../atoms/InputSelect";
+import { optionsPorte } from "./Porte";
+import { useEffect } from "react";
+import InputSearchCnae from "../../atoms/InputSearchCnae";
+import InputSearchCnaeSecundary from "../../atoms/InputSearchCnaeSecundary";
+import InputNature from "../../atoms/inputCnj";
+import SelectBank from "../../atoms/SelectBank";
+import { optionsBank } from "../RegisterProfessionalsData";
 
 const RegisterCompany = ({ data, disabled }) => {
   const {
@@ -31,13 +33,13 @@ const RegisterCompany = ({ data, disabled }) => {
     setFieldTouched,
     setFieldValue,
   } = data;
-  const [componentJustRenderedCommission, setComponentJustRenderedComission] = useState(false);
+  const [componentJustRenderedCommission, setComponentJustRenderedComission] =
+    useState(false);
   const [typeCompany, setTypeCompany] = useState("");
-
 
   useEffect(() => {
     setComponentJustRenderedComission(true);
-    handleTypeCompany()
+    handleTypeCompany();
   }, [typeCompany]);
 
   const allowMatriz = {
@@ -48,11 +50,11 @@ const RegisterCompany = ({ data, disabled }) => {
   const noAllowMatriz = {
     ...(componentJustRenderedCommission &&
       (values === undefined || values.is_matriz === false) && {
-      checked: true,
-    }),
+        checked: true,
+      }),
   };
   function handleTypeCompany(e) {
-    setFieldValue("type_company", typeCompany) 
+    setFieldValue("type_company", typeCompany);
   }
   return (
     <ContainerRegisterCompanyData>
@@ -64,7 +66,7 @@ const RegisterCompany = ({ data, disabled }) => {
               type="radio"
               disabled={disabled}
               name="typeCompany"
-              value='UBISTART'
+              value="UBISTART"
               id="UBISTART"
               checked={values.type_company === "UBISTART"}
               onChange={(e) => setTypeCompany(e.target.value)}
@@ -91,12 +93,11 @@ const RegisterCompany = ({ data, disabled }) => {
               value="SUPPLIER"
               id="SUPPLIER"
               checked={values.type_company === "SUPPLIER"}
-              onChange={(e) => setTypeCompany(e.target.value)}       
+              onChange={(e) => setTypeCompany(e.target.value)}
             />
             <LabelInputRadio for="typeCompany"> Fornecedor </LabelInputRadio>
           </ContainerRadiosCompany>
         </Typecompany>
-
       </ContainerTypecompany>
       <SecondaryText margin="2.5em">Dados da empresa</SecondaryText>
       <RegisterCompanyForm>
@@ -106,25 +107,25 @@ const RegisterCompany = ({ data, disabled }) => {
             mask={[
               /[0-9]/,
               /\d/,
-              '.',
+              ".",
               /\d/,
               /\d/,
               /\d/,
-              '.',
+              ".",
               /\d/,
               /\d/,
               /\d/,
-              '/',
+              "/",
               /\d/,
               /\d/,
               /\d/,
               /\d/,
-              '-',
+              "-",
               /\d/,
               /\d/,
             ]}
             label="CNPJ"
-            onChange={handleChange('cnpj')}
+            onChange={handleChange("cnpj")}
             error={errors.cnpj}
             touched={touched.cnpj}
             padding="0 3em 0 0"
@@ -139,9 +140,9 @@ const RegisterCompany = ({ data, disabled }) => {
             <ContainerRadios>
               <Container
                 onChange={(e) => {
-                  e.target.value === 'is_matriz'
-                    ? setFieldValue('is_matriz', true)
-                    : setFieldValue('is_matriz', false);
+                  e.target.value === "is_matriz"
+                    ? setFieldValue("is_matriz", true)
+                    : setFieldValue("is_matriz", false);
                   setComponentJustRenderedComission(false);
                 }}
               >
@@ -170,10 +171,10 @@ const RegisterCompany = ({ data, disabled }) => {
           </ContainerInputRadio>
           <InputWithLabel
             value={values.opening_date}
-            onChange={handleChange('opening_date')}
+            onChange={handleChange("opening_date")}
             error={errors.opening_date}
             touched={touched.opening_date}
-            type={'date'}
+            type={"date"}
             label="Data de Abertura"
             width="100%"
             disabled={disabled}
@@ -184,7 +185,7 @@ const RegisterCompany = ({ data, disabled }) => {
         <ContainerRow>
           <InputWithLabel
             value={values.state_registration}
-            onChange={handleChange('state_registration')}
+            onChange={handleChange("state_registration")}
             error={errors.state_registration}
             touched={touched.state_registration}
             label="Inscrição Estadual"
@@ -197,7 +198,7 @@ const RegisterCompany = ({ data, disabled }) => {
           />
           <InputWithLabel
             value={values.municipal_registration}
-            onChange={handleChange('municipal_registration')}
+            onChange={handleChange("municipal_registration")}
             error={errors.municipal_registration}
             touched={touched.municipal_registration}
             label="Inscrição Municipal"
@@ -210,7 +211,7 @@ const RegisterCompany = ({ data, disabled }) => {
           />
           <InputSelect
             value={values.size}
-            onChange={handleChange('size')}
+            onChange={handleChange("size")}
             error={errors.size}
             touched={touched.size}
             options={optionsPorte}
@@ -225,7 +226,7 @@ const RegisterCompany = ({ data, disabled }) => {
           <InputWithLabel
             value={values.fantasy_name}
             padding="0 1em 0 0"
-            onChange={handleChange('fantasy_name')}
+            onChange={handleChange("fantasy_name")}
             error={errors.fantasy_name}
             disabled={disabled}
             touched={touched.fantasy_name}
@@ -236,7 +237,7 @@ const RegisterCompany = ({ data, disabled }) => {
           />
           <InputWithLabel
             value={values.razao_social}
-            onChange={handleChange('razao_social')}
+            onChange={handleChange("razao_social")}
             error={errors.razao_social}
             touched={touched.razao_social}
             label="Razão Social"
@@ -248,7 +249,7 @@ const RegisterCompany = ({ data, disabled }) => {
         </ContainerRow>
         <ContainerRow>
           <InputSearchCnae
-            placeholder={'Codigo e descrição de Atividade Economica Principal'}
+            placeholder={"Codigo e descrição de Atividade Economica Principal"}
             value={values.main_cnae}
             handleBlur={setFieldTouched}
             error={errors.main_cnae}
@@ -262,7 +263,7 @@ const RegisterCompany = ({ data, disabled }) => {
         </ContainerRow>
         <ContainerRow>
           <InputSearchCnaeSecundary
-            placeholder={'Codigo e descrição de Atividade Economica Secundaria'}
+            placeholder={"Codigo e descrição de Atividade Economica Secundaria"}
             value={values.secondary_cnae}
             handleBlur={setFieldTouched}
             error={errors.secondary_cnae}
@@ -276,7 +277,7 @@ const RegisterCompany = ({ data, disabled }) => {
         </ContainerRow>
         <ContainerRow>
           <InputNature
-            onChange={handleChange('code_and_description_of_the_legal_status')}
+            onChange={handleChange("code_and_description_of_the_legal_status")}
             value={values.code_and_description_of_the_legal_status}
             placeholder="Código de Descrição da Natureza Jurídica"
             error={errors.code_and_description_of_the_legal_status}

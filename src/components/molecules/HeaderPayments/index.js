@@ -11,24 +11,33 @@ import {
   ListTitle,
 } from "./style";
 
-const HeaderPayments = () => {
+const HeaderPayments = ({sortByName,setOrderField}) => {
   return (
     <>
       <HeaderContainer>
         <ListItemCompany>
           <ListTitle>Empresa Pagadora</ListTitle>
-          <Arrows />
+          <Arrows onClick={() => {
+            sortByName()
+            setOrderField('companies_id')
+            }}/>
         </ListItemCompany>
         <ListItemProfessional>
           <ListTitle>Profissional</ListTitle>
-          <Arrows />
+          <Arrows onClick={() => {
+            sortByName()
+            setOrderField('users.name')
+            }}/>
         </ListItemProfessional>
         <ListItemCnpj>
           <ListTitle>CNPJ</ListTitle>
         </ListItemCnpj>
         <ListItemNfe>
           <ListTitle>Valor da NFe</ListTitle>
-          <Arrows />
+          <Arrows onClick={() => {
+            sortByName()
+            setOrderField('fiscal_notes.valueNF')
+          }}/>
         </ListItemNfe>
         <ListItemDatePayment>
           <ListTitle>Data de Pagamento</ListTitle>

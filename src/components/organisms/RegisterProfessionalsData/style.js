@@ -8,11 +8,15 @@ export const ContainerRegisterProfessionalsData = styled.div`
 
 `;
 
-
 export const RegisterProfessionalsForm = styled.form`
   display: flex;
   flex-direction: column;
 `;
+
+export const BorderTop = styled.div`
+  border-top: 1px solid #ccc;
+`
+
 export const ContainerRow = styled.div`
     display: flex;
     flex-direction: row;
@@ -73,7 +77,7 @@ export const PhoneInternational = styled(PhoneInput)`
     font-size: 1rem !important;
     font-weight: 500 !important;
     font-family: 'Poppins',sans-serif !important;
-    color: #black !important;
+    color: black !important;
   }
 
   .form-control::placeholder{ 
