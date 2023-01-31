@@ -21,6 +21,7 @@ import {
 import { ModalOverlay } from '../../molecules/Modal/style.js'
 import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
+import { Main } from '../../molecules/OvertimeListTechnicalLeadApproval/style.js'
 
 const mock = [
     {
@@ -34,53 +35,58 @@ const mock = [
 
     }
 ]
-const DetailsReports = ({setdetaisVisibled}) => {
+
+// Dados que vem da API
+// data.user.professional_data.bank
+// data.user.professional_data.agency
+// data.user.professional_data.account_number
+
+// data.user.professional_data.pix_key_type
+// data.user.professional_data.pix_key
+
+const DetailsReports = ({ setdetaisVisibled, data, id }) => {
     const history = useHistory();
-
-
+    
     const ClickModal = () => {
-        setdetaisVisibled(prev => !prev)  
+        setdetaisVisibled(prev => !prev)
     }
 
-    return (
-    <>
-         <div>
-                    {mock?.map((item, index) => (
-                        <ModalContainer key={index}>
-                            <ContainerHeader>
-                                <div>
-                                    <ModalTitle>
-                                        {item.professional}
-                                    </ModalTitle>
-                                    <JobReports>{item.job}</JobReports>
-                                </div>
-                                <CloseButton CloseButtonClickHandler={ClickModal} />
-                            </ContainerHeader>
-                            <ContainerTeam>
-                                <TitleBank>Banco</TitleBank>
-                                <TitleAgenc>Agência</TitleAgenc>
-                                <TitleBankC>Conta</TitleBankC>
-                            </ContainerTeam>
-                            <ContainerTeam>
-                                <DateBank>{item.banco}</DateBank>
-                                <DateAgenc>{item.agencia}</DateAgenc>
-                                <DateBankC>{item.conta}</DateBankC>
-                            </ContainerTeam>
-                            <ContainerTeam>
-                                <TitleChavePIX>Tipo de Chave PIX</TitleChavePIX>
-                                <TitlePIX>Chave PIX</TitlePIX>
-                            </ContainerTeam>
-                            <ContainerTeam>
-                                <DateBank>{item.tipoChavePIX}</DateBank>
-                                <DatePIX>{item.chavePix}</DatePIX>
-                            </ContainerTeam>
-                        </ModalContainer>
-                    ))}
-                    <ModalOverlay />
-                </div> 
-      
-</>
+    return data ? (
+            <>
+            <ModalContainer key={data.id}>
+                <ContainerHeader>
+                    <div>
+                        <ModalTitle>
+                            {data.user.name}
+                        </ModalTitle>
+                        <JobReports>{data.user.job.name}</JobReports>
+                    </div>
+                    <CloseButton CloseButtonClickHandler={ClickModal} />
+                </ContainerHeader>
+                <ContainerTeam>
+                    <TitleBank>Banco</TitleBank>
+                    <TitleAgenc>Agência</TitleAgenc>
+                    <TitleBankC>Conta</TitleBankC>
+                </ContainerTeam>
+                <ContainerTeam>
+                    <DateBank>260 - NU Pagamentos S.A</DateBank>
+                    <DateAgenc>77525</DateAgenc>
+                    <DateBankC>1244552 - 0</DateBankC>
+                </ContainerTeam>
+                <ContainerTeam>
+                    <TitleChavePIX>Tipo de Chave PIX</TitleChavePIX>
+                    <TitlePIX>Chave PIX</TitlePIX>
+                </ContainerTeam>
+                <ContainerTeam>
+                    <DateBank>Telefone</DateBank>
+                    <DatePIX>489993243423</DatePIX>
+                </ContainerTeam>
+            </ModalContainer>
+            <ModalOverlay />
+            </>
+       
+    ) : (
+        <Main>Loading...</Main>
     )
 }
-
-export default DetailsReports;
+export default DetailsReports

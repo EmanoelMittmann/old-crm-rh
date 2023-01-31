@@ -17,17 +17,30 @@ import {formatDate } from '../../../utils/formatDate'
 import { formatCnpj } from "../../../utils/formatCnpj";
 import { useHistory } from "react-router-dom";
 import DetailsReports from "../../DetailsReports";
+import DownloadXML from "../../Download/DownloadXML";
+import DownloadPDF from "../../Download/DownloadPDF";
+import DownloadExcel from "../../Download/DownloadExcel";
 
-const Shelf = ({ data }) => {
+const Shelf = ({ data, reports }) => {
   const { id } = data;
   const [menuOptions, setMenuOptions] = useState(false);
   const history = useHistory();
   const [optionClicked, setOptionClicked] = useState();
   const [detailVisibled, setdetaisVisibled] = useState(false)
+  const [visibleDownlaodXML, setVisibleDownlaodXML] = useState(false)
+  const [visibleDownlaodPDF, setVisibleDownlaodPDF] = useState(false)
 
   const viewDetails = () => {
     setdetaisVisibled(true)
    
+  };
+  const viewDowlaondXML = () => {
+    setVisibleDownlaodXML(true)
+
+  };
+  const viewDowlaondPDF = () => {
+    setVisibleDownlaodPDF(true)
+
   };
 
   const colors =
@@ -51,7 +64,20 @@ const Shelf = ({ data }) => {
   return (
     <>
       {detailVisibled && (
-        <DetailsReports setdetaisVisibled={setdetaisVisibled} />
+        <DetailsReports 
+        id={data.id}
+        data={data}
+        setdetaisVisibled={setdetaisVisibled} />
+      )}    
+      {visibleDownlaodXML &&(
+        <DownloadXML 
+        id={data.id}
+        setVisibleDownlaodXML={setVisibleDownlaodXML}/>
+      )}
+      {visibleDownlaodPDF &&(
+        <DownloadPDF
+          id={data.id}
+        setVisibleDownlaodPDF={setVisibleDownlaodPDF}/>
       )}
       <Container key={id}>
         <ContainerCompany>
@@ -90,9 +116,9 @@ const Shelf = ({ data }) => {
               firstOptionDescription="Detalhes"
               firstChosenOption={() => viewDetails()}
               secondOptionDescription="Baixar PDF"
-              secondChosenOption={() => {}}
+              secondChosenOption={() => viewDowlaondPDF()}
               thirdOptionDescription="Baixar XML"
-              thirdChosenOption={()=> {}}
+              thirdChosenOption={() => viewDowlaondXML()}
               id={optionClicked}
             />
           )}    

@@ -19,10 +19,7 @@ export const ContainerTeam = styled.div`
     justify-content: space-between;
     width: 545px;
     margin-left:1.5em;
-
-
 `
-
 export const ContainerHeader = styled.div`
     display: flex;
     width: 545px;
@@ -113,7 +110,7 @@ export const DateBankC = styled.div`
     color: #5A646E;
      padding: 0em 0 1em 0 ;
     margin-top:-1em;
-    margin-right:8em;
+    margin-right:6.3em;
 `;
 
 export const TitleChavePIX = styled.h5`
