@@ -19,10 +19,7 @@ export const ContainerTeam = styled.div`
     justify-content: space-between;
     width: 545px;
     margin-left:1.5em;
-
-
 `
-
 export const ContainerHeader = styled.div`
     display: flex;
     width: 545px;
@@ -79,6 +76,7 @@ export const TitleBankC = styled.h5`
    margin-right:9em;
 `;
 export const DateBank = styled.div`
+    width:25%;
     font-size: 0.8rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
@@ -113,7 +111,7 @@ export const DateBankC = styled.div`
     color: #5A646E;
      padding: 0em 0 1em 0 ;
     margin-top:-1em;
-    margin-right:8em;
+    margin-right:6.3em;
 `;
 
 export const TitleChavePIX = styled.h5`
@@ -135,13 +133,13 @@ export const TitlePIX = styled.h5`
     margin-right:20em;
 `;
 export const DatePIX = styled.div`
-     font-size: 0.8rem;
+    width:25%;
+    font-size: 0.8rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     display: flex;
-    align-items: center;
     color: #5A646E;
-     padding: 0em 0 1em 0 ;
+    padding: 0em 0 1em 0 ;
     margin-top:-1em;
-    margin-right:17.8em;
+    margin-right:14.5em;
 `;

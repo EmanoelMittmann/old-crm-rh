@@ -4,12 +4,10 @@ import { HeaderTable } from "../../molecules/HeaderTable";
 import { formatDate } from "../../utils/formatDate";
 import { ListHistory } from "../../molecules/ListHistory";
 import api from "../../../api/api";
-import { Badge } from "../../molecules/ProfessionalsListItem/style";
 import { RowsTable } from "../../molecules/RowsTable";
 import TitleContainer from "../../molecules/TitleContainer";
 import {
   Container,
-  ContainerHeader,
   Flex,
   History,
   Table,
@@ -18,11 +16,10 @@ import {
 import { useState } from "react";
 import { useEffect } from "react";
 import { Status } from "./status";
-import { history } from "./mock";
+
 
 const DetailsRelease = () => {
   const [requestData, setRequestData] = useState([]);
-  const [history, setHistory] = useState([])
   let { id } = useParams();
   
   const getLaunchedHours = async (id) => {

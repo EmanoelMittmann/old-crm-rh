@@ -25,6 +25,8 @@ import OrdemService from '../components/pages/OrdemServices';
 import GenerateOS from '../components/organisms/GenerateOrdemService';
 import DetailsRelease from '../components/organisms/DetailsRelease';
 import OvertimeListIsTechLead from '../components/pages/OvertimeListIstechLead';
+import DetailsReports from '../components/organisms/DetailsReports';
+import DownloadExcel from '../components/organisms/Download/DownloadExcel';
 
 const Routes = () => {
 
@@ -57,6 +59,9 @@ const Routes = () => {
         <PrivateRoute path="/invoiceUpload" component={InvoiceUpload} />
         <PrivateRoute path="/releaseHours" component={ReleaseHours} />
         <PrivateRoute path="/DetailsRelease/:id" component={DetailsRelease} />
+        <PrivateRoute path="/DetailsReports" component={DetailsReports} />
+        <PrivateRoute path="/DownloadExcel" component={DownloadExcel}/>
+  
      
       </Switch>
     </BrowserRouter>

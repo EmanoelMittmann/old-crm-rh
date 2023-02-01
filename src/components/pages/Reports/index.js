@@ -15,13 +15,13 @@ const Reports = () => {
     const [order, setOrder] = useState('asc')
     const [orderField, setOrderField] = useState('')
 
-    const params = new URLSearchParams()
+  const params = new URLSearchParams()
 
-    const sortByName = () => {
-      order === "" && setOrder("desc");
-      order === "asc" && setOrder("desc");
-      order === "desc" && setOrder("asc");
-    };
+  const sortByName = () => {
+    order === "" && setOrder("desc");
+    order === "asc" && setOrder("desc");
+    order === "desc" && setOrder("asc");
+  };
 
     const getCompany = async() => {
       const {data} = await api.get('/companies')
@@ -29,16 +29,16 @@ const Reports = () => {
       setCompanies(data.data)
     }
 
-    const getReports = async() => {
-      const {data} = await api.get('/reports?limit=7',{params})
-      setReports(data.data)
-      setReportsMeta(data.meta)
-    }
+  const getReports = async () => {
+    const { data } = await api.get('/reports?limit=7', { params })
+    setReports(data.data)
+    setReportsMeta(data.meta)
+  }
 
-    const nextPage = () => {
-      handleFilterRequest('next')
-      getReports()
-    }
+  const nextPage = () => {
+    handleFilterRequest('next')
+    getReports()
+  }
 
     const prevPage = () => {
       handleFilterRequest('previous')
@@ -52,10 +52,10 @@ const Reports = () => {
       if(pagesFilter === 'previous'){
         params.append('page',reportsMeta.current_page - 1)
       }
-      if(order !== ''){
-        params.append('order',order)
+      if (order !== '') {
+        params.append('order', order)
       }
-      if(orderField !== ''){
+      if (orderField !== '') {
         params.append('orderField', orderField)
       }
       if(search !== ''){
