@@ -47,6 +47,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   const [options, setOptions] = useState([]);
   const [professionalSelected, setProfessionalSelected] = useState('');
   const [isTechLead, setIsTechLead] = useState(false);
+  const [duplicateLead, setDuplicateLead] = useState(false)
   const [hoursMonth, setHoursMonth] = useState('');
   const [overtime, setOvertime] = useState('');
   const [reset] = useState(true);
@@ -81,7 +82,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   const getJobs = async () => {
     const { data } = await api({
       method: 'get',
-      url: `/job/?limit=undefined`,
+      url: `/job/?isActive=true`,
     });
     setJobsMember(data.data);
   };
@@ -176,6 +177,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     setMenuOptionsIsVisible(false);
   }
 
+  useEffect(() => {
+    const existDuplicate = rows.filter(item => item.job === 'Tech leader')
+  },[rows])
 
   return (
     <AttachmentContainer>

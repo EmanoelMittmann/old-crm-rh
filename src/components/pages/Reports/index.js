@@ -4,12 +4,16 @@ import api from "../../../api/api";
 import Payments from "../../organisms/Payments";
 
 const Reports = () => {
-    const [projects,setProjects] = useState([])
     const [reports, setReports] = useState([])
+    const [companyParams, setCompanyParams] = useState('')
+    const [statusParams, setStatusParams] = useState('')
+    const [companies, setCompanies] = useState([])
+    const [initialPeriod,setInitialPeriod] = useState('')
+    const [finalPeriod,setFinalPeriod] = useState('')
     const [reportsMeta, setReportsMeta] = useState({})
+    const [search, setSearch] = useState('')
     const [order, setOrder] = useState('asc')
     const [orderField, setOrderField] = useState('')
-    console.log("orderField: ", orderField);
 
     const params = new URLSearchParams()
 
@@ -19,9 +23,10 @@ const Reports = () => {
       order === "desc" && setOrder("asc");
     };
 
-    const getProjects = async() => {
-        const {data} = await api.get('/project')
-        setProjects(data.data)
+    const getCompany = async() => {
+      const {data} = await api.get('/companies')
+      data.data.push({id:'', name:'Todos'})
+      setCompanies(data.data)
     }
 
     const getReports = async() => {
@@ -53,19 +58,41 @@ const Reports = () => {
       if(orderField !== ''){
         params.append('orderField', orderField)
       }
+      if(search !== ''){
+        params.append('search',search)
+      }
+      if(statusParams !== ''){
+        params.append('status',statusParams)
+      }
+      if(companyParams !== ''){
+        params.append('companies_id',companyParams)
+      }
+      if(initialPeriod !== '' && finalPeriod !== ''){
+        params.append('date_start',initialPeriod)
+        params.append('date_end',finalPeriod)
+      }
     }
 
     useEffect(() => {
-      getProjects()
       getReports()
+      getCompany()
       handleFilterRequest()
-    },[order,orderField])
+
+    },[order,orderField,search,statusParams,companyParams,initialPeriod,finalPeriod])
 
   return (
     <>
       <Payments 
-        projects={projects}
         reports={reports}
+        search={search}
+        companies={companies}
+        setCompanyParams={setCompanyParams}
+        setStatusParams={setStatusParams}
+        setSearch={setSearch}
+        initialPeriod={initialPeriod}
+        setInitialPeriod={setInitialPeriod}
+        finalPeriod={finalPeriod}
+        setFinalPeriod={setFinalPeriod}
         sortByName={sortByName}
         setOrderField={setOrderField}
         reportsMeta={reportsMeta}
