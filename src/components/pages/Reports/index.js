@@ -7,8 +7,17 @@ const Reports = () => {
     const [projects,setProjects] = useState([])
     const [reports, setReports] = useState([])
     const [reportsMeta, setReportsMeta] = useState({})
+    const [order, setOrder] = useState('asc')
+    const [orderField, setOrderField] = useState('')
+    console.log("orderField: ", orderField);
 
     const params = new URLSearchParams()
+
+    const sortByName = () => {
+      order === "" && setOrder("desc");
+      order === "asc" && setOrder("desc");
+      order === "desc" && setOrder("asc");
+    };
 
     const getProjects = async() => {
         const {data} = await api.get('/project')
@@ -38,18 +47,27 @@ const Reports = () => {
       if(pagesFilter === 'previous'){
         params.append('page',reportsMeta.current_page - 1)
       }
+      if(order !== ''){
+        params.append('order',order)
+      }
+      if(orderField !== ''){
+        params.append('orderField', orderField)
+      }
     }
 
     useEffect(() => {
       getProjects()
       getReports()
-    },[])
+      handleFilterRequest()
+    },[order,orderField])
 
   return (
     <>
       <Payments 
         projects={projects}
         reports={reports}
+        sortByName={sortByName}
+        setOrderField={setOrderField}
         reportsMeta={reportsMeta}
         nextPage={nextPage}
         prevPage={prevPage}

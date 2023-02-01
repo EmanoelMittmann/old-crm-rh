@@ -8,7 +8,7 @@ import Footer from "../Footer";
 import Shelf from "./shelf";
 import { Container, ContainerListing, ContainerSearch } from "./style";
 
-const Payments = ({ projects, reports, reportsMeta, nextPage, prevPage }) => {
+const Payments = ({ projects, reports, reportsMeta, nextPage, prevPage, sortByName, setOrderField}) => {
   return (
     <>
       <Container>
@@ -49,7 +49,7 @@ const Payments = ({ projects, reports, reportsMeta, nextPage, prevPage }) => {
           />
         </ContainerSearch>
         <ContainerListing>
-          <HeaderPayments />
+          <HeaderPayments sortByName={sortByName} setOrderField={setOrderField}/>
           {reports?.map((item) => (
             <Shelf data={item} />
           ))}

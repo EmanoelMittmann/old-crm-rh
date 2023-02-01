@@ -83,18 +83,17 @@ const Overtime = () => {
   const getProject = async () => {
     try {
       const { data } = await api.get("/project");
-      setProjects(data.data);
       data.data.push({ id: '', name: 'Todos' });
+      setProjects(data.data);
     } catch (error) {
       console.error(error);
     }
   };
-
   const getStatus = async () => {
     try {
       const { data } = await api.get("/extraHoursStatus");
-      setStatus(data.data);
       data.data.push({ id: '', name: 'Todos' });
+      setStatus(data.data);
     } catch (error) {
       console.error(error);
     }

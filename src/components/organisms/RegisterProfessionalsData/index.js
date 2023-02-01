@@ -46,7 +46,7 @@ export const optionsUF = [
   { name: "Tocantins", id: "TO" },
 ];
 
-const optionsBank = [
+export const optionsBank = [
   { name: "Conta Corrente ", id: "001" },
   { name: "Conta Poupança ", id: "013" },
 ];
