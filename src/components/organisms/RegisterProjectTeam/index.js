@@ -24,6 +24,9 @@ import InputText from '../../atoms/InputText'
 import { ListHeaderContainer, ListHeaderTitle } from '../../atoms/ListHeader/style.js'
 import ModalDelete from '../../molecules/ModalDelete'
 
+
+
+
 const RegisterProjectTeam = ({ payloadTeam, setPayloadTeam }) => {
     const [hoursMonth, setHoursMonth] = useState('')
     //Todos os possíveis membros do time
@@ -92,6 +95,8 @@ const RegisterProjectTeam = ({ payloadTeam, setPayloadTeam }) => {
             )
         }
     }
+
+   
 
     const trashOnMouseEnterHandler = (currentMemberId) => {
         const newTrashColor = teamMembers.map(member => {

@@ -47,7 +47,7 @@ const ModalEditAttachment = (
     const getJobsMember = async () => {
         const { data } = await api({
             method: 'get',
-            url: `/job`,
+            url: `/job/`,
         });
         setJobsMember(data.data);
     };
@@ -95,7 +95,6 @@ const ModalEditAttachment = (
                 <ContainerInputsSelect>
                     <InputSelect
                         onChange={(e) => setNewJob(e.target.value)}
-                        value={jobSelected}
                         options={jobsMember}
                         placeHolder={jobSelected}
                         width="175px"

@@ -4,36 +4,35 @@ import api from "../../../api/api";
 import Payments from "../../organisms/Payments";
 
 const Reports = () => {
-    const [projects,setProjects] = useState([])
-    const [reports, setReports] = useState([])
-    const [reportsMeta, setReportsMeta] = useState({})
-    const [order, setOrder] = useState('asc')
-    const [orderField, setOrderField] = useState('')
-    console.log("orderField: ", orderField);
+  const [projects, setProjects] = useState([])
+  const [reports, setReports] = useState([])
+  const [reportsMeta, setReportsMeta] = useState({})
+  const [order, setOrder] = useState('asc')
+  const [orderField, setOrderField] = useState('')
 
-    const params = new URLSearchParams()
+  const params = new URLSearchParams()
 
-    const sortByName = () => {
-      order === "" && setOrder("desc");
-      order === "asc" && setOrder("desc");
-      order === "desc" && setOrder("asc");
-    };
+  const sortByName = () => {
+    order === "" && setOrder("desc");
+    order === "asc" && setOrder("desc");
+    order === "desc" && setOrder("asc");
+  };
 
     const getProjects = async() => {
         const {data} = await api.get('/project')
         setProjects(data.data)
     }
 
-    const getReports = async() => {
-      const {data} = await api.get('/reports?limit=7',{params})
-      setReports(data.data)
-      setReportsMeta(data.meta)
-    }
+  const getReports = async () => {
+    const { data } = await api.get('/reports?limit=7', { params })
+    setReports(data.data)
+    setReportsMeta(data.meta)
+  }
 
-    const nextPage = () => {
-      handleFilterRequest('next')
-      getReports()
-    }
+  const nextPage = () => {
+    handleFilterRequest('next')
+    getReports()
+  }
 
     const prevPage = () => {
       handleFilterRequest('previous')
@@ -47,23 +46,23 @@ const Reports = () => {
       if(pagesFilter === 'previous'){
         params.append('page',reportsMeta.current_page - 1)
       }
-      if(order !== ''){
-        params.append('order',order)
+      if (order !== '') {
+        params.append('order', order)
       }
-      if(orderField !== ''){
+      if (orderField !== '') {
         params.append('orderField', orderField)
       }
     }
 
-    useEffect(() => {
-      getProjects()
-      getReports()
-      handleFilterRequest()
-    },[order,orderField])
+  useEffect(() => {
+    getProjects()
+    getReports()
+    handleFilterRequest()
+  }, [order, orderField])
 
   return (
     <>
-      <Payments 
+      <Payments
         projects={projects}
         reports={reports}
         sortByName={sortByName}
