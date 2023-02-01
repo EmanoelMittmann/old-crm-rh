@@ -48,6 +48,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   const [options, setOptions] = useState([]);
   const [professionalSelected, setProfessionalSelected] = useState('');
   const [isTechLead, setIsTechLead] = useState(false);
+  const [duplicateLead, setDuplicateLead] = useState(false)
   const [hoursMonth, setHoursMonth] = useState('');
   const [overtime, setOvertime] = useState('');
   const [reset, setReset] = useState(true);
@@ -195,6 +196,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     setMenuOptionsIsVisible(false);
   }
 
+  useEffect(() => {
+    const existDuplicate = rows.filter(item => item.job === 'Tech leader')
+  },[rows])
 
 
   return (
