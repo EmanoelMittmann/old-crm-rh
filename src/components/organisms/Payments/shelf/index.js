@@ -27,6 +27,7 @@ const Shelf = ({ data, reports }) => {
 
   const viewDetails = () => {
     setdetaisVisibled(true)
+    setMenuOptions(prev=>!prev)
   };
 
   const colors =
