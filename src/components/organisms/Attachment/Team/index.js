@@ -39,7 +39,7 @@ import { DefaultToast } from '../../../atoms/Toast/DefaultToast';
 import InputWithLabel from '../../../atoms/InputWithLabel';
 
 
-const AttachmentTeam = ({ attachment, allOptions}) => {
+const AttachmentTeam = ({ attachment, allOptions }) => {
   const { team, setTeam, addMember, removerMember, editMember } = attachment;
   const [dataTechLead, setDataTechLead] = useState([]);
   const [dataTeam, setDataTeam] = useState([]);
@@ -83,7 +83,7 @@ const AttachmentTeam = ({ attachment, allOptions}) => {
   const getJobs = async () => {
     const { data } = await api({
       method: 'get',
-      url: `/job/?limit=undefined`,
+      url: `/job`,
     });
     setJobsMember(data.data);
   };
@@ -108,6 +108,7 @@ const AttachmentTeam = ({ attachment, allOptions}) => {
       setRows((oldState) => [...oldState, item]);
 
     });
+
   }
 
   function handleAddMember() {
@@ -131,14 +132,6 @@ const AttachmentTeam = ({ attachment, allOptions}) => {
       );
       return
     }
-    
-    const techLead = team.filter((job_) =>  job_.name === "Tech leader")
- 
-    // if (techLead){
-    //   return toast.error(
-    //     <DefaultToast text="Já existe um TechLead para este projeto." />
-    //   );
-    // }
 
     if (!id) {
       setTeam((oldState) => [
@@ -155,14 +148,17 @@ const AttachmentTeam = ({ attachment, allOptions}) => {
         },
 
       ]);
- 
-      
       resetInputs();
       return;
     }
-    addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName, status, techLead);
+
+
+    addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName, status);
     resetInputs();
   }
+
+
+
 
   function handleRemoveMember() {
     if (!id) {
@@ -200,10 +196,11 @@ const AttachmentTeam = ({ attachment, allOptions}) => {
   }
 
 
+
   return (
     <AttachmentContainer>
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
-      <SecondaryText margin="0 0 2.5em 0">Vincular Time</SecondaryText>
+      <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
       <AttachmentForm>
         <InputSelectWithLabel
           onFocus={() =>
@@ -211,52 +208,59 @@ const AttachmentTeam = ({ attachment, allOptions}) => {
           }
           setSelectedOption={(e) => {
             setProfessionalSelected(e.target.value);
-
+            setIsTechLead(false);
+            setDataTechLead([]);
           }}
           options={dataTeam}
           placeholder="Time"
           width="100%"
-          lineWidth="20%"
+          lineWidth="25%"
           label="Selecionar time"
           reset={reset}
         />
-        <InputSelectWithLabel
+
+        <InputSelect
           onChange={(e) => setJobProject(e.target.value)}
           options={jobsMember}
-          placeholder="Cargo"
+          placeHolder="Cargo"
           width="100%"
-          lineWidth="20%"
+          lineWidth="15%"
           label="Cargo"
           reset={reset}
         />
         <InputWithLabel
           width="100%"
-          widthContainer="20%"
+          widthContainer="25%"
           placeholder="Horas Mensais Estimadas"
           onChange={(e) => setHoursMonth(e.target.value)}
           value={hoursMonth}
+          type="number"
+          label="Horas Mensais Estimadas"
           error={onlyError}
           touched={onlyError}
           handleBlur={() => { }}
-          type="number"
-          label="Horas Mensais Estimadas"
-          reset={reset}
         />
         <InputWithLabel
           width="100%"
-          widthContainer="20%"
+          widthContainer="25%"
           placeholder="Horas Extras Estimadas"
           onChange={(e) => setOvertime(e.target.value)}
           value={overtime}
+          type="number"
+          label="Horas Extras Estimadas"
           error={onlyErrorTwo}
           touched={onlyErrorTwo}
           handleBlur={() => { }}
-          type="number"
-          label="Horas Extras Estimadas"
-          reset={reset}
         />
-        <BlueButton width="13%"
-          onClick={() => handleAddMember()}
+        <BlueButton width="13%" onClick={() => {
+          const TechLead = rows.filter(({ job }) => job === "Tech leader")
+          if (TechLead.length >= 1[0] ) {
+            return toast.error(
+              <DefaultToast text="Já existe um TechLead para este projeto." />
+            );
+          }
+          handleAddMember()
+        }}
           type="button">
           Vincular
         </BlueButton>

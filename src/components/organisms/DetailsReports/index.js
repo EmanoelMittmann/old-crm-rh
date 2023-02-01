@@ -28,7 +28,6 @@ const DetailsReports = ({ setdetaisVisibled, data, id }) => {
     const ClickModal = () => {
         setdetaisVisibled(prev => !prev)
     }
-    console.log("Rota: ", data);
 
     return data ? (
             <>
