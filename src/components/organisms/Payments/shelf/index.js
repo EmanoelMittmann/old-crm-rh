@@ -18,7 +18,7 @@ import { formatCnpj } from "../../../utils/formatCnpj";
 import { useHistory } from "react-router-dom";
 import DetailsReports from "../../DetailsReports";
 
-const Shelf = ({ data, reports }) => {
+const Shelf = ({ data,uploads }) => {
   const { id } = data;
   const [menuOptions, setMenuOptions] = useState(false);
   const history = useHistory();
@@ -93,9 +93,9 @@ const Shelf = ({ data, reports }) => {
               firstOptionDescription="Detalhes"
               firstChosenOption={() => viewDetails()}
               secondOptionDescription="Baixar PDF"
-              secondChosenOption={() => {}}
+              secondChosenOption={() => uploads(data.user_id,'PDF',data.user.name)}
               thirdOptionDescription="Baixar XML"
-              thirdChosenOption={() => {}}
+              thirdChosenOption={() => uploads(data.user_id,'XML',data.user.name)}
               id={optionClicked}
             />
           )}    
