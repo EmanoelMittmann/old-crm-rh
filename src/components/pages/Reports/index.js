@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import api from "../../../api/api";
 import Payments from "../../organisms/Payments";
+import { saveAs } from 'file-saver'
 
 const Reports = () => {
     const [reports, setReports] = useState([])
@@ -33,6 +34,15 @@ const Reports = () => {
     const { data } = await api.get('/reports?limit=7', { params })
     setReports(data.data)
     setReportsMeta(data.meta)
+  }
+
+  const uploads = async(id,type,name) => {
+    try {
+      const {data} = await api.get(`/downloadReportsFiles?user_id=${id}&type_file=${type}`,{responseType: 'blob'})
+      saveAs(data,name)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const nextPage = () => {
@@ -91,6 +101,7 @@ const Reports = () => {
         setSearch={setSearch}
         initialPeriod={initialPeriod}
         setInitialPeriod={setInitialPeriod}
+        uploads={uploads}
         finalPeriod={finalPeriod}
         setFinalPeriod={setFinalPeriod}
         sortByName={sortByName}

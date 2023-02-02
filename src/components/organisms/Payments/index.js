@@ -24,7 +24,8 @@ const Payments = ({
   setInitialPeriod,
   finalPeriod,
   setFinalPeriod,
-  setStatusParams
+  setStatusParams,
+  uploads
 }) => {
   return (
     <>
@@ -78,7 +79,7 @@ const Payments = ({
             setOrderField={setOrderField}
           />
           {reports?.map((item) => (
-            <Shelf data={item} />
+            <Shelf data={item} uploads={uploads}/>
           ))}
         </ContainerListing>
         <Footer

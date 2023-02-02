@@ -1,4 +1,9 @@
 import styled from "styled-components";
+export const ListHeaderId = styled.div`
+    display: flex;
+    align-items: start;
+    width: 20%;
+`
 
 export const ListHeaderName = styled.div`
     display: flex;

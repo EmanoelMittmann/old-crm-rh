@@ -6,6 +6,10 @@ export const ProjectsListItemContainer = styled.div`
     align-items: center;
     height: 60px;
 `
+export const ProjectsListItemId = styled.div`
+    display: flex;
+    width: 25%;
+`
 
 export const ProjectsListItemProject = styled.div`
     display: flex;
