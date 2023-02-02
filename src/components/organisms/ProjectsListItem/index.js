@@ -14,6 +14,8 @@ import {
   ProjectsListItemStatus,
   ContainerIconOptions,
   ContainerTeamMemberPic,
+  ProjectsListItemId,
+  ContainerDateFinal,
 } from "./style.js";
 import { formatDate } from "../../utils/formatDate.js";
 import { ReactComponent as OptionsIcon } from "../../../assets/icons/options.svg";
@@ -80,6 +82,7 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
       {data.map((project) => {
         return (
           <ProjectsListItemContainer key={project.id}>
+            <ProjectsListItemId>{project.id}</ProjectsListItemId>
             <ProjectsListItemProject>{project.name}</ProjectsListItemProject>
             <ProjectsListItemType>
               {project.project_type?.name}
@@ -88,13 +91,9 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
               {formatDate(project.date_start)}
             </ProjectsListItemBeginning>
             <ProjectsListItemTime>
-              <ContainerTeamMemberPic>
-                <TeamMemberAttachment
-                  data={data}
-                  project={project}
-                  openProjectTeamModal={openProjectTeamModal}
-                />
-              </ContainerTeamMemberPic>
+              <ContainerDateFinal>
+                {formatDate(project.date_end)}
+              </ContainerDateFinal>
             </ProjectsListItemTime>
             <ProjectsListItemStatus>
               <StatusLabel
