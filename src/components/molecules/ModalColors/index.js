@@ -58,6 +58,8 @@ const ModalColors = () => {
   };
 
   const saveStatus = async () => {
+
+
     try {
       await api({
         method: "post",
@@ -82,10 +84,9 @@ const ModalColors = () => {
         toast.success(<DefaultToast text="Status do Projeto cadastrado!" />)
       );
     } catch (error) {
-      return toast.warn(<DefaultToast text={"Escreva o Status!"} />);
+      return toast.warn(<DefaultToast text={value.trim() === "" ? "Insira um Status" : "Um status com esse nome já existe"} />);
     }
   };
-
   const updateStatus = async () => {
     try {
       await api({
@@ -95,13 +96,12 @@ const ModalColors = () => {
           name: value,
           colors_id: selectedOption,
         },
-      });
+      })
       const { data } = await api({
         method: "get",
         url: "/projectStatus",
         params: params,
       });
-
       dispatch(setStatusList(data.data));
       dispatch(settingsPages(data.meta));
 
@@ -109,7 +109,9 @@ const ModalColors = () => {
         <DefaultToast text="Status do Projeto atualizado!" />
       );
     } catch (error) {
-      return error;
+      return toast.error(
+        <DefaultToast text=" Um status com esse nome já existe" />
+      );
     }
   };
 
@@ -154,23 +156,18 @@ const ModalColors = () => {
 
       dispatch(setStatusColors(data));
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
+
+
+
   useEffect(() => {
     getStatusColor();
     if (state.modalFunctionality.edit) {
       statusName();
     }
   }, []);
-
-  //pegar a cor selecionada referente a um status especifico
-  //status especifico
-
-  //mandar para o input
-  // o que o input tem que fazer?
-  //se o id da cor do status sendo editado for === uma das options de cores então colocar como selected aquela cor
-
   return (
     <div>
       <ModalContainer>
@@ -187,7 +184,7 @@ const ModalColors = () => {
             value={value}
             width="100%"
             widthContainer="85%"
-            handleBlur={() => {}}
+            handleBlur={() => { }}
             justify="center"
             padding="0 0 0.8em 0"
           />
@@ -215,7 +212,7 @@ const ModalColors = () => {
             Cancelar
           </CancelButton>
           <SaveButton
-            onClick={(e) => saveButtonClickHandler(e)}
+            onClick={(e) => { saveButtonClickHandler(e) }}
             margin="0 3.5em 0 1.7em"
           >
             Salvar

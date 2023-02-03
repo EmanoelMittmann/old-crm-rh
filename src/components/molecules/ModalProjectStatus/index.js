@@ -23,8 +23,9 @@ export const ModalProjectStatus = ({CloseButtonClickHandler, statusId, projectId
                 data: {
                     project_status_id: +selectedOption
                 }
-            }) 
+            })
         }catch(err){
+            console.log(err.message)
         }
         CloseButtonClickHandler()
     }
