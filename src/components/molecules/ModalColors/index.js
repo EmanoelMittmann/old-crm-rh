@@ -16,7 +16,7 @@ import {
 
 import SaveButton from "../../atoms/Buttons/SaveButton/style.js";
 import CancelButton from "../../atoms/Buttons/CancelButton/style.js";
-import CloseButton from "../../atoms/Buttons/CloseButton";
+import CloseButtonCicle from "../../atoms/Buttons/CloseButtonCircle/index.js";
 import InputSelect from "../../atoms/InputSelect";
 import InputSelectEdit from "../../atoms/InputSelectEdit";
 import InputWithLabel from "../../atoms/InputWithLabel/index.js";
@@ -58,8 +58,6 @@ const ModalColors = () => {
   };
 
   const saveStatus = async () => {
-
-
     try {
       await api({
         method: "post",
@@ -171,7 +169,7 @@ const ModalColors = () => {
   return (
     <div>
       <ModalContainer>
-        <CloseButton CloseButtonClickHandler={CloseButtonClickHandler} />
+        <CloseButtonCicle CloseButtonClickHandler={CloseButtonClickHandler} />
         <ModalTitle padding="1.3em 0 1.3em 1.6em">
           {state.modalFunctionality.edit
             ? "Editar status do projeto"

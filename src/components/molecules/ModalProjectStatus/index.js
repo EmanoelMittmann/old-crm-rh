@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import api from '../../../api/api.js'
-import CloseButton from '../../atoms/Buttons/CloseButton/index.js'
+import CloseButtonCircle from '../../atoms/Buttons/CloseButtonCircle/index.js'
 import SaveButton from '../../atoms/Buttons/SaveButton/style.js'
 import CancelButton from '../../atoms/Buttons/CancelButton/style.js'
 import InputSelectEdit from '../../atoms/InputSelectEdit/index.js'
@@ -33,7 +33,7 @@ export const ModalProjectStatus = ({CloseButtonClickHandler, statusId, projectId
     return (
         <div>
             <ModalContainer>
-                <CloseButton CloseButtonClickHandler={CloseButtonClickHandler}/>
+                <CloseButtonCircle CloseButtonClickHandler={CloseButtonClickHandler}/>
                 <ModalTitle padding="1.6em">
                     Status
                 </ModalTitle>
@@ -46,8 +46,8 @@ export const ModalProjectStatus = ({CloseButtonClickHandler, statusId, projectId
                     />
                 </ContainerInputSelect>
                 <ModalContainerButtons>
-                    <CancelButton onClick={() => CloseButtonClickHandler()}>Cancelar</CancelButton>
-                    <SaveButton onClick={() => updateStatusProject(selectedOption)} margin="0 3.5em 0 1.7em">Salvar</SaveButton>
+                    <CancelButton margin="1em 0 0 0" onClick={() => CloseButtonClickHandler()}>Cancelar</CancelButton>
+                    <SaveButton onClick={() => updateStatusProject(selectedOption)} margin="1em 3.5em 0 1.7em">Salvar</SaveButton>
                 </ModalContainerButtons>
             </ModalContainer>
             <ModalOverlay/>

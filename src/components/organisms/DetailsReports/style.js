@@ -90,28 +90,30 @@ export const DateBank = styled.div`
 
 `;
 export const DateAgenc = styled.div`
+    width: 5px;
     font-size: 0.8rem;
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     display: flex;
     align-items: center;
     color: #5A646E;
-     padding: 0em 0 1em 0 ;
+    padding: 0em 0 1em 0 ;
     margin-top:-1em;
-    margin-left:-5.5em;
+    margin-left:-6.5em;
    
 
 `;
 export const DateBankC = styled.div`
     font-size: 0.8rem;
     font-family: 'Poppins', sans-serif;
+    width: 15px;
     font-weight: 500;
     display: flex;
     align-items: center;
     color: #5A646E;
-     padding: 0em 0 1em 0 ;
+    padding: 0em 0 1em 0 ;
     margin-top:-1em;
-    margin-right:6.3em;
+    margin-right:11em;
 `;
 
 export const TitleChavePIX = styled.h5`

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ModalContainer = styled.div`
     position: fixed;
-    top: 55%;
+    top: 50%;
     left: 49.5%;
     transform: translate(-50%, -50%);
     width: 450px;
