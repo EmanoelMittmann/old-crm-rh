@@ -28,7 +28,7 @@ import { Status } from '../../organisms/DetailsRelease/status';
 import ModalRed from '../ModalRed';
 import ModalGreen from '../ModalGreen';
 
-const ApprovalIsTechLead = ({ id, setModalIsVisibleTechLead, getOvertimesTechLead}) => {
+const ApprovalIsTechLead = ({ id, ClickHandlerTechLead, getOvertimesTechLead}) => {
     const [approveData, setApproveData] = useState();
     const [currentJustification, setCurrentJustification] = useState('')
     const [modalIsVisible, setModalIsVisible] = useState(false)
@@ -67,10 +67,7 @@ const handleApprovalHoursTechLead = async () => {
 }
 
     const handlerModalTechLead = () => {
-        setModalIsVisible(prev => !prev)
-    };
-    const ClickHandlerTechLead = () => {
-        setModalIsVisibleTechLead(prev => !prev)
+        ClickHandlerTechLead()
     };
 
     useEffect(() => {

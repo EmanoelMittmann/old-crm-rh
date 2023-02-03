@@ -48,7 +48,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   const [options, setOptions] = useState([]);
   const [professionalSelected, setProfessionalSelected] = useState('');
   const [isTechLead, setIsTechLead] = useState(false);
-  const [duplicateLead, setDuplicateLead] = useState(false)
   const [hoursMonth, setHoursMonth] = useState('');
   const [overtime, setOvertime] = useState('');
   const [reset, setReset] = useState(true);
@@ -133,10 +132,14 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       );
       return
     }
+    const TechLead = team.filter((obj) => obj.job_ === "Tech Lead")
+    let newTime = team
+    if (TechLead[0] && jobName === "Tech Lead"){
+      newTime = team.filter((obj) => obj.job_ !== "Tech Lead")
+    }
 
     if (!id) {
-      setTeam((oldState) => [
-        ...oldState,
+      setTeam([...newTime,
         {
           id: selected.id,
           name: selected.name,
@@ -154,12 +157,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     }
 
 
-    addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName, status);
+    addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName, status, TechLead);
     resetInputs();
   }
-
-
-
 
   function handleRemoveMember() {
     if (!id) {
@@ -196,15 +196,11 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     setMenuOptionsIsVisible(false);
   }
 
-  useEffect(() => {
-    const existDuplicate = rows.filter(item => item.job === 'Tech leader')
-  },[rows])
-
 
   return (
     <AttachmentContainer>
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
-      <SecondaryText margin="0 0 2.5em 0">Vicular Projetos</SecondaryText>
+      <SecondaryText margin="0 0 2.5em 0">Vicular Time</SecondaryText>
       <AttachmentForm>
         <InputSelectWithLabel
           onFocus={() =>
