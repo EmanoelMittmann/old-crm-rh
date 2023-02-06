@@ -2,7 +2,6 @@ import React from "react";
 import InputText from "../../atoms/InputText";
 import InputSelect from "../../atoms/InputSelect";
 import InputWithLabel from "../../atoms/InputWithLabel";
-import MenuOptions from "../../atoms/MenuOptions";
 import HeaderPayments from "../../molecules/HeaderPayments";
 import Footer from "../Footer";
 import Shelf from "./shelf";

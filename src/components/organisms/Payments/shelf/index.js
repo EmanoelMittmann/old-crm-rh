@@ -21,7 +21,6 @@ import DetailsReports from "../../DetailsReports";
 const Shelf = ({ data,uploads }) => {
   const { id } = data;
   const [menuOptions, setMenuOptions] = useState(false);
-  const history = useHistory();
   const [optionClicked, setOptionClicked] = useState();
   const [detailVisibled, setdetaisVisibled] = useState(false)
 
