@@ -71,6 +71,7 @@ const OvertimePayCalc = ({ data }) => {
                         />
                         
                     </InputLine>
+                    
                 </ContainerOvertimePayInput>
                 
                 <ContainerOvertimePayInput>

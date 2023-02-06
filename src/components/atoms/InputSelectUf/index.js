@@ -6,15 +6,18 @@ import {
     InputSelectContainer,
     InputSelectOption,
     InputSelectOptionPlaceholder,
+    Father,
+    ErrorMessage
 } from './style.js'
 
-const InputSelectUf = ({ onChange, options, placeHolder, width, lineWidth, value, margin, disabled, onClick }) => {
+const InputSelectUf = ({ onChange, options, placeHolder, width, lineWidth, value, margin, disabled, onClick,error,touched }) => {
     const attributeValue = {
         ...(value && { value: value })
     }
 
     return (
-        <InputLine width={lineWidth} margin={margin}>
+        <Father>
+        <InputLine width={lineWidth} margin={margin} error={error && touched}>
             <InputSelectContainer
                 {...attributeValue}
                 width={width}
@@ -36,6 +39,8 @@ const InputSelectUf = ({ onChange, options, placeHolder, width, lineWidth, value
             </InputSelectContainer>
             <Img src={arrowPointingDown} alt="Lupa" />
         </InputLine>
+        {error && touched && <ErrorMessage>{error}</ErrorMessage>}
+        </Father>
     )
 }
 

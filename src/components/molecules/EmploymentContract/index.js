@@ -91,9 +91,11 @@ const EmploymentContract = ({ data, jobs }) => {
           onChange={handleChange('job_id')}
           value={values.job_id}
           options={jobs}
+          error={errors?.job_id}
+          touched={touched?.job_id}
           placeHolder="Cargo"
           width="100%"
-          lineWidth="55%"
+          lineWidth="42em"
         />
       </EmploymentContractInputs>
       <EmploymentContractInputs>
@@ -101,10 +103,12 @@ const EmploymentContract = ({ data, jobs }) => {
           onChange={handleType}
           placeHolder="Tipo"
           width="100%"
+          error={errors?.job_type}
+          touched={touched?.job_type}
           options={typeOptions}
           value={values.job_type}
           padding="0em 0 0 1em"
-          lineWidth="40%"
+          lineWidth="30em"
         />
         <InputWithLabel
           onChange={handleChange('weekly_hours')}

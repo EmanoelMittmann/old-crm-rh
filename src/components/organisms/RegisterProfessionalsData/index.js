@@ -383,7 +383,8 @@ const RegisterProfessionalsData = ({ data }) => {
             options={optionsUFCountry}
             placeHolder="UF"
             width="230px"
-            erro={errors.uf}
+            touched={touched.uf}
+            error={errors.uf}
             disabled={disabled}
           />
         </ContainerRow>
@@ -639,7 +640,7 @@ const RegisterProfessionalsData = ({ data }) => {
             touched={touched?.professional_data?.bank}
             label="Banco"
             width="100%"
-            lineWidth="68%"
+            lineWidth="98%"
             name="professional_data.bank"
           />
           <InputSelect
@@ -647,9 +648,11 @@ const RegisterProfessionalsData = ({ data }) => {
             onChange={handleChange("professional_data.account_type")}
             options={optionsBank}
             placeHolder="Tipo da conta"
+            error={errors?.professional_data?.account_type}
+            touched={touched?.professional_data?.account_type}
             padding="0em 2em 0 0em"
             width="100%"
-            lineWidth="30%"
+            lineWidth="15em"
             name="professional_data.account_type"
           />
         </ContainerRow>
@@ -663,8 +666,10 @@ const RegisterProfessionalsData = ({ data }) => {
             options={optionsTypeOfTranfer}
             placeHolder="Tipo de tranferência"
             padding="0em 2em 0 0em"
+            error={errors?.professional_data?.type_of_transfer}
+            touched={touched?.professional_data?.type_of_transfer}
             width="100%"
-            lineWidth="33%"
+            lineWidth="28em"
             name="professional_data.type_of_transfer"
           />
           <InputSelect
@@ -674,7 +679,7 @@ const RegisterProfessionalsData = ({ data }) => {
             placeHolder="Tipo chave Pix"
             padding="0em 2em 0 0em"
             width="100%"
-            lineWidth="33%"
+            lineWidth="28em"
             name="professional_data.pix_key_type"
             disabled={isDisabled}
           />

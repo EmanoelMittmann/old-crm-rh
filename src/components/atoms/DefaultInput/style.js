@@ -50,6 +50,17 @@ export const DefaultInput = styled.input`
         display: none;
 }
 `
+export const Father = styled.div`
+    display: flex;
+    width: ${props => props.width};
+    flex-direction: column;
+    white-space: nowrap;
+`
+export const ErrorMessage = styled.p`
+    color:red;
+    padding-left: 1.5em;
+    font-size: 0.7em;
+`
 
 export const InputLine = styled.div`
     position: relative;

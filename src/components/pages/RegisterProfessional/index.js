@@ -93,6 +93,12 @@ const RegisterProfessional = () => {
         return true;
       }),
 
+    extra_hour_activated: Yup.boolean(),
+    variable1: Yup.string().test('Campo Requirido', () => {
+      if(values.extra_hour_activated){
+        return 'Campo Requirido'
+      }
+    }),
     street_name: Yup.string().required(messages.required),
     house_number: Yup.number().required(messages.required),
     complement: Yup.string(),
@@ -116,7 +122,7 @@ const RegisterProfessional = () => {
       account_number: Yup.string().required(messages.required),
       agency: Yup.string().required(messages.required).max(5, "Invalido"),
       account_type: Yup.string().required(messages.required),
-      type_of_transfer: Yup.string(),
+      type_of_transfer: Yup.string().required(messages.required),
       pix_key_type: Yup.string(),
       pix_key: Yup.string(),
       account_number: Yup.number().required(messages.required),

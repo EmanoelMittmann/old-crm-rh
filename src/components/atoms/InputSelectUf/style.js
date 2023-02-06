@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const Father = styled.div`
+    display: flex;
+    flex-direction: column;
+    white-space: nowrap;
+`
+
 export const InputSelectContainer = styled.select`
     font-size: 1rem;
     font-weight: 500;
@@ -38,4 +44,10 @@ export const Img = styled.img`
     top: 18px;
     position: absolute;
     width: 13px; 
+`
+
+export const ErrorMessage = styled.p`
+    color:red;
+    padding-left: 1.5em;
+    font-size: 0.7em;
 `
