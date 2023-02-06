@@ -7,6 +7,7 @@ import Footer from "../Footer";
 import Shelf from "./shelf";
 import { Container, ContainerListing, ContainerSearch } from "./style";
 import { Status } from "../../pages/Reports/Status";
+import DownloadExcel from "../Download/DownloadExcel";
 
 const Payments = ({
   reports,

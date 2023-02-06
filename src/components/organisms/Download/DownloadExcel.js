@@ -20,32 +20,38 @@ import { DefaultToast } from '../../atoms/Toast/DefaultToast.js'
 
 
 
-const DownloadExcel = () => {
+const DownloadExcel = ( ) => {
+    const [report, setReport] = useState([])
     const [modalIsVisible, setModalIsVisible] = useState(false)
-    const [payingCompany, setPayingCompany] = useState()
+    const [payingCompany, setPayingCompany] = useState([])
     const [companyCode, setCompanyCode] = useState()
     const history = useHistory()
     let params = {};
-    
+
+    const getReport = async () => {
+        const { data } = await api.get('/reports?limit=7')
+        setReport(data.data)
+        console.log("data: ", data.data);
+    }
     const ModalClick = () => {    
         history.push('/reports')
     };
     const handleClicked = () => {
         setModalIsVisible(true)
-
+        
     }
+
 
     const download = async () => {
         try {
-            const { data } = await api.get(`/generateExcelPayment?companies_id=${companyCode}`, { responseType: 'blob' })
+            const { data } = await api.get(`/generateExcelPayment?companies_id=${companyCode}`, { responseType:'blob'})
             saveAs(data, 'Relatório de Pagamento') &&
-                toast.success(<DefaultToast text="Downlaod efetuado com sucesso!" />)   
+            toast.success(<DefaultToast text="Downlaod efetuado com sucesso!" />)   
         } catch (error) {
-            return toast.warn(<DefaultToast text={'Nenhum relatório para pagamento encontra!'}/>) &&
-            setModalIsVisible(false)
+            console.error(error)
         }
     }
-
+    
     const getCompany = async () => {
         const { data } = await api({
             method: "GET",
@@ -55,9 +61,10 @@ const DownloadExcel = () => {
         setPayingCompany(data.data);
     };
 
+
     useEffect(() => {
         getCompany();
-
+        getReport()
     }, []);
 
     return (
@@ -78,7 +85,12 @@ const DownloadExcel = () => {
                 </ContainerInputsSelect>
                 <ContainerButtons>
                     <CancelButton onClick={ModalClick}>Cancelar</CancelButton>
-                    <SaveButton onClick={() => handleClicked()}> Exportar</SaveButton>
+                    <SaveButton onClick={() => {
+                        if (report?.status_payment === "Pronta para pagamento"){
+                            return toast.warn(<DefaultToast text={'Nenhum relatório para pagamento encontrado!'} />)
+                        }
+                        handleClicked()
+                        }}> Exportar</SaveButton>
                     <>
                     {modalIsVisible && (
                             <ModalRed
