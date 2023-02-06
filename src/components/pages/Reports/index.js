@@ -41,7 +41,7 @@ const Reports = ({ download }) => {
       const {data} = await api.get(`/downloadReportsFiles?user_id=${id}&type_file=${type}`,{responseType: 'blob'})
       saveAs(data,name)
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 
