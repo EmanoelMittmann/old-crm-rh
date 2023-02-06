@@ -124,8 +124,6 @@ const RegisterProject = (props) => {
 
   const { values, setFieldValue, setErrors } = formik;
 
-  console.log("Dados do Projeto", values);
-
   function validDate() {
     if (values.date_end !== '' && values.date_start !== '') {
       if (values.date_start > values.date_end) {

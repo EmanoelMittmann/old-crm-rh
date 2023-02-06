@@ -15,13 +15,15 @@ import InputSelect from '../../atoms/InputSelect/index.js'
 import ModalRed from '../../molecules/ModalRed/index.js'
 import { useHistory } from 'react-router-dom'
 import { saveAs } from 'file-saver'
+import { toast } from 'react-toastify'
+import { DefaultToast } from '../../atoms/Toast/DefaultToast.js'
 
 
 
 const DownloadExcel = () => {
     const [modalIsVisible, setModalIsVisible] = useState(false)
     const [payingCompany, setPayingCompany] = useState()
-    const [dataCompany, setDataCompany] = useState('')
+    const [companyCode, setCompanyCode] = useState()
     const history = useHistory()
     let params = {};
     
@@ -33,14 +35,16 @@ const DownloadExcel = () => {
 
     }
 
-    // const download = async (id, type, name) => {
-    //     try {
-    //         const { data } = await api.get(`/downloadReportsFiles?user_id=${id}&type_file=${type}`, { responseType: 'xslb' })
-    //         saveAs(data, name)
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-    // }
+    const download = async () => {
+        try {
+            const { data } = await api.get(`/generateExcelPayment?companies_id=${companyCode}`, { responseType: 'blob' })
+            saveAs(data, 'Relatório de Pagamento') &&
+                toast.success(<DefaultToast text="Downlaod efetuado com sucesso!" />)   
+        } catch (error) {
+            return toast.warn(<DefaultToast text={'Nenhum relatório para pagamento encontra!'}/>) &&
+            setModalIsVisible(false)
+        }
+    }
 
     const getCompany = async () => {
         const { data } = await api({
@@ -49,7 +53,6 @@ const DownloadExcel = () => {
             params: params,
         });
         setPayingCompany(data.data);
-
     };
 
     useEffect(() => {
@@ -64,10 +67,9 @@ const DownloadExcel = () => {
                         <Title>Selecione a empresa pagadora</Title>
                     <CloseButtonCircle CloseButtonClickHandler={ModalClick} />
                     </ModalTitle>
-          
                 <ContainerInputsSelect>
                     <InputSelect
-                        onClick={(e) => setDataCompany(e.target.value)}
+                       onClick={(e) => setCompanyCode(e.target.value)}
                         options={payingCompany}
                         placeHolder="Empresa Pagadora"
                         width="380px"
@@ -77,14 +79,18 @@ const DownloadExcel = () => {
                 <ContainerButtons>
                     <CancelButton onClick={ModalClick}>Cancelar</CancelButton>
                     <SaveButton onClick={() => handleClicked()}> Exportar</SaveButton>
+                    <>
                     {modalIsVisible && (
-                        <ModalRed
-                            redButtonClickHandler={() => ModalClick()}
-                            CloseButtonClickHandler={() => setModalIsVisible(false)}
-                            title="Exportação de Arquivo"
-                            message="Deseja realmente exportar arquivo?"
-                        />
-                    )}
+                            <ModalRed
+                                redButtonClickHandler={() => {
+                                    download()
+                                    ModalClick()
+                                }}
+                                CloseButtonClickHandler={() => setModalIsVisible(false)}
+                                title="Exportação de Arquivo"
+                                message="Deseja realmente exportar arquivo?"
+                            />
+                    )}</>     
                 </ContainerButtons>
             </ModalContainer>
             <ModalOverlay />

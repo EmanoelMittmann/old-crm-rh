@@ -4,7 +4,7 @@ import api from "../../../api/api";
 import Payments from "../../organisms/Payments";
 import { saveAs } from 'file-saver'
 
-const Reports = () => {
+const Reports = ({ download }) => {
     const [reports, setReports] = useState([])
     const [companyParams, setCompanyParams] = useState('')
     const [statusParams, setStatusParams] = useState('')
@@ -109,6 +109,7 @@ const Reports = () => {
         reportsMeta={reportsMeta}
         nextPage={nextPage}
         prevPage={prevPage}
+        download={download}
       />
     </>
   );

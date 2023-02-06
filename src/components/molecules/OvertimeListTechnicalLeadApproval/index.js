@@ -12,7 +12,7 @@ import {
 import { formatDate } from "../../utils/formatDate";
 import { Badge } from "../../molecules/ProfessionalsListItem/style";
 import ApprovalIsTechLead from "../ModalApprovalIsTechLead";
-import { useEffect } from "react";
+
 
 export function OvertimeListTechnicalLeadApproval({ data, approveData, getOvertimesTechLead }) {
   const [modalIsVisibleTechLead, setModalIsVisibleTechLead] = useState(false)
