@@ -25,7 +25,7 @@ const Payments = ({
   finalPeriod,
   setFinalPeriod,
   setStatusParams,
-  uploads
+  uploads,
 }) => {
   return (
     <>
