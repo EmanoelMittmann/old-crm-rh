@@ -63,8 +63,8 @@ const Shelf = ({ data,uploads }) => {
         <ContainerProfessional>{data.user.name}</ContainerProfessional>
         <ContainerCnpj>{formatCnpj(data.order.companies?.cnpj)}</ContainerCnpj>
         <ContainerNFe>
-          {data.fiscalNote
-            ? Number(data.valorNf).toLocaleString("pt-BR", {
+          {data.fiscal_note
+            ? Number(data.fiscal_note.file_xml.value_nf).toLocaleString("pt-BR", {
                 style: "currency",
                 currency: "BRL",
               })
