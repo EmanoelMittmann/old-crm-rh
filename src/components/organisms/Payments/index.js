@@ -84,7 +84,6 @@ const Payments = ({
         </ContainerListing>
         <Footer
           height="3em"
-          border="1px solid #ccc"
           firstPage={reportsMeta.first_page}
           lastPage={reportsMeta.last_page}
           nextPage={() => nextPage()}

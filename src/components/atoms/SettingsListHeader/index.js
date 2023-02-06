@@ -64,7 +64,6 @@ const SettingsListHeader = () => {
             <ListHeaderTitle onClick={() => orderSettingsList()} left='3em'>
                 {displayListTitle(path)}
             </ListHeaderTitle>
-            {/* <Arrows onClick={() => orderSettingsList()}/> */}
         </ListHeaderContainer>
     )
 }

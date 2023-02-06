@@ -18,6 +18,7 @@ import {
     ModalTitle,
     ModalContainerButtons
 } from './style.js'
+import CloseButtonCicle from '../../atoms/Buttons/CloseButtonCircle/index.js'
 
 const Modal = () => {
     const dispatch = useDispatch()
@@ -293,7 +294,7 @@ const Modal = () => {
     return (
         <div>
             <ModalContainer>
-                <CloseButton CloseButtonClickHandler={CloseButtonClickHandler}/>
+                <CloseButtonCicle CloseButtonClickHandler={CloseButtonClickHandler} />
                 <ModalTitle padding="1.6em">
                     {displayModalTitle(location.pathname)}
                 </ModalTitle>
@@ -307,10 +308,14 @@ const Modal = () => {
                         justify="center"
                     />
                 <ModalContainerButtons>
-                    <CancelButton onClick={() => cancelButtonClickHandler()}>Cancelar</CancelButton>
+                    <CancelButton 
+                        onClick={() => cancelButtonClickHandler()}
+                        margin="1em 0 0 0 ">
+                        Cancelar
+                    </CancelButton>
                     <SaveButton 
                         onClick={(e) => saveButtonClickHandler(e)} 
-                        margin="0 3.5em 0 1.7em"
+                        margin="1em 3.5em 0 1.7em"
                     > 
                         Salvar 
                     </SaveButton>

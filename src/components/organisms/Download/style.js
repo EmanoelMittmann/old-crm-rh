@@ -23,11 +23,11 @@ export const ContainerInputsSelect = styled.div`
 
 export const ModalContainer = styled.div`
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 55%;
+  left: 49.5%;
   transform: translate(-50%, -50%);
-  width: 440px;
-  height: 255px;
+  width: 450px;
+  height: 240px;
   background-color: white;
   border-radius: 15px;
   padding-left: 2em;

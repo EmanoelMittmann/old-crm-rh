@@ -70,7 +70,7 @@ export const templates = [
     name: "Pagamentos",
     hasButton: true,
     buttonText: "Exportar Excel",
-    buttonPath: "/DownloadExcel",
+    buttonPath: "/downloadExcel",
     icon: <ReportsIcon />,
     isRegisterPage: false,
     path: "/reports",

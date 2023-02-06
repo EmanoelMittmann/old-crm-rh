@@ -32,16 +32,14 @@ const RegisterProject = (props) => {
   const schema = Yup.object().shape({
     name: Yup.string().required(messages.required),
     date_start: Yup.string()
-      .required(messages.required)
       .test('Data válida', 'Insira uma data menor que a data final', () =>
         validDate()
       ),
     date_end: Yup.string()
-      .required(messages.required)
       .test('Data válida', 'Insira uma data maior que a data inicial', () =>
         validDate()
       ),
-    date_start_performed: Yup.string().required(messages.required),
+    date_start_performed: Yup.string(),
     date_end_performed: Yup.string().test(
       'Data válida',
       'Insira uma data maior que a data inicial',
@@ -64,7 +62,7 @@ const RegisterProject = (props) => {
     ),
     project_status_id: Yup.number().required(messages.required),
     project_type_id: Yup.number().required(messages.required),
-    team_cost: Yup.string().required(messages.required),
+    team_cost: Yup.string(),
     id: Yup.number().required(messages.required),
   });
 
@@ -125,6 +123,8 @@ const RegisterProject = (props) => {
   });
 
   const { values, setFieldValue, setErrors } = formik;
+
+  console.log("Dados do Projeto", values);
 
   function validDate() {
     if (values.date_end !== '' && values.date_start !== '') {

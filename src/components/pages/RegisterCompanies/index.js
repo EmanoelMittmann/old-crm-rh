@@ -22,6 +22,7 @@ import { handleErrorMessages } from "../../utils/handleErrorMessages";
 import { useSelector } from "react-redux";
 import { handleCEP } from "../../utils/validateCep";
 import DataBank from "../../molecules/DataBank";
+import ArrowRegister from "../../atoms/ArrowRegister";
 
 export const RegisterCompanies = () => {
   const { id } = useParams();
@@ -201,15 +202,14 @@ export const RegisterCompanies = () => {
     }
 
   }
-
   useEffect(() => {
     getCompanyData()
   }, []);
 
-
   return (
     <>
       <RegisterProfessionalTitleContainer>
+        <ArrowRegister clickHandler={goBackClickHandler} />
         <SectionTitle>{id ? "Edição de Empresa" : "Nova Empresa"}</SectionTitle>
       </RegisterProfessionalTitleContainer>
       <RegisterProfessionalContainer>

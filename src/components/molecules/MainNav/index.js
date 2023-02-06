@@ -146,6 +146,7 @@ const NavHome = () => {
               <ReportsIcon />
             </Link>
             {location.pathname === '/reports' && <ActiveIcon />}
+            {location.pathname === '/downloadExcel' && <ActiveIcon />}
           </ActiveIconContainer>
           <ActiveIconContainer
             onClick={() => MenuItemClickHandler(7)}

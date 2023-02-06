@@ -60,7 +60,7 @@ const Routes = () => {
         <PrivateRoute path="/releaseHours" component={ReleaseHours} />
         <PrivateRoute path="/DetailsRelease/:id" component={DetailsRelease} />
         <PrivateRoute path="/DetailsReports" component={DetailsReports} />
-        <PrivateRoute path="/DownloadExcel" component={DownloadExcel}/>
+        <PrivateRoute path="/downloadExcel" component={DownloadExcel}/>
   
      
       </Switch>

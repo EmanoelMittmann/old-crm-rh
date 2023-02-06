@@ -14,6 +14,7 @@ import api from '../../../api/api.js'
 import InputSelect from '../../atoms/InputSelect/index.js'
 import ModalRed from '../../molecules/ModalRed/index.js'
 import { useHistory } from 'react-router-dom'
+import { saveAs } from 'file-saver'
 
 
 
@@ -27,6 +28,19 @@ const DownloadExcel = () => {
     const ModalClick = () => {    
         history.push('/reports')
     };
+    const handleClicked = () => {
+        setModalIsVisible(true)
+
+    }
+
+    // const download = async (id, type, name) => {
+    //     try {
+    //         const { data } = await api.get(`/downloadReportsFiles?user_id=${id}&type_file=${type}`, { responseType: 'xslb' })
+    //         saveAs(data, name)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
 
     const getCompany = async () => {
         const { data } = await api({
@@ -62,10 +76,10 @@ const DownloadExcel = () => {
                 </ContainerInputsSelect>
                 <ContainerButtons>
                     <CancelButton onClick={ModalClick}>Cancelar</CancelButton>
-                    <SaveButton onClick={() => ModalClick()}> Exportar</SaveButton>
+                    <SaveButton onClick={() => handleClicked()}> Exportar</SaveButton>
                     {modalIsVisible && (
                         <ModalRed
-                            redButtonClickHandler={() => {}}
+                            redButtonClickHandler={() => ModalClick()}
                             CloseButtonClickHandler={() => setModalIsVisible(false)}
                             title="Exportação de Arquivo"
                             message="Deseja realmente exportar arquivo?"
