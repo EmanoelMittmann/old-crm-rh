@@ -502,7 +502,7 @@ const RegisterProfessionalsData = ({ data }) => {
             />
             <InputWithLabel
               onChange={handleChange("professional_data.company_house_number")}
-              value={values.professional_data.company_house_number}
+              value={values.professional_data.company_house_number === 0 ? '' :values.professional_data.company_house_number}
               label="Número"
               type="number"
               width="100%"

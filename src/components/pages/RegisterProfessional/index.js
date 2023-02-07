@@ -213,7 +213,7 @@ const RegisterProfessional = () => {
         company_cep: cleanMask(""),
         company_street_name: "",
         company_neighborhood_name: "",
-        company_house_number: "",
+        company_house_number: 0,
         company_complement: "",
         company_city_name: "",
         uf_company: "",
