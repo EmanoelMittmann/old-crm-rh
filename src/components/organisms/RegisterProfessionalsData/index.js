@@ -8,12 +8,12 @@ import {
   ContainerRegisterProfessionalsData,
   RegisterProfessionalsForm,
   ContainerRow,
-  PhoneInternational,
 } from "./style.js";
 import InputWithLabel from "../../atoms/InputWithLabel/index.js";
 import InputMasked from "../../atoms/InputMasked/index.js";
 import { useEffect } from "react";
 import SelectBank from "../../atoms/SelectBank";
+import PhoneInternational from "../../atoms/PhoneInternational";
 
 export const optionsUF = [
   { name: "Todos", id: "" },
@@ -246,32 +246,11 @@ const RegisterProfessionalsData = ({ data }) => {
             limit="11"
           />
           <PhoneInternational
-            country={"br"}
-            placeholder={"Telefone"}
-            mask={[
-              "(",
-              /[1-9]/,
-              /\d/,
-              ")",
-              " ",
-              /\d/,
-              " ",
-              /\d/,
-              /\d/,
-              /\d/,
-              /\d/,
-              "-",
-              /\d/,
-              /\d/,
-              /\d/,
-              /\d/,
-            ]}
-            onChange={handleChange("telephone_number")}
             error={errors.telephone_number}
             touched={touched.telephone_number}
-            handleBlur={setFieldTouched}
-            type="number"
-            name="telephone_number"
+            onBlur={() => {}}
+            onChange={handleChange('telephone_number')}
+            width='25em'
             value={values.telephone_number}
           />
         </ContainerRow>
@@ -676,6 +655,8 @@ const RegisterProfessionalsData = ({ data }) => {
             value={values?.professional_data?.pix_key_type}
             onChange={handleChange("professional_data.pix_key_type")}
             options={optionsPixKeyType}
+            error={errors?.professional_data?.pix_key_type}
+            touched={touched?.professional_data?.pix_key_type}
             placeHolder="Tipo chave Pix"
             padding="0em 2em 0 0em"
             width="100%"

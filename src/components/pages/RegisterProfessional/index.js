@@ -94,11 +94,6 @@ const RegisterProfessional = () => {
       }),
 
     extra_hour_activated: Yup.boolean(),
-    variable1: Yup.string().test('Campo Requirido', () => {
-      if(values.extra_hour_activated){
-        return 'Campo Requirido'
-      }
-    }),
     street_name: Yup.string().required(messages.required),
     house_number: Yup.number().required(messages.required),
     complement: Yup.string(),
@@ -116,19 +111,24 @@ const RegisterProfessional = () => {
       company_neighborhood_name: Yup.string(),
       company_complement: Yup.string(),
       company_house_number: Yup.string(),
-      uf_campany: Yup.string(),
+      uf_company: Yup.string(),
       company_phone_number: Yup.string(),
       bank: Yup.string().required(messages.required),
       account_number: Yup.string().required(messages.required),
       agency: Yup.string().required(messages.required).max(5, "Invalido"),
       account_type: Yup.string().required(messages.required),
       type_of_transfer: Yup.string().required(messages.required),
-      pix_key_type: Yup.string(),
-      pix_key: Yup.string(),
+      pix_key_type: Yup.string().when(['type_of_transfer'],{
+        is:(type_of_transfer) => type_of_transfer === 'PIX',
+        then:Yup.string().required(messages.required)
+      }),
+      pix_key: Yup.string().when(['type_of_transfer'],{
+        is:(type_of_transfer) => type_of_transfer === 'PIX',
+        then: Yup.string().required(messages.required)
+      }),
       account_number: Yup.number().required(messages.required),
       company_email: Yup.string(),
       company_cep: Yup.string()
-        .required(messages.required)
         .min(4 - 9, "CEP Inválido")
         .test("CEP válido", "CEP não encontrado", () => {
           if (
@@ -222,7 +222,7 @@ const RegisterProfessional = () => {
         bank: cleanMask(""),
         account_type: "",
         agency: "",
-        account_number: "",
+        account_number:"",
         type_of_transfer: "",
         pix_key_type: "",
         pix_key: cleanMask(""),
@@ -522,6 +522,8 @@ const RegisterProfessional = () => {
     values.professional_data.type_of_transfer,
   ]);
 
+
+  console.log(formik.errors)
   return (
     <>
       <RegisterProfessionalTitleContainer>

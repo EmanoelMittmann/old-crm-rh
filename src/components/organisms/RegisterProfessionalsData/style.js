@@ -66,29 +66,3 @@ export const ContainerRowBank = styled.div`
   }   
 `;
 
-export const PhoneInternational = styled(PhoneInput)`
-
-  .form-control{
-    width:100%;
-    border:1px #cacaca solid;
-    height:45px !important;
-    border-radius: 8px !important;
-    font-size: 0.9rem !important;
-    font-size: 1rem !important;
-    font-weight: 500 !important;
-    font-family: 'Poppins',sans-serif !important;
-    color: black !important;
-  }
-
-  .form-control::placeholder{ 
-    color: #cacaca !important;
-  }
-
-  .selected-flag{
-    border-radius: 8px 0 0 8px !important;
-    background-color: white !important;
-  }
-  .flag-dropdown{
-    border-radius: 8px 0 0 8px !important;
-  }
-`
