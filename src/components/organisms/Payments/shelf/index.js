@@ -48,6 +48,7 @@ const Shelf = ({ data,uploads }) => {
 
   return (
     <>
+
       {detailVisibled && (
         <DetailsReports 
         id={data.id}

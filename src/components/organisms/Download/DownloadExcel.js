@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import SaveButton from '../../atoms/Buttons/SaveButton/style.js'
 import CancelButton from '../../atoms/Buttons/CancelButton/style.js'
-import {ModalOverlay} from '../../molecules/Modal/style.js'
+import { ModalOverlay } from '../../molecules/Modal/style.js'
 import {
     ContainerButtons,
     ContainerInputsSelect,
@@ -19,39 +19,26 @@ import { toast } from 'react-toastify'
 import { DefaultToast } from '../../atoms/Toast/DefaultToast.js'
 
 
+const DownloadExcel = ({ setModalIsVisibleExcel }) => {
 
-const DownloadExcel = ( ) => {
-    const [report, setReport] = useState([])
     const [modalIsVisible, setModalIsVisible] = useState(false)
     const [payingCompany, setPayingCompany] = useState([])
     const [companyCode, setCompanyCode] = useState()
+
     const history = useHistory()
     let params = {};
 
-    const getReport = async () => {
-        const { data } = await api.get('/reports?limit=7')
-        setReport(data.data)
-        console.log("data: ", data.data);
-    }
-    const ModalClick = () => {    
-        history.push('/reports')
-    };
-    const handleClicked = () => {
-        setModalIsVisible(true)
-        
-    }
-
-
     const download = async () => {
         try {
-            const { data } = await api.get(`/generateExcelPayment?companies_id=${companyCode}`, { responseType:'blob'})
+            const { data } = await api.get(`/generateExcelPayment?companies_id=${companyCode}`, { responseType: 'blob' })
             saveAs(data, 'Relatório de Pagamento') &&
-            toast.success(<DefaultToast text="Downlaod efetuado com sucesso!" />)   
+                toast.success(<DefaultToast text="Downlaod efetuado com sucesso!" />)
         } catch (error) {
-            console.error(error)
+
+            return toast.warn(<DefaultToast text={'Nenhum relatório para pagamento encontrado!'} />)
         }
     }
-    
+
     const getCompany = async () => {
         const { data } = await api({
             method: "GET",
@@ -61,38 +48,42 @@ const DownloadExcel = ( ) => {
         setPayingCompany(data.data);
     };
 
+    const handleClicked = () => {
+        setModalIsVisible(prev => !prev)
+        }
+
+    const ModalClick = () => {
+        setModalIsVisibleExcel(prev => !prev)
+    };
 
     useEffect(() => {
         getCompany();
-        getReport()
     }, []);
 
     return (
         <div>
             <ModalContainer>
-                    <ModalTitle>
-                        <Title>Selecione a empresa pagadora</Title>
-                    <CloseButtonCircle CloseButtonClickHandler={ModalClick} />
-                    </ModalTitle>
+                <ModalTitle>
+                    <Title>Selecione a empresa pagadora</Title>
+                    <CloseButtonCircle CloseButtonClickHandler={() => ModalClick()} />
+                </ModalTitle>
                 <ContainerInputsSelect>
                     <InputSelect
-                       onClick={(e) => setCompanyCode(e.target.value)}
+                        onClick={(e) => {
+                            setCompanyCode(e.target.value)
+                        }}
                         options={payingCompany}
                         placeHolder="Empresa Pagadora"
                         width="380px"
-                        label="Empresa Pagadora"    
+                        label="Empresa Pagadora"
                     />
                 </ContainerInputsSelect>
                 <ContainerButtons>
                     <CancelButton onClick={ModalClick}>Cancelar</CancelButton>
-                    <SaveButton onClick={() => {
-                        if (report?.status_payment === "Pronta para pagamento"){
-                            return toast.warn(<DefaultToast text={'Nenhum relatório para pagamento encontrado!'} />)
-                        }
-                        handleClicked()
-                        }}> Exportar</SaveButton>
+                    <SaveButton onClick={() => handleClicked()
+                    }> Exportar</SaveButton>
                     <>
-                    {modalIsVisible && (
+                        {modalIsVisible && (
                             <ModalRed
                                 redButtonClickHandler={() => {
                                     download()
@@ -102,7 +93,7 @@ const DownloadExcel = ( ) => {
                                 title="Exportação de Arquivo"
                                 message="Deseja realmente exportar arquivo?"
                             />
-                    )}</>     
+                        )}</>
                 </ContainerButtons>
             </ModalContainer>
             <ModalOverlay />
