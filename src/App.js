@@ -1,11 +1,10 @@
 import React from "react";
-import { Provider, useDispatch } from "react-redux";
+import { Provider } from "react-redux";
 import store from "../src/redux/store";
 import Routes from "./routes/index";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
 
 const App = () => {
   return (
