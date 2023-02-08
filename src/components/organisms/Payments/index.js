@@ -42,14 +42,14 @@ const Payments = ({
             onChange={(e) => setCompanyParams(e.target.value)}
             placeHolder="Empresa Pagadora"
             width="100%"
-            lineWidth="30%"
+            lineWidth="15em"
           />
           <InputSelect
             options={Status}
             onChange={(e) => setStatusParams(e.target.value)}
             placeHolder="Status"
             width="100%"
-            lineWidth="30%"
+            lineWidth="15em"
           />
           <InputWithLabel
             type="date"

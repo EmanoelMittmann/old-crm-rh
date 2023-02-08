@@ -200,7 +200,7 @@ const ModalColors = () => {
               onChange={(e) => setSelectedOption(e.target.value)}
               placeholder="Color"
               width="100%"
-              lineWidth="85%"
+              lineWidth="23em"
               options={state.statusColors}
             />
           )}

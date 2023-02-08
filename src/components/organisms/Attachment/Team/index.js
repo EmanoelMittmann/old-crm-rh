@@ -200,7 +200,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   return (
     <AttachmentContainer>
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
-      <SecondaryText margin="0 0 2.5em 0">Vicular Time</SecondaryText>
+      <SecondaryText margin="0 0 2.5em 0">Vincular Time</SecondaryText>
       <AttachmentForm>
         <InputSelectWithLabel
           onFocus={() =>
@@ -224,7 +224,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           options={jobsMember}
           placeHolder="Cargo"
           width="100%"
-          lineWidth="15%"
+          lineWidth="15em"
           label="Cargo"
           reset={reset}
         />

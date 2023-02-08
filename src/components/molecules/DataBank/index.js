@@ -53,7 +53,7 @@ const DataBank = ({data}) => {
             touched={touched?.bank}
             label="Banco"
             width="100%"
-            lineWidth="68%"
+            lineWidth="50em"
             name="bank"
           />
           <InputSelect
@@ -63,7 +63,7 @@ const DataBank = ({data}) => {
             placeHolder="Tipo da conta"
             padding="0em 2em 0 0em"
             width="100%"
-            lineWidth="30%"
+            lineWidth="32em"
             name="account_type"
           />
         </ContainerRow>
