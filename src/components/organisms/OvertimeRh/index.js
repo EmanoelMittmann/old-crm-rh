@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import InputSelect from "../../atoms/InputSelect";
 import InputWithLabel from "../../atoms/InputWithLabel";
 import HeaderOvertimeRh from "../../molecules/HeaderOvertimeRh";
@@ -24,9 +23,8 @@ const OvertimeRh = ({
   initialDate,
   setSearch,
   setStatusParams,
-  getHoursPending
+  getHoursPending,
 }) => {
-
 
   return (
     <Container>
@@ -35,11 +33,12 @@ const OvertimeRh = ({
           fnSearch={setSearch}
           placeholder="Buscar por profissional"
           width="100%"
+          
         >
           <InputSelect
             options={projects}
             onChange={(e) => setProjectParams(e.target.value)}
-            placeHolder="Projeto"
+            placeHolder="Projetos"
             width="100%"
             lineWidth="30%"
           />
@@ -48,7 +47,8 @@ const OvertimeRh = ({
             onChange={(e) => setStatusParams(e.target.value)}
             placeHolder="Status"
             width="100%"
-            lineWidth="30%"
+            lineWidth="40%"
+            label="Status"
           />
           <InputWithLabel
             type="date"
@@ -59,6 +59,7 @@ const OvertimeRh = ({
             widthContainer="30%"
             handleBlur={() => {}}
             name="initial_period"
+            
           />
           <InputWithLabel
             type="date"

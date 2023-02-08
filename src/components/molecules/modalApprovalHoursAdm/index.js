@@ -31,6 +31,7 @@ const ApprovalHoursAdm = ({ id, setModalIsVisibleRH, admApproveData, getHoursPen
     const [currentJustification, setCurrentJustification] = useState('')
     const [toAccept, setToAccept] = useState(true)
     const [modalIsVisible, setModalIsVisible] = useState(false)
+    
 
     const optionsApproval = [
         { name: 'Aceito', id: 'Aceito' },
@@ -44,6 +45,7 @@ const ApprovalHoursAdm = ({ id, setModalIsVisibleRH, admApproveData, getHoursPen
     const ClickHandler = () => {
         setModalIsVisibleRH(prev => !prev)
         getHoursPending()
+        
     };
 
     const handleApprovalHours = async () => {

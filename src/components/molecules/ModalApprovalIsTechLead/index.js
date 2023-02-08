@@ -28,7 +28,7 @@ import { Status } from '../../organisms/DetailsRelease/status';
 import ModalRed from '../ModalRed';
 import ModalGreen from '../ModalGreen';
 
-const ApprovalIsTechLead = ({ id, ClickHandlerTechLead, getOvertimesTechLead}) => {
+const ApprovalIsTechLead = ({ id, setModalIsVisibleTechLead, getOvertimesTechLead }) => {
     const [approveData, setApproveData] = useState();
     const [currentJustification, setCurrentJustification] = useState('')
     const [modalIsVisible, setModalIsVisible] = useState(false)
@@ -59,15 +59,20 @@ const handleApprovalHoursTechLead = async () => {
         justification: currentJustification,
 
       })
-          .then(() => ClickHandlerTechLead(), getOvertimesTechLead())
+          .then(() => handlerModalTechLead())
     }catch(err){
     console.error(err);
     }
     return;
 }
 
+    const handlerModal = () => {
+        setModalIsVisible(prev => !prev)
+    };
+
     const handlerModalTechLead = () => {
-        ClickHandlerTechLead()
+        getOvertimesTechLead()
+        setModalIsVisibleTechLead(prev => !prev)
     };
 
     useEffect(() => {
@@ -81,7 +86,7 @@ const handleApprovalHoursTechLead = async () => {
                     <ModalContainer key={index}>
                         <ModalTitle padding="1.6em">
                             <CloseButton
-                                CloseButtonClickHandler={() => ClickHandlerTechLead()} />
+                                CloseButtonClickHandler={() =>handlerModalTechLead()} />
                             Lançamento # {item.id}
                         </ModalTitle>
                     <ContainerAbsolute>
@@ -133,13 +138,11 @@ const handleApprovalHoursTechLead = async () => {
                     </ContainerAbsolute>
                     <ModalContainerButtons>
                         <CancelButton
-                                onClick={() => ClickHandlerTechLead()}>
+                                onClick={() => handlerModalTechLead()}>
                             Cancelar
                         </CancelButton>
                         <SaveButton
-                            onClick={() => {
-                                    handlerModalTechLead()
-                                }}>
+                                onClick={() => handlerModal()}>
                             Confirmar
                         </SaveButton>
                             {toAccept && modalIsVisible && (

@@ -19,6 +19,7 @@ const Overtime = () => {
   const [initialDate, setInitialDate] = useState("");
   const [finalDate, setFinalDate] = useState("");
 
+
   const params = new URLSearchParams()
 
   const sortByName = () => {
@@ -47,10 +48,10 @@ const Overtime = () => {
       params.append('status_id', statusParams);
     }
     if (projectParams !== "") {
-      params.append('project_id' ,projectParams);
+      params.append('project_id', projectParams);
     }
     if (initialDate !== "") {
-      params.append('date_start' ,initialDate);
+      params.append('date_start', initialDate);
     }
     if (finalDate !== "" && finalDate > "1000-01-01") {
       finalDate < initialDate
@@ -62,18 +63,19 @@ const Overtime = () => {
         ) : (params.append('date_end', finalDate));
     }
 
-    if (pagesFilter === "previous") params.append('page',dataMeta.current_page - 1)
+    if (pagesFilter === "previous") params.append('page', dataMeta.current_page - 1)
 
-    if (pagesFilter === "next") params.append('page',dataMeta.current_page + 1)
+    if (pagesFilter === "next") params.append('page', dataMeta.current_page + 1)
 
-    if (order !== "") params.append('order',order)
+    if (order !== "") params.append('order', order)
 
-    if(orderField !== "") params.append('orderField',orderField)
+    if (orderField !== "") params.append('orderField', orderField)
+  
   };
 
   const getHoursPending = async () => {
     try {
-      const { data } = await api.get(`/extrasHoursReleases/pending?limit=6`, {params});
+      const { data } = await api.get(`/extrasHoursReleases/pending?limit=6`, { params });
       setData(data.data);
       setDataMeta(data.meta);
     } catch (error) {
@@ -101,7 +103,7 @@ const Overtime = () => {
 
   useEffect(() => {
     getProject();
-    getStatus();
+   if(!status.length) getStatus();
     getHoursPending();
     handleFilterRequest();
   }, [order, orderField, search, statusParams, projectParams, initialDate, finalDate]);

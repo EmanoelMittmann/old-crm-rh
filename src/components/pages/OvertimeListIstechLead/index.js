@@ -183,7 +183,7 @@ const OvertimeListIsTechLead = () => {
       />
 
       <Height>
-        <OvertimeListTechnicalLeadApproval data={data} getOvertimesTechLead={getOvertimesTechLead} />
+        <OvertimeListTechnicalLeadApproval data={data} getOvertimesTechLead={getOvertimesTechLead}/>
       </Height>
 
       <Footer

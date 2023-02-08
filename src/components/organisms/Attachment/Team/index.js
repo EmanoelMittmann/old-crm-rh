@@ -178,6 +178,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     setOvertime('');
     setOnlyError('');
     setOnlyErrorTwo('');
+    setJobProject('')
     setReset(true);
   }
 
@@ -200,7 +201,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   return (
     <AttachmentContainer>
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
-      <SecondaryText margin="0 0 2.5em 0">Vicular Time</SecondaryText>
+      <SecondaryText margin="0 0 2.5em 0">Vincular Time</SecondaryText>
       <AttachmentForm>
         <InputSelectWithLabel
           onFocus={() =>

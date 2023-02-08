@@ -21,11 +21,11 @@ export const ContainerListing = styled.div`
     padding: 0em 1em 0 1em;
     min-height: 30em;
 `
-
 export const ContainerButtonExcel = styled.div`
     width: 95.6%;
     display:flex;
-    justify-content: flex-end;
+    align-items: end;
+    justify-content:end;
     position: absolute;
     margin-top: -4.3em;
 

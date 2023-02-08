@@ -12,8 +12,8 @@ import {
 } from "../components/atoms/icons/NavIcons";
 import { ReactComponent as Invoice } from "../assets/icons/invoice.svg";
 import { ReactComponent as Overtime } from "../assets/icons/overtime.svg";
+import { useState } from "react";
 import DownloadExcel from "../components/organisms/Download/DownloadExcel";
-
 
 export const templates = [
 
@@ -72,7 +72,7 @@ export const templates = [
     name: "Pagamentos",
     hasButton: false,
     buttonText: "Exportar Excel",
-    buttonPath: '',
+    buttonPath: "" ,
     icon: <ReportsIcon />,
     isRegisterPage: false,
     path: "/reports",
@@ -182,3 +182,4 @@ export const noTemplate = {
   icon: <></>,
   isRegisterPage: true,
 };
+
