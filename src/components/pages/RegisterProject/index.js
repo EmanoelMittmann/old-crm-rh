@@ -31,6 +31,7 @@ const RegisterProject = (props) => {
 
   const schema = Yup.object().shape({
     name: Yup.string().required(messages.required),
+    project_type_id: Yup.string().required(messages.required),
     date_start: Yup.string()
       .test('Data válida', 'Insira uma data menor que a data final', () =>
         validDate()
@@ -60,10 +61,9 @@ const RegisterProject = (props) => {
         return true;
       }
     ),
-    project_status_id: Yup.number().required(messages.required),
-    project_type_id: Yup.number().required(messages.required),
     team_cost: Yup.string(),
     id: Yup.number().required(messages.required),
+    project_status_id: Yup.string().required(messages.required)
   });
 
   const formik = useFormik({
@@ -72,13 +72,12 @@ const RegisterProject = (props) => {
       date_start: '',
       date_end: '',
       date_end_performed: '',
-      project_status_id: 0,
-      project_type_id: 0,
+      project_status_id: '',
+      project_type_id:'',
       team_cost: '',
       id: '',
       date_start_performed: '',
     },
-
     onSubmit: async (values) => {
       if (id) {
         delete values.users;

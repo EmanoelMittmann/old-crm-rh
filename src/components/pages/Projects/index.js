@@ -6,6 +6,7 @@ import { Container } from "../../atoms/Container";
 import { SearchSection } from "../../molecules/SearchSection";
 import ProjectsListItem from "../../organisms/ProjectsListItem";
 import Footer from "../../organisms/Footer";
+import { useRef } from "react";
 
 const Projects = () => {
   const [data, setData] = useState([]);
@@ -18,6 +19,7 @@ const Projects = () => {
   const [order, setOrder] = useState({ order: "", field: "" });
   const params = {};
 
+  
   const handleFilterRequest = (pagesFilter) => {
     if (search !== "") {
       params.search = search;

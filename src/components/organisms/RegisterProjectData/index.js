@@ -61,6 +61,8 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         onChange={handleChange('project_type_id')}
                         options={typeOptions}
                         placeHolder="Tipo de projeto"
+                        error={errors.project_type_id}
+                        touched={touched.project_type_id}
                         width="100%"
                         lineWidth="20em"
                         label="Tipo de Projeto"
@@ -102,6 +104,8 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         onChange={handleChange('project_status_id')}
                         options={statusOptions}
                         placeHolder="Status do projeto"
+                        error={errors.project_status_id}
+                        touched={touched.project_status_id}
                         width="100%"
                         lineWidth="21em"
                         />

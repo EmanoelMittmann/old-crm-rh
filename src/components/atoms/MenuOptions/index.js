@@ -1,7 +1,7 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { MenuOptionsContainer, OptionsMenu, OptionsMenuItem } from "./style.js";
 
-const MenuOptions = ({
+const MenuOptions = forwardRef(({
   id,
   firstChosenOption,
   firstOptionDescription,
@@ -12,10 +12,10 @@ const MenuOptions = ({
   thirdChosenOption,
   thirdOptionDescription,
   height
-}) => {
+},ref) => {
   return (
-    <MenuOptionsContainer>
-      <OptionsMenu positionMenu={positionMenu} height={height}> 
+    <MenuOptionsContainer >
+      <OptionsMenu positionMenu={positionMenu} height={height} ref={ref}> 
         <OptionsMenuItem
           padding={padding}
           onClick={() => firstChosenOption(id)}
@@ -33,6 +33,6 @@ const MenuOptions = ({
       </OptionsMenu>
     </MenuOptionsContainer>
   );
-};
+}) 
 
 export default MenuOptions;
