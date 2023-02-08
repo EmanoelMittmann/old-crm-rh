@@ -34,7 +34,7 @@ export function OvertimeByPeriod({ data, options }) {
           onChange={handleChange('project_id')}
           options={options}
           placeHolder="Projeto"
-          lineWidth="25%"
+          lineWidth="15em"
         />
         <InputWithLabel
           name="hour_quantity"

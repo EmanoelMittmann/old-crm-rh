@@ -55,6 +55,7 @@ const OvertimeListProfessional = () => {
   };
 
   const getProjects = async () => {
+        handleFilterRequest()
     try {
       const { data } = await api({
         method: 'get',
@@ -140,7 +141,6 @@ const OvertimeListProfessional = () => {
   useEffect(() => {
     getProjects()
     getStatus()
-    handleFilterRequest()
     getOvertimes()
   }, [search, order, statusParams, projectParams, initialDate, finalDate])
 
@@ -161,14 +161,14 @@ const OvertimeListProfessional = () => {
             onChange={e => setProjectParams(e.target.value)}
             placeHolder="Projeto"
             width="100%"
-            lineWidth="30%"
+            lineWidth="15em"
           />
           <InputSelect
             options={status}
             onChange={e => setStatusParams(e.target.value)}
             placeHolder="Status"
             width="100%"
-            lineWidth="30%"
+            lineWidth="15em"
           />
           <InputWithLabel
             type="date"

@@ -8,8 +8,8 @@ import Shelf from "./shelf";
 import { Container, ContainerListing, ContainerSearch } from "./style";
 
 const OvertimeRh = ({
-  projects,
-  status,
+  allOptionsProjects,
+  allOptionsStatus,
   sortByName,
   data,
   dataMeta,
@@ -36,14 +36,14 @@ const OvertimeRh = ({
           
         >
           <InputSelect
-            options={projects}
+            options={allOptionsProjects}
             onChange={(e) => setProjectParams(e.target.value)}
             placeHolder="Projetos"
             width="100%"
             lineWidth="15em"
           />
           <InputSelect
-            options={status}
+            options={allOptionsStatus}
             onChange={(e) => setStatusParams(e.target.value)}
             placeHolder="Status"
             width="100%"
@@ -84,9 +84,9 @@ const OvertimeRh = ({
         </div>
       </ContainerListing>
       <Footer
-        currentPage={dataMeta.current_page}
-        firstPage={dataMeta.first_page}
-        lastPage={dataMeta.last_page}
+        currentPage={dataMeta?.current_page}
+        firstPage={dataMeta?.first_page}
+        lastPage={dataMeta?.last_page}
         nextPage={() => next()}
         previousPage={() => prev()}
         height='5em'

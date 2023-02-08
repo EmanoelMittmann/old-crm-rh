@@ -30,6 +30,7 @@ const OvertimeListIsTechLead = () => {
   };
 
   const getOvertimesTechLead = async () => {
+    handleFilterRequest()
     await api({
       method: "get",
       url: `/extrasHoursReleases/pending`,
@@ -127,7 +128,6 @@ const OvertimeListIsTechLead = () => {
   useEffect(() => {
     getProjects();
     getStatus();
-    handleFilterRequest();
     getOvertimesTechLead();
   }, [search, statusParams, projectParams, initialDate, order, finalDate]);
 
@@ -144,14 +144,14 @@ const OvertimeListIsTechLead = () => {
             onChange={(e) => setProjectParams(e.target.value)}
             placeHolder="Projeto"
             width="100%"
-            lineWidth="30%"
+            lineWidth="15em"
           />
           <InputSelect
             options={statusProject}
             onChange={(e) => setStatusParams(e.target.value)}
             placeHolder="Status"
             width="100%"
-            lineWidth="30%"
+            lineWidth="15em"
           />
           <InputWithLabel
             type="date"

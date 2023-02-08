@@ -74,6 +74,7 @@ const Overtime = () => {
   };
 
   const getHoursPending = async () => {
+    handleFilterRequest()
     try {
       const { data } = await api.get(`/extrasHoursReleases/pending?limit=6`, { params });
       setData(data.data);
@@ -85,35 +86,35 @@ const Overtime = () => {
   const getProject = async () => {
     try {
       const { data } = await api.get("/project");
-      data.data.push({ id: '', name: 'Todos' });
       setProjects(data.data);
     } catch (error) {
       console.error(error);
     }
   };
-  const getStatus = async () => {
+  const allOptionsProjects = [...projects, { id: "", name: 'Todos' }];
+  
+  const getStatusHours = async () => {
     try {
       const { data } = await api.get("/extraHoursStatus");
-      data.data.push({ id: '', name: 'Todos' });
       setStatus(data.data);
     } catch (error) {
       console.error(error);
     }
   };
+const allOptionsStatus = [...status, {id:"", name : 'Todos'}];
 
   useEffect(() => {
     getProject();
-   if(!status.length) getStatus();
+    if (!status.length) getStatusHours();
     getHoursPending();
-    handleFilterRequest();
   }, [order, orderField, search, statusParams, projectParams, initialDate, finalDate]);
 
 
   return (
     <>
       <OvertimeRh
-        projects={projects}
-        status={status}
+        allOptionsProjects={allOptionsProjects}
+        allOptionsStatus={allOptionsStatus}
         sortByName={sortByName}
         data={data}
         dataMeta={dataMeta}
