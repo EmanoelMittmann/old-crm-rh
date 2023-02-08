@@ -225,7 +225,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           options={jobsMember}
           placeHolder="Cargo"
           width="100%"
-          lineWidth="15%"
+          lineWidth="15em"
           label="Cargo"
           reset={reset}
         />

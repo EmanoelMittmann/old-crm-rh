@@ -8,6 +8,7 @@ import {
   InputSelectOption,
   InputSelectOptionPlaceholder,
 } from './style.js';
+import { ErrorMessage, Father } from '../InputSelectUf/style';
 
 const InputSelect = ({
   onChange,
@@ -27,8 +28,8 @@ const InputSelect = ({
   };
 
   return (
-    <>
-      <InputLine width={lineWidth} margin={margin}>
+    <Father width={width}>
+      <InputLine width={lineWidth} margin={margin} error={error && touched}>
         <InputSelectContainer
           {...attributeValue}
           width={width}
@@ -50,7 +51,8 @@ const InputSelect = ({
         </InputSelectContainer>
         <Img src={arrowPointingDown} alt="Lupa" />
       </InputLine>
-    </>
+      {error && touched && <ErrorMessage>{error}</ErrorMessage>}
+    </Father>
   );
 };
 

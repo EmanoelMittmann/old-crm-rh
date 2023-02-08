@@ -62,7 +62,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         options={typeOptions}
                         placeHolder="Tipo de projeto"
                         width="100%"
-                        lineWidth="100%"
+                        lineWidth="20em"
                         label="Tipo de Projeto"
                     />
                     </ContainerSecondRow>
@@ -103,7 +103,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         options={statusOptions}
                         placeHolder="Status do projeto"
                         width="100%"
-                        lineWidth="100%"
+                        lineWidth="21em"
                         />
                     <InputMasked
                         mask={team_cost_mask}
