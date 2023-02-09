@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-    width: 90%;
+    width: 91.5%;
     min-height: 75vh;
     background-color: white;
     margin: auto;
@@ -20,4 +20,13 @@ export const ContainerListing = styled.div`
     width: 100%;
     padding: 0em 1em 0 1em;
     min-height: 30em;
+`
+export const ContainerButtonExcel = styled.div`
+    width: 95.6%;
+    display:flex;
+    align-items: end;
+    justify-content:end;
+    position: absolute;
+    margin-top: -4.3em;
+
 `

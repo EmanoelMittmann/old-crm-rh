@@ -15,7 +15,6 @@ import MenuOptions from "../../../atoms/MenuOptions";
 import { useState } from "react";
 import {formatDate } from '../../../utils/formatDate'
 import { formatCnpj } from "../../../utils/formatCnpj";
-import { useHistory } from "react-router-dom";
 import DetailsReports from "../../DetailsReports";
 
 const Shelf = ({ data,uploads }) => {
@@ -23,12 +22,12 @@ const Shelf = ({ data,uploads }) => {
   const [menuOptions, setMenuOptions] = useState(false);
   const [optionClicked, setOptionClicked] = useState();
   const [detailVisibled, setdetaisVisibled] = useState(false)
-
+  
   const viewDetails = () => {
     setdetaisVisibled(true)
     setMenuOptions(prev=>!prev)
   };
-
+  
   const colors =
     data.status_payment === "Pago"
       ? "#1ECB4F"
@@ -49,6 +48,7 @@ const Shelf = ({ data,uploads }) => {
 
   return (
     <>
+
       {detailVisibled && (
         <DetailsReports 
         id={data.id}

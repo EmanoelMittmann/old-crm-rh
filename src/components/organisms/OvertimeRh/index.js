@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import InputSelect from "../../atoms/InputSelect";
 import InputWithLabel from "../../atoms/InputWithLabel";
 import HeaderOvertimeRh from "../../molecules/HeaderOvertimeRh";
@@ -9,8 +8,8 @@ import Shelf from "./shelf";
 import { Container, ContainerListing, ContainerSearch } from "./style";
 
 const OvertimeRh = ({
-  projects,
-  status,
+  allOptionsProjects,
+  allOptionsStatus,
   sortByName,
   data,
   dataMeta,
@@ -24,9 +23,8 @@ const OvertimeRh = ({
   initialDate,
   setSearch,
   setStatusParams,
-  getHoursPending
+  getHoursPending,
 }) => {
-
 
   return (
     <Container>
@@ -35,16 +33,17 @@ const OvertimeRh = ({
           fnSearch={setSearch}
           placeholder="Buscar por profissional"
           width="100%"
+          
         >
           <InputSelect
-            options={projects}
+            options={allOptionsProjects}
             onChange={(e) => setProjectParams(e.target.value)}
-            placeHolder="Projeto"
+            placeHolder="Projetos"
             width="100%"
             lineWidth="15em"
           />
           <InputSelect
-            options={status}
+            options={allOptionsStatus}
             onChange={(e) => setStatusParams(e.target.value)}
             placeHolder="Status"
             width="100%"
@@ -59,6 +58,7 @@ const OvertimeRh = ({
             widthContainer="30%"
             handleBlur={() => {}}
             name="initial_period"
+            
           />
           <InputWithLabel
             type="date"
@@ -84,9 +84,9 @@ const OvertimeRh = ({
         </div>
       </ContainerListing>
       <Footer
-        currentPage={dataMeta.current_page}
-        firstPage={dataMeta.first_page}
-        lastPage={dataMeta.last_page}
+        currentPage={dataMeta?.current_page}
+        firstPage={dataMeta?.first_page}
+        lastPage={dataMeta?.last_page}
         nextPage={() => next()}
         previousPage={() => prev()}
         height='5em'

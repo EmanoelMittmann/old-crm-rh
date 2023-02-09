@@ -5,8 +5,12 @@ import InputWithLabel from "../../atoms/InputWithLabel";
 import HeaderPayments from "../../molecules/HeaderPayments";
 import Footer from "../Footer";
 import Shelf from "./shelf";
-import { Container, ContainerListing, ContainerSearch } from "./style";
+import { Container, ContainerButtonExcel, ContainerListing, ContainerSearch } from "./style";
 import { Status } from "../../pages/Reports/Status";
+import DownloadExcel from "../Download/DownloadExcel";
+import DarkButton from "../../atoms/Buttons/DarkButton/style";
+import { useState } from "react";
+
 
 const Payments = ({
   reports,
@@ -25,10 +29,33 @@ const Payments = ({
   setFinalPeriod,
   setStatusParams,
   uploads,
+  payingCompany,
+  download,
 }) => {
+  const [modalIsVisibleExcel, setModalIsVisibleExcel] = useState(false)
+
+  const handleDownload = () =>{
+    setModalIsVisibleExcel(prev => !prev)
+  }
   return (
     <>
       <Container>
+        {modalIsVisibleExcel && 
+        <DownloadExcel 
+          payingCompany={payingCompany}
+          setModalIsVisibleExcel={setModalIsVisibleExcel}
+          download={download}
+          />}
+        <ContainerButtonExcel>
+          <DarkButton
+            onClick={() => handleDownload()}
+            width="145px"
+            height="44px"
+            margin="0 5% 0 0"
+          >
+            Exportar Excel
+          </DarkButton>
+        </ContainerButtonExcel>
         <ContainerSearch>
           <InputText
             value={search}
@@ -58,7 +85,7 @@ const Payments = ({
             width="100%"
             value={initialPeriod}
             widthContainer="30%"
-            handleBlur={() => {}}
+            handleBlur={() => { }}
             name="initial_period"
           />
           <InputWithLabel
@@ -68,17 +95,18 @@ const Payments = ({
             width="100%"
             value={finalPeriod}
             widthContainer="30%"
-            handleBlur={() => {}}
+            handleBlur={() => { }}
             name="initial_period"
           />
         </ContainerSearch>
         <ContainerListing>
+
           <HeaderPayments
             sortByName={sortByName}
             setOrderField={setOrderField}
           />
           {reports?.map((item) => (
-            <Shelf data={item} uploads={uploads}/>
+            <Shelf data={item} uploads={uploads} />
           ))}
         </ContainerListing>
         <Footer
