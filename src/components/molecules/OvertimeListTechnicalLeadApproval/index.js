@@ -14,11 +14,13 @@ import { Badge } from "../../molecules/ProfessionalsListItem/style";
 import ApprovalIsTechLead from "../ModalApprovalIsTechLead";
 
 
-export function OvertimeListTechnicalLeadApproval({ data, approveData, getOvertimesTechLead }) {
+export function OvertimeListTechnicalLeadApproval({ data, approveData, getApproveHoursTechLead, getOvertimesTechLead }) {
   const [modalIsVisibleTechLead, setModalIsVisibleTechLead] = useState(false)
   const [idProfessional, setIdProfessional] = useState("0")
+
+
   const ClickHandlerTechLead = () => {
-    return setModalIsVisibleTechLead(prev => !prev)
+    setModalIsVisibleTechLead(prev => !prev)
   }
 
   return data ? (
@@ -27,8 +29,9 @@ export function OvertimeListTechnicalLeadApproval({ data, approveData, getOverti
         <ApprovalIsTechLead
           id={idProfessional}
           approveData={approveData}
+          getApproveHoursTechLead={getApproveHoursTechLead}
           getOvertimesTechLead={getOvertimesTechLead}
-          ClickHandlerTechLead={ClickHandlerTechLead} />
+          setModalIsVisibleTechLead={setModalIsVisibleTechLead} />
       )}
       {data.map((values, index) => (
         <Main key={index} margin='1.5em 0 0 0em' padding='0em 0 0 2em'>

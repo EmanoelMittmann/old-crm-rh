@@ -178,6 +178,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     setOvertime('');
     setOnlyError('');
     setOnlyErrorTwo('');
+    setJobProject('')
     setReset(true);
   }
 
