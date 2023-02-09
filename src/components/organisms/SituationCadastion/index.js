@@ -22,7 +22,8 @@ export const SituationCadastion = ({ data, disabled }) => {
             placeHolder="Situação Cadastral"
             name="Situação Cadastral"
             handleBlur={setFieldTouched}
-            width="270px"
+            width="300px"
+            lineWidth='90%'
           />
           <InputWithLabel
             value={values.date_of_registration_status}
@@ -33,8 +34,8 @@ export const SituationCadastion = ({ data, disabled }) => {
             label="Data da Situação Cadastral"
             type='date'
             disabled={disabled}
-            width="100%"
-            widthContainer="35%"
+            width="95%"
+            widthContainer="45%"
             handleBlur={setFieldTouched}
           />
 
@@ -72,9 +73,9 @@ export const SituationCadastion = ({ data, disabled }) => {
             onChange={handleChange('special_situation')}
             error={errors.special_situation}
             touched={touched.special_situation}
-            width="95%"
+            width="97%"
             disabled={disabled}
-            widthContainer="90%"
+            widthContainer="100%"
             handleBlur={setFieldTouched}
             name="special_situation"
           />
@@ -86,7 +87,7 @@ export const SituationCadastion = ({ data, disabled }) => {
             placeholder="Data da Situação Especial"
             width="40%"
             disabled={disabled}
-            widthContainer="30%"
+            widthContainer="35%"
             handleBlur={setFieldTouched}
           />
         </ContainerRow>

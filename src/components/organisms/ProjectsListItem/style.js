@@ -50,10 +50,10 @@ export const ProjectListOptions = styled.div`
 
 export const ContainerIconOptions = styled.div`
   padding: ${(props) => (props.padding ? props.padding : "1em")};
-  cursor: pointer;
-
+  
   svg {
     fill: ${(props) => props.optionsColor};
+    cursor: pointer;
   }
 `;
 

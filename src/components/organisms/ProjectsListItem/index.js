@@ -30,8 +30,8 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
   const [teamModalIsVisible, setTeamModalIsVisible] = useState(false);
   const modalRef = useRef();
 
-  const menuOptionsClicked = (projectId, statusId, e) => {
-    setMenuOptionsIsVisible(!menuOptionsIsVisible);
+  const menuOptionsClicked = (projectId, statusId) => {
+    setMenuOptionsIsVisible(!menuOptionsIsVisible)
     setIdProjectClicked(projectId);
     setIdProjectStatusClicked(statusId);
   };
@@ -62,16 +62,15 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
 
   const handlerOutside = (e) => {
     if(modalRef.current && !modalRef.current.contains(e.target)) {
-      setMenuOptionsIsVisible(!menuOptionsIsVisible);
+      menuOptionsClicked();
     }
   }
   useEffect(() => {
     document.addEventListener("mousedown", handlerOutside);
-
     return() => {
       document.removeEventListener('mousedown',handlerOutside)
     }
-  });
+  },[]);
 
   if (!data) {
     return (
@@ -124,11 +123,10 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
               }
             >
               <ContainerIconOptions
-                onClick={() =>
-                  menuOptionsClicked(project.id, project.project_status_id)
-                }
               >
-                <OptionsIcon />
+                <OptionsIcon onClick={() =>
+                  menuOptionsClicked(project.id, project.project_status_id)
+                }/>
               </ContainerIconOptions>
                 {menuOptionsIsVisible && project.id === idProjectClicked && (
                   <MenuOptions
