@@ -10,15 +10,14 @@ import RegisterFooter from '../../molecules/RegisterFooter/index.js';
 import ModalRed from '../../molecules/ModalRed/index.js';
 import RegisterProjectData from '../../organisms/RegisterProjectData';
 import AttachmentTeam from '../../organisms/Attachment/Team';
-import { RegisterProjectTitleContainer } from './style.js';
+import { ContainerProjectData, RegisterProjectContainer, RegisterProjectTitleContainer } from './style.js';
 import { messages } from '../../../settings/YupValidates.js';
 import { formatFirstLetter } from '../../utils/formatFirstLetter.js';
 import { getDate } from '../../utils/getDate.js';
 import { DefaultToast } from '../../atoms/Toast/DefaultToast.js';
 import { toast } from 'react-toastify';
-import { Container } from '../../atoms/Container/index.js';
 
-const RegisterProject = (props) => {
+const RegisterProject = () => {
   const history = useHistory();
   const [typeOptions, setTypeOptions] = useState([]);
   const [statusOptions, setStatusOptions] = useState([]);
@@ -63,7 +62,7 @@ const RegisterProject = (props) => {
     project_status_id: Yup.number().required(messages.required),
     project_type_id: Yup.number().required(messages.required),
     team_cost: Yup.string(),
-    id: Yup.number().required(messages.required),
+    id: Yup.string().required(messages.required),
   });
 
   const formik = useFormik({
@@ -342,7 +341,8 @@ const RegisterProject = (props) => {
         <SectionTitle>{id ? 'Edição de projeto' : 'Novo Projeto'}</SectionTitle>
       </RegisterProjectTitleContainer>
 
-      <Container>
+      <RegisterProjectContainer>
+        <ContainerProjectData>
         <form id="register" onSubmit={formik.handleSubmit}>
           <RegisterProjectData
             data={formik}
@@ -358,7 +358,9 @@ const RegisterProject = (props) => {
           type="submit"
           form="register"
         />
-      </Container>
+        </ContainerProjectData>
+      </RegisterProjectContainer>
+
     </>
   );
 };

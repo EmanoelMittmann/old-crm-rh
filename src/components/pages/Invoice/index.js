@@ -111,10 +111,10 @@ const Invoice = () => {
   return (
     <Container>
       <SearchSection fnSearch={setSearch}>
-        <InputWithLabel
+        <InputDate 
           placeholder="Período inicial" 
           onChange={(e) => setInitialDate(e.target.value)} 
-          value={initialDate}
+          date={initialDate}
         />
         <InputDate 
           placeholder="Período final" 

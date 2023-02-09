@@ -15,29 +15,29 @@ export const ListHeaderName = styled.div`
 export const ListHeaderJob = styled.div`
     display: flex;
     align-items: center;
-    width: 21%;
-    padding-left: 4em;
+    width: 15%;
+    padding-left: 5em;
 `
 
 export const ListHeaderEmail = styled.div`
     display: flex;
     align-items: center;
     width: 26%;
-    padding-left: 3.5em;
+    padding-left: 4em;
 `
 
 export const ListHeaderPhoneNumbers = styled.div`
     display: flex;
     align-items: center;
     width: 15%;
-    padding-left: 4em;
+    padding-left: 2.5em;
 `
 
 export const ListHeaderPlace = styled.div`
     display: flex;
     align-items: center;
     width: 20%;
-    padding-left: 4.5em;
+    padding-left: 2em;
 `
 
 export const ListHeaderStatus = styled.div`

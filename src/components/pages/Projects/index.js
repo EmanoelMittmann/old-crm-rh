@@ -66,15 +66,15 @@ const Projects = () => {
   const sortByField = (field) => {
     order.order === ""
       ? setOrder({
-          order: "desc",
-          orderField: field,
-        })
+        order: "desc",
+        orderField: field,
+      })
       : order.order === "desc"
-      ? setOrder({
+        ? setOrder({
           order: "asc",
           orderField: field,
         })
-      : setOrder({
+        : setOrder({
           order: "desc",
           orderField: field,
         });
@@ -85,7 +85,7 @@ const Projects = () => {
       method: "get",
       url: `/projectType`,
     });
-    data.data.push({id:'',name: "Todos" });
+    data.data.push({ id: '', name: "Todos" });
     setTypesOptions(data.data);
   };
 
@@ -96,7 +96,7 @@ const Projects = () => {
     });
     setStatusOptions(data.data);
   };
-  const allOptions = [...statusOptions, { id: '' ,name: "Todos" }];
+  const allOptions = [...statusOptions, { id: '', name: "Todos" }];
 
   useEffect(() => {
     getProjects();

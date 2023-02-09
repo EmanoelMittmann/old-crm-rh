@@ -15,3 +15,6 @@ export const InvoiceSectionContainer = styled.section`
 export const ContainerMainContent = styled.div`
     padding: 1.5em 1.5em 0 1.5em;
 `
+export const ContainerAbsolute = styled.div`
+  height: 350px;
+`

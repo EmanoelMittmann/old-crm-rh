@@ -6,6 +6,7 @@ import ListHeaderInvoice from '../../molecules/ListHeaderInvoice'
 import ListHeaderHoursExtra from '../../molecules/ListHeaderInvoice'
 import ListItem from '../../molecules/ListItem'
 import Footer from '../../organisms/Footer'
+import { ContainerAbsolute } from '../../pages/Invoice/style'
 
 const admin = [
   {
@@ -64,11 +65,12 @@ function InvoiceList({ data, meta, nextPage, previousPage, sortById, fnDownload 
   return ( 
     <>
     <ListHeaderInvoice/>
-
-      <ListItem 
-        data={data}
-        downloadFile={fnDownload}
-      />
+    <ContainerAbsolute>
+        <ListItem
+          data={data}
+          downloadFile={fnDownload}
+        />
+    </ContainerAbsolute>
       <Footer
         previousPage={previousPage}
         nextPage={nextPage}

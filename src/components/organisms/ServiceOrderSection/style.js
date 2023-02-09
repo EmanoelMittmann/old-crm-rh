@@ -1,21 +1,30 @@
 import styled from "styled-components"
 
 export const ContainerServiceOrdersStyle = styled.section`
-    padding: 1.5em 1.5em 0 1.5em;
-    width: 91.2%;
-    min-height: 70vh;
+    width: 91.5%;
     background-color: white;
+    margin: 0 auto;
     border-radius: 20px;
+    padding: 2.5em 0 0.5em 0;
+    min-height: 70vh;
 
-    @media(min-width:1000px){
-        width:95%;
+
+    .techlead{
+        border-top: #CCD1D6 solid 1px;
     }
+`
+export const ContainerServiceOrder = styled.section`
+    width: 98%;
+    max-height: 125vh;
+    margin-left:1em;
+
+
 `
 export const ContainerListItemServ = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    height: 65px;
+    height: 50px;
 `
 export const ContainerListItemO_S = styled.div`
     display: flex;
@@ -25,5 +34,5 @@ export const ContainerListItemO_S = styled.div`
 
 
 export const ContainerHeight = styled.div`
-    height: 640px;
+    height: 630px;
     `
