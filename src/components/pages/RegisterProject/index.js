@@ -62,6 +62,7 @@ const RegisterProject = () => {
     ),
     team_cost: Yup.string(),
     id: Yup.number().required(messages.required),
+    project_status_id:Yup.string().required(messages.required)
   });
 
   const formik = useFormik({

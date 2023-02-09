@@ -66,8 +66,6 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         width="100%"
                         lineWidth="20em"
                         label="Tipo de Projeto"
-                        error={errors.project_type_id}
-                        touched={touched.project_type_id}
                         handleBlur={setFieldTouched}
                     />
                     </ContainerSecondRow>
@@ -111,6 +109,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         touched={touched.project_status_id}
                         width="100%"
                         lineWidth="21em"
+                        handleBlur={setFieldTouched}
                         />
                     <InputMasked
                         mask={team_cost_mask}
