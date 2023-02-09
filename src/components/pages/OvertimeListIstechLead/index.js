@@ -126,9 +126,9 @@ const OvertimeListIsTechLead = () => {
   };
 
   useEffect(() => {
+    getOvertimesTechLead();
     getProjects();
     getStatus();
-    getOvertimesTechLead();
   }, [search, statusParams, projectParams, initialDate, order, finalDate]);
 
   return (
@@ -188,13 +188,12 @@ const OvertimeListIsTechLead = () => {
 
       <Footer
         height="5em"
-        border={"1px solid #CCD1D6"}
         previousPage={previousPage}
         nextPage={nextPage}
         sortById={sortByField}
-        currentPage={meta?.current_page}
-        firstPage={meta?.first_page}
-        lastPage={meta?.last_page}
+        currentPage={meta.current_page}
+        firstPage={meta.first_page}
+        lastPage={meta.last_page}
       />
     </Container>
   );
