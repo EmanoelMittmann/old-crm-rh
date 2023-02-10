@@ -14,5 +14,5 @@ export const StyleIsTechLead = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   top:6em;
-  margin-left: -3em;
+  margin-left: -3.5em;
 `

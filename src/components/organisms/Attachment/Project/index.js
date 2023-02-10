@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import { useParams } from "react-router-dom";
-
 import { AttachmentContainer, AttachmentForm } from "../style";
-
 import { formatDate } from "../../../utils/formatDate";
 import { checkArraysDifference } from "../../../utils/checkArraysDifference";
-
 import Table from "../../../atoms/Table";
 import { BlueButton } from "../../../atoms/Buttons/BlueButton/style.js";
 import InputSelectWithLabel from "../../../atoms/InputSelectWithLabel";
@@ -281,7 +278,6 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
   return (
     <AttachmentContainer>
       <SecondaryText margin="0 0 2.5em 0">Vincular Projetos</SecondaryText>
-
       <AttachmentForm>
         <InputSelectWithLabel
           setSelectedOption={(e) => setProjectSelected(e.target.value)}

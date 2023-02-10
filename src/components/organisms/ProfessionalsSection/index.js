@@ -8,6 +8,7 @@ import ProfessionalsListHeader from "../../atoms/ProfessionalsListHeader";
 import ProfessionalsListItem from "../../molecules/ProfessionalsListItem";
 import LoadingCircle from "../../atoms/LoadingCircle";
 import { Container } from "../../atoms/Container";
+import { ContainerAbsolute } from './style';
 
 const ProfessionalsSection = () => {
   const location = useLocation();
@@ -48,6 +49,7 @@ const ProfessionalsSection = () => {
   };
 
   const getProfessionals = async () => {
+    handleFilterRequest()
     const { data } = await api({
       method: "get",
       url: `/professionals/?limit=5`,
@@ -59,7 +61,6 @@ const ProfessionalsSection = () => {
   };
 
   useEffect(() => {
-    handleFilterRequest();
     getProfessionals();
     location.state && setProfessionals(location.state.professionals.data);
   }, [searchResult, jobSelected, order]);
@@ -83,6 +84,7 @@ const ProfessionalsSection = () => {
       <ProfessionalsListHeader sortByName={sortByName} />
       {professionals[0] ? (
         <>
+          <ContainerAbsolute>
           {professionals.map((professional) => {
             return (
               <ProfessionalsListItem
@@ -92,6 +94,7 @@ const ProfessionalsSection = () => {
               />
             );
           })}
+          </ContainerAbsolute>
           <Footer
             previousPage={previousPage}
             nextPage={nextPage}

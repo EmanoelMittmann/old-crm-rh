@@ -10,15 +10,14 @@ import RegisterFooter from '../../molecules/RegisterFooter/index.js';
 import ModalRed from '../../molecules/ModalRed/index.js';
 import RegisterProjectData from '../../organisms/RegisterProjectData';
 import AttachmentTeam from '../../organisms/Attachment/Team';
-import { RegisterProjectTitleContainer } from './style.js';
+import { ContainerProjectData, RegisterProjectContainer, RegisterProjectTitleContainer } from './style.js';
 import { messages } from '../../../settings/YupValidates.js';
 import { formatFirstLetter } from '../../utils/formatFirstLetter.js';
 import { getDate } from '../../utils/getDate.js';
 import { DefaultToast } from '../../atoms/Toast/DefaultToast.js';
 import { toast } from 'react-toastify';
-import { Container } from '../../atoms/Container/index.js';
 
-const RegisterProject = (props) => {
+const RegisterProject = () => {
   const history = useHistory();
   const [typeOptions, setTypeOptions] = useState([]);
   const [statusOptions, setStatusOptions] = useState([]);
@@ -31,6 +30,7 @@ const RegisterProject = (props) => {
 
   const schema = Yup.object().shape({
     name: Yup.string().required(messages.required),
+    project_type_id: Yup.string().required(messages.required),
     date_start: Yup.string()
       .test('Data válida', 'Insira uma data menor que a data final', () =>
         validDate()
@@ -60,10 +60,9 @@ const RegisterProject = (props) => {
         return true;
       }
     ),
-    project_status_id: Yup.number().required(messages.required),
-    project_type_id: Yup.number().required(messages.required),
     team_cost: Yup.string(),
     id: Yup.number().required(messages.required),
+    project_status_id:Yup.string().required(messages.required)
   });
 
   const formik = useFormik({
@@ -72,13 +71,12 @@ const RegisterProject = (props) => {
       date_start: '',
       date_end: '',
       date_end_performed: '',
-      project_status_id: 0,
-      project_type_id: 0,
+      project_status_id: '',
+      project_type_id:'',
       team_cost: '',
       id: '',
       date_start_performed: '',
     },
-
     onSubmit: async (values) => {
       if (id) {
         delete values.users;
@@ -342,7 +340,8 @@ const RegisterProject = (props) => {
         <SectionTitle>{id ? 'Edição de projeto' : 'Novo Projeto'}</SectionTitle>
       </RegisterProjectTitleContainer>
 
-      <Container>
+      <RegisterProjectContainer>
+        <ContainerProjectData>
         <form id="register" onSubmit={formik.handleSubmit}>
           <RegisterProjectData
             data={formik}
@@ -358,7 +357,9 @@ const RegisterProject = (props) => {
           type="submit"
           form="register"
         />
-      </Container>
+        </ContainerProjectData>
+      </RegisterProjectContainer>
+
     </>
   );
 };

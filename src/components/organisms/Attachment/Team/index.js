@@ -134,22 +134,22 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     }
     const TechLead = team.filter((obj) => obj.job_ === "Tech Lead")
     let newTime = team
-    if (TechLead[0] && jobName === "Tech Lead"){
+    if (TechLead[0] && jobName === "Tech Lead") {
       newTime = team.filter((obj) => obj.job_ !== "Tech Lead")
     }
 
     if (!id) {
       setTeam([...newTime,
-        {
-          id: selected.id,
-          name: selected.name,
-          hours_estimed: hoursMonth,
-          extrasHours_estimed: overtime,
-          avatar: selected.avatar,
-          job_: isTechLead ? "TechLead" : jobName,
-          status: true,
-          isTechLead: isTechLead,
-        },
+      {
+        id: selected.id,
+        name: selected.name,
+        hours_estimed: hoursMonth,
+        extrasHours_estimed: overtime,
+        avatar: selected.avatar,
+        job_: isTechLead ? "TechLead" : jobName,
+        status: true,
+        isTechLead: isTechLead,
+      },
 
       ]);
       resetInputs();
@@ -178,7 +178,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     setOvertime('');
     setOnlyError('');
     setOnlyErrorTwo('');
-    setJobProject('')
     setReset(true);
   }
 
@@ -199,6 +198,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
 
 
   return (
+
     <AttachmentContainer>
       <SecondaryText margin="0 0 2.5em 0">Time</SecondaryText>
       <SecondaryText margin="0 0 2.5em 0">Vincular Time</SecondaryText>
@@ -255,7 +255,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         />
         <BlueButton width="13%" onClick={() => {
           const TechLead = rows.filter(({ job }) => job === "Tech leader")
-          if (TechLead.length >= 1[0] ) {
+          if (TechLead.length >= 1[0]) {
             return toast.error(
               <DefaultToast text="Já existe um TechLead para este projeto." />
             );

@@ -191,7 +191,7 @@ const RegisterCompany = ({ data, disabled }) => {
             label="Inscrição Estadual"
             name="Inscrição Estadual"
             type="text"
-            width="90%"
+            width="95%"
             disabled={disabled}
             widthContainer="50%"
             handleBlur={setFieldTouched}
@@ -205,7 +205,7 @@ const RegisterCompany = ({ data, disabled }) => {
             name="Inscrição Municipal"
             type="text"
             disabled={disabled}
-            width="90%"
+            width="95%"
             handleBlur={setFieldTouched}
             widthContainer="50%"
           />
@@ -231,7 +231,7 @@ const RegisterCompany = ({ data, disabled }) => {
             disabled={disabled}
             touched={touched.fantasy_name}
             label="Nome Fantasia"
-            width="100%"
+            width="95%"
             handleBlur={setFieldTouched}
             widthContainer="20%"
           />

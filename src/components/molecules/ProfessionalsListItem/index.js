@@ -9,7 +9,8 @@ import {
     ContainerProfessionalsListItem,
     ProfessionalEmail,
     ProfessionalPhoneNumber,
-    Professionalnfo,
+    ProfessionalJob,
+    ProfessionalCity,
     ProfessionalProfile,
     ProfessionalsListOptions,
     ContainerIconOptions,
@@ -61,18 +62,18 @@ const ProfessionalsListItem = ({professional, getProfessionals}) => {
             <ProfessionalProfile>
                 {professional.name}
             </ProfessionalProfile>
-            <Professionalnfo>
+            <ProfessionalJob>
                 {professional.job.name}
-            </Professionalnfo>
+            </ProfessionalJob>
             <ProfessionalEmail>
                 {professional.email}
             </ProfessionalEmail>
             <ProfessionalPhoneNumber>
                 {professional.telephone_number}
             </ProfessionalPhoneNumber>
-            <Professionalnfo>
+            <ProfessionalCity>
                 {professional.local}
-            </Professionalnfo>
+            </ProfessionalCity>
             <ProfessionalStatus>
                 { professional.is_active === true 
                     ? <Badge bg='#E4F8DD' color='#229A16' > Ativo </Badge> 

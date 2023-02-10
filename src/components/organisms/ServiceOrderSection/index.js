@@ -6,9 +6,11 @@ import { useLocation } from "react-router";
 import { toast } from "react-toastify";
 import ServiseOrdersListHeader from "../../molecules/ServiceOrdersListHeader";
 import ServiceOrderListItens from "../../molecules/ServicesOrderListItens";
-import { ContainerHeight } from "./style";
+import { ContainerHeight, ContainerServiceOrder, ContainerServiceOrdersStyle } from "./style";
 import ServiceOrdersInput from "../../molecules/ServiceOrdersInputs";
 import { DefaultToast } from "../../atoms/Toast/DefaultToast";
+import { Container } from "../../atoms/Container";
+import { RegisterProfessionalContainer } from "../../pages/RegisterProfessional/style";
 
 const ServiceOrderSection = () => {
   const [order, setOrder] = useState("");
@@ -112,6 +114,8 @@ const ServiceOrderSection = () => {
 
   return (
     <>
+    <ContainerServiceOrdersStyle>
+      <ContainerServiceOrder>
       <ServiceOrdersInput
         setSearchResult={setSearchResult}
         setstatusSelected={setstatusSelected}
@@ -126,8 +130,10 @@ const ServiceOrderSection = () => {
             key={professional.id}
             professional={professional}
           />
+    
         ))}
       </ContainerHeight>
+      </ContainerServiceOrder>
       <Footer
         previousPage={previousPage}
         nextPage={nextPage}
@@ -135,6 +141,7 @@ const ServiceOrderSection = () => {
         currentPage={osProfessionalMeta?.current_page}
         firstPage={osProfessionalMeta?.first_page}
       />
+    </ContainerServiceOrdersStyle>
     </>
   );
 };
