@@ -107,8 +107,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     });
     
   }
-  
-  console.log("team: ", team);
 
 
   function handleAddMember() {
@@ -198,7 +196,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     setMenuOptionsIsVisible(false);
   }
 
-
   return (
 
     <AttachmentContainer>
@@ -270,6 +267,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
               <ProfessionalJob>{member.job}</ProfessionalJob>
             </div>
           </ProfessionalInfo>
+
           <ProfessionalHours>{member?.hours_estimed || 0}</ProfessionalHours>
           <ProfessionalOvertime width="20em">
             {member?.hours_perfomed || 0}
@@ -284,6 +282,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
               : 0}
             %
           </ProfessionalPercent>
+
           <ProfessionalOvertime width="19em">
             {member?.extrasHours_estimed || 0}
           </ProfessionalOvertime>

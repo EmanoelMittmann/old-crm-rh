@@ -34,7 +34,6 @@ import { Status } from '../../organisms/DetailsRelease/status';
 
 const DetaislProjects = ({ id,setModalDetails}) => {
    const [listData, setListData] =  useState()
-   console.log("detalhes: ", id);
    
    const ClickHandler = () => {
        setModalDetails(prev => !prev)
