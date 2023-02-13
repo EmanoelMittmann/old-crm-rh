@@ -359,9 +359,9 @@ const RegisterProfessional = () => {
       data: {
         id: id_project,
         extra_hours_estimated: extra_hours_limit,
-        extra_hours_performed: null,
+        extra_hours_performed: 0,
         hours_mounths_estimated: workload,
-        hours_mounths_performed: null,
+        hours_mounths_performed: 0,
         isTechLead: is_tech_lead,
         job_: null,
         status: null,
@@ -522,8 +522,6 @@ const RegisterProfessional = () => {
     values.professional_data.type_of_transfer,
   ]);
 
-
-  console.log(formik.errors)
   return (
     <>
       <RegisterProfessionalTitleContainer>

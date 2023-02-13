@@ -12,14 +12,14 @@ import {
 import CloseButtonCircle from '../../atoms/Buttons/CloseButtonCircle/index.js'
 import api from '../../../api/api.js'
 import InputSelect from '../../atoms/InputSelect/index.js'
-import ModalRed from '../../molecules/ModalRed/index.js'
 import { useHistory } from 'react-router-dom'
 import { saveAs } from 'file-saver'
 import { toast } from 'react-toastify'
 import { DefaultToast } from '../../atoms/Toast/DefaultToast.js'
+import ModalGreen from '../../molecules/ModalGreen/index.js'
 
 
-const DownloadExcel = ({ setModalIsVisibleExcel }) => {
+const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
 
     const [modalIsVisible, setModalIsVisible] = useState(false)
     const [payingCompany, setPayingCompany] = useState([])
@@ -37,6 +37,7 @@ const DownloadExcel = ({ setModalIsVisibleExcel }) => {
 
             return toast.warn(<DefaultToast text={'Nenhum relatório para pagamento encontrado!'} />)
         }
+        getReports()
     }
 
     const getCompany = async () => {
@@ -84,7 +85,7 @@ const DownloadExcel = ({ setModalIsVisibleExcel }) => {
                     }> Exportar</SaveButton>
                     <>
                         {modalIsVisible && (
-                            <ModalRed
+                            <ModalGreen
                                 redButtonClickHandler={() => {
                                     download()
                                     ModalClick()

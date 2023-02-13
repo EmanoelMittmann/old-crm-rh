@@ -8,7 +8,9 @@ export const HeaderContainer = styled.div`
     border-radius: 8px;
     display: flex;
     align-items: center;
+    margin-bottom: 0.5em;
     margin-top: 2em;
+    margin-bottom: 0.5em;
     justify-content: space-between;
 
 

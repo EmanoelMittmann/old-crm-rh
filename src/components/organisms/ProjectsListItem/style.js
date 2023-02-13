@@ -5,7 +5,17 @@ export const ProjectsListItemContainer = styled.div`
   display: flex;
   align-items: center;
   padding: 1em;
-  height: 65px;
+  height: 60px;
+  border-radius: 10px;
+
+  &:hover{
+    background-color:#f4f6f8;
+  }
+`;
+
+export const ProjectsList = styled.div`
+  width: 100%;
+  display: flex;
 `;
 
 export const ProjectsListItemId = styled.div`
@@ -50,10 +60,9 @@ export const ProjectListOptions = styled.div`
 
 export const ContainerIconOptions = styled.div`
   padding: ${(props) => (props.padding ? props.padding : "1em")};
-  
+  cursor: pointer;
   svg {
-    fill: ${(props) => props.optionsColor};
-    cursor: pointer;
+    fill: ${(props) => props.optionsColor}; 
   }
 `;
 
