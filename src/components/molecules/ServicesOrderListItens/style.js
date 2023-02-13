@@ -6,6 +6,7 @@ export const ContainerOSListItem = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 60px;
+  border-radius:10px;
 
    &:hover{
     background-color:#f4f6f8;
