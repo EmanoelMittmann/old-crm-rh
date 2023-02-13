@@ -3,8 +3,13 @@ import styled from "styled-components"
 export const Main = styled.div`
     display: flex;
     width: 100%;
-    height: 50px;
+    height: 60px;
+    border-radius: 10px;
     align-items: center;
+
+    &:hover{
+    background-color:#f4f6f8;
+  }
 `
 
 export const ContainerCodigo = styled.div`
