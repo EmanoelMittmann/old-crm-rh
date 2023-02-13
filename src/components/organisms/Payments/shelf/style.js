@@ -5,6 +5,12 @@ export const Container = styled.div`
   display: flex;
   flex-direction: row;
   padding: 1em;
+  border-radius: 10px;
+  height: 60px;
+
+   &:hover{
+    background-color:#f4f6f8;
+  }
 `;
 
 export const ContainerCompany = styled.div`

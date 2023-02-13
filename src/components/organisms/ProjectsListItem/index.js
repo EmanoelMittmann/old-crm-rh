@@ -20,14 +20,18 @@ import {
 import { formatDate } from "../../utils/formatDate.js";
 import { ReactComponent as OptionsIcon } from "../../../assets/icons/options.svg";
 import { useEffect } from "react";
+import DetaislProjects from "../../molecules/DetailsProjects";
 
-export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
+
+export const ProjectsListItem = ({ data, statusOptions, getProjects, getProjectsDetails, listData }) => {
   const history = useHistory();
   const [idProjectClicked, setIdProjectClicked] = useState(0);
   const [idProjectStatusClicked, setIdProjectStatusClicked] = useState(0);
   const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false);
   const [statusModalIsVisible, setStatusModalIsVisible] = useState(false);
   const [teamModalIsVisible, setTeamModalIsVisible] = useState(false);
+  const [modalDetails, setModalDetails] = useState(false)
+  const [idProjectsDetails, setIdProjectsDetails] = useState(0)
   const modalRef = useRef();
 
   const menuOptionsClicked = (projectId, statusId) => {
@@ -61,16 +65,18 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
   };
 
   const handlerOutside = (e) => {
-    if(modalRef.current && !modalRef.current.contains(e.target)) {
+    if (modalRef.current && !modalRef.current.contains(e.target)) {
       menuOptionsClicked();
     }
   }
   useEffect(() => {
     document.addEventListener("mousedown", handlerOutside);
-    return() => {
-      document.removeEventListener('mousedown',handlerOutside)
+    return () => {
+      document.removeEventListener('mousedown', handlerOutside)
     }
-  },[]);
+  }, []);
+
+
 
   if (!data) {
     return (
@@ -90,71 +96,98 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
     );
   }
 
+  const handleDetails = () => {
+    setModalDetails(prev => !prev)
+  }
+
   return (
+
     <>
-      {data.map((project) => {
+      {modalDetails && (
+        <DetaislProjects
+          id={idProjectsDetails}
+          getProjectsDetails={getProjectsDetails}
+          listData={listData}
+          setModalDetails={setModalDetails}
+        />
+      )}
+      {data.map((project, index) => {
         return (
-          <ProjectsListItemContainer key={project.id}>
-            <ProjectsListItemId>{project.id}</ProjectsListItemId>
-            <ProjectsListItemProject>{project.name}</ProjectsListItemProject>
-            <ProjectsListItemType>
+          <ProjectsListItemContainer key={index}>
+            <ProjectsListItemId
+              onClick={() => {
+                setIdProjectsDetails(project.id)
+                handleDetails()
+              }}>{project.id}</ProjectsListItemId>
+            <ProjectsListItemProject
+              onClick={() => {
+                setIdProjectsDetails(project.id)
+                handleDetails()
+              }}>{project.name}</ProjectsListItemProject>
+            <ProjectsListItemType
+              onClick={() => {
+                setIdProjectsDetails(project.id)
+                handleDetails()
+              }}>
               {project.project_type?.name}
             </ProjectsListItemType>
-            <ProjectsListItemBeginning>
+            <ProjectsListItemBeginning
+              onClick={() => {
+                setIdProjectsDetails(project.id)
+                handleDetails()
+              }}>
               {formatDate(project.date_start)}
             </ProjectsListItemBeginning>
-            <ProjectsListItemTime>
-              <ContainerDateFinal>
-                {formatDate(project.date_end)}
-              </ContainerDateFinal>
+            <ProjectsListItemTime
+              onClick={() => {
+                setIdProjectsDetails(project.id)
+                handleDetails()
+              }}>
+              {formatDate(project.date_end)}
             </ProjectsListItemTime>
-            <ProjectsListItemStatus>
+            <ProjectsListItemStatus
+              onClick={() => {
+                setIdProjectsDetails(project.id)
+                handleDetails()
+              }}>
               <StatusLabel
                 name={project.status.name}
                 textColor={project.status.color.text_color}
-                buttonColor={project.status.color.button_color}
-              />
+                buttonColor={project.status.color.button_color} />
             </ProjectsListItemStatus>
             <ProjectListOptions
-              optionsColor={
-                menuOptionsIsVisible && project.id == idProjectClicked
-                  ? "#407BFF"
-                  : "#B7BDC2"
-              }
+              optionsColor={menuOptionsIsVisible && project.id == idProjectClicked
+                ? "#407BFF"
+                : "#B7BDC2"}
             >
-              <ContainerIconOptions
-              >
-                <OptionsIcon onClick={() =>
-                  menuOptionsClicked(project.id, project.project_status_id)
-                }/>
+              <ContainerIconOptions padding="2em" onClick={() => menuOptionsClicked(project.id, project.project_status_id)} >
+                <OptionsIcon />
               </ContainerIconOptions>
-                {menuOptionsIsVisible && project.id === idProjectClicked && (
-                  <MenuOptions
-                    ref={modalRef}
-                    positionMenu="40px"
-                    firstChosenOption={editProject}
-                    firstOptionDescription="Editar Projeto"
-                    secondChosenOption={openModalEditProjectStatus}
-                    secondOptionDescription="Editar Status"
-                    padding="0.3em 0.5em 0.3em 1.1em"
-                    id={project.id}
-                  />
-                )}
+              {menuOptionsIsVisible && project.id === idProjectClicked && (
+                <MenuOptions
+                  ref={modalRef}
+                  positionMenu="40px"
+                  firstChosenOption={editProject}
+                  firstOptionDescription="Editar Projeto"
+                  secondChosenOption={openModalEditProjectStatus}
+                  secondOptionDescription="Editar Status"
+                  padding="0.3em 0.5em 0.3em 1.1em"
+                  id={project.id} />
+              )}
             </ProjectListOptions>
+
 
             {statusModalIsVisible && (
               <ModalProjectStatus
                 CloseButtonClickHandler={closeModalEditProjectStatus}
                 statusId={idProjectStatusClicked}
                 projectId={idProjectClicked}
-                options={statusOptions}
-              />
+                options={statusOptions} />
             )}
             {teamModalIsVisible && (
               <ModalProjectTeam
                 CloseButtonClickHandler={closeProjectTeamModal}
-                users={project.users}
-              />
+                users={project.users} />
             )}
           </ProjectsListItemContainer>
         );

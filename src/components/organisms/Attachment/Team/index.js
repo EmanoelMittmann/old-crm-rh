@@ -18,7 +18,6 @@ import {
   ProfessionalOvertime,
   ProfessionalProfilePicture,
   ProfessionalPercent,
-  ContainerLabel,
 } from './style.js';
 import User from '../../../../assets/user.png';
 import { BlueButton } from '../../../atoms/Buttons/BlueButton/style.js';
@@ -34,8 +33,6 @@ import InputSelect from '../../../atoms/InputSelect';
 import { useEffect } from 'react';
 import { status } from './OptionStatus';
 import ListHeader from './ListHeader';
-import { toast } from 'react-toastify';
-import { DefaultToast } from '../../../atoms/Toast/DefaultToast';
 import InputWithLabel from '../../../atoms/InputWithLabel';
 
 
@@ -61,9 +58,9 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
   const [overtimeEdit, setOvertimeEdit] = useState('');
   const [jobProject, setJobProject] = useState('');
   const { id } = useParams();
-
-
-
+  
+  
+  
   useLayoutEffect(() => {
     const optionsValid = checkArraysDifference({
       completeArray: allOptions,
@@ -75,11 +72,11 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     setDataTeam(optionsValid);
     handleRows();
   }, [allOptions, team]);
-
+  
   useEffect(() => {
     getJobs()
   }, [])
-
+  
   const getJobs = async () => {
     const { data } = await api({
       method: 'get',
@@ -87,7 +84,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     });
     setJobsMember(data.data);
   };
-
+  
   function handleRows() {
     setRows([]);
     team.map((member) => {
@@ -100,16 +97,19 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         hours_estimed: member?.hours_mounths_estimated || member?.hours_estimed,
         hours_perfomed: member?.hours_mounths_performed,
         extrasHours_estimed:
-          member.extrasHours_estimed || member.extra_hours_estimated,
+        member.extrasHours_estimed || member.extra_hours_estimated,
         extrasHours_performed: member?.extra_hours_performed,
         isTechLead: member.isTechLead
       };
-
+      
       setRows((oldState) => [...oldState, item]);
-
+      
     });
-
+    
   }
+  
+  console.log("team: ", team);
+
 
   function handleAddMember() {
 
@@ -136,26 +136,28 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     let newTime = team
     if (TechLead[0] && jobName === "Tech Lead") {
       newTime = team.filter((obj) => obj.job_ !== "Tech Lead")
+
+      
     }
 
     if (!id) {
       setTeam([...newTime,
-      {
-        id: selected.id,
-        name: selected.name,
-        hours_estimed: hoursMonth,
-        extrasHours_estimed: overtime,
-        avatar: selected.avatar,
-        job_: isTechLead ? "TechLead" : jobName,
-        status: true,
-        isTechLead: isTechLead,
-      },
-
+        {
+          id: selected.id,
+          name: selected.name,
+          hours_estimed: hoursMonth,
+          extrasHours_estimed: overtime,
+          avatar: selected.avatar,
+          job_: isTechLead ? "Tech Lead" : jobName,
+          status: true,
+          isTechLead: isTechLead,
+        },
+        
       ]);
       resetInputs();
       return;
     }
-
+    
 
     addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName, status, TechLead);
     resetInputs();
@@ -219,7 +221,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           label="Selecionar time"
           reset={reset}
         />
-
         <InputSelect
           onChange={(e) => setJobProject(e.target.value)}
           options={jobsMember}
@@ -227,7 +228,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           width="100%"
           lineWidth="15em"
           label="Cargo"
-          reset={reset}
         />
         <InputWithLabel
           width="100%"
@@ -253,15 +253,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           touched={onlyErrorTwo}
           handleBlur={() => { }}
         />
-        <BlueButton width="13%" onClick={() => {
-          const TechLead = rows.filter(({ job }) => job === "Tech leader")
-          if (TechLead.length >= 1[0]) {
-            return toast.error(
-              <DefaultToast text="Já existe um TechLead para este projeto." />
-            );
-          }
-          handleAddMember()
-        }}
+        <BlueButton width="13%" onClick={() => handleAddMember()}
           type="button">
           Vincular
         </BlueButton>
