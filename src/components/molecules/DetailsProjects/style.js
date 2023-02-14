@@ -37,10 +37,10 @@ export const ModalOverlay = styled.div`
 `;
 
 export const ContainerAbsolute = styled.div`
-  height: 410px;
+  height: 510px;
 `
 export const ContainerData = styled.div`
-    width: 93%;
+    width: 91,5%;
     display: flex;
     flex-direction: row;
     justify-content:space-between;
@@ -66,7 +66,7 @@ export const ContainerDataDate = styled.div`
 export const ContainerDataUser = styled.div`
     width: 50%;
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     margin: 0.3em 1em 0 0;
 `
 export const ContainerDataDateDuo = styled.div`
@@ -78,12 +78,12 @@ export const ContainerDataDateDuo = styled.div`
     margin: 1em 2em;
 `
 export const ContaineTitles = styled.div`
-    width: 93%;
+    width: 85%;
     display: flex;
     flex-direction: row;
     justify-content:space-between;
     align-items: center;
-    margin: 0em 2em 1em 2em;
+    margin: 0em 0em 1em 2em;
 `
 
 export const ContaineTitlesTwo = styled.div`
@@ -111,13 +111,13 @@ export const ContaineTitlesDuo = styled.div`
     margin: 1.5em 2em;
 `
 export const StyleName = styled.h5`
-    width: 23%;
+    width: 30%;
     font-family: 'Poppins';
     font-style: italic;
     color: #5A646E;
 `
 export const StyleTipe = styled.h5`
-    width: 12%;
+    width: 20%;
     font-family: 'Poppins';
     font-style: italic;
     color: #5A646E;
@@ -148,7 +148,6 @@ export const EstimatedCost = styled.div`
 `
 export const StyleTitle = styled.h5`
     font-family: 'Poppins';
-
 `
 export const StyleTitleProject = styled.h5`
     width: 24%;
@@ -191,21 +190,9 @@ export const ProfilePicture = styled.img`
     border-radius: 50%;
     margin-right: 1em;
 `
-
-export const ProjectJob = styled.div`
-    width: 20%
-    display: flex;
-    flex-direction: column;
-    padding: 1.5em 0 0 0;
-  
-
-`
 export const ProfessionalJob = styled.div`
   font-size: 0.8em;
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 600;
 `;
-export const ContainerProjectJob = styled.div`
-    width: 25%
-`

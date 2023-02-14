@@ -96,9 +96,9 @@ const RegisterProject = () => {
             ...values,
             users: teamPayload,
             team_cost: values.team_cost
-              .replace('R$', '')
-              .replace('.', '')
-              .replace(',', '.'),
+              .replace("R$", "")
+              .replace(".", "")
+              .replace(",", "."),
           },
       })
         .then((res) => {
@@ -124,9 +124,7 @@ const RegisterProject = () => {
 
   function validDate() {
     if (values.date_end !== '' && values.date_start !== '') {
-      if (values.date_start > values.date_end) {
-        return false;
-      }
+      if (values.date_start > values.date_end) return false;
 
       return true;
     }
@@ -168,35 +166,38 @@ const RegisterProject = () => {
     });
   };
 
-
-  useEffect(() => {
-    if (!typeOptions.length) getProjectTypeOption();
-    if (!typeOptions.length) getStatusOptions();
-    if (!allUsers.length) getAllProfessionals();
-    if (id) {
-      api({
-        method: 'get',
-        url: `/project/${id}`,
-      }).then(async (response) => {
-        const data = response.data[0];
-        Object.entries(data).forEach(([property, value]) => {
-          if (property.includes('date')) {
-            setFieldValue(property, getDate(value));
-          } else if (property.includes('team_cost')) {
-            setFieldValue(property, 'R$' + String(value).replace('.', ','));
-          } else {
-            setFieldValue(property, value);
-          }
-        });
+const editProject = () =>{
+  if (!typeOptions.length) getProjectTypeOption();
+  if (!typeOptions.length) getStatusOptions();
+  if (!allUsers.length) getAllProfessionals();
+  if (id) {
+    api({
+      method: 'get',
+      url: `/project/${id}`,
+    }).then(async (response) => {
+      const data = response.data[0];
+      Object.entries(data).forEach(([property, value]) => {
+        if (property.includes('date')) {
+          setFieldValue(property, getDate(value));
+        } else if (property.includes('team_cost')) {
+          setFieldValue(property, 'R$' + String(value + 0).replace('.', ','));
+        } else {
+          setFieldValue(property, value);
+        }
       });
-      getTeam();
-    }
+    });
+    getTeam();
+  }
 
-    return () => {
-      setStatusOptions([]);
-      setTypeOptions([]);
-      setAllUsers([]);
-    };
+  return () => {
+    setStatusOptions([]);
+    setTypeOptions([]);
+    setAllUsers([]);
+  };
+
+}
+  useEffect(() => {
+    editProject()
   }, []);
 
   useEffect(() => {
