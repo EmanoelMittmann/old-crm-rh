@@ -11,6 +11,7 @@ import {
     ContainerSecond,
 } from './style.js'
 import { Container } from '../../atoms/Container/index.js'
+import { formatDate } from '../../utils/formatDate.js'
 
 const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
     const { values, handleChange, errors, touched, setFieldTouched, setFieldValue } = data
@@ -118,7 +119,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         name="team_cost"
                         width="100%"
                         widthContainer="100%"
-                        value={values.team_cost}
+                        value={values.team_cost + 0}
                         onChange={handleChange('team_cost')}
                         error={errors.team_cost}
                         touched={touched.team_cost}

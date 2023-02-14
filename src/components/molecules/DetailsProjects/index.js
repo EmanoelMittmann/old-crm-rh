@@ -23,7 +23,10 @@ import {
     StyleTitle,
     StyleTitleProject,
     TableLine,
-    ProfilePicture
+    ProfilePicture,
+    ProjectJob,
+    ProfessionalJob,
+    ContainerProjectJob
 } from './style';
 import { ProfessionalName, ProfessionalProfilePicture } from '../../organisms/Attachment/Team/style';
 import StatusLabel from '../../atoms/StatusLabel';
@@ -47,6 +50,8 @@ const DetaislProjects = ({ id,setModalDetails}) => {
         });
         setListData(data);
     };
+    
+    console.log("listData: ", listData);
 
 useEffect(()=> {
     getProjectsDetails(id)
@@ -69,7 +74,7 @@ useEffect(()=> {
                         </ContaineTitles>
                         <ContainerData>
                             <StyleName>{item.name}</StyleName>
-                            <StyleContract>{item.id}</StyleContract>
+                            <StyleTipe>{item.id}</StyleTipe>
                             {/* <StyleName>{item.project_type.name}</StyleName> */}
                             {/* <Status data={item}/> */}
                             {/* <StatusLabel
@@ -109,7 +114,10 @@ useEffect(()=> {
                                         <ProfessionalProfilePicture>
                                             <ProfilePicture src={user.avatar} />
                                         </ProfessionalProfilePicture>
-                                        <ProfessionalName>{user.name}</ProfessionalName>
+                                        <div className="professional">
+                                            <ProfessionalName>{user.name}</ProfessionalName>
+                                            <ProfessionalJob>{user.job}</ProfessionalJob>
+                                        </div>
                                     </ContainerDataUser>
                                 ))}
 

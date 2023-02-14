@@ -64,9 +64,9 @@ export const ContainerDataDate = styled.div`
     margin: 1.5em 2em;
 `
 export const ContainerDataUser = styled.div`
+    width: 50%;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    flex-wrap: wrap;
     margin: 0.3em 1em 0 0;
 `
 export const ContainerDataDateDuo = styled.div`
@@ -112,12 +112,6 @@ export const ContaineTitlesDuo = styled.div`
 `
 export const StyleName = styled.h5`
     width: 23%;
-    font-family: 'Poppins';
-    font-style: italic;
-    color: #5A646E;
-`
-export const StyleContract = styled.h5`
-    width: 12%;
     font-family: 'Poppins';
     font-style: italic;
     color: #5A646E;
@@ -196,4 +190,22 @@ export const ProfilePicture = styled.img`
     height: 25px;
     border-radius: 50%;
     margin-right: 1em;
+`
+
+export const ProjectJob = styled.div`
+    width: 20%
+    display: flex;
+    flex-direction: column;
+    padding: 1.5em 0 0 0;
+  
+
+`
+export const ProfessionalJob = styled.div`
+  font-size: 0.8em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+`;
+export const ContainerProjectJob = styled.div`
+    width: 25%
 `
