@@ -208,9 +208,8 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
             setIsTechLead(false);
             setDataTechLead([]);
           }}
-          options={dataTeam}
+          options={[{ id: "", name: "Selecione um time" }, ...dataTeam]} // adiciona um item vazio no início da lista
           placeholder="Time"
-          width="100%"
           lineWidth="25%"
           label="Selecionar time"
           reset={reset}
