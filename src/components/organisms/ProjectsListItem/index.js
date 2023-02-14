@@ -100,7 +100,6 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects, getProjects
   const handleDetails = () => {
     setModalDetails(prev => !prev)
   }
-  console.log("data: ", data);
 
   return (
 

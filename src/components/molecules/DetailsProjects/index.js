@@ -46,8 +46,7 @@ const DetaislProjects = ({ id,setModalDetails}) => {
         });
         setListData(data);
     };
-    
-    console.log("listData: ", listData);
+
 useEffect(()=> {
     getProjectsDetails(id)
 
