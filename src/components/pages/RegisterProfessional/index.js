@@ -16,6 +16,7 @@ import RegisterProfessionalsData from "../../organisms/RegisterProfessionalsData
 import {
   RegisterProfessionalTitleContainer,
   RegisterProfessionalContainer,
+  ContainerPermission,
 } from "./style.js";
 import { cleanMask } from "../../utils/cleanMask";
 import { getDate } from "../../utils/getDate";
@@ -25,6 +26,8 @@ import { handleCEP } from "../../utils/validateCep";
 import InputWithLabel from "../../atoms/InputWithLabel";
 import SecondaryText from "../../atoms/SecondaryText/style";
 import TechLeadAndDev from "../../molecules/techLeadAndDev";
+import { PermissionsSpecial } from "../../organisms/PermissionsSpecial";
+import { PermissionsGeneral } from "../../organisms/PermissionsGeneral";
 
 const RegisterProfessional = () => {
   const [jobs, setJobs] = useState([]);
@@ -530,10 +533,19 @@ const RegisterProfessional = () => {
           {id ? "Edição de profissional" : "Novo profissional"}
         </SectionTitle>
       </RegisterProfessionalTitleContainer>
+
       <RegisterProfessionalContainer>
         <form id="professional" onSubmit={formik.handleSubmit}>
           <RegisterProfessionalsData data={formik} />
           <EmploymentContract data={formik} jobs={jobs} />
+
+          <SecondaryText margin="2.5em 0 0 2em">Permissões</SecondaryText>
+          <ContainerPermission>
+           <PermissionsSpecial/>
+
+           <PermissionsGeneral/>
+          </ContainerPermission>
+
           <ProfessionalsExtraHour
             extraHour={extraHour}
             setExtraHour={setExtraHour}
