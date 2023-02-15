@@ -23,7 +23,6 @@ import User from '../../../../assets/user.png';
 import { BlueButton } from '../../../atoms/Buttons/BlueButton/style.js';
 import SecondaryText from '../../../atoms/SecondaryText/style';
 import InputSelectWithLabel from '../../../atoms/InputSelectWithLabel';
-import InputText from '../../../atoms/InputText';
 import MenuOptions from '../../../atoms/MenuOptions';
 import { Badge } from '../../../atoms/Badge';
 import ModalRed from '../../../molecules/ModalRed';
@@ -130,12 +129,10 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       );
       return
     }
-    const TechLead = team.filter((obj) => obj.job_ === "Tech Lead")
+    const TechLead = team.filter((obj) => obj.job_ === "Tech Lead" || obj.job_ === "Tech Lead e Desenvolvedor")
     let newTime = team
-    if (TechLead[0] && jobName === "Tech Lead") {
-      newTime = team.filter((obj) => obj.job_ !== "Tech Lead")
-
-      
+    if (TechLead[0] && jobName === "Tech Lead" || TechLead[0] && jobName === "Tech Lead e Desenvolvedor") {
+      newTime = team.filter((obj) => obj.job_ !== "Tech Lead" && obj.job_ !== "Tech Lead e Desenvolvedor")
     }
 
     if (!id) {
@@ -211,9 +208,8 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
             setIsTechLead(false);
             setDataTechLead([]);
           }}
-          options={dataTeam}
+          options={[{ id: "", name: "Selecionar time" }, ...dataTeam]} // adiciona um item vazio no início da lista
           placeholder="Time"
-          width="100%"
           lineWidth="25%"
           label="Selecionar time"
           reset={reset}

@@ -16,20 +16,19 @@ import {
     ModalContainer,
     ModalOverlay,
     ModalTitle,
-    StyleContract,
     StyleDate,
     StyleName,
     StyleTipe,
     StyleTitle,
     StyleTitleProject,
     TableLine,
-    ProfilePicture
+    ProfilePicture,
+    ProfessionalJob,
 } from './style';
 import { ProfessionalName, ProfessionalProfilePicture } from '../../organisms/Attachment/Team/style';
 import StatusLabel from '../../atoms/StatusLabel';
 import api from '../../../api/api';
 import { useEffect } from 'react';
-import { Status } from '../../organisms/DetailsRelease/status';
 
 
 const DetaislProjects = ({ id,setModalDetails}) => {
@@ -50,6 +49,7 @@ const DetaislProjects = ({ id,setModalDetails}) => {
 
 useEffect(()=> {
     getProjectsDetails(id)
+
 },[id])
 
     return (
@@ -69,35 +69,34 @@ useEffect(()=> {
                         </ContaineTitles>
                         <ContainerData>
                             <StyleName>{item.name}</StyleName>
-                            <StyleContract>{item.id}</StyleContract>
-                            {/* <StyleName>{item.project_type.name}</StyleName> */}
-                            {/* <Status data={item}/> */}
-                            {/* <StatusLabel
+                            <StyleTipe>{item.id}</StyleTipe>
+                            <StyleTipe>{item.project_type.name}</StyleTipe>
+                            <StatusLabel
                                 name={item.status.name}
                                 textColor={item.status.color.text_color}
-                                buttonColor={item.status.color.button_color} /> */}
+                                buttonColor={item.status.color.button_color} />
                         </ContainerData>
                         <ContaineTitlesDuo>
                             <StyleTitle>Data Início efetivo</StyleTitle>
                             <StyleTitle>Data final efetivo</StyleTitle>
                         </ContaineTitlesDuo>
                         <ContainerDataDateDuo>
+                            <StyleDate>{formatDate(item.date_start)}</StyleDate>
                             <StyleDate>{formatDate(item.date_end)}</StyleDate>
-                            <StyleDate>{formatDate(item.date_end_performed)}</StyleDate>
                         </ContainerDataDateDuo>
                         <ContaineTitlesTwo>
                             <StyleTitle>Data início do contarto</StyleTitle>
                             <StyleTitle>Data Final do contrato</StyleTitle>
                         </ContaineTitlesTwo>
                         <ContainerDataDate>
-                            <StyleDate>{formatDate(item.date_start)}</StyleDate>
                             <StyleDate>{formatDate(item.date_start_performed)}</StyleDate>
+                            <StyleDate>{formatDate(item.date_end_performed)}</StyleDate>
                         </ContainerDataDate>
                         <ContaineTitlesCost>
                             <StyleTitle>Custo estimado</StyleTitle>
                         </ContaineTitlesCost>
                         <ContainerDataDate>
-                            <EstimatedCost>{parseFloat(item.team_cost).toFixed(2)}</EstimatedCost>
+                            <EstimatedCost>{item.team_cost}</EstimatedCost>
                         </ContainerDataDate>
                         <ContainerAbsolute>
                             <ContainerTime>
@@ -109,13 +108,14 @@ useEffect(()=> {
                                         <ProfessionalProfilePicture>
                                             <ProfilePicture src={user.avatar} />
                                         </ProfessionalProfilePicture>
-                                        <ProfessionalName>{user.name}</ProfessionalName>
+                                        <div className="professional">
+                                            <ProfessionalName>{user.name}</ProfessionalName>
+                                            <ProfessionalJob>{user.job}</ProfessionalJob>
+                                        </div>
                                     </ContainerDataUser>
                                 ))}
-
                             </TableLine>
                         </ContainerAbsolute>
-
                     </ModalContainer>
                     <ModalOverlay />
                 </div>

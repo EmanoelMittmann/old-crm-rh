@@ -16,6 +16,7 @@ import {
   ContainerTeamMemberPic,
   ProjectsListItemId,
   ContainerDateFinal,
+  ProjectsContainer,
 } from "./style.js";
 import { formatDate } from "../../utils/formatDate.js";
 import { ReactComponent as OptionsIcon } from "../../../assets/icons/options.svg";
@@ -95,7 +96,7 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects, getProjects
       </ProjectsListItemContainer>
     );
   }
-
+  
   const handleDetails = () => {
     setModalDetails(prev => !prev)
   }
@@ -114,54 +115,32 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects, getProjects
       {data.map((project, index) => {
         return (
           <ProjectsListItemContainer key={index}>
-            <ProjectsListItemId
+            <ProjectsContainer
               onClick={() => {
                 setIdProjectsDetails(project.id)
                 handleDetails()
-              }}>{project.id}</ProjectsListItemId>
-            <ProjectsListItemProject
-              onClick={() => {
-                setIdProjectsDetails(project.id)
-                handleDetails()
-              }}>{project.name}</ProjectsListItemProject>
-            <ProjectsListItemType
-              onClick={() => {
-                setIdProjectsDetails(project.id)
-                handleDetails()
-              }}>
-              {project.project_type?.name}
+              }}
+            >
+            <ProjectsListItemId>{project.id}</ProjectsListItemId>
+            <ProjectsListItemProject>{project.name}</ProjectsListItemProject>
+            <ProjectsListItemType> {project.project_type?.name}
             </ProjectsListItemType>
-            <ProjectsListItemBeginning
-              onClick={() => {
-                setIdProjectsDetails(project.id)
-                handleDetails()
-              }}>
-              {formatDate(project.date_start)}
-            </ProjectsListItemBeginning>
-            <ProjectsListItemTime
-              onClick={() => {
-                setIdProjectsDetails(project.id)
-                handleDetails()
-              }}>
-              {formatDate(project.date_end)}
-            </ProjectsListItemTime>
-            <ProjectsListItemStatus
-              onClick={() => {
-                setIdProjectsDetails(project.id)
-                handleDetails()
-              }}>
+            <ProjectsListItemBeginning>{formatDate(project.date_start)}</ProjectsListItemBeginning>
+            <ProjectsListItemTime> {formatDate(project.date_end)}</ProjectsListItemTime>
+            <ProjectsListItemStatus>
               <StatusLabel
                 name={project.status.name}
                 textColor={project.status.color.text_color}
                 buttonColor={project.status.color.button_color} />
             </ProjectsListItemStatus>
+            </ProjectsContainer>
             <ProjectListOptions
               optionsColor={menuOptionsIsVisible && project.id == idProjectClicked
                 ? "#407BFF"
                 : "#B7BDC2"}
             >
-              <ContainerIconOptions padding="2em" onClick={() => menuOptionsClicked(project.id, project.project_status_id)} >
-                <OptionsIcon />
+              <ContainerIconOptions padding="2em" onClick={() => menuOptionsClicked(project.id, project.project_status_id)}>
+                <OptionsIcon  />
               </ContainerIconOptions>
               {menuOptionsIsVisible && project.id === idProjectClicked && (
                 <MenuOptions
@@ -175,8 +154,6 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects, getProjects
                   id={project.id} />
               )}
             </ProjectListOptions>
-
-
             {statusModalIsVisible && (
               <ModalProjectStatus
                 CloseButtonClickHandler={closeModalEditProjectStatus}

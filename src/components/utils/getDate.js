@@ -1,4 +1,5 @@
 export const getDate = (inputDate) => {
+    if(!inputDate) return ""
     const newDate = new Date(inputDate)
     const day = newDate.getDate().toString()
     const newDay = day.length === 1 ? day.padStart(2, '0') : day
