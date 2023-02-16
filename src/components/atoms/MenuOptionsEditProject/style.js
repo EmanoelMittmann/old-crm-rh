@@ -18,14 +18,14 @@ export const OptionsMenu = styled.div`
   border-radius: 8px;
   background-color: white;
   z-index: 5;
-  box-shadow: 0px 16px 32px #919eab66;
+  box-shadow: 0px 1px 32px #919eab66;
 `;
 export const OptionsMenuItem = styled.button`
   display: block;
+
   width: 100%;
   text-align: left;
   background-color: transparent;
-  padding: 0.3em 0.5em 0.3em 1.7em;
   padding: ${(props) => props.padding};
   border: none;
   font-family: 'Poppins', sans-serif;

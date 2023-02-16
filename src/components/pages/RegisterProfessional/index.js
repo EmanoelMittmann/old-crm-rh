@@ -166,6 +166,11 @@ const RegisterProfessional = () => {
     start_date: Yup.date().required(messages.required),
     job_id: Yup.number().required(messages.required),
     job_type: Yup.string().required(messages.required),
+    variable1: Yup.string().when(['job_type','extra_hour_activated'],{
+      is: (job_type,extra_hour_activated) => job_type !== 'FREELANCER' && extra_hour_activated,
+      then: Yup.string().required(messages.required),
+      otherwise: ''
+    }),
     weekly_hours: Yup.number()
       .required(messages.required)
       .max(44, "Horas/semana excedida"),

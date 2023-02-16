@@ -23,7 +23,6 @@ import { Main } from '../../molecules/OvertimeListTechnicalLeadApproval/style.js
 
 
 const DetailsReports = ({ setdetaisVisibled, data, id }) => {
-    const history = useHistory();
     
     const ClickModal = () => {
         setdetaisVisibled(prev => !prev)
