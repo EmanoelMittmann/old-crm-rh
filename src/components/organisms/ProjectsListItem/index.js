@@ -6,7 +6,7 @@ import {
 import { useEffect } from "react";
 import ProjectRow from "./row";
 
-export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
+export const ProjectsListItem = ({ data, statusOptions, getProjects, DetailsReports, getProjectsDetails }) => {
 
   if (!data) {
     return (
@@ -25,12 +25,10 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
       </ProjectsListItemContainer>
     );
   }
-  
-  const handleDetails = () => {
-    setModalDetails(prev => !prev)
-  }
 
-  return data.map((project) => <ProjectRow statusOptions={statusOptions} project={project} getProjects={getProjects} key={project.id}/>);
+
+
+  return data.map((project) => <ProjectRow statusOptions={statusOptions} project={project} getProjects={getProjects} key={project.id} DetailsReports={DetailsReports}/>);
 };
 
 export default ProjectsListItem;
