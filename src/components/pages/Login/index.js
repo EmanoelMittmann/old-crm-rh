@@ -57,7 +57,7 @@ export const Login = () => {
       });
       dispatch(
         loggingIn({
-          googleData: { decodeJwt: decodeJwt, data: data.data[0], isTechLead: data.isTechLead},
+          googleData: { decodeJwt: decodeJwt, data: data.data[0], isTechLead: data.isTechLead, permissions: data.permissions},
           token: data.token.token,
           responseValidToken: true,
         })

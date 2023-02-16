@@ -24,12 +24,14 @@ import {
 } from '../../atoms/icons/NavIcons/index';
 
 import { Nav, ActiveIconContainer, ActiveIcon } from './style.js';
+import { Modules } from './Modules';
 
 const NavHome = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [isAdmin, setIsAdmin] = useState(false);
   const isTechLead = useSelector((state) => state.validTechLead)
+  const {permissions} = JSON.parse(localStorage.getItem('@UbiRH/USER'))
 
   const MenuItemClickHandler = (id) => {
     dispatch(menuItemClicked(id));
@@ -51,9 +53,17 @@ const NavHome = () => {
     return;
   }, [isAdmin]);  
 
+  const UserAccess = [{
+    1:<Modules id={1} route='/job' children={<SettingsIcon />}/>,
+  }
+  ]
+
   return (
     <Nav>
-      {isAdmin ? (
+      {switch (permissions) {
+       
+      }}
+      {/* {isAdmin ? (
         <>
           <ActiveIconContainer
             onClick={() => MenuItemClickHandler(1)}
@@ -189,7 +199,7 @@ const NavHome = () => {
 
       ) : (
         <></>
-      )}
+      )} */}
     </Nav>
   );
 };
