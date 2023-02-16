@@ -528,7 +528,6 @@ const RegisterProfessional = () => {
   ]);
 
 
-  console.log(formik.errors)
   return (
     <>
       <RegisterProfessionalTitleContainer>

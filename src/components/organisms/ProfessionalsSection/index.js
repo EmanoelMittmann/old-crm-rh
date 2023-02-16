@@ -85,15 +85,12 @@ const ProfessionalsSection = () => {
       {professionals[0] ? (
         <>
           <ContainerAbsolute>
-          {professionals.map((professional) => {
-            return (
+            {professionals.map(professional => 
               <ProfessionalsListItem
-                key={professional.id}
                 professional={professional}
-                getProfessionals={() => getProfessionals()}
+                getProfessionals={getProfessionals}
               />
-            );
-          })}
+              )}
           </ContainerAbsolute>
           <Footer
             previousPage={previousPage}

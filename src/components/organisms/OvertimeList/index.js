@@ -10,7 +10,7 @@ export function OvertimeList({ data, meta, nextPage, previousPage, sortById, sta
     <>
       <ListHeaderHoursExtra />
       <Height>
-        <OvertimeListItem data={data} status={status} />
+        {data?.map(item => <OvertimeListItem item={item} status={status} />)}
       </Height>
       <Footer
         height="5em"

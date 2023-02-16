@@ -23,7 +23,6 @@ import { useEffect } from "react";
 
 export const ProjectRow = ({ project, statusOptions, getProjects }) => {
   const history = useHistory();
-  const [idProjectClicked, setIdProjectClicked] = useState(0);
   const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false);
   const [statusModalIsVisible, setStatusModalIsVisible] = useState(false);
   const [teamModalIsVisible, setTeamModalIsVisible] = useState(false);

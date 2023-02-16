@@ -100,7 +100,7 @@ const CompaniesList = () => {
       <CompaniesListHeader OrderForList={OrderForList} />
       <div className="shelf">
         {companies?.map((corporation) => (
-          <CompaniesListItem key={corporation.id} corporation={corporation} />
+          <CompaniesListItem corporation={corporation} />
         ))}
       </div>
       <Footer
