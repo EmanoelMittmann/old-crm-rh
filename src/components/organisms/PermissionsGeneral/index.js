@@ -4,8 +4,9 @@ import { ContainerAbsolute, ContainerCheckBox, ContainerGeneral, SelectsItens } 
 
 export const PermissionsGeneral = () => {
     const [permissions, setPermissions] = useState('')
+    const [isChecked, setIsChecked] = useState(false)
+    const [checked, setChecked] = useState(false)
     const [disabled, isDisabled] = useState(false)
-
 
     return (
         <ContainerGeneral>
@@ -19,8 +20,8 @@ export const PermissionsGeneral = () => {
                             id="throwOvertime"
                             value='throwOvertime'
                             disabled={disabled}
-                            checked={permissions === "throwOvertime"}
-                            onChange={(e) => setPermissions(e.target.value)}
+                            checked={isChecked}
+                            onChange={() => setIsChecked(!isChecked)}
                         />
                         <p>Lançamento de Horas Extras</p>
                     </SelectsItens>
@@ -31,8 +32,8 @@ export const PermissionsGeneral = () => {
                             id="launchNote"
                             value='launchNote'
                             disabled={disabled}
-                            checked={permissions === "launchNote"}
-                            onChange={(e) => setPermissions(e.target.value)}
+                            checked={checked}
+                            onChange={() => setChecked(!checked)}
                         />
                         <p>Lançamento de Notas Fiscais</p>
                     </SelectsItens>
