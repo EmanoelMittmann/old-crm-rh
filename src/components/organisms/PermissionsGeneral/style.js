@@ -29,7 +29,7 @@ export const SelectsItens = styled.div`
   align-items: center;
   font-family: "Poppins", sans-serif;
   width: ${(props) => props.width};
-  margin: 0 2em 0 0;
+  gap:0.5em;
 
   #box {
     margin-right: 10px !important;

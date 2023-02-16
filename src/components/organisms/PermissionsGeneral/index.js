@@ -3,31 +3,36 @@ import SecondaryText from '../../atoms/SecondaryText/style'
 import { ContainerAbsolute, ContainerCheckBox, ContainerGeneral, SelectsItens } from './style'
 
 export const PermissionsGeneral = () => {
-    const [check, setCheck] = useState(false);
+    const [permissions, setPermissions] = useState('')
+    const [disabled, isDisabled] = useState(false)
 
 
     return (
         <ContainerGeneral>
-            <SecondaryText margin="2.5em 0 0 0">Gerais</SecondaryText>
+            <SecondaryText margin="2em 0 0 0">Gerais</SecondaryText>
             <ContainerAbsolute>
                 <ContainerCheckBox>
                     <SelectsItens width="60%" content="flex-start">
                         <input
                             type="checkbox"
-                            name="Relatórios"
-                            id="box"
-                            checked={check}
-                            onChange={() => { }}
+                            name="permissions"
+                            id="throwOvertime"
+                            value='throwOvertime'
+                            disabled={disabled}
+                            checked={permissions === "throwOvertime"}
+                            onChange={(e) => setPermissions(e.target.value)}
                         />
                         <p>Lançamento de Horas Extras</p>
                     </SelectsItens>
                     <SelectsItens width="60%" content="flex-start">
                         <input
                             type="checkbox"
-                            name="Relatórios"
-                            id="box"
-                            checked={check}
-                            onChange={() => { }}
+                            name="permissions"
+                            id="launchNote"
+                            value='launchNote'
+                            disabled={disabled}
+                            checked={permissions === "launchNote"}
+                            onChange={(e) => setPermissions(e.target.value)}
                         />
                         <p>Lançamento de Notas Fiscais</p>
                     </SelectsItens>

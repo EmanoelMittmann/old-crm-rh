@@ -21,8 +21,6 @@ import { useEffect } from "react";
 import InputSearchCnae from "../../atoms/InputSearchCnae";
 import InputSearchCnaeSecundary from "../../atoms/InputSearchCnaeSecundary";
 import InputNature from "../../atoms/inputCnj";
-import SelectBank from "../../atoms/SelectBank";
-import { optionsBank } from "../RegisterProfessionalsData";
 
 const RegisterCompany = ({ data, disabled }) => {
   const {
@@ -53,6 +51,7 @@ const RegisterCompany = ({ data, disabled }) => {
         checked: true,
       }),
   };
+  
   function handleTypeCompany(e) {
     setFieldValue("type_company", typeCompany);
   }
