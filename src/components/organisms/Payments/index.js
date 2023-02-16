@@ -101,16 +101,15 @@ const Payments = ({
             name="initial_period"
           />
         </ContainerSearch>
-        <ContainerListing>
-
-          <HeaderPayments
-            sortByName={sortByName}
-            setOrderField={setOrderField}
-          />
-          {reports?.map((item) => (
-            <Shelf data={item} uploads={uploads} />
-          ))}
-        </ContainerListing>
+          <ContainerListing>
+            <HeaderPayments
+              sortByName={sortByName}
+              setOrderField={setOrderField}
+            />
+            {reports?.map((item) => (
+              <Shelf data={item} uploads={uploads} />
+            ))}
+          </ContainerListing>
         <Footer
           height="3em"
           firstPage={reportsMeta.first_page}

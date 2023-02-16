@@ -46,7 +46,7 @@ export const PermissionsSpecial = () => {
                           id="reports"
                           disabled={disabled}
                           checked={isChecked}
-                          onChange={(e) => setIsChecked(!isChecked)}
+                          onChange={() => setIsChecked(!isChecked)}
                       />
                       <p>Relatórios</p>
                   </SelectsItens>
@@ -58,7 +58,7 @@ export const PermissionsSpecial = () => {
                           id="service_orders"
                           disabled={disabled}
                           checked={isCheckedOrServices}
-                          onChange={(e) => setIsCheckedOrServices(!isCheckedOrServices)}
+                          onChange={() => setIsCheckedOrServices(!isCheckedOrServices)}
                       />
                       <p>Ordens de Serviços</p>
                   </SelectsItens>
@@ -70,7 +70,7 @@ export const PermissionsSpecial = () => {
                           value='settings'
                           disabled={disabled}
                           checked={isCheckedSettings}
-                          onChange={(e) => setIsCheckedSettings(!isCheckedSettings)}
+                          onChange={() => setIsCheckedSettings(!isCheckedSettings)}
                       />
                       <p>Configurações</p>
                   </SelectsItens>
@@ -82,7 +82,7 @@ export const PermissionsSpecial = () => {
                           value='overtime'
                           disabled={disabled}
                           checked={isCheckedOvertime}
-                          onChange={(e) => setIsCheckedOvertime(!isCheckedOvertime)}
+                          onChange={() => setIsCheckedOvertime(!isCheckedOvertime)}
                       />
                       <p>Horas Extras</p>
                   </SelectsItens>
@@ -97,7 +97,7 @@ export const PermissionsSpecial = () => {
                           value='invoices'
                           disabled={disabled}
                           checked={isCheckedInvoices}
-                          onChange={(e) => setIsCheckedInvoices(!isCheckedInvoices)}
+                          onChange={() => setIsCheckedInvoices(!isCheckedInvoices)}
                       />
                       <p>Notas Fiscais</p>
                   </SelectsItens>
@@ -109,7 +109,7 @@ export const PermissionsSpecial = () => {
                           value='projects'
                           disabled={disabled}
                           checked={isCheckedProjects}
-                          onChange={(e) => setIsCheckedProjects(!isCheckedProjects)}
+                          onChange={() => setIsCheckedProjects(!isCheckedProjects)}
                       />
                       <p>Projetos</p>
                   </SelectsItens>
@@ -121,7 +121,7 @@ export const PermissionsSpecial = () => {
                           value='start'
                           disabled={disabled}
                           checked={isCheckedStart}
-                          onChange={(e) => setIsCheckedStart(!isCheckedStart)}
+                          onChange={() => setIsCheckedStart(!isCheckedStart)}
                       />
                       <p>Início</p>
                   </SelectsItens>
@@ -133,7 +133,7 @@ export const PermissionsSpecial = () => {
                           value='professionals'
                           disabled={disabled}
                           checked={isCheckedProfessionals}
-                          onChange={(e) => setIsCheckedProfessionals(!isCheckedProfessionals)}
+                          onChange={() => setIsCheckedProfessionals(!isCheckedProfessionals)}
                       />
                       <p>Profissionais</p>
                   </SelectsItens>
