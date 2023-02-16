@@ -48,13 +48,13 @@ const Shelf = ({ values, index, getHoursPending }) => {
         {values.status_name === 'Pendente - RH' ? (
           <ContainerUser
             onClick={() => handlerModalRH()}
-            w="22%"
+            w="22.5%"
           >
             <img src={values.avatar} className="img" />
             <User_name>{values?.user_name}</User_name>
           </ContainerUser>
         ) : (
-          <ContainerUser w="22%">
+          <ContainerUser w="22.5%">
             <img src={values.avatar} className="img" />
             <User_name>{values?.user_name}</User_name>
           </ContainerUser>
@@ -62,7 +62,7 @@ const Shelf = ({ values, index, getHoursPending }) => {
         <ContainerQntHours>
           {values?.hour_quantity}hr
         </ContainerQntHours>
-        <ContainerProject w="18%">
+        <ContainerProject w="19%">
           <Text>{values.project_name}</Text>
         </ContainerProject>
         <ContainerLaunch_date w='17%'>

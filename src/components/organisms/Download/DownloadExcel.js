@@ -12,21 +12,17 @@ import {
 import CloseButtonCircle from '../../atoms/Buttons/CloseButtonCircle/index.js'
 import api from '../../../api/api.js'
 import InputSelect from '../../atoms/InputSelect/index.js'
-import ModalRed from '../../molecules/ModalRed/index.js'
-import { useHistory } from 'react-router-dom'
 import { saveAs } from 'file-saver'
 import { toast } from 'react-toastify'
 import { DefaultToast } from '../../atoms/Toast/DefaultToast.js'
+import ModalGreen from '../../molecules/ModalGreen/index.js'
 
 
-const DownloadExcel = ({ setModalIsVisibleExcel }) => {
+const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
 
     const [modalIsVisible, setModalIsVisible] = useState(false)
     const [payingCompany, setPayingCompany] = useState([])
-    const [companyCode, setCompanyCode] = useState()
-
-    const history = useHistory()
-    let params = {};
+    const [companyCode, setCompanyCode] = useState('')
 
     const download = async () => {
         try {
@@ -37,20 +33,29 @@ const DownloadExcel = ({ setModalIsVisibleExcel }) => {
 
             return toast.warn(<DefaultToast text={'Nenhum relatório para pagamento encontrado!'} />)
         }
+        getReports()
     }
 
     const getCompany = async () => {
-        const { data } = await api({
-            method: "GET",
-            url: `/companies`,
-            params: params,
-        });
-        setPayingCompany(data.data);
+        try {
+            const { data } = await api({
+                method: "GET",
+                url: `/companies`,
+                razao_social: payingCompany
+            });
+            setPayingCompany(data.data);
+        } catch (error) {
+            console.error(error)
+        }
     };
 
     const handleClicked = () => {
-        setModalIsVisible(prev => !prev)
+        if (companyCode.trim() === '') {
+            return toast.warn(<DefaultToast text={"Selecione uma empresa"} />)
+        } else {
+            setModalIsVisible(prev => !prev)
         }
+    }
 
     const ModalClick = () => {
         setModalIsVisibleExcel(prev => !prev)
@@ -80,11 +85,10 @@ const DownloadExcel = ({ setModalIsVisibleExcel }) => {
                 </ContainerInputsSelect>
                 <ContainerButtons>
                     <CancelButton onClick={ModalClick}>Cancelar</CancelButton>
-                    <SaveButton onClick={() => handleClicked()
-                    }> Exportar</SaveButton>
+                    <SaveButton onClick={() => handleClicked()}> Exportar</SaveButton>
                     <>
                         {modalIsVisible && (
-                            <ModalRed
+                            <ModalGreen
                                 redButtonClickHandler={() => {
                                     download()
                                     ModalClick()

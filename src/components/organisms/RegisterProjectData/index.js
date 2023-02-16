@@ -10,11 +10,10 @@ import {
     ContainerFirstRow,
     ContainerSecond,
 } from './style.js'
-import { Container } from '../../atoms/Container/index.js'
+
 
 const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
     const { values, handleChange, errors, touched, setFieldTouched, setFieldValue } = data
-    const inputRef = useRef(null)
 
     const team_cost_mask = createNumberMask({
         prefix: 'R$',
@@ -118,7 +117,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         name="team_cost"
                         width="100%"
                         widthContainer="100%"
-                        value={values.team_cost}
+                        value={(values.team_cost)}
                         onChange={handleChange('team_cost')}
                         error={errors.team_cost}
                         touched={touched.team_cost}
@@ -131,7 +130,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                     <InputWithLabel
                         type="date"
                         onChange={handleChange('date_start_performed')}
-                        placeholder="Data Iníco do contrato"
+                        placeholder="Data Início do contrato"
                         label="Data Iníco do contrato"
                         name="date_start_performed"
                         width="100%"

@@ -18,6 +18,8 @@ import { formatCnpj } from "../../../utils/formatCnpj";
 import DetailsReports from "../../DetailsReports";
 
 const Shelf = ({ data, uploads }) => {
+  const { id } = data;
+
   const [menuOptions, setMenuOptions] = useState(false);
   const [detailVisibled, setdetaisVisibled] = useState(false);
   const modalRef = useRef();

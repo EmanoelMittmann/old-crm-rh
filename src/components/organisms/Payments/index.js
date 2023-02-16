@@ -37,6 +37,8 @@ const Payments = ({
   const handleDownload = () =>{
     setModalIsVisibleExcel(prev => !prev)
   }
+
+
   return (
     <>
       <Container>

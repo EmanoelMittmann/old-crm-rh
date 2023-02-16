@@ -5,6 +5,11 @@ export const ContainerProfessionalsListItem = styled.div`
   display: flex;
   align-items: center;
   height: 60px;
+  border-radius: 10px;
+
+  &:hover{
+    background-color:#f4f6f8;
+  }
 `;
 
 export const ProfessionalProfile = styled.div`
