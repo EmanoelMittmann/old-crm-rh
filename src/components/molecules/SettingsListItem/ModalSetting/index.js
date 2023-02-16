@@ -6,10 +6,9 @@ import StatusActive from "../../../atoms/StatusActive";
 import StatusDisabled from "../../../atoms/StatusDisabled";
 import { ListItemContainer, ListItemDetails, ListItemName } from "../style";
 
-const ModalSettings = forwardRef(
-  ({ data,index, edit, toggle, openOptions }) => {
-    const modalRef = useRef();
-    const buttonRef = useRef();
+const ModalSettings = ({ data, edit, toggle, openOptions }) => {
+    const modalRef = useRef(null);
+    const buttonRef = useRef(null);
 
     const handleOutside = (e) => {
       if (
@@ -31,7 +30,7 @@ const ModalSettings = forwardRef(
     }, []);
 
     return (
-      <ListItemContainer key={index}>
+      <ListItemContainer>
         <ListItemName>{data.name}</ListItemName>
         <ListItemDetails>
           {data.is_active ? <StatusActive /> : <StatusDisabled />}
@@ -46,6 +45,6 @@ const ModalSettings = forwardRef(
       </ListItemContainer>
     );
   }
-);
+
 
 export default ModalSettings;

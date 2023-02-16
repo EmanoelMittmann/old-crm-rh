@@ -88,6 +88,7 @@ const ProfessionalsSection = () => {
             {professionals.map(professional => 
               <ProfessionalsListItem
                 professional={professional}
+                key={professional.id}
                 getProfessionals={getProfessionals}
               />
               )}

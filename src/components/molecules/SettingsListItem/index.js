@@ -50,7 +50,6 @@ const SettingsListItem = () => {
   }, [location.pathname]);
 
   const openOptions = (info) => {
-
     if (location.pathname === "/job") {
       dispatch(jobOptionClicked(info.id));
     }
@@ -63,6 +62,7 @@ const SettingsListItem = () => {
   };
 
   const editListItem = (info) => {
+    console.log("info: ", info);
     if (location.pathname === "/job") {
       dispatch(editJobClicked(info.id));
     }
@@ -176,30 +176,30 @@ const SettingsListItem = () => {
   return (
     <div>
       {location.pathname === "/job" &&
-        state.jobs.map((job, index) => (
+        state.jobs.map((job) => (
           <ModalSettings
             data={job}
-            index={index}
+            key={job.id}
             edit={editListItem}
             toggle={toggleStatusOptions}
             openOptions={openOptions}
           />
         ))}
       {location.pathname === "/projectStatus" &&
-        state.status.map((status, index) => (
+        state.status.map((status) => (
           <ModalSettings
             data={status}
-            index={index}
+            key={status.id}
             edit={editListItem}
             toggle={toggleStatusOptions}
             openOptions={openOptions}
           />
         ))}
       {location.pathname === "/projectType" &&
-        state.projectType.map((project, index) => (
+        state.projectType.map((project) => (
           <ModalSettings
             data={project}
-            index={index}
+            key={project.id}
             edit={editListItem}
             toggle={toggleStatusOptions}
             openOptions={openOptions}
