@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import ProjectRow from "./row";
 
 export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
+  const [modalDetails,setModalDetails] = useState(false)
 
   if (!data) {
     return (

@@ -6,7 +6,6 @@ const inicialState = false;
 
 const authentication = (state = inicialState, action) => {
   const { type, payload } = action;
-  console.log("payload: ", payload);
   switch (type) {
     case VALIDTOKEN:
       const token = JSON.stringify(payload.token);
