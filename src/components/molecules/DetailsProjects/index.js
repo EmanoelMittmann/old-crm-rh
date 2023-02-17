@@ -31,7 +31,7 @@ import api from '../../../api/api';
 import { useEffect } from 'react';
 
 
-const DetaislProjects = ({ id,setModalDetails}) => {
+const DetailsProjects = ({ id,setModalDetails}) => {
    const [listData, setListData] =  useState()
    
    const ClickHandler = () => {
@@ -126,4 +126,4 @@ useEffect(()=> {
 
 }
 
-export default DetaislProjects;
+export default DetailsProjects;

@@ -15,15 +15,18 @@ import {
   ContainerIconOptions,
   ContainerTeamMemberPic,
   ProjectsListItemId,
+  ProjectsContainer,
   ContainerDateFinal,
 } from "./style.js";
 import { formatDate } from "../../utils/formatDate.js";
 import { ReactComponent as OptionsIcon } from "../../../assets/icons/options.svg";
 import { useEffect } from "react";
+import DetailsProjects from "../../molecules/DetailsProjects";
 
 export const ProjectRow = ({ project, statusOptions, getProjects }) => {
   const history = useHistory();
   const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false);
+  const [details, setDetails] = useState(false);
   const [statusModalIsVisible, setStatusModalIsVisible] = useState(false);
   const [teamModalIsVisible, setTeamModalIsVisible] = useState(false);
   const modalRef = useRef();
@@ -68,28 +71,32 @@ export const ProjectRow = ({ project, statusOptions, getProjects }) => {
 
   return (
     <ProjectsListItemContainer key={project.id}>
-      <ProjectsListItemId>{project.id}</ProjectsListItemId>
-      <ProjectsListItemProject>{project.name}</ProjectsListItemProject>
-      <ProjectsListItemType>{project.project_type?.name}</ProjectsListItemType>
-      <ProjectsListItemBeginning>
-        {formatDate(project.date_start)}
-      </ProjectsListItemBeginning>
-      <ProjectsListItemTime>
-        <ContainerDateFinal>{formatDate(project.date_end)}</ContainerDateFinal>
-      </ProjectsListItemTime>
-      <ProjectsListItemStatus>
-        <StatusLabel
-          name={project.status.name}
-          textColor={project.status.color.text_color}
-          buttonColor={project.status.color.button_color}
-        />
-      </ProjectsListItemStatus>
+      <ProjectsContainer onClick={() => setDetails(!details)}>
+        <ProjectsListItemId>{project.id}</ProjectsListItemId>
+        <ProjectsListItemProject>
+          {project.name}
+        </ProjectsListItemProject>
+        <ProjectsListItemType>
+          {project.project_type?.name}
+        </ProjectsListItemType>
+        <ProjectsListItemBeginning>
+          {formatDate(project.date_start)}
+        </ProjectsListItemBeginning>
+        <ProjectsListItemTime>
+          <ContainerDateFinal>
+            {formatDate(project.date_end)}
+          </ContainerDateFinal>
+        </ProjectsListItemTime>
+        <ProjectsListItemStatus>
+          <StatusLabel
+            name={project.status.name}
+            textColor={project.status.color.text_color}
+            buttonColor={project.status.color.button_color}
+          />
+        </ProjectsListItemStatus>
+      </ProjectsContainer>
       <ProjectListOptions
-        optionsColor={
-          menuOptionsIsVisible
-            ? "#407BFF"
-            : "#B7BDC2"
-        }
+        optionsColor={menuOptionsIsVisible ? "#407BFF" : "#B7BDC2"}
       >
         <ContainerIconOptions>
           <OptionsIcon
@@ -124,6 +131,9 @@ export const ProjectRow = ({ project, statusOptions, getProjects }) => {
           CloseButtonClickHandler={closeProjectTeamModal}
           users={project.users}
         />
+      )}
+      {details && (
+        <DetailsProjects id={project.id} setModalDetails={setDetails} />
       )}
     </ProjectsListItemContainer>
   );

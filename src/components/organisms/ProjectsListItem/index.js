@@ -26,10 +26,6 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
     );
   }
   
-  const handleDetails = () => {
-    setModalDetails(prev => !prev)
-  }
-
   return data.map((project) => <ProjectRow statusOptions={statusOptions} project={project} getProjects={getProjects} key={project.id}/>);
 };
 
