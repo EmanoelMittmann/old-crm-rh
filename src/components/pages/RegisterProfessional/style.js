@@ -17,3 +17,19 @@ export const RegisterProfessionalContainer = styled.div`
         border-top: #CCD1D6 solid 1px;
     }
 `
+export const ContainerPermission = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: white;
+    margin: 0 auto;
+    border-radius: 20px;
+    padding: 0em 0 0.5em 0;
+    min-height: 50vh;
+   
+
+    .techlead{
+        border-top: #CCD1D6 solid 1px;
+    }
+`

@@ -20,6 +20,7 @@ const InputSelectWithLabel = ({
   reset,
   disabled,
   onFocus,
+  value,
 }) => {
   return (
     <InputLine width={lineWidth}>
@@ -29,6 +30,7 @@ const InputSelectWithLabel = ({
         disabled={disabled}
         onChange={setSelectedOption}
         onFocus={onFocus}
+        value={value}
       >
         {reset && (
           <InputSelectOptionPlaceholder value={placeholder} selected disabled>

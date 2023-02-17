@@ -22,7 +22,7 @@ const HeaderOvertimeRh = ({sortByName,setOrderField}) => {
         </ListHeadeQntHours>
 
         <ListHeadeProject>
-          <ListHeaderTitle margin="3em">Projeto</ListHeaderTitle>
+          <ListHeaderTitle margin="2.5em">Projeto</ListHeaderTitle>
           <Arrows
             onClick={() => {
               sortByName()
@@ -32,7 +32,7 @@ const HeaderOvertimeRh = ({sortByName,setOrderField}) => {
         </ListHeadeProject>
 
         <ListHeaderLaunch>
-          <ListHeaderTitle margin="3em">Data de lançamento</ListHeaderTitle>
+          <ListHeaderTitle margin="2.5em">Data de lançamento</ListHeaderTitle>
           <Arrows
             onClick={() => {
               sortByName()

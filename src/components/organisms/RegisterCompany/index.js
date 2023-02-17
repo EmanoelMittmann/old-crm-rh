@@ -21,8 +21,6 @@ import { useEffect } from "react";
 import InputSearchCnae from "../../atoms/InputSearchCnae";
 import InputSearchCnaeSecundary from "../../atoms/InputSearchCnaeSecundary";
 import InputNature from "../../atoms/inputCnj";
-import SelectBank from "../../atoms/SelectBank";
-import { optionsBank } from "../RegisterProfessionalsData";
 
 const RegisterCompany = ({ data, disabled }) => {
   const {
@@ -53,14 +51,17 @@ const RegisterCompany = ({ data, disabled }) => {
         checked: true,
       }),
   };
+  
   function handleTypeCompany(e) {
     setFieldValue("type_company", typeCompany);
   }
   return (
     <ContainerRegisterCompanyData>
+     
+      <SecondaryText margin="0 0 2.5em 0">Dados da empresa</SecondaryText>
       <ContainerTypecompany>
         <Typecompany>
-          <Matriz>Tipos de Empresa</Matriz>
+          <Matriz>Tipo de Empresa</Matriz>
           <ContainerRadiosCompany>
             <InputRadio
               type="radio"
@@ -85,7 +86,7 @@ const RegisterCompany = ({ data, disabled }) => {
             />
             <LabelInputRadio for="typeCompany"> Cliente </LabelInputRadio>
           </ContainerRadiosCompany>
-          <ContainerRadiosCompany>
+          <ContainerRadiosCompany style={{marginBottom:"2em"}}>
             <InputRadio
               type="radio"
               disabled={disabled}
@@ -99,7 +100,6 @@ const RegisterCompany = ({ data, disabled }) => {
           </ContainerRadiosCompany>
         </Typecompany>
       </ContainerTypecompany>
-      <SecondaryText margin="2.5em">Dados da empresa</SecondaryText>
       <RegisterCompanyForm>
         <ContainerRow>
           <InputMasked

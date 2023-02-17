@@ -27,7 +27,7 @@ const DetailsReports = ({ setdetaisVisibled, data, id }) => {
     const ClickModal = () => {
         setdetaisVisibled(prev => !prev)
     }
-
+    
     return data ? (
             <>
             <ModalContainer key={data.id}>

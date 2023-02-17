@@ -1,13 +1,18 @@
 import styled from "styled-components";
 
 export const Main = styled.div`
+ width: 98%;
   display: flex;
-  width: 100%;
-  height: 2.5em;
   align-items: center;
-  margin-top: 1em;
-  margin:${props => props.margin ? props.margin : '0 0 2em 0'};
-  padding: ${props => props.padding ? props.padding : '1em'};
+  padding: 1em;
+  height: 60px;
+  border-radius: 10px;
+  margin-left: 0.9em;
+
+  &:hover{
+    background-color:#f4f6f8;
+  }
+  
 `;
 
 export const ContainerUser = styled.h4`
@@ -32,7 +37,7 @@ export const ContainerStatus = styled.div`
 `;
 export const ContainerQntHours = styled.div`
   display: flex;
-  width: 20.2%;
+  width: 22%;
 `;
 
 export const ContainerProject = styled.div`
