@@ -15,7 +15,7 @@ export const ContainerProfessionalsListItem = styled.div`
 export const ProfessionalProfile = styled.div`
   display: flex;
   align-items: center;
-  width: 25%;
+  width: 23.5%;
   padding-left: 1em;
 `;
 export const ProfessionalJob = styled.div`

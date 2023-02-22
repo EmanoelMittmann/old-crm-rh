@@ -13,18 +13,16 @@ import {
   ProjectsListItemTime,
   ProjectsListItemStatus,
   ContainerIconOptions,
-  ContainerTeamMemberPic,
   ProjectsListItemId,
+  ProjectsContainer,
   ContainerDateFinal,
 } from "./style.js";
 import { formatDate } from "../../utils/formatDate.js";
 import { ReactComponent as OptionsIcon } from "../../../assets/icons/options.svg";
 import { useEffect } from "react";
-
-import { ProjectsContainer } from "./style.js";
 import DetaislProjects from "../../molecules/DetailsProjects";
 
-export const ProjectRow = ({ project, statusOptions, getProjects, getProjectsDetails, listData }) => {
+export const ProjectRow = ({ project, statusOptions, getProjects,}) => {
   const history = useHistory();
   const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false);
   const [statusModalIsVisible, setStatusModalIsVisible] = useState(false);
@@ -77,15 +75,7 @@ export const ProjectRow = ({ project, statusOptions, getProjects, getProjectsDet
   }, []);
 
   return (
-    <><>
-      {modalDetails && (
-        <DetaislProjects
-          id={idProjectsDetails}
-          getProjectsDetails={getProjectsDetails}
-          listData={listData}
-          setModalDetails={setModalDetails} />
-      )}
-    </><ProjectsListItemContainer key={project.id}>
+    <ProjectsListItemContainer key={project.id}>
         <ProjectsContainer onClick={() => {
           setIdProjectsDetails(project.id)
           handleDetails()
@@ -105,6 +95,7 @@ export const ProjectRow = ({ project, statusOptions, getProjects, getProjectsDet
             textColor={project.status.color.text_color}
             buttonColor={project.status.color.button_color} />
         </ProjectsListItemStatus>
+
         </ProjectsContainer>
         <ProjectListOptions
           optionsColor={menuOptionsIsVisible
@@ -112,10 +103,16 @@ export const ProjectRow = ({ project, statusOptions, getProjects, getProjectsDet
             : "#B7BDC2"}
         >
           <ContainerIconOptions
+            buttonColor={project.status.color.button_color}
+          />
+      <ProjectListOptions
+        optionsColor={menuOptionsIsVisible ? "#407BFF" : "#B7BDC2"}
+      />
+        <ContainerIconOptions>
+          <OptionsIcon
             ref={buttonRef}
             onClick={() => setMenuOptionsIsVisible(!menuOptionsIsVisible)}
-          >
-            <OptionsIcon />
+          />
           </ContainerIconOptions>
           {menuOptionsIsVisible && (
             <MenuOptions
@@ -142,8 +139,28 @@ export const ProjectRow = ({ project, statusOptions, getProjects, getProjectsDet
             CloseButtonClickHandler={closeProjectTeamModal}
             users={project.users} />
         )}
-      </ProjectsListItemContainer></>
-    
+      {statusModalIsVisible && (
+        <ModalProjectStatus
+          CloseButtonClickHandler={closeModalEditProjectStatus}
+          statusId={project.project_status_id}
+          projectId={project.id}
+          options={statusOptions}
+        />
+      )}
+      {teamModalIsVisible && (
+        <ModalProjectTeam
+          CloseButtonClickHandler={closeProjectTeamModal}
+          users={project.users}
+        />
+      )}
+
+      {modalDetails && (
+        <DetaislProjects
+          id={idProjectsDetails}
+          setModalDetails={setModalDetails} />
+      )}
+    </ProjectsListItemContainer>
+
   );
 };
 

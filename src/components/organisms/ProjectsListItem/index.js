@@ -27,8 +27,8 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects, DetailsRepo
   }
 
 
-
   return data.map((project) => <ProjectRow statusOptions={statusOptions} project={project} getProjects={getProjects} key={project.id} DetailsReports={DetailsReports}/>);
+
 };
 
 export default ProjectsListItem;

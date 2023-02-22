@@ -18,7 +18,7 @@ export const ProfessionalName = styled.span`
   display: flex;
   align-items: center;
   white-space: nowrap;
-  font-size: 0.8em;
+  font-size: 0.7em;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -27,11 +27,12 @@ export const ProfessionalJob = styled.span`
   display: flex;
   white-space: nowrap;
   align-items: center;
-  font-size: 0.8em;
+  font-size: 0.7em;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
   font-weight: 600;
+  white-space: nowrap;
+
 `;
 export const ProfessionalHours = styled.span`
   display: flex;
