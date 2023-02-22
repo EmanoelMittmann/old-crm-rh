@@ -24,6 +24,7 @@ import {
     TableLine,
     ProfilePicture,
     ProfessionalJob,
+    StyleTitleProjectTime,
 } from './style';
 import { ProfessionalName, ProfessionalProfilePicture } from '../../organisms/Attachment/Team/style';
 import StatusLabel from '../../atoms/StatusLabel';
@@ -100,7 +101,7 @@ useEffect(()=> {
                         </ContainerDataDate>
                         <ContainerAbsolute>
                             <ContainerTime>
-                                <StyleTitleProject>Time</StyleTitleProject>
+                                <StyleTitleProjectTime>Time</StyleTitleProjectTime>
                             </ContainerTime>
                             <TableLine>
                                 {item.users.map(user => (

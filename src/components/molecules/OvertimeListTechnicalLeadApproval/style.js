@@ -15,6 +15,7 @@ export const Main = styled.div`
   
 `;
 
+
 export const ContainerUser = styled.h4`
   display: flex;
   width: ${props => props.w ? props.w : '28%'};
