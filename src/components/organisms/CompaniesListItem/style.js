@@ -12,6 +12,19 @@ export const ContainerCompaniesListItem = styled.div`
     background-color:#f4f6f8;
   }
 `;
+export const ContainerCompaniesDetails = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  height: 60px;
+  cursor: pointer;
+  
+   &:hover{
+    background-color:#f4f6f8;
+  }
+`;
 
 export const CompanyRazaoSocial = styled.div`
   display: flex;
@@ -55,7 +68,7 @@ export const CompanySituation = styled.div`
   padding-left: 2em;
 `;
 
-export const ComapaniesListOptions = styled.div`
+export const CompaniesListOptions = styled.div`
   display: flex;
   justify-content: center;
   position: absolute;

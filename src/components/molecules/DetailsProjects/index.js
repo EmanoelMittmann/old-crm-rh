@@ -24,6 +24,7 @@ import {
     TableLine,
     ProfilePicture,
     ProfessionalJob,
+    StyleTitleProjectTime,
 } from './style';
 import { ProfessionalName, ProfessionalProfilePicture } from '../../organisms/Attachment/Team/style';
 import StatusLabel from '../../atoms/StatusLabel';
@@ -31,7 +32,7 @@ import api from '../../../api/api';
 import { useEffect } from 'react';
 
 
-const DetaislProjects = ({ id,setModalDetails}) => {
+const DetailsProjects = ({ id,setModalDetails}) => {
    const [listData, setListData] =  useState()
    
    const ClickHandler = () => {
@@ -100,7 +101,7 @@ useEffect(()=> {
                         </ContainerDataDate>
                         <ContainerAbsolute>
                             <ContainerTime>
-                                <StyleTitleProject>Time</StyleTitleProject>
+                                <StyleTitleProjectTime>Time</StyleTitleProjectTime>
                             </ContainerTime>
                             <TableLine>
                                 {item.users.map(user => (
@@ -126,4 +127,4 @@ useEffect(()=> {
 
 }
 
-export default DetaislProjects;
+export default DetailsProjects;

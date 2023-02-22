@@ -1,144 +1,41 @@
-import React from 'react'
-import SecondaryText from '../../atoms/SecondaryText/style'
-import { ContainerAbsolute, ContainerCheckBox, ContainerCheckBoxDuo, ContainerGeneral } from './style'
-import { SelectsItens } from './style'
-import { useState } from 'react'
-import { useEffect } from 'react'
-import api from '../../../api/api'
+import React from "react";
+import SecondaryText from "../../atoms/SecondaryText/style";
+import Shelf from "./Shelf";
+import {
+  ContainerAbsolute,
+  ContainerCheckBox,
+  ContainerCheckBoxDuo,
+  ContainerGeneral,
+} from "./style";
+import { SelectsItens } from "./style";
 
-
-
-export const PermissionsSpecial = () => {
-    const [permissions, setPermissions] = useState()
-    const [disabled, isDisabled] = useState(false)
-    const [isChecked, setIsChecked] = useState(false)
-    const [isCheckedOrServices, setIsCheckedOrServices] = useState(false)
-    const [isCheckedSettings, setIsCheckedSettings] = useState(false)
-    const [isCheckedInvoices, setIsCheckedInvoices] = useState(false)
-    const [isCheckedProjects, setIsCheckedProjects] = useState(false)
-    const [isCheckedStart, setIsCheckedStart] = useState(false)
-    const [isCheckedProfessionals, setIsCheckedProfessionals] = useState(false)
-    const [isCheckedOvertime, setIsCheckedOvertime] = useState(false)
-
-    // const getPermissions = async () => {
-    //     const { data } = await api({
-    //         method: "GET",
-    //         url: "/permissions",
-    //     });
-    //     setPermissions(data.data);
-    // };
-
-
-    // useEffect(()=>{
-    //     getPermissions()
-    // },[])
-
+export const PermissionsSpecial = ({ permissions }) => {
+  const general = permissions.filter((prop) => prop.group_name === "GENERAL");
+  const special = permissions.filter((prop) => prop.group_name === "SPECIAL").slice(0,5);
+  const special2 = permissions.filter((prop) => prop.group_name === "SPECIAL").slice(5,9)
   return (
-      <ContainerGeneral>
-          <SecondaryText margin="2em 0 0 3em">Especiais</SecondaryText>
-          <ContainerAbsolute>
-              <ContainerCheckBox>
-                  <SelectsItens width="60%" content="flex-start">
-                      <input
-                          type="checkbox"
-                          name="permissions"
-                          value='reports'
-                          id="reports"
-                          disabled={disabled}
-                          checked={isChecked}
-                          onChange={(e) => setIsChecked(!isChecked)}
-                      />
-                      <p>Relatórios</p>
-                  </SelectsItens>
-                  <SelectsItens width="60%" content="flex-start">
-                      <input
-                          type="checkbox"
-                          name="permissions"
-                          value="service_orders"
-                          id="service_orders"
-                          disabled={disabled}
-                          checked={isCheckedOrServices}
-                          onChange={(e) => setIsCheckedOrServices(!isCheckedOrServices)}
-                      />
-                      <p>Ordens de Serviços</p>
-                  </SelectsItens>
-                  <SelectsItens width="60%" content="flex-start">
-                      <input
-                          type="checkbox"
-                          name="permissions"
-                          id="settings"
-                          value='settings'
-                          disabled={disabled}
-                          checked={isCheckedSettings}
-                          onChange={(e) => setIsCheckedSettings(!isCheckedSettings)}
-                      />
-                      <p>Configurações</p>
-                  </SelectsItens>
-                  <SelectsItens width="60%" content="flex-start">
-                      <input
-                          type="checkbox"
-                          name="permissions"
-                          id="overtime"
-                          value='overtime'
-                          disabled={disabled}
-                          checked={isCheckedOvertime}
-                          onChange={(e) => setIsCheckedOvertime(!isCheckedOvertime)}
-                      />
-                      <p>Horas Extras</p>
-                  </SelectsItens>
-              </ContainerCheckBox>
-
-              <ContainerCheckBoxDuo>
-                  <SelectsItens width="60%" content="flex-start">
-                      <input
-                          type="checkbox"
-                          name="permissions"
-                          id="invoices"
-                          value='invoices'
-                          disabled={disabled}
-                          checked={isCheckedInvoices}
-                          onChange={(e) => setIsCheckedInvoices(!isCheckedInvoices)}
-                      />
-                      <p>Notas Fiscais</p>
-                  </SelectsItens>
-                  <SelectsItens width="60%" content="flex-start">
-                      <input
-                          type="checkbox"
-                          name="permissions"
-                          id="projects"
-                          value='projects'
-                          disabled={disabled}
-                          checked={isCheckedProjects}
-                          onChange={(e) => setIsCheckedProjects(!isCheckedProjects)}
-                      />
-                      <p>Projetos</p>
-                  </SelectsItens>
-                  <SelectsItens width="60%" content="flex-start">
-                      <input
-                          type="checkbox"
-                          name="permissions"
-                          id="start"
-                          value='start'
-                          disabled={disabled}
-                          checked={isCheckedStart}
-                          onChange={(e) => setIsCheckedStart(!isCheckedStart)}
-                      />
-                      <p>Início</p>
-                  </SelectsItens>
-                  <SelectsItens width="60%" content="flex-start">
-                      <input
-                          type="checkbox"
-                          name="permissions"
-                          id="professionals"
-                          value='professionals'
-                          disabled={disabled}
-                          checked={isCheckedProfessionals}
-                          onChange={(e) => setIsCheckedProfessionals(!isCheckedProfessionals)}
-                      />
-                      <p>Profissionais</p>
-                  </SelectsItens>
-              </ContainerCheckBoxDuo>
-          </ContainerAbsolute>
-      </ContainerGeneral>
-  )
-}
+    <ContainerGeneral>
+        <ContainerCheckBox direction='row' gap='55em'>
+          <h4>Especiais</h4>
+          <h4>Gerais</h4>
+        </ContainerCheckBox>
+      <ContainerAbsolute>
+        <ContainerCheckBox>
+          {special?.map((item) => (
+            <Shelf key={item.id} data={item} />
+          ))}
+        </ContainerCheckBox>
+        <ContainerCheckBox >
+          {special2?.map((item) => (
+            <Shelf key={item.id} data={item} />
+          ))}
+        </ContainerCheckBox>
+        <ContainerCheckBox >
+          {general?.map((item) => (
+            <Shelf key={item.id} data={item} />
+          ))}
+        </ContainerCheckBox>
+      </ContainerAbsolute>
+    </ContainerGeneral>
+  );
+};

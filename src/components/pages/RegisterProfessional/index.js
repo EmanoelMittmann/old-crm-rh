@@ -27,13 +27,13 @@ import InputWithLabel from "../../atoms/InputWithLabel";
 import SecondaryText from "../../atoms/SecondaryText/style";
 import TechLeadAndDev from "../../molecules/techLeadAndDev";
 import { PermissionsSpecial } from "../../organisms/PermissionsSpecial";
-import { PermissionsGeneral } from "../../organisms/PermissionsGeneral";
 
 const RegisterProfessional = () => {
   const [jobs, setJobs] = useState([]);
   const [allProjects, setAllProjects] = useState([]);
   const [projects, setProjects] = useState([]);
   const [uniqueCpf, setUniqueCpf] = useState("");
+  const [permissions, setPermissions] = useState([])
   const [cpfValid, setCpfValid] = useState(false);
   const [uniqueCEP, setUniqueCEP] = useState("");
   const [oldValue, setOldValue] = useState([]);
@@ -318,6 +318,13 @@ const RegisterProfessional = () => {
     handleChange,
   } = formik;
 
+  const getPermissions = async () => {
+    const {data} = await api.get('/permissions')
+    console.log("data: ", data);
+    setPermissions(data)
+    
+  }
+
   const reloadProjects = useCallback(async () => {
     const { data } = await api({
       method: "get",
@@ -530,6 +537,10 @@ const RegisterProfessional = () => {
     values.professional_data.type_of_transfer,
   ]);
 
+  useEffect(() => {
+    getPermissions()
+  },[])
+
   return (
     <>
       <RegisterProfessionalTitleContainer>
@@ -544,11 +555,9 @@ const RegisterProfessional = () => {
           <RegisterProfessionalsData data={formik} />
           <EmploymentContract data={formik} jobs={jobs} />
 
-          <SecondaryText margin="2.5em 0 0 2em">Permissões</SecondaryText>
+          <SecondaryText margin="2.5em 0 1.5em 2em">Permissões</SecondaryText>
           <ContainerPermission>
-           <PermissionsSpecial/>
-
-           <PermissionsGeneral/>
+            <PermissionsSpecial permissions={permissions}/>
           </ContainerPermission>
 
           <ProfessionalsExtraHour

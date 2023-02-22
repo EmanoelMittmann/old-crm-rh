@@ -2,23 +2,21 @@ import styled from "styled-components"
 
 export const ContainerAbsolute = styled.div`
     display: flex;
-    flex-direction: row;
     margin-top: 2em;
-    height: 300px;
 `
 
 export const ContainerGeneral = styled.div`
-  width: 60%;
-
+  width: 100%;
 `
 
 export const ContainerCheckBox = styled.div`
-  width: 40%;
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: ${props => props.direction ? props.direction : 'column'};
+  height: 20%;
+  margin-bottom: 1em;
   margin-left:3em;
-  gap: 2em;
-
+  gap: ${props => props.gap ? props.gap : '2em'};
 `
 export const ContainerCheckBoxDuo = styled.div`
   width: 40%;
@@ -30,9 +28,9 @@ export const ContainerCheckBoxDuo = styled.div`
 `
 
 export const SelectsItens = styled.div`
-  display: inline-flex;
-  justify-content: ${(props) => props.content};
+  display:flex;
   white-space: nowrap;
+  justify-content: ${(props) => props.content};
   padding-right: ${props => props.right};
   align-items: center;
   font-family: "Poppins", sans-serif;
