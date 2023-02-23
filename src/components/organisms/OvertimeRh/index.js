@@ -78,8 +78,8 @@ const OvertimeRh = ({
           setOrderField={setOrderField}
         />
         <div className="height">
-          {data.map((item, index) => (
-            <Shelf values={item} index={index} getHoursPending={getHoursPending}/>
+          {data.map((item) => (
+            <Shelf values={item} key={item.id} getHoursPending={getHoursPending}/>
           ))}
         </div>
       </ContainerListing>

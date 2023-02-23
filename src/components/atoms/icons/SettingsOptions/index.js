@@ -1,22 +1,19 @@
-import React from 'react'
+import React, { forwardRef, useRef } from 'react'
 
 import { OptionsContainer, OptionsMenu, OptionsMenuItem } from './style.js'
 import {
     ReactComponent as OptionsIcon
   } from '../../../../assets/icons/options.svg'
 
-
-
-const SettingsOptions = ({info, editListItem, toggleStatusOptions, openOptions}) => {
-
+const SettingsOptions = forwardRef(({info, editListItem, toggleStatusOptions, openOptions},ref) => {
+    const {buttonRef,modalRef} = ref
     return(
         <div>
             <OptionsContainer 
-            onClick={() => openOptions(info)}
             color={info.clicked ? "#407BFF" : "#B7BDC2"}>
-                <OptionsIcon/>
+                <OptionsIcon onClick={() => openOptions(info)} ref={buttonRef}/>
                 {info.clicked && 
-                    <OptionsMenu>
+                    <OptionsMenu ref={modalRef}>
 
                         <OptionsMenuItem 
                         onClick={() => editListItem(info)}
@@ -35,7 +32,7 @@ const SettingsOptions = ({info, editListItem, toggleStatusOptions, openOptions})
             </OptionsContainer>
         </div>
     )
-}
+})
 
 export default SettingsOptions;
 

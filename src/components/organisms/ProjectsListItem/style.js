@@ -30,23 +30,23 @@ export const ProjectsListItemId = styled.div`
 
 export const ProjectsListItemProject = styled.div`
   display: flex;
-  padding-left: 2.1em;
+  padding-left: 2.7em;
   justify-content: left;
-  width: 28%;
+  width: 27.5%;
 `;
 
 export const ProjectsListItemType = styled.div`
   display: flex;
-  width: 16%;
+  width: 17%;
   padding-right: 10em;
 `;
 
 export const ProjectsListItemBeginning = styled.div`
-  width: 19%;
+  width: 17%;
 `;
 
 export const ProjectsListItemTime = styled.div`
-  width: 20%;
+  width: 18%;
   display: flex;
 `;
 export const ProjectsListItemStatus = styled.div`
@@ -55,7 +55,7 @@ export const ProjectsListItemStatus = styled.div`
 export const ProjectListOptions = styled.div`
   display: flex;
   justify-content: flex-end;
-  width: 13%;
+  width: 10%;
 
   svg {
     fill: ${(props) => props.optionsColor};

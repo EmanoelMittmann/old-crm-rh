@@ -5,6 +5,7 @@ export const OptionsContainer = styled.div`
     position: relative;
     margin-left: 3em;
     margin-right: 0.5em;
+    cursor: pointer;
 
     svg {
         fill: ${props => props.color};

@@ -47,8 +47,8 @@ export const optionsUF = [
 ];
 
 export const optionsBank = [
-  { name: "Conta Corrente ", id: "001" },
-  { name: "Conta Poupança ", id: "013" },
+  { name: "Conta Corrente ", id: "Conta Corrente" },
+  { name: "Conta Poupança ", id: "Conta Poupança" },
 ];
 
 const optionsTypeOfTranfer = [

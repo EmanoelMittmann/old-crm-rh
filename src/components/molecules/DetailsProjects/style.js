@@ -6,8 +6,8 @@ export const ModalContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 40%;
-  height: 96%;
+  width: 550px;
+  height: 610px;
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 1px 0px rgba(0, 0, 0, 0.1);
@@ -46,14 +46,14 @@ export const ContainerData = styled.div`
     justify-content:space-between;
     align-items: center;
     margin: -1em 2em;
-    border-bottom: 2px solid rgba(204, 209, 214, 1);
-    padding-bottom: 2em;
+    border-bottom: 1px solid rgba(204, 209, 214, 1);
+    padding-bottom: 1em;
 `
 export const ContainerTime = styled.div`
     width: 93%;
     display: flex;
     flex-direction: column;
-    margin: 2em 2em 2em 2em;
+    margin: 2em 2em 0.8em 2em;
 `
 export const ContainerDataDate = styled.div`
     width: 51%;
@@ -111,24 +111,21 @@ export const ContaineTitlesDuo = styled.div`
     margin: 1.5em 2em;
 `
 export const StyleName = styled.h5`
-    width: 30%;
+    width: 35.5%;
     font-family: 'Poppins';
-    font-style: italic;
     color: #5A646E;
 `
 export const StyleTipe = styled.h5`
     width: 20%;
     font-family: 'Poppins';
-    font-style: italic;
     color: #5A646E;
 `
 export const StyleDate = styled.div`
     width: 8%;
     align-items:center;
     font-family: 'Poppins';
-    font-style: italic;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 100%;
     color: #5A646E;
     margin-top:-1.5em;
@@ -140,16 +137,21 @@ export const EstimatedCost = styled.div`
     font-family: 'Poppins';
     font-style: italic;
     font-weight: 400;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 100%;
     color: #5A646E;
     margin-top:-1.5em;
 
 `
-export const StyleTitle = styled.h5`
+export const StyleTitle = styled.h6`
     font-family: 'Poppins';
 `
-export const StyleTitleProject = styled.h5`
+export const StyleTitleProject = styled.h6`
+    width: 26%;
+    font-family: 'Poppins';
+
+`
+export const StyleTitleProjectTime = styled.h5`
     width: 24%;
     font-family: 'Poppins';
 
