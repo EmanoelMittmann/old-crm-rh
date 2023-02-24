@@ -12,7 +12,7 @@ import {
 import { Modules } from "../Modules";
 export const userAccess = [
   {
-    3: <Modules id={1} children={<HomeIcon />} route="/" />,
+    3: <Modules id={1} children={<HomeIcon />} route="/home" />,
   },
   {
     6: <Modules id={1} children={<JobIcon />} route="/professionals" />,

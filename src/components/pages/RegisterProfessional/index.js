@@ -323,8 +323,6 @@ const RegisterProfessional = () => {
     const { data } = await api.get('/permissions')
     setPermissions(data)
   }
-  console.log("checked", values.permissions)
-
 
   const reloadProjects = useCallback(async () => {
     const { data } = await api({
@@ -410,7 +408,7 @@ const RegisterProfessional = () => {
         });
         reloadProjects();
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error(<DefaultToast text="Erro ao remover projeto." />, {
           toastId: "delete",
         });
