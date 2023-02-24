@@ -79,32 +79,32 @@ export const ContaineTitles = styled.div`
     margin: 0em 0em 1em 2em;
 `
 
-export const StyleName = styled.h5`
+export const StyleName = styled.p`
     width: 30%;
     font-family: 'Poppins';
     color: #5A646E;
 `
-export const StyleNameBank = styled.h5`
+export const StyleNameBank = styled.p`
     width: 23%;
     font-family: 'Poppins';
     color: #5A646E;
 `
-export const StyleCnae = styled.h5`
+export const StyleCnae = styled.p`
     width: 100%;
     font-family: 'Poppins';
     color: #5A646E;
 `
-export const StyleTipe = styled.h5`
+export const StyleTipe = styled.p`
     width: 40%;
     font-family: 'Poppins';
     color: #5A646E;
 `
-export const StyleTipeBank = styled.h5`
+export const StyleTipeBank = styled.p`
     width: 31%;
     font-family: 'Poppins';
     color: #5A646E;
 `
-export const StyleTip = styled.h5`
+export const StyleTip = styled.p`
     width: 25%;
     font-family: 'Poppins';
     color: #5A646E;
@@ -113,7 +113,6 @@ export const StyleDate = styled.div`
     width: 8%;
     align-items:center;
     font-family: 'Poppins';
-    font-weight: 300;
     line-height: 100%;
     color: #5A646E;
     margin-top:-1.5em;
