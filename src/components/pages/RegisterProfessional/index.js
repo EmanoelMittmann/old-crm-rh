@@ -107,15 +107,15 @@ const RegisterProfessional = () => {
     email: Yup.string().required(messages.required),
     professional_data: Yup.object().shape({
       cnpj: Yup.string().min(18, "CNPJ Inválido").nullable(),
-      razao_social: Yup.string(),
-      fantasy_name: Yup.string(),
-      company_city_name: Yup.string(),
-      company_street_name: Yup.string(),
-      company_neighborhood_name: Yup.string(),
-      company_complement: Yup.string(),
-      company_house_number: Yup.string(),
-      uf_company: Yup.string(),
-      company_phone_number: Yup.string(),
+      razao_social: Yup.string().nullable(),
+      fantasy_name: Yup.string().nullable(),
+      company_city_name: Yup.string().nullable(),
+      company_street_name: Yup.string().nullable(),
+      company_neighborhood_name: Yup.string().nullable(),
+      company_complement: Yup.string().nullable(),
+      company_house_number: Yup.string().nullable(),
+      uf_company: Yup.string().nullable(),
+      company_phone_number: Yup.string().nullable(),
       bank: Yup.string().required(messages.required),
       account_number: Yup.string().required(messages.required),
       agency: Yup.string().required(messages.required).max(5, "Invalido"),
@@ -135,8 +135,8 @@ const RegisterProfessional = () => {
         .min(4 - 9, "CEP Inválido")
         .test("CEP válido", "CEP não encontrado", () => {
           if (
-            values.professional_data.company_cep.length === 9 &&
-            values.professional_data.company_cep !== anotherCep
+            values.professional_data?.company_cep?.length === 9 &&
+            values.professional_data?.company_cep !== anotherCep
           ) {
             setAnotherCEP(values.professional_data.company_cep);
             handleCEP(values.professional_data.company_cep).then((data) => {
@@ -161,7 +161,7 @@ const RegisterProfessional = () => {
             });
           }
           return true;
-        }),
+        }).nullable(),
     }),
     start_date: Yup.date().required(messages.required),
     job_id: Yup.number().required(messages.required),
