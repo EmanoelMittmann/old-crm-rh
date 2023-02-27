@@ -27,6 +27,7 @@ import InputWithLabel from "../../atoms/InputWithLabel";
 import SecondaryText from "../../atoms/SecondaryText/style";
 import TechLeadAndDev from "../../molecules/techLeadAndDev";
 import { PermissionsSpecial } from "../../organisms/PermissionsSpecial";
+import { PermissionsGeneral } from "../../organisms/PermissionsGeneral";
 
 const RegisterProfessional = () => {
   const [jobs, setJobs] = useState([]);
@@ -542,7 +543,7 @@ const RegisterProfessional = () => {
 
   useEffect(() => {
     getPermissions()
-  }, [])
+  },[])
 
   return (
     <>
@@ -560,7 +561,7 @@ const RegisterProfessional = () => {
 
           <SecondaryText margin="2.5em 0 1.5em 2em">Permissões</SecondaryText>
           <ContainerPermission>
-            <PermissionsSpecial permissions={permissions} formik={formik} />
+            <PermissionsSpecial permissions={permissions}/>
           </ContainerPermission>
 
           <ProfessionalsExtraHour
