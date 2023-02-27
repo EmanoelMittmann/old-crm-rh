@@ -106,7 +106,7 @@ const RegisterProfessional = () => {
     telephone_number: Yup.string().required(messages.required),
     email: Yup.string().required(messages.required),
     professional_data: Yup.object().shape({
-      cnpj: Yup.string().min(18, "CNPJ Inválido"),
+      cnpj: Yup.string().min(18, "CNPJ Inválido").nullable(),
       razao_social: Yup.string(),
       fantasy_name: Yup.string(),
       company_city_name: Yup.string(),
@@ -124,13 +124,13 @@ const RegisterProfessional = () => {
       pix_key_type: Yup.string().when(['type_of_transfer'], {
         is: (type_of_transfer) => type_of_transfer === 'PIX',
         then: Yup.string().required(messages.required)
-      }),
+      }).nullable(),
       pix_key: Yup.string().when(['type_of_transfer'], {
         is: (type_of_transfer) => type_of_transfer === 'PIX',
         then: Yup.string().required(messages.required)
-      }),
+      }).nullable(),
       account_number: Yup.number().required(messages.required),
-      company_email: Yup.string(),
+      company_email: Yup.string().nullable(),
       company_cep: Yup.string()
         .min(4 - 9, "CEP Inválido")
         .test("CEP válido", "CEP não encontrado", () => {
@@ -186,8 +186,7 @@ const RegisterProfessional = () => {
       cpf: cleanMask(""),
       rg: "".toString(),
       birth_date: "",
-      avatar:
-        "https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png",
+      avatar:"https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png",
       cep: cleanMask(""),
       street_name: "",
       house_number: "",
@@ -331,6 +330,7 @@ const RegisterProfessional = () => {
     });
     setProjects(data);
   }, []);
+
 
   const validateCpf = async (cpf) => {
     const response = await api({

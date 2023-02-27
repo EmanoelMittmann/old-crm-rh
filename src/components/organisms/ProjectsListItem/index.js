@@ -3,7 +3,6 @@ import {
   ProjectsListItemContainer,
   ProjectsListItemProject,
 } from "./style.js";
-import { useEffect } from "react";
 import ProjectRow from "./row";
 
 export const ProjectsListItem = ({ data, statusOptions, getProjects, DetailsReports, getProjectsDetails }) => {

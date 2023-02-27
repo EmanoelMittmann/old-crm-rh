@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { SelectsItens } from "../style";
 
 const Shelf = ({ data, formik }) => {
@@ -34,4 +35,5 @@ const Shelf = ({ data, formik }) => {
     );
 };
 
+<<<<<<< HEAD
 export default Shelf;

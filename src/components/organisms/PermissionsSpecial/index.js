@@ -40,4 +40,5 @@ export const PermissionsSpecial = ({ permissions, formik }) => {
             </ContainerAbsolute>
         </ContainerGeneral>
     );
+<<<<<<< HEAD
 };

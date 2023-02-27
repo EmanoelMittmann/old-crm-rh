@@ -33,31 +33,31 @@ const Routes = () => {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={Login} />
-        <PrivateRoute path="/home" component={Home} id={3} />
-        <PrivateRoute exact path="/professionals" component={Professionals} id={6} />
-        <PrivateRoute exact path="/projects" component={Projects} id={7}/>
-        <PrivateRoute path="/overtime" component={Overtime} id={2}/>
-        <PrivateRoute path="/invoice" component={Invoice} id={4}/>  
-        <PrivateRoute path="/reports" component={Reports} id={8}/>
-        <PrivateRoute path="/serviceOrders" component={ServiceOrders} id={5}/>
-        <PrivateRoute path="/job" component={Settings} id={1}/>
-        <PrivateRoute path="/projectStatus" component={Status} id={1}/>
-        <PrivateRoute path="/projectType" component={ProjectType} id={1}/>
-        <PrivateRoute exact path="/project/" component={RegisterProject} id={7}/>
-        <PrivateRoute path="/project/:id" component={RegisterProject} id={7}/>
-        <PrivateRoute exact path="/professional" component={RegisterProfessional} id={6}/>
-        <PrivateRoute path="/professional/:id" component={RegisterProfessional} id={6}/>
-        <PrivateRoute path="/Company" component={ListCompany}id={11} />
-        <PrivateRoute exact path="/Companies" component={RegisterCompanies} id={11} />
-        <PrivateRoute path="/Companies/:id" component={RegisterCompanies} id={11} />
-        <PrivateRoute path="/NewOs" component={OrdemService} id={6}/>
-        <PrivateRoute path="/GenerateOs" component={GenerateOS} id={6}/>
-        <PrivateRoute path="/timeSending" component={OvertimeListProfessional} id={9}/>
-        <PrivateRoute path="/timeIstechLead" component={OvertimeListIsTechLead} id={9}/>
-        <PrivateRoute path="/invoiceSending" component={InvoiceSending} id={10}/>
-        <PrivateRoute path="/invoiceUpload" component={InvoiceUpload} id={10}/>
-        <PrivateRoute path="/releaseHours" component={ReleaseHours} id={9}/>
-        <PrivateRoute path="/DetailsRelease/:id" component={DetailsRelease} id={9}/>
+        <PrivateRoute path="/home" component={Home} id={1} />
+        <PrivateRoute exact path="/professionals" component={Professionals} id={2} />
+        <PrivateRoute exact path="/projects" component={Projects} id={3}/>
+        <PrivateRoute path="/overtime" component={Overtime} id={4}/>
+        <PrivateRoute path="/invoice" component={Invoice} id={5}/>  
+        <PrivateRoute path="/reports" component={Reports} id={6}/>
+        <PrivateRoute path="/serviceOrders" component={ServiceOrders} id={7}/>
+        <PrivateRoute path="/job" component={Settings} id={8}/>
+        <PrivateRoute path="/projectStatus" component={Status} id={8}/>
+        <PrivateRoute path="/projectType" component={ProjectType} id={8}/>
+        <PrivateRoute exact path="/project/" component={RegisterProject} id={3}/>
+        <PrivateRoute path="/project/:id" component={RegisterProject} id={3}/>
+        <PrivateRoute exact path="/professional" component={RegisterProfessional} id={2}/>
+        <PrivateRoute path="/professional/:id" component={RegisterProfessional} id={2}/>
+        <PrivateRoute path="/Company" component={ListCompany}id={9} />
+        <PrivateRoute exact path="/Companies" component={RegisterCompanies} id={9} />
+        <PrivateRoute path="/Companies/:id" component={RegisterCompanies} id={9} />
+        <PrivateRoute path="/NewOs" component={OrdemService} id={7}/>
+        <PrivateRoute path="/GenerateOs" component={GenerateOS} id={7}/>
+        <PrivateRoute path="/timeSending" component={OvertimeListProfessional} id={10}/>
+        <PrivateRoute path="/timeIstechLead" component={OvertimeListIsTechLead} id={10}/>
+        <PrivateRoute path="/invoiceSending" component={InvoiceSending} id={11}/>
+        <PrivateRoute path="/invoiceUpload" component={InvoiceUpload} id={11}/>
+        <PrivateRoute path="/releaseHours" component={ReleaseHours} id={11}/>
+        <PrivateRoute path="/DetailsRelease/:id" component={DetailsRelease} id={11}/>
       </Switch>
     </BrowserRouter>
   );

@@ -34,7 +34,7 @@ const PrivateRoute = ({ component: Component, id,...rest }) => {
             <Component {...props} />
           </PagesTemplate>
         ) : (
-          !permissions.includes(id) ? <AccessDenied/> :  <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+          !permissions.includes(id) ? <Redirect to={{ pathname: '/home', state: { from: props.location } }} /> :  <Redirect to={{ pathname: '/', state: { from: props.location } }} />
         )
       }
     />
