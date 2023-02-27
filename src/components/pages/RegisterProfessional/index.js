@@ -387,7 +387,7 @@ const RegisterProfessional = () => {
         });
         reloadProjects();
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error(<DefaultToast text="Erro ao vincular projeto." />, {
           toastId: "post",
         });
