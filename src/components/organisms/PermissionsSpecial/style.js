@@ -11,9 +11,9 @@ export const ContainerGeneral = styled.div`
 export const ContainerCheckBox = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: ${props => props.direction ? props.direction :  'column'};
+  flex-direction: column;
   height: 20%;
-  margin-bottom: 1em';
+  margin-bottom: 1em;
   height: 210px;
   margin-bottom: 1em;
   margin-left:3em;

@@ -560,7 +560,7 @@ const RegisterProfessional = () => {
 
           <SecondaryText margin="2.5em 0 1.5em 2em">Permissões</SecondaryText>
           <ContainerPermission>
-            <PermissionsSpecial permissions={permissions}/>
+            <PermissionsSpecial permissions={permissions} formik={formik} />
           </ContainerPermission>
 
           <ProfessionalsExtraHour
