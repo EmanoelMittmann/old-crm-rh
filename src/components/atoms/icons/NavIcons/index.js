@@ -372,7 +372,7 @@ export const InvoiceIcon = () => {
       location={location.pathname}
       hover={displayDescription}
     >
-      <Invoice />
+      <Invoice/>
     </InvoiceIconContainer>
   );
 };

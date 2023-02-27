@@ -42,15 +42,15 @@ export const ContainerData = styled.div`
     flex-direction: row;
     justify-content:space-between;
     margin: -1em 2em;
-    padding-bottom: 1em;
-    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 0.5em;
     border-bottom: 1px solid rgba(204, 209, 214, 1);
 `
 export const ContainerDataBank = styled.div`
     width: 91,5%;
     display: flex;
     flex-direction: column;
-    margin: 2em 2em;
+    margin: 1em 2em;
 `
 
 export const ContainerTime = styled.div`
@@ -68,7 +68,8 @@ export const ContainerBank = styled.div`
     flex-direction: column;
     justify-content:space-between;
     align-items: center;
-    margin-top: 1em;
+    margin-top: 0.5em
+ 
 `
 export const ContaineTitles = styled.div`
     width: 91,5%;
@@ -151,7 +152,8 @@ export const ContainerTitleBank = styled.h5`
     display: flex;
     flex-direction: row;
 `
-export const ContainerAbsolute = styled.h5`
-  height: 480px;
+export const ContainerAbsolute = styled.div`
+    width: 98%;
+  height: 350px;
 `
 

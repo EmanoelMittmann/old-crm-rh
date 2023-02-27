@@ -22,10 +22,10 @@ const ProfessionalsSection = () => {
 
   const handleFilterRequest = (pagesFilter) => {
     if (pagesFilter === "previous")
-      params.page = `${professionalMeta.current_page - 1}`;
+      params.page = `${professionalMeta.current_page --}`;
 
     if (pagesFilter === "next")
-      params.page = `${professionalMeta.current_page + 1}`;
+      params.page = `${professionalMeta.current_page ++}`;
 
     if (pagesFilter === undefined) params.page = professionalMeta.current_page;
 

@@ -9,42 +9,41 @@ import {
   CompanyIcon,
   HomeIcon,
 } from "../../../atoms/icons/NavIcons/index";
+import Settings from "../../../pages/Settings";
 import { Modules } from "../Modules";
 export const userAccess = [
+  {
+    1: <Modules id={2} children={<SettingsIcon />} route="/job" />,
+  },
+  {
+    2: <Modules id={4} children={<OvertimeIcon />} route="/overtime" />,
+  },
   {
     3: <Modules id={1} children={<HomeIcon />} route="/home" />,
   },
   {
-    6: <Modules id={1} children={<JobIcon />} route="/professionals" />,
+    4: <Modules id={5} children={<InvoiceIcon />} route="/invoice" />,
   },
   {
-    7: <Modules id={1} children={<ProjectsIcon />} route="/projects" />,
+    5:
+      <Modules id={7} children={<ServiceOrdersIcon />} route="/serviceOrders" />
   },
   {
-    2: <Modules id={1} children={<OvertimeIcon />} route="/overtime" />,
+    6: <Modules id={2} children={<JobIcon />} route="/professionals" />,
   },
   {
-    4: <Modules id={1} children={<InvoiceIcon />} route="/invoice" />,
+    7: <Modules id={3} children={<ProjectsIcon />} route="/projects" />,
   },
   {
-    9: <Modules id={1} children={<OvertimeIcon />} route="/releaseHours" />,
+    8: <Modules id={6} children={<ReportsIcon />} route="/reports" />,
   },
   {
-    1: <Modules id={1} children={<SettingsIcon />} route="/job" />,
+    9: <Modules id={10} children={<OvertimeIcon />} route="/releaseHours" />,
   },
   {
-    5: (
-      <Modules id={1} children={<ServiceOrdersIcon />} route="/serviceOrders" />
-    ),
+    10: <Modules id={10} children={<InvoiceIcon />} route="/invoiceSending" />,
   },
   {
-    8: <Modules id={1} children={<ReportsIcon />} route="/reports" />,
-  },
-
-  {
-    10: <Modules id={1} children={<InvoiceIcon />} route="/invoiceSending" />,
-  },
-  {
-    11: <Modules id={1} children={<CompanyIcon />} route="/Company" />,
+    11: <Modules id={9} children={<CompanyIcon />} route="/Company" />,
   },
 ];
