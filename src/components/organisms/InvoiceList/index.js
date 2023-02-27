@@ -1,5 +1,4 @@
 import React from 'react'
-import { LocalStorageKeys } from '../../../settings/LocalStorageKeys'
 import ListHeaderInvoice from '../../molecules/ListHeaderInvoice'
 import ListItem from '../../molecules/ListItem'
 import Footer from '../../organisms/Footer'
