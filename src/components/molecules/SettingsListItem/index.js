@@ -62,7 +62,6 @@ const SettingsListItem = () => {
   };
 
   const editListItem = (info) => {
-    console.log("info: ", info);
     if (location.pathname === "/job") {
       dispatch(editJobClicked(info.id));
     }

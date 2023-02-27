@@ -78,7 +78,7 @@ const OvertimeRh = ({
           setOrderField={setOrderField}
         />
         <div className="height">
-          {data.map((item) => (
+          {data?.map((item) => (
             <Shelf values={item} key={item.id} getHoursPending={getHoursPending}/>
           ))}
         </div>

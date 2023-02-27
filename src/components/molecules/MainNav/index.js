@@ -4,10 +4,10 @@ import { userTypes } from "../../../models/userTypes";
 
 import { Nav, ActiveIconContainer, ActiveIcon } from "./style.js";
 import { userAccess } from "./Modules/acessUser";
+import { useSelector } from "react-redux";
 
 const NavHome = () => {
   const [isAdmin, setIsAdmin] = useState(false);
-
   const { permissions } = JSON.parse(localStorage.getItem("@UbiRH/USER"));
 
   useEffect(() => {

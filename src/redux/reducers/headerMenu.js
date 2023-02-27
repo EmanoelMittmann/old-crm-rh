@@ -65,7 +65,7 @@ const inicialState = [{
         status: false,
         description: "Empresas",
         descriptionIsAppearing: false
-    }
+    },
 ]
 
 const headerMenu = (state = inicialState, action) => {

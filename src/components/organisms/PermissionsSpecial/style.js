@@ -6,17 +6,26 @@ export const ContainerAbsolute = styled.div`
 `
 
 export const ContainerGeneral = styled.div`
-  width: 100%;
+  width: 91.5%;
 `
-
 export const ContainerCheckBox = styled.div`
   width: 100%;
   display: flex;
   flex-direction: ${props => props.direction ? props.direction : 'column'};
-  height: 20%;
+  height: 210px;
   margin-bottom: 1em;
   margin-left:3em;
   gap: ${props => props.gap ? props.gap : '2em'};
+`
+
+export const ContainerCheckTitle = styled.div`
+  width: 75%;
+  display: flex;
+  flex-direction:row;
+  justify-content: space-between;
+  height: 20%;
+  margin-bottom: 1em;
+  margin-left:1em;
 `
 export const ContainerCheckBoxDuo = styled.div`
   width: 40%;
@@ -24,7 +33,6 @@ export const ContainerCheckBoxDuo = styled.div`
   flex-direction: column;
   margin-left:3em;
   gap: 2em;
-
 `
 
 export const SelectsItens = styled.div`
@@ -37,7 +45,6 @@ export const SelectsItens = styled.div`
   width: ${(props) => props.width};
   gap:0.5em;
   
-
   #box {
     margin-right: 10px !important;
     width: 1.2em !important;

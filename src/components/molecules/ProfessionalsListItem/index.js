@@ -96,8 +96,9 @@ const ProfessionalsListItem = ({professional, getProfessionals}) => {
           <ProfessionalsListOptions
             optionsColor={menuOptionsisVisible ? "#407BFF" : "#B7BDC2"}
           >
-            <ContainerIconOptions>
-              <OptionsIcon onClick={() => setMenuOptionsisVisible(!menuOptionsisVisible)} ref={buttonRef} />
+            <ContainerIconOptions 
+              onClick={() => setMenuOptionsisVisible(!menuOptionsisVisible)} ref={buttonRef} >
+              <OptionsIcon/>
             </ContainerIconOptions>
           </ProfessionalsListOptions>
           {menuOptionsisVisible && 

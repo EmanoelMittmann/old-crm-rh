@@ -13,7 +13,6 @@ import {
   ProjectsListItemTime,
   ProjectsListItemStatus,
   ContainerIconOptions,
-  ContainerTeamMemberPic,
   ProjectsListItemId,
   ProjectsContainer,
   ContainerDateFinal,
@@ -21,14 +20,15 @@ import {
 import { formatDate } from "../../utils/formatDate.js";
 import { ReactComponent as OptionsIcon } from "../../../assets/icons/options.svg";
 import { useEffect } from "react";
-import DetailsProjects from "../../molecules/DetailsProjects";
+import DetaislProjects from "../../molecules/DetailsProjects";
 
-export const ProjectRow = ({ project, statusOptions, getProjects }) => {
+export const ProjectRow = ({ project, statusOptions, getProjects,}) => {
   const history = useHistory();
   const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false);
-  const [details, setDetails] = useState(false);
   const [statusModalIsVisible, setStatusModalIsVisible] = useState(false);
   const [teamModalIsVisible, setTeamModalIsVisible] = useState(false);
+  const [modalDetails, setModalDetails] = useState(false)
+  const [idProjectsDetails, setIdProjectsDetails] = useState(0)
   const modalRef = useRef();
   const buttonRef = useRef();
 
@@ -62,6 +62,11 @@ export const ProjectRow = ({ project, statusOptions, getProjects }) => {
       setMenuOptionsIsVisible(false);
     }
   };
+
+  const handleDetails = () => {
+    setModalDetails(prev => !prev)
+  }
+  
   useEffect(() => {
     document.addEventListener("mousedown", handlerOutside);
     return () => {
@@ -71,53 +76,69 @@ export const ProjectRow = ({ project, statusOptions, getProjects }) => {
 
   return (
     <ProjectsListItemContainer key={project.id}>
-      <ProjectsContainer onClick={() => setDetails(!details)}>
+        <ProjectsContainer onClick={() => {
+          setIdProjectsDetails(project.id)
+          handleDetails()
+        }}>
         <ProjectsListItemId>{project.id}</ProjectsListItemId>
-        <ProjectsListItemProject>
-          {project.name}
-        </ProjectsListItemProject>
-        <ProjectsListItemType>
-          {project.project_type?.name}
-        </ProjectsListItemType>
+        <ProjectsListItemProject>{project.name}</ProjectsListItemProject>
+        <ProjectsListItemType>{project.project_type?.name}</ProjectsListItemType>
         <ProjectsListItemBeginning>
           {formatDate(project.date_start)}
         </ProjectsListItemBeginning>
         <ProjectsListItemTime>
-          <ContainerDateFinal>
-            {formatDate(project.date_end)}
-          </ContainerDateFinal>
+          <ContainerDateFinal>{formatDate(project.date_end)}</ContainerDateFinal>
         </ProjectsListItemTime>
         <ProjectsListItemStatus>
           <StatusLabel
             name={project.status.name}
             textColor={project.status.color.text_color}
+            buttonColor={project.status.color.button_color} />
+        </ProjectsListItemStatus>
+
+        </ProjectsContainer>
+        <ProjectListOptions
+          optionsColor={menuOptionsIsVisible
+            ? "#407BFF"
+            : "#B7BDC2"}
+        >
+          <ContainerIconOptions
             buttonColor={project.status.color.button_color}
           />
-        </ProjectsListItemStatus>
-      </ProjectsContainer>
       <ProjectListOptions
         optionsColor={menuOptionsIsVisible ? "#407BFF" : "#B7BDC2"}
-      >
+      />
         <ContainerIconOptions>
           <OptionsIcon
             ref={buttonRef}
             onClick={() => setMenuOptionsIsVisible(!menuOptionsIsVisible)}
           />
-        </ContainerIconOptions>
-        {menuOptionsIsVisible && (
-          <MenuOptions
-            ref={modalRef}
-            positionMenu="40px"
-            firstChosenOption={editProject}
-            firstOptionDescription="Editar Projeto"
-            secondChosenOption={openModalEditProjectStatus}
-            secondOptionDescription="Editar Status"
-            padding="0.3em 0.5em 0.3em 1.1em"
-            id={project.id}
-          />
-        )}
-      </ProjectListOptions>
+          </ContainerIconOptions>
+          {menuOptionsIsVisible && (
+            <MenuOptions
+              ref={modalRef}
+              positionMenu="40px"
+              firstChosenOption={editProject}
+              firstOptionDescription="Editar Projeto"
+              secondChosenOption={openModalEditProjectStatus}
+              secondOptionDescription="Editar Status"
+              padding="0.3em 0.5em 0.3em 1.1em"
+              id={project.id} />
+          )}
+        </ProjectListOptions>
 
+        {statusModalIsVisible && (
+          <ModalProjectStatus
+            CloseButtonClickHandler={closeModalEditProjectStatus}
+            statusId={project.project_status_id}
+            projectId={project.id}
+            options={statusOptions} />
+        )}
+        {teamModalIsVisible && (
+          <ModalProjectTeam
+            CloseButtonClickHandler={closeProjectTeamModal}
+            users={project.users} />
+        )}
       {statusModalIsVisible && (
         <ModalProjectStatus
           CloseButtonClickHandler={closeModalEditProjectStatus}
@@ -132,10 +153,14 @@ export const ProjectRow = ({ project, statusOptions, getProjects }) => {
           users={project.users}
         />
       )}
-      {details && (
-        <DetailsProjects id={project.id} setModalDetails={setDetails} />
+
+      {modalDetails && (
+        <DetaislProjects
+          id={idProjectsDetails}
+          setModalDetails={setModalDetails} />
       )}
     </ProjectsListItemContainer>
+
   );
 };
 
