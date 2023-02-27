@@ -27,7 +27,6 @@ import InputWithLabel from "../../atoms/InputWithLabel";
 import SecondaryText from "../../atoms/SecondaryText/style";
 import TechLeadAndDev from "../../molecules/techLeadAndDev";
 import { PermissionsSpecial } from "../../organisms/PermissionsSpecial";
-import { PermissionsGeneral } from "../../organisms/PermissionsGeneral";
 
 const RegisterProfessional = () => {
   const [jobs, setJobs] = useState([]);
