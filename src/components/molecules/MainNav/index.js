@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { LocalStorageKeys } from "../../../settings/LocalStorageKeys";
 import { userTypes } from "../../../models/userTypes";
 
-import { Nav, ActiveIconContainer, ActiveIcon } from "./style.js";
+import { Nav} from "./style.js";
 import { userAccess } from "./Modules/acessUser";
-import { useSelector } from "react-redux";
+
 
 const NavHome = () => {
   const [isAdmin, setIsAdmin] = useState(false);
-  const { permissions } = JSON.parse(localStorage.getItem("@UbiRH/USER"));
+  const { permissions, isTechLead } = JSON.parse(localStorage.getItem("@UbiRH/USER"));
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem(LocalStorageKeys.USER));
@@ -21,7 +21,7 @@ const NavHome = () => {
   return (
     <Nav>
       {permissions.map((item1) =>
-        userAccess
+        userAccess(isTechLead)
           .filter((item) => item.hasOwnProperty(item1))
           .map((item) => item[item1])
       )}

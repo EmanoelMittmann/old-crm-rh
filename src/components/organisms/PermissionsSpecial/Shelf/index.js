@@ -35,5 +35,5 @@ const Shelf = ({ data, formik }) => {
     );
 };
 
-<<<<<<< HEAD
+
 export default Shelf;

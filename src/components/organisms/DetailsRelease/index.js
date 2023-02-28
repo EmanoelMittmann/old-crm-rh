@@ -35,6 +35,7 @@ const DetailsRelease = () => {
     getLaunchedHours(id);
   }, [id]);
 
+ 
   return (
     <>
       <TitleContainer backToPath="/timeSending" title="Detalhes" />

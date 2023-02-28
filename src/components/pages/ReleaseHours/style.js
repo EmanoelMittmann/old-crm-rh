@@ -17,3 +17,13 @@ export const TypeRelease = styled.section`
         line-height: 1.2;
     }
 `
+export const StyleIsTechLead = styled.div`
+  display: flex;
+  position: absolute;
+  justify-content: flex-start;
+  align-items: flex-start;
+  top:6em;
+  margin-left: 0.8em;
+`
+export const ContainerTitle = styled.div`
+height: 110px`
