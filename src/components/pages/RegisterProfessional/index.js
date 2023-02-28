@@ -33,7 +33,7 @@ const RegisterProfessional = () => {
   const [allProjects, setAllProjects] = useState([]);
   const [projects, setProjects] = useState([]);
   const [uniqueCpf, setUniqueCpf] = useState("");
-  const [permissions, setPermissions] = useState([])
+  const [permissions, setPermissions] = useState([]);
   const [cpfValid, setCpfValid] = useState(false);
   const [uniqueCEP, setUniqueCEP] = useState("");
   const [oldValue, setOldValue] = useState([]);
@@ -85,7 +85,8 @@ const RegisterProfessional = () => {
         ) {
           setUniqueCEP(values.cep);
           handleCEP(values.cep).then((data) => {
-            if (data.data.erro) return setFieldError("CEP", "CEP não encontrado!");
+            if (data.data.erro)
+              return setFieldError("CEP", "CEP não encontrado!");
             const { bairro, localidade, logradouro, uf } = data.data;
             if (localidade) setFieldValue("city_name", localidade);
             if (uf) setFieldValue("uf", uf);
@@ -105,6 +106,7 @@ const RegisterProfessional = () => {
     uf: Yup.string().required(messages.required),
     telephone_number: Yup.string().required(messages.required),
     email: Yup.string().required(messages.required),
+    permissions: Yup.array().required(messages.required),
     professional_data: Yup.object().shape({
       cnpj: Yup.string().min(18, "CNPJ Inválido").nullable(),
       razao_social: Yup.string().nullable(),
@@ -121,14 +123,18 @@ const RegisterProfessional = () => {
       agency: Yup.string().required(messages.required).max(5, "Invalido"),
       account_type: Yup.string().required(messages.required),
       type_of_transfer: Yup.string().required(messages.required),
-      pix_key_type: Yup.string().when(['type_of_transfer'], {
-        is: (type_of_transfer) => type_of_transfer === 'PIX',
-        then: Yup.string().required(messages.required)
-      }).nullable(),
-      pix_key: Yup.string().when(['type_of_transfer'], {
-        is: (type_of_transfer) => type_of_transfer === 'PIX',
-        then: Yup.string().required(messages.required)
-      }).nullable(),
+      pix_key_type: Yup.string()
+        .when(["type_of_transfer"], {
+          is: (type_of_transfer) => type_of_transfer === "PIX",
+          then: Yup.string().required(messages.required),
+        })
+        .nullable(),
+      pix_key: Yup.string()
+        .when(["type_of_transfer"], {
+          is: (type_of_transfer) => type_of_transfer === "PIX",
+          then: Yup.string().required(messages.required),
+        })
+        .nullable(),
       account_number: Yup.number().required(messages.required),
       company_email: Yup.string().nullable(),
       company_cep: Yup.string()
@@ -161,16 +167,20 @@ const RegisterProfessional = () => {
             });
           }
           return true;
-        }).nullable(),
+        })
+        .nullable(),
     }),
     start_date: Yup.date().required(messages.required),
     job_id: Yup.number().required(messages.required),
     job_type: Yup.string().required(messages.required),
-    variable1: Yup.string().when(['job_type', 'extra_hour_activated'], {
-      is: (job_type, extra_hour_activated) => job_type !== 'FREELANCER' && extra_hour_activated,
-      then: Yup.string().required(messages.required),
-      otherwise: ''
-    }),
+    variable1: Yup.string()
+      .when(["job_type", "extra_hour_activated"], {
+        is: (job_type, extra_hour_activated) =>
+          job_type !== "FREELANCER" && extra_hour_activated,
+        then: Yup.string().required(messages.required),
+        otherwise: "",
+      })
+      .nullable(),
     weekly_hours: Yup.number()
       .required(messages.required)
       .max(44, "Horas/semana excedida"),
@@ -186,7 +196,8 @@ const RegisterProfessional = () => {
       cpf: cleanMask(""),
       rg: "".toString(),
       birth_date: "",
-      avatar:"https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png",
+      avatar:
+        "https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png",
       cep: cleanMask(""),
       street_name: "",
       house_number: "",
@@ -242,46 +253,46 @@ const RegisterProfessional = () => {
         url: id ? `/user/${id}` : "/user",
         data: !id
           ? {
-            ...values,
-            extra_hour_value: parseFloat(
-              values.extra_hour_value.replace("R$", "").replace(",", ".")
-            ),
-            fixed_payment_value: values.fixed_payment_value
-              .replace("R$", "")
-              .replace(".", "")
-              .replace(",00", ""),
-            telephone_number: values.telephone_number
-              .toString()
-              .replace("(", "")
-              .replace(")", "")
-              .replace(" ", "")
-              .replace(" ", "")
-              .replace("-", ""),
-            cpf: cleanMask(values.cpf),
-            cep: cleanMask(values.cep),
-            rg: values.rg.toString(),
-            projects,
-          }
+              ...values,
+              extra_hour_value: parseFloat(
+                values.extra_hour_value.replace("R$", "").replace(",", ".")
+              ),
+              fixed_payment_value: values.fixed_payment_value
+                .replace("R$", "")
+                .replace(".", "")
+                .replace(",00", ""),
+              telephone_number: values.telephone_number
+                .toString()
+                .replace("(", "")
+                .replace(")", "")
+                .replace(" ", "")
+                .replace(" ", "")
+                .replace("-", ""),
+              cpf: cleanMask(values.cpf),
+              cep: cleanMask(values.cep),
+              rg: values.rg.toString(),
+              projects,
+            }
           : {
-            ...values,
-            extra_hour_value: parseFloat(
-              values.extra_hour_value.replace("R$", "").replace(",", ".")
-            ),
-            fixed_payment_value: values.fixed_payment_value
-              .replace("R$", "")
-              .replace(".", "")
-              .replace(",00", ""),
-            telephone_number: values.telephone_number
-              .toString()
-              .replace("(", "")
-              .replace(")", "")
-              .replace(" ", "")
-              .replace(" ", "")
-              .replace("-", ""),
-            cpf: cleanMask(values.cpf),
-            cep: cleanMask(values.cep),
-            rg: values.rg.toString(),
-          },
+              ...values,
+              extra_hour_value: parseFloat(
+                values.extra_hour_value.replace("R$", "").replace(",", ".")
+              ),
+              fixed_payment_value: values.fixed_payment_value
+                .replace("R$", "")
+                .replace(".", "")
+                .replace(",00", ""),
+              telephone_number: values.telephone_number
+                .toString()
+                .replace("(", "")
+                .replace(")", "")
+                .replace(" ", "")
+                .replace(" ", "")
+                .replace("-", ""),
+              cpf: cleanMask(values.cpf),
+              cep: cleanMask(values.cep),
+              rg: values.rg.toString(),
+            },
       })
         .then(() => {
           toast.success(
@@ -319,9 +330,9 @@ const RegisterProfessional = () => {
   } = formik;
 
   const getPermissions = async () => {
-    const { data } = await api.get('/permissions')
-    setPermissions(data)
-  }
+    const { data } = await api.get("/permissions");
+    setPermissions(data);
+  };
 
   const reloadProjects = useCallback(async () => {
     const { data } = await api({
@@ -330,7 +341,6 @@ const RegisterProfessional = () => {
     });
     setProjects(data);
   }, []);
-
 
   const validateCpf = async (cpf) => {
     const response = await api({
@@ -479,10 +489,11 @@ const RegisterProfessional = () => {
               setFieldValue(property, data);
             } else if (property.includes("extra_hour_value")) {
               setFieldValue(property, String(value).replace(".", ","));
-
-            }
-            else if (property.includes("permissions")) {
-              setFieldValue(property, value.map(item => item.id))
+            } else if (property.includes("permissions")) {
+              setFieldValue(
+                property,
+                value.map((item) => item.id)
+              );
             } else {
               setFieldValue(property, value);
             }
@@ -527,22 +538,21 @@ const RegisterProfessional = () => {
   useEffect(() => {
     const verified =
       oldValue?.professional_data?.pix_key_type ===
-      values.professional_data.pix_key_type &&
+        values.professional_data.pix_key_type &&
       oldValue?.professional_data?.type_of_transfer ===
-      values.professional_data.type_of_transfer;
+        values.professional_data.type_of_transfer;
     if (!verified) {
       setFieldValue("professional_data.pix_key", "");
     }
-    setOldValue([])
-
+    setOldValue([]);
   }, [
     values.professional_data.pix_key_type,
     values.professional_data.type_of_transfer,
   ]);
 
   useEffect(() => {
-    getPermissions()
-  },[])
+    getPermissions();
+  }, []);
 
   return (
     <>
@@ -601,7 +611,7 @@ const RegisterProfessional = () => {
         />
         <RegisterFooter
           cancelButtonHandler={goBackClickHandler}
-          registerButtonHandler={() => { }}
+          registerButtonHandler={() => {}}
           buttonDescription={id ? "Atualizar" : "Cadastrar"}
           type="submit"
           form="professional"
