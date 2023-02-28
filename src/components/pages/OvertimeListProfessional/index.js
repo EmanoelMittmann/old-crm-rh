@@ -11,7 +11,6 @@ import { useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import ArrowRegister from '../../atoms/ArrowRegister'
 import InputWithLabel from '../../atoms/InputWithLabel'
-import DarkButton from '../../atoms/Buttons/DarkButton/style'
 
 
 const OvertimeListProfessional = () => {
