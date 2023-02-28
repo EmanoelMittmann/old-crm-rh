@@ -146,10 +146,11 @@ const OvertimeListProfessional = () => {
 
 
   return (
+ 
     <Container>
       {isTechLead === true ?
         <StyleIsTechLead><ArrowRegister clickHandler={getIstechLead} /></StyleIsTechLead>
-        : ""}
+        : ""} 
       <SearchSection
         fnSearch={setSearch}
         placeholder="Buscar pelo código"

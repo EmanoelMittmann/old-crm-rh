@@ -16,6 +16,7 @@ import {
 } from './style';
 
 import { typeOptions } from '../../pages/RegisterProfessional/optionsType';
+import InputSelectWithLabel from '../../atoms/InputSelectWithLabel/index.js';
 
 const EmploymentContract = ({ data, jobs }) => {
   const fixedSalaryAmount = createNumberMask({
@@ -81,26 +82,27 @@ const EmploymentContract = ({ data, jobs }) => {
           padding="0 2em 0 0"
           value={values.start_date}
           width="100%"
-          widthContainer="50%"
+          widthContainer="60%"
           error={errors.start_date}
           touched={touched.start_date}
           handleBlur={setFieldTouched}
           name="start_date"
         />
-        <InputSelect
-          onChange={handleChange('job_id')}
+        <InputSelectWithLabel
+          setSelectedOption={handleChange('job_id')}
           value={values.job_id}
           options={jobs}
+          label="Cargo"
           error={errors?.job_id}
           touched={touched?.job_id}
           placeHolder="Cargo"
           width="100%"
-          lineWidth="42em"
+          lineWidth="40%"
         />
       </EmploymentContractInputs>
       <EmploymentContractInputs>
-        <InputSelect
-          onChange={handleType}
+        <InputSelectWithLabel
+          setSelectedOption={handleType}
           placeHolder="Tipo"
           width="100%"
           error={errors?.job_type}
@@ -113,7 +115,7 @@ const EmploymentContract = ({ data, jobs }) => {
         <InputWithLabel
           onChange={handleChange('weekly_hours')}
           value={values.weekly_hours}
-          widthContainer="30%"
+          widthContainer="20%"
           label="Horas/semana"
           type="number"
           error={errors.weekly_hours}
@@ -137,7 +139,7 @@ const EmploymentContract = ({ data, jobs }) => {
         />
         <InputMasked
           mask={fixedSalaryAmount}
-          label="Valor pagamento fixo"
+          label="Honorário fixo"
           id="fixed_payment_value"
           name="fixed_payment_value"
           value={values.fixed_payment_value}

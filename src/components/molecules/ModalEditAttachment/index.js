@@ -32,7 +32,7 @@ const ModalEditAttachment = (
     const [changeEstimatedTime, setChangeEstimatedTime] = useState(DataProfessional?.hours_mounths_estimated)
     const [changeEstimatedOvertime, setChangeEstimatedOvertime] = useState(DataProfessional?.extra_hours_estimated)
     const [newJob, setNewJob] = useState('')
-    const [newStatus, setNewStatus] = useState(false)
+    const [newStatus, setNewStatus] = useState(true)
 
     const optionStatus = [
         { id: 1, name: 'Ativo' },

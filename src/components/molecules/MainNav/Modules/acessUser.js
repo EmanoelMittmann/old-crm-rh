@@ -9,8 +9,11 @@ import {
   CompanyIcon,
   HomeIcon,
 } from "../../../atoms/icons/NavIcons/index";
+import { checkUrl } from "../../../utils/checkUrl";
 import { Modules } from "../Modules";
-export const userAccess = [
+
+
+export const userAccess = (isTechLead) => [
   {
     1: <Modules id={1} children={<HomeIcon />} route="/home" />,
   },
@@ -39,9 +42,9 @@ export const userAccess = [
     9: <Modules id={9} children={<CompanyIcon />} route="/Company" />,
   },
   {
-    10: <Modules id={4} children={<OvertimeIcon/>} route="/timeSending"/>
+    10:  <Modules id={4} children={<OvertimeIcon />} route={checkUrl(isTechLead)} />
   },
   {
-    11:<Modules id={5} children={<InvoiceIcon/>} route='/invoiceSending'/>
+    11: <Modules id={5} children={<InvoiceIcon />} route='/invoiceSending' />
   }
 ];

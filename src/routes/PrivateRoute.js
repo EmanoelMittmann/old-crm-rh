@@ -3,16 +3,20 @@ import { Redirect } from 'react-router';
 import { Route } from 'react-router-dom';
 
 
-import {templates, noTemplate} from "./PagesConfig"
+import { templates, noTemplate } from "./PagesConfig"
 import { PagesTemplate } from '../components/templates/PagesTemplate/PagesTemplate';
 import { LocalStorageKeys } from '../settings/LocalStorageKeys';
-import { AccessDenied } from './Denied';
 
-const PrivateRoute = ({ component: Component, id,...rest }) => {
+
+const PrivateRoute = ({ component: Component, id, ...rest }) => {
   const [template, setTemplate] = useState({});
   const token = JSON.parse(localStorage.getItem(LocalStorageKeys.TOKEN));
   const path = rest.path;
-  const {permissions} = JSON.parse(localStorage.getItem('@UbiRH/USER'))
+  const { permissions } = JSON.parse(localStorage.getItem('@UbiRH/USER'))
+
+  if(!permissions.includes(1)){
+    permissions.push(1)
+  }
 
   if(!permissions.includes(1)){
     permissions.push(1)
@@ -38,7 +42,7 @@ const PrivateRoute = ({ component: Component, id,...rest }) => {
             <Component {...props} />
           </PagesTemplate>
         ) : (
-          !permissions.includes(id) ? <Redirect to={{ pathname: '/home', state: { from: props.location } }} /> :  <Redirect to={{ pathname: '/', state: { from: props.location } }} />
+          !permissions.includes(id) ? <Redirect to={{ pathname: '/home', state: { from: props.location } }} /> : <Redirect to={{ pathname: '/', state: { from: props.location } }} />
         )
       }
     />

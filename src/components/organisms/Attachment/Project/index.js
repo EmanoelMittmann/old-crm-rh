@@ -284,13 +284,13 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
           options={options}
           placeholder="Projetos"
           width="100%"
-          lineWidth="40%"
+          lineWidth="35%"
           label="Projetos"
           reset={reset}
         />
         <InputWithLabel
           width="100%"
-          widthContainer="25%"
+          widthContainer="45%"
           label="Horas Mensais Estimadas"
           onChange={(e) => setHoursMonthProject(e.target.value)}
           value={hoursMonthProject}
@@ -302,7 +302,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
         />
         <InputWithLabel
           width="100%"
-          widthContainer="25%"
+          widthContainer="40%"
           label="Horas Extras Estimadas"
           onChange={(e) => setOvertime(e.target.value)}
           value={overtime}
@@ -312,7 +312,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
           touched={overtimeProjetctErr}
           handleBlur={() => {}}
         />
-        <BlueButton onClick={() => handleAddProject()} width="13%">
+        <BlueButton onClick={() => handleAddProject()} width="14%">
           Vincular
         </BlueButton>
       </AttachmentForm>

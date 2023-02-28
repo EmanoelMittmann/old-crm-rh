@@ -397,7 +397,7 @@ const RegisterProfessional = () => {
         });
         reloadProjects();
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error(<DefaultToast text="Erro ao vincular projeto." />, {
           toastId: "post",
         });
@@ -418,7 +418,7 @@ const RegisterProfessional = () => {
         });
         reloadProjects();
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error(<DefaultToast text="Erro ao remover projeto." />, {
           toastId: "delete",
         });

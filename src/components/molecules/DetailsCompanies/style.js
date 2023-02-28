@@ -42,15 +42,15 @@ export const ContainerData = styled.div`
     flex-direction: row;
     justify-content:space-between;
     margin: -1em 2em;
-    padding-bottom: 1em;
-    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 0.5em;
     border-bottom: 1px solid rgba(204, 209, 214, 1);
 `
 export const ContainerDataBank = styled.div`
     width: 91,5%;
     display: flex;
     flex-direction: column;
-    margin: 2em 2em;
+    margin: 1em 2em;
 `
 
 export const ContainerTime = styled.div`
@@ -68,7 +68,8 @@ export const ContainerBank = styled.div`
     flex-direction: column;
     justify-content:space-between;
     align-items: center;
-    margin-top: 1em;
+    margin-top: 0.5em
+ 
 `
 export const ContaineTitles = styled.div`
     width: 91,5%;
@@ -79,32 +80,32 @@ export const ContaineTitles = styled.div`
     margin: 0em 0em 1em 2em;
 `
 
-export const StyleName = styled.h5`
+export const StyleName = styled.p`
     width: 30%;
     font-family: 'Poppins';
     color: #5A646E;
 `
-export const StyleNameBank = styled.h5`
+export const StyleNameBank = styled.p`
     width: 23%;
     font-family: 'Poppins';
     color: #5A646E;
 `
-export const StyleCnae = styled.h5`
+export const StyleCnae = styled.p`
     width: 100%;
     font-family: 'Poppins';
     color: #5A646E;
 `
-export const StyleTipe = styled.h5`
+export const StyleTipe = styled.p`
     width: 40%;
     font-family: 'Poppins';
     color: #5A646E;
 `
-export const StyleTipeBank = styled.h5`
+export const StyleTipeBank = styled.p`
     width: 31%;
     font-family: 'Poppins';
     color: #5A646E;
 `
-export const StyleTip = styled.h5`
+export const StyleTip = styled.p`
     width: 25%;
     font-family: 'Poppins';
     color: #5A646E;
@@ -113,7 +114,6 @@ export const StyleDate = styled.div`
     width: 8%;
     align-items:center;
     font-family: 'Poppins';
-    font-weight: 300;
     line-height: 100%;
     color: #5A646E;
     margin-top:-1.5em;
@@ -152,7 +152,8 @@ export const ContainerTitleBank = styled.h5`
     display: flex;
     flex-direction: row;
 `
-export const ContainerAbsolute = styled.h5`
-  height: 480px;
+export const ContainerAbsolute = styled.div`
+    width: 98%;
+  height: 350px;
 `
 

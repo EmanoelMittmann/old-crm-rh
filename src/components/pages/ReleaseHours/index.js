@@ -11,8 +11,13 @@ import RegisterFooter from '../../molecules/RegisterFooter'
 import ModalRed from '../../molecules/ModalRed'
 import { OvertimeByDate } from '../../organisms/OvertimeByDate'
 import { OvertimeByPeriod } from '../../organisms/OvertimeByPeriod'
-import { Container, TypeRelease } from './style'
+import { Container, ContainerTitle, StyleIsTechLead, TypeRelease } from './style'
 import { messages } from '../../../settings/YupValidates'
+import { useSelector } from 'react-redux'
+
+import ArrowRegister from '../../atoms/ArrowRegister'
+import SecondaryText from '../../atoms/SecondaryText/style'
+import { SectionTitle } from '../../atoms/PageTitle/style'
 
 function ReleaseHours() {
   const [projects, setProjects] = useState([])
@@ -42,67 +47,77 @@ function ReleaseHours() {
     },
     onSubmit: async (values) => {
       await api({
-        method: 'post',     
+        method: 'post',
         url: '/extraHoursReleases',
         data: { ...values }
       })
-      .then( response => {
-        toast.success(<DefaultToast text="Horas extras enviadas!" />)
-        return goBack()
-      })
-      .catch(error => {
-        if(error.response.data.message){
-          toast.warn(<DefaultToast text={error.response.data.message}/>)
-        }
-      })
+        .then(response => {
+          toast.success(<DefaultToast text="Horas extras enviadas!" />)
+          return goBack()
+        })
+        .catch(error => {
+          if (error.response.data.message) {
+            toast.warn(<DefaultToast text={error.response.data.message} />)
+          }
+        })
     },
     validationSchema: schema,
     isValidating: false,
     enableReinitialize: true
   })
-  const { values, handleChange, setFieldValue} = formik
+  const { values, handleChange, setFieldValue } = formik
 
   function goBack() {
     return history.push('/timeSending')
   }
 
-  const getAllProjects = useCallback( async () => {
-    const {data} = await api({
-        method:'get',     
-        url:'/userProjects/user'
+  const getAllProjects = useCallback(async () => {
+    const { data } = await api({
+      method: 'get',
+      url: '/userProjects/user'
     })
-    setProjects(data)        
-},[])
+    setProjects(data)
+  }, [])
 
-
+  const isTechLead = useSelector((state) => state.validTechLead)
+  const getIstechLead = () => {
+    if (isTechLead === true){
+      history.push("/timeIstechLead")
+    }else{
+      history.push("/timeSending")
+    }
+  };
+  // <StyleIsTechLead><ArrowRegister clickHandler={() => getIstechLead()} />
+  //   <SectionTitle> {"Lançar horas extras"} </SectionTitle>
+  // </StyleIsTechLead>
 
   useEffect(() => {
-    if(!projects.length) getAllProjects()
-  },[])
+    if (!projects.length) getAllProjects()
+  }, [])
 
   return (
     <>
-      { modalIsVisible && 
+      {modalIsVisible &&
         <ModalRed
           CloseButtonClickHandler={() => setModalIsVisible(false)}
           redButtonClickHandler={goBack}
           title="Cancelar lançamento"
           message="Tem certeza que deseja cancelar a operação? "
-        /> 
+        />
       }
-
-      <TitleContainer backToPath="/timeSending" title="Lançar horas extras" />
-      <Container>
+      
+      <TitleContainer backToPath="timeSending" title="Lançar horas extras" />
+      <Container> 
         <form onSubmit={formik.handleSubmit}>
           <TypeRelease onChange={(e) => setFieldValue('type', e.target.value)}>
-            <InputRadio 
+            <InputRadio
               type="radio"
               name="hour"
               value="BY_DATE"
               id="hour"
               checked={values.type === "BY_DATE"}
             /><span> Por data</span>
-            <InputRadio 
+            <InputRadio
               type="radio"
               name="hour"
               value="BY_PERIOD"
@@ -110,14 +125,14 @@ function ReleaseHours() {
             /><span> Por período</span>
           </TypeRelease>
 
-          { values.type === 'BY_DATE' 
-            ? <OvertimeByDate data={formik} options={projects} /> 
-            : <OvertimeByPeriod data={formik} options={projects} /> 
-          }   
+          {values.type === 'BY_DATE'
+            ? <OvertimeByDate data={formik} options={projects} />
+            : <OvertimeByPeriod data={formik} options={projects} />
+          }
 
           <RegisterFooter
             cancelButtonHandler={() => setModalIsVisible(true)}
-            registerButtonHandler={() => {}}
+            registerButtonHandler={() => { }}
             buttonDescription="Enviar"
             type="submit"
           />

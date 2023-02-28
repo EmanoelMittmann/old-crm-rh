@@ -10,6 +10,7 @@ export const SearchContainer = styled.div`
 `
 export const StyleIsTechLead = styled.div`
   display: flex;
+  width: 81%;
   position: absolute;
   justify-content: flex-start;
   align-items: flex-start;
