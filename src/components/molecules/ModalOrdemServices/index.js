@@ -30,6 +30,8 @@ export const ModalOrdemServices = ({
 }) => {
   const state = useSelector((state) => state.valueOfCommission);
   const [valuesCommission, setValuesCommission] = useState(state);
+  
+ 
 
   const dispatch = useDispatch();
   const AddOrUpdate = (object) => {
@@ -51,7 +53,7 @@ export const ModalOrdemServices = ({
     }
     return setPage(page + 1);
   };
-
+ 
   const previousPage = () => {
     if (page === "") {
       return setPage(page - 1);
@@ -59,6 +61,9 @@ export const ModalOrdemServices = ({
       return setPage(page - 1);
     }
   };
+
+  console.log('pagina: ', page);
+
   const handleDelete = (professional) => {
     setNewId(
       checkedProfissional.filter(

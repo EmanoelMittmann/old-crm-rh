@@ -23,39 +23,53 @@ const ModalCompanies = ({
   OrdemServicesData,
   ModalProfessional
 }) => {
-  const [Companies, setCompanies] = useState([]);
+  const [companies, setCompanies] = useState([]);
   const [id, setId] = useState();
-  const getCompanies = async () => {
-    const { data } = await api({
-      method: "GET",
-      url: "/companies",
-    });
-    setCompanies(data.data);
-  };
-
   const history = useHistory()
+
+
+  const getCompanies = async () => {
+    try {
+      const { data } = await api({
+        method: "GET",
+        url: "/companies",
+        razao_social: companies
+      });
+      setCompanies(data.data);
+    } catch (error) {
+      console.error(error)
+    }
+  };
 
   const handleSubmit = async () => {
     try {
       await api({
         method: 'POST',
         url: `/generationOrderOfService`,
-        data : OrdemServicesData
+        data: OrdemServicesData
       }).then(() => {
-        toast.success(<DefaultToast text='Ordem de serviço gerada com sucesso!'/>,{
+        toast.success(<DefaultToast text='Ordem de serviço gerada com sucesso!' />, {
           toastId: "post",
         })
         history.push('/serviceOrders')
       }).catch(() => {
-        toast.error(<DefaultToast text='Erro Interno, Error:500'/>)
+        toast.error(<DefaultToast text='Erro Interno, Error:500' />)
       })
     } catch (error) {
-      console.error(error)    
+      console.error(error)
+    }
+  }
+
+  const handleAddCompany = () => {
+    if (id) {
+      handleSubmit()
+    } else {
+      toast.warn(<DefaultToast text={"Selecione uma empresa"} />)
     }
   }
 
   useEffect(() => {
-    getCompanies();
+    getCompanies(); 
   }, []);
 
   useEffect(() => {
@@ -82,7 +96,7 @@ const ModalCompanies = ({
             placeHolder="Empresas"
             value={id}
             onChange={(e) => setId(e.target.value)}
-            options={Companies}
+            options={companies}
             width="100%"
           />
         </ContainerSelect>
@@ -90,7 +104,7 @@ const ModalCompanies = ({
           <CancelButton color="#fff" onClick={CancelEvent}>
             Cancelar
           </CancelButton>
-          <BlueButton width="108px" height="40px" onClick={() => handleSubmit()}>
+          <BlueButton width="108px" height="40px" onClick={() => handleAddCompany()}>
             Gerar Os
           </BlueButton>
         </ContainerFooter>
