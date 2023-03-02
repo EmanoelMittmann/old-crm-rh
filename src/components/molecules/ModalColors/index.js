@@ -113,7 +113,7 @@ const ModalColors = () => {
     }
   };
 
-  const saveButtonClickHandler = (e) => {
+  const saveButtonClickHandler = () => {
     if (value.length === 0) return;
 
     if (state.modalFunctionality.register) {
