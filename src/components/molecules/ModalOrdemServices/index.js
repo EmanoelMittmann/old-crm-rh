@@ -62,8 +62,6 @@ export const ModalOrdemServices = ({
     }
   };
 
-  console.log('pagina: ', page);
-
   const handleDelete = (professional) => {
     setNewId(
       checkedProfissional.filter(
