@@ -768,13 +768,13 @@ const RealeseInvoiceIconContainer = styled.div`
     display: ${(props) =>
     props.location === "/invoiceSending" ? "none" : props.hover};
     width: 200px;
-    height: 35px;
+    height: 34px;
     background-color: white;
     box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.2),
       5px 25px 14px -13px rgba(0, 0, 0, 0);
     position: absolute;
     border-radius: 8px;
-    transform: translateY(5em);
+    transform: translateY(5.5em);
     color: black;
     font-size: 0.7rem;
     font-weight: 700;

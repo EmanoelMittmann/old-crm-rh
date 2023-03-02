@@ -60,6 +60,8 @@ const DataBank = ({data}) => {
             value={values.account_type}
             onChange={handleChange("account_type")}
             options={optionsBank}
+            error={errors?.bank}
+            touched={touched?.bank}
             placeHolder="Tipo da conta"
             padding="0em 2em 0 0em"
             width="100%"
