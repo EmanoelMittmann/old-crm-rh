@@ -76,7 +76,11 @@ export const RegisterCompanies = () => {
     registration_status: Yup.string().required(messages.required),
     date_of_registration_status: Yup.string().required(messages.required),
     reason_for_registration_status: Yup.string().required(messages.required),
-    type_company: Yup.string().required(messages.required)
+    type_company: Yup.string().required(messages.required),
+    agency: Yup.string().required(messages.required),
+    account_number:Yup.string().required(messages.required),
+    bank:Yup.string().required(messages.required),
+    account_type:Yup.string().required(messages.required)
   });
   
   const formik = useFormik({
