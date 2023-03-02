@@ -7,8 +7,7 @@ export const ContainerRegisterProjectData = styled.div`
 export const RegisterProjectForm = styled.form`
    display: flex;
    flex-direction: column;
-
-
+   padding: 0 3.5em 3em 4em;
 `
 export const ContainerFirstRow = styled.div`
     display: flex;
