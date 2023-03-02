@@ -25,7 +25,8 @@ const ModalCompanies = ({
 }) => {
   const [companies, setCompanies] = useState([]);
   const [id, setId] = useState();
-  const history = useHistory()
+  const [onlyError, setOnlyError] = useState('')
+  const history = useHistory();
 
 
   const getCompanies = async () => {
@@ -64,7 +65,7 @@ const ModalCompanies = ({
     if (id) {
       handleSubmit()
     } else {
-      toast.warn(<DefaultToast text={"Selecione uma empresa"} />)
+      setOnlyError("Selecione uma empresa")
     }
   }
 
@@ -97,6 +98,8 @@ const ModalCompanies = ({
             value={id}
             onChange={(e) => setId(e.target.value)}
             options={companies}
+            error={onlyError}
+            touched={onlyError}
             width="100%"
           />
         </ContainerSelect>

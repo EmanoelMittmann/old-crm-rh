@@ -518,7 +518,6 @@ const RegisterProfessional = () => {
     getProfessionalData();
   }, [id]);
 
-  console.log(formik.errors)
 
   useEffect(() => {
     setFieldValue(

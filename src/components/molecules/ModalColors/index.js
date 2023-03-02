@@ -158,8 +158,6 @@ const ModalColors = () => {
     }
   };
 
-
-
   useEffect(() => {
     getStatusColor();
     if (state.modalFunctionality.edit) {
