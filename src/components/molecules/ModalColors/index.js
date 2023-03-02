@@ -82,7 +82,10 @@ const ModalColors = () => {
         toast.success(<DefaultToast text="Status do Projeto cadastrado!" />)
       );
     } catch (error) {
-      return toast.warn(<DefaultToast text={value.trim() === "" ? "Insira um Status" : "Um status com esse nome já existe"} />);
+      return toast.warn(<DefaultToast
+        text={value.trim() === "" ?
+          "Insira um Status" :
+          "Um status com esse nome já existe"} />);
     }
   };
   const updateStatus = async () => {
