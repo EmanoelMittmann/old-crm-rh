@@ -132,7 +132,7 @@ const NewOrdemService = () => {
       method: "get",
       url: `/professionals/?limit=20&search=${searchResult}`,
     });
-    setProfessionals(data.data);
+    setProfessionals(data.data.filter(person => person.professional_data.cnpj !== null));
   };
 
   useEffect(() => {

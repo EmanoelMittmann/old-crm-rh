@@ -27,6 +27,7 @@ import InputWithLabel from "../../atoms/InputWithLabel";
 import SecondaryText from "../../atoms/SecondaryText/style";
 import TechLeadAndDev from "../../molecules/techLeadAndDev";
 import { PermissionsSpecial } from "../../organisms/PermissionsSpecial";
+import { LocalStorageKeys } from "../../../settings/LocalStorageKeys";
 
 const RegisterProfessional = () => {
   const [jobs, setJobs] = useState([]);
@@ -37,6 +38,10 @@ const RegisterProfessional = () => {
   const [cpfValid, setCpfValid] = useState(false);
   const [uniqueCEP, setUniqueCEP] = useState("");
   const [oldValue, setOldValue] = useState([]);
+  const [token] = useState(() => {
+    let token = localStorage.getItem(LocalStorageKeys.USER)
+    return token
+  })
   const [anotherCep, setAnotherCEP] = useState("");
   const [extraHour, setExtraHour] = useState("");
   const history = useHistory();
@@ -512,6 +517,8 @@ const RegisterProfessional = () => {
   useEffect(() => {
     getProfessionalData();
   }, [id]);
+
+  console.log(formik.errors)
 
   useEffect(() => {
     setFieldValue(

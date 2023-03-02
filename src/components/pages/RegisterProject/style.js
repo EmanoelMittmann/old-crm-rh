@@ -10,12 +10,11 @@ export const RegisterProjectContainer = styled.section`
     background-color: white;
     margin: 0 auto;
     border-radius: 20px;
-    padding: 2.5em 0 0.5em 0;
+    padding: 2.5em 0 0.5em 0em;
     min-height: 80vh;
 `
 export const ContainerProjectData = styled.section`
     width: 98%;
     max-height: 200vh;
     margin-left:1em;
-
 `

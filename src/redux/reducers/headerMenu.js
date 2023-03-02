@@ -66,6 +66,18 @@ const inicialState = [{
         description: "Empresas",
         descriptionIsAppearing: false
     },
+    {
+        id: 10,
+        status: false,
+        description: "Lançamento de Horas",
+        descriptionIsAppearing: false
+    },
+    {
+        id: 11,
+        status: false,
+        description: "Lançamento de Notas de Fiscais",
+        descriptionIsAppearing: false
+    },
 ]
 
 const headerMenu = (state = inicialState, action) => {

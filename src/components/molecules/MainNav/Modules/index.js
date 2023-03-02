@@ -6,11 +6,11 @@ import {
     showItemDescription,
     hideItemDescription,
   } from '../../../../redux/actions/index';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Modules = ({id,route,children}) => {
-    const dispatch = useDispatch()
-    const location = useLocation()
+  const dispatch = useDispatch()
+  const location = useLocation()
   return (
     <>
       <ActiveIconContainer

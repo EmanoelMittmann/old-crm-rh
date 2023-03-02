@@ -623,16 +623,16 @@ const RegisterProfessionalsData = ({ data }) => {
             lineWidth="95%"
             name="professional_data.bank"
           />
-          <InputSelectWithLabel
+          <InputSelect
             value={values.professional_data.account_type}
-            setSelectedOption={handleChange("professional_data.account_type")}
+            onChange={handleChange("professional_data.account_type")}
             options={optionsBank}
             placeHolder="Tipo da conta"
             error={errors?.professional_data?.account_type}
             touched={touched?.professional_data?.account_type}
             padding="0em 2em 0 0em"
-            width="100%"
-            lineWidth="60%"
+            width="15em"
+            lineWidth="100%"
             name="professional_data.account_type"
           />
         </ContainerRow>
@@ -640,28 +640,28 @@ const RegisterProfessionalsData = ({ data }) => {
         {/* Dados do Pix */}
 
         <ContainerRow>
-          <InputSelectWithLabel
+          <InputSelect
             value={values?.professional_data?.type_of_transfer}
-            setSelectedOption={handleChange("professional_data.type_of_transfer")}
+            onChange={handleChange("professional_data.type_of_transfer")}
             options={optionsTypeOfTranfer}
             placeHolder="Tipo de tranferência"
             padding="0em 2em 0 0em"
             error={errors?.professional_data?.type_of_transfer}
             touched={touched?.professional_data?.type_of_transfer}
             width="100%"
-            lineWidth="31%"
+            lineWidth="28em"
             name="professional_data.type_of_transfer"
           />
-          <InputSelectWithLabel
+          <InputSelect
             value={values?.professional_data?.pix_key_type}
-            setSelectedOption={handleChange("professional_data.pix_key_type")}
+            onChange={handleChange("professional_data.pix_key_type")}
             options={optionsPixKeyType}
             error={errors?.professional_data?.pix_key_type}
             touched={touched?.professional_data?.pix_key_type}
             placeHolder="Tipo chave Pix"
             padding="0em 2em 0 0em"
             width="100%"
-            lineWidth="32%"
+            lineWidth="23em"
             name="professional_data.pix_key_type"
             disabled={isDisabled}
           />

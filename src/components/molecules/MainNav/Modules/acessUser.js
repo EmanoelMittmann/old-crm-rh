@@ -8,6 +8,8 @@ import {
   SettingsIcon,
   CompanyIcon,
   HomeIcon,
+  ReleaseHoursIcon,
+  ReleaseInvoiceIcon,
 } from "../../../atoms/icons/NavIcons/index";
 import { checkUrl } from "../../../utils/checkUrl";
 import { Modules } from "../Modules";
@@ -42,9 +44,9 @@ export const userAccess = (isTechLead) => [
     9: <Modules id={9} children={<CompanyIcon />} route="/Company" />,
   },
   {
-    10:  <Modules id={4} children={<OvertimeIcon />} route={checkUrl(isTechLead)} />
+    10:<Modules id={10} children={<ReleaseHoursIcon />} route={checkUrl(isTechLead)} />
   },
   {
-    11: <Modules id={5} children={<InvoiceIcon />} route='/invoiceSending' />
+    11: <Modules id={11} children={<ReleaseInvoiceIcon />} route='/invoiceSending' />
   }
 ];
