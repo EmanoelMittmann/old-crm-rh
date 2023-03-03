@@ -25,7 +25,7 @@ import OrdemService from '../components/pages/OrdemServices';
 import GenerateOS from '../components/organisms/GenerateOrdemService';
 import DetailsRelease from '../components/organisms/DetailsRelease';
 import OvertimeListIsTechLead from '../components/pages/OvertimeListIstechLead';
-import { useSelector } from 'react-redux';
+
 
 
 const Routes = () => {

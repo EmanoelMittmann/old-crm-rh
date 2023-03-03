@@ -11,8 +11,7 @@ import {
 
 export const PermissionsSpecial = ({ permissions, formik }) => {
     const general = permissions.filter((prop) => prop.group_name === "GENERAL");
-    const special = permissions.filter((prop) => prop.group_name === "SPECIAL").slice(0, 5);
-    const special2 = permissions.filter((prop) => prop.group_name === "SPECIAL").slice(5, 9)
+    const special = permissions.filter((prop) => prop.group_name === "SPECIAL");
 
 
     return (
@@ -23,12 +22,12 @@ export const PermissionsSpecial = ({ permissions, formik }) => {
             </ContainerCheckTitle>
             <ContainerAbsolute>
                 <ContainerCheckBox gap="1em">
-                    {special?.map((item) => (
+                    {special?.slice(0, 5).map((item) => (
                         <Shelf key={item.id} data={item} formik={formik}/>
                     ))}
                 </ContainerCheckBox>
                 <ContainerCheckBox >
-                    {special2?.map((item) => (
+                    {special?.slice(5, 9).map((item) => (
                         <Shelf key={item.id} data={item} formik={formik} />
                     ))}
                 </ContainerCheckBox>

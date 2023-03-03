@@ -17,10 +17,6 @@ const PrivateRoute = ({ component: Component, id, ...rest }) => {
   if(!permissions.includes(1)){
     permissions.push(1)
   }
-
-  if(!permissions.includes(1)){
-    permissions.push(1)
-  }
   
   function handleTemplate(path) {
     return templates.find((obj) => {

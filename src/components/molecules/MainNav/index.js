@@ -9,6 +9,7 @@ import { userAccess } from "./Modules/acessUser";
 const NavHome = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const { permissions, isTechLead } = JSON.parse(localStorage.getItem("@UbiRH/USER"));
+  console.log('permissions: ', permissions);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem(LocalStorageKeys.USER));
@@ -20,12 +21,13 @@ const NavHome = () => {
 
   return (
     <Nav>
-      {permissions.map((item1) =>
+      {permissions.map((usersPermissions) =>
         userAccess(isTechLead)
-          .filter((item) => item.hasOwnProperty(item1))
-          .map((item) => item[item1])
+          .filter((permission) => permission.hasOwnProperty(usersPermissions))
+          .map((permission) => permission[usersPermissions])
       )}
     </Nav>
+
   );
 };
 

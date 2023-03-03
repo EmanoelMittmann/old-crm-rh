@@ -108,7 +108,7 @@ const Payments = ({
             setOrderField={setOrderField}
           />
           {reports?.map((item) => (
-            <Shelf data={item} uploads={uploads} />
+            <Shelf data={item} uploads={uploads} key={item.id} />
           ))}
         </ContainerListing>
         <Footer
