@@ -9,7 +9,6 @@ import { userAccess } from "./Modules/acessUser";
 const NavHome = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const { permissions, isTechLead } = JSON.parse(localStorage.getItem("@UbiRH/USER"));
-  console.log('permissions: ', permissions);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem(LocalStorageKeys.USER));
