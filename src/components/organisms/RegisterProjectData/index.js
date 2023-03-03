@@ -25,7 +25,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
 
     return (
         <>
-            <SecondaryText margin="0 0 2.5em 0">Dados do projeto</SecondaryText>
+            <SecondaryText margin="0 0 2.5em 3em">Dados do projeto</SecondaryText>
             <RegisterProjectForm>
                 <ContainerFirstRow>
                     <ContainerSecondRow>

@@ -127,6 +127,7 @@ const CompaniesListItem = ({ corporation }) => {
             id={corporation.id} />
         )}
       </ContainerCompaniesListItem></>
+
   );
 };
 

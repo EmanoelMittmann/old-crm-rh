@@ -23,6 +23,7 @@ const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
     const [modalIsVisible, setModalIsVisible] = useState(false)
     const [payingCompany, setPayingCompany] = useState([])
     const [companyCode, setCompanyCode] = useState('')
+    const [onlyError, setOnlyError] = useState("")
 
     const download = async () => {
         try {
@@ -51,7 +52,7 @@ const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
 
     const handleClicked = () => {
         if (companyCode.trim() === '') {
-            return toast.warn(<DefaultToast text={"Selecione uma empresa"} />)
+            return setOnlyError("Selecione uma empresa")
         } else {
             setModalIsVisible(prev => !prev)
         }
@@ -81,6 +82,8 @@ const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
                         placeHolder="Empresa Pagadora"
                         width="380px"
                         label="Empresa Pagadora"
+                        error={onlyError}
+                        touched={onlyError}
                     />
                 </ContainerInputsSelect>
                 <ContainerButtons>

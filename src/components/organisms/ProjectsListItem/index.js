@@ -3,10 +3,9 @@ import {
   ProjectsListItemContainer,
   ProjectsListItemProject,
 } from "./style.js";
-import { useEffect } from "react";
 import ProjectRow from "./row";
 
-export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
+export const ProjectsListItem = ({ data, statusOptions, getProjects, DetailsReports, getProjectsDetails }) => {
 
   if (!data) {
     return (
@@ -25,8 +24,10 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects }) => {
       </ProjectsListItemContainer>
     );
   }
-  
-  return data.map((project) => <ProjectRow statusOptions={statusOptions} project={project} getProjects={getProjects} key={project.id}/>);
+
+
+  return data.map((project) => <ProjectRow statusOptions={statusOptions} project={project} getProjects={getProjects} key={project.id} DetailsReports={DetailsReports}/>);
+
 };
 
 export default ProjectsListItem;

@@ -6,14 +6,16 @@ const inicialState = false;
 
 const authentication = (state = inicialState, action) => {
   const { type, payload } = action;
-  switch (type) {
+   switch(type) {
     case VALIDTOKEN:
       const token = JSON.stringify(payload.token);
       const user = JSON.stringify({
         avatar: payload.googleData.data.avatar,
         user_type_id: payload.googleData.data.user_type_id,
         isTechLead: payload.googleData.isTechLead,
+        permissions:payload.googleData.permissions[0]
       });
+      
       localStorage.setItem(LocalStorageKeys.TOKEN, token);
       localStorage.setItem(LocalStorageKeys.USER, user);
 

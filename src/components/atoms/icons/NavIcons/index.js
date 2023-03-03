@@ -372,7 +372,7 @@ export const InvoiceIcon = () => {
       location={location.pathname}
       hover={displayDescription}
     >
-      <Invoice />
+      <Invoice/>
     </InvoiceIconContainer>
   );
 };
@@ -668,5 +668,145 @@ export const CompanyIcon = () => {
     >
       <Company />
     </CompanyIconContainer>
+  );
+};
+
+const ReleaseHoursIconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+
+  svg {
+    fill: ${(props) => (props.location === "/releaseHours" ? "black" : "#B7BDC2")};
+    cursor: pointer;
+    height: 45px;
+    transition: 0.4s fill ease-in-out;
+  }
+
+  &:hover {
+      background: #f4f6f8;
+      border-radius: 10px;
+
+    svg {
+      fill: black;
+    }
+  }
+
+  &:after {
+    content: "Lançamentos de Horas Extras";
+    display: ${(props) =>
+    props.location === "/releaseHours" ? "none" : props.hover};
+    width: 200px;
+    white-space: nowrap;
+    height: 35px;
+    background-color: white;
+    box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.2),
+      5px 25px 14px -13px rgba(0, 0, 0, 0);
+    position: absolute;
+    border-radius: 8px;
+    top: 122%;
+    color: black;
+    font-size: 0.7rem;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  &:before {
+    content: "";
+    display: ${(props) =>
+    props.location === "/releaseHours" ? "none" : props.hover};
+    width: 45px;
+    height: 20px;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    position: absolute;
+    top: 65px;
+    background-color: white;
+  }
+`;
+
+export const ReleaseHoursIcon = () => {
+  const location = useLocation();
+  const state = useSelector((state) => state.headerMenu[9]);
+  const displayDescription = state.descriptionIsAppearing ? "flex" : "none";
+  return (
+    <ReleaseHoursIconContainer
+      location={location.pathname}
+      hover={displayDescription}
+    >
+      <Overtime/>
+    </ReleaseHoursIconContainer>
+  );
+};
+
+const RealeseInvoiceIconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 55px;
+
+  svg {
+    fill: ${(props) => (props.location === "/invoiceSending" ? "black" : "#B7BDC2")};
+    cursor: pointer;
+    height: 45px;
+    transition: 0.4s fill ease-in-out;
+  }
+
+  &:hover {
+    background: #f4f6f8;
+    border-radius: 10px;
+
+    svg {
+      fill: black;
+    }
+  }
+
+  &:after {
+    content: "Lançamento de Notas fiscais";
+    display: ${(props) =>
+    props.location === "/invoiceSending" ? "none" : props.hover};
+    width: 200px;
+    height: 34px;
+    background-color: white;
+    box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.2),
+      5px 25px 14px -13px rgba(0, 0, 0, 0);
+    position: absolute;
+    border-radius: 8px;
+    transform: translateY(5.5em);
+    color: black;
+    font-size: 0.7rem;
+    font-weight: 700;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  &:before {
+    content: "";
+    display: ${(props) =>
+    props.location === "/invoiceSending" ? "none" : props.hover};
+    width: 45px;
+    height: 20px;
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+    position: absolute;
+    top: 65px;
+    background-color: white;
+  }
+`;
+
+export const ReleaseInvoiceIcon = () => {
+  const location = useLocation();
+  const state = useSelector((state) => state.headerMenu[10]);
+  const displayDescription = state.descriptionIsAppearing ? "flex" : "none";
+
+  return (
+    <RealeseInvoiceIconContainer
+      location={location.pathname}
+      hover={displayDescription}
+    >
+      <Invoice/>
+    </RealeseInvoiceIconContainer >
   );
 };

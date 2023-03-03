@@ -82,7 +82,10 @@ const ModalColors = () => {
         toast.success(<DefaultToast text="Status do Projeto cadastrado!" />)
       );
     } catch (error) {
-      return toast.warn(<DefaultToast text={value.trim() === "" ? "Insira um Status" : "Um status com esse nome já existe"} />);
+      return toast.warn(<DefaultToast
+        text={value.trim() === "" ?
+          "Insira um Status" :
+          "Um status com esse nome já existe"} />);
     }
   };
   const updateStatus = async () => {
@@ -113,7 +116,7 @@ const ModalColors = () => {
     }
   };
 
-  const saveButtonClickHandler = (e) => {
+  const saveButtonClickHandler = () => {
     if (value.length === 0) return;
 
     if (state.modalFunctionality.register) {
@@ -157,8 +160,6 @@ const ModalColors = () => {
       console.log(error.message);
     }
   };
-
-
 
   useEffect(() => {
     getStatusColor();

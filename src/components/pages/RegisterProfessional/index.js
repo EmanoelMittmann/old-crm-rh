@@ -16,6 +16,7 @@ import RegisterProfessionalsData from "../../organisms/RegisterProfessionalsData
 import {
   RegisterProfessionalTitleContainer,
   RegisterProfessionalContainer,
+  ContainerPermission,
 } from "./style.js";
 import { cleanMask } from "../../utils/cleanMask";
 import { getDate } from "../../utils/getDate";
@@ -25,15 +26,22 @@ import { handleCEP } from "../../utils/validateCep";
 import InputWithLabel from "../../atoms/InputWithLabel";
 import SecondaryText from "../../atoms/SecondaryText/style";
 import TechLeadAndDev from "../../molecules/techLeadAndDev";
+import { PermissionsSpecial } from "../../organisms/PermissionsSpecial";
+import { LocalStorageKeys } from "../../../settings/LocalStorageKeys";
 
 const RegisterProfessional = () => {
   const [jobs, setJobs] = useState([]);
   const [allProjects, setAllProjects] = useState([]);
   const [projects, setProjects] = useState([]);
   const [uniqueCpf, setUniqueCpf] = useState("");
+  const [permissions, setPermissions] = useState([]);
   const [cpfValid, setCpfValid] = useState(false);
   const [uniqueCEP, setUniqueCEP] = useState("");
   const [oldValue, setOldValue] = useState([]);
+  const [token] = useState(() => {
+    let token = localStorage.getItem(LocalStorageKeys.USER)
+    return token
+  })
   const [anotherCep, setAnotherCEP] = useState("");
   const [extraHour, setExtraHour] = useState("");
   const history = useHistory();
@@ -82,7 +90,8 @@ const RegisterProfessional = () => {
         ) {
           setUniqueCEP(values.cep);
           handleCEP(values.cep).then((data) => {
-            if (data.data.erro) return setFieldError("CEP", "CEP não encontrado!");
+            if (data.data.erro)
+              return setFieldError("CEP", "CEP não encontrado!");
             const { bairro, localidade, logradouro, uf } = data.data;
             if (localidade) setFieldValue("city_name", localidade);
             if (uf) setFieldValue("uf", uf);
@@ -102,38 +111,43 @@ const RegisterProfessional = () => {
     uf: Yup.string().required(messages.required),
     telephone_number: Yup.string().required(messages.required),
     email: Yup.string().required(messages.required),
+    permissions: Yup.array().required(messages.required),
     professional_data: Yup.object().shape({
-      cnpj: Yup.string().min(18, "CNPJ Inválido"),
-      razao_social: Yup.string(),
-      fantasy_name: Yup.string(),
-      company_city_name: Yup.string(),
-      company_street_name: Yup.string(),
-      company_neighborhood_name: Yup.string(),
-      company_complement: Yup.string(),
-      company_house_number: Yup.string(),
-      uf_company: Yup.string(),
-      company_phone_number: Yup.string(),
+      cnpj: Yup.string().min(18, "CNPJ Inválido").nullable(),
+      razao_social: Yup.string().nullable(),
+      fantasy_name: Yup.string().nullable(),
+      company_city_name: Yup.string().nullable(),
+      company_street_name: Yup.string().nullable(),
+      company_neighborhood_name: Yup.string().nullable(),
+      company_complement: Yup.string().nullable(),
+      company_house_number: Yup.string().nullable(),
+      uf_company: Yup.string().nullable(),
+      company_phone_number: Yup.string().nullable(),
       bank: Yup.string().required(messages.required),
       account_number: Yup.string().required(messages.required),
       agency: Yup.string().required(messages.required).max(5, "Invalido"),
       account_type: Yup.string().required(messages.required),
       type_of_transfer: Yup.string().required(messages.required),
-      pix_key_type: Yup.string().when(['type_of_transfer'],{
-        is:(type_of_transfer) => type_of_transfer === 'PIX',
-        then:Yup.string().required(messages.required)
-      }),
-      pix_key: Yup.string().when(['type_of_transfer'],{
-        is:(type_of_transfer) => type_of_transfer === 'PIX',
-        then: Yup.string().required(messages.required)
-      }),
+      pix_key_type: Yup.string()
+        .when(["type_of_transfer"], {
+          is: (type_of_transfer) => type_of_transfer === "PIX",
+          then: Yup.string().required(messages.required),
+        })
+        .nullable(),
+      pix_key: Yup.string()
+        .when(["type_of_transfer"], {
+          is: (type_of_transfer) => type_of_transfer === "PIX",
+          then: Yup.string().required(messages.required),
+        })
+        .nullable(),
       account_number: Yup.number().required(messages.required),
-      company_email: Yup.string(),
+      company_email: Yup.string().nullable(),
       company_cep: Yup.string()
         .min(4 - 9, "CEP Inválido")
         .test("CEP válido", "CEP não encontrado", () => {
           if (
-            values.professional_data.company_cep.length === 9 &&
-            values.professional_data.company_cep !== anotherCep
+            values.professional_data?.company_cep?.length === 9 &&
+            values.professional_data?.company_cep !== anotherCep
           ) {
             setAnotherCEP(values.professional_data.company_cep);
             handleCEP(values.professional_data.company_cep).then((data) => {
@@ -158,16 +172,20 @@ const RegisterProfessional = () => {
             });
           }
           return true;
-        }),
+        })
+        .nullable(),
     }),
     start_date: Yup.date().required(messages.required),
     job_id: Yup.number().required(messages.required),
     job_type: Yup.string().required(messages.required),
-    variable1: Yup.string().when(['job_type','extra_hour_activated'],{
-      is: (job_type,extra_hour_activated) => job_type !== 'FREELANCER' && extra_hour_activated,
-      then: Yup.string().required(messages.required),
-      otherwise: ''
-    }),
+    variable1: Yup.string()
+      .when(["job_type", "extra_hour_activated"], {
+        is: (job_type, extra_hour_activated) =>
+          job_type !== "FREELANCER" && extra_hour_activated,
+        then: Yup.string().required(messages.required),
+        otherwise: "",
+      })
+      .nullable(),
     weekly_hours: Yup.number()
       .required(messages.required)
       .max(44, "Horas/semana excedida"),
@@ -211,6 +229,7 @@ const RegisterProfessional = () => {
       extra_hour_limit: "",
       user_type_id: 2,
       commission: true,
+      permissions: [],
       professional_data: {
         cnpj: cleanMask(""),
         razao_social: "",
@@ -227,7 +246,7 @@ const RegisterProfessional = () => {
         bank: cleanMask(""),
         account_type: "",
         agency: "",
-        account_number:"",
+        account_number: "",
         type_of_transfer: "",
         pix_key_type: "",
         pix_key: cleanMask(""),
@@ -315,6 +334,11 @@ const RegisterProfessional = () => {
     handleChange,
   } = formik;
 
+  const getPermissions = async () => {
+    const { data } = await api.get("/permissions");
+    setPermissions(data);
+  };
+
   const reloadProjects = useCallback(async () => {
     const { data } = await api({
       method: "get",
@@ -378,7 +402,7 @@ const RegisterProfessional = () => {
         });
         reloadProjects();
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error(<DefaultToast text="Erro ao vincular projeto." />, {
           toastId: "post",
         });
@@ -399,7 +423,7 @@ const RegisterProfessional = () => {
         });
         reloadProjects();
       })
-      .catch((error) => {
+      .catch(() => {
         toast.error(<DefaultToast text="Erro ao remover projeto." />, {
           toastId: "delete",
         });
@@ -470,6 +494,11 @@ const RegisterProfessional = () => {
               setFieldValue(property, data);
             } else if (property.includes("extra_hour_value")) {
               setFieldValue(property, String(value).replace(".", ","));
+            } else if (property.includes("permissions")) {
+              setFieldValue(
+                property,
+                value.map((item) => item.id)
+              );
             } else {
               setFieldValue(property, value);
             }
@@ -488,6 +517,7 @@ const RegisterProfessional = () => {
   useEffect(() => {
     getProfessionalData();
   }, [id]);
+
 
   useEffect(() => {
     setFieldValue(
@@ -513,19 +543,22 @@ const RegisterProfessional = () => {
 
   useEffect(() => {
     const verified =
-    oldValue?.professional_data?.pix_key_type ===
-    values.professional_data.pix_key_type &&
-    oldValue?.professional_data?.type_of_transfer ===
-    values.professional_data.type_of_transfer;
+      oldValue?.professional_data?.pix_key_type ===
+        values.professional_data.pix_key_type &&
+      oldValue?.professional_data?.type_of_transfer ===
+        values.professional_data.type_of_transfer;
     if (!verified) {
       setFieldValue("professional_data.pix_key", "");
     }
-    setOldValue([])
-
+    setOldValue([]);
   }, [
     values.professional_data.pix_key_type,
     values.professional_data.type_of_transfer,
   ]);
+
+  useEffect(() => {
+    getPermissions();
+  }, []);
 
   return (
     <>
@@ -535,10 +568,17 @@ const RegisterProfessional = () => {
           {id ? "Edição de profissional" : "Novo profissional"}
         </SectionTitle>
       </RegisterProfessionalTitleContainer>
+
       <RegisterProfessionalContainer>
         <form id="professional" onSubmit={formik.handleSubmit}>
           <RegisterProfessionalsData data={formik} />
           <EmploymentContract data={formik} jobs={jobs} />
+
+          <SecondaryText margin="2.5em 0 1.5em 2em">Permissões</SecondaryText>
+          <ContainerPermission>
+            <PermissionsSpecial permissions={permissions} formik={formik} />
+          </ContainerPermission>
+
           <ProfessionalsExtraHour
             extraHour={extraHour}
             setExtraHour={setExtraHour}

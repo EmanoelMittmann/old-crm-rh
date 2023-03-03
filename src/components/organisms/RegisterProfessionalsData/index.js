@@ -14,6 +14,7 @@ import InputMasked from "../../atoms/InputMasked/index.js";
 import { useEffect } from "react";
 import SelectBank from "../../atoms/SelectBank";
 import PhoneInternational from "../../atoms/PhoneInternational";
+import InputSelectWithLabel from "../../atoms/InputSelectWithLabel";
 
 export const optionsUF = [
   { name: "Todos", id: "" },
@@ -588,7 +589,7 @@ const RegisterProfessionalsData = ({ data }) => {
             onChange={handleChange("professional_data.agency")}
             label="Agência"
             width="100%"
-            widthContainer="40%"
+            widthContainer="50%"
             error={errors?.professional_data?.agency}
             touched={touched?.professional_data?.agency}
             handleBlur={setFieldTouched}
@@ -601,7 +602,7 @@ const RegisterProfessionalsData = ({ data }) => {
             mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
             label="Número da conta"
             width="100%"
-            widthContainer="60%"
+            widthContainer="50%"
             error={errors?.professional_data?.account_number}
             touched={touched?.professional_data?.account_number}
             handleBlur={setFieldTouched}
@@ -619,7 +620,7 @@ const RegisterProfessionalsData = ({ data }) => {
             touched={touched?.professional_data?.bank}
             label="Banco"
             width="100%"
-            lineWidth="98%"
+            lineWidth="95%"
             name="professional_data.bank"
           />
           <InputSelect
@@ -630,8 +631,8 @@ const RegisterProfessionalsData = ({ data }) => {
             error={errors?.professional_data?.account_type}
             touched={touched?.professional_data?.account_type}
             padding="0em 2em 0 0em"
-            width="100%"
-            lineWidth="15em"
+            width="15em"
+            lineWidth="100%"
             name="professional_data.account_type"
           />
         </ContainerRow>
@@ -660,7 +661,7 @@ const RegisterProfessionalsData = ({ data }) => {
             placeHolder="Tipo chave Pix"
             padding="0em 2em 0 0em"
             width="100%"
-            lineWidth="28em"
+            lineWidth="23em"
             name="professional_data.pix_key_type"
             disabled={isDisabled}
           />
@@ -673,7 +674,7 @@ const RegisterProfessionalsData = ({ data }) => {
               handleBlur={setFieldTouched}
               onChange={handleChange("professional_data.pix_key")}
               width="100%"
-              widthContainer="30%"
+              widthContainer="31%"
               label="Chave Pix"
               value={values?.professional_data?.pix_key}
               type="text"
@@ -688,7 +689,7 @@ const RegisterProfessionalsData = ({ data }) => {
               handleBlur={setFieldTouched}
               onChange={handleChange("professional_data.pix_key")}
               width="100%"
-              widthContainer="30%"
+              widthContainer="31%"
               label="Chave Pix"
               value={values.professional_data.pix_key}
               type="text"

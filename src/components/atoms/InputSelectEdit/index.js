@@ -7,8 +7,9 @@ import {
     InputSelectContainer,
     InputSelectOption,
 } from '../InputSelect/style.js'
+import { ErrorMessage } from '../InputWithLabel/style.js'
 
-const InputSelectEdit = ({optionId, setSelectedOption, width, options}) => {
+const InputSelectEdit = ({optionId, setSelectedOption, width, options, error, touched}) => {
     return (
         <InputLine width={width}>
             <InputSelectContainer width={width} onChange={(e) => setSelectedOption(e.target.value)}>
@@ -26,6 +27,7 @@ const InputSelectEdit = ({optionId, setSelectedOption, width, options}) => {
                     </InputSelectOption>
                 ))}
             </InputSelectContainer>
+            {error && touched && <ErrorMessage visible={error}>{error}</ErrorMessage>}
             <Img src={arrowPointingDown} alt="Lupa"/>
         </InputLine>
     )

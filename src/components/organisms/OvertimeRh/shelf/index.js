@@ -12,9 +12,9 @@ import { Badge } from "../../../molecules/ProfessionalsListItem/style";
 import { formatDate } from "../../../utils/formatDate";
 import { ContainerQntHours } from "../style";
 import { useState } from "react";
-
 import api from "../../../../api/api";
-import ApprovalHoursAdm from "../../../molecules/modalApprovalHoursAdm";
+import ApprovalHoursAdm from "../../../molecules/ModalApprovalHoursAdm";
+
 
 const Shelf = ({ values, index, getHoursPending }) => {
   const [modalIsVisibleRH, setModalIsVisibleRH] = useState(false)

@@ -54,7 +54,7 @@ const DetaislCompanies = ({ id, setModalDetailsCompanies }) => {
             {listCompanie?.map((item, index) => (
                 <div>
                     <ModalContainer key={index}>
-                        <ModalTitle padding="1.6em">
+                        <ModalTitle padding="1em 2em ">
                             <CloseButton CloseButtonClickHandler={() => ClickHandlerDetais()} />
                             Detalhes da Empresa
                         </ModalTitle>
