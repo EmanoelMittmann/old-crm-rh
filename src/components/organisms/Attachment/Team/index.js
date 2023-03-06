@@ -323,7 +323,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
               secondOptionDescription={id? null: "Remover"}
               firstChosenOption={() => handleEditModal()}
               secondChosenOption={handleRemoveModal}
-              padding="0.3em 0.5em 0em 1.7em"
+              padding="0 0.5em 0 1.7em"
               id={member?.id}
             />
           )}
