@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StatusActiveContainer = styled.div`
-    width: 75px;
+    width: 90px;
     height: 30px;
     display: flex;
     align-items: center;
@@ -10,7 +10,7 @@ const StatusActiveContainer = styled.div`
     font-weight: 700;
     color: #229A16;
     background-color: #E4F8DD;
-    border-radius: 7px;
+    border-radius: 15px;
 `
 
 export default StatusActiveContainer;
