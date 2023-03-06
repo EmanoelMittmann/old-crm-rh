@@ -32,7 +32,7 @@ const ModalSettings = ({ data, edit, toggle, openOptions }) => {
     return (
       <ListItemContainer>
         <ListItemName>{data.name}</ListItemName>
-        <ListItemDetails>
+        <ListItemDetails >
           {data.is_active ? <StatusActive /> : <StatusDisabled />}
           <SettingsOptions
             ref={{ modalRef, buttonRef }}

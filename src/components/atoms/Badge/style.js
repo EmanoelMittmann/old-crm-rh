@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const BadgeContainer = styled.div`
-    width: fit-content;
+    width: 7em;
     height: 30px;
     padding: 1em;
     display: flex;
@@ -12,5 +12,5 @@ export const BadgeContainer = styled.div`
     font-weight: 700;
     background-color: ${props => props.bg || '#fff'};
     color: ${props => props.color || '#000'};
-    border-radius: 7px;
+    border-radius: 15px;
 `
