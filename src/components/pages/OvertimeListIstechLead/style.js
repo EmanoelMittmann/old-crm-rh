@@ -9,5 +9,5 @@ export const SearchContainer = styled.div`
 `
 
 export const Height = styled.div`
-  height: 20em;
+  height: 25em;
 `
