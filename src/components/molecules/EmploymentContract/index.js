@@ -89,7 +89,7 @@ const EmploymentContract = ({ data, jobs }) => {
           name="start_date"
         />
         <InputSelect
-          setSelectedOption={handleChange('job_id')}
+          onChange={handleChange('job_id')}
           value={values.job_id}
           options={jobs}
           label="Cargo"
@@ -97,12 +97,12 @@ const EmploymentContract = ({ data, jobs }) => {
           touched={touched?.job_id}
           placeHolder="Cargo"
           width="100%"
-          lineWidth="32em"
+          lineWidth="31em"
         />
       </EmploymentContractInputs>
       <EmploymentContractInputs>
         <InputSelect
-          setSelectedOption={handleType}
+          onChange={handleType}
           placeHolder="Tipo"
           width="100%"
           error={errors?.job_type}

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router';
+import React, {useEffect, useState} from 'react';
+import {useLocation} from 'react-router';
 
 import api from '../../../api/api';
 import Footer from '../Footer';
@@ -7,105 +7,104 @@ import ProfessionalsInputs from "../../molecules/ProfessionalsInputs";
 import ProfessionalsListHeader from "../../atoms/ProfessionalsListHeader";
 import ProfessionalsListItem from "../../molecules/ProfessionalsListItem";
 import LoadingCircle from "../../atoms/LoadingCircle";
-import { Container } from "../../atoms/Container";
-import { ContainerAbsolute } from './style';
+import {Container} from "../../atoms/Container";
+import {ContainerAbsolute} from './style';
 
 const ProfessionalsSection = () => {
-  const location = useLocation();
-  const [professionals, setProfessionals] = useState([]);
-  const [jobSelected, setJobSelected] = useState("");
-  const [searchResult, setSearchResult] = useState("");
-  const [professionalMeta, setProfessionalMeta] = useState("");
-  const [order, setOrder] = useState("");
-  
-  let params = {};
+    const location = useLocation();
+    const [professionals, setProfessionals] = useState([]);
+    const [jobSelected, setJobSelected] = useState("");
+    const [searchResult, setSearchResult] = useState("");
+    const [professionalMeta, setProfessionalMeta] = useState("");
+    const [order, setOrder] = useState("");
 
-  const handleFilterRequest = (pagesFilter) => {
-    if (pagesFilter === "previous")
-      params.page = `${professionalMeta.current_page--}`; 
+    let params = {};
 
-    if (pagesFilter === "next") 
-      params.page = `${professionalMeta.current_page++}`;
+    const handleFilterRequest = (pagesFilter) => {
+        if (pagesFilter === "previous")
+            params.page = `${professionalMeta.current_page--}`;
 
-    if (pagesFilter === undefined) params.page = professionalMeta.current_page;
+        if (pagesFilter === "next")
+            params.page = `${professionalMeta.current_page++}`;
 
-    if (searchResult !== "") {
-      params.search = searchResult;
-      params.page = professionalMeta.first_page;
-    }
+        if (pagesFilter === undefined) params.page = professionalMeta.current_page;
 
-    if (jobSelected !== "") {
-      params.job_id = jobSelected;
-      params.page = professionalMeta.first_page;
-    }
+        if (searchResult !== "") {
+            params.search = searchResult;
+            params.page = professionalMeta.first_page;
+        }
 
-    if (order !== "") params.order = order;
-  };
+        if (jobSelected !== "") {
+            params.job_id = jobSelected;
+        }
 
-  const sortByName = () => {
-    order === "" && setOrder("desc");
-    order === "asc" && setOrder("desc");
-    order === "desc" && setOrder("asc");
-  };
+        if (order !== "") params.order = order;
+    };
 
-  const getProfessionals = async () => {
-    handleFilterRequest()
-    const { data } = await api({
-      method: "get",
-      url: `/professionals/?limit=5`,
-      params: params,
-    });
+    const sortByName = () => {
+        order === "" && setOrder("desc");
+        order === "asc" && setOrder("desc");
+        order === "desc" && setOrder("asc");
+    };
 
-    setProfessionals(data.data);
-    setProfessionalMeta(data.meta);
-  };
+    const getProfessionals = async () => {
+        handleFilterRequest()
+        const {data} = await api({
+            method: "get",
+            url: `/professionals/?limit=5`,
+            params: params,
+        });
 
-  useEffect(() => {
-    getProfessionals();
-    location.state && setProfessionals(location.state.professionals.data);
-  }, [searchResult, jobSelected, order]);
+        setProfessionals(data.data);
+        setProfessionalMeta(data.meta);
+    };
 
-  const nextPage = () => {
-    handleFilterRequest("next");
-    getProfessionals();
-  };
+    useEffect(() => {
+        getProfessionals();
+        location.state && setProfessionals(location.state.professionals.data);
+    }, [searchResult, jobSelected, order]);
 
-  const previousPage = () => {
-    handleFilterRequest("previous");
-    getProfessionals();
-  };
+    const nextPage = () => {
+        handleFilterRequest("next");
+        getProfessionals();
+    };
 
-  return (
-    <Container>
-      <ProfessionalsInputs
-        setSearchResult={setSearchResult}
-        setJobSelected={setJobSelected}
-      />
-      <ProfessionalsListHeader sortByName={sortByName} />
-      {professionals[0] ? (
-        <>
-          <ContainerAbsolute>
-            {professionals.map(professional => 
-              <ProfessionalsListItem
-                professional={professional}
-                key={professional.id}
-                getProfessionals={getProfessionals}
-              />
-              )}
-          </ContainerAbsolute>
-          <Footer
-            previousPage={previousPage}
-            nextPage={nextPage}
-            currentPage={professionalMeta.current_page}
-            firstPage={professionalMeta.first_page}
-            lastPage={professionalMeta.last_page}
-          />
-        </>
-      ) : (
-        <LoadingCircle />
-      )}
-    </Container>
-  );
+    const previousPage = () => {
+        handleFilterRequest("previous");
+        getProfessionals();
+    };
+
+    return (
+        <Container>
+            <ProfessionalsInputs
+                setSearchResult={setSearchResult}
+                setJobSelected={setJobSelected}
+            />
+            <ProfessionalsListHeader sortByName={sortByName}/>
+            {professionals[0] ? (
+                <>
+                    <ContainerAbsolute>
+                        {professionals.map(professional =>
+                            <ProfessionalsListItem
+                                professional={professional}
+                                key={professional.id}
+                                getProfessionals={getProfessionals}
+                            />
+                        )}
+                    </ContainerAbsolute>
+                    <Footer
+                        previousPage={previousPage}
+                        nextPage={nextPage}
+                        currentPage={professionalMeta.current_page}
+                        firstPage={professionalMeta.first_page}
+                        lastPage={professionalMeta.last_page}
+                    />
+                </>
+            ) : (
+                <LoadingCircle/>
+            )}
+        </Container>
+    );
 };
 
 export default ProfessionalsSection;

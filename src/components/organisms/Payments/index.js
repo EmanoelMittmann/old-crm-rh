@@ -102,7 +102,6 @@ const Payments = ({
           />
         </ContainerSearch>
         <ContainerListing>
-
           <HeaderPayments
             sortByName={sortByName}
             setOrderField={setOrderField}

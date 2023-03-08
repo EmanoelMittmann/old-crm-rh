@@ -13,7 +13,7 @@ const Reports = () => {
     const [finalPeriod,setFinalPeriod] = useState('')
     const [reportsMeta, setReportsMeta] = useState({})
     const [search, setSearch] = useState('')
-    const [order, setOrder] = useState('asc')
+    const [order, setOrder] = useState('')
     const [orderField, setOrderField] = useState('')
 
   const params = new URLSearchParams()
@@ -87,8 +87,6 @@ const Reports = () => {
     useEffect(() => {
       getReports()
       getCompany()
-    
-
     },[order,orderField,search,statusParams,companyParams,initialPeriod,finalPeriod])
 
   return (
