@@ -88,7 +88,7 @@ const EmploymentContract = ({ data, jobs }) => {
           handleBlur={setFieldTouched}
           name="start_date"
         />
-        <InputSelectWithLabel
+        <InputSelect
           setSelectedOption={handleChange('job_id')}
           value={values.job_id}
           options={jobs}
@@ -97,11 +97,11 @@ const EmploymentContract = ({ data, jobs }) => {
           touched={touched?.job_id}
           placeHolder="Cargo"
           width="100%"
-          lineWidth="40%"
+          lineWidth="32em"
         />
       </EmploymentContractInputs>
       <EmploymentContractInputs>
-        <InputSelectWithLabel
+        <InputSelect
           setSelectedOption={handleType}
           placeHolder="Tipo"
           width="100%"
