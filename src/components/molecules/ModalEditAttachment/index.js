@@ -64,9 +64,9 @@ const ModalEditAttachment = (
                     <CloseButtonCircle CloseButtonClickHandler={CloseButtonClickHandler} />
                     Editar Dados do Profissional
                 </ModalTitle>
-                <ProfessionalData padding="0.8em 2em 0.8em 0.8em">
+                <ProfessionalData padding="0.8em">
                     <Img src={DataProfessional.avatar} />
-                    <p>{DataProfessional.name}</p>
+                    <span style={{width:"60%",paddingLeft: "0.5em"}}>{DataProfessional.name}</span>
                     <DivHours>
                         {DataProfessional.hours_mounths_estimated}
                     </DivHours>

@@ -5,9 +5,13 @@ export const ListItemContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 60px;
-    background-color: white;
+    height: 55px;
     border-radius: 8px;
+    margin-bottom: 0.5em;
+
+    &:hover {
+        background-color: #F4F6F8;
+    }
 `
 
 export const ListItemName = styled.span`
@@ -19,6 +23,7 @@ export const ListItemName = styled.span`
 `
 export const ListItemDetails = styled.div`
     display: flex;
+    
 `
 
 

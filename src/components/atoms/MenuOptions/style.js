@@ -25,7 +25,6 @@ export const OptionsMenuItem = styled.button`
   width: 100%;
   text-align: left;
   background-color: transparent;
-  /* padding: 0.3em 0.5em 0.3em 1.7em; */
   padding: ${(props) => props.padding};
   border: none;
   font-family: 'Poppins', sans-serif;

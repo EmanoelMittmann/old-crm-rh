@@ -76,7 +76,7 @@ function ListItem({ data, downloadFile }) {
   if (!data.length)
     return (
       <Main>
-        <Container>Vazio...</Container>
+        <Container>Nenhum arquivo encontrado...</Container>
       </Main>
     );
   if (user.user_type_id === 1) return admin(data, downloadFile);

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StatusDisabledContainer = styled.div`
-    width: 75px;
+    width: 90px;
     height: 30px;
     display: flex;
     align-items: center;
@@ -10,7 +10,7 @@ const StatusDisabledContainer = styled.div`
     font-weight: 700;
     color: #CF0418;
     background-color: #FCDBE0;
-    border-radius: 7px;
+    border-radius: 15px;
 `
 
 export default StatusDisabledContainer;

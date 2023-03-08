@@ -25,7 +25,6 @@ export const ProfessionalData = styled.div`
     height:50px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     padding: ${(props) => props.padding};
     background: #F2F5F8;
     align-items: center;
@@ -39,8 +38,10 @@ export const Img = styled.img`
 `
 
 export const DivHours = styled.div`
-    gap:3em;
-    padding: 0 0 0 3em;
+    width: 30%;
+    display: flex;
+    flex-direction: flex-end;
+    justify-content: flex-end;
 
 `
 export const ContainerInputsSelect = styled.div`

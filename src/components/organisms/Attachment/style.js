@@ -12,11 +12,17 @@ export const AttachmentForm = styled.div`
     gap: 8px;
 `
 
-export const AttachmentTableLine= styled.div`
+export const AttachmentTableLine = styled.div`
     display: flex;
     width: 100%;
-    min-height: 60px;
-    border-bottom: 1.5px solid #EFF2F4;
+    min-height: 50px;   
+    margin-top:0.5em;
+    border-radius:10px;
+
+    &:hover{
+        background-color:#f4f6f8;
+        border-bottom: 1.5px solid #EFF2F4;
+    }
 
     &:last-child{
         border-bottom: none;

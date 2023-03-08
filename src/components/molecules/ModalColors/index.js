@@ -21,7 +21,6 @@ import InputSelect from "../../atoms/InputSelect";
 import InputSelectEdit from "../../atoms/InputSelectEdit";
 import InputWithLabel from "../../atoms/InputWithLabel/index.js";
 import { DefaultToast } from "../../atoms/Toast/DefaultToast.js";
-
 import { ModalContainerButtons, ModalInputContainer } from "./style.js";
 import { ModalOverlay, ModalContainer, ModalTitle } from "../Modal/style.js";
 
@@ -82,10 +81,7 @@ const ModalColors = () => {
         toast.success(<DefaultToast text="Status do Projeto cadastrado!" />)
       );
     } catch (error) {
-      return toast.warn(<DefaultToast
-        text={value.trim() === "" ?
-          "Insira um Status" :
-          "Um status com esse nome já existe"} />);
+      return toast.warn(<DefaultToast text={value.trim() === "" ?"Insira um Status" : "Um status com esse nome já existe"} />);
     }
   };
   const updateStatus = async () => {
@@ -118,12 +114,10 @@ const ModalColors = () => {
 
   const saveButtonClickHandler = () => {
     if (value.length === 0) return;
-
     if (state.modalFunctionality.register) {
       saveStatus();
       dispatch(closeModal());
     }
-
     if (state.modalFunctionality.edit) {
       updateStatus();
       dispatch(closeModal());
@@ -211,7 +205,7 @@ const ModalColors = () => {
             Cancelar
           </CancelButton>
           <SaveButton
-            onClick={(e) => { saveButtonClickHandler(e) }}
+            onClick={() => saveButtonClickHandler()}
             margin="0 3.5em 0 1.7em"
           >
             Salvar

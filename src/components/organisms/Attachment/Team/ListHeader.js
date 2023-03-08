@@ -1,18 +1,23 @@
 import React from "react";
 import { ListHeaderTitle, Container } from "../../../atoms/ListHeader/style.js";
+import { Column, Styles } from './style'
 const ListHeader = () => {
   return (
     <Container>
-      <ListHeaderTitle width="23.5em" wrap="nowrap" left="1em">
-        Profissional e Cargo
-      </ListHeaderTitle>
-      <ListHeaderTitle width="19em">Horas Mensais Estimadas</ListHeaderTitle>
-      <ListHeaderTitle width="20em">Horas Mensais Realizadas</ListHeaderTitle>
-      <ListHeaderTitle width="7em">%</ListHeaderTitle>
-      <ListHeaderTitle width="19em">Horas Extras Estimadas</ListHeaderTitle>
-      <ListHeaderTitle width="20em">Horas Extras Realizadas</ListHeaderTitle>
-      <ListHeaderTitle width="8em">%</ListHeaderTitle>
-      <ListHeaderTitle width="10em">Status</ListHeaderTitle>
+      <Styles>
+        <table>
+          <tr>
+            <Column w='18em'>Profissional e Cargo</Column>
+            <Column w='14em'>Horas Mensais Estimadas</Column>
+            <Column w='11em'>Horas Mensais Realizadas</Column>
+            <Column w='1em'>%</Column>
+            <Column w='10em'>Horas Extras Estimadas</Column>
+            <Column w='11em'>Horas Extras Realizadas</Column>
+            <Column w='3em'>%</Column>
+            <Column w='9em'>Status</Column>
+          </tr>
+        </table>
+      </Styles>
     </Container>
   );
 };
