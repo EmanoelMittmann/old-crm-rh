@@ -8,6 +8,7 @@ export const Main = styled.div`
   height: 60px;
   border-radius: 10px;
   margin-left: 0.9em;
+  margin-top: 0.5em;
 
   &:hover{
     background-color:#f4f6f8;

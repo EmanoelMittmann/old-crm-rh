@@ -100,9 +100,9 @@ const OvertimeListIsTechLead = () => {
       params.page = meta.first_page;
     }
 
-    if (pagesFilter === "previous") params.page = `${meta.current_page - 1}`;
+    if (pagesFilter === "previous") params.page = `${meta.current_page --}`;
 
-    if (pagesFilter === "next") params.page = `${meta.current_page + 1}`;
+    if (pagesFilter === "next") params.page = `${meta.current_page ++}`;
 
     if (order !== "") {
       params.order = order;
