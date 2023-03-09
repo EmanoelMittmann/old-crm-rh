@@ -79,17 +79,6 @@ function ReleaseHours() {
     setProjects(data)
   }, [])
 
-  const isTechLead = useSelector((state) => state.validTechLead)
-  const getIstechLead = () => {
-    if (isTechLead === true){
-      history.push("/timeIstechLead")
-    }else{
-      history.push("/timeSending")
-    }
-  };
-  // <StyleIsTechLead><ArrowRegister clickHandler={() => getIstechLead()} />
-  //   <SectionTitle> {"Lançar horas extras"} </SectionTitle>
-  // </StyleIsTechLead>
 
   useEffect(() => {
     if (!projects.length) getAllProjects()

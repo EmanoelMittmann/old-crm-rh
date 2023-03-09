@@ -11,6 +11,9 @@ import { ReactComponent as Reports } from "../../../../assets/icons/reports.svg"
 import { ReactComponent as ServiceOrders } from "../../../../assets/icons/serviceOrders.svg";
 import { ReactComponent as Settings } from "../../../../assets/icons/settings.svg";
 import { ReactComponent as Company } from "../../../../assets/icons/Vector.svg";
+import { ReactComponent as HoursProfessionals } from "../../../../assets/icons/arrowHours.svg";
+import { ReactComponent as ThrowNotes } from "../../../../assets/icons/throwNotes.svg";
+
 
 //Home Icon
 
@@ -90,7 +93,7 @@ const JobIconContainer = styled.div`
 
   svg {
     fill: ${(props) =>
-  props.location === "/professionals"  ? "black" : "#B7BDC2"};
+    props.location === "/professionals" ? "black" : "#B7BDC2"};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
@@ -372,7 +375,7 @@ export const InvoiceIcon = () => {
       location={location.pathname}
       hover={displayDescription}
     >
-      <Invoice/>
+      <Invoice />
     </InvoiceIconContainer>
   );
 };
@@ -677,16 +680,20 @@ const ReleaseHoursIconContainer = styled.div`
   justify-content: center;
   width: 55px;
 
-  svg {
-    fill: ${(props) => (props.location === "/releaseHours" ? "black" : "#B7BDC2")};
+   svg {
+    fill: ${(props) => (props.location === "/releaseHours" || 
+    props.location === "/timeIstechLead" || 
+    props.location === "/timeSending"  ? 
+    "black" : 
+    "#B7BDC2")};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
   }
 
   &:hover {
-      background: #f4f6f8;
-      border-radius: 10px;
+    background: #f4f6f8;
+    border-radius: 10px;
 
     svg {
       fill: black;
@@ -696,7 +703,7 @@ const ReleaseHoursIconContainer = styled.div`
   &:after {
     content: "Lançamentos de Horas Extras";
     display: ${(props) =>
-    props.location === "/releaseHours" ? "none" : props.hover};
+  props.location === "/releaseHours" ? "none" : props.hover};
     width: 200px;
     white-space: nowrap;
     height: 35px;
@@ -717,7 +724,7 @@ const ReleaseHoursIconContainer = styled.div`
   &:before {
     content: "";
     display: ${(props) =>
-    props.location === "/releaseHours" ? "none" : props.hover};
+  props.location === "/releaseHours"  ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -736,10 +743,14 @@ export const ReleaseHoursIcon = () => {
       location={location.pathname}
       hover={displayDescription}
     >
-      <Overtime/>
+      <HoursProfessionals />
     </ReleaseHoursIconContainer>
   );
 };
+
+
+
+// Icon de lançamento de NF
 
 const RealeseInvoiceIconContainer = styled.div`
   display: flex;
@@ -806,7 +817,7 @@ export const ReleaseInvoiceIcon = () => {
       location={location.pathname}
       hover={displayDescription}
     >
-      <Invoice/>
+      <ThrowNotes />
     </RealeseInvoiceIconContainer >
   );
 };

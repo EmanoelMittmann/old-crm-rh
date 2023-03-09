@@ -44,7 +44,7 @@ export const userAccess = (isTechLead) => [
     9: <Modules id={9} children={<CompanyIcon />} route="/Company" />,
   },
   {
-    10:<Modules id={10} children={<ReleaseHoursIcon />} route={checkUrl(isTechLead)} />
+    10: <Modules id={10} children={<ReleaseHoursIcon />} route={checkUrl(isTechLead)} />
   },
   {
     11: <Modules id={11} children={<ReleaseInvoiceIcon />} route='/invoiceSending' />
