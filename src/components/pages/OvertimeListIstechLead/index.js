@@ -102,6 +102,9 @@ const OvertimeListIsTechLead = () => {
         if (order !== "") {
             params.order = order;
         }
+        if(orderField !== ""){
+            params.orderField = orderField;
+        }
     };
 
     const nextPage = () => {

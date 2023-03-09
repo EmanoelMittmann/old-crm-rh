@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="2dcd989a-e1b9-4edd-bbd1-1ba37e20e21d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/molecules/HeaderPayments/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/molecules/HeaderPayments/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/molecules/ListHeaderTechnicalLeadApproval/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/molecules/ListHeaderTechnicalLeadApproval/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +59,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1678363618273</updated>
-      <workItem from="1678363620166" duration="3091000" />
+      <workItem from="1678363620166" duration="4658000" />
     </task>
     <servers />
   </component>
