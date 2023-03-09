@@ -9,9 +9,9 @@ import {
   ServiceOrdersIcon,
   SettingsIcon,
   ProjectsIcon,
+ReleaseInvoiceIcon
 } from "../components/atoms/icons/NavIcons";
-import { ReactComponent as Invoice } from "../assets/icons/invoice.svg";
-import { ReactComponent as Overtime } from "../assets/icons/overtime.svg";
+import { ReactComponent as HoursProfessionals } from "../assets/icons/arrowHours.svg";
 
 
 export const templates = [
@@ -126,7 +126,7 @@ export const templates = [
     hasButton: true,
     buttonText: "Novo lançamento",
     buttonPath: "/releaseHours",
-    icon: <Overtime/>,
+    icon: <HoursProfessionals />,
     isRegisterPage: false,
     path: "/timeSending",
   },
@@ -136,7 +136,7 @@ export const templates = [
     hasButton: true,
     buttonText: "Anexar NF",
     buttonPath: "/invoiceUpload",
-    icon: <Invoice />,
+    icon: <ReleaseInvoiceIcon />,
     isRegisterPage: false,
     path: "/invoiceSending",
   },
@@ -166,7 +166,7 @@ export const templates = [
     hasButton: true,
     buttonText: "Lançar Horas",
     buttonPath: "/timeSending",
-    icon: <Overtime/>,
+    icon: <HoursProfessionals />,
     isRegisterPage: false,
     path: "/timeIstechLead",
   },
