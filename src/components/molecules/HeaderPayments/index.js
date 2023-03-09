@@ -19,7 +19,7 @@ const HeaderPayments = ({sortByName,setOrderField}) => {
           <ListTitle>Empresa Pagadora</ListTitle>
           <Arrows onClick={() => {
             sortByName()
-            setOrderField('order.companies_id')
+            setOrderField('companies_id')
             }}/>
         </ListItemCompany>
         <ListItemProfessional>
