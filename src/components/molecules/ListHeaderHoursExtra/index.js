@@ -12,16 +12,16 @@ import {
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
 
 
-const ListHeaderHoursExtra = ({ sortByName }) => {
+const ListHeaderHoursExtra = ({ sortById }) => {
   return (
       <HeaderContainer>
           <ListHeaderItem>
               <ListHeaderTitle margin='3em'>Código</ListHeaderTitle>
-              <Arrows onClick={sortByName} />
+              <Arrows onClick={() => sortById("id")} />
           </ListHeaderItem>
           <ListHeaderDataInicio>
               <ListHeaderTitle margin='3em'>Periodo Inicial</ListHeaderTitle>
-              <Arrows onClick={sortByName} />
+              <Arrows onClick={() => sortById("launch_date")} />
           </ListHeaderDataInicio>
           <ListHeaderDataFinal>
               <ListHeaderTitle margin='3em'>Periodo Final</ListHeaderTitle>

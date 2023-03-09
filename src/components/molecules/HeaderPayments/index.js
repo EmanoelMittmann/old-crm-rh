@@ -36,7 +36,7 @@ const HeaderPayments = ({sortByName,setOrderField}) => {
           <ListTitle>Valor da NFe</ListTitle>
           <Arrows onClick={() => {
             sortByName()
-            setOrderField('fiscal_notes.valueNF')
+            setOrderField('fiscal_note_id')
           }}/>
         </ListItemNfe>
         <ListItemDatePayment>

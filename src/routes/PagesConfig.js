@@ -152,7 +152,7 @@ export const templates = [
   },
   {
     id: 14,
-    name: "Cadastro de Empresas",
+    name: "Empresas",
     hasButton: true,
     buttonText: "Cadastrar Nova",
     buttonPath: "/Companies",
