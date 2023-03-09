@@ -11,6 +11,7 @@ import { ListHeaderContainer, ListHeaderTitle } from '../ListHeader/style'
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
 
 const fields = {
+    ID: 'id',
     NAME: 'name',
     DATA_START: 'date_start',
 }
@@ -20,8 +21,8 @@ const ProjectsListHeader = ({ fnOrder }) => {
     return (
         <ListHeaderContainer>
             <ListHeaderId>
-                <ListHeaderTitle onClick={() => fnOrder(fields.NAME)} left='1em'>Id</ListHeaderTitle>
-                <Arrows onClick={() => fnOrder(fields.NAME)}/>
+                <ListHeaderTitle onClick={() => fnOrder(fields.ID)} left='1em'>Id</ListHeaderTitle>
+                <Arrows onClick={() => fnOrder(fields.ID)}/>
             </ListHeaderId>
 
             <ListHeaderProjeto>
