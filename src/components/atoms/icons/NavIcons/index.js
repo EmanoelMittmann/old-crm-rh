@@ -701,7 +701,7 @@ const ReleaseHoursIconContainer = styled.div`
   }
 
   &:after {
-    content: "Lançamentos de Horas Extras";
+    content: "Lançamento de Horas Extras";
     display: ${(props) =>
   props.location === "/releaseHours" ? "none" : props.hover};
     width: 200px;
