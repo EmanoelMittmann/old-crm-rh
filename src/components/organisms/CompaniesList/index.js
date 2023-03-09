@@ -78,7 +78,7 @@ const CompaniesList = () => {
     }
 
     if(typeCompany !== ""){
-      params.typeCompany = typeCompany;
+      params.type_company = typeCompany;
     }
 
     if(selectedStatusCompany !== ""){
