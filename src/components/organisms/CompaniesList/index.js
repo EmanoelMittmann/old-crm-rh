@@ -34,7 +34,7 @@ const CompaniesList = () => {
   const handleFilterCompanies = async () => {
     const { data } = await api({
       method: "GET",
-      url: `/findCompanies?razao_social=${searchResult}&uf=${uf}&cnpj=${searchResult}&city_name=${searchResult}&status=${selectedStatusCompany}&type_company=${typeCompany}`,
+      url: `/findCompanies`,
       params: params,
     });
     setCompanies(data.data);
@@ -67,7 +67,22 @@ const CompaniesList = () => {
 
     if (searchResult !== "") {
       params.search = searchResult;
+      params.razao_social = searchResult;
+      params.cnpj = searchResult;
+      params.city_name = searchResult;
       params.page = companyMeta.first_page;
+    }
+
+    if(uf !== ""){
+      params.uf = uf;
+    }
+
+    if(typeCompany !== ""){
+      params.typeCompany = typeCompany;
+    }
+
+    if(selectedStatusCompany !== ""){
+      params.status = selectedStatusCompany;
     }
 
     if (order !== "") params.order = order;
@@ -97,7 +112,7 @@ const CompaniesList = () => {
         uf={uf}
         setSelectedStatusCompany={setSelectedStatusCompany}
       />
-      <CompaniesListHeader OrderForList={OrderForList} />
+      <CompaniesListHeader OrderForList={OrderForList} order={order}/>
       <div className="shelf">
         {companies?.map((corporation) => (
           <CompaniesListItem corporation={corporation} />

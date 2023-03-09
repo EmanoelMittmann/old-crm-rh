@@ -6,12 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="2dcd989a-e1b9-4edd-bbd1-1ba37e20e21d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/molecules/EmploymentContract/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/molecules/EmploymentContract/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/molecules/CompaniesListHeader/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/molecules/CompaniesListHeader/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/molecules/HeaderPayments/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/molecules/HeaderPayments/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/organisms/Payments/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/organisms/Payments/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/organisms/ProfessionalsSection/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/organisms/ProfessionalsSection/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/RegisterProfessional/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/RegisterProfessional/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/Reports/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Reports/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/molecules/ListHeaderHoursExtra/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/molecules/ListHeaderHoursExtra/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/organisms/CompaniesList/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/organisms/CompaniesList/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/organisms/OvertimeList/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/organisms/OvertimeList/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/pages/OvertimeListProfessional/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/OvertimeListProfessional/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/PagesConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/PagesConfig.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,14 +22,55 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="cbbdc51d-7475-4439-b5b0-258323f1cdef" />
+        <option name="url" value="git@github.com:Ubistart/ubistart-rh.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2MmCwnHt4Q8r3iL9Y9ST53tDO82" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="2dcd989a-e1b9-4edd-bbd1-1ba37e20e21d" name="Changes" comment="" />
+      <created>1678363618273</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1678363618273</updated>
+      <workItem from="1678363620166" duration="1044000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

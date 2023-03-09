@@ -8,7 +8,7 @@ import { Height } from '../../pages/OvertimeListIstechLead/style'
 export function OvertimeList({ data, meta, nextPage, previousPage, sortById, status }) {
   return (
     <>
-      <ListHeaderHoursExtra />
+      <ListHeaderHoursExtra sortById={sortById}/>
       <Height>
         {data?.map(item => <OvertimeListItem item={item} status={status} />)}
       </Height>

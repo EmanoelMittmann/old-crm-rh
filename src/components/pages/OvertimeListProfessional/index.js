@@ -12,7 +12,6 @@ import { useSelector } from 'react-redux'
 import ArrowRegister from '../../atoms/ArrowRegister'
 import InputWithLabel from '../../atoms/InputWithLabel'
 
-
 const OvertimeListProfessional = () => {
   const [data, setData] = useState()
   const [meta, setMeta] = useState({})
