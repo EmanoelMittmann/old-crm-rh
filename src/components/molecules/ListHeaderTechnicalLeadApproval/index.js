@@ -18,7 +18,7 @@ const TechnicalLeadApproval = ({ sortByName, setOrderField }) => {
         <Arrows
           onClick={() => {
             sortByName() 
-            setOrderField("user_id");
+            setOrderField("user_name");
           }}
         />
       </ListHeaderProfessional>
