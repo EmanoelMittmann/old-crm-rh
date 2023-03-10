@@ -74,7 +74,7 @@ const RegisterProject = () => {
       project_status_id: '',
       project_type_id:'',
       team_cost: '',
-      id: '',
+      id:'',
       date_start_performed: '',
     },
     onSubmit: async (values) => {
@@ -110,7 +110,7 @@ const RegisterProject = () => {
           }
         })
         .catch((error) => {
-          toast.error(<DefaultToast text="Há erros de validação!" />);
+          toast.error(<DefaultToast text={error.response.data.message} />);
           const errors = error.response.data.errors;
           setErrors(handleErrorMessages(errors));
         });
