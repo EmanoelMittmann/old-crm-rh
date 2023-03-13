@@ -28,6 +28,18 @@ export const ContainerRow = styled.div`
         margin-bottom: 3em;
     }
 `
+export const ContainerRowDuo = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1.5em;
+    gap:2em;
+
+    &:last-child {
+        margin-bottom: 3em;
+    }
+`
 export const ProfessionalData = styled.form`
     display: flex;
     flex-direction: column;

@@ -157,7 +157,8 @@ export const ProjectRow = ({ project, statusOptions, getProjects,}) => {
       {modalDetails && (
         <DetaislProjects
           id={idProjectsDetails}
-          setModalDetails={setModalDetails} />
+          setModalDetails={setModalDetails} 
+          />
       )}
     </ProjectsListItemContainer>
 

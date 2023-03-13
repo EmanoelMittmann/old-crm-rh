@@ -513,12 +513,15 @@ const RegisterProfessional = () => {
             setAllProjects([]);
         };
     };
+
+
     useEffect(() => {
+        getPermissions();
         getProfessionalData();
     }, [id]);
 
 
-    useEffect(() => {
+    function maskValueVariabled(values, setFieldValue) {
         setFieldValue(
             "variable2",
             Number(
@@ -528,9 +531,9 @@ const RegisterProfessional = () => {
                     .replace(",00", "")
             )
         );
-    }, [values.fixed_payment_value]);
+    }
 
-    useEffect(() => {
+    function calculateExtraHourValue(values, setFieldValue) {
         if (values.variable1 > 0 && values.variable2 !== "") {
             let calc = values.variable2 / values.variable1;
             setFieldValue(
@@ -538,9 +541,9 @@ const RegisterProfessional = () => {
                 "R$" + calc.toFixed(2).toString().replace(".", ",")
             );
         }
-    }, [values.variable1, values.variable2]);
+    }
 
-    useEffect(() => {
+    function resetPixKeyIfNecessary(values, oldValue, setFieldValue, setOldValue) {
         const verified =
             oldValue?.professional_data?.pix_key_type ===
             values.professional_data.pix_key_type &&
@@ -550,14 +553,16 @@ const RegisterProfessional = () => {
             setFieldValue("professional_data.pix_key", "");
         }
         setOldValue([]);
-    }, [
-        values.professional_data.pix_key_type,
-        values.professional_data.type_of_transfer,
-    ]);
+    }
 
     useEffect(() => {
-        getPermissions();
-    }, []);
+        maskValueVariabled(values, setFieldValue);
+        calculateExtraHourValue(values, setFieldValue);
+    }, [values.variable1, values.variable2, values.fixed_payment_value]);
+
+    useEffect(() => {
+        resetPixKeyIfNecessary(values, oldValue, setFieldValue, setOldValue);
+    }, [values.professional_data.pix_key_type, values.professional_data.type_of_transfer]);
 
 
     return (
