@@ -21,7 +21,6 @@ const ServiceOrderSection = () => {
   const [searchResult, setSearchResult] = useState("");
   const [initialDate, setInitialDate] = useState("");
   const [finalDate, setFinalDate] = useState("");
-  
 
   const location = useLocation();
 
@@ -58,7 +57,8 @@ const ServiceOrderSection = () => {
       params.page = `${osProfessionalMeta.current_page - 1}`;
 
     if (pagesFilter === "next")
-      params.page = `${osProfessionalMeta.current_page + 1}`;
+      return params.page = `${osProfessionalMeta.current_page + 1}`;
+
 
     if (pagesFilter === undefined)
       params.page = osProfessionalMeta.current_page;
