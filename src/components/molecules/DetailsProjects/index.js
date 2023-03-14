@@ -32,9 +32,11 @@ import api from '../../../api/api';
 import { useEffect } from 'react';
 
 
-const DetailsProjects = ({ id,setModalDetails}) => {
+const DetailsProjects = ({ id, setModalDetails }) => {
    const [listData, setListData] =  useState()
-   
+
+   console.log('listData: ', listData);
+
    const ClickHandler = () => {
        setModalDetails(prev => !prev)
     };

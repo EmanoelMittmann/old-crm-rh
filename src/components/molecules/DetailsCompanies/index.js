@@ -64,7 +64,7 @@ const DetaislCompanies = ({ id, setModalDetailsCompanies }) => {
                         </ContaineTitles>
                         <ContainerData>
                             <StyleName>{item.type_company}</StyleName>
-                            <StyleTip>{formatDate(item.created_at)}</StyleTip>
+                            <StyleTip>{formatDate(item.opening_date.substring(0, 10))}</StyleTip>
                         </ContainerData>
                         <ContainerAbsolute>
                             <ContainerTime>

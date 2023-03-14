@@ -8,6 +8,7 @@ import {
   ContainerRegisterProfessionalsData,
   RegisterProfessionalsForm,
   ContainerRow,
+  ContainerRowDuo,
 } from "./style.js";
 import InputWithLabel from "../../atoms/InputWithLabel/index.js";
 import InputMasked from "../../atoms/InputMasked/index.js";
@@ -639,7 +640,7 @@ const RegisterProfessionalsData = ({ data }) => {
 
         {/* Dados do Pix */}
 
-        <ContainerRow>
+        <ContainerRowDuo>
           <InputSelect
             value={values?.professional_data?.type_of_transfer}
             onChange={handleChange("professional_data.type_of_transfer")}
@@ -696,7 +697,7 @@ const RegisterProfessionalsData = ({ data }) => {
               disabled={isDisabled}
             />
           )}
-        </ContainerRow>
+        </ContainerRowDuo>
       </RegisterProfessionalsForm>
     </ContainerRegisterProfessionalsData>
   );
