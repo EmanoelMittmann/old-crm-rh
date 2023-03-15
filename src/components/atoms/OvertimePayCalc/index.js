@@ -75,6 +75,7 @@ const OvertimePayCalc = ({ data }) => {
             padding="0em 2em 0em 0em"
             type="number"
             disabled={values.job_type === "FREELANCER"}
+            required
           />
         </ContainerOvertimePayInput>
 

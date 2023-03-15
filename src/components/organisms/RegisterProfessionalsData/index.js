@@ -15,7 +15,7 @@ import InputMasked from "../../atoms/InputMasked/index.js";
 import { useEffect } from "react";
 import SelectBank from "../../atoms/SelectBank";
 import PhoneInternational from "../../atoms/PhoneInternational";
-import InputSelectWithLabel from "../../atoms/InputSelectWithLabel";
+import InputText from "../../atoms/InputText";
 
 export const optionsUF = [
   { name: "Todos", id: "" },
@@ -171,11 +171,11 @@ const RegisterProfessionalsData = ({ data }) => {
             name="name"
             width="100%"
             widthContainer="60%"
-            placeHolder="Nome..."
             padding="0 2em 0 0"
             error={errors.name}
             touched={touched.name}
             handleBlur={setFieldTouched}
+            required
           />
           <InputWithLabel
             onChange={handleChange("birth_date")}
@@ -188,6 +188,7 @@ const RegisterProfessionalsData = ({ data }) => {
             touched={touched.birth_date}
             handleBlur={setFieldTouched}
             name="birth_date"
+            required
           />
         </ContainerRow>
         <ContainerRow>
@@ -219,6 +220,7 @@ const RegisterProfessionalsData = ({ data }) => {
             padding="0em 2em 0 0em"
             widthContainer="100%"
             handleBlur={setFieldTouched}
+            required
           />
           <InputMasked
             onChange={handleChange("rg")}
@@ -246,6 +248,7 @@ const RegisterProfessionalsData = ({ data }) => {
             name="rg"
             type="number"
             limit="11"
+            required
           />
           <PhoneInternational
             error={errors.telephone_number}
@@ -254,6 +257,9 @@ const RegisterProfessionalsData = ({ data }) => {
             onChange={handleChange('telephone_number')}
             width='25em'
             value={values.telephone_number}
+            label="Telefone"           
+            required
+
           />
         </ContainerRow>
         <ContainerRow>
@@ -282,6 +288,7 @@ const RegisterProfessionalsData = ({ data }) => {
             touched={touched.cep}
             handleBlur={setFieldTouched}
             name="cep"
+            required
           />
           <InputWithLabel
             onChange={handleChange("street_name")}
@@ -294,6 +301,7 @@ const RegisterProfessionalsData = ({ data }) => {
             touched={touched.street_name}
             handleBlur={setFieldTouched}
             name="street_name"
+            required
           />
           <InputWithLabel
             onChange={handleChange("house_number")}
@@ -307,6 +315,7 @@ const RegisterProfessionalsData = ({ data }) => {
             touched={touched.house_number}
             handleBlur={setFieldTouched}
             name="house_number"
+            required
           />
           <InputWithLabel
             onChange={handleChange("complement")}
@@ -344,6 +353,7 @@ const RegisterProfessionalsData = ({ data }) => {
             touched={touched.neighbourhood_name}
             handleBlur={setFieldTouched}
             name="neighbourhood_name"
+            required
           />
           <InputWithLabel
             value={values.city_name}
@@ -357,6 +367,7 @@ const RegisterProfessionalsData = ({ data }) => {
             handleBlur={setFieldTouched}
             name="city_name"
             disabled={disabled}
+            required
           />
           <InputSelectUf
             value={values.uf}
@@ -382,6 +393,7 @@ const RegisterProfessionalsData = ({ data }) => {
             value={values.email}
             widthContainer="45%"
             width="100%"
+            required
           />
         </ContainerRow>
 
@@ -596,6 +608,7 @@ const RegisterProfessionalsData = ({ data }) => {
             handleBlur={setFieldTouched}
             name="professional_data.agency"
             type="number"
+            required
           />
           <InputMasked
             value={values.professional_data.account_number}
@@ -609,6 +622,7 @@ const RegisterProfessionalsData = ({ data }) => {
             handleBlur={setFieldTouched}
             name="professional_data.account_number"
             type="number"
+            required
           />
         </ContainerRow>
         <ContainerRow>
@@ -623,6 +637,7 @@ const RegisterProfessionalsData = ({ data }) => {
             width="100%"
             lineWidth="95%"
             name="professional_data.bank"
+            required
           />
           <InputSelect
             value={values.professional_data.account_type}
@@ -635,6 +650,8 @@ const RegisterProfessionalsData = ({ data }) => {
             width="15em"
             lineWidth="100%"
             name="professional_data.account_type"
+            label="Tipo da conta"
+            required 
           />
         </ContainerRow>
 
@@ -652,6 +669,8 @@ const RegisterProfessionalsData = ({ data }) => {
             width="100%"
             lineWidth="28em"
             name="professional_data.type_of_transfer"
+            label="Tipo de tranferência"
+            required
           />
           <InputSelect
             value={values?.professional_data?.pix_key_type}
@@ -659,16 +678,18 @@ const RegisterProfessionalsData = ({ data }) => {
             options={optionsPixKeyType}
             error={errors?.professional_data?.pix_key_type}
             touched={touched?.professional_data?.pix_key_type}
-            placeHolder="Tipo chave Pix"
+            placeHolder="Tipo de chave PIX"
             padding="0em 2em 0 0em"
             width="100%"
             lineWidth="23em"
             name="professional_data.pix_key_type"
             disabled={isDisabled}
+            label={values.professional_data?.type_of_transfer === "PIX" ? "Tipo de chave PIX" : ""}
+            required={values.professional_data?.type_of_transfer === "PIX" ? "Tipo de chave PIX" : ""}
           />
           {values.professional_data.pix_key_type === "E-mail" ||
             values.professional_data.pix_key_type === "RandomKey" ? (
-            <InputWithLabel
+            <InputText
               name="professional_data.pix_key "
               error={errors?.professional_data?.pix_key}
               touched={touched?.professional_data?.pix_key}
@@ -676,10 +697,12 @@ const RegisterProfessionalsData = ({ data }) => {
               onChange={handleChange("professional_data.pix_key")}
               width="100%"
               widthContainer="31%"
-              label="Chave Pix"
               value={values?.professional_data?.pix_key}
               type="text"
               disabled={isDisabled}
+              placeholder="Chave PIX"
+              label={values.professional_data?.type_of_transfer === "PIX" ? "Chave PIX" : ""}
+              required={values.professional_data?.type_of_transfer === "PIX" ? "Chave PIX" : ""}
             />
           ) : (
             <InputMasked
@@ -691,10 +714,12 @@ const RegisterProfessionalsData = ({ data }) => {
               onChange={handleChange("professional_data.pix_key")}
               width="100%"
               widthContainer="31%"
-              label="Chave Pix"
               value={values.professional_data.pix_key}
               type="text"
               disabled={isDisabled}
+              placeHolder="Chave PIX"
+              label={values.professional_data?.type_of_transfer === "PIX" ? "Chave PIX" : ""}
+              required={values.professional_data?.type_of_transfer === "PIX" ? "Chave PIX" : ""}
             />
           )}
         </ContainerRowDuo>

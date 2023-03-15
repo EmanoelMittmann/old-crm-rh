@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const InputSelectContainer = styled.select`
     font-size: 1rem;
@@ -37,4 +37,43 @@ export const Img = styled.img`
     top: 18px;
     position: absolute;
     width: 13px; 
+`
+
+export const RequiredLabel = styled.span`
+    color: red;
+`
+
+const fadeDown = keyframes`
+    0%{
+        opacity: 0;
+        top: 0px;
+    }
+    100% {
+        opacity: 1;
+        top: -10px;
+    }
+`
+
+const fadeUp = keyframes`
+    0%{
+        opacity: 0.5;
+        top: -10px;
+    }
+    100% {
+        opacity: 0;
+        top: 10px;
+    }
+`
+export const Label = styled.span`
+    display: inline-block;
+    padding: 0 0.3em;
+    position: absolute;
+    font-size: 0.8rem;
+    color: #454F5B;
+    font-weight: 600;
+    background: white;
+    top: -10px;
+    left: 20px;
+    animation: ${props => props.focus ? fadeDown : props.blur ? fadeUp : ''} 0.3s ease-in-out;
+    opacity: ${props => props.focus ? 1 : 0};
 `

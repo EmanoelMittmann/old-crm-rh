@@ -43,7 +43,6 @@ export const Label = styled.span`
     animation: ${props => props.focus ? fadeDown : props.blur ? fadeUp : ''} 0.3s ease-in-out;
     opacity: ${props => props.focus ? 1 : 0};
 `
-
 export const ErrorMessage = styled.span`
     padding-left: 1em;
     color: #454F5B;
@@ -51,4 +50,7 @@ export const ErrorMessage = styled.span`
     height: 14px;
     visibility: ${props => props.visible ? 'visible' : 'hidden'};
     color: #ff4842;
+`
+export const RequiredLabel = styled.span`
+    color: red;
 `

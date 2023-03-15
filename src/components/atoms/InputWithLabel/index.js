@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { InputLine } from '../DefaultInput/style';
 import { DefaultInput } from '../DefaultInput/style';
-import { InputWithLabelContainer, Label, ErrorMessage } from './style.js';
+import { InputSelectOptionPlaceholder } from '../InputSelect/style';
+import { InputWithLabelContainer, Label, ErrorMessage, RequiredLabel } from './style.js';
 
 const InputWithLabel = ({
   value,
@@ -21,6 +22,8 @@ const InputWithLabel = ({
   name,
   onClick,
   reset,
+  required,
+  placeHolder
 }) => {
   const [focus, setFocus] = useState(false);
   const [blur, setBlur] = useState(false);
@@ -44,8 +47,9 @@ const InputWithLabel = ({
       reset={reset}
     >
       <InputLine width={width} error={touched && error}>
-        <Label focus={focus || value !== ''} blur={blur || value !== ''}>
+        <Label focus={focus || value == ''} blur={blur || value !== ''}>
           {label}
+          {required && <RequiredLabel>*</RequiredLabel>}
         </Label>
         <DefaultInput
           onChange={onChange}
@@ -56,13 +60,16 @@ const InputWithLabel = ({
           }
           value={value}
           disabled={disabled}
-          placeholder={focus ? '' : label}
+          placeholder={focus ? "" : label}
           defaultValue={defaultValue}
           width={width}
           padding="0.3em 0 0 1.5em"
           max="2999-12-31"
           
         />
+        <InputSelectOptionPlaceholder value={placeHolder} selected disabled>
+          {placeHolder}
+        </InputSelectOptionPlaceholder>
       </InputLine>
       {error && touched && <ErrorMessage visible={error}>{error}</ErrorMessage>}
     </InputWithLabelContainer>

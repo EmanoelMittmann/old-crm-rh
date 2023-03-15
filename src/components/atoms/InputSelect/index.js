@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { InputLine } from '../../atoms/DefaultInput/style';
 import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg';
@@ -9,6 +9,7 @@ import {
   InputSelectOptionPlaceholder,
 } from './style.js';
 import { ErrorMessage, Father } from '../InputSelectUf/style';
+import { Label, RequiredLabel } from '../InputWithLabel/style';
 
 const InputSelect = ({
   onChange,
@@ -22,7 +23,11 @@ const InputSelect = ({
   value,
   margin,
   onClick,
+  label, 
+  required
 }) => {
+  const [focus, setFocus] = useState(false);
+  const [blur, setBlur] = useState(false);
   const attributeValue = {
     ...(value && { value: value }),
   };
@@ -30,6 +35,11 @@ const InputSelect = ({
   return (
     <Father width={width}>
       <InputLine width={lineWidth} margin={margin} error={error && touched}>
+        <Label focus={focus || value == ''} blur={blur || value !== ''}>
+          {label}
+          {required && <RequiredLabel>*</RequiredLabel>}
+        </Label>
+
         <InputSelectContainer
           {...attributeValue}
           width={width}

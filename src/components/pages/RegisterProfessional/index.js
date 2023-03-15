@@ -227,7 +227,7 @@ const RegisterProfessional = () => {
             limited_extra_hours: false,
             extra_hour_limit: "",
             user_type_id: 2,
-            commission: true,
+            commission: false,
             permissions: [],
             professional_data: {
                 cnpj: cleanMask(""),
