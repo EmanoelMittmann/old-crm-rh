@@ -156,6 +156,7 @@ const EmploymentContract = ({ data, jobs }) => {
           padding="0em 0 0 1em"
           widthContainer="30%"
           handleBlur={setFieldTouched}
+          placeHolder="Honorário fixo"
           required
         />
       </EmploymentContractInputs>

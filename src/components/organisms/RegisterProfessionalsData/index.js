@@ -485,6 +485,7 @@ const RegisterProfessionalsData = ({ data }) => {
               width="100%"
               widthContainer="40%"
               handleBlur={setFieldTouched}
+              placeHolder="Telefone"
               name="professional_data.company_phone_number"
             />
           </ContainerRow>
@@ -608,6 +609,7 @@ const RegisterProfessionalsData = ({ data }) => {
             handleBlur={setFieldTouched}
             name="professional_data.agency"
             type="number"
+            placeHolder="Agência"
             required
           />
           <InputMasked
@@ -622,6 +624,7 @@ const RegisterProfessionalsData = ({ data }) => {
             handleBlur={setFieldTouched}
             name="professional_data.account_number"
             type="number"
+            placeHolder="Número da conta"
             required
           />
         </ContainerRow>

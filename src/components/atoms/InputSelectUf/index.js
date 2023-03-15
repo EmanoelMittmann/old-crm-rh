@@ -24,8 +24,10 @@ const InputSelectUf = ({ onChange, options, placeHolder, width, lineWidth, value
                 onChange={onChange}
                 disabled={disabled}
                 onClick={onClick}
-                placeholder={placeHolder}
             >
+                <InputSelectOptionPlaceholder disabled selected >
+                    {placeHolder}
+                </InputSelectOptionPlaceholder>
                 {options?.map((option, index) => (
                     <InputSelectOption
                         key={index}

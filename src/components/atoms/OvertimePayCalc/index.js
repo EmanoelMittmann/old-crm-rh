@@ -61,7 +61,7 @@ const OvertimePayCalc = ({ data }) => {
       <OvertimePay>
         <ContainerOvertimePayInput>
           <OvertimePayCalcLabel for="variable1">
-            Variável 1 (divisor)
+            Horas/mês
           </OvertimePayCalcLabel>
           <InputWithLabel
             defaultValue={values.hours_month}
@@ -81,7 +81,7 @@ const OvertimePayCalc = ({ data }) => {
 
         <ContainerOvertimePayInput>
           <OvertimePayCalcLabel for="variable2">
-            Variável 2 (valor fixo)
+            Honorário  fixo
           </OvertimePayCalcLabel>
           <MaskedInput
             id="variable2"
