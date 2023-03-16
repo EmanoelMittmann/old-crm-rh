@@ -3,11 +3,11 @@ import { useParams } from "react-router-dom";
 import { AttachmentContainer, AttachmentForm } from "../style";
 import { formatDate } from "../../../utils/formatDate";
 import { checkArraysDifference } from "../../../utils/checkArraysDifference";
-import Table from "../../../atoms/Table";
 import { BlueButton } from "../../../atoms/Buttons/BlueButton/style.js";
 import InputSelectWithLabel from "../../../atoms/InputSelectWithLabel";
 import InputWithLabel from "../../../atoms/InputWithLabel";
 import SecondaryText from "../../../atoms/SecondaryText/style";
+import Table from '../../../atoms/Table'
 import ModalEditAttachment from "../../../molecules/ModalEditAttachment";
 import ModalRed from "../../../molecules/ModalRed";
 
@@ -295,6 +295,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
           error={onlyError}
           touched={onlyError}
           handleBlur={() => {}}
+          placeholder="Horas Mensais Estimadas"
         />
         <InputWithLabel
           width="100%"
@@ -307,6 +308,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
           error={overtimeProjetctErr}
           touched={overtimeProjetctErr}
           handleBlur={() => {}}
+          placeholder="Horas Extras Estimadas"
         />
         <BlueButton onClick={() => handleAddProject()} width="14%">
           Vincular

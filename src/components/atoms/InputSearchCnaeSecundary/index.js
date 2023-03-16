@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { BlueButton } from '../Buttons/BlueButton/style.js';
 import { InputLine } from '../DefaultInput/style.js';
-import { ErrorMessage, Label } from '../InputWithLabel/style.js';
+import { ErrorMessage, Label } from '../StyledComponents/generalStyle.js';
 import { DefaultToast } from '../Toast/DefaultToast.js';
 import {
   InputSearchWithLabel,
@@ -26,7 +26,6 @@ const InputSearchCnaeSecundary = ({
   width,
   error,
   touched,
-  handleBlur,
 }) => {
   const [id, setId] = useState('');
   const [value, setValue] = useState([]);

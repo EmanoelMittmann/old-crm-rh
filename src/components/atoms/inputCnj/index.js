@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { InputLine } from "../DefaultInput/style";
 import { DefaultInputCnae, Itens, ListItens } from "../InputSearchCnae/style";
-import { ErrorMessage, Label } from "../InputWithLabel/style";
+import { ErrorMessage, Label } from "../StyledComponents/generalStyle";
 import { LegalNature } from "./Object/index";
 import { ValuesSelected, InputSearchWithLabel } from "./style";
 

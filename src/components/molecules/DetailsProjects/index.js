@@ -35,8 +35,6 @@ import { useEffect } from 'react';
 const DetailsProjects = ({ id, setModalDetails }) => {
    const [listData, setListData] =  useState()
 
-   console.log('listData: ', listData);
-
    const ClickHandler = () => {
        setModalDetails(prev => !prev)
     };
@@ -113,7 +111,7 @@ useEffect(()=> {
                                         </ProfessionalProfilePicture>
                                         <div className="professional">
                                             <ProfessionalName>{user.name}</ProfessionalName>
-                                            <ProfessionalJob>{user.job}</ProfessionalJob>
+                                            <ProfessionalJob>{user.job_}</ProfessionalJob>
                                         </div>
                                     </ContainerDataUser>
                                 ))}

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback, useLayoutEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { useFormik,withFormik  } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../../api/api";
 import { toast } from "react-toastify";
@@ -227,7 +227,7 @@ const RegisterProfessional = () => {
       limited_extra_hours: false,
       extra_hour_limit: "",
       user_type_id: 2,  
-      commission: true,
+      commission: false,
       permissions: [],
       professional_data: {
         cnpj: cleanMask(""),
@@ -311,7 +311,7 @@ const RegisterProfessional = () => {
           return history.push("/professionals");
         })
         .catch((error) => {
-          toast.error(<DefaultToast text="Há error de validação" />, {
+          toast.error(<DefaultToast text="Há error de validação"  />, {
             toastId: "post",
           });
           const errors = error.response.data.errors;
@@ -430,28 +430,24 @@ const RegisterProfessional = () => {
       });
   }
 
-  async function editProject(project, workload, extra_hours_limit) {
-    await api({
-      method: "put",
-      url: `/userProjects/user/${id}`,
-      data: {
-        id: project,
-        workload: workload,
-        extra_hours_limit: extra_hours_limit,
-      },
-    })
-      .then(() => {
-        toast.success(<DefaultToast text="Projeto atualizado." />, {
-          toastId: "put",
-        });
-        reloadProjects();
-      })
-      .catch((error) => {
-        toast.error(<DefaultToast text="Erro ao atualizar projeto." />, {
-          toastId: "put",
-        });
-      });
-  }
+
+    async function editProject(project, workload, extra_hours_limit) {
+        try {
+            await api.put(`/userProjects/user/${id}`, {
+                id: project,
+                workload,
+                extra_hours_limit,
+            });
+            toast.success(<DefaultToast text="Projeto atualizado." />, {
+                toastId: "put",
+            });
+            reloadProjects();
+        } catch (error) {
+            toast.error(<DefaultToast text="Erro ao atualizar projeto." />, {
+                toastId: "put",
+            });
+        }
+    }
 
   const getProfessionalData = async() => {
     try {
@@ -510,7 +506,6 @@ const RegisterProfessional = () => {
   }
   
   useEffect(() => {
-    console.log('executei')
     getPermissions();
     getProfessionalData();
   }, [id]);

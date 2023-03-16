@@ -87,6 +87,8 @@ const EmploymentContract = ({ data, jobs }) => {
           touched={touched.start_date}
           handleBlur={setFieldTouched}
           name="start_date"
+          placeholder="Data de Início"
+          required
         />
         <InputSelect
           onChange={handleChange('job_id')}
@@ -98,12 +100,13 @@ const EmploymentContract = ({ data, jobs }) => {
           placeHolder="Cargo"
           width="100%"
           lineWidth="31em"
+          required
         />
       </EmploymentContractInputs>
       <EmploymentContractInputs>
         <InputSelect
           onChange={handleType}
-          placeHolder="Tipo"
+          placeHolder="Tipo de contrato"
           width="100%"
           error={errors?.job_type}
           touched={touched?.job_type}
@@ -111,6 +114,8 @@ const EmploymentContract = ({ data, jobs }) => {
           value={values.job_type}
           padding="0em 0 0 1em"
           lineWidth="30em"
+          label="Tipo de contrato"
+          required
         />
         <InputWithLabel
           onChange={handleChange('weekly_hours')}
@@ -123,6 +128,8 @@ const EmploymentContract = ({ data, jobs }) => {
           handleBlur={setFieldTouched}
           name="weekly_hours"
           padding="0em 0 0 1em"
+          placeholder="Horas/semana"
+          required
         />
         <InputWithLabel
           onChange={handleChange('mounth_hours')}
@@ -136,6 +143,8 @@ const EmploymentContract = ({ data, jobs }) => {
           name="mounth_hours"
           widthContainer="20%"
           padding="0em 0 0 1em"
+          placeholder="Horas/mês"
+          required
         />
         <InputMasked
           mask={fixedSalaryAmount}
@@ -150,6 +159,8 @@ const EmploymentContract = ({ data, jobs }) => {
           padding="0em 0 0 1em"
           widthContainer="30%"
           handleBlur={setFieldTouched}
+          placeHolder="Honorário fixo"
+          required
         />
       </EmploymentContractInputs>
 
