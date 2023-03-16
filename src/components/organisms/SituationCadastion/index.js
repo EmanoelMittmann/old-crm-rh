@@ -24,6 +24,8 @@ export const SituationCadastion = ({ data, disabled }) => {
             handleBlur={setFieldTouched}
             width="300px"
             lineWidth='90%'
+            label="Situação Cadastral"
+            required
           />
           <InputWithLabel
             value={values.date_of_registration_status}
@@ -37,6 +39,8 @@ export const SituationCadastion = ({ data, disabled }) => {
             width="95%"
             widthContainer="45%"
             handleBlur={setFieldTouched}
+            placeholder="Data da Situação Cadastral"
+            required
           />
 
           <InputWithLabel
@@ -50,6 +54,8 @@ export const SituationCadastion = ({ data, disabled }) => {
             widthContainer="35%"
             handleBlur={setFieldTouched}
             name="reason_for_registration_status"
+            placeholder="Motivo da situação cadastral"
+            required
           />
         </ContainerRow>
         <ContainerRow>

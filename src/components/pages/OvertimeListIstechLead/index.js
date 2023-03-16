@@ -155,24 +155,24 @@ const OvertimeListIsTechLead = () => {
                     <InputWithLabel
                         type="date"
                         onChange={(e) => setInitialDate(e.target.value)}
-                        label="Período inicial"
                         value={initialDate}
                         width="100%"
                         widthContainer="30%"
                         handleBlur={() => {
                         }}
                         name="initial_period"
+                        placeholder="Período incial"
                     />
                     <InputWithLabel
                         type="date"
                         onChange={(e) => setFinalDate(e.target.value)}
-                        label="Período final"
                         value={finalDate}
                         width="100%"
                         widthContainer="30%"
                         handleBlur={() => {
                         }}
                         name="initial_period"
+                        placeholder="Período final"
                     />
                 </SearchSection>
             </SearchContainer>

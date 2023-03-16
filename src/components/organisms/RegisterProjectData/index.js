@@ -40,6 +40,8 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         error={errors.name}
                         touched={touched.name}
                         handleBlur={setFieldTouched}
+                        placeholder="Informe o nome do Projeto"
+                        required
                     />
                     </ContainerSecondRow>
                     <ContainerSecondRow>
@@ -54,6 +56,8 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         error={errors.id}
                         touched={touched.id}
                         handleBlur={setFieldTouched}
+                        placeholder="ID do Projeto"
+                        required
                     />
                     <InputSelect
                         value={values.project_type_id}
@@ -66,6 +70,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         lineWidth="20em"
                         label="Tipo de Projeto"
                         handleBlur={setFieldTouched}
+                        required
                     />
                     </ContainerSecondRow>
                 </ContainerFirstRow>
@@ -74,7 +79,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                     <InputWithLabel
                         type="date"
                         onChange={handleChange('date_start')}
-                        placeHolder="Data início Efetivo"
+                        placeholder="Data início Efetivo"
                         label="Data início Efetivo"
                         value={values.date_start}
                         error={errors.date_start}
@@ -109,6 +114,8 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         width="100%"
                         lineWidth="21em"
                         handleBlur={setFieldTouched}
+                        label="Status do Projeto"
+                        required
                         />
                     <InputMasked
                         mask={team_cost_mask}
@@ -122,6 +129,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         error={errors.team_cost}
                         touched={touched.team_cost}
                         handleBlur={setFieldTouched}
+                        placeHolder="Custo estimado"
                         />
                     </ContainerSecondRow>
                 </ContainerFirstRow>
