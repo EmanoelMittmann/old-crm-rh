@@ -7,7 +7,7 @@ import {
     InputSelectContainer,
     InputSelectOption,
 } from '../InputSelect/style.js'
-import { ErrorMessage } from '../InputWithLabel/style.js'
+import { ErrorMessage } from '../StyledComponents/generalStyle.js'
 
 const InputSelectEdit = ({optionId, setSelectedOption, width, options, error, touched}) => {
     return (

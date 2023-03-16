@@ -8,8 +8,9 @@ import {
   InputSelectOption,
   InputSelectOptionPlaceholder,
 } from './style.js';
-import { ErrorMessage, Father } from '../InputSelectUf/style';
-import { Label, RequiredLabel } from '../InputWithLabel/style';
+import { Father } from '../InputSelectUf/style';
+import { ErrorMessage, Label, RequiredLabel } from '../StyledComponents/generalStyle';
+
 
 const InputSelect = ({
   onChange,

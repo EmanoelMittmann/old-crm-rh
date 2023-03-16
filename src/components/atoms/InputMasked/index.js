@@ -5,7 +5,8 @@ import MaskedInput from 'react-text-mask'
 
 import { InputLine } from '../DefaultInput/style'
 import { DefaultInput } from '../DefaultInput/style'
-import {InputWithLabelContainer, Label, ErrorMessage, RequiredLabel} from '../InputWithLabel/style'
+import {InputWithLabelContainer} from '../InputWithLabel/style'
+import { ErrorMessage, Label, RequiredLabel } from '../StyledComponents/generalStyle'
 
 const InputMasked = (
   { value, 

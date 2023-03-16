@@ -87,6 +87,7 @@ const EmploymentContract = ({ data, jobs }) => {
           touched={touched.start_date}
           handleBlur={setFieldTouched}
           name="start_date"
+          placeholder="Data de Início"
           required
         />
         <InputSelect
@@ -127,6 +128,7 @@ const EmploymentContract = ({ data, jobs }) => {
           handleBlur={setFieldTouched}
           name="weekly_hours"
           padding="0em 0 0 1em"
+          placeholder="Horas/semana"
           required
         />
         <InputWithLabel
@@ -141,6 +143,7 @@ const EmploymentContract = ({ data, jobs }) => {
           name="mounth_hours"
           widthContainer="20%"
           padding="0em 0 0 1em"
+          placeholder="Horas/mês"
           required
         />
         <InputMasked

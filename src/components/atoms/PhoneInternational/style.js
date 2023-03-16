@@ -22,8 +22,6 @@ export const Phone = styled(PhoneInput)`
     background-color: white !important;
   }
 
-
-  
 `
 
 export const Father = styled.div`

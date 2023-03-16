@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { InputLine } from '../DefaultInput/style';
 import { DefaultInput } from '../DefaultInput/style';
-import { InputSelectOptionPlaceholder } from '../InputSelect/style';
-import { InputWithLabelContainer, Label, ErrorMessage, RequiredLabel } from './style.js';
+import { ErrorMessage, Label, RequiredLabel } from '../StyledComponents/generalStyle';
+import { InputWithLabelContainer} from './style.js';
 
 const InputWithLabel = ({
   value,
@@ -23,7 +23,7 @@ const InputWithLabel = ({
   onClick,
   reset,
   required,
-  placeHolder
+  placeholder
 }) => {
   const [focus, setFocus] = useState(false);
   const [blur, setBlur] = useState(false);
@@ -60,16 +60,13 @@ const InputWithLabel = ({
           }
           value={value}
           disabled={disabled}
-          placeholder={focus ? "" : label}
+          placeholder={placeholder}
           defaultValue={defaultValue}
           width={width}
           padding="0.3em 0 0 1.5em"
           max="2999-12-31"
           
         />
-        <InputSelectOptionPlaceholder value={placeHolder} selected disabled>
-          {placeHolder}
-        </InputSelectOptionPlaceholder>
       </InputLine>
       {error && touched && <ErrorMessage visible={error}>{error}</ErrorMessage>}
     </InputWithLabelContainer>

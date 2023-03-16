@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { DefaultInput, InputLine } from '../DefaultInput/style.js'
-import { Label, RequiredLabel } from '../InputWithLabel/style.js';
+import { Label, RequiredLabel } from '../StyledComponents/generalStyle.js';
 
-const InputText = ({onChange, editValue, width, widthLine, placeholder, value, type, margin,invalid, label, required}) => {
+const InputText = ({onChange,disabled, editValue, width, widthLine, placeholder, value, type, margin,invalid, label, required}) => {
     const [focus, setFocus] = useState(false);
     const [blur, setBlur] = useState(false);
     return (
@@ -20,6 +20,7 @@ const InputText = ({onChange, editValue, width, widthLine, placeholder, value, t
                 width={width}
                 padding="0.3em 1.2em 0 1.2em"
                 placeholder={placeholder}
+                disabled={disabled}
                 >
                 </DefaultInput>
 

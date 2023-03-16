@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import MaskedInput from "react-text-mask";
 import createNumberMask from "text-mask-addons/dist/createNumberMask";
 import { cleanMask } from "../../utils/cleanMask";
-import { InputRadio, LabelInputRadio } from "../InputRadio/style";
 import { DefaultInput, InputLine } from "../DefaultInput/style";
 import InputWithLabel from "../InputWithLabel";
 
@@ -13,11 +12,7 @@ import {
   ContainerHourlyPayRate,
   ContainerOvertimePayCalcLabel,
   LimitOvertime,
-  ContainerLimitOvertimeButton,
-  ContainerLimitOvertimeButtons,
-  ContainerLimitOvertime,
 } from "./style";
-import { ErrorMessage } from "../InputWithLabel/style";
 
 const OvertimePayCalc = ({ data }) => {
   const [componentJustRendered, setComponentJustRendered] = useState(false);
@@ -61,7 +56,7 @@ const OvertimePayCalc = ({ data }) => {
       <OvertimePay>
         <ContainerOvertimePayInput>
           <OvertimePayCalcLabel for="variable1">
-            Horas/mês
+            Quantidade de Horas/mês
           </OvertimePayCalcLabel>
           <InputWithLabel
             defaultValue={values.hours_month}
@@ -71,11 +66,12 @@ const OvertimePayCalc = ({ data }) => {
             error={errors.variable1}
             onChange={handleChange("variable1")}
             handleBlur={() => {}}
-            label="Horas"
             padding="0em 2em 0em 0em"
             type="number"
             disabled={values.job_type === "FREELANCER"}
-            required
+            label={values.job_type === "FREELANCER" ? "" : "Horas/mês"}
+            required={values.job_type === "FREELANCER" ? "" : "Horas/mês"}
+            placeholder="horas"
           />
         </ContainerOvertimePayInput>
 
