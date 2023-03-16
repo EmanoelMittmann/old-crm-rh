@@ -14,12 +14,9 @@ import ModalRed from "../../../molecules/ModalRed";
 const AttachmentProject = ({ attachment, allOptions, data }) => {
   const { values, setFieldValue } = data;
   const [rows, setRows] = useState([]);
-
   const [projectSelected, setProjectSelected] = useState(null);
   const [hoursMonthProject, setHoursMonthProject] = useState("");
   const [overtime, setOvertime] = useState("");
-  const [reset, setReset] = useState(true);
-
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [openModalEdit, setOpenModalEdit] = useState(false);
   const [projectClicked, setProjectClicked] = useState("");
@@ -53,7 +50,6 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
     setOvertime("");
     setOnlyError("");
     setOvertimeProjectErr("");
-    setReset(true);
   };
 
   const resetTotal = () => {
@@ -208,8 +204,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
           job_: null,
         },
       ]);
-      resetInputs();
-      return;
+      return resetInputs();
     }
 
     addProject(selected.id, hoursMonthProject, overtime);
@@ -282,11 +277,12 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
         <InputSelectWithLabel
           setSelectedOption={(e) => setProjectSelected(e.target.value)}
           options={options}
+          value={projectSelected}
           placeholder="Projetos"
           width="100%"
           lineWidth="35%"
           label="Projetos"
-          reset={reset}
+          reset={projectSelected === null}
         />
         <InputWithLabel
           width="100%"

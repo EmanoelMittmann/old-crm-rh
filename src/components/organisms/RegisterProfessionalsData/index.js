@@ -15,7 +15,11 @@ import InputMasked from "../../atoms/InputMasked/index.js";
 import { useEffect } from "react";
 import SelectBank from "../../atoms/SelectBank";
 import PhoneInternational from "../../atoms/PhoneInternational";
-import InputSelectWithLabel from "../../atoms/InputSelectWithLabel";
+
+export const optionsTypePerson = [
+  {name: "Pessoa Fisica", id : 1},
+  {name: "Pessoa Juridica", id : 2}
+]
 
 export const optionsUF = [
   { name: "Todos", id: "" },
@@ -583,14 +587,25 @@ const RegisterProfessionalsData = ({ data }) => {
       <RegisterProfessionalsForm>
         <SecondaryText margin="0 0 2em 0">Dados Bancários</SecondaryText>
         <ContainerRow>
+          <InputSelect
+            placeHolder='Tipo de pessoa'
+            width='100%'
+            lineWidth='20em'
+            name='type_person'
+            options={optionsTypePerson}
+            value={values?.professional_data.type_person}
+            onChange={handleChange("professional_data.type_person")}
+            error={errors?.professional_data?.type_person}
+            touched={touched?.professional_data?.type_person}
+          />
           <InputMasked
             value={values.professional_data.agency}
-            padding="0 2em 0 0"
-            mask={[/\d/, /\d/, /\d/, /\d/, /\d/]}
+            padding="0 1em 0 1em"
+            mask={[/\d/, /\d/, /\d/, /\d/,'-',/\d/]}
             onChange={handleChange("professional_data.agency")}
             label="Agência"
             width="100%"
-            widthContainer="50%"
+            widthContainer="30%"
             error={errors?.professional_data?.agency}
             touched={touched?.professional_data?.agency}
             handleBlur={setFieldTouched}
@@ -600,7 +615,7 @@ const RegisterProfessionalsData = ({ data }) => {
           <InputMasked
             value={values.professional_data.account_number}
             onChange={handleChange("professional_data.account_number")}
-            mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
+            mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/,/\d/]}
             label="Número da conta"
             width="100%"
             widthContainer="50%"
