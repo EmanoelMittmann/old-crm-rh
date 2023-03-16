@@ -299,6 +299,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
           error={onlyError}
           touched={onlyError}
           handleBlur={() => {}}
+          placeholder="Horas Mensais Estimadas"
         />
         <InputWithLabel
           width="100%"
@@ -311,6 +312,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
           error={overtimeProjetctErr}
           touched={overtimeProjetctErr}
           handleBlur={() => {}}
+          placeholder="Horas Extras Estimadas"
         />
         <BlueButton onClick={() => handleAddProject()} width="14%">
           Vincular

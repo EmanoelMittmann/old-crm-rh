@@ -12,6 +12,8 @@ import {
   InputSelectContainer,
   InputSelectOption,
   InputSelectOptionPlaceholder,
+  Label,
+  RequiredLabel,
 } from "./style.js";
 
 function InputBank({
@@ -22,9 +24,13 @@ function InputBank({
   value,
   margin,
   touched,
-  error
+  error,
+  label,
+  required
 }) {
   const [state, setState] = useState([]);
+  const [focus, setFocus] = useState(false);
+  const [blur, setBlur] = useState(false);
   const [errorRequest, setErrorRequest] = useState(null);
 
   useEffect(() => {
@@ -48,6 +54,10 @@ function InputBank({
   return (
     <Father width={width}>
       <InputLine width={lineWidth} margin={margin} error={error && touched}>
+        <Label focus={focus || value == ''} blur={blur || value !== ''}>
+          {label}
+          {required && <RequiredLabel>*</RequiredLabel>}
+        </Label>
         <InputSelectContainer
           {...attributeValue}
           width={width}

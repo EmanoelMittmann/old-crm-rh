@@ -1,13 +1,13 @@
-import React, {useState, useEffect, useCallback} from "react";
-import {useHistory, useParams} from "react-router-dom";
-import {useFormik} from "formik";
+import React, { useState, useEffect, useCallback } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../../../api/api";
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 import ArrowRegister from "../../atoms/ArrowRegister";
 import OvertimePayCalc from "../../atoms/OvertimePayCalc";
-import {SectionTitle} from "../../atoms/PageTitle/style.js";
-import {DefaultToast} from "../../atoms/Toast/DefaultToast";
+import { SectionTitle } from "../../atoms/PageTitle/style.js";
+import { DefaultToast } from "../../atoms/Toast/DefaultToast";
 import EmploymentContract from "../../molecules/EmploymentContract";
 import ProfessionalsExtraHour from "../../molecules/ProfessionalsExtraHour";
 import RegisterFooter from "../../molecules/RegisterFooter";
@@ -18,16 +18,16 @@ import {
     RegisterProfessionalContainer,
     ContainerPermission,
 } from "./style.js";
-import {cleanMask} from "../../utils/cleanMask";
-import {getDate} from "../../utils/getDate";
-import {messages} from "../../../settings/YupValidates";
-import {handleErrorMessages} from "../../utils/handleErrorMessages";
-import {handleCEP} from "../../utils/validateCep";
+import { cleanMask } from "../../utils/cleanMask";
+import { getDate } from "../../utils/getDate";
+import { messages } from "../../../settings/YupValidates";
+import { handleErrorMessages } from "../../utils/handleErrorMessages";
+import { handleCEP } from "../../utils/validateCep";
 import InputWithLabel from "../../atoms/InputWithLabel";
 import SecondaryText from "../../atoms/SecondaryText/style";
 import TechLeadAndDev from "../../molecules/techLeadAndDev";
-import {PermissionsSpecial} from "../../organisms/PermissionsSpecial";
-import {LocalStorageKeys} from "../../../settings/LocalStorageKeys";
+import { PermissionsSpecial } from "../../organisms/PermissionsSpecial";
+import { LocalStorageKeys } from "../../../settings/LocalStorageKeys";
 
 const RegisterProfessional = () => {
     const [jobs, setJobs] = useState([]);
@@ -45,7 +45,7 @@ const RegisterProfessional = () => {
     const [anotherCep, setAnotherCEP] = useState("");
     const [extraHour, setExtraHour] = useState("");
     const history = useHistory();
-    const {id} = useParams();
+    const { id } = useParams();
     const attachment = {
         projects,
         setProjects,
@@ -92,7 +92,7 @@ const RegisterProfessional = () => {
                     handleCEP(values.cep).then((data) => {
                         if (data.data.erro)
                             return setFieldError("CEP", "CEP não encontrado!");
-                        const {bairro, localidade, logradouro, uf} = data.data;
+                        const { bairro, localidade, logradouro, uf } = data.data;
                         if (localidade) setFieldValue("city_name", localidade);
                         if (uf) setFieldValue("uf", uf);
                         if (logradouro) setFieldValue("street_name", logradouro);
@@ -151,7 +151,7 @@ const RegisterProfessional = () => {
                         setAnotherCEP(values.professional_data.company_cep);
                         handleCEP(values.professional_data.company_cep).then((data) => {
                             if (data.data.erro) return setFieldError("cep", "Cep Invalido!");
-                            const {bairro, localidade, logradouro, uf} = data.data;
+                            const { bairro, localidade, logradouro, uf } = data.data;
                             if (localidade)
                                 setFieldValue(
                                     "professional_data.company_city_name",
@@ -227,7 +227,7 @@ const RegisterProfessional = () => {
             limited_extra_hours: false,
             extra_hour_limit: "",
             user_type_id: 2,
-            commission: true,
+            commission: false,
             permissions: [],
             professional_data: {
                 cnpj: cleanMask(""),
@@ -310,7 +310,7 @@ const RegisterProfessional = () => {
                     return history.push("/professionals");
                 })
                 .catch((error) => {
-                    toast.error(<DefaultToast text="Há error de validação"/>, {
+                    toast.error(<DefaultToast text="Há error de validação" />, {
                         toastId: "post",
                     });
                     const errors = error.response.data.errors;
@@ -334,12 +334,12 @@ const RegisterProfessional = () => {
     } = formik;
 
     const getPermissions = async () => {
-        const {data} = await api.get("/permissions");
+        const { data } = await api.get("/permissions");
         setPermissions(data);
     };
 
     const reloadProjects = useCallback(async () => {
-        const {data} = await api({
+        const { data } = await api({
             method: "get",
             url: `/userProjects/user/${id}`,
         });
@@ -350,7 +350,7 @@ const RegisterProfessional = () => {
         const response = await api({
             method: "post",
             url: "/user/validateCpf",
-            data: {cpf: cpf},
+            data: { cpf: cpf },
         });
         return response;
     };
@@ -368,23 +368,17 @@ const RegisterProfessional = () => {
     }, []);
 
     const getAllProjects = useCallback(async () => {
-        const {data} = await api({
+        const { data } = await api({
             method: "get",
             url: "/project",
         });
         setAllProjects(data.data);
     }, []);
+    
 
-    async function addProject(
-        id_project,
-        workload,
-        extra_hours_limit,
-        is_tech_lead
-    ) {
-        await api({
-            method: "post",
-            url: `/userProjects/user/${id}`,
-            data: {
+    async function addProject(id_project, workload, extra_hours_limit, is_tech_lead) {
+        try {
+            await api.post(`/userProjects/user/${id}`, {
                 id: id_project,
                 extra_hours_estimated: extra_hours_limit,
                 extra_hours_performed: 0,
@@ -393,64 +387,59 @@ const RegisterProfessional = () => {
                 isTechLead: is_tech_lead,
                 job_: null,
                 status: null,
-            },
-        })
-            .then(() => {
-                toast.success(<DefaultToast text="Projeto vinculado."/>, {
-                    toastId: "post",
-                });
-                reloadProjects();
-            })
-            .catch(() => {
-                toast.error(<DefaultToast text="Erro ao vincular projeto."/>, {
-                    toastId: "post",
-                });
             });
+
+            toast.success(<DefaultToast text="Projeto vinculado." />, {
+                toastId: "post",
+            });
+
+            reloadProjects();
+        } catch (error) {
+            toast.error(<DefaultToast text="Erro ao vincular projeto." />, {
+                toastId: "post",
+            });
+        }
+    }
+    
+    async function removeProject(project) {
+        try {
+            await api({
+                method: "delete",
+                url: `/userProjects/user/${id}`,
+                data: {
+                    project_id: project,
+                },
+            });
+            toast.success(<DefaultToast text="Projeto removido." />, {
+                toastId: "delete",
+            });
+            reloadProjects();
+        } catch (error) {
+            toast.error(<DefaultToast text="Erro ao remover projeto. Por favor, tente novamente mais tarde." />, {
+                toastId: "delete",
+            });
+        }
     }
 
-    async function removeProject(project) {
-        await api({
-            method: "delete",
-            url: `/userProjects/user/${id}`,
-            data: {
-                project_id: project,
-            },
-        })
-            .then(() => {
-                toast.success(<DefaultToast text="Projeto removido."/>, {
-                    toastId: "delete",
-                });
-                reloadProjects();
-            })
-            .catch(() => {
-                toast.error(<DefaultToast text="Erro ao remover projeto."/>, {
-                    toastId: "delete",
-                });
-            });
-    }
 
     async function editProject(project, workload, extra_hours_limit) {
-        await api({
-            method: "put",
-            url: `/userProjects/user/${id}`,
-            data: {
+        try {
+            await api.put(`/userProjects/user/${id}`, {
                 id: project,
-                workload: workload,
-                extra_hours_limit: extra_hours_limit,
-            },
-        })
-            .then(() => {
-                toast.success(<DefaultToast text="Projeto atualizado."/>, {
-                    toastId: "put",
-                });
-                reloadProjects();
-            })
-            .catch((error) => {
-                toast.error(<DefaultToast text="Erro ao atualizar projeto."/>, {
-                    toastId: "put",
-                });
+                workload,
+                extra_hours_limit,
             });
+            toast.success(<DefaultToast text="Projeto atualizado." />, {
+                toastId: "put",
+            });
+            reloadProjects();
+        } catch (error) {
+            toast.error(<DefaultToast text="Erro ao atualizar projeto." />, {
+                toastId: "put",
+            });
+        }
     }
+
 
     const getProfessionalData = async () => {
         if (!jobs.length) optionsJob();
@@ -568,7 +557,7 @@ const RegisterProfessional = () => {
     return (
         <>
             <RegisterProfessionalTitleContainer>
-                <ArrowRegister clickHandler={goBackClickHandler}/>
+                <ArrowRegister clickHandler={goBackClickHandler} />
                 <SectionTitle>
                     {id ? "Edição de profissional" : "Novo profissional"}
                 </SectionTitle>
@@ -576,12 +565,12 @@ const RegisterProfessional = () => {
 
             <RegisterProfessionalContainer>
                 <form id="professional" onSubmit={formik.handleSubmit}>
-                    <RegisterProfessionalsData data={formik}/>
-                    <EmploymentContract data={formik} jobs={jobs}/>
+                    <RegisterProfessionalsData data={formik} />
+                    <EmploymentContract data={formik} jobs={jobs} />
 
                     <SecondaryText margin="2.5em 0 1.5em 2em">Permissões</SecondaryText>
                     <ContainerPermission>
-                        <PermissionsSpecial permissions={permissions} formik={formik}/>
+                        <PermissionsSpecial permissions={permissions} formik={formik} />
                     </ContainerPermission>
 
                     <ProfessionalsExtraHour
@@ -591,14 +580,14 @@ const RegisterProfessional = () => {
                         data={values}
                     />
                     {values.extra_hour_activated !== false ? (
-                        <OvertimePayCalc data={formik}/>
+                        <OvertimePayCalc data={formik} />
                     ) : (
                         <></>
                     )}
                 </form>
                 <div className="techlead">
                     <SecondaryText margin="2.5em 0 0 3em">Função</SecondaryText>
-                    <TechLeadAndDev formik={formik}/>
+                    <TechLeadAndDev formik={formik} />
                 </div>
 
                 <AttachmentProject

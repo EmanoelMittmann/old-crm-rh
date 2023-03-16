@@ -5,11 +5,11 @@ import 'react-phone-input-2/lib/style.css'
 export const Phone = styled(PhoneInput)`
   width: ${props => props.width};
 
+
   .form-control{
     width:100%;
     border:${props => props.errors ? '1px solid red ': '1px solid #cacaca'};
-    height:45px !important;
-    border-radius: 8px !important;
+    height:44px !important;
     font-size: 0.9rem !important;
     font-size: 1rem !important;
     font-weight: 500 !important;
@@ -17,18 +17,11 @@ export const Phone = styled(PhoneInput)`
     color: black !important;
   }
 
-  .form-control::placeholder{ 
-    color: #cacaca !important;
-  }
-
   .selected-flag{
     outline: ${props => props.errors ? '1px solid red ': '1px solid #cacaca'};
-    border-radius: 8px 0 0 8px !important;
     background-color: white !important;
   }
-  .flag-dropdown{
-    border-radius: 8px 0 0 8px !important;
-  }
+
 `
 
 export const Father = styled.div`

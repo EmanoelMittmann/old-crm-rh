@@ -5,7 +5,8 @@ import MaskedInput from 'react-text-mask'
 
 import { InputLine } from '../DefaultInput/style'
 import { DefaultInput } from '../DefaultInput/style'
-import {InputWithLabelContainer, Label, ErrorMessage} from '../InputWithLabel/style'
+import {InputWithLabelContainer} from '../InputWithLabel/style'
+import { ErrorMessage, Label, RequiredLabel } from '../StyledComponents/generalStyle'
 
 const InputMasked = (
   { value, 
@@ -20,7 +21,9 @@ const InputMasked = (
     mask,
     handleBlur, 
     name,
-    touched
+    touched,
+    required,
+    placeHolder
   }) => {
   const [focus, setFocus] = useState(false)
   const [blur, setBlur] = useState(false)
@@ -43,14 +46,15 @@ const InputMasked = (
         >
           <InputLine width={width} error={error && touched}>
             <Label
-              focus={focus || value !== ''}
+              focus={focus || value == ''}
               blur={blur || value !== ''}
             >
               {label}
+              {required && <RequiredLabel>*</RequiredLabel>}
             </Label>
             <DefaultInput
               type="text"
-              placeholder={focus ? '' : label}
+              placeholder={placeHolder}
               width={width}
               disabled={disabled}
               padding="0.3em 0 0 1.5em"
@@ -63,6 +67,7 @@ const InputMasked = (
               {...maskProps}
             />
           </InputLine>
+
           {error && touched && (<ErrorMessage visible={error}>{error}</ErrorMessage>)}
       </InputWithLabelContainer>
       )} 
