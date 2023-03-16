@@ -14,7 +14,7 @@ export const Phone = styled(PhoneInput)`
     font-size: 1rem !important;
     font-weight: 500 !important;
     font-family: 'Poppins',sans-serif !important;
-    color: black !important;
+    color: black !important; 
   }
 
   .selected-flag{
