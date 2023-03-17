@@ -18,15 +18,14 @@ export const InputSelectContainer = styled.select`
 `;
 
 export const InputSelectOption = styled.option`
-  color: black;
   height: 100px;
+  color: #000;
   border: none;
   font-size: 1rem;
   font-weight: 500;
 `;
 
 export const InputSelectOptionPlaceholder = styled.option`
-  color: red;
   display: none;
   font-size: 1rem;
   font-weight: 500;

@@ -125,7 +125,6 @@ const InvoiceSending = (props) => {
           <InputWithLabel
             type="date"
             placeholder="Período inicial"
-            label="Período inicial"
             onChange={(e) => setInitialDate(e.target.value)}
             value={initialDate}
             handleBlur={() => { }}
@@ -134,7 +133,6 @@ const InvoiceSending = (props) => {
           <InputWithLabel
             type="date"
             placeholder="Período final"
-            label="Periodo final"
             onChange={(e) => setFinalDate(e.target.value)}
             value={finalDate}
             handleBlur={() => { }}
@@ -143,7 +141,6 @@ const InvoiceSending = (props) => {
           <InputWithLabel
             type="date"
             placeholder="Data Emissão da NF"
-            label="Data Emissão da NF"
             onChange={(e) => setDateEmissionNF(e.target.value)}
             value={date_emission_nf}
             handleBlur={() => { }}

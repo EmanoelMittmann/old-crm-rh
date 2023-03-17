@@ -68,7 +68,7 @@ export const InputLine = styled.div`
     justify-content:space-between;
     width: ${props => props.width};
     height: 45px;
-    border: ${props => `1.5px solid ${props.error ? "#ff4842" : "#919EAB52"}`};
+    border: ${props => props.border ? props.border : `1.5px solid ${props.error ? "#ff4842" : "#919EAB52"}`};
     border-radius: 8px;
     margin: ${props => props.margin};
 `

@@ -13,36 +13,8 @@ const DataBank = ({data}) => {
   
   return (
     <ContainerRegisterCompanyData>
-        <SecondaryText margin='2.5em'>Dados bancarios</SecondaryText>
-        <ContainerRow>
-          <InputMasked
-            value={values.agency}
-            padding="0 2em 0 0"
-            mask={[/\d/, /\d/, /\d/, /\d/, /\d/]}
-            onChange={handleChange("agency")}
-            label="Agência"
-            width="100%"
-            widthContainer="40%"
-            error={errors?.agency}
-            touched={touched?.agency}
-            handleBlur={setFieldTouched}
-            name="agency"
-            type="number"
-          />
-          <InputMasked
-            value={values.account_number}
-            onChange={handleChange("account_number")}
-            mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
-            label="Número da conta"
-            width="100%"
-            widthContainer="60%"
-            error={errors?.account_number}
-            touched={touched?.account_number}
-            handleBlur={setFieldTouched}
-            name="account_number"
-            type="number"
-          />
-        </ContainerRow>
+        <SecondaryText margin='2.5em 0 '>Dados bancarios</SecondaryText>
+
         <ContainerRow>
           <SelectBank
             value={values.bank}
@@ -55,9 +27,11 @@ const DataBank = ({data}) => {
             width="100%"
             lineWidth="98%"
             name="bank"
+            required
           />
           <InputSelect
             value={values.account_type}
+            label="Tipo da conta"
             onChange={handleChange("account_type")}
             options={optionsBank}
             error={errors?.bank}
@@ -67,8 +41,42 @@ const DataBank = ({data}) => {
             width="100%"
             lineWidth="30em"
             name="account_type"
+            required
           />
         </ContainerRow>
+      <ContainerRow>
+        <InputMasked
+          value={values.agency}
+          placeHolder="Agência"
+          padding="0 2em 0 0"
+          mask={[/\d/, /\d/, /\d/, /\d/, '-', /\d/]}
+          onChange={handleChange("agency")}
+          label="Agência"
+          width="100%"
+          widthContainer="40%"
+          error={errors?.agency}
+          touched={touched?.agency}
+          handleBlur={setFieldTouched}
+          name="agency"
+          type="number"
+          required
+        />
+        <InputMasked
+          value={values.account_number}
+          onChange={handleChange("account_number")}
+          mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
+          label="Número da conta"
+          width="100%"
+          widthContainer="60%"
+          error={errors?.account_number}
+          touched={touched?.account_number}
+          handleBlur={setFieldTouched}
+          name="account_number"
+          placeHolder="Número da conta"
+          type="number"
+          required
+        />
+      </ContainerRow>
     </ContainerRegisterCompanyData>
   )
 }

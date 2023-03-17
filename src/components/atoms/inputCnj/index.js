@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { InputLine } from "../DefaultInput/style";
 import { DefaultInputCnae, Itens, ListItens } from "../InputSearchCnae/style";
-import { ErrorMessage, Label } from "../StyledComponents/generalStyle";
+import { ErrorMessage, Label, RequiredLabel } from "../StyledComponents/generalStyle";
 import { LegalNature } from "./Object/index";
 import { ValuesSelected, InputSearchWithLabel } from "./style";
 
@@ -17,6 +17,7 @@ const InputNature = ({
   label,
   error,
   touched,
+  required
 }) => {
   const [id, setId] = useState("");
   const [filteredValues, setFilteredValues] = useState([]);
@@ -44,8 +45,9 @@ const InputNature = ({
     <>
       <InputSearchWithLabel>
         <InputLine width={'100%'} error={touched && error}>
-          <Label focus={focus || value !== ""} blur={blur || value !== ""}>
+          <Label focus={focus || value == ""} blur={blur || value !== ""}>
             {label}
+            {required && <RequiredLabel>*</RequiredLabel>}
           </Label>
           <DefaultInputCnae
             onChange={(e) => setId(e.target.value)}

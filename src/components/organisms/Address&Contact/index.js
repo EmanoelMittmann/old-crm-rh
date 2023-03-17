@@ -15,13 +15,14 @@ export const AddressContact = ({ data, disabled }) => {
 
     return (
         <ContainerRegisterCompanyData>
-            <SecondaryText margin="2.5em">Endereço e Contato</SecondaryText>
+            <SecondaryText margin="2.5em 0">Endereço e Contato</SecondaryText>
             <RegisterCompanyForm>
                 <ContainerRow>
                     <InputMasked
                         value={values.cep}
                         onChange={handleChange('cep')}
                         label="CEP"
+                        placeHolder="CPF"
                         mask={[/\d/, /\d/, /\d/, /\d/, /\d/, '-',
                             /\d/, /\d/, /\d/]}
                         padding="0em 2em 0 0em"
@@ -32,9 +33,11 @@ export const AddressContact = ({ data, disabled }) => {
                         touched={touched.cep}
                         handleBlur={setFieldTouched}
                         name="cep"
+                        required
                     />
                     <InputWithLabel
                         value={values.street_name}
+                        placeholder="Rua"
                         onChange={handleChange('street_name')}
                         label="Rua"
                         padding="0em 2em 0 0em"
@@ -45,6 +48,7 @@ export const AddressContact = ({ data, disabled }) => {
                         touched={touched.street_name}
                         handleBlur={setFieldTouched}
                         name="street"
+                        required
                     />
                     <InputWithLabel
                         value={values.house_number}
@@ -58,6 +62,8 @@ export const AddressContact = ({ data, disabled }) => {
                         error={errors.house_number}
                         touched={touched.house_number}
                         handleBlur={setFieldTouched}
+                        placeholder="Número"
+                        required
                         
                     />
                     <InputWithLabel
@@ -87,6 +93,8 @@ export const AddressContact = ({ data, disabled }) => {
                         touched={touched.neighborhood_name}
                         handleBlur={setFieldTouched}
                         name="district"
+                        placeholder="Bairro"
+                        required
                     />
                     <InputWithLabel
                         value={values.city_name}
@@ -100,6 +108,8 @@ export const AddressContact = ({ data, disabled }) => {
                         touched={touched.city_name}
                         handleBlur={setFieldTouched}
                         name="city"
+                        placeholder="Cidade"
+                        required
                     />
                     <InputSelect
                         value={values.uf}
@@ -111,6 +121,8 @@ export const AddressContact = ({ data, disabled }) => {
                         handleBlur={setFieldTouched}
                         placeHolder="UF"
                         width="230px"
+                        label="UF"
+                        required
                     />
                 </ContainerRow>
                 <ContainerRow>
@@ -126,6 +138,8 @@ export const AddressContact = ({ data, disabled }) => {
                         widthContainer="30%"
                         handleBlur={setFieldTouched}
                         name="phone_number"
+                        placeHolder="Telefone"
+                        required
                     />
                     <InputWithLabel
                         value={values.main_email}
@@ -138,7 +152,9 @@ export const AddressContact = ({ data, disabled }) => {
                         width="95%"
                         widthContainer="40%"
                         handleBlur={setFieldTouched}
+                        placeholder="E-mail"
                         name="email"
+                        required
                     />
                     <InputWithLabel
                         value={values.secondary_email}

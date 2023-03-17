@@ -83,22 +83,22 @@ const Payments = ({
           <InputWithLabel
             type="date"
             onChange={(e) => setInitialPeriod(e.target.value)}
-            label="Período inicial"
             width="100%"
             value={initialPeriod}
             widthContainer="30%"
             handleBlur={() => { }}
             name="initial_period"
+            placeholder="Período inicial"
           />
           <InputWithLabel
             type="date"
             onChange={(e) => setFinalPeriod(e.target.value)}
-            label="Período final"
             width="100%"
             value={finalPeriod}
             widthContainer="30%"
             handleBlur={() => { }}
             name="initial_period"
+            placeholder="Período Final"
           />
         </ContainerSearch>
         <ContainerListing>

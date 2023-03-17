@@ -1,25 +1,25 @@
-import React, { useState } from 'react'
-import { BsThreeDotsVertical } from "react-icons/bs"
-import MenuOptions from '../MenuOptions/index'
-import { Column, ColumnValues, Styles, Total } from './style'
+import React, { useState } from "react";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import MenuOptions from "../MenuOptions/index";
+import { Column, ColumnValues, Styles, Total } from "./style";
 
 const Table = ({ rows, setOpenModalDelete, setOpenModalEdit, totalOvertimeExtras, totalPercentageMonth, totalPerformedHours, rowClicked, setRowClicked, totalHours, totalOvertime, totalPercentage }) => {
     const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false)
 
-    const projectClickedHandler = (project) => {
-        setMenuOptionsIsVisible(!menuOptionsIsVisible)
-        setRowClicked(project)
-    }
+  const projectClickedHandler = (project) => {
+    setMenuOptionsIsVisible(!menuOptionsIsVisible);
+    setRowClicked(project);
+  };
 
-    const deleteHandler = () => {
-        setOpenModalDelete(true)
-        setMenuOptionsIsVisible(false)
-    }
+  const deleteHandler = () => {
+    setOpenModalDelete(true);
+    setMenuOptionsIsVisible(false);
+  };
 
-    const editHandler = () => {
-        setOpenModalEdit(true)
-        setMenuOptionsIsVisible(false)
-    }
+  const editHandler = () => {
+    setOpenModalEdit(true);
+    setMenuOptionsIsVisible(false);
+  };
 
     return (
         <Styles>
