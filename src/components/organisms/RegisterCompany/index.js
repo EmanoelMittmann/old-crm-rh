@@ -134,6 +134,8 @@ const RegisterCompany = ({ data, disabled }) => {
             handleBlur={setFieldTouched}
             name="cnpj"
             disabled={disabled}
+            placeHolder="CNPJ"
+            required
           />
           <ContainerInputRadio>
             <Matriz>Empresa Matriz?</Matriz>
@@ -180,6 +182,8 @@ const RegisterCompany = ({ data, disabled }) => {
             disabled={disabled}
             widthContainer="70%"
             handleBlur={setFieldTouched}
+            placeholder="Data da Abertura"
+            required
           />
         </ContainerRow>
         <ContainerRow>
@@ -195,6 +199,7 @@ const RegisterCompany = ({ data, disabled }) => {
             disabled={disabled}
             widthContainer="50%"
             handleBlur={setFieldTouched}
+            placeholder="Inscrição Estadual"
           />
           <InputWithLabel
             value={values.municipal_registration}
@@ -208,9 +213,11 @@ const RegisterCompany = ({ data, disabled }) => {
             width="95%"
             handleBlur={setFieldTouched}
             widthContainer="50%"
+            placeholder="Inscrição Municipal"
           />
           <InputSelect
             value={values.size}
+            label="Porte da Empresa"
             onChange={handleChange("size")}
             error={errors.size}
             touched={touched.size}
@@ -220,6 +227,7 @@ const RegisterCompany = ({ data, disabled }) => {
             handleBlur={setFieldTouched}
             width="100%"
             widthContainer="50%"
+            required
           />
         </ContainerRow>
         <ContainerRow>
@@ -234,6 +242,8 @@ const RegisterCompany = ({ data, disabled }) => {
             width="95%"
             handleBlur={setFieldTouched}
             widthContainer="20%"
+            placeholder="Noma fantasia"
+            required
           />
           <InputWithLabel
             value={values.razao_social}
@@ -245,10 +255,13 @@ const RegisterCompany = ({ data, disabled }) => {
             width="100%"
             handleBlur={setFieldTouched}
             widthContainer="80%"
+            placeholder="Informe a Razão Social da Empresa"
+            required
           />
         </ContainerRow>
         <ContainerRow>
           <InputSearchCnae
+            label="Atividade Economica Principal"
             placeholder={"Codigo e descrição de Atividade Economica Principal"}
             value={values.main_cnae}
             handleBlur={setFieldTouched}
@@ -256,23 +269,24 @@ const RegisterCompany = ({ data, disabled }) => {
             disabled={disabled}
             touched={touched.main_cnae}
             setFieldValue={setFieldValue}
-            label=""
             width="100%"
             values={values}
+            required
           />
         </ContainerRow>
         <ContainerRow>
           <InputSearchCnaeSecundary
             placeholder={"Codigo e descrição de Atividade Economica Secundaria"}
+            label="Atividade Economica Secundaria"
             value={values.secondary_cnae}
             handleBlur={setFieldTouched}
             error={errors.secondary_cnae}
             disabled={disabled}
             touched={touched.secondary_cnae}
             setFieldValue={setFieldValue}
-            label=""
             width="100%"
             values={values}
+            required
           />
         </ContainerRow>
         <ContainerRow>
@@ -284,9 +298,10 @@ const RegisterCompany = ({ data, disabled }) => {
             touched={touched.code_and_description_of_the_legal_status}
             inputWidth="50%"
             disabled={disabled}
-            label=""
+            label="Natureza Jurídica"
             setFieldValue={setFieldValue}
             values={values}
+            required
           />
         </ContainerRow>
       </RegisterCompanyForm>

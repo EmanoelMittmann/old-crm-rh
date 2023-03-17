@@ -3,12 +3,12 @@ import {Phone, Father} from './style'
 import { InputLine } from "../DefaultInput/style";
 import { ErrorMessage, Label, RequiredLabel } from "../StyledComponents/generalStyle";
 
-const PhoneInternational = ({ error, touched, onBlur, value, width, onChange, label, required}) => {
+const PhoneInternational = ({  error,  touched,  onBlur,  value,  width,  onChange, label, required}) => {
   const [focus, setFocus] = useState(false);
   const [blur, setBlur] = useState(false);
   return (
     <Father>
-      <InputLine border='none'>
+      <InputLine>
         <Phone
           country={"br"}
           mask={["(", /[1-9]/, /\d/, ")", " ", /\d/, " ", /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/,]}

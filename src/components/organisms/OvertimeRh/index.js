@@ -52,23 +52,23 @@ const OvertimeRh = ({
           <InputWithLabel
             type="date"
             onChange={(e) => setInitialDate(e.target.value)}
-            label="Período inicial"
             value={initialDate}
             width="100%"
             widthContainer="30%"
             handleBlur={() => {}}
             name="initial_period"
+            placeholder="Período inicial"
             
           />
           <InputWithLabel
             type="date"
             onChange={(e) => setFinalDate(e.target.value)}
-            label="Período final"
             value={finalDate}
             width="100%"
             widthContainer="30%"
             handleBlur={() => {}}
             name="initial_period"
+            placeholder="Período Final"
           />
         </SearchSection>
       </ContainerSearch>

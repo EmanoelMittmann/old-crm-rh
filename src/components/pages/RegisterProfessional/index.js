@@ -367,67 +367,59 @@ const RegisterProfessional = () => {
     setJobs(response.data.data);
   }, []);
 
-  const getAllProjects = useCallback(async () => {
-    const { data } = await api({
-      method: "get",
-      url: "/project",
-    });
-    setAllProjects(data.data);
-  }, []);
+    const getAllProjects = useCallback(async () => {
+        const { data } = await api({
+            method: "get",
+            url: "/project",
+        });
+        setAllProjects(data.data);
+    }, []);
+    
 
-  async function addProject(
-    id_project,
-    workload,
-    extra_hours_limit,
-    is_tech_lead
-  ) {
-    await api({
-      method: "post",
-      url: `/userProjects/user/${id}`,
-      data: {
-        id: id_project,
-        extra_hours_estimated: extra_hours_limit,
-        extra_hours_performed: 0,
-        hours_mounths_estimated: workload,
-        hours_mounths_performed: 0,
-        isTechLead: is_tech_lead,
-        job_: null,
-        status: null,
-      },
-    })
-      .then(() => {
-        toast.success(<DefaultToast text="Projeto vinculado." />, {
-          toastId: "post",
-        });
-        reloadProjects();
-      })
-      .catch(() => {
-        toast.error(<DefaultToast text="Erro ao vincular projeto." />, {
-          toastId: "post",
-        });
-      });
-  }
+    async function addProject(id_project, workload, extra_hours_limit, is_tech_lead) {
+        try {
+            await api.post(`/userProjects/user/${id}`, {
+                id: id_project,
+                extra_hours_estimated: extra_hours_limit,
+                extra_hours_performed: 0,
+                hours_mounths_estimated: workload,
+                hours_mounths_performed: 0,
+                isTechLead: is_tech_lead,
+                job_: null,
+                status: null,
+            });
 
-  async function removeProject(project) {
-    await api({
-      method: "delete",
-      url: `/userProjects/user/${id}`,
-      data: {
-        project_id: project,
-      },
-    })
-      .then(() => {
-        toast.success(<DefaultToast text="Projeto removido." />, {
-          toastId: "delete",
-        });
-        reloadProjects();
-      })
-      .catch(() => {
-        toast.error(<DefaultToast text="Erro ao remover projeto." />, {
-          toastId: "delete",
-        });
-      });
-  }
+            toast.success(<DefaultToast text="Projeto vinculado." />, {
+                toastId: "post",
+            });
+
+            reloadProjects();
+        } catch (error) {
+            toast.error(<DefaultToast text="Erro ao vincular projeto." />, {
+                toastId: "post",
+            });
+        }
+    }
+    
+    async function removeProject(project) {
+        try {
+            await api({
+                method: "delete",
+                url: `/userProjects/user/${id}`,
+                data: {
+                    project_id: project,
+                },
+            });
+            toast.success(<DefaultToast text="Projeto removido." />, {
+                toastId: "delete",
+            });
+            reloadProjects();
+        } catch (error) {
+            toast.error(<DefaultToast text="Erro ao remover projeto. Por favor, tente novamente mais tarde." />, {
+                toastId: "delete",
+            });
+        }
+    }
 
 
     async function editProject(project, workload, extra_hours_limit) {

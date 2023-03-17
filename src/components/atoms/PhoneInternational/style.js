@@ -5,6 +5,7 @@ import 'react-phone-input-2/lib/style.css'
 export const Phone = styled(PhoneInput)`
   width: ${props => props.width};
 
+
   .form-control{
     width:100%;
     border:${props => props.errors ? '1px solid red ': '1px solid #cacaca'};
