@@ -18,8 +18,8 @@ import SelectBank from "../../atoms/SelectBank";
 import PhoneInternational from "../../atoms/PhoneInternational";
 
 export const optionsTypePerson = [
-  {name: "Pessoa Fisica", id : 1},
-  {name: "Pessoa Juridica", id : 2}
+  {name: "Pessoa Fisica", id : "PF"},
+  {name: "Pessoa Juridica", id : "PJ"}
 ]
 
 export const optionsUF = [
@@ -635,7 +635,7 @@ const RegisterProfessionalsData = ({ data }) => {
           <InputMasked
             value={values.professional_data.agency}
             padding="0 1em 0 1em"
-            mask={[/\d/, /\d/, /\d/, /\d/,'-',/\d/]}
+            mask={[/\d/, /\d/, /\d/, /\d/,/\d/]}
             onChange={handleChange("professional_data.agency")}
             label="Agência"
             width="100%"
@@ -651,7 +651,7 @@ const RegisterProfessionalsData = ({ data }) => {
           <InputMasked
             value={values.professional_data.account_number}
             onChange={handleChange("professional_data.account_number")}
-            mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/,/\d/]}
+            mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/,'-',/\d/]}
             label="Número da conta"
             width="100%"
             widthContainer="50%"
