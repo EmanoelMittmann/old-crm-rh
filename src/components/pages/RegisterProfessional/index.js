@@ -524,7 +524,7 @@ const RegisterProfessional = () => {
     }
   }
   useEffect(() => {
-    setFieldValue('professiona_data.accout_number', (values.professional_data.account_number).replace('-', ''))
+    setFieldValue('professional_data.account_number', (values.professional_data.account_number).replace('-', ''))
   }, [values.professional_data.account_number])
 
   function resetPixKeyIfNecessary(
