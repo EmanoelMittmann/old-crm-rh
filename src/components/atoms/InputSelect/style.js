@@ -17,9 +17,12 @@ export const InputSelectContainer = styled.select`
   text-overflow: ellipsis;
 `;
 
+
+
+
 export const InputSelectOption = styled.option`
   height: 100px;
-  color: #000;
+  color: #000000;
   border: none;
   font-size: 1rem;
   font-weight: 500;

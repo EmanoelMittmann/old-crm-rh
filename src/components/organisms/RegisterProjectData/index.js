@@ -46,7 +46,6 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                     </ContainerSecondRow>
                     <ContainerSecondRow>
                     <InputWithLabel
-                        placeHolder="ID do projeto"
                         label="ID do projeto"
                         value={values.id}
                         onChange={handleChange('id')}
@@ -55,7 +54,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         widthContainer="100%"
                         error={errors.id}
                         touched={touched.id}
-                        handleBlur={setFieldTouched}
+                        handleBlur={setFieldTouched} 
                         placeholder="ID do Projeto"
                         required
                     />

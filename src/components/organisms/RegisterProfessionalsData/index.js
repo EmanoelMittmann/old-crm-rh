@@ -16,10 +16,11 @@ import InputMasked from "../../atoms/InputMasked/index.js";
 import { useEffect } from "react";
 import SelectBank from "../../atoms/SelectBank";
 import PhoneInternational from "../../atoms/PhoneInternational";
+import styled from "styled-components";
 
 export const optionsTypePerson = [
-  {name: "Pessoa Fisica", id : 1},
-  {name: "Pessoa Juridica", id : 2}
+  { name: "Pessoa Fisica", id: 1 },
+  { name: "Pessoa Juridica", id: 2 }
 ]
 
 export const optionsUF = [
@@ -262,7 +263,7 @@ const RegisterProfessionalsData = ({ data }) => {
           <PhoneInternational
             error={errors.telephone_number}
             touched={touched.telephone_number}
-            onBlur={() => {}}
+            onBlur={() => { }}
             onChange={handleChange('telephone_number')}
             width='25em'
             value={values.telephone_number}
@@ -344,13 +345,11 @@ const RegisterProfessionalsData = ({ data }) => {
             width="100%"
             widthContainer="60%"
             margin="0 2em 0 0"
-            placeHolder={"Pais"}
             onChange={handleChange("country")}
             value={values.country}
             error={errors.country}
             touched={touched.country}
             disabled={disabled}
-        
           />
           <InputWithLabel
             onChange={handleChange("neighbourhood_name")}
@@ -382,13 +381,15 @@ const RegisterProfessionalsData = ({ data }) => {
             required
           />
           <InputSelectUf
-            value={values.uf}
+            value={values?.uf}
             onChange={handleChange("uf")}
             options={optionsUFCountry}
             placeHolder="UF"
             width="230px"
             touched={touched.uf}
             error={errors.uf}
+            label="UF"
+            required
             disabled={disabled}
           />
         </ContainerRow>
@@ -411,7 +412,7 @@ const RegisterProfessionalsData = ({ data }) => {
         </ContainerRow>
 
         <RegisterProfessionalsForm>
-          <SecondaryText margin="0 0 2.5em">
+          <SecondaryText margin="2.5em 0">
             Dados Pessoa Juridica
           </SecondaryText>
           <ContainerRow>
@@ -535,7 +536,7 @@ const RegisterProfessionalsData = ({ data }) => {
             />
             <InputWithLabel
               onChange={handleChange("professional_data.company_house_number")}
-              value={values.professional_data.company_house_number === 0 ? '' :values.professional_data.company_house_number}
+              value={values.professional_data.company_house_number === 0 ? '' : values.professional_data.company_house_number}
               label="Número"
               type="number"
               width="100%"
@@ -594,8 +595,9 @@ const RegisterProfessionalsData = ({ data }) => {
               value={values.professional_data.uf_company}
               onChange={handleChange("professional_data.uf_company")}
               options={optionsUF}
-              placeHolder="UF"
+              label="UF"
               width="230px"
+              placeHolder="UF"
               disabled={disabled}
             />
           </ContainerRow>
@@ -620,7 +622,7 @@ const RegisterProfessionalsData = ({ data }) => {
         <SecondaryText margin="0 0 2em 0">Dados Bancários</SecondaryText>
         <ContainerRowDuo>
           <InputSelect
-            placeHolder='Escolha o tipo de pessoa'
+            placeHolder='Tipo de pessoa'
             lineWidth='100%'
             name='type_person'
             options={optionsTypePerson}
@@ -657,12 +659,12 @@ const RegisterProfessionalsData = ({ data }) => {
             label="Tipo da conta"
             required
           />
-          
+
         </ContainerRowDuo>
         <ContainerRowDuo>
           <InputMasked
             value={values.professional_data.agency}
-            mask={[/\d/, /\d/, /\d/, /\d/, '-', /\d/]}
+            mask={[/\d/, /\d/, /\d/, /\d/,/\d/]}
             onChange={handleChange("professional_data.agency")}
             label="Agência"
             width="100%"
@@ -678,7 +680,7 @@ const RegisterProfessionalsData = ({ data }) => {
           <InputMasked
             value={values.professional_data.account_number}
             onChange={handleChange("professional_data.account_number")}
-            mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/]}
+            mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/]}
             label="Número da conta"
             width="100%"
             widthContainer="50%"
@@ -689,7 +691,7 @@ const RegisterProfessionalsData = ({ data }) => {
             type="number"
             placeHolder="Número da conta"
             required
-          />  
+          />
         </ContainerRowDuo>
 
         {/* Dados do Pix */}
@@ -703,7 +705,7 @@ const RegisterProfessionalsData = ({ data }) => {
             padding="0em 2em 0 0em"
             error={errors?.professional_data?.type_of_transfer}
             touched={touched?.professional_data?.type_of_transfer}
-            lineWidth="188%"
+            lineWidth="190%"
             name="professional_data.type_of_transfer"
             label="Tipo de tranferência"
             required
@@ -730,8 +732,7 @@ const RegisterProfessionalsData = ({ data }) => {
               touched={touched?.professional_data?.pix_key}
               handleBlur={setFieldTouched}
               onChange={handleChange("professional_data.pix_key")}
-              width="100%"
-              widthContainer="60%"
+              width="25em"
               value={values?.professional_data?.pix_key}
               type="text"
               disabled={isDisabled}
@@ -747,8 +748,7 @@ const RegisterProfessionalsData = ({ data }) => {
               touched={touched?.professional_data?.pix_key}
               handleBlur={setFieldTouched}
               onChange={handleChange("professional_data.pix_key")}
-              width="100%"
-              widthContainer="31%"
+              width="25em"
               value={values.professional_data.pix_key}
               type="text"
               disabled={isDisabled}

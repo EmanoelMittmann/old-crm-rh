@@ -24,8 +24,8 @@ const InputSelect = ({
   value,
   margin,
   onClick,
-  label, 
-  required
+  label,
+  required,
 }) => {
   const [focus, setFocus] = useState(false);
   const [blur, setBlur] = useState(false);
@@ -46,11 +46,11 @@ const InputSelect = ({
           width={width}
           disabled={disabled}
           onChange={onChange}
-          onClick={onClick}  
+          onClick={onClick}
         >
-            <InputSelectOptionPlaceholder disabled selected>
-              {placeHolder}
-            </InputSelectOptionPlaceholder>
+          <InputSelectOptionPlaceholder   disabled selected>
+            {placeHolder}
+          </InputSelectOptionPlaceholder>
           {options?.map((option, index) => (
             <InputSelectOption
               key={index}

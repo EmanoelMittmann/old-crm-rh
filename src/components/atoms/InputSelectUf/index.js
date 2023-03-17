@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { InputLine } from '../../atoms/DefaultInput/style'
 import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg'
 import {
@@ -9,8 +9,11 @@ import {
     Father,
     ErrorMessage
 } from './style.js'
+import { Label, RequiredLabel } from '../StyledComponents/generalStyle'
 
-const InputSelectUf = ({ onChange, options, placeHolder, width, lineWidth, value, margin, disabled, onClick,error,touched }) => {
+const InputSelectUf = ({ onChange, options, placeHolder, width, lineWidth, value, margin, disabled, onClick,error,touched, label, required }) => {
+    const [focus, setFocus] = useState(false)
+    const [blur, setBlur] = useState(false)
     const attributeValue = {
         ...(value && { value: value })
     }
@@ -18,6 +21,10 @@ const InputSelectUf = ({ onChange, options, placeHolder, width, lineWidth, value
     return (
         <Father>
         <InputLine width={lineWidth} margin={margin} error={error && touched}>
+                {label && <Label focus={focus || value == ""} blur={blur || value !== ""}>
+                    {label}
+                    {required && <RequiredLabel>*</RequiredLabel>}
+                </Label>}
             <InputSelectContainer
                 {...attributeValue}
                 width={width}

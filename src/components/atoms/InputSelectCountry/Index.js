@@ -15,11 +15,10 @@ const Index = ({
   width,
   onChange,
   placeHolder,
-  options,
   disabled,
   lineWidth,
   value,
-  onClick,
+  onClick
 }) => {
   const [countries, setCountries] = useState([]);
 
