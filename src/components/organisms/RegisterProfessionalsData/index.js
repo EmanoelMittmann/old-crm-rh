@@ -620,7 +620,8 @@ const RegisterProfessionalsData = ({ data }) => {
         <SecondaryText margin="0 0 2em 0">Dados Bancários</SecondaryText>
         <ContainerRowDuo>
           <InputSelect
-            placeHolder='Escolha o tipo de pessoa'
+            placeHolder='tipo de pessoa'
+            width='20em'
             lineWidth='100%'
             name='type_person'
             options={optionsTypePerson}
@@ -652,6 +653,7 @@ const RegisterProfessionalsData = ({ data }) => {
             error={errors?.professional_data?.account_type}
             touched={touched?.professional_data?.account_type}
             padding="0em 2em 0 0em"
+            width='20em'
             lineWidth="100%"
             name="professional_data.account_type"
             label="Tipo da conta"
@@ -662,7 +664,6 @@ const RegisterProfessionalsData = ({ data }) => {
         <ContainerRowDuo>
           <InputMasked
             value={values.professional_data.agency}
-            padding="0 1em 0 1em"
             mask={[/\d/, /\d/, /\d/, /\d/,/\d/]}
             onChange={handleChange("professional_data.agency")}
             label="Agência"
@@ -704,7 +705,8 @@ const RegisterProfessionalsData = ({ data }) => {
             padding="0em 2em 0 0em"
             error={errors?.professional_data?.type_of_transfer}
             touched={touched?.professional_data?.type_of_transfer}
-            lineWidth="188%"
+            lineWidth="100%"
+            width='20em'
             name="professional_data.type_of_transfer"
             label="Tipo de tranferência"
             required
@@ -717,7 +719,8 @@ const RegisterProfessionalsData = ({ data }) => {
             touched={touched?.professional_data?.pix_key_type}
             placeHolder="Tipo de chave PIX"
             padding="0em 2em 0 0em"
-            lineWidth="170%"
+            lineWidth="100%"
+            width="30em"
             name="professional_data.pix_key_type"
             disabled={isDisabled}
             label={values.professional_data?.type_of_transfer === "PIX" ? "Tipo de chave PIX" : ""}

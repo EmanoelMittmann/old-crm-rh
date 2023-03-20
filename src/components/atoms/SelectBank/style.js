@@ -23,7 +23,28 @@ export const InputSelectOption = styled.option`
     border: none;
     font-size: 1rem;
     font-weight: 500;
+`
 
+export const Container = styled.div`
+    width: 34em;
+    overflow-y: scroll;
+    overflow-x: none;
+    height: 10em;
+    transform: translate(22.2em,3em);
+    position: absolute;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    z-index: 10;
+    background-color: white;
+    position: absolute;
+    ::-webkit-scrollbar{
+        background-color: #ccc;
+        width: 10px;
+        border-radius: 8px;
+    }
+    ::-webkit-scrollbar-button{
+        display: none;
+    }
 `
 
 export const InputSelectOptionPlaceholder = styled.option`
@@ -64,6 +85,20 @@ const fadeUp = keyframes`
         top: 10px;
     }
 `
+
+export const InputDynamic = styled.div`
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    width: ${props => props.width};
+    height: 45px;
+    border-radius: 8px;
+    border: 1px solid rgba(145, 158, 171, 0.67);
+    color: rgba(145, 158, 171, 0.67);
+    text-overflow: ellipsis;
+    background-color: white;
+`
+
 export const Label = styled.span`
     display: inline-block;
     padding: 0 0.3em;
