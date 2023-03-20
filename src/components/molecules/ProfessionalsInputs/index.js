@@ -37,7 +37,7 @@ const ProfessionalsInputs = ({
           setJobSelected(e.target.value);
         }}
         options={jobs}
-        placeHolder="Cargo"
+        placeholder="Cargo"
         width="220px"
       />
     </ProfessionalsInputsContainer>

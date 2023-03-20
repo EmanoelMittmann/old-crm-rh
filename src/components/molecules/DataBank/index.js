@@ -20,7 +20,7 @@ const DataBank = ({data}) => {
             value={values.bank}
             onChange={handleChange("bank")}
             padding="0em 2em 0 0em"
-            placeHolder={"Banco"}
+            placeHolder="Banco"
             error={errors?.bank}
             touched={touched?.bank}
             label="Banco"
@@ -36,7 +36,7 @@ const DataBank = ({data}) => {
             options={optionsBank}
             error={errors?.bank}
             touched={touched?.bank}
-            placeHolder="Tipo da conta"
+            placeholder="Tipo da conta"
             padding="0em 2em 0 0em"
             width="100%"
             lineWidth="30em"

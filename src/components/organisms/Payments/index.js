@@ -69,14 +69,14 @@ const Payments = ({
           <InputSelect
             options={companies}
             onChange={(e) => setCompanyParams(e.target.value)}
-            placeHolder="Empresa Pagadora"
+            placeholder="Empresa Pagadora"
             width="100%"
             lineWidth="15em"
           />
           <InputSelect
             options={Status}
             onChange={(e) => setStatusParams(e.target.value)}
-            placeHolder="Status"
+            placeholder="Status"
             width="100%"
             lineWidth="15em"
           />

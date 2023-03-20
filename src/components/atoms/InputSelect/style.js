@@ -17,18 +17,24 @@ export const InputSelectContainer = styled.select`
   text-overflow: ellipsis;
 `;
 
+
+
+
 export const InputSelectOption = styled.option`
   height: 100px;
-  color: #000000;
+  color: #000;
   border: none;
   font-size: 1rem;
   font-weight: 500;
 `;
 
 export const InputSelectOptionPlaceholder = styled.option`
-  display: none;
-  font-size: 1rem;
-  font-weight: 500;
+  option[value=""][disabled]{
+    color: ${props => props.textColor || "#acb4ba" };
+    display: none;
+    font-size: 1rem;
+    font-weight: 500
+  }
 `;
 export const Img = styled.img`
   right: 20px;

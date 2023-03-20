@@ -97,7 +97,7 @@ const EmploymentContract = ({ data, jobs }) => {
           label="Cargo"
           error={errors?.job_id}
           touched={touched?.job_id}
-          placeHolder="Cargo"
+          placeholder="Cargo"
           width="100%"
           lineWidth="31em"
           required

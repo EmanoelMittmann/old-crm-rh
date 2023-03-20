@@ -28,13 +28,13 @@ const HeaderSearchCompany = ({
         margin="10px"
         options={optionsRegistions}
         onChange={(e) => setSelectedStatusCompany(e.target.value)}
-        placeHolder="Situação Cadastral"
+        placeholder="Situação Cadastral"
       />
       <InputSelect
         value={uf}
         onChange={(e) => setUf(e.target.value)}
         options={optionsUF}
-        placeHolder="UF"
+        placeholder="UF"
         margin="10px"
         width="220px"
       />
@@ -42,7 +42,7 @@ const HeaderSearchCompany = ({
         value={typeCompany}
         onChange={(e) => setTypeCompany(e.target.value)}
         options={types}
-        placeHolder="Tipos de empresas"
+        placeholder="Tipos de empresas"
         margin="10px"
         width="220px"
       />

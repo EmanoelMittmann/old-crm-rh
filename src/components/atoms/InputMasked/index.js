@@ -5,6 +5,7 @@ import MaskedInput from 'react-text-mask'
 
 import { InputLine } from '../DefaultInput/style'
 import { DefaultInput } from '../DefaultInput/style'
+import { InputSelectOptionPlaceholder } from '../InputSelect/style'
 import {InputWithLabelContainer} from '../InputWithLabel/style'
 import { ErrorMessage, Label, RequiredLabel } from '../StyledComponents/generalStyle'
 
@@ -54,10 +55,10 @@ const InputMasked = (
             </Label>
             <DefaultInput
               type="text"
-              placeholder={placeHolder}
               width={width}
               disabled={disabled}
               padding="0.3em 0 0 1.5em"
+              placeholder={placeHolder}
               ref={
                 node => {
                   if(node){
@@ -67,7 +68,6 @@ const InputMasked = (
               {...maskProps}
             />
           </InputLine>
-
           {error && touched && (<ErrorMessage visible={error}>{error}</ErrorMessage>)}
       </InputWithLabelContainer>
       )} 

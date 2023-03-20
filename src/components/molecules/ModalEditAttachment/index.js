@@ -96,14 +96,14 @@ const ModalEditAttachment = (
                     <InputSelect
                         onChange={(e) => setNewJob(e.target.value)}
                         options={jobsMember}
-                        placeHolder={jobSelected}
+                        placeholder={jobSelected}
                         width="175px"
                         label="Cargo"
                     />
                     <InputSelect
                         onChange={(e) => setNewStatus(e.target.value)}
                         options={optionStatus}
-                        placeHolder={status}
+                        placeholder={status}
                         width="175px"
                     />
                 </ContainerInputsSelect>

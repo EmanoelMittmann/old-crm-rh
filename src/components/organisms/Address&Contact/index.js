@@ -119,7 +119,7 @@ export const AddressContact = ({ data, disabled }) => {
                         disabled={disabled}
                         touched={touched.uf}
                         handleBlur={setFieldTouched}
-                        placeHolder="UF"
+                        placeholder="UF"
                         width="230px"
                         label="UF"
                         required
