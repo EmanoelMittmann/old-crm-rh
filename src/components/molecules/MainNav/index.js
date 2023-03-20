@@ -4,6 +4,8 @@ import { userTypes } from "../../../models/userTypes";
 
 import { Nav} from "./style.js";
 import { userAccess } from "./Modules/acessUser";
+import { Modules } from "./Modules/index";
+import { HomeIcon } from "../../atoms/icons/NavIcons";
 
 
 const NavHome = () => {
@@ -20,6 +22,7 @@ const NavHome = () => {
 
   return (
     <Nav>
+      <Modules id={1} children={<HomeIcon />} route="/home" />
       {permissions.map((usersPermissions) =>
         userAccess(isTechLead)
           .filter((permission) => permission.hasOwnProperty(usersPermissions))
