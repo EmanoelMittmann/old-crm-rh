@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 import { InputLine } from '../../atoms/DefaultInput/style'
 import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg'
-import {
-    Img,
-    InputSelectContainer,
-    InputSelectOption,
-    InputSelectOptionPlaceholder,
-    Father,
-    ErrorMessage
-} from './style.js'
-import { Label, RequiredLabel } from '../StyledComponents/generalStyle'
+import { 
+    ErrorMessage, 
+    Father, 
+    Img, 
+    InputSelectContainer, 
+    InputSelectOption, 
+    InputSelectOptionPlaceholder, 
+    Label, 
+    RequiredLabel } from '../StyledComponents/generalStyle'
 
 const InputSelectUf = ({ onChange, options, placeHolder, width, lineWidth, value, margin, disabled, onClick,error,touched, label, required }) => {
     const [focus, setFocus] = useState(false)

@@ -91,6 +91,7 @@ const EmploymentContract = ({ data, jobs }) => {
           required
         />
         <InputSelect
+          textColor={values.job_id}
           onChange={handleChange('job_id')}
           value={values.job_id}
           options={jobs}
@@ -105,6 +106,7 @@ const EmploymentContract = ({ data, jobs }) => {
       </EmploymentContractInputs>
       <EmploymentContractInputs>
         <InputSelect
+          textColor={values.job_type}
           onChange={handleType}
           placeHolder="Tipo de contrato"
           width="100%"

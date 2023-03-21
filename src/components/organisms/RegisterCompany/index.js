@@ -216,6 +216,7 @@ const RegisterCompany = ({ data, disabled }) => {
             placeholder="Inscrição Municipal"
           />
           <InputSelect
+            textColor={values.size}
             value={values.size}
             label="Porte da Empresa"
             onChange={handleChange("size")}

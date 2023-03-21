@@ -2,10 +2,8 @@ import React from 'react'
 import { useRef } from 'react'
 import { useState } from 'react'
 import MaskedInput from 'react-text-mask'
-
 import { InputLine } from '../DefaultInput/style'
 import { DefaultInput } from '../DefaultInput/style'
-import { InputSelectOptionPlaceholder } from '../InputSelect/style'
 import {InputWithLabelContainer} from '../InputWithLabel/style'
 import { ErrorMessage, Label, RequiredLabel } from '../StyledComponents/generalStyle'
 

@@ -23,6 +23,7 @@ const HeaderSearchCompany = ({
         inputWidth="230px"
       />
       <InputSelect
+        textColor={selectedStatusCompany}
         value={selectedStatusCompany}
         width="280px"
         margin="10px"
@@ -31,6 +32,7 @@ const HeaderSearchCompany = ({
         placeholder="Situação Cadastral"
       />
       <InputSelect
+      textColor={uf}
         value={uf}
         onChange={(e) => setUf(e.target.value)}
         options={optionsUF}
@@ -39,6 +41,7 @@ const HeaderSearchCompany = ({
         width="220px"
       />
       <InputSelect
+      textColor={typeCompany}
         value={typeCompany}
         onChange={(e) => setTypeCompany(e.target.value)}
         options={types}

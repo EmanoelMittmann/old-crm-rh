@@ -30,6 +30,7 @@ const DataBank = ({data}) => {
             required
           />
           <InputSelect
+          textColor={values.account_type}
             value={values.account_type}
             label="Tipo da conta"
             onChange={handleChange("account_type")}

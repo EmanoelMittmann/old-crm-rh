@@ -593,6 +593,7 @@ const RegisterProfessionalsData = ({ data }) => {
               placeholder="Cidade"
             />
             <InputSelect
+              textColor={values.professional_data.uf_company}
               value={values.professional_data.uf_company}
               onChange={handleChange("professional_data.uf_company")}
               options={optionsUF}
@@ -624,6 +625,7 @@ const RegisterProfessionalsData = ({ data }) => {
         <SecondaryText margin="0 0 2em 0">Dados Bancários</SecondaryText>
         <ContainerRowDuo>
           <InputSelect
+            textColor={values?.professional_data.type_person}
             placeholder='Tipo de pessoa'
             lineWidth='100%'
             name='type_person'
@@ -649,6 +651,7 @@ const RegisterProfessionalsData = ({ data }) => {
             required
           />
           <InputSelect
+            textColor={values.professional_data.account_type}
             value={values.professional_data.account_type}
             onChange={handleChange("professional_data.account_type")}
             options={optionsBank}
@@ -701,6 +704,7 @@ const RegisterProfessionalsData = ({ data }) => {
 
         <ContainerRowDuo>
           <InputSelect
+            textColor={values?.professional_data?.type_of_transfer}
             value={values?.professional_data?.type_of_transfer}
             onChange={handleChange("professional_data.type_of_transfer")}
             options={optionsTypeOfTranfer}
@@ -715,6 +719,7 @@ const RegisterProfessionalsData = ({ data }) => {
             required
           />
           <InputSelect
+            textColor={values?.professional_data?.pix_key_type}
             value={values?.professional_data?.pix_key_type}
             onChange={handleChange("professional_data.pix_key_type")}
             options={optionsPixKeyType}

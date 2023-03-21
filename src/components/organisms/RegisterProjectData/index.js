@@ -59,6 +59,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         required
                     />
                     <InputSelect
+                        textColor={values.project_type_id}
                         value={values.project_type_id}
                         onChange={handleChange('project_type_id')}
                         options={typeOptions}
@@ -104,6 +105,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                     </ContainerSecondRow>
                     <ContainerSecondRow>
                     <InputSelect
+                        textColor={values.project_status_id}
                         value={values.project_status_id}
                         onChange={handleChange('project_status_id')}
                         options={statusOptions}
@@ -142,6 +144,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         name="date_start_performed"
                         width="100%"
                         widthContainer="100%"
+                        textColor={values.date_start_performed}
                         value={values.date_start_performed}
                         error={errors.date_start_performed}
                         touched={touched.date_start_performed}
