@@ -211,8 +211,8 @@ export const RegisterCompanies = () => {
   }, []);
 
   useEffect(() => {
-    setFieldValue('account_number', (values.account_number).replace('-', ''))
-  }, [values.account_number])
+    setFieldValue('account_number',cleanMask(values.account_number))
+  },[values.account_number])
 
   return (
     <>

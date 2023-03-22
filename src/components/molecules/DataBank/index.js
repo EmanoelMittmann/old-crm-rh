@@ -50,7 +50,7 @@ const DataBank = ({data}) => {
           value={values.agency}
           placeHolder="Agência"
           padding="0 2em 0 0"
-          mask={[/\d/, /\d/, /\d/, /\d/,/\d/]}
+          mask={[/\d/, /\d/, /\d/, /\d/, /\d/]}
           onChange={handleChange("agency")}
           label="Agência"
           width="100%"
@@ -65,7 +65,7 @@ const DataBank = ({data}) => {
         <InputMasked
           value={values.account_number}
           onChange={handleChange("account_number")}
-          mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/]}
+          mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/,'-',/\d/]}
           label="Número da conta"
           width="100%"
           widthContainer="60%"
