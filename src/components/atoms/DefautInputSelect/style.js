@@ -36,7 +36,7 @@ export const Img = styled.img`
 export const InputSelectOptionPlaceholder = styled.option`
     display: none;
     font-size: 1rem;
-    font-weight: 500
+    font-weight: 500;
 
 `;
 
