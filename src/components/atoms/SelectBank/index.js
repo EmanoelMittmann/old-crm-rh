@@ -3,22 +3,15 @@ import { useEffect, useState } from "react";
 import { ErrorMessage, InputLine, Father } from "../DefaultInput/style";
 import arrowPointingDown from "../../../assets/icons/arrowPointingDown.svg";
 import "react-toastify/dist/ReactToastify.min.css";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { DefaultToast } from "../Toast/DefaultToast";
-
 import axios from "axios";
-import {
-  Img,
-  InputSelectContainer,
-  InputSelectOption,
-  InputSelectOptionPlaceholder,
-  Label,
-  RequiredLabel,
-} from "./style.js";
+import { Img, InputSelectContainer, InputSelectOption, InputSelectOptionPlaceholder, Label, RequiredLabel } from "../DefautInputSelect/style";
+
 
 function InputBank({
   onChange,
-  placeHolder,
+  placeholder,
   width,
   lineWidth,
   value,
@@ -26,7 +19,8 @@ function InputBank({
   touched,
   error,
   label,
-  required
+  required,
+  textColor
 }) {
   const [state, setState] = useState([]);
   const [focus, setFocus] = useState(false);
@@ -60,12 +54,14 @@ function InputBank({
         </Label>
         <InputSelectContainer
           {...attributeValue}
+          textColor={textColor}
           width={width}
           onChange={onChange}
+          placeholder={placeholder}
         >
-          <InputSelectOptionPlaceholder disabled selected>
-            {placeHolder}
-          </InputSelectOptionPlaceholder>
+          {placeholder && <InputSelectOptionPlaceholder disabled selected >
+            {placeholder}
+          </InputSelectOptionPlaceholder>}
           {state?.map((option, index) => (
             <InputSelectOption
               key={index}

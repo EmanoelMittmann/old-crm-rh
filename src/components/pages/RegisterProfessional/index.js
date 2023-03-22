@@ -52,7 +52,7 @@ const RegisterProfessional = () => {
     addProject,
     removeProject,
     editProject,
-  };  
+  };
 
   const schema = Yup.object().shape({
     name: Yup.string().required(messages.required),
@@ -188,10 +188,26 @@ const RegisterProfessional = () => {
       .nullable(),
     weekly_hours: Yup.number()
       .required(messages.required)
-      .max(44, "Horas/semana excedida"),
+      .test("Horas válidas", "Horas/semana excedida", () => {
+        if (values.job_type === "FULLTIME" && values.weekly_hours > 40) {
+          return false
+        }
+        else if (values.job_type === "PARTTIME" && values.weekly_hours > 20) {
+          return false
+        }
+        return true
+      }),
     mounth_hours: Yup.number()
       .required(messages.required)
-      .max(176, "Horas/mês excedida"),
+      .test("Horas válidas", "Horas/mês excedida", () => {
+        if (values.job_type === "FULLTIME" && values.mounth_hours > 160) {
+          return false
+        }
+        else if (values.job_type === "PARTTIME" && values.mounth_hours > 80) {
+          return false
+        }
+        return true
+      }),
     fixed_payment_value: Yup.string().required(messages.required),
   });
 

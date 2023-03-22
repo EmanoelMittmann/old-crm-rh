@@ -10,7 +10,7 @@ import {
   InputSelectOption,
   InputSelectOptionPlaceholder,
   Father,
-} from '../StyledComponents/generalStyle';
+} from '../DefautInputSelect/style.js';
 
 
 const InputSelect = ({

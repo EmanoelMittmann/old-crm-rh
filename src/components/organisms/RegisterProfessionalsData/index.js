@@ -343,6 +343,7 @@ const RegisterProfessionalsData = ({ data }) => {
         </ContainerRow>
         <ContainerRow>
           <InputSelectCountry
+            textColor={values.country}
             width="100%"
             widthContainer="60%"
             margin="0 2em 0 0"
@@ -382,10 +383,11 @@ const RegisterProfessionalsData = ({ data }) => {
             required
           />
           <InputSelectUf
+            textColor={values?.uf}
             value={values?.uf}
             onChange={handleChange("uf")}
             options={optionsUFCountry}
-            placeHolder="UF"
+            placeholder="UF"
             width="230px"
             touched={touched.uf}
             error={errors.uf}
@@ -638,10 +640,11 @@ const RegisterProfessionalsData = ({ data }) => {
             required
           />
           <SelectBank
+            textColor={values.professional_data.bank}
             value={values.professional_data.bank}
             onChange={handleChange("professional_data.bank")}
             padding="0em 2em 0 0em"
-            placeHolder={"Banco"}
+            placeholder="Banco"
             error={errors?.professional_data?.bank}
             touched={touched?.professional_data?.bank}
             label="Banco"
@@ -708,7 +711,7 @@ const RegisterProfessionalsData = ({ data }) => {
             value={values?.professional_data?.type_of_transfer}
             onChange={handleChange("professional_data.type_of_transfer")}
             options={optionsTypeOfTranfer}
-            placeHolder="Tipo de tranferência"
+            placeholder="Tipo de tranferência"
             padding="0em 2em 0 0em"
             error={errors?.professional_data?.type_of_transfer}
             touched={touched?.professional_data?.type_of_transfer}
@@ -725,13 +728,13 @@ const RegisterProfessionalsData = ({ data }) => {
             options={optionsPixKeyType}
             error={errors?.professional_data?.pix_key_type}
             touched={touched?.professional_data?.pix_key_type}
-            placeHolder="Tipo de chave PIX"
+            placeholder="Tipo de chave PIX"
             padding="0em 2em 0 0em"
             width="100%"
-            lineWidth="25em"
+            lineWidth="420px"
             name="professional_data.pix_key_type"
             disabled={isDisabled}
-            label={values.professional_data.type_of_transfer == "PIX" ? 'Chave PIX' : ""}
+            label={values.professional_data.type_of_transfer == "PIX" ? 'Tipo de chave PIX' : ""}
             required={values.professional_data.type_of_transfer == "PIX" ? "*" : ""}
           />
           {values.professional_data.pix_key_type === "E-mail" ||
@@ -743,7 +746,7 @@ const RegisterProfessionalsData = ({ data }) => {
               handleBlur={setFieldTouched}
               onChange={handleChange("professional_data.pix_key")}
               width="100%"
-              widthLine="25em"
+              widthLine="410px"
               type="text"
               value={values?.professional_data?.pix_key}
               disabled={isDisabled}
@@ -761,7 +764,7 @@ const RegisterProfessionalsData = ({ data }) => {
               handleBlur={setFieldTouched}
               onChange={handleChange("professional_data.pix_key")}
               width="100%"
-              widthContainer="25em"
+              widthContainer="410px"
               value={values.professional_data.pix_key}
               disabled={isDisabled}
               placeHolder="Chave PIX"

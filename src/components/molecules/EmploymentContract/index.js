@@ -14,9 +14,8 @@ import {
   FullcCommissionAllowance,
   CommissionApproval,
 } from './style';
-
 import { typeOptions } from '../../pages/RegisterProfessional/optionsType';
-import InputSelectWithLabel from '../../atoms/InputSelectWithLabel/index.js';
+
 
 const EmploymentContract = ({ data, jobs }) => {
   const fixedSalaryAmount = createNumberMask({
@@ -24,7 +23,7 @@ const EmploymentContract = ({ data, jobs }) => {
     suffix: ',00',
     thousandsSeparatorSymbol: '.',
   });
-
+  
   const {
     values,
     handleChange,
@@ -48,8 +47,8 @@ const EmploymentContract = ({ data, jobs }) => {
   const limitNotAllowed = {
     ...(componentJustRenderedCommission &&
       (values === undefined || values.commission === false) && {
-        checked: true,
-      }),
+      checked: true,
+    }),
   };
 
   function handleType(e) {
@@ -70,6 +69,7 @@ const EmploymentContract = ({ data, jobs }) => {
     }
     return true;
   }
+
 
   return (
     <ContainerEmploymentContract>
@@ -108,7 +108,7 @@ const EmploymentContract = ({ data, jobs }) => {
         <InputSelect
           textColor={values.job_type}
           onChange={handleType}
-          placeHolder="Tipo de contrato"
+          placeholder="Tipo de contrato"
           width="100%"
           error={errors?.job_type}
           touched={touched?.job_type}

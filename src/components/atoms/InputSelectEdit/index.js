@@ -2,7 +2,7 @@ import React from 'react'
 
 import { InputLine } from '../DefaultInput/style.js'
 import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg'
-import { ErrorMessage, Img, InputSelectContainer, InputSelectOption } from '../StyledComponents/generalStyle.js'
+import { ErrorMessage, Img, InputSelectContainer, InputSelectOption } from '../DefautInputSelect/style.js'
 
 const InputSelectEdit = ({optionId, setSelectedOption, width, options, error, touched}) => {
     return (

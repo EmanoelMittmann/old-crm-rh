@@ -3,7 +3,7 @@ import React from 'react';
 import { InputLine } from '../../atoms/DefaultInput/style';
 import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg';
 import { Label } from './style.js';
-import { Img, InputSelectContainer, InputSelectOption } from '../StyledComponents/generalStyle';
+import { Img, InputSelectContainer, InputSelectOption } from '../DefautInputSelect/style.js';
 import { InputSelectOptionPlaceholder } from '../InputSelectUf/style';
 
 

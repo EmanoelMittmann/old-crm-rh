@@ -1,24 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { Country } from 'country-state-city';
 
-import {
-  InputSelectContainer,
-  InputSelectOption,
-  InputSelectOptionPlaceholder,
-  Img,
-} from './style';
 import { InputLine } from '../DefaultInput/style';
 import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg';
+import { Img, InputSelectContainer, InputSelectOption, InputSelectOptionPlaceholder } from '../DefautInputSelect/style.js';
 
 const Index = ({
   margin,
   width,
   onChange,
-  placeHolder,
+  placeholder,
   disabled,
   lineWidth,
   value,
-  onClick
+  onClick,
+  textColor
 }) => {
   const [countries, setCountries] = useState([]);
 
@@ -35,14 +31,16 @@ const Index = ({
       <InputLine width={lineWidth} margin={margin}>
         <InputSelectContainer
           {...attributeValue}
+          textColor={textColor}
           width={width}
           onChange={onChange}
           disabled={disabled}
           onClick={onClick}
+          placeholder={placeholder}
         >
-          <InputSelectOptionPlaceholder disabled selected>
-            {placeHolder}
-          </InputSelectOptionPlaceholder>
+          {placeholder && <InputSelectOptionPlaceholder disabled selected >
+            {placeholder}
+          </InputSelectOptionPlaceholder>}
           {countries?.map((option) => (
             <InputSelectOption key={option.isoCode}>
               {option.name}
