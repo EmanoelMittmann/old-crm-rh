@@ -52,7 +52,7 @@ const RegisterProfessional = () => {
     addProject,
     removeProject,
     editProject,
-  };  
+  };
   const schema = Yup.object().shape({
     name: Yup.string().required(messages.required),
     cpf: Yup.string()
@@ -114,7 +114,7 @@ const RegisterProfessional = () => {
     professional_data: Yup.object().shape({
       cnpj: Yup.string().min(18, "CNPJ Inválido").nullable(),
       razao_social: Yup.string().nullable(),
-      type_person: Yup.string(),
+      type_person: Yup.string().required(messages.required),
       fantasy_name: Yup.string().nullable(),
       company_city_name: Yup.string().nullable(),
       company_street_name: Yup.string().nullable(),
@@ -200,7 +200,8 @@ const RegisterProfessional = () => {
       cpf: cleanMask(""),
       rg: "".toString(),
       birth_date: "",
-      avatar:"https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png",
+      avatar:
+        "https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png",
       cep: cleanMask(""),
       street_name: "",
       house_number: "",
@@ -225,7 +226,7 @@ const RegisterProfessional = () => {
       extra_hour_value: "",
       limited_extra_hours: false,
       extra_hour_limit: "",
-      user_type_id: 2,  
+      user_type_id: 2,
       commission: false,
       permissions: [],
       professional_data: {
@@ -310,7 +311,7 @@ const RegisterProfessional = () => {
           return history.push("/professionals");
         })
         .catch((error) => {
-          toast.error(<DefaultToast text="Há error de validação"  />, {
+          toast.error(<DefaultToast text="Há error de validação" />, {
             toastId: "post",
           });
           const errors = error.response.data.errors;
@@ -367,135 +368,138 @@ const RegisterProfessional = () => {
     setJobs(response.data.data);
   }, []);
 
-    const getAllProjects = useCallback(async () => {
-        const { data } = await api({
-            method: "get",
-            url: "/project",
-        });
-        setAllProjects(data.data);
-    }, []);
-    
+  const getAllProjects = useCallback(async () => {
+    const { data } = await api({
+      method: "get",
+      url: "/project",
+    });
+    setAllProjects(data.data);
+  }, []);
 
-    async function addProject(id_project, workload, extra_hours_limit, is_tech_lead) {
-        try {
-            await api.post(`/userProjects/user/${id}`, {
-                id: id_project,
-                extra_hours_estimated: extra_hours_limit,
-                extra_hours_performed: 0,
-                hours_mounths_estimated: workload,
-                hours_mounths_performed: 0,
-                isTechLead: is_tech_lead,
-                job_: null,
-                status: null,
-            });
-
-            toast.success(<DefaultToast text="Projeto vinculado." />, {
-                toastId: "post",
-            });
-
-            reloadProjects();
-        } catch (error) {
-            toast.error(<DefaultToast text="Erro ao vincular projeto." />, {
-                toastId: "post",
-            });
-        }
-    }
-    
-    async function removeProject(project) {
-        try {
-            await api({
-                method: "delete",
-                url: `/userProjects/user/${id}`,
-                data: {
-                    project_id: project,
-                },
-            });
-            toast.success(<DefaultToast text="Projeto removido." />, {
-                toastId: "delete",
-            });
-            reloadProjects();
-        } catch (error) {
-            toast.error(<DefaultToast text="Erro ao remover projeto. Por favor, tente novamente mais tarde." />, {
-                toastId: "delete",
-            });
-        }
-    }
-
-
-    async function editProject(project, workload, extra_hours_limit) {
-        try {
-            await api.put(`/userProjects/user/${id}`, {
-                id: project,
-                workload,
-                extra_hours_limit,
-            });
-            toast.success(<DefaultToast text="Projeto atualizado." />, {
-                toastId: "put",
-            });
-            reloadProjects();
-        } catch (error) {
-            toast.error(<DefaultToast text="Erro ao atualizar projeto." />, {
-                toastId: "put",
-            });
-        }
-    }
-
-  const getProfessionalData = async() => {
+  async function addProject(
+    id_project,
+    workload,
+    extra_hours_limit,
+    is_tech_lead
+  ) {
     try {
-      if (!jobs.length) optionsJob();
-      if (!allProjects.length) getAllProjects();
-      if (id) {
-        const { data } = await api.get(`/user/${id}`);
-        setOldValue(data);
-        for(const [property,value] of Object.entries(data[0]))
-          if (property.includes("date")) {
+      await api.post(`/userProjects/user/${id}`, {
+        id: id_project,
+        extra_hours_estimated: extra_hours_limit,
+        extra_hours_performed: 0,
+        hours_mounths_estimated: workload,
+        hours_mounths_performed: 0,
+        isTechLead: is_tech_lead,
+        job_: null,
+        status: null,
+      });
+
+      toast.success(<DefaultToast text="Projeto vinculado." />, {
+        toastId: "post",
+      });
+
+      reloadProjects();
+    } catch (error) {
+      toast.error(<DefaultToast text="Erro ao vincular projeto." />, {
+        toastId: "post",
+      });
+    }
+  }
+
+  async function removeProject(project) {
+    try {
+      await api({
+        method: "delete",
+        url: `/userProjects/user/${id}`,
+        data: {
+          project_id: project,
+        },
+      });
+      toast.success(<DefaultToast text="Projeto removido." />, {
+        toastId: "delete",
+      });
+      reloadProjects();
+    } catch (error) {
+      toast.error(
+        <DefaultToast text="Erro ao remover projeto. Por favor, tente novamente mais tarde." />,
+        {
+          toastId: "delete",
+        }
+      );
+    }
+  }
+
+  async function editProject(project, workload, extra_hours_limit) {
+    try {
+      await api.put(`/userProjects/user/${id}`, {
+        id: project,
+        workload,
+        extra_hours_limit,
+      });
+      toast.success(<DefaultToast text="Projeto atualizado." />, {
+        toastId: "put",
+      });
+      reloadProjects();
+    } catch (error) {
+      toast.error(<DefaultToast text="Erro ao atualizar projeto." />, {
+        toastId: "put",
+      });
+    }
+  }
+
+  const getProfessionalData = async () => {
+    if (!jobs.length) optionsJob();
+    if (!allProjects.length) getAllProjects();
+    if (id) {
+          const {data} = await api.get(`/user/${id}`)
+          setOldValue(data[0]);
+          Object.entries(data[0]).forEach(([property, value]) => {
+            if (property.includes("date")) {
               setFieldValue(property, getDate(value));
-          } else if (property.includes("cnpj")) {
+            } else if (property.includes("cnpj")) {
               setFieldValue(
-                  property,
-                  value.replace(
-                      /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
-                      "$1 $2 $3/$4-$5"
-                  )
+                property,
+                value.replace(
+                  /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
+                  "$1 $2 $3/$4-$5"
+                )
               );
-          } else if (property.includes("fixed_payment_value")) {
+            } else if (property.includes("fixed_payment_value")) {
               setFieldValue(property, `R$${value},00`);
-          } else if (property.includes("cep")) {
+            } else if (property.includes("cep")) {
               let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
               setUniqueCEP(data);
               setFieldValue(property, data);
-          } else if (property.includes("company_cep")) {
+            } else if (property.includes("company_cep")) {
               let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
               setAnotherCEP(data);
               setFieldValue(property, data);
-          } else if (property.includes("cpf")) {
+            } else if (property.includes("cpf")) {
               let data = value.replace(
-                  /(\d{3})(\d{3})(\d{3})(\d{2})/,
-                  "$1.$2.$3-$4"
+                /(\d{3})(\d{3})(\d{3})(\d{2})/,
+                "$1.$2.$3-$4"
               );
               setUniqueCpf(data);
               setFieldValue(property, data);
-          } else if (property.includes("extra_hour_value")) {
+            } else if (property.includes("extra_hour_value")) {
               setFieldValue(property, String(value).replace(".", ","));
-          } else if (property.includes("permissions")) {
+            } else if (property.includes("permissions")) {
               setFieldValue(
-                  property,
-                  value.map((item) => item.id)
+                property,
+                value.map((item) => item.id)
               );
-          } else {
+            } else {
               setFieldValue(property, value);
-          }
-      };
+            }
+          });
       reloadProjects();
-      return () => {
-        setJobs([]);
-        setAllProjects([]);
-      };
-    } catch (error) {
-      console.error(error)
     }
-  }
-  
+    return () => {
+      setJobs([]);
+      setAllProjects([]);
+    };
+  };
+
   useEffect(() => {
     getPermissions();
     getProfessionalData();
@@ -523,9 +527,12 @@ const RegisterProfessional = () => {
   }
 
   useEffect(() => {
-    setFieldValue('professional_data.account_number',(values.professional_data.account_number).replace('-',''))
-  },[values.professional_data.account_number])
-  
+    setFieldValue(
+      "professional_data.account_number",
+      values.professional_data.account_number.replace("-", "")
+    );
+  }, [values.professional_data.account_number]);
+
   function resetPixKeyIfNecessary(
     values,
     oldValue,

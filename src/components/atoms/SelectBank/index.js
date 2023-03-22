@@ -1,69 +1,107 @@
-import React, { useMemo } from "react";
 import { useEffect, useState } from "react";
-import {
-  ErrorMessage,
-  InputLine,
-  Father,
-  DefaultInput,
-} from "../DefaultInput/style";
-import arrowPointingDown from "../../../assets/icons/arrowPointingDown.svg";
+import { InputLine, Father, DefaultInput } from "../DefaultInput/style";
 import "react-toastify/dist/ReactToastify.min.css";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { DefaultToast } from "../Toast/DefaultToast";
-
 import axios from "axios";
-import { Container, InputDynamic, InputSelectOption, Label, RequiredLabel } from "./style.js";
+import { Container, InputSelectOption, Label, RequiredLabel } from "./style.js";
+import { ErrorMessage } from "../InputSelectUf/style";
 
 function InputBank({
-  onChange,
-  placeHolder,
   width,
-  lineWidth,
   value,
-  margin,
-  touched,
-  error,
+  setFieldValue,
   label,
   required,
+  error,
+  touched,
+  translate,
+  lineWidth,
+  padding,
+  name
 }) {
   const [state, setState] = useState([]);
-  const [focus, setFocus] = useState(false);
-  const [blur, setBlur] = useState(false);
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
+  const [filtered, setFiltered] = useState([]);
+  const [visible, setVisible] = useState(false);
+  const propName = name;
 
   const getBanks = async () => {
     try {
       const { data } = await axios.get(`https://brasilapi.com.br/api/banks/v1`);
-      setState({ id: data.ispb, name: data.fullName });
+      setState(data);
+      setFiltered(data);
     } catch (error) {
       return toast.error(<DefaultToast text={error.data} />);
     }
   };
-  useMemo(() => {
-    getBanks();
-  }, []);
+
+  const handleChange = async (e) => {
+    setText(e.target.value);
+    const filter = state.filter(
+      (obj) =>
+        obj["fullName"] && obj["fullName"].toLowerCase().match(text) && obj
+    );
+    setFiltered(filter);
+  };
+
+  const handleBlur = () => {
+    setTimeout(() => {
+      setVisible(false);
+    }, 100);
+  };
+
+  const handleFocus = () => {
+    setVisible(true);
+    setFieldValue(propName, "");
+  };
 
   const attributeValue = {
     ...(value && { value: value }),
   };
 
+  useEffect(() => {
+    getBanks();
+  }, []);
+
+  useEffect(() => {
+    if (text.trim() === "") {
+      setFiltered(state);
+    }
+  }, [text]);
+
   return (
     <>
       <Father width={width}>
-        <InputLine>
+        <InputLine error={error && touched}>
+          {label && (
+            <Label focus={label}>
+              {label}
+              {required && <RequiredLabel>*</RequiredLabel>}
+            </Label>
+          )}
           <DefaultInput
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            padding="0 0 0 1em"
+            {...attributeValue}
+            width={width}
+            onChange={(e) => handleChange(e)}
+            padding={padding}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
             placeholder="Pesquise seu banco"
           />
         </InputLine>
+        {error && touched && <ErrorMessage>{error}</ErrorMessage>}
+        <Container visible={visible} translate={translate} width={lineWidth}>
+          {filtered?.map((item) => (
+            <InputSelectOption
+              key={item?.ispb}
+              onClick={() => setFieldValue(propName, item?.name)}
+            >
+              {item?.ispb} {item?.name}
+            </InputSelectOption>
+          ))}
+        </Container>
       </Father>
-      {text.length >= 1 &&
-       <Container>
-        {state.map(item => <InputSelectOption key={item.id}>{item.id} {item.name}</InputSelectOption>)}
-       </Container>
-       }
     </>
   );
 }

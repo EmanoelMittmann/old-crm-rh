@@ -19,18 +19,27 @@ export const InputSelectContainer = styled.select`
 
 export const InputSelectOption = styled.option`
     color: black;
-    height: 100px;
+    width: 100%;
+    padding: 0.5em 0em 0em 0.5em;
+    gap: 2em;
     border: none;
     font-size: 1rem;
     font-weight: 500;
+    transition: 100ms all ease-out;
+    cursor: pointer;
+
+    :hover{
+        background-color: #ddd;
+    }
 `
 
 export const Container = styled.div`
-    width: 34em;
+    visibility: ${props => props.visible ? 'visible' : 'hidden'};
+    width: ${props => props.width ? props.width : '34em'};
+    overflow: hidden;
     overflow-y: scroll;
-    overflow-x: none;
     height: 10em;
-    transform: translate(22.2em,3em);
+    transform: ${props => props.translate};
     position: absolute;
     border-radius: 8px;
     border: 1px solid #ccc;
@@ -38,13 +47,14 @@ export const Container = styled.div`
     background-color: white;
     position: absolute;
     ::-webkit-scrollbar{
-        background-color: #ccc;
-        width: 10px;
-        border-radius: 8px;
+        width:10px;
+        background-color: #ddd;
     }
-    ::-webkit-scrollbar-button{
-        display: none;
-    }
+    ::-webkit-scrollbar-thumb{
+        background-color: #fff;
+        border-radius: 3px;
+        cursor: pointer;
+}
 `
 
 export const InputSelectOptionPlaceholder = styled.option`

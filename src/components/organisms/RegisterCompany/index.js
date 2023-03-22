@@ -21,6 +21,7 @@ import { useEffect } from "react";
 import InputSearchCnae from "../../atoms/InputSearchCnae";
 import InputSearchCnaeSecundary from "../../atoms/InputSearchCnaeSecundary";
 import InputNature from "../../atoms/inputCnj";
+import { ErrorMessage } from "../../atoms/InputSelectUf/style";
 
 const RegisterCompany = ({ data, disabled }) => {
   const {
@@ -65,6 +66,7 @@ const RegisterCompany = ({ data, disabled }) => {
           <ContainerRadiosCompany>
             <InputRadio
               type="radio"
+              error={errors.type_company && touched.type_company}
               disabled={disabled}
               name="typeCompany"
               value="UBISTART"
@@ -77,6 +79,7 @@ const RegisterCompany = ({ data, disabled }) => {
           <ContainerRadiosCompany>
             <InputRadio
               type="radio"
+              error={errors.type_company && touched.type_company}
               disabled={disabled}
               name="typeCompany"
               value="CLIENT"
@@ -89,6 +92,7 @@ const RegisterCompany = ({ data, disabled }) => {
           <ContainerRadiosCompany style={{marginBottom:"2em"}}>
             <InputRadio
               type="radio"
+              error={errors.type_company && touched.type_company}
               disabled={disabled}
               name="typeCompany"
               value="SUPPLIER"
@@ -98,6 +102,7 @@ const RegisterCompany = ({ data, disabled }) => {
             />
             <LabelInputRadio for="typeCompany"> Fornecedor </LabelInputRadio>
           </ContainerRadiosCompany>
+
         </Typecompany>
       </ContainerTypecompany>
       <RegisterCompanyForm>

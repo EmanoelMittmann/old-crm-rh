@@ -79,6 +79,7 @@ const RegisterProfessionalsData = ({ data }) => {
     handleChange,
     errors,
     touched,
+    setFieldValue,
     setFieldTouched,
     setFieldError
   } = data;
@@ -634,14 +635,15 @@ const RegisterProfessionalsData = ({ data }) => {
           />
           <SelectBank
             value={values.professional_data.bank}
-            onChange={handleChange("professional_data.bank")}
-            padding="0em 2em 0 0em"
-            placeHolder={"Banco"}
             error={errors?.professional_data?.bank}
             touched={touched?.professional_data?.bank}
-            label="Banco"
+            onChange={handleChange('professional_data.bank')}
+            label="Banco "
             width="90%"
-            lineWidth="100%"
+            padding='0em 0em 0em 1em'
+            setFieldValue={setFieldValue}
+            lineWidth="32.3%"
+            translate={"translate(0em,3em)"}
             name="professional_data.bank"
             required
           />
