@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -53,7 +53,6 @@ const RegisterProfessional = () => {
     removeProject,
     editProject,
   };  
-
   const schema = Yup.object().shape({
     name: Yup.string().required(messages.required),
     cpf: Yup.string()
@@ -126,7 +125,7 @@ const RegisterProfessional = () => {
       company_phone_number: Yup.string().nullable(),
       bank: Yup.string().required(messages.required),
       account_number: Yup.string().required(messages.required),
-      agency: Yup.string().required(messages.required).max(6, "Invalido"),
+      agency: Yup.string().required(messages.required).max(5, "Invalido"),
       account_type: Yup.string().required(messages.required),
       type_of_transfer: Yup.string().required(messages.required),
       pix_key_type: Yup.string()
@@ -220,7 +219,7 @@ const RegisterProfessional = () => {
       mounth_hours: "",
       function_job: "",
       fixed_payment_value: "",
-      extra_hour_activated: true,
+      extra_hour_activated: false,
       variable1: "",
       variable2: cleanMask(""),
       extra_hour_value: "",
@@ -513,7 +512,6 @@ const RegisterProfessional = () => {
       )
     );
   }
-
   function calculateExtraHourValue(values, setFieldValue) {
     if (values.variable1 > 0 && values.variable2 !== "") {
       let calc = values.variable2 / values.variable1;
@@ -524,6 +522,10 @@ const RegisterProfessional = () => {
     }
   }
 
+  useEffect(() => {
+    setFieldValue('professional_data.account_number',(values.professional_data.account_number).replace('-',''))
+  },[values.professional_data.account_number])
+  
   function resetPixKeyIfNecessary(
     values,
     oldValue,

@@ -210,6 +210,10 @@ export const RegisterCompanies = () => {
     getCompanyData()
   }, []);
 
+  useEffect(() => {
+    setFieldValue('account_number',cleanMask(values.account_number))
+  },[values.account_number])
+
   return (
     <>
       <RegisterProfessionalTitleContainer>

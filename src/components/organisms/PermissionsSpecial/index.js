@@ -13,7 +13,6 @@ export const PermissionsSpecial = ({ permissions, formik }) => {
     const general = permissions.filter((prop) => prop.group_name === "GENERAL");
     const special = permissions.filter((prop) => prop.group_name === "SPECIAL");
 
-
     return (
         <ContainerGeneral>
             <ContainerCheckTitle>
