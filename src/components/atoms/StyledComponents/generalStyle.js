@@ -27,6 +27,7 @@ export const Label = styled.span`
     padding: 0 0.3em;
     position: absolute;
     font-size: 0.8rem;
+    z-index: 1;
     color: #454F5B;
     font-weight: 600;
     background: white;

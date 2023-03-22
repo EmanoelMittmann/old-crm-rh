@@ -14,10 +14,6 @@ const PrivateRoute = ({ component: Component, id, ...rest }) => {
   const path = rest.path;
   const { permissions } = JSON.parse(localStorage.getItem('@UbiRH/USER'))
 
-  if(!permissions.includes(1)){
-    permissions.push(1)
-  }
-  
   function handleTemplate(path) {
     return templates.find((obj) => {
       return obj.path === path;

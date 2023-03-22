@@ -1,84 +1,108 @@
-import React from "react";
 import { useEffect, useState } from "react";
-import { ErrorMessage, InputLine, Father } from "../DefaultInput/style";
-import arrowPointingDown from "../../../assets/icons/arrowPointingDown.svg";
+import { InputLine, Father, DefaultInput } from "../DefaultInput/style";
 import "react-toastify/dist/ReactToastify.min.css";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { DefaultToast } from "../Toast/DefaultToast";
-
 import axios from "axios";
-import {
-  Img,
-  InputSelectContainer,
-  InputSelectOption,
-  InputSelectOptionPlaceholder,
-  Label,
-  RequiredLabel,
-} from "./style.js";
+import { Container, InputSelectOption, Label, RequiredLabel } from "./style.js";
+import { ErrorMessage } from "../InputSelectUf/style";
 
 function InputBank({
-  onChange,
-  placeHolder,
   width,
-  lineWidth,
   value,
-  margin,
-  touched,
-  error,
+  setFieldValue,
   label,
-  required
+  required,
+  error,
+  touched,
+  translate,
+  lineWidth,
+  padding,
+  name
 }) {
   const [state, setState] = useState([]);
-  const [focus, setFocus] = useState(false);
-  const [blur, setBlur] = useState(false);
-  const [errorRequest, setErrorRequest] = useState(null);
+  const [text, setText] = useState("");
+  const [filtered, setFiltered] = useState([]);
+  const [visible, setVisible] = useState(false);
+  const propName = name;
 
-  useEffect(() => {
-    axios
-      .get(`https://brasilapi.com.br/api/banks/v1`)
-      .then((response) => {
-        setState(response.data);
-      })
-      .catch((error) => {
-        setErrorRequest(error);
-        return toast.error(
-          <DefaultToast text="Não foi possível completar o upload do Banco!" />
-        );
-      });
-  }, []);
+  const getBanks = async () => {
+    try {
+      const { data } = await axios.get(`https://brasilapi.com.br/api/banks/v1`);
+      setState(data);
+      setFiltered(data);
+    } catch (error) {
+      return toast.error(<DefaultToast text={error.data} />);
+    }
+  };
+
+  const handleChange = async (e) => {
+    setText(e.target.value);
+    const filter = state.filter(
+      (obj) =>
+        obj["fullName"] && obj["fullName"].toLowerCase().match(text) && obj
+    );
+    setFiltered(filter);
+  };
+
+  const handleBlur = () => {
+    setTimeout(() => {
+      setVisible(false);
+    }, 100);
+  };
+
+  const handleFocus = () => {
+    setVisible(true);
+    setFieldValue(propName, "");
+  };
 
   const attributeValue = {
     ...(value && { value: value }),
   };
 
+  useEffect(() => {
+    getBanks();
+  }, []);
+
+  useEffect(() => {
+    if (text.trim() === "") {
+      setFiltered(state);
+    }
+  }, [text]);
+
   return (
-    <Father width={width}>
-      <InputLine width={lineWidth} margin={margin} error={error && touched}>
-        <Label focus={focus || value == ''} blur={blur || value !== ''}>
-          {label}
-          {required && <RequiredLabel>*</RequiredLabel>}
-        </Label>
-        <InputSelectContainer
-          {...attributeValue}
-          width={width}
-          onChange={onChange}
-        >
-          <InputSelectOptionPlaceholder disabled selected>
-            {placeHolder}
-          </InputSelectOptionPlaceholder>
-          {state?.map((option, index) => (
+    <>
+      <Father width={width}>
+        <InputLine error={error && touched}>
+          {label && (
+            <Label focus={label}>
+              {label}
+              {required && <RequiredLabel>*</RequiredLabel>}
+            </Label>
+          )}
+          <DefaultInput
+            {...attributeValue}
+            width={width}
+            onChange={(e) => handleChange(e)}
+            padding={padding}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
+            placeholder="Pesquise seu banco"
+          />
+        </InputLine>
+        {error && touched && <ErrorMessage>{error}</ErrorMessage>}
+        <Container visible={visible} translate={translate} width={lineWidth}>
+          {filtered?.map((item) => (
             <InputSelectOption
-              key={index}
-              value={`${option.name ? option.name : ""}`}
+              key={item?.ispb}
+              onClick={() => setFieldValue(propName, item?.name)}
             >
-              {option.name}
+              {item?.ispb} {item?.name}
             </InputSelectOption>
           ))}
-        </InputSelectContainer>
-        <Img src={arrowPointingDown} alt="Lupa" />
-      </InputLine>
-      {error && touched && <ErrorMessage>{error}</ErrorMessage>}
-    </Father>
+        </Container>
+      </Father>
+    </>
   );
 }
 
