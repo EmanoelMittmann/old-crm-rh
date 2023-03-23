@@ -77,7 +77,7 @@ const NewOrdemService = () => {
       try {
         await api({
           method: "POST",
-          url: `/findProfessionalCommission?&page=${page}&limit=5`,
+          url: `/findProfessionalCommissionOrCreateOrderOfService?&page=${page}&limit=5`,
           data: data,
           params: params,
         }).then((res) => {
@@ -259,6 +259,7 @@ const NewOrdemService = () => {
                 deleteProfessionalWithCommission={
                   deleteProfessionalWithCommission
                 }
+                
               />
             );
           })}

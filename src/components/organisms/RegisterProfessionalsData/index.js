@@ -644,11 +644,9 @@ const RegisterProfessionalsData = ({ data }) => {
             textColor={values.professional_data.bank}
             value={values.professional_data.bank}
             onChange={handleChange("professional_data.bank")}
-            padding="0em 2em 0 0em"
             placeholder="Banco"
             error={errors?.professional_data?.bank}
             touched={touched?.professional_data?.bank}
-            onChange={handleChange('professional_data.bank')}
             label="Banco "
             width="90%"
             padding='0em 0em 0em 1em'

@@ -25,7 +25,7 @@ export const ListHeaderProfessional = styled.div`
 export const ListHeaderCompanies = styled.div`
   display: flex;
   align-items: center;
-  width: 20%;
+  width: 15%;
 
 `;
 

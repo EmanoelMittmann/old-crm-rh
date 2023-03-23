@@ -37,23 +37,25 @@ const OrdemServiceListItem = ({
     if (IsExist) {
       setCheckedProfissional(
         checkedProfissional.filter((item) => item.professional_id !== index.id)
-      );
-    } else {
-      const isHaveComission = professionals.find((obj) => obj.id === index.id);
-
-      if (isHaveComission.commission) {
-        setCheckedProfissional([
-          ...checkedProfissional,
-          { professional_id: index.id },
-        ]);
+        );
       } else {
-        setCheckedProfissional([
-          ...checkedProfissional,
-          { professional_id: index.id, commission: 0 },
-        ]);
+        const isHaveComission = professionals.find((obj) => obj.id === index.id);
+        
+        
+        if (isHaveComission.commission) {
+          setCheckedProfissional([
+            ...checkedProfissional,
+            { professional_id: index.id },
+          ]);
+        } else {
+          setCheckedProfissional([
+            ...checkedProfissional,
+            { professional_id: index.id, commission: 0, companies: Number(id) },
+          ]);
+        }
       }
-    }
-  };
+      console.log('checkedProfissional: ', checkedProfissional);
+    };
 
   const getCompanies = async () => {
     try {
@@ -112,13 +114,14 @@ const OrdemServiceListItem = ({
         <p>{index.name}</p>
       </OrdemServiceItens>
       <ContainerSelect>
+
         <InputSelect
           lineWidth="12em"
-          placeholder="Empresas"
           value={id}
           onChange={(e) => setId(e.target.value)}
           options={companies}
           width="100%"
+          // onClick={() => handleClick()}
         />
       </ContainerSelect>
         
