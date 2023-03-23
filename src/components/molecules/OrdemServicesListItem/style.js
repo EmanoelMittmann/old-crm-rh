@@ -16,7 +16,7 @@ export const OrdemServiceItens = styled.div`
   width: ${(props) => props.width};
 
   #box {
-    margin-right: 10px;
+    margin-right: 6px;
     width: 1.2em;
     height: 1.2em;
   }
@@ -24,3 +24,8 @@ export const OrdemServiceItens = styled.div`
     outline: none;
   }
 `;
+export const ContainerSelect = styled.div`
+    width: 30%;
+    display: flex;
+    justify-content: center;
+`
