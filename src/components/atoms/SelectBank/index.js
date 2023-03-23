@@ -4,20 +4,21 @@ import "react-toastify/dist/ReactToastify.min.css";
 import { toast } from "react-toastify";
 import { DefaultToast } from "../Toast/DefaultToast";
 import axios from "axios";
-import { Img, InputSelectContainer, InputSelectOption, InputSelectOptionPlaceholder, Label, RequiredLabel } from "../DefautInputSelect/style";
-
+import { Container, InputSelectOption, Label, RequiredLabel } from "./style.js";
+import { ErrorMessage } from "../InputSelectUf/style";
 
 function InputBank({
-  onChange,
-  placeholder,
   width,
   value,
-  margin,
-  touched,
-  error,
+  setFieldValue,
   label,
   required,
-  textColor
+  error,
+  touched,
+  translate,
+  lineWidth,
+  padding,
+  name
 }) {
   const [state, setState] = useState([]);
   const [text, setText] = useState("");
@@ -70,23 +71,28 @@ function InputBank({
   }, [text]);
 
   return (
-    <Father width={width}>
-      <InputLine width={lineWidth} margin={margin} error={error && touched}>
-        <Label focus={focus || value == ''} blur={blur || value !== ''}>
-          {label}
-          {required && <RequiredLabel>*</RequiredLabel>}
-        </Label>
-        <InputSelectContainer
-          {...attributeValue}
-          textColor={textColor}
-          width={width}
-          onChange={onChange}
-          placeholder={placeholder}
-        >
-          {placeholder && <InputSelectOptionPlaceholder disabled selected >
-            {placeholder}
-          </InputSelectOptionPlaceholder>}
-          {state?.map((option, index) => (
+    <>
+      <Father width={width}>
+        <InputLine error={error && touched}>
+          {label && (
+            <Label focus={label}>
+              {label}
+              {required && <RequiredLabel>*</RequiredLabel>}
+            </Label>
+          )}
+          <DefaultInput
+            {...attributeValue}
+            width={width}
+            onChange={(e) => handleChange(e)}
+            padding={padding}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
+            placeholder="Pesquise seu banco"
+          />
+        </InputLine>
+        {error && touched && <ErrorMessage>{error}</ErrorMessage>}
+        <Container visible={visible} translate={translate} width={lineWidth}>
+          {filtered?.map((item) => (
             <InputSelectOption
               key={item?.ispb}
               onClick={() => setFieldValue(propName, item?.name)}

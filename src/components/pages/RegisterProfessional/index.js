@@ -53,10 +53,7 @@ const RegisterProfessional = () => {
     removeProject,
     editProject,
   };
-<<<<<<< HEAD
 
-=======
->>>>>>> 7831cc65b7b072f2108c94617c0507a62d7a60e8
   const schema = Yup.object().shape({
     name: Yup.string().required(messages.required),
     cpf: Yup.string()
@@ -471,54 +468,52 @@ const RegisterProfessional = () => {
     if (!jobs.length) optionsJob();
     if (!allProjects.length) getAllProjects();
     if (id) {
-          const {data} = await api.get(`/user/${id}`)
-          setOldValue(data[0]);
-          Object.entries(data[0]).forEach(([property, value]) => {
-            if (property.includes("date")) {
-              setFieldValue(property, getDate(value));
-            } else if (property.includes("cnpj")) {
-              setFieldValue(
-                property,
-                value.replace(
-                  /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
-                  "$1 $2 $3/$4-$5"
-                )
-              );
-            } else if (property.includes("fixed_payment_value")) {
-              setFieldValue(property, `R$${value},00`);
-            } else if (property.includes("cep")) {
-              let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
-              setUniqueCEP(data);
-              setFieldValue(property, data);
-            } else if (property.includes("company_cep")) {
-              let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
-              setAnotherCEP(data);
-              setFieldValue(property, data);
-            } else if (property.includes("cpf")) {
-              let data = value.replace(
-                /(\d{3})(\d{3})(\d{3})(\d{2})/,
-                "$1.$2.$3-$4"
-              );
-              setUniqueCpf(data);
-              setFieldValue(property, data);
-            } else if (property.includes("extra_hour_value")) {
-              setFieldValue(property, String(value).replace(".", ","));
-            } else if (property.includes("permissions")) {
-              setFieldValue(
-                property,
-                value.map((item) => item.id)
-              );
-            } else {
-              setFieldValue(property, value);
-            }
-          });
+      const { data } = await api.get(`/user/${id}`)
+      setOldValue(data[0]);
+      Object.entries(data[0]).forEach(([property, value]) => {
+        if (property.includes("date")) {
+          setFieldValue(property, getDate(value));
+        } else if (property.includes("cnpj")) {
+          setFieldValue(
+            property,
+            value.replace(
+              /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
+              "$1 $2 $3/$4-$5"
+            )
+          );
+        } else if (property.includes("fixed_payment_value")) {
+          setFieldValue(property, `R$${value},00`);
+        } else if (property.includes("cep")) {
+          let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
+          setUniqueCEP(data);
+          setFieldValue(property, data);
+        } else if (property.includes("company_cep")) {
+          let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
+          setAnotherCEP(data);
+          setFieldValue(property, data);
+        } else if (property.includes("cpf")) {
+          let data = value.replace(
+            /(\d{3})(\d{3})(\d{3})(\d{2})/,
+            "$1.$2.$3-$4"
+          );
+          setUniqueCpf(data);
+          setFieldValue(property, data);
+        } else if (property.includes("extra_hour_value")) {
+          setFieldValue(property, String(value).replace(".", ","));
+        } else if (property.includes("permissions")) {
+          setFieldValue(
+            property,
+            value.map((item) => item.id)
+          );
+        } else {
+          setFieldValue(property, value);
+        }
+      });
       reloadProjects();
       return () => {
         setJobs([]);
         setAllProjects([]);
       };
-    } catch (error) {
-      console.error(error)
     }
   }
 
