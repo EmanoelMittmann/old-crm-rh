@@ -22,7 +22,7 @@ export const ContainerRow = styled.div`
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 1.5em;
+    margin-bottom: 2em;
 
     &:last-child {
         margin-bottom: 3em;

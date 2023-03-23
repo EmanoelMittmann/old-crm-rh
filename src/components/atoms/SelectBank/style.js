@@ -19,11 +19,42 @@ export const InputSelectContainer = styled.select`
 
 export const InputSelectOption = styled.option`
     color: black;
-    height: 100px;
+    width: 100%;
+    padding: 0.5em 0em 0em 0.5em;
+    gap: 2em;
     border: none;
     font-size: 1rem;
     font-weight: 500;
+    transition: 100ms all ease-out;
+    cursor: pointer;
 
+    :hover{
+        background-color: #ddd;
+    }
+`
+
+export const Container = styled.div`
+    visibility: ${props => props.visible ? 'visible' : 'hidden'};
+    width: ${props => props.width ? props.width : '34em'};
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 10em;
+    transform: ${props => props.translate};
+    position: absolute;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    z-index: 10;
+    background-color: white;
+    position: absolute;
+    ::-webkit-scrollbar{
+        width:10px;
+        background-color: #ddd;
+    }
+    ::-webkit-scrollbar-thumb{
+        background-color: #fff;
+        border-radius: 3px;
+        cursor: pointer;
+}
 `
 
 export const InputSelectOptionPlaceholder = styled.option`
@@ -64,6 +95,20 @@ const fadeUp = keyframes`
         top: 10px;
     }
 `
+
+export const InputDynamic = styled.div`
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    width: ${props => props.width};
+    height: 45px;
+    border-radius: 8px;
+    border: 1px solid rgba(145, 158, 171, 0.67);
+    color: rgba(145, 158, 171, 0.67);
+    text-overflow: ellipsis;
+    background-color: white;
+`
+
 export const Label = styled.span`
     display: inline-block;
     padding: 0 0.3em;

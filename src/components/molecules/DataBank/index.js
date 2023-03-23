@@ -9,7 +9,7 @@ import SecondaryText from '../../atoms/SecondaryText/style'
 
 const DataBank = ({data}) => {
     
-    const {values, handleChange, touched, setFieldTouched, errors} = data
+    const {values, handleChange, touched, setFieldTouched,setFieldValue ,errors} = data
   
   return (
     <ContainerRegisterCompanyData>
@@ -24,8 +24,10 @@ const DataBank = ({data}) => {
             error={errors?.bank}
             touched={touched?.bank}
             label="Banco"
-            width="100%"
-            lineWidth="98%"
+            width="47em"
+            setFieldValue={setFieldValue}
+            lineWidth="44.6%"
+            translate={"translate(0,3em)"}
             name="bank"
             required
           />

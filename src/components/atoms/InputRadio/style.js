@@ -5,7 +5,7 @@ export const InputRadio = styled.input`
 	appearance: none;
 	width: 18px;
 	height: 18px;
-	border: 1px solid ${props => props.color};
+	border: 1px solid ${props => props.color ? props.color : props.error && 'red'};
 	border-radius: 50%;
 	background-clip: content-box;
 	padding: 2.5px;

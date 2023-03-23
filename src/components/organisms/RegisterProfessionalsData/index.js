@@ -80,6 +80,7 @@ const RegisterProfessionalsData = ({ data }) => {
     handleChange,
     errors,
     touched,
+    setFieldValue,
     setFieldTouched,
     setFieldError
   } = data;
@@ -647,9 +648,13 @@ const RegisterProfessionalsData = ({ data }) => {
             placeholder="Banco"
             error={errors?.professional_data?.bank}
             touched={touched?.professional_data?.bank}
-            label="Banco"
+            onChange={handleChange('professional_data.bank')}
+            label="Banco "
             width="90%"
-            lineWidth="100%"
+            padding='0em 0em 0em 1em'
+            setFieldValue={setFieldValue}
+            lineWidth="32.3%"
+            translate={"translate(0em,3em)"}
             name="professional_data.bank"
             required
           />
@@ -662,6 +667,7 @@ const RegisterProfessionalsData = ({ data }) => {
             error={errors?.professional_data?.account_type}
             touched={touched?.professional_data?.account_type}
             padding="0em 2em 0 0em"
+            width='20em'
             lineWidth="100%"
             name="professional_data.account_type"
             label="Tipo da conta"

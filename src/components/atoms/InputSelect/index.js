@@ -66,7 +66,7 @@ const InputSelect = ({
         </InputSelectContainer>
         <Img src={arrowPointingDown} alt="Lupa" />
       </InputLine>
-      {error && touched && <ErrorMessage>{error}</ErrorMessage>}
+      {error && touched && <ErrorMessage visible={error}>{error}</ErrorMessage>}
     </Father>
   );
 };

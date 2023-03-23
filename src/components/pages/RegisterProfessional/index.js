@@ -53,7 +53,10 @@ const RegisterProfessional = () => {
     removeProject,
     editProject,
   };
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7831cc65b7b072f2108c94617c0507a62d7a60e8
   const schema = Yup.object().shape({
     name: Yup.string().required(messages.required),
     cpf: Yup.string()
@@ -115,7 +118,7 @@ const RegisterProfessional = () => {
     professional_data: Yup.object().shape({
       cnpj: Yup.string().min(18, "CNPJ Inválido").nullable(),
       razao_social: Yup.string().nullable(),
-      type_person: Yup.string(),
+      type_person: Yup.string().required(messages.required),
       fantasy_name: Yup.string().nullable(),
       company_city_name: Yup.string().nullable(),
       company_street_name: Yup.string().nullable(),
@@ -217,7 +220,8 @@ const RegisterProfessional = () => {
       cpf: cleanMask(""),
       rg: "".toString(),
       birth_date: "",
-      avatar: "https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png",
+      avatar:
+        "https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png",
       cep: cleanMask(""),
       street_name: "",
       house_number: "",
@@ -392,8 +396,12 @@ const RegisterProfessional = () => {
     setAllProjects(data.data);
   }, []);
 
-
-  async function addProject(id_project, workload, extra_hours_limit, is_tech_lead) {
+  async function addProject(
+    id_project,
+    workload,
+    extra_hours_limit,
+    is_tech_lead
+  ) {
     try {
       await api.post(`/userProjects/user/${id}`, {
         id: id_project,
@@ -432,12 +440,14 @@ const RegisterProfessional = () => {
       });
       reloadProjects();
     } catch (error) {
-      toast.error(<DefaultToast text="Erro ao remover projeto. Por favor, tente novamente mais tarde." />, {
-        toastId: "delete",
-      });
+      toast.error(
+        <DefaultToast text="Erro ao remover projeto. Por favor, tente novamente mais tarde." />,
+        {
+          toastId: "delete",
+        }
+      );
     }
   }
-
 
   async function editProject(project, workload, extra_hours_limit) {
     try {
@@ -458,51 +468,50 @@ const RegisterProfessional = () => {
   }
 
   const getProfessionalData = async () => {
-    try {
-      if (!jobs.length) optionsJob();
-      if (!allProjects.length) getAllProjects();
-      if (id) {
-        const { data } = await api.get(`/user/${id}`);
-        setOldValue(data);
-        for (const [property, value] of Object.entries(data[0]))
-          if (property.includes("date")) {
-            setFieldValue(property, getDate(value));
-          } else if (property.includes("cnpj")) {
-            setFieldValue(
-              property,
-              value.replace(
-                /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
-                "$1 $2 $3/$4-$5"
-              )
-            );
-          } else if (property.includes("fixed_payment_value")) {
-            setFieldValue(property, `R$${value},00`);
-          } else if (property.includes("cep")) {
-            let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
-            setUniqueCEP(data);
-            setFieldValue(property, data);
-          } else if (property.includes("company_cep")) {
-            let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
-            setAnotherCEP(data);
-            setFieldValue(property, data);
-          } else if (property.includes("cpf")) {
-            let data = value.replace(
-              /(\d{3})(\d{3})(\d{3})(\d{2})/,
-              "$1.$2.$3-$4"
-            );
-            setUniqueCpf(data);
-            setFieldValue(property, data);
-          } else if (property.includes("extra_hour_value")) {
-            setFieldValue(property, String(value).replace(".", ","));
-          } else if (property.includes("permissions")) {
-            setFieldValue(
-              property,
-              value.map((item) => item.id)
-            );
-          } else {
-            setFieldValue(property, value);
-          }
-      };
+    if (!jobs.length) optionsJob();
+    if (!allProjects.length) getAllProjects();
+    if (id) {
+          const {data} = await api.get(`/user/${id}`)
+          setOldValue(data[0]);
+          Object.entries(data[0]).forEach(([property, value]) => {
+            if (property.includes("date")) {
+              setFieldValue(property, getDate(value));
+            } else if (property.includes("cnpj")) {
+              setFieldValue(
+                property,
+                value.replace(
+                  /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
+                  "$1 $2 $3/$4-$5"
+                )
+              );
+            } else if (property.includes("fixed_payment_value")) {
+              setFieldValue(property, `R$${value},00`);
+            } else if (property.includes("cep")) {
+              let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
+              setUniqueCEP(data);
+              setFieldValue(property, data);
+            } else if (property.includes("company_cep")) {
+              let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
+              setAnotherCEP(data);
+              setFieldValue(property, data);
+            } else if (property.includes("cpf")) {
+              let data = value.replace(
+                /(\d{3})(\d{3})(\d{3})(\d{2})/,
+                "$1.$2.$3-$4"
+              );
+              setUniqueCpf(data);
+              setFieldValue(property, data);
+            } else if (property.includes("extra_hour_value")) {
+              setFieldValue(property, String(value).replace(".", ","));
+            } else if (property.includes("permissions")) {
+              setFieldValue(
+                property,
+                value.map((item) => item.id)
+              );
+            } else {
+              setFieldValue(property, value);
+            }
+          });
       reloadProjects();
       return () => {
         setJobs([]);
@@ -539,8 +548,11 @@ const RegisterProfessional = () => {
     }
   }
   useEffect(() => {
-    setFieldValue('professional_data.account_number', (values.professional_data.account_number).replace('-', ''))
-  }, [values.professional_data.account_number])
+    setFieldValue(
+      "professional_data.account_number",
+      values.professional_data.account_number.replace("-", "")
+    );
+  }, [values.professional_data.account_number]);
 
   function resetPixKeyIfNecessary(
     values,
