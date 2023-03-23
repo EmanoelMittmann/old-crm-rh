@@ -81,7 +81,7 @@ const NewOrdemService = () => {
           data: data,
           params: params,
         }).then((res) => {
-          if (res.data.msg === "Os criada com sucesso") {
+          if (res.data.msg === "successfully generated report") {
             dispatch(closeModal({ type: "CLOSEMODAL" }));
             history.push("/serviceOrders");
             dispatch(valueOfCommission([]));

@@ -8,7 +8,7 @@ import { ContainerOrdemServices, ContainerSelect, OrdemServiceItens } from "./st
 
 
 //Retirando mascara do componente 'comission' => value
-// Expressão (/[^0-9,]*/g) - parseFloat(value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2);
+// Expressão (/[^0-9,]/g) - parseFloat(value.replace(/[^0-9,]/g, '').replace(',', '.')).toFixed(2);
 // 1 - /.../g: diz para o javascript substituir todas as incidências encontradas (g).
 // 2 - [^0-9,]*: manda remover tudo o que "não for numérico" e "não for virgula" (^);
 // 3 - O segundo "replace" substitui a virgula por ponto.
@@ -24,8 +24,10 @@ const OrdemServiceListItem = ({
 }) => {
   const [check, setCheck] = useState(false);
   const [companies, setCompanies] = useState([]);
-  const [id, setId] = useState();
-
+  const [idCompanie, setIdCompanie] = useState();
+  const [isFull, setIsFull] = useState(false);
+  
+  
   const state = useSelector((state) => state.valueOfCommission);
   const hourQuantity = index?.extrahour_release
     .map((prop) => prop.hour_quantity)
@@ -50,13 +52,23 @@ const OrdemServiceListItem = ({
         } else {
           setCheckedProfissional([
             ...checkedProfissional,
-            { professional_id: index.id, commission: 0, companies: Number(id) },
+            { professional_id: index.id, commission: 0, companies_id: idCompanie },
           ]);
         }
       }
-      console.log('checkedProfissional: ', checkedProfissional);
+      
     };
-
+  const handleClickCompanies = () =>{
+    
+    const obj = checkedProfissional.map((item) => {
+      if (item.professional_id === index.id) {
+        return { ...item, companies_id: idCompanie !== undefined ? idCompanie : item.companies_id };
+      } else {
+        return item;
+      }
+    });
+    setCheckedProfissional(obj);
+  }
   const getCompanies = async () => {
     try {
       const { data } = await api({
@@ -96,8 +108,8 @@ const OrdemServiceListItem = ({
     });
     setCheckedProfissional(newArr);
   }, [state]);
-
-
+  
+ 
   return (
     <ContainerOrdemServices key={index.id}>
       <OrdemServiceItens width="15%" content="flex-start">
@@ -117,11 +129,13 @@ const OrdemServiceListItem = ({
 
         <InputSelect
           lineWidth="12em"
-          value={id}
-          onChange={(e) => setId(e.target.value)}
-          options={companies}
+          value={idCompanie}
+          onChange={(e) => setIdCompanie(e.target.value)}
+          options={[{ id: "", name: "Selecionar time" }, ...companies]}
+          placeholder="Selecione uma empresa"
           width="100%"
-          // onClick={() => handleClick()}
+          onClick={()=> handleClickCompanies()}
+          
         />
       </ContainerSelect>
         
