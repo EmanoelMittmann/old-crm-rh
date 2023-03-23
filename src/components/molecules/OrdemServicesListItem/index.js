@@ -25,9 +25,8 @@ const OrdemServiceListItem = ({
   const [check, setCheck] = useState(false);
   const [companies, setCompanies] = useState([]);
   const [idCompanie, setIdCompanie] = useState();
-  const [isFull, setIsFull] = useState(false);
-  
-  
+  const [onlyError, setOnlyError] = useState('')
+
   const state = useSelector((state) => state.valueOfCommission);
   const hourQuantity = index?.extrahour_release
     .map((prop) => prop.hour_quantity)
@@ -59,7 +58,6 @@ const OrdemServiceListItem = ({
       
     };
   const handleClickCompanies = () =>{
-    
     const obj = checkedProfissional.map((item) => {
       if (item.professional_id === index.id) {
         return { ...item, companies_id: idCompanie !== undefined ? idCompanie : item.companies_id };
@@ -109,6 +107,13 @@ const OrdemServiceListItem = ({
     setCheckedProfissional(newArr);
   }, [state]);
   
+  // const handleAddCompany = () => {
+  //   if (idCompanie) {
+  //     handleClickCompanies()
+  //   } else {
+  //     setOnlyError("Selecione uma empresa")
+  //   }
+  // }
  
   return (
     <ContainerOrdemServices key={index.id}>
@@ -126,8 +131,8 @@ const OrdemServiceListItem = ({
         <p>{index.name}</p>
       </OrdemServiceItens>
       <ContainerSelect>
-
         <InputSelect
+          textColor={companies}
           lineWidth="12em"
           value={idCompanie}
           onChange={(e) => setIdCompanie(e.target.value)}
@@ -135,10 +140,10 @@ const OrdemServiceListItem = ({
           placeholder="Selecione uma empresa"
           width="100%"
           onClick={()=> handleClickCompanies()}
-          
+          error={onlyError}
+          touched={onlyError}     
         />
-      </ContainerSelect>
-        
+      </ContainerSelect> 
       <OrdemServiceItens width="20%" content="start">
         {index.professional_data?.cnpj}
       </OrdemServiceItens>

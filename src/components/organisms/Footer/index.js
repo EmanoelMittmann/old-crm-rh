@@ -20,8 +20,6 @@ const Footer = ({
   onPrice,
 }) => {
 
-
-
   const RightArrowClickHandler = (e) => {
     if (currentPage === lastPage) return;
     nextPage();

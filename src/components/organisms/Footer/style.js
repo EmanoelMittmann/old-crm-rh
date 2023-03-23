@@ -21,7 +21,7 @@ export const ContainerFlex = styled.div`
     width: 100%;
     display: flex;
     white-space: nowrap;
-    gap: 22em;
+    gap: 75%;
     align-items: center;
     .price{
         display: flex;
