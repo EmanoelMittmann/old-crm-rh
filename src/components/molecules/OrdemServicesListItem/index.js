@@ -25,10 +25,6 @@ const OrdemServiceListItem = ({
   const [check, setCheck] = useState(false);
   const [companies, setCompanies] = useState([]);
   const [idCompanie, setIdCompanie] = useState();
-  const [wage, setWage] = useState(0)
-  const [comissionUser, setcomissionUser] = useState(0)
-  const [extraHours, setExtraHours] = useState(0)
-  const [totalPayment, setTotalPayment] = useState(0)
 
 
   const state = useSelector((state) => state.valueOfCommission);
@@ -84,42 +80,6 @@ const OrdemServiceListItem = ({
     setCheckedProfissional(obj);
   }
 
-  const totalSalaryPayment = () =>{
-    setTotalPayment(
-      index.value
-        ? (
-          Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2)) +
-          Number(index.fixed_payment_value) +
-          Number(hourQuantity * index.extra_hour_value)
-        ).toLocaleString("pt-br", { style: "currency", currency: "BRL" })
-        : (
-          Number(index.fixed_payment_value) +
-          Number(hourQuantity * index.extra_hour_value)
-        ).toLocaleString("pt-br", {
-          style: "currency",
-          currency: "BRL",
-        }),
-
-      setWage(index.fixed_payment_value),
-
-      setcomissionUser(index.value
-        ? ` ${Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2)).toLocaleString("pt-br", {
-          style: "currency",
-          currency: "BRL",
-        })}`
-        : " - "),
-      setExtraHours(hourQuantity
-        ? Number(hourQuantity * index.extra_hour_value).toLocaleString(
-          "pt-br",
-          {
-            style: "currency",
-            currency: "BRL",
-          }
-        )
-        : "-")
-    )
-  }
-
 
   useEffect(() => {
     const exist = checkedProfissional.map((item) => item.professional_id);
@@ -127,12 +87,13 @@ const OrdemServiceListItem = ({
     if (idCompanie === undefined) setIdCompanie(1)
   }, [checkedProfissional]);
 
+
   useEffect(() => {
     deleteProfessionalWithCommission(index);
     getCompanies();
-    totalSalaryPayment()
-  }, [check, wage, extraHours, totalPayment, comissionUser]);
-  console.log('totalPayment: ', totalPayment);
+    handleClickCompanies()
+
+  }, [check]);
 
   useEffect(() => {
     const newArr = checkedProfissional.map((professional) => {
@@ -169,40 +130,56 @@ const OrdemServiceListItem = ({
       </OrdemServiceItens>
       <ContainerSelect>
         <InputSelect
-          textColor={companies}
+        textColor={companies}
           lineWidth="12em"
+          placeholder="Empresas"
           value={idCompanie}
           onChange={(e) => setIdCompanie(e.target.value)}
           options={companies}
           width="100%"
-          onClick={() => handleClickCompanies()}
-
         />
       </ContainerSelect>
+
       <OrdemServiceItens width="20%" content="start">
         {index.professional_data?.cnpj}
       </OrdemServiceItens>
-      
-      {/* valor salario */}
       <OrdemServiceItens width="18%" content="start">
-        R$ {wage},00
+        R$ {index.fixed_payment_value},00
       </OrdemServiceItens>
-
-      {/* valor da comissão */}
       <OrdemServiceItens width="17%" content="flex-start">
-        {comissionUser}
+        {index.value
+          ? ` ${Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2)).toLocaleString("pt-br", {
+            style: "currency",
+            currency: "BRL",
+          })}`
+          : " - "}
       </OrdemServiceItens>
-
-      {/* Valor das horas extras */}
       <OrdemServiceItens width="25%" content="flex-start">
-        { extraHours}
+        {hourQuantity
+          ? Number(hourQuantity * index.extra_hour_value).toLocaleString(
+            "pt-br",
+            {
+              style: "currency",
+              currency: "BRL",
+            }
+          )
+          : "-"}
       </OrdemServiceItens>
-
-      {/* Soma do Total */}
       <OrdemServiceItens width="10%" content="flex">
-        {totalPayment}
+        {index.value
+          ? (
+            Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2)) +
+            Number(index.fixed_payment_value) +
+            Number(hourQuantity * index.extra_hour_value)
+          ).toLocaleString("pt-br", { style: "currency", currency: "BRL" })
+          : (
+            Number(index.fixed_payment_value) +
+            Number(hourQuantity * index.extra_hour_value)
+          ).toLocaleString("pt-br", {
+            style: "currency",
+            currency: "BRL",
+          })}
       </OrdemServiceItens>
-      {extraHours}
     </ContainerOrdemServices>
   );
 };

@@ -268,7 +268,7 @@ const NewOrdemService = () => {
             );
           })}
         </ScrollContainer>
-        <OnPrice onPrice={checkedProfissional}/>
+        <OnPrice professionals={professionals} checkedProfissional={checkedProfissional} />
       </Container>
 
     </>
