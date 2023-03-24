@@ -18,7 +18,7 @@ function InputBank({
   translate,
   lineWidth,
   padding,
-  name
+  name,
 }) {
   const [state, setState] = useState([]);
   const [text, setText] = useState("");
@@ -29,6 +29,8 @@ function InputBank({
   const getBanks = async () => {
     try {
       const { data } = await axios.get(`https://brasilapi.com.br/api/banks/v1`);
+      data.pop()
+      data.pop()
       setState(data);
       setFiltered(data);
     } catch (error) {
@@ -38,10 +40,7 @@ function InputBank({
 
   const handleChange = async (e) => {
     setText(e.target.value);
-    const filter = state.filter(
-      (obj) =>
-        obj["fullName"] && obj["fullName"].toLowerCase().match(text) && obj
-    );
+    const filter = state.filter(obj => String(obj['name']).toLowerCase().match(text.toLowerCase()));
     setFiltered(filter);
   };
 
@@ -82,7 +81,7 @@ function InputBank({
           )}
           <DefaultInput
             {...attributeValue}
-            width={width}
+            width='100%'
             onChange={(e) => handleChange(e)}
             padding={padding}
             onBlur={handleBlur}
