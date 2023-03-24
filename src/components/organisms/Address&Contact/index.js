@@ -112,6 +112,7 @@ export const AddressContact = ({ data, disabled }) => {
                         required
                     />
                     <InputSelect
+                    textColor={values.uf}
                         value={values.uf}
                         onChange={handleChange('uf')}
                         options={optionsUF}
@@ -119,7 +120,7 @@ export const AddressContact = ({ data, disabled }) => {
                         disabled={disabled}
                         touched={touched.uf}
                         handleBlur={setFieldTouched}
-                        placeHolder="UF"
+                        placeholder="UF"
                         width="230px"
                         label="UF"
                         required

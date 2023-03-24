@@ -2,7 +2,10 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { ContainerOrdemServices, OrdemServiceItens } from "./style";
+import api from "../../../api/api";
+import InputSelect from "../../atoms/InputSelect";
+import { ContainerOrdemServices, ContainerSelect, OrdemServiceItens } from "./style";
+
 
 //Retirando mascara do componente 'comission' => value
 // Expressão (/[^0-9,]*/g) - parseFloat(value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2);
@@ -20,6 +23,9 @@ const OrdemServiceListItem = ({
   professionals,
 }) => {
   const [check, setCheck] = useState(false);
+  const [companies, setCompanies] = useState([]);
+  const [id, setId] = useState();
+
   const state = useSelector((state) => state.valueOfCommission);
   const hourQuantity = index?.extrahour_release
     .map((prop) => prop.hour_quantity)
@@ -49,6 +55,19 @@ const OrdemServiceListItem = ({
     }
   };
 
+  const getCompanies = async () => {
+    try {
+      const { data } = await api({
+        method: "GET",
+        url: "/companies",
+        razao_social: companies
+      });
+      setCompanies(data.data);
+    } catch (error) {
+      console.error(error)
+    }
+  };
+
   useEffect(() => {
     const exist = checkedProfissional.map((item) => item.professional_id);
     setCheck(exist.includes(index.id));
@@ -56,6 +75,7 @@ const OrdemServiceListItem = ({
 
   useEffect(() => {
     deleteProfessionalWithCommission(index);
+    getCompanies();
   }, [check]);
 
   useEffect(() => {
@@ -78,7 +98,7 @@ const OrdemServiceListItem = ({
 
   return (
     <ContainerOrdemServices key={index.id}>
-      <OrdemServiceItens width="37%" content="flex-start">
+      <OrdemServiceItens width="15%" content="flex-start">
         <input
           type="checkbox"
           name="professional"
@@ -91,6 +111,17 @@ const OrdemServiceListItem = ({
         />
         <p>{index.name}</p>
       </OrdemServiceItens>
+      <ContainerSelect>
+        <InputSelect
+          lineWidth="12em"
+          placeholder="Empresas"
+          value={id}
+          onChange={(e) => setId(e.target.value)}
+          options={companies}
+          width="100%"
+        />
+      </ContainerSelect>
+        
       <OrdemServiceItens width="20%" content="start">
         {index.professional_data?.cnpj}
       </OrdemServiceItens>

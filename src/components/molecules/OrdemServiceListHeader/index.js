@@ -8,6 +8,7 @@ import {
   ListHeaderProfessional,
   ListHeaderTotal,
   ListHeaderValueExtraHour,
+  ListHeaderCompanies,
 } from "./style";
 import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
 
@@ -15,9 +16,14 @@ const OrdemServiceHeader = ({sortByName}) => {
   return (
     <HeaderContainer>
       <ListHeaderProfessional>
-        <ListHeaderTitle margin='3em'>Professional</ListHeaderTitle>
+        <ListHeaderTitle margin="1em">Professional</ListHeaderTitle>
         <Arrows onClick={sortByName} />
       </ListHeaderProfessional>
+
+      <ListHeaderCompanies>
+        <ListHeaderTitle >Empresa</ListHeaderTitle>
+        <Arrows onClick={sortByName} />
+      </ListHeaderCompanies>
 
       <ListHeaderCNPJ>
         <ListHeaderTitle  margin='3em'>CNPJ</ListHeaderTitle>

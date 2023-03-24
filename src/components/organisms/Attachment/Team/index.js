@@ -217,7 +217,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         <InputSelect
           onChange={(e) => setJobProject(e.target.value)}
           options={jobsMember}
-          placeHolder="Cargo"
+          placeholder="Cargo"
           width="100%"
           lineWidth="15em"
           label="Cargo"

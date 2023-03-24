@@ -141,14 +141,14 @@ const OvertimeListIsTechLead = () => {
                     <InputSelect
                         options={projects}
                         onChange={(e) => setProjectParams(e.target.value)}
-                        placeHolder="Projeto"
+                        placeholder="Projeto"
                         width="100%"
                         lineWidth="15em"
                     />
                     <InputSelect
                         options={statusProject}
                         onChange={(e) => setStatusParams(e.target.value)}
-                        placeHolder="Status"
+                        placeholder="Status"
                         width="100%"
                         lineWidth="15em"
                     />

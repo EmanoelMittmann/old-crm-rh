@@ -12,7 +12,7 @@ import {
 const InputSelectAproval = ({
   onChange,
   options,
-  placeHolder,
+  placeholder,
   width,
   error,
   disabled,
@@ -35,10 +35,11 @@ const InputSelectAproval = ({
           disabled={disabled}
           onChange={onChange}
           onClick={onClick}
+          placeholder={placeholder}
         >
-          <InputSelectOptionPlaceholder disabled selected>
-            {placeHolder}
-          </InputSelectOptionPlaceholder>
+          {placeholder && <InputSelectOptionPlaceholder disabled selected >
+            {placeholder}
+          </InputSelectOptionPlaceholder>}
           {options?.map((option, index) => (
             <InputSelectOption
               key={index}

@@ -19,8 +19,14 @@ export const HeaderContainer = styled.div`
 export const ListHeaderProfessional = styled.div`
   display: flex;
   align-items: center;
-  width: 32%;
-  margin-left: -2em;
+  width: 23.5%;
+
+`;
+export const ListHeaderCompanies = styled.div`
+  display: flex;
+  align-items: center;
+  width: 20%;
+
 `;
 
 export const ListHeaderCNPJ = styled.div`

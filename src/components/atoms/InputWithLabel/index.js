@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { InputLine } from '../DefaultInput/style';
 import { DefaultInput } from '../DefaultInput/style';
-import { ErrorMessage, Label, RequiredLabel } from '../StyledComponents/generalStyle';
+import { ErrorMessage, Label, RequiredLabel } from '../DefautInputSelect/style.js';
 import { InputWithLabelContainer} from './style.js';
 
 const InputWithLabel = ({

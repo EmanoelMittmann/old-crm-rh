@@ -55,8 +55,9 @@ const Routes = () => {
                 <PrivateRoute path="/timeIstechLead" component={OvertimeListIsTechLead} id={10}/>
                 <PrivateRoute path="/invoiceSending" component={InvoiceSending} id={11}/>
                 <PrivateRoute path="/invoiceUpload" component={InvoiceUpload} id={10}/>
+
                 <PrivateRoute path="/releaseHours" component={ReleaseHours} id={10}/>
-                <PrivateRoute path="/DetailsRelease/:id" component={DetailsRelease} id={11}/>
+                <PrivateRoute path="/DetailsRelease/:id" component={DetailsRelease} id={10}/>
             </Switch>
         </BrowserRouter>
     );

@@ -13,6 +13,7 @@ export const SituationCadastion = ({ data, disabled }) => {
       <RegisterCompanyForm>
         <ContainerRow>
           <InputSelect
+            textColor={values.registration_status}
             value={values.registration_status}
             onChange={handleChange('registration_status')}
             error={errors.registration_status}
