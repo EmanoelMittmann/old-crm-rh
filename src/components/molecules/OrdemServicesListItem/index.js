@@ -25,7 +25,11 @@ const OrdemServiceListItem = ({
   const [check, setCheck] = useState(false);
   const [companies, setCompanies] = useState([]);
   const [idCompanie, setIdCompanie] = useState();
-  const [onlyError, setOnlyError] = useState('')
+  const [wage, setWage] = useState(0)
+  const [comissionUser, setcomissionUser] = useState(0)
+  const [extraHours, setExtraHours] = useState(0)
+  const [totalPayment, setTotalPayment] = useState(0)
+
 
   const state = useSelector((state) => state.valueOfCommission);
   const hourQuantity = index?.extrahour_release
@@ -38,35 +42,24 @@ const OrdemServiceListItem = ({
     if (IsExist) {
       setCheckedProfissional(
         checkedProfissional.filter((item) => item.professional_id !== index.id)
-        );
+      );
+    } else {
+      const isHaveComission = professionals.find((obj) => obj.id === index.id);
+
+      if (isHaveComission.commission) {
+        setCheckedProfissional([
+          ...checkedProfissional,
+          { professional_id: index.id },
+        ]);
       } else {
-        const isHaveComission = professionals.find((obj) => obj.id === index.id);
-        
-        
-        if (isHaveComission.commission) {
-          setCheckedProfissional([
-            ...checkedProfissional,
-            { professional_id: index.id },
-          ]);
-        } else {
-          setCheckedProfissional([
-            ...checkedProfissional,
-            { professional_id: index.id, commission: 0, companies_id: idCompanie },
-          ]);
-        }
+        setCheckedProfissional([
+          ...checkedProfissional,
+          { professional_id: index.id, commission: 0, companies_id: idCompanie },
+        ]);
       }
-      
-    };
-  const handleClickCompanies = () =>{
-    const obj = checkedProfissional.map((item) => {
-      if (item.professional_id === index.id) {
-        return { ...item, companies_id: idCompanie !== undefined ? idCompanie : item.companies_id };
-      } else {
-        return item;
-      }
-    });
-    setCheckedProfissional(obj);
-  }
+    }
+
+  };
   const getCompanies = async () => {
     try {
       const { data } = await api({
@@ -80,15 +73,66 @@ const OrdemServiceListItem = ({
     }
   };
 
+  const handleClickCompanies = () => {
+    const obj = checkedProfissional.map((item) => {
+      if (item.professional_id === index.id) {
+        return { ...item, companies_id: idCompanie !== undefined ? idCompanie : item.companies_id };
+      } else {
+        return item;
+      }
+    });
+    setCheckedProfissional(obj);
+  }
+
+  const totalSalaryPayment = () =>{
+    setTotalPayment(
+      index.value
+        ? (
+          Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2)) +
+          Number(index.fixed_payment_value) +
+          Number(hourQuantity * index.extra_hour_value)
+        ).toLocaleString("pt-br", { style: "currency", currency: "BRL" })
+        : (
+          Number(index.fixed_payment_value) +
+          Number(hourQuantity * index.extra_hour_value)
+        ).toLocaleString("pt-br", {
+          style: "currency",
+          currency: "BRL",
+        }),
+
+      setWage(index.fixed_payment_value),
+
+      setcomissionUser(index.value
+        ? ` ${Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2)).toLocaleString("pt-br", {
+          style: "currency",
+          currency: "BRL",
+        })}`
+        : " - "),
+      setExtraHours(hourQuantity
+        ? Number(hourQuantity * index.extra_hour_value).toLocaleString(
+          "pt-br",
+          {
+            style: "currency",
+            currency: "BRL",
+          }
+        )
+        : "-")
+    )
+  }
+
+
   useEffect(() => {
     const exist = checkedProfissional.map((item) => item.professional_id);
     setCheck(exist.includes(index.id));
+    if (idCompanie === undefined) setIdCompanie(1)
   }, [checkedProfissional]);
 
   useEffect(() => {
     deleteProfessionalWithCommission(index);
     getCompanies();
-  }, [check]);
+    totalSalaryPayment()
+  }, [check, wage, extraHours, totalPayment, comissionUser]);
+  console.log('totalPayment: ', totalPayment);
 
   useEffect(() => {
     const newArr = checkedProfissional.map((professional) => {
@@ -98,7 +142,7 @@ const OrdemServiceListItem = ({
       if (findProfessionalInCommission) {
         return {
           ...professional,
-          commission: parseFloat(findProfessionalInCommission.value.split('$')[1].replace(',','.'))
+          commission: parseFloat(findProfessionalInCommission.value.split('$')[1].replace(',', '.'))
         };
       } else {
         return professional;
@@ -106,15 +150,8 @@ const OrdemServiceListItem = ({
     });
     setCheckedProfissional(newArr);
   }, [state]);
-  
-  // const handleAddCompany = () => {
-  //   if (idCompanie) {
-  //     handleClickCompanies()
-  //   } else {
-  //     setOnlyError("Selecione uma empresa")
-  //   }
-  // }
- 
+
+
   return (
     <ContainerOrdemServices key={index.id}>
       <OrdemServiceItens width="15%" content="flex-start">
@@ -136,54 +173,36 @@ const OrdemServiceListItem = ({
           lineWidth="12em"
           value={idCompanie}
           onChange={(e) => setIdCompanie(e.target.value)}
-          options={[{ id: "", name: "Selecionar time" }, ...companies]}
-          placeholder="Selecione uma empresa"
+          options={companies}
           width="100%"
-          onClick={()=> handleClickCompanies()}
-          error={onlyError}
-          touched={onlyError}     
+          onClick={() => handleClickCompanies()}
+
         />
-      </ContainerSelect> 
+      </ContainerSelect>
       <OrdemServiceItens width="20%" content="start">
         {index.professional_data?.cnpj}
       </OrdemServiceItens>
+      
+      {/* valor salario */}
       <OrdemServiceItens width="18%" content="start">
-        R$ {index.fixed_payment_value},00
+        R$ {wage},00
       </OrdemServiceItens>
+
+      {/* valor da comissão */}
       <OrdemServiceItens width="17%" content="flex-start">
-        {index.value
-          ? ` ${Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2)).toLocaleString("pt-br", {
-            style: "currency",
-            currency: "BRL",
-          })}`
-          : " - "}
+        {comissionUser}
       </OrdemServiceItens>
+
+      {/* Valor das horas extras */}
       <OrdemServiceItens width="25%" content="flex-start">
-        {hourQuantity
-          ? Number(hourQuantity * index.extra_hour_value).toLocaleString(
-            "pt-br",
-            {
-              style: "currency",
-              currency: "BRL",
-            }
-          )
-          : "-"}
+        { extraHours}
       </OrdemServiceItens>
+
+      {/* Soma do Total */}
       <OrdemServiceItens width="10%" content="flex">
-        {index.value
-          ? (
-            Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2)) +
-            Number(index.fixed_payment_value) +
-            Number(hourQuantity * index.extra_hour_value)
-          ).toLocaleString("pt-br", { style: "currency", currency: "BRL" })
-          : (
-            Number(index.fixed_payment_value) +
-            Number(hourQuantity * index.extra_hour_value)
-          ).toLocaleString("pt-br", {
-            style: "currency",
-            currency: "BRL",
-          })}
+        {totalPayment}
       </OrdemServiceItens>
+      {extraHours}
     </ContainerOrdemServices>
   );
 };

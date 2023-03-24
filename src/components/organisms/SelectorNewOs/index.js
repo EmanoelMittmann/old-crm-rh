@@ -12,6 +12,7 @@ import {
   TitleOS,
   ContainerButtonsHeader,
   ContainerButtonGeral,
+  ContainerFlex,
 } from "./style";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
@@ -28,12 +29,11 @@ import {
   valueOfCommission,
 } from "../../../redux/actions";
 import ArrowRegister from "../../atoms/ArrowRegister";
-import Footer from "../Footer";
+import OnPrice from "../../utils/onPrice";
 
 const NewOrdemService = () => {
   const [searchResult, setSearchResult] = useState("");
   const [professionals, setProfessionals] = useState([]);
-  const [professionalMeta, setProfessionalMeta] = useState({});
   const [checkedProfissional, setCheckedProfissional] = useState([]);
   const [order, setOrder] = useState("");
   const [newId, setNewId] = useState([]);
@@ -49,29 +49,11 @@ const NewOrdemService = () => {
   const history = useHistory();
 
   let params = {};
-  const nextPage = () => {
-    handleFilterRequest("next");
-    getProfessionals();
-  };
-
-  const previousPage = () => {
-    handleFilterRequest("previous");
-    getProfessionals();
-  };
 
   const sortByName = () => {
     order === "" && setOrder("desc");
     order === "asc" && setOrder("desc");
     order === "desc" && setOrder("asc");
-  };
-  const handleFilterRequest = (pagesFilter) => {
-    if (pagesFilter === "previous")
-      params.page = `${professionalMeta.current_page - 1}`;
-
-    if (pagesFilter === "next")
-      params.page = `${professionalMeta.current_page + 1}`;
-
-    if (pagesFilter === undefined) params.page = professionalMeta.current_page;
   };
 
   const selectAll = () => {
@@ -79,15 +61,17 @@ const NewOrdemService = () => {
       setCheckedProfissional(
         professionals.map((item) => {
           if (item.commission) {
-            return {professional_id: item.id };
-          }else {
+            return { professional_id: item.id, companies_id: 1 };
+          } else {
             return {
               professional_id: item.id,
               commission: 0,
+              companies_id: 1,
             };
           }
         })
       );
+
     } else {
       setCheckedProfissional([]);
     }
@@ -97,7 +81,7 @@ const NewOrdemService = () => {
       try {
         await api({
           method: "POST",
-          url: `/findProfessionalCommissionOrCreateOrderOfService?&page=${page}&limit=10`,
+          url: `/findProfessionalCommissionOrCreateOrderOfService`,
           data: data,
           params: params,
         }).then((res) => {
@@ -114,7 +98,7 @@ const NewOrdemService = () => {
             setHaveCommissionMeta(res.data.meta);
           }
         });
-      } catch (err) {}
+      } catch (err) { }
     }
   };
 
@@ -148,13 +132,11 @@ const NewOrdemService = () => {
   };
 
   const getProfessionals = async () => {
-    handleFilterRequest()
     const { data } = await api({
       method: "get",
       url: `/professionals/?limit=20&search=${searchResult}`,
     });
     setProfessionals(data.data.filter(person => person.professional_data.cnpj !== null));
-    setProfessionalMeta(data.data)
   };
 
   useEffect(() => {
@@ -203,7 +185,7 @@ const NewOrdemService = () => {
       <ContainerButtonGeral>
         <ContainerButtonsHeader>
           <ContainerIconModal>
-            <ArrowRegister clickHandler={goBackClickHandler}/>
+            <ArrowRegister clickHandler={goBackClickHandler} />
           </ContainerIconModal>
           <TitleOS>Criar nova O.S</TitleOS>
         </ContainerButtonsHeader>
@@ -281,22 +263,14 @@ const NewOrdemService = () => {
                 deleteProfessionalWithCommission={
                   deleteProfessionalWithCommission
                 }
-                
+
               />
             );
           })}
         </ScrollContainer>
-        <Footer
-          onPrice={checkedProfissional}
-          height="4em"
-          firstPage={professionalMeta.first_page}
-          nextPage={() => nextPage()}
-          previousPage={() => previousPage()}
-          lastPage={professionalMeta.last_page}
-          currentPage={professionalMeta.current_page}
-        />
+        <OnPrice onPrice={checkedProfissional}/>
       </Container>
-  
+
     </>
   );
 };

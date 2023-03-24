@@ -93,3 +93,14 @@ export const ContainerButtonGeral = styled.div`
   flex-direction:row;
 
 `
+export const ContainerFlex = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    white-space: nowrap;
+    align-items: center;
+    .price{
+        display: flex;
+        align-items: center;
+    }
+`

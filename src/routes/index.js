@@ -22,7 +22,6 @@ import ReleaseHours from '../components/pages/ReleaseHours';
 import {ListCompany} from '../components/pages/ListCompany';
 import {RegisterCompanies} from '../components/pages/RegisterCompanies';
 import OrdemService from '../components/pages/OrdemServices';
-import GenerateOS from '../components/organisms/GenerateOrdemService';
 import DetailsRelease from '../components/organisms/DetailsRelease';
 import OvertimeListIsTechLead from '../components/pages/OvertimeListIstechLead';
 
@@ -50,12 +49,10 @@ const Routes = () => {
                 <PrivateRoute exact path="/Companies" component={RegisterCompanies} id={9}/>
                 <PrivateRoute path="/Companies/:id" component={RegisterCompanies} id={9}/>
                 <PrivateRoute path="/NewOs" component={OrdemService} id={7}/>
-                <PrivateRoute path="/GenerateOs" component={GenerateOS} id={7}/>
                 <PrivateRoute path="/timeSending" component={OvertimeListProfessional} id={10}/>
                 <PrivateRoute path="/timeIstechLead" component={OvertimeListIsTechLead} id={10}/>
                 <PrivateRoute path="/invoiceSending" component={InvoiceSending} id={11}/>
                 <PrivateRoute path="/invoiceUpload" component={InvoiceUpload} id={10}/>
-
                 <PrivateRoute path="/releaseHours" component={ReleaseHours} id={10}/>
                 <PrivateRoute path="/DetailsRelease/:id" component={DetailsRelease} id={10}/>
             </Switch>
