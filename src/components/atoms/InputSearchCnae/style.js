@@ -37,10 +37,10 @@ export const DefaultInputCnae = styled.input`
     position: fixed;
     padding: 6px;
     color: ${(props) =>
-      props.placeholderColor ? props.placeholderColor : '#919EAB'};
+    props.placeholderColor ? props.placeholderColor : '#acb4ba'};
     opacity: 0.7;
     text-align: ${(props) =>
-      props.placeholderPosition ? props.placeholderPosition : 'left'};
+    props.placeholderPosition ? props.placeholderPosition : 'left'};
   }
 
   &:-webkit-autofill,

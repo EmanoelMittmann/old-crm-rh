@@ -112,13 +112,13 @@ const Projects = () => {
         <InputSelect
           options={typesOptions}
           onChange={(e) => setSelectedTypesOptions(e.target.value)}
-          placeHolder="Tipo"
+          placeholder="Tipo"
           width="220px"
         />
         <InputSelect
           options={allOptions}
           onChange={(e) => setSelectedStatusOptions(e.target.value)}
-          placeHolder="Status"
+          placeholder="Status"
           width="230px"
         />
       </SearchSection>

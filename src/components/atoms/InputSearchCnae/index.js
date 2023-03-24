@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { BlueButton } from '../Buttons/BlueButton/style.js';
 import { InputLine } from '../DefaultInput/style.js';
-import { ErrorMessage, Label, RequiredLabel } from '../StyledComponents/generalStyle.js';
+import { ErrorMessage, Label, RequiredLabel } from '../DefautInputSelect/style.js';
 import { DefaultToast } from '../Toast/DefaultToast.js';
 import {
   InputSearchWithLabel,

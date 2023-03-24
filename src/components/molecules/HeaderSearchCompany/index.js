@@ -23,26 +23,29 @@ const HeaderSearchCompany = ({
         inputWidth="230px"
       />
       <InputSelect
+        textColor={selectedStatusCompany}
         value={selectedStatusCompany}
         width="280px"
         margin="10px"
         options={optionsRegistions}
         onChange={(e) => setSelectedStatusCompany(e.target.value)}
-        placeHolder="Situação Cadastral"
+        placeholder="Situação Cadastral"
       />
       <InputSelect
+      textColor={uf}
         value={uf}
         onChange={(e) => setUf(e.target.value)}
         options={optionsUF}
-        placeHolder="UF"
+        placeholder="UF"
         margin="10px"
         width="220px"
       />
       <InputSelect
+      textColor={typeCompany}
         value={typeCompany}
         onChange={(e) => setTypeCompany(e.target.value)}
         options={types}
-        placeHolder="Tipos de empresas"
+        placeholder="Tipos de empresas"
         margin="10px"
         width="220px"
       />

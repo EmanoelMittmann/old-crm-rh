@@ -57,7 +57,7 @@ const Routes = () => {
                 <PrivateRoute path="/invoiceUpload" component={InvoiceUpload} id={10}/>
 
                 <PrivateRoute path="/releaseHours" component={ReleaseHours} id={10}/>
-                <PrivateRoute path="/DetailsRelease/:id" component={DetailsRelease} id={11}/>
+                <PrivateRoute path="/DetailsRelease/:id" component={DetailsRelease} id={10}/>
             </Switch>
         </BrowserRouter>
     );

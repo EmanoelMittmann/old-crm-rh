@@ -21,7 +21,7 @@ import { ModalOverlay } from '../../molecules/Modal/style.js'
 import { Main } from '../../molecules/OvertimeListTechnicalLeadApproval/style.js'
 
 
-const DetailsReports = ({ setdetaisVisibled, data, id }) => {
+const DetailsReports = ({ setdetaisVisibled, data }) => {
     
     const ClickModal = () => {
         setdetaisVisibled(prev => !prev)

@@ -14,9 +14,8 @@ import {
   FullcCommissionAllowance,
   CommissionApproval,
 } from './style';
-
 import { typeOptions } from '../../pages/RegisterProfessional/optionsType';
-import InputSelectWithLabel from '../../atoms/InputSelectWithLabel/index.js';
+
 
 const EmploymentContract = ({ data, jobs }) => {
   const fixedSalaryAmount = createNumberMask({
@@ -24,7 +23,7 @@ const EmploymentContract = ({ data, jobs }) => {
     suffix: ',00',
     thousandsSeparatorSymbol: '.',
   });
-
+  
   const {
     values,
     handleChange,
@@ -48,8 +47,8 @@ const EmploymentContract = ({ data, jobs }) => {
   const limitNotAllowed = {
     ...(componentJustRenderedCommission &&
       (values === undefined || values.commission === false) && {
-        checked: true,
-      }),
+      checked: true,
+    }),
   };
 
   function handleType(e) {
@@ -71,6 +70,7 @@ const EmploymentContract = ({ data, jobs }) => {
     return true;
   }
 
+
   return (
     <ContainerEmploymentContract>
       <SecondaryText margin="0 0 2.5em 0">Contrato de trabalho</SecondaryText>
@@ -91,13 +91,14 @@ const EmploymentContract = ({ data, jobs }) => {
           required
         />
         <InputSelect
+          textColor={values.job_id}
           onChange={handleChange('job_id')}
           value={values.job_id}
           options={jobs}
           label="Cargo"
           error={errors?.job_id}
           touched={touched?.job_id}
-          placeHolder="Cargo"
+          placeholder="Cargo"
           width="100%"
           lineWidth="31em"
           required
@@ -105,8 +106,9 @@ const EmploymentContract = ({ data, jobs }) => {
       </EmploymentContractInputs>
       <EmploymentContractInputs>
         <InputSelect
+          textColor={values.job_type}
           onChange={handleType}
-          placeHolder="Tipo de contrato"
+          placeholder="Tipo de contrato"
           width="100%"
           error={errors?.job_type}
           touched={touched?.job_type}

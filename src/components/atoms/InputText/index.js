@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { DefaultInput, InputLine } from '../DefaultInput/style.js'
-import { Label, RequiredLabel } from '../StyledComponents/generalStyle.js';
+import { Label, RequiredLabel } from '../DefautInputSelect/style.js';
 
 const InputText = ({onChange,disabled, editValue, width, widthLine, placeholder, value, type, margin,invalid, label, required}) => {
     const [focus, setFocus] = useState(false);

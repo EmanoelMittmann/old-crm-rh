@@ -53,6 +53,7 @@ const RegisterProfessional = () => {
     removeProject,
     editProject,
   };
+
   const schema = Yup.object().shape({
     name: Yup.string().required(messages.required),
     cpf: Yup.string()
@@ -187,10 +188,26 @@ const RegisterProfessional = () => {
       .nullable(),
     weekly_hours: Yup.number()
       .required(messages.required)
-      .max(44, "Horas/semana excedida"),
+      .test("Horas válidas", "Horas/semana excedida", () => {
+        if (values.job_type === "FULLTIME" && values.weekly_hours > 40) {
+          return false
+        }
+        else if (values.job_type === "PARTTIME" && values.weekly_hours > 20) {
+          return false
+        }
+        return true
+      }),
     mounth_hours: Yup.number()
       .required(messages.required)
-      .max(176, "Horas/mês excedida"),
+      .test("Horas válidas", "Horas/mês excedida", () => {
+        if (values.job_type === "FULLTIME" && values.mounth_hours > 160) {
+          return false
+        }
+        else if (values.job_type === "PARTTIME" && values.mounth_hours > 80) {
+          return false
+        }
+        return true
+      }),
     fixed_payment_value: Yup.string().required(messages.required),
   });
 
@@ -258,46 +275,46 @@ const RegisterProfessional = () => {
         url: id ? `/user/${id}` : "/user",
         data: !id
           ? {
-              ...values,
-              extra_hour_value: parseFloat(
-                values.extra_hour_value.replace("R$", "").replace(",", ".")
-              ),
-              fixed_payment_value: values.fixed_payment_value
-                .replace("R$", "")
-                .replace(".", "")
-                .replace(",00", ""),
-              telephone_number: values.telephone_number
-                .toString()
-                .replace("(", "")
-                .replace(")", "")
-                .replace(" ", "")
-                .replace(" ", "")
-                .replace("-", ""),
-              cpf: cleanMask(values.cpf),
-              cep: cleanMask(values.cep),
-              rg: values.rg.toString(),
-              projects,
-            }
+            ...values,
+            extra_hour_value: parseFloat(
+              values.extra_hour_value.replace("R$", "").replace(",", ".")
+            ),
+            fixed_payment_value: values.fixed_payment_value
+              .replace("R$", "")
+              .replace(".", "")
+              .replace(",00", ""),
+            telephone_number: values.telephone_number
+              .toString()
+              .replace("(", "")
+              .replace(")", "")
+              .replace(" ", "")
+              .replace(" ", "")
+              .replace("-", ""),
+            cpf: cleanMask(values.cpf),
+            cep: cleanMask(values.cep),
+            rg: values.rg.toString(),
+            projects,
+          }
           : {
-              ...values,
-              extra_hour_value: parseFloat(
-                values.extra_hour_value.replace("R$", "").replace(",", ".")
-              ),
-              fixed_payment_value: values.fixed_payment_value
-                .replace("R$", "")
-                .replace(".", "")
-                .replace(",00", ""),
-              telephone_number: values.telephone_number
-                .toString()
-                .replace("(", "")
-                .replace(")", "")
-                .replace(" ", "")
-                .replace(" ", "")
-                .replace("-", ""),
-              cpf: cleanMask(values.cpf),
-              cep: cleanMask(values.cep),
-              rg: values.rg.toString(),
-            },
+            ...values,
+            extra_hour_value: parseFloat(
+              values.extra_hour_value.replace("R$", "").replace(",", ".")
+            ),
+            fixed_payment_value: values.fixed_payment_value
+              .replace("R$", "")
+              .replace(".", "")
+              .replace(",00", ""),
+            telephone_number: values.telephone_number
+              .toString()
+              .replace("(", "")
+              .replace(")", "")
+              .replace(" ", "")
+              .replace(" ", "")
+              .replace("-", ""),
+            cpf: cleanMask(values.cpf),
+            cep: cleanMask(values.cep),
+            rg: values.rg.toString(),
+          },
       })
         .then(() => {
           toast.success(
@@ -451,54 +468,54 @@ const RegisterProfessional = () => {
     if (!jobs.length) optionsJob();
     if (!allProjects.length) getAllProjects();
     if (id) {
-          const {data} = await api.get(`/user/${id}`)
-          setOldValue(data[0]);
-          Object.entries(data[0]).forEach(([property, value]) => {
-            if (property.includes("date")) {
-              setFieldValue(property, getDate(value));
-            } else if (property.includes("cnpj")) {
-              setFieldValue(
-                property,
-                value.replace(
-                  /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
-                  "$1 $2 $3/$4-$5"
-                )
-              );
-            } else if (property.includes("fixed_payment_value")) {
-              setFieldValue(property, `R$${value},00`);
-            } else if (property.includes("cep")) {
-              let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
-              setUniqueCEP(data);
-              setFieldValue(property, data);
-            } else if (property.includes("company_cep")) {
-              let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
-              setAnotherCEP(data);
-              setFieldValue(property, data);
-            } else if (property.includes("cpf")) {
-              let data = value.replace(
-                /(\d{3})(\d{3})(\d{3})(\d{2})/,
-                "$1.$2.$3-$4"
-              );
-              setUniqueCpf(data);
-              setFieldValue(property, data);
-            } else if (property.includes("extra_hour_value")) {
-              setFieldValue(property, String(value).replace(".", ","));
-            } else if (property.includes("permissions")) {
-              setFieldValue(
-                property,
-                value.map((item) => item.id)
-              );
-            } else {
-              setFieldValue(property, value);
-            }
-          });
+      const { data } = await api.get(`/user/${id}`)
+      setOldValue(data[0]);
+      Object.entries(data[0]).forEach(([property, value]) => {
+        if (property.includes("date")) {
+          setFieldValue(property, getDate(value));
+        } else if (property.includes("cnpj")) {
+          setFieldValue(
+            property,
+            value.replace(
+              /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
+              "$1 $2 $3/$4-$5"
+            )
+          );
+        } else if (property.includes("fixed_payment_value")) {
+          setFieldValue(property, `R$${value},00`);
+        } else if (property.includes("cep")) {
+          let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
+          setUniqueCEP(data);
+          setFieldValue(property, data);
+        } else if (property.includes("company_cep")) {
+          let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
+          setAnotherCEP(data);
+          setFieldValue(property, data);
+        } else if (property.includes("cpf")) {
+          let data = value.replace(
+            /(\d{3})(\d{3})(\d{3})(\d{2})/,
+            "$1.$2.$3-$4"
+          );
+          setUniqueCpf(data);
+          setFieldValue(property, data);
+        } else if (property.includes("extra_hour_value")) {
+          setFieldValue(property, String(value).replace(".", ","));
+        } else if (property.includes("permissions")) {
+          setFieldValue(
+            property,
+            value.map((item) => item.id)
+          );
+        } else {
+          setFieldValue(property, value);
+        }
+      });
       reloadProjects();
+      return () => {
+        setJobs([]);
+        setAllProjects([]);
+      };
     }
-    return () => {
-      setJobs([]);
-      setAllProjects([]);
-    };
-  };
+  }
 
   useEffect(() => {
     getPermissions();
@@ -525,7 +542,6 @@ const RegisterProfessional = () => {
       );
     }
   }
-
   useEffect(() => {
     setFieldValue(
       "professional_data.account_number",
@@ -541,9 +557,9 @@ const RegisterProfessional = () => {
   ) {
     const verified =
       oldValue?.professional_data?.pix_key_type ===
-        values.professional_data.pix_key_type &&
+      values.professional_data.pix_key_type &&
       oldValue?.professional_data?.type_of_transfer ===
-        values.professional_data.type_of_transfer;
+      values.professional_data.type_of_transfer;
     if (!verified) {
       setFieldValue("professional_data.pix_key", "");
     }
@@ -561,6 +577,7 @@ const RegisterProfessional = () => {
     values.professional_data.pix_key_type,
     values.professional_data.type_of_transfer,
   ]);
+
 
   return (
     <>
@@ -619,7 +636,7 @@ const RegisterProfessional = () => {
         />
         <RegisterFooter
           cancelButtonHandler={goBackClickHandler}
-          registerButtonHandler={() => {}}
+          registerButtonHandler={() => { }}
           buttonDescription={id ? "Atualizar" : "Cadastrar"}
           type="submit"
           form="professional"

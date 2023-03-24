@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
-
 import { InputLine } from '../../atoms/DefaultInput/style';
 import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg';
 import {
+  ErrorMessage, 
+  Label, 
+  RequiredLabel,
   Img,
   InputSelectContainer,
   InputSelectOption,
   InputSelectOptionPlaceholder,
-} from './style.js';
-import { Father } from '../InputSelectUf/style';
-import { ErrorMessage, Label, RequiredLabel } from '../StyledComponents/generalStyle';
+  Father,
+} from '../DefautInputSelect/style.js';
 
 
 const InputSelect = ({
   onChange,
   options,
-  placeHolder,
+  placeholder,
   width,
   error,
   disabled,
@@ -24,11 +25,13 @@ const InputSelect = ({
   value,
   margin,
   onClick,
-  label, 
-  required
+  label,
+  required,
+  textColor
 }) => {
   const [focus, setFocus] = useState(false);
   const [blur, setBlur] = useState(false);
+
   const attributeValue = {
     ...(value && { value: value }),
   };
@@ -43,14 +46,14 @@ const InputSelect = ({
 
         <InputSelectContainer
           {...attributeValue}
+          textColor={textColor}
           width={width}
           disabled={disabled}
           onChange={onChange}
-          onClick={onClick}  
+          onClick={onClick}
+          placeholder={placeholder}
         >
-            <InputSelectOptionPlaceholder disabled selected>
-              {placeHolder}
-            </InputSelectOptionPlaceholder>
+          {placeholder && <InputSelectOptionPlaceholder value={placeholder}>{placeholder}</InputSelectOptionPlaceholder>}
           {options?.map((option, index) => (
             <InputSelectOption
               key={index}
@@ -59,6 +62,7 @@ const InputSelect = ({
               {option.name || option.razao_social}
             </InputSelectOption>
           ))}
+
         </InputSelectContainer>
         <Img src={arrowPointingDown} alt="Lupa" />
       </InputLine>

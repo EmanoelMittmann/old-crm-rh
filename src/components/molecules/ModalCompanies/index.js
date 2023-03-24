@@ -94,7 +94,7 @@ const ModalCompanies = ({
         <ContainerSelect>
           <InputSelect
             lineWidth="24em"
-            placeHolder="Empresas"
+            placeholder="Empresas"
             value={id}
             onChange={(e) => setId(e.target.value)}
             options={companies}

@@ -18,7 +18,9 @@ const DataBank = ({data}) => {
         <ContainerRow>
           <SelectBank
             value={values.bank}
-            padding="0em 2em 0em 1em"
+            onChange={handleChange("bank")}
+            padding="0em 2em 0 0em"
+            placeHolder="Banco"
             error={errors?.bank}
             touched={touched?.bank}
             label="Banco"
@@ -30,13 +32,14 @@ const DataBank = ({data}) => {
             required
           />
           <InputSelect
+          textColor={values.account_type}
             value={values.account_type}
             label="Tipo da conta"
             onChange={handleChange("account_type")}
             options={optionsBank}
             error={errors?.bank}
             touched={touched?.bank}
-            placeHolder="Tipo da conta"
+            placeholder="Tipo da conta"
             padding="0em 2em 0 0em"
             width="100%"
             lineWidth="30em"

@@ -26,7 +26,7 @@ export function OvertimeByDate({ data, options }) {
           value={values.project_id}
           onChange={handleChange('project_id')}
           options={options}
-          placeHolder="Projeto"
+          placeholder="Projeto"
           lineWidth="18em"
           width="100%"
         />

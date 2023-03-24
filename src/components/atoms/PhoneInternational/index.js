@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {Phone, Father} from './style'
 import { InputLine } from "../DefaultInput/style";
-import { ErrorMessage, Label, RequiredLabel } from "../StyledComponents/generalStyle";
+import { ErrorMessage, Label, RequiredLabel } from "../DefautInputSelect/style.js";
 
 const PhoneInternational = ({  error,  touched,  onBlur,  value,  width,  onChange, label, required}) => {
   const [focus, setFocus] = useState(false);

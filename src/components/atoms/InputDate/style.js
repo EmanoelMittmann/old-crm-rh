@@ -12,7 +12,7 @@ export const PlaceHolder = styled.span`
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     font-size: 1em;
-    color: #919EAB;
+    color: #acb4ba;
     opacity: 0.7;
     padding-left: 0.5em;
 `

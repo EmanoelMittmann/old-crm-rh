@@ -8,13 +8,14 @@ import {
 } from './style.js'
 
 const ProfessionalsExtraHour = ({extraHour, setExtraHour,  setFieldValue, data}) => {
-
-    const radioColor = state => state === extraHour ? "#919EAB" : "black";
+    const [isDisabled, setIsDisabled] = useState(false)
     const [componentJustRendered, setComponentJustRendered] = useState(false)
+    const radioColor = state => state === extraHour ? "#919EAB" : "black";
 
     useEffect(() => {
-        setComponentJustRendered(true)        
-    }, [])
+        setComponentJustRendered(true) 
+        data?.job_type === "FREELANCER" ? setIsDisabled(true) : setIsDisabled(false)       
+    }, [data?.job_type])
 
     const overtimeNotAllowed = {
         ...(componentJustRendered && (data === undefined || data?.extra_hour_activated === false) && {checked: true})
@@ -46,6 +47,7 @@ const ProfessionalsExtraHour = ({extraHour, setExtraHour,  setFieldValue, data})
                     name="extraHour"
                     value="extraHourActivated"
                     id="extraHourActivated"
+                   disabled={isDisabled}
                 />
                 <LabelInputRadio color={radioColor('extraHourDisabled')} for="extraHourActivated">Permitir hora extra</LabelInputRadio>
 

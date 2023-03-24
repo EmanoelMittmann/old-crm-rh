@@ -16,10 +16,11 @@ import InputMasked from "../../atoms/InputMasked/index.js";
 import { useEffect } from "react";
 import SelectBank from "../../atoms/SelectBank";
 import PhoneInternational from "../../atoms/PhoneInternational";
+import styled from "styled-components";
 
 export const optionsTypePerson = [
-  {name: "Pessoa Fisica", id : "PF"},
-  {name: "Pessoa Juridica", id : "PJ"}
+  { name: "Pessoa Fisica", id: "PF" },
+  { name: "Pessoa Juridica", id: "PJ" }
 ]
 
 export const optionsUF = [
@@ -161,9 +162,10 @@ const RegisterProfessionalsData = ({ data }) => {
   }, [values.country]);
 
   useEffect(() => {
-    values.professional_data.type_of_transfer === "PIX" ? setIsDisabled(!isDisabled) : setIsDisabled(true);
+    values.professional_data.type_of_transfer === "PIX" ? setIsDisabled(false) : setIsDisabled(true);
     errors?.cep === setFieldError('CEP não encontrado!') ? setDisabled(!disabled) : setDisabled(disabled)
-  }, [values.professional_data.type_of_transfer, errors.cep]);
+
+  }, [values.professional_data.type_of_transfer, errors.cep, values?.professional_data?.pix_key]);
 
   return (
     <ContainerRegisterProfessionalsData>
@@ -263,7 +265,7 @@ const RegisterProfessionalsData = ({ data }) => {
           <PhoneInternational
             error={errors.telephone_number}
             touched={touched.telephone_number}
-            onBlur={() => {}}
+            onBlur={() => { }}
             onChange={handleChange('telephone_number')}
             width='25em'
             value={values.telephone_number}
@@ -342,16 +344,15 @@ const RegisterProfessionalsData = ({ data }) => {
         </ContainerRow>
         <ContainerRow>
           <InputSelectCountry
+            textColor={values.country}
             width="100%"
             widthContainer="60%"
             margin="0 2em 0 0"
-            placeHolder={"Pais"}
             onChange={handleChange("country")}
             value={values.country}
             error={errors.country}
             touched={touched.country}
             disabled={disabled}
-        
           />
           <InputWithLabel
             onChange={handleChange("neighbourhood_name")}
@@ -383,13 +384,16 @@ const RegisterProfessionalsData = ({ data }) => {
             required
           />
           <InputSelectUf
-            value={values.uf}
+            textColor={values?.uf}
+            value={values?.uf}
             onChange={handleChange("uf")}
             options={optionsUFCountry}
-            placeHolder="UF"
+            placeholder="UF"
             width="230px"
             touched={touched.uf}
             error={errors.uf}
+            label="UF"
+            required
             disabled={disabled}
           />
         </ContainerRow>
@@ -412,7 +416,7 @@ const RegisterProfessionalsData = ({ data }) => {
         </ContainerRow>
 
         <RegisterProfessionalsForm>
-          <SecondaryText margin="0 0 2.5em">
+          <SecondaryText margin="2.5em 0">
             Dados Pessoa Juridica
           </SecondaryText>
           <ContainerRow>
@@ -536,7 +540,7 @@ const RegisterProfessionalsData = ({ data }) => {
             />
             <InputWithLabel
               onChange={handleChange("professional_data.company_house_number")}
-              value={values.professional_data.company_house_number === 0 ? '' :values.professional_data.company_house_number}
+              value={values.professional_data.company_house_number === 0 ? '' : values.professional_data.company_house_number}
               label="Número"
               type="number"
               width="100%"
@@ -592,12 +596,15 @@ const RegisterProfessionalsData = ({ data }) => {
               placeholder="Cidade"
             />
             <InputSelect
+              textColor={values.professional_data.uf_company}
               value={values.professional_data.uf_company}
               onChange={handleChange("professional_data.uf_company")}
               options={optionsUF}
-              placeHolder="UF"
+              label="UF"
               width="230px"
               disabled={disabled}
+              placeholder="UF"
+
             />
           </ContainerRow>
           <ContainerRow>
@@ -621,8 +628,8 @@ const RegisterProfessionalsData = ({ data }) => {
         <SecondaryText margin="0 0 2em 0">Dados Bancários</SecondaryText>
         <ContainerRowDuo>
           <InputSelect
-            placeHolder='tipo de pessoa'
-            width='20em'
+            textColor={values?.professional_data.type_person}
+            placeholder='Tipo de pessoa'
             lineWidth='100%'
             name='type_person'
             options={optionsTypePerson}
@@ -634,7 +641,11 @@ const RegisterProfessionalsData = ({ data }) => {
             required
           />
           <SelectBank
+            textColor={values.professional_data.bank}
             value={values.professional_data.bank}
+            onChange={handleChange("professional_data.bank")}
+            padding="0em 2em 0 0em"
+            placeholder="Banco"
             error={errors?.professional_data?.bank}
             touched={touched?.professional_data?.bank}
             onChange={handleChange('professional_data.bank')}
@@ -648,10 +659,11 @@ const RegisterProfessionalsData = ({ data }) => {
             required
           />
           <InputSelect
+            textColor={values.professional_data.account_type}
             value={values.professional_data.account_type}
             onChange={handleChange("professional_data.account_type")}
             options={optionsBank}
-            placeHolder="Tipo da conta"
+            placeholder="Tipo da conta"
             error={errors?.professional_data?.account_type}
             touched={touched?.professional_data?.account_type}
             padding="0em 2em 0 0em"
@@ -661,12 +673,13 @@ const RegisterProfessionalsData = ({ data }) => {
             label="Tipo da conta"
             required
           />
-          
+
         </ContainerRowDuo>
         <ContainerRowDuo>
           <InputMasked
             value={values.professional_data.agency}
-            mask={[/\d/, /\d/, /\d/, /\d/,/\d/]}
+            padding="0 1em 0 0"
+            mask={[/\d/, /\d/, /\d/, /\d/, /\d/]}
             onChange={handleChange("professional_data.agency")}
             label="Agência"
             width="100%"
@@ -682,7 +695,7 @@ const RegisterProfessionalsData = ({ data }) => {
           <InputMasked
             value={values.professional_data.account_number}
             onChange={handleChange("professional_data.account_number")}
-            mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/,'-',/\d/]}
+            mask={[/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/]}
             label="Número da conta"
             width="100%"
             widthContainer="50%"
@@ -693,40 +706,42 @@ const RegisterProfessionalsData = ({ data }) => {
             type="number"
             placeHolder="Número da conta"
             required
-          />  
+          />
         </ContainerRowDuo>
 
         {/* Dados do Pix */}
 
         <ContainerRowDuo>
           <InputSelect
+            textColor={values?.professional_data?.type_of_transfer}
             value={values?.professional_data?.type_of_transfer}
             onChange={handleChange("professional_data.type_of_transfer")}
             options={optionsTypeOfTranfer}
-            placeHolder="Tipo de tranferência"
+            placeholder="Tipo de tranferência"
             padding="0em 2em 0 0em"
             error={errors?.professional_data?.type_of_transfer}
             touched={touched?.professional_data?.type_of_transfer}
-            lineWidth="100%"
-            width='20em'
+            width="100%"
+            lineWidth="25em"
             name="professional_data.type_of_transfer"
             label="Tipo de tranferência"
             required
           />
           <InputSelect
+            textColor={values?.professional_data?.pix_key_type}
             value={values?.professional_data?.pix_key_type}
             onChange={handleChange("professional_data.pix_key_type")}
             options={optionsPixKeyType}
             error={errors?.professional_data?.pix_key_type}
             touched={touched?.professional_data?.pix_key_type}
-            placeHolder="Tipo de chave PIX"
+            placeholder="Tipo de chave PIX"
             padding="0em 2em 0 0em"
-            lineWidth="100%"
-            width="30em"
+            width="100%"
+            lineWidth="420px"
             name="professional_data.pix_key_type"
             disabled={isDisabled}
-            label={values.professional_data?.type_of_transfer === "PIX" ? "Tipo de chave PIX" : ""}
-            required={values.professional_data?.type_of_transfer === "PIX" ? "Tipo de chave PIX" : ""}
+            label={values.professional_data.type_of_transfer == "PIX" ? 'Tipo de chave PIX' : ""}
+            required={values.professional_data.type_of_transfer == "PIX" ? "*" : ""}
           />
           {values.professional_data.pix_key_type === "E-mail" ||
             values.professional_data.pix_key_type === "RandomKey" ? (
@@ -737,13 +752,14 @@ const RegisterProfessionalsData = ({ data }) => {
               handleBlur={setFieldTouched}
               onChange={handleChange("professional_data.pix_key")}
               width="100%"
-              widthContainer="60%"
-              value={values?.professional_data?.pix_key}
+              widthLine="410px"
               type="text"
+              value={values?.professional_data?.pix_key}
               disabled={isDisabled}
               placeholder="Chave PIX"
-              label={values.professional_data?.type_of_transfer === "PIX" ? "Chave PIX" : ""}
-              required={values.professional_data?.type_of_transfer === "PIX" ? "Chave PIX" : ""}
+              label={values.professional_data.type_of_transfer == "PIX" ? 'Chave PIX' : ""}
+              required={values.professional_data.type_of_transfer == "PIX" ? '*' : ""}
+
             />
           ) : (
             <InputMasked
@@ -754,13 +770,13 @@ const RegisterProfessionalsData = ({ data }) => {
               handleBlur={setFieldTouched}
               onChange={handleChange("professional_data.pix_key")}
               width="100%"
-              widthContainer="31%"
+              widthContainer="410px"
               value={values.professional_data.pix_key}
-              type="text"
               disabled={isDisabled}
               placeHolder="Chave PIX"
-              label={values.professional_data?.type_of_transfer === "PIX" ? "Chave PIX" : ""}
-              required={values.professional_data?.type_of_transfer === "PIX" ? "Chave PIX" : ""}
+              label={values.professional_data.type_of_transfer == "PIX" ? "Chave PIX" : ''}
+              required={values.professional_data.type_of_transfer == "PIX" ? "*" : ''}
+
             />
           )}
         </ContainerRowDuo>

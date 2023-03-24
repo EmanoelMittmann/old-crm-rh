@@ -13,7 +13,7 @@ export const DefaultInput = styled.input`
     border-radius: 8px;
 
     &::placeholder {
-        color: ${props => props.placeholderColor ? props.placeholderColor : "#919EAB"};
+        color: ${props => props.placeholderColor ? props.placeholderColor : "#acb4ba"};
         opacity: 0.7;
         text-align: ${props => props.placeholderPosition ? props.placeholderPosition : "left"};
     }
