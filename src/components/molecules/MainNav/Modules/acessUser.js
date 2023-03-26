@@ -30,10 +30,10 @@ export const userAccess = (isTechLead) => [
     4: <Modules id={5} children={<InvoiceIcon />} route="/invoice" />,
   },
   {
-    5: <Modules id={7} children={<ServiceOrdersIcon />} route="/serviceOrders" />
+    5: <Modules id={6} children={<ReportsIcon />} route="/reports" />,
   },
   {
-    6: <Modules id={6} children={<ReportsIcon />} route="/reports" />,
+    6: <Modules id={7} children={<ServiceOrdersIcon />} route="/serviceOrders" />
   },
   {
     7: <Modules id={8} children={<SettingsIcon />} route="/job" />,
