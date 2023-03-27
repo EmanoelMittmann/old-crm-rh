@@ -38,6 +38,7 @@ const NewOrdemService = () => {
   const [order, setOrder] = useState("");
   const [newId, setNewId] = useState([]);
   const [check, setCheck] = useState(true);
+  const [companies, setCompanies] = useState([]);
   const [haveCommission, setHaveCommission] = useState([]);
   const [haveCommissionMeta, setHaveCommissionMeta] = useState({});
   const [page, setPage] = useState(1);
@@ -47,6 +48,7 @@ const NewOrdemService = () => {
   const totalpages = Math.ceil(haveCommissionMeta?.total / 5);
   const dispatch = useDispatch();
   const history = useHistory();
+
 
   let params = {};
 
@@ -131,6 +133,19 @@ const NewOrdemService = () => {
     }
   };
 
+  const getCompanies = async () => {
+    try {
+      const { data } = await api({
+        method: "GET",
+        url: "/companies",
+        razao_social: companies
+      });
+      setCompanies(data.data);
+    } catch (error) {
+      console.error(error)
+    }
+  };
+  
   const getProfessionals = async () => {
     const { data } = await api({
       method: "get",
@@ -142,6 +157,10 @@ const NewOrdemService = () => {
   useEffect(() => {
     getProfessionals();
   }, [searchResult]);
+
+  useEffect(() => {
+    getCompanies();
+  },[])
 
   useEffect(() => {
     handleSubmit(checkedProfissional);
@@ -255,6 +274,7 @@ const NewOrdemService = () => {
             return (
               <OrdemServiceListItem
                 professionals={professionals}
+                companies={companies}
                 setNewId={setNewId}
                 key={index.id}
                 index={index}
@@ -268,7 +288,7 @@ const NewOrdemService = () => {
             );
           })}
         </ScrollContainer>
-        <OnPrice onPrice={checkedProfissional}/>
+        <OnPrice {...{checkedProfissional,companies,professionals}}/>
       </Container>
 
     </>

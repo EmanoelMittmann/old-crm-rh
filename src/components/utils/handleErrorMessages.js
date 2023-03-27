@@ -9,10 +9,6 @@ export const handleErrorMessages = (error, defaultMessage = 'Inválido') => {
     return value;
   });
 
-  console.log(keys);
-
   keys.forEach((key, index) => (obj[key] = message[index]));
-
-  console.log(obj);
   return obj;
 };

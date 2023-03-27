@@ -1,22 +1,43 @@
+import { useEffect, useState } from "react"
 import { ContainerFlex } from "../organisms/SelectorNewOs/style"
 
-const OnPrice = ({ onPrice }) => {
+const OnPrice = ({ professionals, checkedProfissional,companies }) => {
     
-    console.log('onPrice: ', onPrice);
+    
+    const [totalPayment, setTotalPayment] = useState({})
+    
+    const totalSalaryPayment = () => {
+    let companies = {}
+        checkedProfissional.map((item)=>{
+            professionals.find((e)=>{
+               if(e.id === item.professional_id) 
+                {
+                    const temp = companies[item.companies_id] ?? 0
+                    companies[item.companies_id] = e.fixed_payment_value + temp
+                }
+            })
+        })
+        
+        setTotalPayment(companies)
+    
+    }
+    console.log(totalPayment);
+    useEffect(() => {
+        totalSalaryPayment()
+    },[checkedProfissional])
 
-return (
-        <>
-        {onPrice ? (
-            <ContainerFlex>
-                {onPrice.companies_id}
-                Valor total:  {" "}
-                    {Number(onPrice.map(prop => prop.value).reduce((x, y) => x + y, 0)).toLocaleString("pt-br", { style: "currency", currency: "BRL" }) || 0}
-            </ContainerFlex >
-            ) : (
-            ''
-        )}
-        </>
-    )
+        return (
+
+                <ContainerFlex>
+                    {Object.entries(totalPayment).map(([key,value])=>{
+                        const props = companies.find((c)=> c.id === Number(key))
+                        return <p>Valor total {props.razao_social} : {value}</p>
+                    })}    
+                </ContainerFlex >
+  
+        )
+        
+    
+   
 }
-
 export default OnPrice

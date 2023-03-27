@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import { Route } from 'react-router-dom';
-
-
 import { templates, noTemplate } from "./PagesConfig"
 import { PagesTemplate } from '../components/templates/PagesTemplate/PagesTemplate';
 import { LocalStorageKeys } from '../settings/LocalStorageKeys';
