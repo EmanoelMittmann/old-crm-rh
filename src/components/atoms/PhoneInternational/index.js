@@ -3,9 +3,9 @@ import {Phone, Father} from './style'
 import { InputLine } from "../DefaultInput/style";
 import { ErrorMessage, Label, RequiredLabel } from "../DefautInputSelect/style.js";
 
-const PhoneInternational = ({  error,  touched,  onBlur,  value,  width,  onChange, label, required}) => {
+const PhoneInternational = ({  error,  touched,  onBlur,  value,  width,  onChange, label, required,name}) => {
   const [focus, setFocus] = useState(false);
-  const [blur, setBlur] = useState(false);
+  const [blur, setBlur] = useState(false)
   return (
     <Father>
       <InputLine>
@@ -13,8 +13,7 @@ const PhoneInternational = ({  error,  touched,  onBlur,  value,  width,  onChan
           country={"br"}
           mask={["(", /[1-9]/, /\d/, ")", " ", /\d/, " ", /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/,]}
           errors={error && touched}
-          touched={touched}
-          handleBlur={onBlur}
+          onBlur={() =>  setBlur(true) & setFocus(false) & onBlur(name, true)}
           width={width}
           type="number"
           name="telephone_number"
