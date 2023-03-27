@@ -26,7 +26,7 @@ const OrdemServiceHeader = ({sortByName}) => {
       </ListHeaderCompanies>
 
       <ListHeaderCNPJ>
-        <ListHeaderTitle  margin='3em'>CNPJ</ListHeaderTitle>
+        <ListHeaderTitle  margin='2.3em'>CNPJ</ListHeaderTitle>
         <Arrows onClick={sortByName} />
       </ListHeaderCNPJ>
 

@@ -5,6 +5,7 @@ export const ContainerOrdemServices = styled.div`
   width: 100%;
   align-items: center;
   padding: 1em;
+  height: 4em;
 `;
 
 export const OrdemServiceItens = styled.div`

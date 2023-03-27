@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   padding: 1.5em 1.5em 0 1.5em;
   width: 91.2%;
-  height: 46em;
+  height: auto;
   background-color: white;
   border-radius: 20px;
   margin: auto;
@@ -50,6 +50,7 @@ export const ScrollContainer = styled.ul`
   overflow-y: scroll;
   height: 75%;
   width: 100%;
+  margin-bottom: 2em;
   border-bottom: 1px solid #ccc;
   
   
@@ -92,4 +93,35 @@ export const ContainerButtonGeral = styled.div`
   display: flex;
   flex-direction:row;
 
+`
+export const ContainerFlex = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    white-space: nowrap;
+    align-items: end;
+    .price{
+        display: flex;
+        align-items: center;
+    }
+`
+
+export const CompanyField = styled.div`
+    width: 310px;
+    padding: 0.5em;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    font-size: 1rem;
+    font-weight: 400;
+`
+export const Some = styled.span`
+    width: 100%;
+    padding: 0em 0.5em 0 0.5em;
+    display: flex;
+    align-items: end;
+    justify-content: end;
+    font-size: 1rem;
+    font-weight: 500;
 `

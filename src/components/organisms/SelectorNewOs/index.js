@@ -12,6 +12,7 @@ import {
   TitleOS,
   ContainerButtonsHeader,
   ContainerButtonGeral,
+  ContainerFlex,
 } from "./style";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
@@ -28,6 +29,7 @@ import {
   valueOfCommission,
 } from "../../../redux/actions";
 import ArrowRegister from "../../atoms/ArrowRegister";
+import OnPrice from "../../utils/onPrice";
 
 const NewOrdemService = () => {
   const [searchResult, setSearchResult] = useState("");
@@ -36,6 +38,8 @@ const NewOrdemService = () => {
   const [order, setOrder] = useState("");
   const [newId, setNewId] = useState([]);
   const [check, setCheck] = useState(true);
+  const [companies, setCompanies] = useState([]);
+  const [idCompanie, setIdCompanie] = useState()
   const [haveCommission, setHaveCommission] = useState([]);
   const [haveCommissionMeta, setHaveCommissionMeta] = useState({});
   const [page, setPage] = useState(1);
@@ -45,6 +49,7 @@ const NewOrdemService = () => {
   const totalpages = Math.ceil(haveCommissionMeta?.total / 5);
   const dispatch = useDispatch();
   const history = useHistory();
+
 
   let params = {};
 
@@ -59,15 +64,17 @@ const NewOrdemService = () => {
       setCheckedProfissional(
         professionals.map((item) => {
           if (item.commission) {
-            return {professional_id: item.id };
-          }else {
+            return { professional_id: item.id, companies_id: 1 };
+          } else {
             return {
               professional_id: item.id,
               commission: 0,
+              companies_id: 1,
             };
           }
         })
       );
+
     } else {
       setCheckedProfissional([]);
     }
@@ -77,16 +84,16 @@ const NewOrdemService = () => {
       try {
         await api({
           method: "POST",
-          url: `/findProfessionalCommission?&page=${page}&limit=5`,
+          url: `/findProfessionalCommissionOrCreateOrderOfService`,
           data: data,
           params: params,
         }).then((res) => {
-          if (res.data.msg === "Os criada com sucesso") {
+          if (res.data.msg === "successfully generated report") {
             dispatch(closeModal({ type: "CLOSEMODAL" }));
             history.push("/serviceOrders");
             dispatch(valueOfCommission([]));
             return toast.success(
-              <DefaultToast text={"Os criada com sucesso"} />
+              <DefaultToast text={"Ordem de serviço gerada com sucesso!"} />
             );
           } else {
             dispatch(openModal({ type: "OPENMODAL" }));
@@ -94,7 +101,7 @@ const NewOrdemService = () => {
             setHaveCommissionMeta(res.data.meta);
           }
         });
-      } catch (err) {}
+      } catch (err) { }
     }
   };
 
@@ -127,6 +134,19 @@ const NewOrdemService = () => {
     }
   };
 
+  const getCompanies = async () => {
+    try {
+      const { data } = await api({
+        method: "GET",
+        url: "/companies",
+        razao_social: companies
+      });
+      setCompanies(data.data);
+    } catch (error) {
+      console.error(error)
+    }
+  };
+
   const getProfessionals = async () => {
     const { data } = await api({
       method: "get",
@@ -138,6 +158,10 @@ const NewOrdemService = () => {
   useEffect(() => {
     getProfessionals();
   }, [searchResult]);
+
+  useEffect(() => {
+    getCompanies();
+  }, [])
 
   useEffect(() => {
     handleSubmit(checkedProfissional);
@@ -181,7 +205,7 @@ const NewOrdemService = () => {
       <ContainerButtonGeral>
         <ContainerButtonsHeader>
           <ContainerIconModal>
-            <ArrowRegister clickHandler={goBackClickHandler}/>
+            <ArrowRegister clickHandler={goBackClickHandler} />
           </ContainerIconModal>
           <TitleOS>Criar nova O.S</TitleOS>
         </ContainerButtonsHeader>
@@ -251,6 +275,9 @@ const NewOrdemService = () => {
             return (
               <OrdemServiceListItem
                 professionals={professionals}
+                companies={companies}
+                idCompanie={idCompanie}
+                setIdCompanie={setIdCompanie}
                 setNewId={setNewId}
                 key={index.id}
                 index={index}
@@ -259,11 +286,14 @@ const NewOrdemService = () => {
                 deleteProfessionalWithCommission={
                   deleteProfessionalWithCommission
                 }
+
               />
             );
           })}
         </ScrollContainer>
+        <OnPrice {...{ checkedProfissional, companies, professionals }} />
       </Container>
+
     </>
   );
 };

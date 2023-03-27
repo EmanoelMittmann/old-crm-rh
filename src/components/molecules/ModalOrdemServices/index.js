@@ -30,8 +30,6 @@ export const ModalOrdemServices = ({
 }) => {
   const state = useSelector((state) => state.valueOfCommission);
   const [valuesCommission, setValuesCommission] = useState(state);
-  
- 
 
   const dispatch = useDispatch();
   const AddOrUpdate = (object) => {

@@ -4,11 +4,12 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import api from "../../../api/api";
 import InputSelect from "../../atoms/InputSelect";
+import { OnPrice } from "../../utils/onPrice";
 import { ContainerOrdemServices, ContainerSelect, OrdemServiceItens } from "./style";
 
 
 //Retirando mascara do componente 'comission' => value
-// Expressão (/[^0-9,]*/g) - parseFloat(value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2);
+// Expressão (/[^0-9,]/g) - parseFloat(value.replace(/[^0-9,]/g, '').replace(',', '.')).toFixed(2);
 // 1 - /.../g: diz para o javascript substituir todas as incidências encontradas (g).
 // 2 - [^0-9,]*: manda remover tudo o que "não for numérico" e "não for virgula" (^);
 // 3 - O segundo "replace" substitui a virgula por ponto.
@@ -21,10 +22,11 @@ const OrdemServiceListItem = ({
   checkedProfissional,
   deleteProfessionalWithCommission,
   professionals,
+  companies,
+  idCompanie,
+  setIdCompanie,
 }) => {
   const [check, setCheck] = useState(false);
-  const [companies, setCompanies] = useState([]);
-  const [id, setId] = useState();
 
   const state = useSelector((state) => state.valueOfCommission);
   const hourQuantity = index?.extrahour_release
@@ -44,39 +46,42 @@ const OrdemServiceListItem = ({
       if (isHaveComission.commission) {
         setCheckedProfissional([
           ...checkedProfissional,
-          { professional_id: index.id },
+          { professional_id: index.id, companies_id : idCompanie ?? companies[0].id },
         ]);
       } else {
         setCheckedProfissional([
           ...checkedProfissional,
-          { professional_id: index.id, commission: 0 },
+          { professional_id: index.id, commission: 0, companies_id: idCompanie ?? companies[0].id },
         ]);
       }
     }
-  };
 
-  const getCompanies = async () => {
-    try {
-      const { data } = await api({
-        method: "GET",
-        url: "/companies",
-        razao_social: companies
-      });
-      setCompanies(data.data);
-    } catch (error) {
-      console.error(error)
-    }
   };
+  
+
+  const handleClickCompanies = () => {
+    const obj = checkedProfissional.map((item) => {
+      if (item.professional_id === index.id) {
+        return { ...item, companies_id: idCompanie !== undefined ? idCompanie : item.companies_id };
+      } else {
+        return item;
+      }
+    });
+    setCheckedProfissional(obj);
+  }
+
 
   useEffect(() => {
     const exist = checkedProfissional.map((item) => item.professional_id);
     setCheck(exist.includes(index.id));
+    if (idCompanie === undefined) setIdCompanie(1)
   }, [checkedProfissional]);
 
+
   useEffect(() => {
-    deleteProfessionalWithCommission(index);
-    getCompanies();
+    deleteProfessionalWithCommission(index);  
   }, [check]);
+  
 
   useEffect(() => {
     const newArr = checkedProfissional.map((professional) => {
@@ -86,7 +91,7 @@ const OrdemServiceListItem = ({
       if (findProfessionalInCommission) {
         return {
           ...professional,
-          commission: parseFloat(findProfessionalInCommission.value.split('$')[1].replace(',','.'))
+          commission: parseFloat(findProfessionalInCommission.value.split('$')[1].replace(',', '.'))
         };
       } else {
         return professional;
@@ -113,15 +118,17 @@ const OrdemServiceListItem = ({
       </OrdemServiceItens>
       <ContainerSelect>
         <InputSelect
+        textColor={companies}
           lineWidth="12em"
           placeholder="Empresas"
-          value={id}
-          onChange={(e) => setId(e.target.value)}
+          value={idCompanie}
+          onChange={(e) => setIdCompanie(e.target.value)}
           options={companies}
           width="100%"
+          onClick={() => handleClickCompanies()}
         />
       </ContainerSelect>
-        
+
       <OrdemServiceItens width="20%" content="start">
         {index.professional_data?.cnpj}
       </OrdemServiceItens>
