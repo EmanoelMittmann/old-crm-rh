@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -59,20 +59,16 @@ const RegisterProfessional = () => {
     cpf: Yup.string()
       .required(messages.required)
       .min(14, "CPF inválido")
-      .test("Verificar CPF", "CPF já existe", () => {
-        if (values.cpf.length === 14 && values.cpf !== uniqueCpf) {
+      .test("Verificar CPF", "CPF já existe",async() => {
+        if (values.cpf.length === 14) {
           setUniqueCpf(values.cpf);
-          validateCpf(values.cpf)
-            .then((response) => {
-              if (response.data) {
-                setCpfValid(true);
-              } else {
-                setCpfValid(false);
-              }
-            })
-            .catch((error) => false);
+          try {
+            await api.post('/user/validateCpf',{cpf:values.cpf})
+            return true
+          } catch (error) {
+            return false
+          }
         }
-        return true;
       }),
 
     rg: Yup.string()
@@ -91,7 +87,7 @@ const RegisterProfessional = () => {
           setUniqueCEP(values.cep);
           handleCEP(values.cep).then((data) => {
             if (data.data.erro)
-              return setFieldError("CEP", "CEP não encontrado!");
+              return setFieldError("cep", "CEP não encontrado!");
             const { bairro, localidade, logradouro, uf } = data.data;
             if (localidade) setFieldValue("city_name", localidade);
             if (uf) setFieldValue("uf", uf);
@@ -214,7 +210,7 @@ const RegisterProfessional = () => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      cpf: cleanMask(""),
+      cpf: "",
       rg: "".toString(),
       birth_date: "",
       avatar:
@@ -364,15 +360,6 @@ const RegisterProfessional = () => {
     setProjects(data);
   }, [id]);
 
-  const validateCpf = async (cpf) => {
-    const response = await api({
-      method: "post",
-      url: "/user/validateCpf",
-      data: { cpf: cpf },
-    });
-    return response;
-  };
-
   const goBackClickHandler = () => {
     history.push("/professionals");
   };
@@ -380,7 +367,7 @@ const RegisterProfessional = () => {
   const optionsJob = useCallback(async () => {
     const response = await api({
       method: "get",
-      url: `/job/?is_active=1&limit=undefined&?orderField=name&order=asc`,
+      url: `/job/?is_active=1&limit=''`,
     });
     setJobs(response.data.data);
   }, []);
@@ -468,7 +455,7 @@ const RegisterProfessional = () => {
     if (!jobs.length) optionsJob();
     if (!allProjects.length) getAllProjects();
     if (id) {
-      const { data } = await api.get(`/user/${id}`)
+      const { data } = await api.get(`/user/${id}`);
       setOldValue(data[0]);
       Object.entries(data[0]).forEach(([property, value]) => {
         if (property.includes("date")) {

@@ -630,7 +630,8 @@ const RegisterProfessionalsData = ({ data }) => {
           <InputSelect
             textColor={values?.professional_data.type_person}
             placeholder='Tipo de pessoa'
-            lineWidth='100%'
+            width="100%"
+            lineWidth='18em'
             name='type_person'
             options={optionsTypePerson}
             value={values?.professional_data.type_person}
@@ -644,14 +645,14 @@ const RegisterProfessionalsData = ({ data }) => {
             textColor={values.professional_data.bank}
             value={values.professional_data.bank}
             onChange={handleChange("professional_data.bank")}
+            padding="0em 2em 0 1em"
             placeholder="Banco"
             error={errors?.professional_data?.bank}
             touched={touched?.professional_data?.bank}
             label="Banco "
-            width="90%"
-            padding='0em 0em 0em 1em'
+            width="42%"
             setFieldValue={setFieldValue}
-            lineWidth="32.3%"
+            lineWidth="29.6%"
             translate={"translate(0em,3em)"}
             name="professional_data.bank"
             required
@@ -665,7 +666,7 @@ const RegisterProfessionalsData = ({ data }) => {
             error={errors?.professional_data?.account_type}
             touched={touched?.professional_data?.account_type}
             padding="0em 2em 0 0em"
-            width='20em'
+            width='25em'
             lineWidth="100%"
             name="professional_data.account_type"
             label="Tipo da conta"
