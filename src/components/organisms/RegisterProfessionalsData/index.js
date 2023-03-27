@@ -265,9 +265,10 @@ const RegisterProfessionalsData = ({ data }) => {
           <PhoneInternational
             error={errors.telephone_number}
             touched={touched.telephone_number}
-            onBlur={() => { }}
+            onBlur={setFieldTouched}
             onChange={handleChange('telephone_number')}
             width='25em'
+            name='telephone_number'
             value={values.telephone_number}
           />
         </ContainerRow>
@@ -278,19 +279,7 @@ const RegisterProfessionalsData = ({ data }) => {
             onChange={handleChange("cep")}
             label="CEP"
             padding="0em 2em 0 0em"
-            mask={
-              values.country === "Brazil" && [
-                /\d/,
-                /\d/,
-                /\d/,
-                /\d/,
-                /\d/,
-                "-",
-                /\d/,
-                /\d/,
-                /\d/,
-              ]
-            }
+            mask={values.country === "Brazil" && [/\d/,/\d/,/\d/,/\d/,/\d/,"-",/\d/,/\d/,/\d/,]}
             width="100%"
             widthContainer="23%"
             error={errors.cep}

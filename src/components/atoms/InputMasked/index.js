@@ -27,7 +27,6 @@ const InputMasked = (
   const [focus, setFocus] = useState(false)
   const [blur, setBlur] = useState(false)
   const inputRef = useRef(null)
-
   return(
     <MaskedInput
       value={value}
