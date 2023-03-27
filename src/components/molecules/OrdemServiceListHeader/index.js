@@ -21,7 +21,7 @@ const OrdemServiceHeader = ({sortByName}) => {
       </ListHeaderProfessional>
 
       <ListHeaderCompanies>
-        <ListHeaderTitle >Empresa</ListHeaderTitle>
+        <ListHeaderTitle margin="3em">Empresa</ListHeaderTitle>
         <Arrows onClick={sortByName} />
       </ListHeaderCompanies>
 
@@ -31,7 +31,7 @@ const OrdemServiceHeader = ({sortByName}) => {
       </ListHeaderCNPJ>
 
       <ListHeadeSalarioOs>
-        <ListHeaderTitle  margin='3em'>Salário</ListHeaderTitle>
+        <ListHeaderTitle  margin='1.8em'>Salário</ListHeaderTitle>
         <Arrows onClick={sortByName} />
       </ListHeadeSalarioOs>
 

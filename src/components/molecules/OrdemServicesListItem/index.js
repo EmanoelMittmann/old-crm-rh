@@ -2,9 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import api from "../../../api/api";
 import InputSelect from "../../atoms/InputSelect";
-import { OnPrice } from "../../utils/onPrice";
 import { ContainerOrdemServices, ContainerSelect, OrdemServiceItens } from "./style";
 
 
@@ -24,10 +22,9 @@ const OrdemServiceListItem = ({
   professionals,
   companies,
   idCompanie,
-  setIdCompanie,
+  setIdCompanie
 }) => {
   const [check, setCheck] = useState(false);
-
   const state = useSelector((state) => state.valueOfCommission);
   const hourQuantity = index?.extrahour_release
     .map((prop) => prop.hour_quantity)
@@ -46,7 +43,7 @@ const OrdemServiceListItem = ({
       if (isHaveComission.commission) {
         setCheckedProfissional([
           ...checkedProfissional,
-          { professional_id: index.id, companies_id : idCompanie ?? companies[0].id },
+          { professional_id: index.id, companies_id: idCompanie ?? companies[0].id },
         ]);
       } else {
         setCheckedProfissional([
@@ -57,7 +54,7 @@ const OrdemServiceListItem = ({
     }
 
   };
-  
+
 
   const handleClickCompanies = () => {
     const obj = checkedProfissional.map((item) => {
@@ -79,9 +76,10 @@ const OrdemServiceListItem = ({
 
 
   useEffect(() => {
-    deleteProfessionalWithCommission(index);  
+    deleteProfessionalWithCommission(index);
+
   }, [check]);
-  
+
 
   useEffect(() => {
     const newArr = checkedProfissional.map((professional) => {
@@ -103,7 +101,7 @@ const OrdemServiceListItem = ({
 
   return (
     <ContainerOrdemServices key={index.id}>
-      <OrdemServiceItens width="15%" content="flex-start">
+      <OrdemServiceItens width="20%" content="flex-start">
         <input
           type="checkbox"
           name="professional"
@@ -118,10 +116,9 @@ const OrdemServiceListItem = ({
       </OrdemServiceItens>
       <ContainerSelect>
         <InputSelect
-        textColor={companies}
-          lineWidth="12em"
-          placeholder="Empresas"
-          value={idCompanie}
+          textColor={companies}
+          lineWidth="10em"
+          placeholder={companies[1].razao_social}
           onChange={(e) => setIdCompanie(e.target.value)}
           options={companies}
           width="100%"
@@ -129,7 +126,7 @@ const OrdemServiceListItem = ({
         />
       </ContainerSelect>
 
-      <OrdemServiceItens width="20%" content="start">
+      <OrdemServiceItens width="22%" content="start">
         {index.professional_data?.cnpj}
       </OrdemServiceItens>
       <OrdemServiceItens width="18%" content="start">
