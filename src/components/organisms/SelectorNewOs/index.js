@@ -39,6 +39,7 @@ const NewOrdemService = () => {
   const [newId, setNewId] = useState([]);
   const [check, setCheck] = useState(true);
   const [companies, setCompanies] = useState([]);
+  const [idCompanie, setIdCompanie] = useState()
   const [haveCommission, setHaveCommission] = useState([]);
   const [haveCommissionMeta, setHaveCommissionMeta] = useState({});
   const [page, setPage] = useState(1);
@@ -145,7 +146,7 @@ const NewOrdemService = () => {
       console.error(error)
     }
   };
-  
+
   const getProfessionals = async () => {
     const { data } = await api({
       method: "get",
@@ -160,7 +161,7 @@ const NewOrdemService = () => {
 
   useEffect(() => {
     getCompanies();
-  },[])
+  }, [])
 
   useEffect(() => {
     handleSubmit(checkedProfissional);
@@ -275,6 +276,8 @@ const NewOrdemService = () => {
               <OrdemServiceListItem
                 professionals={professionals}
                 companies={companies}
+                idCompanie={idCompanie}
+                setIdCompanie={setIdCompanie}
                 setNewId={setNewId}
                 key={index.id}
                 index={index}
@@ -288,7 +291,7 @@ const NewOrdemService = () => {
             );
           })}
         </ScrollContainer>
-        <OnPrice {...{checkedProfissional,companies,professionals}}/>
+        <OnPrice {...{ checkedProfissional, companies, professionals }} />
       </Container>
 
     </>

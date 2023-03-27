@@ -23,11 +23,10 @@ const OrdemServiceListItem = ({
   deleteProfessionalWithCommission,
   professionals,
   companies,
+  idCompanie,
+  setIdCompanie,
 }) => {
   const [check, setCheck] = useState(false);
-
-  const [idCompanie, setIdCompanie] = useState();
-
 
   const state = useSelector((state) => state.valueOfCommission);
   const hourQuantity = index?.extrahour_release
@@ -71,46 +70,6 @@ const OrdemServiceListItem = ({
     setCheckedProfissional(obj);
   }
 
-  useEffect(() => {
-    totalSalaryPayment()
-    
-  },[])
-  const totalSalaryPayment = () => {
-    setTotalPayment(
-      index.value
-        ? (
-          Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2)) +
-          Number(index.fixed_payment_value) +
-          Number(hourQuantity * index.extra_hour_value)
-        ).toLocaleString("pt-br", { style: "currency", currency: "BRL" })
-        : (
-          Number(index.fixed_payment_value) +
-          Number(hourQuantity * index.extra_hour_value)
-        ).toLocaleString("pt-br", {
-          style: "currency",
-          currency: "BRL",
-        }),
-
-      setWage(index.fixed_payment_value),
-
-      setcomissionUser(index.value
-        ? ` ${Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2)).toLocaleString("pt-br", {
-          style: "currency",
-          currency: "BRL",
-        })}`
-        : " - "),
-      setExtraHours(hourQuantity
-        ? Number(hourQuantity * index.extra_hour_value).toLocaleString(
-          "pt-br",
-          {
-            style: "currency",
-            currency: "BRL",
-          }
-        )
-        : "-")
-    )
-  }
-
 
   useEffect(() => {
     const exist = checkedProfissional.map((item) => item.professional_id);
@@ -120,9 +79,8 @@ const OrdemServiceListItem = ({
 
 
   useEffect(() => {
-    deleteProfessionalWithCommission(index);
-    
-  }, [check, wage, extraHours, comissionUser]);
+    deleteProfessionalWithCommission(index);  
+  }, [check]);
   
 
   useEffect(() => {
