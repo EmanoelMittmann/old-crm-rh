@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   padding: 1.5em 1.5em 0 1.5em;
   width: 91.2%;
-  height: auto;
+  height: 35em;
   background-color: white;
   border-radius: 20px;
   margin: auto;
@@ -48,9 +48,9 @@ export const ContainerButtons = styled.div`
 
 export const ScrollContainer = styled.ul`
   overflow-y: scroll;
-  height: 75%;
+  height: 50%;
   width: 100%;
-  margin-bottom: 2em;
+  margin-bottom: 0.5em;
   border-bottom: 1px solid #ccc;
   
   
@@ -95,12 +95,13 @@ export const ContainerButtonGeral = styled.div`
 
 `
 export const ContainerFlex = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: end;
-    white-space: nowrap;
-    align-items: end;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  white-space: nowrap;
+  align-items: end;
+
     .price{
         display: flex;
         align-items: center;
@@ -108,13 +109,13 @@ export const ContainerFlex = styled.div`
 `
 
 export const CompanyField = styled.div`
-    width: 310px;
-    padding: 0.5em 0 0.5em 0;
+    width: 18%;
+    padding: 0.3em 0 0.5em 0;
     display: flex;
-    align-items: start;
-    justify-content: start;
-    font-size: 1rem;
-    font-weight: 400;
+    align-items: end;
+    justify-content: end;
+    font-size: 13px;
+    font-weight: 500;
 `
 export const Some = styled.span`
     width: 100%;
@@ -122,6 +123,6 @@ export const Some = styled.span`
     display: flex;
     align-items: end;
     justify-content: end;
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 300;
 `

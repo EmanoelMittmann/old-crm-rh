@@ -2,7 +2,7 @@ import React, { forwardRef } from "react";
 import { useState } from "react";
 import { MenuOptionsContainer, OptionsMenu, OptionsMenuItem } from "./style.js";
 
-const MenuOptions = forwardRef(({
+const MenuOptionsOS = forwardRef(({
   id,
   firstChosenOption,
   firstOptionDescription,
@@ -28,12 +28,12 @@ const MenuOptions = forwardRef(({
         >
           {firstOptionDescription}
         </OptionsMenuItem>
-        <OptionsMenuItem padding={padding} onClick={secondChosenOption}>
+        <OptionsMenuItem padding={padding} onClick={secondChosenOption} disabled={disabled}>
           {secondOptionDescription}
         </OptionsMenuItem>
 
         {thirdOptionDescription && (
-          <OptionsMenuItem padding={padding} onClick={thirdChosenOption}>
+          <OptionsMenuItem padding={padding} onClick={thirdChosenOption} disabled={disabled}>
             {thirdOptionDescription}
           </OptionsMenuItem>
         )}
@@ -42,4 +42,4 @@ const MenuOptions = forwardRef(({
   );
 }) 
 
-export default MenuOptions;
+export default MenuOptionsOS;

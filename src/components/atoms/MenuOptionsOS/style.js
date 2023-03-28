@@ -30,7 +30,7 @@ export const OptionsMenuItem = styled.button`
   font-family: 'Poppins', sans-serif;
   font-size: 0.98rem;
   font-weight: 500;
-  color: black;
+  color: ${(props) => props.disabled === false ? "black" :  "#bbb"};
   cursor: pointer;
 
   &:hover {

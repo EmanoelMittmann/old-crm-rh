@@ -639,9 +639,9 @@ const RegisterProfessionalsData = ({ data }) => {
             error={errors?.professional_data?.bank}
             touched={touched?.professional_data?.bank}
             label="Banco "
-            width="42%"
+            width="50%"
             setFieldValue={setFieldValue}
-            lineWidth="29.6%"
+            lineWidth="100%"
             translate={"translate(0em,3em)"}
             name="professional_data.bank"
             required
@@ -655,7 +655,7 @@ const RegisterProfessionalsData = ({ data }) => {
             error={errors?.professional_data?.account_type}
             touched={touched?.professional_data?.account_type}
             padding="0em 2em 0 0em"
-            width='25em'
+            width='100%'
             lineWidth="100%"
             name="professional_data.account_type"
             label="Tipo da conta"
@@ -710,7 +710,7 @@ const RegisterProfessionalsData = ({ data }) => {
             error={errors?.professional_data?.type_of_transfer}
             touched={touched?.professional_data?.type_of_transfer}
             width="100%"
-            lineWidth="25em"
+            lineWidth="320px"
             name="professional_data.type_of_transfer"
             label="Tipo de tranferência"
             required
@@ -725,7 +725,7 @@ const RegisterProfessionalsData = ({ data }) => {
             placeholder="Tipo de chave PIX"
             padding="0em 2em 0 0em"
             width="100%"
-            lineWidth="420px"
+            lineWidth="320px"
             name="professional_data.pix_key_type"
             disabled={isDisabled}
             label={values.professional_data.type_of_transfer == "PIX" ? 'Tipo de chave PIX' : ""}
