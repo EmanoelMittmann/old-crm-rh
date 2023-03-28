@@ -3,7 +3,7 @@ import { CompanyField, ContainerFlex, Some } from "../organisms/SelectorNewOs/st
 
 const OnPrice = ({ professionals, checkedProfissional, companies }) => {
     const [totalPayment, setTotalPayment] = useState({})
-
+    
     const totalSalaryPayment = () => {
         let companies = {}
         checkedProfissional.map((item) => {
@@ -12,7 +12,7 @@ const OnPrice = ({ professionals, checkedProfissional, companies }) => {
                     const hourQuantity = e?.extrahour_release
                     .map((prop) => prop.hour_quantity)
                     .reduce((acc, cc) => acc + cc, 0);
-                    const commissionUser = item.commission ? item.commission : 0
+                    const commissionUser = item?.commission ? item.commission : 0
                     const temp = companies[item.companies_id] ?? 0
                     const payment =( e.fixed_payment_value + (hourQuantity * e.extra_hour_value) + (temp + commissionUser))
 

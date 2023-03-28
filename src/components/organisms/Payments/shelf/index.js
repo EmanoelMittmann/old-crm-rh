@@ -16,10 +16,12 @@ import { useState } from "react";
 import { formatDate } from "../../../utils/formatDate";
 import { formatCnpj } from "../../../utils/formatCnpj";
 import DetailsReports from "../../DetailsReports";
+import MenuOptionsOS from "../../../atoms/MenuOptionsOS";
 
 const Shelf = ({ data, uploads }) => {
   const [menuOptions, setMenuOptions] = useState(false);
   const [detailVisibled, setdetaisVisibled] = useState(false);
+  const [disabled, setDisabled] = useState(data.status_payment=== "Pendente" ? true : false)
   const modalRef = useRef();
   const buttonRef = useRef();
 
@@ -30,12 +32,13 @@ const Shelf = ({ data, uploads }) => {
 
   const colors =
     data.status_payment === "Pago"
-      ? "#1ECB4F"
-      : data.status_payment === "Pendente"
-      ? "#FFAE00"
-      : data.status_payment === "Negado"
-      ? "#FF3541"
-      : "#0066FF";
+    ? "#1ECB4F"
+    : data.status_payment === "Pendente"
+    ? "#FFAE00"
+    : data.status_payment === "Negado"
+    ? "#FF3541"
+    : "#0066FF";
+    
 
   const bg =
     data.status_payment === "Pago"
@@ -110,7 +113,8 @@ const Shelf = ({ data, uploads }) => {
             />
           </ContainerIconOptions>
           {menuOptions && (
-            <MenuOptions
+            <MenuOptionsOS
+              disabled={disabled}
               ref={modalRef}
               positionMenu="-10px"
               height="8.5em"

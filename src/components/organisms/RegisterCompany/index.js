@@ -228,7 +228,7 @@ const RegisterCompany = ({ data, disabled }) => {
             error={errors.size}
             touched={touched.size}
             options={optionsPorte}
-            placeHolder="Porte"
+            placeholder="Porte da empresa"
             disabled={disabled}
             handleBlur={setFieldTouched}
             width="100%"

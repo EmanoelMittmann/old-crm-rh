@@ -50,7 +50,6 @@ const NewOrdemService = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-
   let params = {};
 
   const sortByName = () => {
@@ -289,7 +288,10 @@ const NewOrdemService = () => {
             );
           })}
         </ScrollContainer>
-        <OnPrice {...{ checkedProfissional, companies, professionals }} />
+        <div>
+          <OnPrice {...{ checkedProfissional, companies, professionals }} />
+        </div>
+  
       </Container>
 
     </>

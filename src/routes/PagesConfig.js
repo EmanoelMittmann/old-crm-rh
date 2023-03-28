@@ -81,7 +81,7 @@ export const templates = [
     name: "Ordens de serviço",
     hasButton: true,
     buttonText: "Gerar nova O.S.",
-    buttonPath: "/NewOs",
+    buttonPath: "/OrdemServices",
     icon: <ServiceOrdersIcon />,
     isRegisterPage: false,
     path: "/serviceOrders",

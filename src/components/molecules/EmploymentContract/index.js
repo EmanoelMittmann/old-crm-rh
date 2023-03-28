@@ -122,7 +122,7 @@ const EmploymentContract = ({ data, jobs }) => {
         <InputWithLabel
           onChange={handleChange('weekly_hours')}
           value={values.weekly_hours}
-          widthContainer="20%"
+          widthContainer="30%"
           label="Horas/semana"
           type="number"
           error={errors.weekly_hours}

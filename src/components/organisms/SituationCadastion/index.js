@@ -63,6 +63,7 @@ export const SituationCadastion = ({ data, disabled }) => {
           <InputWithLabel
             value={values.responsible_federative_entity}
             label="Ente Federativo Responsável (EFR)"
+            placeholder="Informe o ente Federativo Responsável"
             onChange={handleChange('responsible_federative_entity')}
             error={errors.responsible_federative_entity}
             touched={touched.responsible_federative_entity}
@@ -77,6 +78,7 @@ export const SituationCadastion = ({ data, disabled }) => {
           <InputWithLabel
             value={values.special_situation}
             label="Situação especial"
+            placeholder="Informe a situação especial, caso exista"
             onChange={handleChange('special_situation')}
             error={errors.special_situation}
             touched={touched.special_situation}

@@ -1,6 +1,5 @@
 import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-
 import PrivateRoute from './PrivateRoute';
 import Login from '../components/pages/Login';
 import Home from '../components/pages/Home';
@@ -48,12 +47,11 @@ const Routes = () => {
                 <PrivateRoute path="/Company" component={ListCompany} id={8}/>
                 <PrivateRoute exact path="/Companies" component={RegisterCompanies} id={8}/>
                 <PrivateRoute path="/Companies/:id" component={RegisterCompanies} id={8}/>
-                <PrivateRoute path="/NewOs" component={OrdemService} id={6}/>
+                <PrivateRoute path="/OrdemServices" component={OrdemService} id={6}/>
                 <PrivateRoute path="/timeSending" component={OvertimeListProfessional} id={9}/>
                 <PrivateRoute path="/timeIstechLead" component={OvertimeListIsTechLead} id={9}/>
                 <PrivateRoute path="/invoiceSending" component={InvoiceSending} id={10}/>
                 <PrivateRoute path="/invoiceUpload" component={InvoiceUpload} id={10}/>
-
                 <PrivateRoute path="/releaseHours" component={ReleaseHours} id={9}/>
                 <PrivateRoute path="/DetailsRelease/:id" component={DetailsRelease} id={9}/>
             </Switch>
