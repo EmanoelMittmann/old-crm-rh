@@ -29,7 +29,10 @@ const Shelf = ({ data, formik }) => {
                         addPermissions()
                     }}
                 />
-                <p>{data.modulo_name}</p>
+                <p className="popover_title">{data.modulo_name}</p>
+                <div className="popover_content">
+                    Descrição do modulo
+                </div>
             </SelectsItens>
         </>
     );

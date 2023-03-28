@@ -27,7 +27,6 @@ import InputWithLabel from "../../atoms/InputWithLabel";
 import SecondaryText from "../../atoms/SecondaryText/style";
 import TechLeadAndDev from "../../molecules/techLeadAndDev";
 import { PermissionsSpecial } from "../../organisms/PermissionsSpecial";
-import { LocalStorageKeys } from "../../../settings/LocalStorageKeys";
 
 const RegisterProfessional = () => {
   const [jobs, setJobs] = useState([]);
@@ -35,13 +34,9 @@ const RegisterProfessional = () => {
   const [projects, setProjects] = useState([]);
   const [uniqueCpf, setUniqueCpf] = useState("");
   const [permissions, setPermissions] = useState([]);
-  const [cpfValid, setCpfValid] = useState(false);
+  const [cpfmessage, setCpfmessage] = useState("");
   const [uniqueCEP, setUniqueCEP] = useState("");
   const [oldValue, setOldValue] = useState([]);
-  const [token] = useState(() => {
-    let token = localStorage.getItem(LocalStorageKeys.USER);
-    return token;
-  });
   const [anotherCep, setAnotherCEP] = useState("");
   const [extraHour, setExtraHour] = useState("");
   const history = useHistory();
@@ -59,15 +54,20 @@ const RegisterProfessional = () => {
     cpf: Yup.string()
       .required(messages.required)
       .min(14, "CPF inválido")
-      .test("Verificar CPF", "CPF já existe",async() => {
+      .test("Verificar CPF", cpfmessage, async () => {
         if (values.cpf.length === 14) {
           setUniqueCpf(values.cpf);
           try {
-            await api.post('/user/validateCpf',{cpf:values.cpf})
+            const {data} = await api.post("/user/validateCpf", {
+              cpf: values.cpf,
+            });
+           if(data){
             return true
-          } catch (error) {
+           }
+          }catch(error){
+            setCpfmessage(error.response.data.msg)
             return false
-          }
+          }         
         }
       }),
 
@@ -186,23 +186,21 @@ const RegisterProfessional = () => {
       .required(messages.required)
       .test("Horas válidas", "Horas/semana excedida", () => {
         if (values.job_type === "FULLTIME" && values.weekly_hours > 40) {
-          return false
+          return false;
+        } else if (values.job_type === "PARTTIME" && values.weekly_hours > 20) {
+          return false;
         }
-        else if (values.job_type === "PARTTIME" && values.weekly_hours > 20) {
-          return false
-        }
-        return true
+        return true;
       }),
     mounth_hours: Yup.number()
       .required(messages.required)
       .test("Horas válidas", "Horas/mês excedida", () => {
         if (values.job_type === "FULLTIME" && values.mounth_hours > 160) {
-          return false
+          return false;
+        } else if (values.job_type === "PARTTIME" && values.mounth_hours > 80) {
+          return false;
         }
-        else if (values.job_type === "PARTTIME" && values.mounth_hours > 80) {
-          return false
-        }
-        return true
+        return true;
       }),
     fixed_payment_value: Yup.string().required(messages.required),
   });
@@ -271,46 +269,46 @@ const RegisterProfessional = () => {
         url: id ? `/user/${id}` : "/user",
         data: !id
           ? {
-            ...values,
-            extra_hour_value: parseFloat(
-              values.extra_hour_value.replace("R$", "").replace(",", ".")
-            ),
-            fixed_payment_value: values.fixed_payment_value
-              .replace("R$", "")
-              .replace(".", "")
-              .replace(",00", ""),
-            telephone_number: values.telephone_number
-              .toString()
-              .replace("(", "")
-              .replace(")", "")
-              .replace(" ", "")
-              .replace(" ", "")
-              .replace("-", ""),
-            cpf: cleanMask(values.cpf),
-            cep: cleanMask(values.cep),
-            rg: values.rg.toString(),
-            projects,
-          }
+              ...values,
+              extra_hour_value: parseFloat(
+                values.extra_hour_value.replace("R$", "").replace(",", ".")
+              ),
+              fixed_payment_value: values.fixed_payment_value
+                .replace("R$", "")
+                .replace(".", "")
+                .replace(",00", ""),
+              telephone_number: values.telephone_number
+                .toString()
+                .replace("(", "")
+                .replace(")", "")
+                .replace(" ", "")
+                .replace(" ", "")
+                .replace("-", ""),
+              cpf: cleanMask(values.cpf),
+              cep: cleanMask(values.cep),
+              rg: values.rg.toString(),
+              projects,
+            }
           : {
-            ...values,
-            extra_hour_value: parseFloat(
-              values.extra_hour_value.replace("R$", "").replace(",", ".")
-            ),
-            fixed_payment_value: values.fixed_payment_value
-              .replace("R$", "")
-              .replace(".", "")
-              .replace(",00", ""),
-            telephone_number: values.telephone_number
-              .toString()
-              .replace("(", "")
-              .replace(")", "")
-              .replace(" ", "")
-              .replace(" ", "")
-              .replace("-", ""),
-            cpf: cleanMask(values.cpf),
-            cep: cleanMask(values.cep),
-            rg: values.rg.toString(),
-          },
+              ...values,
+              extra_hour_value: parseFloat(
+                values.extra_hour_value.replace("R$", "").replace(",", ".")
+              ),
+              fixed_payment_value: values.fixed_payment_value
+                .replace("R$", "")
+                .replace(".", "")
+                .replace(",00", ""),
+              telephone_number: values.telephone_number
+                .toString()
+                .replace("(", "")
+                .replace(")", "")
+                .replace(" ", "")
+                .replace(" ", "")
+                .replace("-", ""),
+              cpf: cleanMask(values.cpf),
+              cep: cleanMask(values.cep),
+              rg: values.rg.toString(),
+            },
       })
         .then(() => {
           toast.success(
@@ -502,7 +500,7 @@ const RegisterProfessional = () => {
         setAllProjects([]);
       };
     }
-  }
+  };
 
   useEffect(() => {
     getPermissions();
@@ -544,9 +542,9 @@ const RegisterProfessional = () => {
   ) {
     const verified =
       oldValue?.professional_data?.pix_key_type ===
-      values.professional_data.pix_key_type &&
+        values.professional_data.pix_key_type &&
       oldValue?.professional_data?.type_of_transfer ===
-      values.professional_data.type_of_transfer;
+        values.professional_data.type_of_transfer;
     if (!verified) {
       setFieldValue("professional_data.pix_key", "");
     }
@@ -564,7 +562,6 @@ const RegisterProfessional = () => {
     values.professional_data.pix_key_type,
     values.professional_data.type_of_transfer,
   ]);
-
 
   return (
     <>
@@ -623,7 +620,7 @@ const RegisterProfessional = () => {
         />
         <RegisterFooter
           cancelButtonHandler={goBackClickHandler}
-          registerButtonHandler={() => { }}
+          registerButtonHandler={() => {}}
           buttonDescription={id ? "Atualizar" : "Cadastrar"}
           type="submit"
           form="professional"
