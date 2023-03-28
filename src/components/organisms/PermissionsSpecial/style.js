@@ -68,10 +68,14 @@ export const SelectsItens = styled.div`
     position: absolute;
     transform: translate(0,0);
     text-align: center;
-    font-weight: 600;
+    font-weight: 500;
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0px 0px 10px #bbb;
+  }
+
+  .popover_content p{
+    font-size: small;
   }
 
   .popover_content:before {
