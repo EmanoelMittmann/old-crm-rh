@@ -5,7 +5,7 @@ import { modulesDescription } from "../ToolTip";
 
 const Shelf = ({ data, formik }) => {
   const { values, setFieldValue } = formik;
-  const { first, second, width } = modulesDescription(data.id);
+  const { first, second } = modulesDescription(data.id);
 
   const addPermissions = () => {
     const id = values.permissions.includes(data.id);
