@@ -109,7 +109,7 @@ export const ContainerFlex = styled.div`
 `
 
 export const CompanyField = styled.div`
-    width: 18%;
+    width: 290px;
     padding: 0.3em 0 0.5em 0;
     display: flex;
     align-items: end;
@@ -119,7 +119,7 @@ export const CompanyField = styled.div`
 `
 export const Some = styled.span`
     width: 100%;
-    padding: 0em 0.5em 0 0.5em;
+    padding: 0em 0.5em 0 0em;
     display: flex;
     align-items: end;
     justify-content: end;
