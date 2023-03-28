@@ -183,7 +183,7 @@ const RegisterProfessionalsData = ({ data }) => {
             error={errors.name}
             touched={touched.name}
             handleBlur={setFieldTouched}
-            placeholder="Informe seu nome completo"
+            placeholder="Informe o nome completo"
             required
           />
           <InputWithLabel
@@ -197,7 +197,7 @@ const RegisterProfessionalsData = ({ data }) => {
             touched={touched.birth_date}
             handleBlur={setFieldTouched}
             name="birth_date"
-            placeholder="Informe sua data de nascimento"
+            placeholder="Informe a data de nascimento"
             required
           />
         </ContainerRow>

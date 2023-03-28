@@ -19,14 +19,14 @@ const DataBank = ({data}) => {
           <SelectBank
             value={values.bank}
             onChange={handleChange("bank")}
-            padding="0em 2em 0 0em"
+            padding="0em 1.5em 0 1.5em"
             placeHolder="Banco"
             error={errors?.bank}
             touched={touched?.bank}
             label="Banco"
-            width="47em"
+            width="100%"
+            lineWidth="95%"
             setFieldValue={setFieldValue}
-            lineWidth="44.6%"
             translate={"translate(0,3em)"}
             name="bank"
             required
@@ -40,9 +40,9 @@ const DataBank = ({data}) => {
             error={errors?.bank}
             touched={touched?.bank}
             placeholder="Tipo da conta"
-            padding="0em 2em 0 0em"
+            padding="0em 2.5em 0 0em"
             width="100%"
-            lineWidth="30em"
+            lineWidth="25em"
             name="account_type"
             required
           />
