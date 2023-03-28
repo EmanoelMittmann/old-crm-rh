@@ -1,9 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { SelectsItens } from "../style";
+import { modulesDescription } from "../ToolTip";
 
 const Shelf = ({ data, formik }) => {
     const { values, setFieldValue} = formik
+    const {first, second, width} = modulesDescription(data.id)
 
     const addPermissions = () => {
         const id = values.permissions.includes(data.id)
@@ -30,8 +32,9 @@ const Shelf = ({ data, formik }) => {
                     }}
                 />
                 <p className="popover_title">{data.modulo_name}</p>
-                <div className="popover_content">
-                    Descrição do modulo
+                <div className="popover_content" width={width}>
+                    {first}<br/>
+                    {second}
                 </div>
             </SelectsItens>
         </>
