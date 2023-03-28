@@ -50,7 +50,6 @@ const NewOrdemService = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-
   let params = {};
 
   const sortByName = () => {

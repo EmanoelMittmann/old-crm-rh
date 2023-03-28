@@ -22,7 +22,6 @@ const Shelf = ({ data, uploads }) => {
   const [menuOptions, setMenuOptions] = useState(false);
   const [detailVisibled, setdetaisVisibled] = useState(false);
   const [disabled, setDisabled] = useState(data.status_payment=== "Pendente" ? true : false)
-  console.log('disabled: ', disabled);
   const modalRef = useRef();
   const buttonRef = useRef();
 

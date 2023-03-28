@@ -1,3 +1,4 @@
+import { replace } from "connected-react-router";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -85,16 +86,16 @@ const OrdemServiceListItem = ({
     const newArr = checkedProfissional.map((professional) => {
       const findProfessionalInCommission = state.find(
         (commission) => professional.professional_id === commission.id
-      );
-      if (findProfessionalInCommission) {
-        return {
-          ...professional,
-          commission: parseFloat(findProfessionalInCommission.value.split('$')[1].replace(',', '.'))
-        };
-      } else {
-        return professional;
-      }
-    });
+        );
+        if (findProfessionalInCommission) {
+          return {
+            ...professional,
+            commission: parseFloat(findProfessionalInCommission.value.replace('R$', "").replaceAll('.','').replace(',', '.'))
+          };
+        } else {
+          return professional;
+        }
+      });
     setCheckedProfissional(newArr);
   }, [state]);
 
@@ -132,14 +133,16 @@ const OrdemServiceListItem = ({
       <OrdemServiceItens width="18%" content="start">
         R$ {index.fixed_payment_value},00
       </OrdemServiceItens>
+
       <OrdemServiceItens width="17%" content="flex-start">
         {index.value
-          ? ` ${Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2)).toLocaleString("pt-br", {
+          ? ` ${Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.'))).toLocaleString("pt-br", {
             style: "currency",
             currency: "BRL",
           })}`
           : " - "}
       </OrdemServiceItens>
+
       <OrdemServiceItens width="25%" content="flex-start">
         {hourQuantity
           ? Number(hourQuantity * index.extra_hour_value).toLocaleString(

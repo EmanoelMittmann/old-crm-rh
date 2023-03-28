@@ -15,8 +15,6 @@ const MenuOptionsOS = forwardRef(({
   height,
   disabled
 },ref) => {
-  
-  console.log('disabled: ', disabled);
 
   return (
     <MenuOptionsContainer >
