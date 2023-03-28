@@ -57,15 +57,25 @@ export const SelectsItens = styled.div`
   }
 
   .popover_content {
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    flex-direction: column;
     opacity: 0;
     visibility: hidden;
+    padding: 0.5em;
     position: absolute;
-    transform: translate(0, 10px);
+    transform: translate(0,0);
     text-align: center;
+    font-weight: 500;
     border-radius: 8px;
     background-color: #fff;
-    box-shadow: 1px 0px 10px black;
-    width: 12em;
+    box-shadow: 0px 0px 10px #bbb;
+  }
+
+  .popover_content p{
+    font-size: small;
   }
 
   .popover_content:before {
@@ -73,7 +83,7 @@ export const SelectsItens = styled.div`
     z-index: -1;
     content: "";
     right: calc(50% - 10px);
-    top: -8px;
+    top: -10px;
     border: transparent 10px solid;
     transition: transform 0.3s ease-out;
   }
@@ -82,7 +92,7 @@ export const SelectsItens = styled.div`
     z-index: 10;
     opacity: 1;
     visibility: visible;
-    transform: translate(0, -20px);
+    transform: translate(8em, 0px);
     transition: all 0.5s cubic-bezier(0.75, -0.02, 0.2, 0.97);
   }
 `;
