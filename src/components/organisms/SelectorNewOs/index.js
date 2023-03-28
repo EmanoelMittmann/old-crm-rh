@@ -278,7 +278,6 @@ const NewOrdemService = () => {
                 companies={companies}
                 idCompanie={idCompanie}
                 setIdCompanie={setIdCompanie}
-                setNewId={setNewId}
                 key={index.id}
                 index={index}
                 setCheckedProfissional={setCheckedProfissional}
@@ -286,7 +285,6 @@ const NewOrdemService = () => {
                 deleteProfessionalWithCommission={
                   deleteProfessionalWithCommission
                 }
-
               />
             );
           })}

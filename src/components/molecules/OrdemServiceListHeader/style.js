@@ -33,8 +33,8 @@ export const ListHeaderCNPJ = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  width: 20%;
-  margin-left: 3em;
+  width: 22%;
+  margin-left: 5em;
 `;
 
 export const ListHeadeSalarioOs = styled.div`

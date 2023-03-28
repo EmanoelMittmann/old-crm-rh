@@ -109,7 +109,7 @@ export const ContainerFlex = styled.div`
 
 export const CompanyField = styled.div`
     width: 310px;
-    padding: 0.5em;
+    padding: 0.5em 0 0.5em 0;
     display: flex;
     align-items: start;
     justify-content: start;

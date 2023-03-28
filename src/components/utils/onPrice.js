@@ -9,10 +9,15 @@ const OnPrice = ({ professionals, checkedProfissional, companies }) => {
         checkedProfissional.map((item) => {
             professionals.find((e) => {
                 if (e.id === item.professional_id) {
+                    const hourQuantity = e?.extrahour_release
+                    .map((prop) => prop.hour_quantity)
+                    .reduce((acc, cc) => acc + cc, 0);
                     const commissionUser = item.commission ? item.commission : 0
                     const temp = companies[item.companies_id] ?? 0
-                    companies[item.companies_id] = e.fixed_payment_value + (temp + commissionUser)
+                    const payment =( e.fixed_payment_value + (hourQuantity * e.extra_hour_value) + (temp + commissionUser))
 
+                    companies[item.companies_id] = payment
+                    
                 }
             })
         })
