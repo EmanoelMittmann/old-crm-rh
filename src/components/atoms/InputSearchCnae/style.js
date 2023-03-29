@@ -79,6 +79,7 @@ export const DefaultInputCnae = styled.input`
 `;
 
 export const ListItens = styled.div`
+  visibility: ${props => props.visible ? 'visible' : 'hidden'};
   color: #424542;
   display: flex;
   flex-direction: column;
@@ -97,6 +98,7 @@ export const ListItens = styled.div`
 
 export const Itens = styled.div`
   padding: 2px 0;
+  display: block;
   :hover {
     background-color: #ccc;
     border-radius: 5px;

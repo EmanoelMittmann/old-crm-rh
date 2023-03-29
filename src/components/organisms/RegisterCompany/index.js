@@ -269,14 +269,14 @@ const RegisterCompany = ({ data, disabled }) => {
           <InputSearchCnae
             label="Atividade Economica Principal"
             placeholder={"Codigo e descrição de Atividade Economica Principal"}
-            value={values.main_cnae}
+            values={values.main_cnae}
             handleBlur={setFieldTouched}
             error={errors.main_cnae}
             disabled={disabled}
+            name='main_cnae'
             touched={touched.main_cnae}
             setFieldValue={setFieldValue}
             width="100%"
-            values={values}
             required
           />
         </ContainerRow>

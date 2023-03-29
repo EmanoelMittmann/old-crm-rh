@@ -19,7 +19,7 @@ const DataBank = ({data}) => {
           <SelectBank
             value={values.bank}
             onChange={handleChange("bank")}
-            padding="0em 2em 0 0em"
+            padding="0em 0em 0em 1em"
             placeHolder="Banco"
             error={errors?.bank}
             touched={touched?.bank}
