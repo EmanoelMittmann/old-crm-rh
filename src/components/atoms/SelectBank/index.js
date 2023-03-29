@@ -90,7 +90,7 @@ function InputBank({
           />
         </InputLine>
         {error && touched && <ErrorMessage>{error}</ErrorMessage>}
-        <Container visible={visible} translate={translate} width='37.2%'>
+        <Container visible={visible} translate={translate} width='26.7%'>
           {filtered?.map((item) => (
             <InputSelectOption
               key={item?.ispb}

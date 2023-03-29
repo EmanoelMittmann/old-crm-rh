@@ -47,7 +47,7 @@ const InputSelect = ({
         <InputSelectContainer
           {...attributeValue}
           textColor={textColor}
-          width={width}
+          width={lineWidth}
           disabled={disabled}
           onChange={onChange}
           onClick={onClick}
