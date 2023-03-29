@@ -72,7 +72,6 @@ const OrdemServiceListItem = ({
   useEffect(() => {
     const exist = checkedProfissional.map((item) => item.professional_id);
     setCheck(exist.includes(index.id));
-    console.log('checkedProfissional: ', checkedProfissional);
   }, [checkedProfissional]);
 
 

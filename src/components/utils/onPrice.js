@@ -2,9 +2,6 @@ import { useEffect, useState } from "react"
 import { CompanyField, ContainerFlex, Some } from "../organisms/SelectorNewOs/style"
 
 const OnPrice = ({ professionals, checkedProfissional, companies }) => {
-    console.log('companies: ', companies);
-    console.log('checkedProfissional: ', checkedProfissional);
-    
     const [totalPayment, setTotalPayment] = useState({})
     
     const totalSalaryPayment = () => {

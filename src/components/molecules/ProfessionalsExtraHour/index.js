@@ -14,9 +14,9 @@ const ProfessionalsExtraHour = ({extraHour, setExtraHour,  setFieldValue, data})
 
     useEffect(() => {
         setComponentJustRendered(true) 
-        data?.job_type === "FREELANCER" ? setIsDisabled(true) : setIsDisabled(false)       
+        data?.job_type === "FREELANCER" ? setIsDisabled(true) : setIsDisabled(false)
     }, [data?.job_type])
-
+    
     const overtimeNotAllowed = {
         ...(componentJustRendered && (data === undefined || data?.extra_hour_activated === false) && {checked: true})
     }
@@ -32,6 +32,7 @@ const ProfessionalsExtraHour = ({extraHour, setExtraHour,  setFieldValue, data})
     if(componentJustRendered && (data === undefined || data?.extra_hour_activated === false)){
         setExtraHour('extraHourDisabled')
     }
+  
 
    return (
         <ContainerRegisterExtraHours>
