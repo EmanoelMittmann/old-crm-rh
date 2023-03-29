@@ -58,6 +58,7 @@ const OrdemServiceListItem = ({
 
   const handleClickCompanies = () => {
     const obj = checkedProfissional.map((item) => {
+     
       if (item.professional_id === index.id) {
         return { ...item, companies_id: idCompanie !== undefined ? idCompanie : item.companies_id };
       } else {
@@ -71,7 +72,7 @@ const OrdemServiceListItem = ({
   useEffect(() => {
     const exist = checkedProfissional.map((item) => item.professional_id);
     setCheck(exist.includes(index.id));
-    if (idCompanie === undefined) setIdCompanie(1)
+    console.log('checkedProfissional: ', checkedProfissional);
   }, [checkedProfissional]);
 
 
@@ -79,6 +80,7 @@ const OrdemServiceListItem = ({
     deleteProfessionalWithCommission(index);
 
   }, [check]);
+
 
 
   useEffect(() => {
@@ -118,7 +120,7 @@ const OrdemServiceListItem = ({
         <InputSelect
           textColor={companies}
           lineWidth="10em"
-          placeholder={companies[1]?.razao_social}
+          placeholder={companies[0]?.razao_social}
           onChange={(e) => setIdCompanie(e.target.value)}
           options={companies}
           width="100%"
