@@ -173,7 +173,7 @@ const SettingsListItem = () => {
   };
 
   return (
-    <div>
+    <div >
       {location.pathname === "/job" &&
         state.jobs.map((job) => (
           <ModalSettings

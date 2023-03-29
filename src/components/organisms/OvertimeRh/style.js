@@ -12,18 +12,9 @@ export const Container = styled.div`
 
 export const ContainerSearch = styled.div`
     width: 100%;
-    padding: 2em 2em 0 2em;
+
 `
 
-export const ContainerListing = styled.div`
-    width: 100%;
-    min-height:30em;
-    border-bottom: 1px solid #F4F6F8;
-
-    .height{
-        height: 24em;
-    }
-`
 export const ContainerQntHours = styled.div`
     display: flex;
     width: 24%;

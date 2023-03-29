@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import Footer from "../Footer";
 import HeaderSearchCompany from "../../molecules/HeaderSearchCompany";
 import { Container } from "../../atoms/Container";
+import { ContainerAbsolute } from "../../atoms/Container/style";
 
 const CompaniesList = () => {
   const location = useLocation();
@@ -73,15 +74,15 @@ const CompaniesList = () => {
       params.page = companyMeta.first_page;
     }
 
-    if(uf !== ""){
+    if (uf !== "") {
       params.uf = uf;
     }
 
-    if(typeCompany !== ""){
+    if (typeCompany !== "") {
       params.type_company = typeCompany;
     }
 
-    if(selectedStatusCompany !== ""){
+    if (selectedStatusCompany !== "") {
       params.status = selectedStatusCompany;
     }
 
@@ -93,11 +94,11 @@ const CompaniesList = () => {
 
     searchResult || uf || selectedStatusCompany || typeCompany
       ? handleFilterCompanies(
-          searchResult,
-          uf,
-          selectedStatusCompany,
-          typeCompany
-        )
+        searchResult,
+        uf,
+        selectedStatusCompany,
+        typeCompany
+      )
       : getCompany();
     location.state && setCompanies(location.state.companies.data);
   }, [order, searchResult, uf, selectedStatusCompany, typeCompany]);
@@ -112,12 +113,12 @@ const CompaniesList = () => {
         uf={uf}
         setSelectedStatusCompany={setSelectedStatusCompany}
       />
-      <CompaniesListHeader OrderForList={OrderForList} order={order}/>
-      <div className="shelf">
+      <CompaniesListHeader OrderForList={OrderForList} order={order} />
+      <ContainerAbsolute>
         {companies?.map((corporation) => (
           <CompaniesListItem corporation={corporation} />
         ))}
-      </div>
+      </ContainerAbsolute>
       <Footer
         previousPage={previousPage}
         nextPage={nextPage}

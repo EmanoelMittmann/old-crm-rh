@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const Sidebar = styled.nav`
   width: 25%;
-  height: 90vh;
+  height: 490px;
   background: white;
   border-radius: 20px;
 `;

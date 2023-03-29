@@ -6,11 +6,11 @@ import { useLocation } from "react-router";
 import { toast } from "react-toastify";
 import ServiseOrdersListHeader from "../../molecules/ServiceOrdersListHeader";
 import ServiceOrderListItens from "../../molecules/ServicesOrderListItens";
-import { ContainerHeight, ContainerServiceOrder, ContainerServiceOrdersStyle } from "./style";
+import { ContainerServiceOrder } from "./style";
 import ServiceOrdersInput from "../../molecules/ServiceOrdersInputs";
 import { DefaultToast } from "../../atoms/Toast/DefaultToast";
 import { Container } from "../../atoms/Container";
-import { RegisterProfessionalContainer } from "../../pages/RegisterProfessional/style";
+import { ContainerAbsolute } from "../../atoms/Container/style";
 
 const ServiceOrderSection = () => {
   const [order, setOrder] = useState("");
@@ -29,7 +29,7 @@ const ServiceOrderSection = () => {
   const getOsProfessionals = async () => {
     const { data } = await api({
       method: "get",
-      url: `/orderOfService?limit=10`,
+      url: `/orderOfService?limit=5`,
       params: params,
     });
     setProfessionals(data.data);
@@ -113,36 +113,35 @@ const ServiceOrderSection = () => {
   ]);
 
   return (
-    <>
-    <ContainerServiceOrdersStyle>
-      <ContainerServiceOrder>
-      <ServiceOrdersInput
-        setSearchResult={setSearchResult}
-        setstatusSelected={setstatusSelected}
-        setInitialDate={setInitialDate}
-        setFinalDate={setFinalDate}
-        setReferenceDate={setReferenceDate}
-      />
-      <ServiseOrdersListHeader sortByName={sortByName} />
-      <ContainerHeight>
-        {professionals.map((professional) => (
-          <ServiceOrderListItens
-            key={professional.id}
-            professional={professional}
+ 
+     <Container>
+        <ContainerServiceOrder>
+          <ServiceOrdersInput
+            setSearchResult={setSearchResult}
+            setstatusSelected={setstatusSelected}
+            setInitialDate={setInitialDate}
+            setFinalDate={setFinalDate}
+            setReferenceDate={setReferenceDate}
           />
-    
-        ))}
-      </ContainerHeight>
-      </ContainerServiceOrder>
-      <Footer
-        previousPage={previousPage}
-        nextPage={nextPage}
-        lastPage={osProfessionalMeta?.last_page}
-        currentPage={osProfessionalMeta?.current_page}
-        firstPage={osProfessionalMeta?.first_page}
-      />
-    </ContainerServiceOrdersStyle>
-    </>
+          <ServiseOrdersListHeader sortByName={sortByName} />
+          <ContainerAbsolute>
+            {professionals.map((professional) => (
+              <ServiceOrderListItens
+                key={professional.id}
+                professional={professional}
+              />
+
+            ))}
+          </ContainerAbsolute>
+        </ContainerServiceOrder>
+        <Footer
+          previousPage={previousPage}
+          nextPage={nextPage}
+          lastPage={osProfessionalMeta?.last_page}
+          currentPage={osProfessionalMeta?.current_page}
+          firstPage={osProfessionalMeta?.first_page}
+        />
+    </Container>
   );
 };
 

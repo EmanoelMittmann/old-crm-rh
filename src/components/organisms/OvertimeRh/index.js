@@ -1,11 +1,13 @@
 import React from "react";
+import { Container } from "../../atoms/Container";
+import { ContainerAbsolute } from "../../atoms/Container/style";
 import InputSelect from "../../atoms/InputSelect";
 import InputWithLabel from "../../atoms/InputWithLabel";
 import HeaderOvertimeRh from "../../molecules/HeaderOvertimeRh";
 import { SearchSection } from "../../molecules/SearchSection";
 import Footer from "../Footer";
 import Shelf from "./shelf";
-import { Container, ContainerListing, ContainerSearch } from "./style";
+import { ContainerListing, ContainerSearch } from "./style";
 
 const OvertimeRh = ({
   allOptionsProjects,
@@ -33,7 +35,6 @@ const OvertimeRh = ({
           fnSearch={setSearch}
           placeholder="Buscar por profissional"
           width="100%"
-          
         >
           <InputSelect
             options={allOptionsProjects}
@@ -55,10 +56,10 @@ const OvertimeRh = ({
             value={initialDate}
             width="100%"
             widthContainer="30%"
-            handleBlur={() => {}}
+            handleBlur={() => { }}
             name="initial_period"
             placeholder="Período inicial"
-            
+
           />
           <InputWithLabel
             type="date"
@@ -66,30 +67,27 @@ const OvertimeRh = ({
             value={finalDate}
             width="100%"
             widthContainer="30%"
-            handleBlur={() => {}}
+            handleBlur={() => { }}
             name="initial_period"
             placeholder="Período Final"
           />
         </SearchSection>
       </ContainerSearch>
-      <ContainerListing>
-        <HeaderOvertimeRh
-          sortByName={sortByName}
-          setOrderField={setOrderField}
-        />
-        <div className="height">
-          {data?.map((item) => (
-            <Shelf values={item} key={item.id} getHoursPending={getHoursPending}/>
-          ))}
-        </div>
-      </ContainerListing>
+      <HeaderOvertimeRh
+        sortByName={sortByName}
+        setOrderField={setOrderField}
+      />
+      <ContainerAbsolute>
+        {data?.map((item) => (
+          <Shelf values={item} key={item.id} getHoursPending={getHoursPending} />
+        ))}
+      </ContainerAbsolute>
       <Footer
         currentPage={dataMeta?.current_page}
         firstPage={dataMeta?.first_page}
         lastPage={dataMeta?.last_page}
         nextPage={() => next()}
         previousPage={() => prev()}
-        height='5em'
       />
     </Container>
   );

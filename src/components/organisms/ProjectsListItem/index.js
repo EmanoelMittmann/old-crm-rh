@@ -5,7 +5,7 @@ import {
 } from "./style.js";
 import ProjectRow from "./row";
 
-export const ProjectsListItem = ({ data, statusOptions, getProjects, DetailsReports, getProjectsDetails }) => {
+export const ProjectsListItem = ({ data, statusOptions, getProjects, DetailsReports }) => {
 
   if (!data) {
     return (
@@ -26,7 +26,7 @@ export const ProjectsListItem = ({ data, statusOptions, getProjects, DetailsRepo
   }
 
 
-  return data.map((project) => <ProjectRow statusOptions={statusOptions} project={project} getProjects={getProjects} key={project.id} DetailsReports={DetailsReports}/>);
+  return data.map((project) =>  <ProjectRow statusOptions={statusOptions} project={project} getProjects={getProjects} key={project.id} DetailsReports={DetailsReports}/>);
 
 };
 

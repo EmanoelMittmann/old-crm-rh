@@ -12,7 +12,4 @@ export const ProfessionalsSectionContainer = styled.section`
   }
 `;
 
-export const ContainerAbsolute = styled.div`
-  height: 370px;
-`
 

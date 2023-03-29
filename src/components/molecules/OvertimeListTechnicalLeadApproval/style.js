@@ -5,7 +5,7 @@ export const Main = styled.div`
   display: flex;
   align-items: center;
   padding: 1em;
-  height: 60px;
+  height: 50px;
   border-radius: 10px;
   margin-left: 0.9em;
   margin-top: 0.5em;
