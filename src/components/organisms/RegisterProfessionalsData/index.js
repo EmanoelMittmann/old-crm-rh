@@ -642,6 +642,7 @@ const RegisterProfessionalsData = ({ data }) => {
             width="100%"
             setFieldValue={setFieldValue}
             lineWidth="100%"
+            listWidth='26.7%'
             translate={"translate(0em,3em)"}
             name="professional_data.bank"
             required

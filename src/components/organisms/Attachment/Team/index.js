@@ -145,7 +145,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           avatar: selected.avatar,
           job_: isTechLead ? "Tech Lead" : jobName,
           status: true,
-          isTechLead: isTechLead,
         },
         
       ]);
@@ -154,7 +153,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     }
     
 
-    addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName, status, TechLead);
+    addMember(professionalSelected, hoursMonth, overtime, jobName, status);
     resetInputs();
   }
 
@@ -218,8 +217,8 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           onChange={(e) => setJobProject(e.target.value)}
           options={jobsMember}
           placeholder="Cargo"
-          width="100%"
-          lineWidth="15em"
+          width="30%"
+          lineWidth="100%"
           label="Cargo"
         />
         <InputWithLabel

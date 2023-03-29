@@ -101,7 +101,7 @@ const OrdemServiceListItem = ({
 
   return (
     <ContainerOrdemServices key={index.id}>
-      <OrdemServiceItens width="19%" content="flex-start">
+      <OrdemServiceItens width="27%" content="flex-start">
         <input
           type="checkbox"
           name="professional"
