@@ -7,6 +7,7 @@ import { SearchSection } from "../../molecules/SearchSection";
 import ProjectsListItem from "../../organisms/ProjectsListItem";
 import Footer from "../../organisms/Footer";
 import { useRef } from "react";
+import { ContainerAbsolute } from "../../atoms/Container/style";
 
 const Projects = () => {
   const [data, setData] = useState([]);
@@ -123,13 +124,13 @@ const Projects = () => {
         />
       </SearchSection>
       <ProjectsListHeader fnOrder={sortByField} />
-      <div className="shelf">
-        <ProjectsListItem
-          data={data}
-          statusOptions={statusOptions}
-          getProjects={getProjects}
-        />
-      </div>
+        <ContainerAbsolute>
+          <ProjectsListItem
+            data={data}
+            statusOptions={statusOptions}
+            getProjects={getProjects}
+          />
+        </ContainerAbsolute>
       <Footer
         previousPage={previousPage}
         nextPage={nextPage}

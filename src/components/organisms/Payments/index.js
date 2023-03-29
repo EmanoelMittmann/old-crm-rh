@@ -5,11 +5,13 @@ import InputWithLabel from "../../atoms/InputWithLabel";
 import HeaderPayments from "../../molecules/HeaderPayments";
 import Footer from "../Footer";
 import Shelf from "./shelf";
-import { Container, ContainerButtonExcel, ContainerListing, ContainerSearch } from "./style";
+import { ContainerButtonExcel, ContainerListing, ContainerSearch } from "./style";
 import { Status } from "../../pages/Reports/Status";
 import DownloadExcel from "../Download/DownloadExcel";
 import DarkButton from "../../atoms/Buttons/DarkButton/style";
 import { useState } from "react";
+import { Container } from "../../atoms/Container";
+import { ContainerAbsolute } from "../../atoms/Container/style";
 
 
 const Payments = ({
@@ -34,92 +36,91 @@ const Payments = ({
 }) => {
   const [modalIsVisibleExcel, setModalIsVisibleExcel] = useState(false)
 
-  const handleDownload = () =>{
+  const handleDownload = () => {
     setModalIsVisibleExcel(prev => !prev)
   }
 
 
   return (
-    <>
-      <Container>
-        {modalIsVisibleExcel && 
-        <DownloadExcel 
+
+    <Container>
+      {modalIsVisibleExcel &&
+        <DownloadExcel
           payingCompany={payingCompany}
           setModalIsVisibleExcel={setModalIsVisibleExcel}
           download={download}
-          />}
-        <ContainerButtonExcel>
-          <DarkButton
-            onClick={() => handleDownload()}
-            width="145px"
-            height="44px"
-            margin="0 5% 0 0"
-          >
-            Exportar Excel
-          </DarkButton>
-        </ContainerButtonExcel>
-        <ContainerSearch>
-          <InputText
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            width="17em"
-            placeholder="Buscar Profissional"
-          />
-
-          <InputSelect
-            options={companies}
-            onChange={(e) => setCompanyParams(e.target.value)}
-            placeholder="Empresa Pagadora"
-            width="100%"
-            lineWidth="15em"
-          />
-          <InputSelect
-            options={Status}
-            onChange={(e) => setStatusParams(e.target.value)}
-            placeholder="Status"
-            width="100%"
-            lineWidth="15em"
-          />
-          <InputWithLabel
-            type="date"
-            onChange={(e) => setInitialPeriod(e.target.value)}
-            width="100%"
-            value={initialPeriod}
-            widthContainer="30%"
-            handleBlur={() => { }}
-            name="initial_period"
-            placeholder="Período inicial"
-          />
-          <InputWithLabel
-            type="date"
-            onChange={(e) => setFinalPeriod(e.target.value)}
-            width="100%"
-            value={finalPeriod}
-            widthContainer="30%"
-            handleBlur={() => { }}
-            name="initial_period"
-            placeholder="Período Final"
-          />
-        </ContainerSearch>
-        <ContainerListing>
-          <HeaderPayments
-            sortByName={sortByName}
-            setOrderField={setOrderField}
-          />
-          {reports?.map((item) => (
-            <Shelf data={item} uploads={uploads} key={item.id} />
-          ))}
-        </ContainerListing>
-        <Footer
-          height="3em"
-          firstPage={reportsMeta.first_page}
-          lastPage={reportsMeta.last_page}
-          nextPage={() => nextPage()}
-          previousPage={() => prevPage()}
-          currentPage={reportsMeta.current_page}
+        />}
+      <ContainerButtonExcel>
+        <DarkButton
+          onClick={() => handleDownload()}
+          width="151px"
+          height="44px"
+          margin="0 5% 0 0"
+        >
+          Exportar Excel
+        </DarkButton>
+      </ContainerButtonExcel>
+      <ContainerSearch>
+        <InputText
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          width="17em"
+          placeholder="Buscar Profissional"
         />
+
+        <InputSelect
+          options={companies}
+          onChange={(e) => setCompanyParams(e.target.value)}
+          placeholder="Empresa Pagadora"
+          width="100%"
+          lineWidth="15em"
+        />
+        <InputSelect
+          options={Status}
+          onChange={(e) => setStatusParams(e.target.value)}
+          placeholder="Status"
+          width="100%"
+          lineWidth="15em"
+        />
+        <InputWithLabel
+          type="date"
+          onChange={(e) => setInitialPeriod(e.target.value)}
+          width="100%"
+          value={initialPeriod}
+          widthContainer="30%"
+          handleBlur={() => { }}
+          name="initial_period"
+          placeholder="Período inicial"
+        />
+        <InputWithLabel
+          type="date"
+          onChange={(e) => setFinalPeriod(e.target.value)}
+          width="100%"
+          value={finalPeriod}
+          widthContainer="30%"
+          handleBlur={() => { }}
+          name="initial_period"
+          placeholder="Período Final"
+        />
+      </ContainerSearch>
+      <HeaderPayments
+        sortByName={sortByName}
+        setOrderField={setOrderField}
+      />
+      <ContainerAbsolute>
+        {reports?.map((item) => (
+          <Shelf data={item} uploads={uploads} key={item.id} />
+        ))}
+      </ContainerAbsolute>
+      <Footer
+        firstPage={reportsMeta.first_page}
+        lastPage={reportsMeta.last_page}
+        nextPage={() => nextPage()}
+        previousPage={() => prevPage()}
+        currentPage={reportsMeta.current_page}
+      />
       </Container>
-    </>
+
   );
 };
 

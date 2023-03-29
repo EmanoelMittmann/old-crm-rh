@@ -6,7 +6,7 @@ export const ContainerServiceOrdersStyle = styled.section`
     margin: 0 auto;
     border-radius: 20px;
     padding: 2.5em 0 0.5em 0;
-    min-height: 70vh;
+
 
 
     .techlead{
@@ -14,10 +14,8 @@ export const ContainerServiceOrdersStyle = styled.section`
     }
 `
 export const ContainerServiceOrder = styled.section`
-    width: 98%;
+    width: 100%;
     max-height: 125vh;
-    margin-left:1em;
-
 
 `
 export const ContainerListItemServ = styled.div`

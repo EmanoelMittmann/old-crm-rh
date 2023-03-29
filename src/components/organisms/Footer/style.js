@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ContainerSettingsSectionFooter = styled.footer`
     width: 100%;
-    height: ${(props) => (props.height ? props.height : '100px')};
+    height: ${(props) => (props.height ? props.height : '70px')};
     display: flex;
     justify-content: flex-end;
     align-items: center;

@@ -6,7 +6,7 @@ export const Container = styled.div`
   flex-direction: row;
   padding: 1em;
   border-radius: 10px;
-  height: 60px;
+  height: 50px;
 
    &:hover{
     background-color:#f4f6f8;
@@ -40,6 +40,7 @@ export const ContainerDatePayment = styled.div`
 
 export const ContainerStatus = styled.div`
   width: 20.2%;
+  height: 2em;
   gap: 5em;
   display: flex;
 `;

@@ -45,7 +45,7 @@ const HeaderPayments = ({sortByName,setOrderField}) => {
         <ListItemStatus>
           <ListTitle>Status de Pagamento</ListTitle>
             </ListItemStatus>
-              </HeaderContainer>
+        </HeaderContainer>
     </>
   );
 };

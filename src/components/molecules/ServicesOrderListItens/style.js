@@ -5,7 +5,7 @@ export const ContainerOSListItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
+  height: 50px;
   border-radius:10px;
 
    &:hover{

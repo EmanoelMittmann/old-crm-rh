@@ -4,7 +4,7 @@ export const ProjectsListItemContainer = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    height: 60px;
+    height: 50px;
 `
 export const ProjectsListItemId = styled.div`
     display: flex;
