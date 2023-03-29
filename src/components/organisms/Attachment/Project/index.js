@@ -174,7 +174,6 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
     }
   }
 
-  console.log("hoursMonthProject: ", hoursMonthProject);
   function handleAddProject() {
     if (!projectSelected) return;
     const selected = allOptions.find(
