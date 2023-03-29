@@ -13,6 +13,8 @@ export const OrdemServiceItens = styled.div`
   justify-content: ${(props) => props.content};
   white-space: nowrap;
   align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-family: "Poppins", sans-serif;
   width: ${(props) => props.width};
 

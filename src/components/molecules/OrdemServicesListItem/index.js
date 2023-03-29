@@ -101,7 +101,7 @@ const OrdemServiceListItem = ({
 
   return (
     <ContainerOrdemServices key={index.id}>
-      <OrdemServiceItens width="20%" content="flex-start">
+      <OrdemServiceItens width="19%" content="flex-start">
         <input
           type="checkbox"
           name="professional"
@@ -118,7 +118,7 @@ const OrdemServiceListItem = ({
         <InputSelect
           textColor={companies}
           lineWidth="10em"
-          placeholder={companies[1].razao_social}
+          placeholder={companies[1]?.razao_social}
           onChange={(e) => setIdCompanie(e.target.value)}
           options={companies}
           width="100%"
@@ -126,10 +126,10 @@ const OrdemServiceListItem = ({
         />
       </ContainerSelect>
 
-      <OrdemServiceItens width="22%" content="start">
+      <OrdemServiceItens width="20%" content="start">
         {index.professional_data?.cnpj}
       </OrdemServiceItens>
-      <OrdemServiceItens width="18%" content="start">
+      <OrdemServiceItens width="20%" content="start">
         R$ {index.fixed_payment_value},00
       </OrdemServiceItens>
 
