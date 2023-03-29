@@ -15,6 +15,9 @@ export const ContainerOSListItem = styled.div`
 
 export const ProfessionalName = styled.div`
   display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   width:20%;
   padding-left: 3em;
 `;

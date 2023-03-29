@@ -59,6 +59,7 @@ const RegisterProfessional = () => {
           setUniqueCpf(values.cpf);
           try {
             const {data} = await api.post("/user/validateCpf", {
+              id:id,
               cpf: values.cpf,
             });
            if(data){

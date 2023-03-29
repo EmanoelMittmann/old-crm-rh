@@ -180,6 +180,28 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
       (project) => project.id == projectSelected
     );
 
+    if(!values.job_type){
+      setOnlyError('Selecione tipo de contrato')
+      setOvertimeProjectErr('Selecione tipo de contrato')
+      return;
+    }
+
+    if(values.job_type === "FULLTIME" && hoursMonthProject > '160'){
+      setOnlyError('Hora/Mês não pode ultrapassar 160 horas')
+      return;
+    }else if(values.job_type === "FULLTIME" && overtime > '40'){
+      setOvertimeProjectErr('Hora Extras não pode ultrapassar 40 horas')
+      return;
+    }
+
+    if(values.job_type === "PARTTIME" && hoursMonthProject > '80'){
+      setOnlyError('Hora/Mês não pode ultrapassar 80 horas')
+      return;
+    }else if(values.job_type === "PARTTIME" && overtime > '20'){
+      setOvertimeProjectErr('Hora Extras não pode ultrapassar 20 horas')
+      return;
+    }
+
     if (hoursMonthProject === "0" || hoursMonthProject === "") {
       setOnlyError("O Campo Hora/mês deve ser maior que 0");
       return;
@@ -191,6 +213,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
       );
       return;
     }
+    
 
     if (!id) {
       setProjects((oldState) => [
