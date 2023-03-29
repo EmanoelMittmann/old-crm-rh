@@ -3,7 +3,6 @@ import ListHeaderHoursExtra from '../../molecules/ListHeaderHoursExtra'
 import { OvertimeListItem } from '../../molecules/OvertimeListItem'
 import Footer from '../Footer'
 import { ContainerAbsolute } from '../../atoms/Container/style'
-import { Container } from '../../atoms/Container'
 
 
 export function OvertimeList({ data, meta, nextPage, previousPage, sortById, status }) {

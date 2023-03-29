@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useLocation } from "react-router-dom"
 
 import api from '../../../api/api.js'
-import { Container, Main, ContainerFilterJob, SettingsSectionFooterContainer } from './style.js'
+import { Container, Main, ContainerFilterJob } from './style.js'
 import { SettingsInputs } from '../../molecules/SettingsInputs/index.js'
 import SecondaryText from '../../atoms/SecondaryText/style.js'
 import DarkButton from '../../atoms/Buttons/DarkButton/style.js'
@@ -19,7 +19,7 @@ import {
     setStatusList,
     setProjectTypeList,
     settingsPages,
-    setOccupationList
+
 }
 from '../../../redux/actions'
 

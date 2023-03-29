@@ -8,11 +8,11 @@ export const Container = styled.section`
     background-color: white;
     margin-left: 1em;
     border-radius: 20px;
-    margin-bottom: 1em;
+ 
 `
 export const Main = styled.main`
     width: 100%;
-    height: 430px;
+    height: 418px;
     padding: 0 2.2em 0 2.2em;
 `
 
