@@ -13,11 +13,7 @@ import { OvertimeByDate } from '../../organisms/OvertimeByDate'
 import { OvertimeByPeriod } from '../../organisms/OvertimeByPeriod'
 import { Container, ContainerTitle, StyleIsTechLead, TypeRelease } from './style'
 import { messages } from '../../../settings/YupValidates'
-import { useSelector } from 'react-redux'
 
-import ArrowRegister from '../../atoms/ArrowRegister'
-import SecondaryText from '../../atoms/SecondaryText/style'
-import { SectionTitle } from '../../atoms/PageTitle/style'
 
 function ReleaseHours() {
   const [projects, setProjects] = useState([])

@@ -17,6 +17,8 @@ const OvertimeRh = ({
   dataMeta,
   next,
   prev,
+  statusParams,
+  projectParams,
   finalDate,
   setOrderField,
   setProjectParams,
@@ -39,15 +41,17 @@ const OvertimeRh = ({
           <InputSelect
             options={allOptionsProjects}
             onChange={(e) => setProjectParams(e.target.value)}
-            placeHolder="Projetos"
-            width="100%"
+            textColor={projectParams}
+            placeholder="Projetos"
+            width="30%"
             lineWidth="100%"
           />
           <InputSelect
             options={allOptionsStatus}
             onChange={(e) => setStatusParams(e.target.value)}
-            placeHolder="Status"
-            width="100%"
+            placeholder="Status"
+            textColor={statusParams}
+            width="30%"
             lineWidth="100%"
           />
           <InputWithLabel

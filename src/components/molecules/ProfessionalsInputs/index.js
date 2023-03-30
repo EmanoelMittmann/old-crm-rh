@@ -20,7 +20,6 @@ const ProfessionalsInputs = ({
     data.data.push({ id: '',name: 'Todos' });
     setJobs(data.data);
   };
-
   useEffect(() => {
     getJobs();
   }, []);
@@ -36,6 +35,8 @@ const ProfessionalsInputs = ({
         onChange={(e) => {
           setJobSelected(e.target.value);
         }}
+        value={jobSelected}
+        textColor={jobSelected}
         options={jobs}
         placeholder="Cargo"
         width="230px"

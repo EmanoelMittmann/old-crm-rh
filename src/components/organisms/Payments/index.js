@@ -22,6 +22,8 @@ const Payments = ({
   sortByName,
   setOrderField,
   search,
+  statusParams,
+  companyParams,
   setSearch,
   companies,
   setCompanyParams,
@@ -39,10 +41,7 @@ const Payments = ({
   const handleDownload = () => {
     setModalIsVisibleExcel(prev => !prev)
   }
-
-
   return (
-
     <Container>
       {modalIsVisibleExcel &&
         <DownloadExcel
@@ -64,23 +63,23 @@ const Payments = ({
         <InputText
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          width="100%"
-          widthLine="100%"
-          placeholder="Buscar Profissional"
+          width="17em"
+          placeholder="Buscar"
         />
-
         <InputSelect
           options={companies}
           onChange={(e) => setCompanyParams(e.target.value)}
+          textColor={companyParams}
           placeholder="Empresa Pagadora"
-          width="100%"
+          width="25%"
           lineWidth="100%"
         />
         <InputSelect
           options={Status}
+          textColor={statusParams}
           onChange={(e) => setStatusParams(e.target.value)}
           placeholder="Status"
-          width="100%"
+          width="30%"
           lineWidth="100%"
         />
         <InputWithLabel

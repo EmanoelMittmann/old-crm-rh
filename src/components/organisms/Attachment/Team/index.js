@@ -199,6 +199,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       <SecondaryText margin="0 0 2.5em 0">Vincular Time</SecondaryText>
       <AttachmentForm>
         <InputSelectWithLabel
+          value={professionalSelected}
           onFocus={() =>
             setDataTeam(options.filter((professional) => professional.id !== 0))
           }
@@ -215,6 +216,8 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         />
         <InputSelect
           onChange={(e) => setJobProject(e.target.value)}
+          value={jobProject}
+          textColor={jobProject}
           options={jobsMember}
           placeholder="Cargo"
           width="30%"
