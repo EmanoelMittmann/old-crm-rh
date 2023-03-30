@@ -91,7 +91,7 @@ const EmploymentContract = ({ data, jobs }) => {
           required
         />
         <InputSelect
-          textColor={values.job_id}
+          textColor={values.job_}
           onChange={handleChange('job_id')}
           value={values.job_id}
           options={jobs}

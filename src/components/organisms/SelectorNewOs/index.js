@@ -63,12 +63,12 @@ const NewOrdemService = () => {
       setCheckedProfissional(
         professionals.map((item) => {
           if (item.commission) {
-            return { professional_id: item.id, companies_id: 1 };
+            return { professional_id: item.id,  companies_id: companies[0].id };
           } else {
             return {
               professional_id: item.id,
               commission: 0,
-              companies_id: 1,
+              companies_id: companies[0].id,
             };
           }
         })
@@ -78,6 +78,7 @@ const NewOrdemService = () => {
       setCheckedProfissional([]);
     }
   };
+  
   const handleSubmit = async (data) => {
     if (checkedProfissional.length > 0) {
       try {

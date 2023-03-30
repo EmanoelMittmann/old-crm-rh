@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import api from '../../../api/api'
 import { setJobList, setStatusList, settingsPages, setFilterOrder, setProjectTypeList, setOccupationList } from '../../../redux/actions/index.js'
-import { ListHeaderContainer, ListHeaderTitle, ListHeaderOrderContainer } from '../../atoms/ListHeader/style.js'
-import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg'
+import { ListHeaderContainer, ListHeaderTitle } from '../../atoms/ListHeader/style.js'
+
 
 const handleDisplayTitle = {
     job: 'Cargo',
