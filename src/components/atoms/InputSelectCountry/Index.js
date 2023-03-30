@@ -1,9 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Country } from 'country-state-city';
+import React, { useState, useEffect } from "react";
+import { Country } from "country-state-city";
 
-import { InputLine } from '../DefaultInput/style';
-import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg';
-import { Img, InputSelectContainer, InputSelectOption, InputSelectOptionPlaceholder } from '../DefautInputSelect/style.js';
+import { InputLine } from "../DefaultInput/style";
+import arrowPointingDown from "../../../assets/icons/arrowPointingDown.svg";
+import {
+  Img,
+  InputSelectContainer,
+  InputSelectOption,
+  InputSelectOptionPlaceholder,
+  Label,
+  RequiredLabel,
+} from "../DefautInputSelect/style.js";
 
 const Index = ({
   margin,
@@ -13,8 +20,10 @@ const Index = ({
   disabled,
   lineWidth,
   value,
+  label,
   onClick,
-  textColor
+  textColor,
+  required
 }) => {
   const [countries, setCountries] = useState([]);
 
@@ -29,6 +38,10 @@ const Index = ({
   return (
     <>
       <InputLine width={lineWidth} margin={margin}>
+        <Label focus={true} blur={value !== ""}>
+          {label}
+          {required && <RequiredLabel>*</RequiredLabel>}
+        </Label>
         <InputSelectContainer
           {...attributeValue}
           textColor={textColor}
@@ -38,9 +51,11 @@ const Index = ({
           onClick={onClick}
           placeholder={placeholder}
         >
-          {placeholder && <InputSelectOptionPlaceholder disabled selected >
-            {placeholder}
-          </InputSelectOptionPlaceholder>}
+          {placeholder && (
+            <InputSelectOptionPlaceholder disabled selected>
+              {placeholder}
+            </InputSelectOptionPlaceholder>
+          )}
           {countries?.map((option) => (
             <InputSelectOption key={option.isoCode}>
               {option.name}

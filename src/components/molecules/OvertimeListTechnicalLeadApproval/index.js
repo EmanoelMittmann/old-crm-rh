@@ -71,18 +71,14 @@ export function OvertimeListTechnicalLeadApproval({ data, approveData, getApprov
                 {values.status_name}
               </Badge>
             ) : (values.status_id === 3) ? (
-              <Badge bg="#0066FF26" color="#0066FF" width="200px">
-                {values.status_name}
-              </Badge>
-            ) : (values.status_id === 4) ? (
               <Badge bg="#1ECB4F26" color="#1ECB4F" width="200px">
                 {values.status_name}
               </Badge>
-            ) : (values.status_id === 5) ? (
+            ) : (values.status_id === 4) ? (
               <Badge bg="#1ECB4F" color="#FFF" width="200px">
                 {values.status_name}
               </Badge>
-            ) : (values.status_id === 6) ? (
+            ) : (values.status_id === 5) ? (
               <Badge bg="#FF354126" color="#FF3541" width="200px">
                 {values.status_name}
               </Badge>
