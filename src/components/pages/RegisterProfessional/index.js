@@ -606,7 +606,7 @@ const RegisterProfessional = () => {
           attachment={attachment}
           data={formik}
         />
-        <InputWithLabel
+        {/* <InputWithLabel
           name="tools"
           width="100%"
           margin="10px"
@@ -619,7 +619,7 @@ const RegisterProfessional = () => {
           touched={touched.tools}
           value={values.tools}
           onChange={handleChange("tools")}
-        />
+        /> */}
         <RegisterFooter
           cancelButtonHandler={goBackClickHandler}
           registerButtonHandler={() => {}}
