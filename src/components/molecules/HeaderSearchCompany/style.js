@@ -5,6 +5,7 @@ export const CompanyHeaderContainer = styled.div`
     width: 100%;
     align-items: center;
     justify-content: flex-start;
-    margin-top: -0.75em;
+    padding: 0.1em 0em .4em 0;
+    gap: 1em;
     
 `

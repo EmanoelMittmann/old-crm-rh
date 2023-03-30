@@ -113,6 +113,7 @@ const CompaniesList = () => {
         ))}
       </ContainerAbsolute>
       <Footer
+        height='15%'
         previousPage={previousPage}
         nextPage={nextPage}
         currentPage={companyMeta.current_page}
