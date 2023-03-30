@@ -120,7 +120,7 @@ const OrdemServiceListItem = ({
         <InputSelect
           textColor={companies}
           lineWidth="12em"
-          placeholder={index.companies.razao_social}
+          placeholder={index.companies?.razao_social}
           onChange={(e) => setIdCompanie(e.target.value)}
           options={companies}
           width="100%"
@@ -132,11 +132,11 @@ const OrdemServiceListItem = ({
         {index.professional_data?.cnpj}
       </OrdemServiceItens>
       <OrdemServiceItens width="20%" content="start">
-        R$ {index.fixed_payment_value},00
+        R$ {index?.fixed_payment_value},00
       </OrdemServiceItens>
 
       <OrdemServiceItens width="17%" content="flex-start">
-        {index.value
+        {index?.value
           ? ` ${Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.'))).toLocaleString("pt-br", {
             style: "currency",
             currency: "BRL",
@@ -146,7 +146,7 @@ const OrdemServiceListItem = ({
 
       <OrdemServiceItens width="25%" content="flex-start">
         {hourQuantity
-          ? Number(hourQuantity * index.extra_hour_value).toLocaleString(
+          ? Number(hourQuantity * index?.extra_hour_value).toLocaleString(
             "pt-br",
             {
               style: "currency",
@@ -156,7 +156,7 @@ const OrdemServiceListItem = ({
           : "-"}
       </OrdemServiceItens>
       <OrdemServiceItens width="10%" content="flex">
-        {index.value
+        {index?.value
           ? (
             Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2)) +
             Number(index.fixed_payment_value) +
