@@ -16,6 +16,7 @@ function InputBank({
   error,
   touched,
   translate,
+  listWidth,
   lineWidth,
   padding,
   name,
@@ -90,7 +91,7 @@ function InputBank({
           />
         </InputLine>
         {error && touched && <ErrorMessage>{error}</ErrorMessage>}
-        <Container visible={visible} translate={translate} width='37.2%'>
+        <Container visible={visible} translate={translate} width={listWidth}>
           {filtered?.map((item) => (
             <InputSelectOption
               key={item?.ispb}

@@ -30,7 +30,6 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                 <ContainerFirstRow>
                     <ContainerSecondRow>
                     <InputWithLabel
-                        placeHolder="Projeto..."
                         label="Nome do projeto"
                         value={values.name}
                         onChange={handleChange('name')}
@@ -63,7 +62,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         value={values.project_type_id}
                         onChange={handleChange('project_type_id')}
                         options={typeOptions}
-                        placeHolder="Tipo de projeto"
+                        placeholder="Tipo de projeto"
                         error={errors.project_type_id}
                         touched={touched.project_type_id}
                         width="100%"
@@ -109,7 +108,7 @@ const RegisterProjectData = ({ data, typeOptions,statusOptions }) => {
                         value={values.project_status_id}
                         onChange={handleChange('project_status_id')}
                         options={statusOptions}
-                        placeHolder="Status do projeto"
+                        placeholder="Status do projeto"
                         error={errors.project_status_id}
                         touched={touched.project_status_id}
                         width="100%"
