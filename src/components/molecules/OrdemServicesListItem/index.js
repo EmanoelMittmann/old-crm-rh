@@ -27,30 +27,31 @@ const OrdemServiceListItem = ({
   const [check, setCheck] = useState(false);
   const state = useSelector((state) => state.valueOfCommission);
   const hourQuantity = index?.extrahour_release
-    .map((prop) => prop.hour_quantity)
-    .reduce((acc, cc) => acc + cc, 0);
+  .map((prop) => prop.hour_quantity)
+  .reduce((acc, cc) => acc + cc, 0);
   const handleClick = () => {
     const IsExist = checkedProfissional.find(
       (item) => item.professional_id === index.id
-    );
-    if (IsExist) {
-      setCheckedProfissional(
-        checkedProfissional.filter((item) => item.professional_id !== index.id)
       );
-    } else {
-      const isHaveComission = professionals.find((obj) => obj.id === index.id);
+      if (IsExist) {
+        setCheckedProfissional(
+          checkedProfissional.filter((item) => item.professional_id !== index.id)
+          );
+        } else {
+          const isHaveComission = professionals.find((obj) => obj.id === index.id);
+          
+          if (isHaveComission.commission) {
+            setCheckedProfissional([
+              ...checkedProfissional,
+              { professional_id: index.id, companies_id: idCompanie ?? index.companies.id },
+            ]);
+          } else {
+            setCheckedProfissional([
+              ...checkedProfissional,
+              { professional_id: index.id, commission: 0, companies_id: idCompanie ?? index.companies.id },
+            ]);
+          }
 
-      if (isHaveComission.commission) {
-        setCheckedProfissional([
-          ...checkedProfissional,
-          { professional_id: index.id, companies_id: idCompanie ?? companies[0].id },
-        ]);
-      } else {
-        setCheckedProfissional([
-          ...checkedProfissional,
-          { professional_id: index.id, commission: 0, companies_id: idCompanie ?? companies[0].id },
-        ]);
-      }
     }
 
   };
@@ -118,8 +119,8 @@ const OrdemServiceListItem = ({
       <ContainerSelect>
         <InputSelect
           textColor={companies}
-          lineWidth="10em"
-          placeholder={companies[0]?.razao_social}
+          lineWidth="12em"
+          placeholder={index.companies.razao_social}
           onChange={(e) => setIdCompanie(e.target.value)}
           options={companies}
           width="100%"

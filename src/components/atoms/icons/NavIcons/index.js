@@ -704,8 +704,7 @@ const ReleaseHoursIconContainer = styled.div`
     content: "Lançamento de Horas Extras";
     display: ${(props) =>
   props.location === "/releaseHours" ? "none" : props.hover};
-    width: 200px;
-    white-space: nowrap;
+   width: 130px;
     height: 35px;
     background-color: white;
     box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.2),

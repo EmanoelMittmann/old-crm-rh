@@ -127,21 +127,23 @@ export const ProjectsInputs = () => {
     return (
         <ProjectsInputsContainer>
             <InputSearch
-                lineWidth="280px"
-                inputWidth="230px"
+                lineWidth="100%"
+                inputWidth="100%"
                 setSearchResult={setSearchResult}
             />
             <InputSelect
                 options={projectsOptionTypes}
                 setSelectedOption={setSelectedOptionTypes}
                 placeholder="Tipo"
-                width="220px"
+                width="100%"
+                lineWidth="100%"
             />
             <InputSelect
                 options={projectsOptionStatus}
                 setSelectedOption={setSelectedOptionStatus}
                 placeholder="Status"
-                width="230px"
+                width="100%"
+                lineWidth="100%"
             />
         </ProjectsInputsContainer>
     )

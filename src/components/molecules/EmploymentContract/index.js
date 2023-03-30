@@ -17,7 +17,7 @@ import {
 import { typeOptions } from '../../pages/RegisterProfessional/optionsType';
 
 
-const EmploymentContract = ({ data, jobs }) => {
+const EmploymentContract = ({ data, jobs, optionsCompany_id }) => {
   const fixedSalaryAmount = createNumberMask({
     prefix: 'R$',
     suffix: ',00',
@@ -164,6 +164,22 @@ const EmploymentContract = ({ data, jobs }) => {
           handleBlur={setFieldTouched}
           placeHolder="Honorário fixo"
           required
+        />
+      </EmploymentContractInputs>
+      <EmploymentContractInputs>
+        <InputSelect
+        width="27%" 
+        lineWidth="100%"
+        name="company_id"
+        placeholder="Empresa Pagadora"
+        value={values.company_id}
+        options={optionsCompany_id}
+        onChange={handleChange('company_id')}
+        error={errors.company_id}
+        touched={touched.company_id}
+        textColor={values.company_id}
+        label="Empresa Pagadora"
+        required
         />
       </EmploymentContractInputs>
 

@@ -41,21 +41,21 @@ const OvertimeRh = ({
             onChange={(e) => setProjectParams(e.target.value)}
             placeHolder="Projetos"
             width="100%"
-            lineWidth="15em"
+            lineWidth="100%"
           />
           <InputSelect
             options={allOptionsStatus}
             onChange={(e) => setStatusParams(e.target.value)}
             placeHolder="Status"
             width="100%"
-            lineWidth="15em"
+            lineWidth="100%"
           />
           <InputWithLabel
             type="date"
             onChange={(e) => setInitialDate(e.target.value)}
             value={initialDate}
             width="100%"
-            widthContainer="30%"
+            widthContainer="100%"
             handleBlur={() => { }}
             name="initial_period"
             placeholder="Período inicial"
@@ -66,7 +66,7 @@ const OvertimeRh = ({
             onChange={(e) => setFinalDate(e.target.value)}
             value={finalDate}
             width="100%"
-            widthContainer="30%"
+            widthContainer="100%"
             handleBlur={() => { }}
             name="initial_period"
             placeholder="Período Final"

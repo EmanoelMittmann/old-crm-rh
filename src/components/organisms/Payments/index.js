@@ -64,7 +64,8 @@ const Payments = ({
         <InputText
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          width="17em"
+          width="100%"
+          widthLine="100%"
           placeholder="Buscar Profissional"
         />
 
@@ -73,21 +74,21 @@ const Payments = ({
           onChange={(e) => setCompanyParams(e.target.value)}
           placeholder="Empresa Pagadora"
           width="100%"
-          lineWidth="15em"
+          lineWidth="100%"
         />
         <InputSelect
           options={Status}
           onChange={(e) => setStatusParams(e.target.value)}
           placeholder="Status"
           width="100%"
-          lineWidth="15em"
+          lineWidth="100%"
         />
         <InputWithLabel
           type="date"
           onChange={(e) => setInitialPeriod(e.target.value)}
           width="100%"
           value={initialPeriod}
-          widthContainer="30%"
+          widthContainer="100%"
           handleBlur={() => { }}
           name="initial_period"
           placeholder="Período inicial"
@@ -97,7 +98,7 @@ const Payments = ({
           onChange={(e) => setFinalPeriod(e.target.value)}
           width="100%"
           value={finalPeriod}
-          widthContainer="30%"
+          widthContainer="100%"
           handleBlur={() => { }}
           name="initial_period"
           placeholder="Período Final"
