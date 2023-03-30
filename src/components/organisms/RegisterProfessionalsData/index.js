@@ -756,7 +756,7 @@ const RegisterProfessionalsData = ({ data }) => {
               handleBlur={setFieldTouched}
               onChange={handleChange("professional_data.pix_key")}
               width="100%"
-              widthContainer="30%"
+              widthContainer="100%"
               value={values.professional_data.pix_key}
               disabled={isDisabled}
               placeHolder="Chave PIX"
