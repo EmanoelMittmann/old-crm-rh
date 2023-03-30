@@ -79,6 +79,7 @@ const ProfessionalsSection = () => {
             <ProfessionalsInputs
                 setSearchResult={setSearchResult}
                 setJobSelected={setJobSelected}
+                jobSelected={jobSelected}
             />
             <ProfessionalsListHeader sortByName={sortByName}/>
             {professionals[0] ? (

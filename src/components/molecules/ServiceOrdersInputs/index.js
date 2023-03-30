@@ -15,9 +15,10 @@ const ServiceOrdersInput = ({searchResult, setSearchResult, statusSelected, sets
                  />
                 <InputSelect
                     value={statusSelected}
+                    textColor={statusSelected}
                     onChange={e => setstatusSelected(e.target.value)}
                     options={StatusOS}
-                    placeHolder="Status"
+                    placeholder="Status"
                     width="280px"
                 />
                 <InputDate

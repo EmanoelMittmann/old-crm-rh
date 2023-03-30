@@ -4,7 +4,7 @@ export const SearchContainer = styled.div`
   display: flex;
   flex-direction: row;
   gap: 1em;
-  width: 90%;
+  width: 100%;
   margin-left: ${props => props.ml};
 `
 

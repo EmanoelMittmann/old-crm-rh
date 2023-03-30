@@ -23,7 +23,7 @@ const HeaderSearchCompany = ({
         inputWidth="230px"
       />
       <InputSelect
-        textColor={selectedStatusCompany}
+        textColor={selectedStatusCompany} 
         value={selectedStatusCompany}
         width="280px"
         margin="10px"

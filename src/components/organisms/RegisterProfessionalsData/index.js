@@ -341,7 +341,6 @@ const RegisterProfessionalsData = ({ data }) => {
             value={values.country}
             error={errors.country}
             touched={touched.country}
-            disabled={disabled}
           />
           <InputWithLabel
             onChange={handleChange("neighbourhood_name")}

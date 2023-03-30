@@ -27,11 +27,7 @@ const ServiceOrderSection = () => {
   let params = {};
 
   const getOsProfessionals = async () => {
-    const { data } = await api({
-      method: "get",
-      url: `/orderOfService?limit=5`,
-      params: params,
-    });
+    const { data } = await api.get(`/orderOfService?limit=5`,{params:params});
     setProfessionals(data.data);
     setOsProfessionalMeta(data.meta);
   };
@@ -39,7 +35,7 @@ const ServiceOrderSection = () => {
   const nextPage = () => {
     handleFilterOsRequest("next");
     getOsProfessionals();
-  };
+  };  
 
   const previousPage = () => {
     handleFilterOsRequest("previous");
@@ -119,6 +115,7 @@ const ServiceOrderSection = () => {
           <ServiceOrdersInput
             setSearchResult={setSearchResult}
             setstatusSelected={setstatusSelected}
+            statusSelected={statusSelected}
             setInitialDate={setInitialDate}
             setFinalDate={setFinalDate}
             setReferenceDate={setReferenceDate}
