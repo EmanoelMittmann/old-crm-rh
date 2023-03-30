@@ -16,7 +16,6 @@ import InputMasked from "../../atoms/InputMasked/index.js";
 import { useEffect } from "react";
 import SelectBank from "../../atoms/SelectBank";
 import PhoneInternational from "../../atoms/PhoneInternational";
-import styled from "styled-components";
 
 export const optionsTypePerson = [
   { name: "Pessoa Fisica", id: "PF" },
@@ -268,8 +267,10 @@ const RegisterProfessionalsData = ({ data }) => {
             onBlur={setFieldTouched}
             onChange={handleChange('telephone_number')}
             width='25em'
+            label='Telefone'
             name='telephone_number'
             value={values.telephone_number}
+            required={true}
           />
         </ContainerRow>
         <ContainerRow>
@@ -337,10 +338,12 @@ const RegisterProfessionalsData = ({ data }) => {
             width="100%"
             widthContainer="60%"
             margin="0 2em 0 0"
+            label='País'
             onChange={handleChange("country")}
             value={values.country}
             error={errors.country}
             touched={touched.country}
+            required
           />
           <InputWithLabel
             onChange={handleChange("neighbourhood_name")}
@@ -708,7 +711,7 @@ const RegisterProfessionalsData = ({ data }) => {
             placeholder="Tipo de tranferência"
             error={errors?.professional_data?.type_of_transfer}
             touched={touched?.professional_data?.type_of_transfer}
-            width="100%"
+            width="35%"
             lineWidth="100%"
             name="professional_data.type_of_transfer"
             label="Tipo de tranferência"
@@ -722,7 +725,7 @@ const RegisterProfessionalsData = ({ data }) => {
             error={errors?.professional_data?.pix_key_type}
             touched={touched?.professional_data?.pix_key_type}
             placeholder="Tipo de chave PIX"
-            width="100%"
+            width="35%"
             lineWidth="100%"
             name="professional_data.pix_key_type"
             disabled={isDisabled}
