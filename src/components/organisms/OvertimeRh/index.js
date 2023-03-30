@@ -59,7 +59,7 @@ const OvertimeRh = ({
             onChange={(e) => setInitialDate(e.target.value)}
             value={initialDate}
             width="100%"
-            widthContainer="100%"
+            widthContainer="30%"
             handleBlur={() => { }}
             name="initial_period"
             placeholder="Período inicial"
@@ -70,7 +70,7 @@ const OvertimeRh = ({
             onChange={(e) => setFinalDate(e.target.value)}
             value={finalDate}
             width="100%"
-            widthContainer="100%"
+            widthContainer="30%"
             handleBlur={() => { }}
             name="initial_period"
             placeholder="Período Final"

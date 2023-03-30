@@ -87,7 +87,7 @@ const Payments = ({
           onChange={(e) => setInitialPeriod(e.target.value)}
           width="100%"
           value={initialPeriod}
-          widthContainer="100%"
+          widthContainer="30%"
           handleBlur={() => { }}
           name="initial_period"
           placeholder="Período inicial"
@@ -97,7 +97,7 @@ const Payments = ({
           onChange={(e) => setFinalPeriod(e.target.value)}
           width="100%"
           value={finalPeriod}
-          widthContainer="100%"
+          widthContainer="30%"
           handleBlur={() => { }}
           name="initial_period"
           placeholder="Período Final"
