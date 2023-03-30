@@ -122,6 +122,7 @@ const allOptionsStatus = [...status, {id:"", name : 'Todos'}];
         next={nextPage}
         prev={previousPage}
         finalDate={finalDate}
+        statusParams={statusParams}
         setProjectParams={setProjectParams}
         setInitialDate={setInitialDate}
         projectParams={projectParams}

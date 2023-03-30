@@ -200,7 +200,7 @@ const RegisterCompany = ({ data, disabled }) => {
             label="Inscrição Estadual"
             name="Inscrição Estadual"
             type="text"
-            width="95%"
+            width="100%"
             disabled={disabled}
             widthContainer="50%"
             handleBlur={setFieldTouched}
@@ -215,7 +215,7 @@ const RegisterCompany = ({ data, disabled }) => {
             name="Inscrição Municipal"
             type="text"
             disabled={disabled}
-            width="95%"
+            width="100%"
             handleBlur={setFieldTouched}
             widthContainer="50%"
             placeholder="Inscrição Municipal"
@@ -231,7 +231,7 @@ const RegisterCompany = ({ data, disabled }) => {
             placeholder="Porte da empresa"
             disabled={disabled}
             handleBlur={setFieldTouched}
-            width="100%"
+            width="50%"
             widthContainer="50%"
             required
           />

@@ -23,21 +23,13 @@ const CompaniesList = () => {
   let params = {};
 
   const getCompany = async () => {
-    const { data } = await api({
-      method: "GET",
-      url: `/companies/?limit=5`,
-      params: params,
-    });
+    const { data } = await api.get(`/companies?limit=5`,{params:params});
     setCompanies(data.data);
     setCompanyMeta(data.meta);
   };
 
   const handleFilterCompanies = async () => {
-    const { data } = await api({
-      method: "GET",
-      url: `/findCompanies`,
-      params: params,
-    });
+    const { data } = await api.get(`/findCompanies`,{params:params});
     setCompanies(data.data);
     setCompanyMeta(data.meta);
   };
@@ -112,6 +104,7 @@ const CompaniesList = () => {
         setUf={setUf}
         uf={uf}
         setSelectedStatusCompany={setSelectedStatusCompany}
+        selectedStatusCompany={selectedStatusCompany}
       />
       <CompaniesListHeader OrderForList={OrderForList} order={order} />
       <ContainerAbsolute>
@@ -120,6 +113,7 @@ const CompaniesList = () => {
         ))}
       </ContainerAbsolute>
       <Footer
+        height='15%'
         previousPage={previousPage}
         nextPage={nextPage}
         currentPage={companyMeta.current_page}

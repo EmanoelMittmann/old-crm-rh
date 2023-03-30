@@ -25,6 +25,7 @@ const InputSelectWithLabel = ({
       <InputSelectContainer
         width={width}
         disabled={disabled}
+        textColor={value}
         onChange={setSelectedOption}
         onFocus={onFocus}
         value={value}

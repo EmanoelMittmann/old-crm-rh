@@ -19,14 +19,13 @@ const HeaderSearchCompany = ({
     <CompanyHeaderContainer>
       <InputSearch
         setSearchResult={setSearchResult}
-        lineWidth="280px"
-        inputWidth="230px"
+        lineWidth="18%"
+        inputWidth="100%"
       />
       <InputSelect
-        textColor={selectedStatusCompany}
+        textColor={selectedStatusCompany} 
         value={selectedStatusCompany}
-        width="280px"
-        margin="10px"
+        width="15%"
         options={optionsRegistions}
         onChange={(e) => setSelectedStatusCompany(e.target.value)}
         placeholder="Situação Cadastral"
@@ -37,8 +36,7 @@ const HeaderSearchCompany = ({
         onChange={(e) => setUf(e.target.value)}
         options={optionsUF}
         placeholder="UF"
-        margin="10px"
-        width="220px"
+        width="15%"
       />
       <InputSelect
       textColor={typeCompany}
@@ -46,8 +44,7 @@ const HeaderSearchCompany = ({
         onChange={(e) => setTypeCompany(e.target.value)}
         options={types}
         placeholder="Tipos de empresas"
-        margin="10px"
-        width="220px"
+        width="15%"
       />
     </CompanyHeaderContainer>
   );

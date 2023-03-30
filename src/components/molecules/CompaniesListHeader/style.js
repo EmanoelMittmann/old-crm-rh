@@ -7,6 +7,7 @@ export const ListHeaderCompanyContainer = styled.div`
   border-radius: 8px;
   display: flex;
   align-items: center;
+  margin-bottom: 0.5em;
   margin-top: 0.5em;
 
   svg {

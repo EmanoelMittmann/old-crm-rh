@@ -345,7 +345,6 @@ const RegisterProfessional = () => {
     errors,
     handleChange,
   } = formik;
-
   const getPermissions = async () => {
     const { data } = await api.get("/permissions");
     setPermissions(data);

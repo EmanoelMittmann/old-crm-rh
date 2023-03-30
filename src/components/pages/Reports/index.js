@@ -96,7 +96,9 @@ const Reports = () => {
         search={search}
         companies={companies}
         setCompanyParams={setCompanyParams}
+        statusParams={statusParams}
         setStatusParams={setStatusParams}
+        companyParams={companyParams}
         setSearch={setSearch}
         initialPeriod={initialPeriod}
         setInitialPeriod={setInitialPeriod}

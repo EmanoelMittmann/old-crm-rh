@@ -27,8 +27,8 @@ export function OvertimeByDate({ data, options }) {
           onChange={handleChange('project_id')}
           options={options}
           placeholder="Projeto"
-          lineWidth="18em"
-          width="100%"
+          lineWidth="100%"
+          width="40%"
         />
         <InputWithLabel
             name="hour_quantity"
