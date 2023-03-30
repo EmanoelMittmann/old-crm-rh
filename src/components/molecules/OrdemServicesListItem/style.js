@@ -28,7 +28,7 @@ export const OrdemServiceItens = styled.div`
   }
 `;
 export const ContainerSelect = styled.div`
-    width: 30%;
+    width: 22%;
     display: flex;
     justify-content: center;
 `

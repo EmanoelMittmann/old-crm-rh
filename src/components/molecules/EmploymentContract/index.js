@@ -82,7 +82,7 @@ const EmploymentContract = ({ data, jobs }) => {
           padding="0 2em 0 0"
           value={values.start_date}
           width="100%"
-          widthContainer="60%"
+          widthContainer="80%"
           error={errors.start_date}
           touched={touched.start_date}
           handleBlur={setFieldTouched}
@@ -100,7 +100,7 @@ const EmploymentContract = ({ data, jobs }) => {
           touched={touched?.job_id}
           placeholder="Cargo"
           width="100%"
-          lineWidth="31em"
+          lineWidth="100%"
           required
         />
       </EmploymentContractInputs>
@@ -109,20 +109,21 @@ const EmploymentContract = ({ data, jobs }) => {
           textColor={values.job_type}
           onChange={handleType}
           placeholder="Tipo de contrato"
-          width="100%"
+          width="40%"
           error={errors?.job_type}
           touched={touched?.job_type}
           options={typeOptions}
           value={values.job_type}
           padding="0em 0 0 1em"
-          lineWidth="30em"
+          lineWidth="100%"
           label="Tipo de contrato"
           required
         />
         <InputWithLabel
           onChange={handleChange('weekly_hours')}
           value={values.weekly_hours}
-          widthContainer="30%"
+          widthContainer="35%"
+          width='100%'
           label="Horas/semana"
           type="number"
           error={errors.weekly_hours}
@@ -143,7 +144,7 @@ const EmploymentContract = ({ data, jobs }) => {
           touched={touched.mounth_hours}
           handleBlur={setFieldTouched}
           name="mounth_hours"
-          widthContainer="20%"
+          widthContainer="35%"
           padding="0em 0 0 1em"
           placeholder="Horas/mês"
           required
@@ -159,7 +160,7 @@ const EmploymentContract = ({ data, jobs }) => {
           touched={touched.fixed_payment_value}
           width="100%"
           padding="0em 0 0 1em"
-          widthContainer="30%"
+          widthContainer="35%"
           handleBlur={setFieldTouched}
           placeHolder="Honorário fixo"
           required

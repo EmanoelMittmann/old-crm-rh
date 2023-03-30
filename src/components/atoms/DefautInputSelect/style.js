@@ -41,6 +41,7 @@ export const InputSelectOptionPlaceholder = styled.option`
 `;
 
 export const Father = styled.div`
+    width: ${props => props.width};
     display: flex;
     flex-direction: column;
     white-space: nowrap;
