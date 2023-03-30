@@ -39,7 +39,8 @@ const ProfessionalsInputs = ({
         textColor={jobSelected}
         options={jobs}
         placeholder="Cargo"
-        width="220px"
+        width="230px"
+        lineWidth="100%"
       />
     </ProfessionalsInputsContainer>
   );

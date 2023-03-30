@@ -119,7 +119,7 @@ export const templates = [
   },
   {
     id: 11,
-    name: "Lançamento de horas Extra",
+    name: "Lançamento de horas Extras",
     hasButton: true,
     buttonText: "Novo lançamento",
     buttonPath: "/releaseHours",
@@ -127,6 +127,7 @@ export const templates = [
     isRegisterPage: false,
     path: "/timeSending",
   },
+
   {
     id: 12,
     name: "Notas fiscais",
