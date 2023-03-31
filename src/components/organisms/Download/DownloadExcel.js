@@ -79,8 +79,9 @@ const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
                             setCompanyCode(e.target.value)
                         }}
                         options={payingCompany}
-                        placeHolder="Empresa Pagadora"
-                        width="380px"
+                        placeholder="Empresa Pagadora"
+                        width="94%"
+                        lineWidth="100%"
                         label="Empresa Pagadora"
                         error={onlyError}
                         touched={onlyError}
