@@ -17,8 +17,6 @@ import {
 const OvertimePayCalc = ({ data }) => {
   const [componentJustRendered, setComponentJustRendered] = useState(false);
 
-  console.log('componentJustRendered: ', componentJustRendered);
-
   const inputRef = useRef(null);
 
   const { values, handleChange, setFieldValue, handleBlur, errors, touched } =
