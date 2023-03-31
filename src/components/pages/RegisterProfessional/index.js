@@ -175,6 +175,7 @@ const RegisterProfessional = () => {
     }),
     start_date: Yup.date().required(messages.required),
     job_id: Yup.number().required(messages.required),
+    company_id:Yup.number().required(messages.required),
     job_type: Yup.string().required(messages.required),
     variable1: Yup.string()
       .when(["job_type", "extra_hour_activated"], {
@@ -242,6 +243,7 @@ const RegisterProfessional = () => {
       user_type_id: 2,
       commission: false,
       permissions: [],
+      company_id:"",
       professional_data: {
         cnpj: cleanMask(""),
         razao_social: "",
