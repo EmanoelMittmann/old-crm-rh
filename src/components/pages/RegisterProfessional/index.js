@@ -34,6 +34,7 @@ const RegisterProfessional = () => {
   const [projects, setProjects] = useState([]);
   const [uniqueCpf, setUniqueCpf] = useState("");
   const [permissions, setPermissions] = useState([]);
+  const [optionsCompany_id, setOptionsCompany_id] = useState([])
   const [cpfmessage, setCpfmessage] = useState("");
   const [uniqueCEP, setUniqueCEP] = useState("");
   const [oldValue, setOldValue] = useState([]);
@@ -48,7 +49,7 @@ const RegisterProfessional = () => {
     removeProject,
     editProject,
   };
-
+  
   const schema = Yup.object().shape({
     name: Yup.string().required(messages.required),
     cpf: Yup.string()
@@ -174,6 +175,7 @@ const RegisterProfessional = () => {
     }),
     start_date: Yup.date().required(messages.required),
     job_id: Yup.number().required(messages.required),
+    company_id:Yup.number().required(messages.required),
     job_type: Yup.string().required(messages.required),
     variable1: Yup.string()
       .when(["job_type", "extra_hour_activated"], {
@@ -241,6 +243,7 @@ const RegisterProfessional = () => {
       user_type_id: 2,
       commission: false,
       permissions: [],
+      company_id:"",
       professional_data: {
         cnpj: cleanMask(""),
         razao_social: "",
@@ -370,6 +373,14 @@ const RegisterProfessional = () => {
     });
     setJobs(response.data.data);
   }, []);
+  const optionsCompanies = useCallback(async () => {
+    const response = await api({
+      method: "get",
+      url: `/companies`,
+    });
+    setOptionsCompany_id(response.data.data);
+  }, []);
+ 
 
   const getAllProjects = useCallback(async () => {
     const { data } = await api({
@@ -452,6 +463,7 @@ const RegisterProfessional = () => {
 
   const getProfessionalData = async () => {
     if (!jobs.length) optionsJob();
+    if (!optionsCompany_id.length) optionsCompanies();
     if (!allProjects.length) getAllProjects();
     if (id) {
       const { data } = await api.get(`/user/${id}`);
@@ -577,8 +589,7 @@ const RegisterProfessional = () => {
       <RegisterProfessionalContainer>
         <form id="professional" onSubmit={formik.handleSubmit}>
           <RegisterProfessionalsData data={formik} />
-          <EmploymentContract data={formik} jobs={jobs}/>
-
+          <EmploymentContract data={formik} jobs={jobs} optionsCompany_id={optionsCompany_id}/>
           <SecondaryText margin="2.5em 0 1.5em 2em">Permissões</SecondaryText>
           <ContainerPermission>
             <PermissionsSpecial permissions={permissions} formik={formik} />

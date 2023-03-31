@@ -61,7 +61,7 @@ const OrdemServiceListItem = ({
     const obj = checkedProfissional.map((item) => {
      
       if (item.professional_id === index.id) {
-        return { ...item, companies_id: idCompanie !== undefined ? idCompanie : item.companies_id };
+        return { ...item, companies_id: idCompanie !== undefined ? idCompanie : index.companies.id };
       } else {
         return item;
       }
