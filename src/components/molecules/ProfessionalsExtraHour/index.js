@@ -8,14 +8,14 @@ import {
 } from './style.js'
 
 const ProfessionalsExtraHour = ({extraHour, setExtraHour,  setFieldValue, data}) => {
-    const [isDisabled, setIsDisabled] = useState(false)
     const [componentJustRendered, setComponentJustRendered] = useState(false)
     const radioColor = state => state === extraHour ? "#919EAB" : "black";
 
     useEffect(() => {
         setComponentJustRendered(true) 
-        data?.job_type === "FREELANCER" ? setIsDisabled(true) : setIsDisabled(false)
     }, [data?.job_type])
+
+    
     
     const overtimeNotAllowed = {
         ...(componentJustRendered && (data === undefined || data?.extra_hour_activated === false) && {checked: true})
@@ -29,7 +29,7 @@ const ProfessionalsExtraHour = ({extraHour, setExtraHour,  setFieldValue, data})
         setExtraHour('extraHourActivated')
     }
 
-    if(componentJustRendered && (data === undefined || data?.extra_hour_activated === false)){
+    if (componentJustRendered && (data === undefined  || data?.extra_hour_activated === false)){
         setExtraHour('extraHourDisabled')
     }
   
@@ -38,7 +38,8 @@ const ProfessionalsExtraHour = ({extraHour, setExtraHour,  setFieldValue, data})
         <ContainerRegisterExtraHours>
             <SecondaryText margin="0 0 2.5em 0">Hora extra</SecondaryText>
             <ContainerRadioButtons onChange={(e) => {
-                e.target.value === 'extraHourActivated' ? setFieldValue('extra_hour_activated', true) : setFieldValue('extra_hour_activated', false)
+               e.target.value === 'extraHourActivated'? setFieldValue('extra_hour_activated', true) : setFieldValue('extra_hour_activated', false)
+              
                 setComponentJustRendered(false)
             }}>
                 <InputRadio
@@ -48,7 +49,7 @@ const ProfessionalsExtraHour = ({extraHour, setExtraHour,  setFieldValue, data})
                     name="extraHour"
                     value="extraHourActivated"
                     id="extraHourActivated"
-                   disabled={isDisabled}
+                   disabled={data?.job_type === "FREELANCER"}
                 />
                 <LabelInputRadio color={radioColor('extraHourDisabled')} for="extraHourActivated">Permitir hora extra</LabelInputRadio>
 

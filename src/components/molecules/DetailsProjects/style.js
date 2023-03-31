@@ -6,8 +6,8 @@ export const ModalContainer = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 550px;
-  height: 610px;
+  width: 680px;
+  height: 780px;
   background-color: white;
   border-radius: 15px;
   box-shadow: 0 1px 0px rgba(0, 0, 0, 0.1);
@@ -64,7 +64,7 @@ export const ContainerDataDate = styled.div`
     margin: 1.5em 2em;
 `
 export const ContainerDataUser = styled.div`
-    width: 50%;
+    width: 43%;
     display: flex;
     flex-direction: row;
     margin: 0.3em 1em 0 0;
@@ -176,12 +176,10 @@ export const StyleDataDate = styled.div`
 
 export const TableLine = styled.div`
     display: flex;
-    width: 93%;
-    flex-direction: column;
-    min-height: 60px;
+    width: 90%;
+    flex-wrap:wrap;
     border-bottom: 1.5px solid #EFF2F4;
     margin-left:2em;
-
     &:last-child{
         border-bottom: none;
     }`
