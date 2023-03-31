@@ -34,6 +34,7 @@ const RegisterProfessional = () => {
   const [projects, setProjects] = useState([]);
   const [uniqueCpf, setUniqueCpf] = useState("");
   const [permissions, setPermissions] = useState([]);
+  const [optionsCompany_id, setOptionsCompany_id] = useState([])
   const [cpfmessage, setCpfmessage] = useState("");
   const [uniqueCEP, setUniqueCEP] = useState("");
   const [oldValue, setOldValue] = useState([]);
@@ -48,7 +49,7 @@ const RegisterProfessional = () => {
     removeProject,
     editProject,
   };
-
+  
   const schema = Yup.object().shape({
     name: Yup.string().required(messages.required),
     cpf: Yup.string()
@@ -370,6 +371,14 @@ const RegisterProfessional = () => {
     });
     setJobs(response.data.data);
   }, []);
+  const optionsCompanies = useCallback(async () => {
+    const response = await api({
+      method: "get",
+      url: `/companies`,
+    });
+    setOptionsCompany_id(response.data.data);
+  }, []);
+ 
 
   const getAllProjects = useCallback(async () => {
     const { data } = await api({
@@ -452,6 +461,7 @@ const RegisterProfessional = () => {
 
   const getProfessionalData = async () => {
     if (!jobs.length) optionsJob();
+    if (!optionsCompany_id.length) optionsCompanies();
     if (!allProjects.length) getAllProjects();
     if (id) {
       const { data } = await api.get(`/user/${id}`);
@@ -577,7 +587,7 @@ const RegisterProfessional = () => {
       <RegisterProfessionalContainer>
         <form id="professional" onSubmit={formik.handleSubmit}>
           <RegisterProfessionalsData data={formik} />
-          <EmploymentContract data={formik} jobs={jobs} />
+          <EmploymentContract data={formik} jobs={jobs} optionsCompany_id={optionsCompany_id}/>
 
           <SecondaryText margin="2.5em 0 1.5em 2em">Permissões</SecondaryText>
           <ContainerPermission>

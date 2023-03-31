@@ -48,7 +48,7 @@ const OrdemServiceListItem = ({
           } else {
             setCheckedProfissional([
               ...checkedProfissional,
-              { professional_id: index.id, commission: 0, companies_id: idCompanie ?? index.companies.id },
+              { professional_id: index.id, commission: 0, companies_id: idCompanie ?? companies[0].id },
             ]);
           }
 
@@ -61,7 +61,7 @@ const OrdemServiceListItem = ({
     const obj = checkedProfissional.map((item) => {
      
       if (item.professional_id === index.id) {
-        return { ...item, companies_id: idCompanie !== undefined ? idCompanie : item.companies_id };
+        return { ...item, companies_id: idCompanie !== undefined ? idCompanie : companies[0].id };
       } else {
         return item;
       }

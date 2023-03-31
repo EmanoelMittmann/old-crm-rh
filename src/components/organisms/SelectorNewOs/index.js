@@ -63,12 +63,12 @@ const NewOrdemService = () => {
       setCheckedProfissional(
         professionals.map((item) => {
           if (item.commission) {
-            return { professional_id: item.id,  companies_id: item.companies.id };
+            return { professional_id: item.id, companies_id: companies[0].id };
           } else {
             return {
               professional_id: item.id,
               commission: 0,
-              companies_id: item.companies.id,
+              companies_id: companies[0].id
             };
           }
         })
