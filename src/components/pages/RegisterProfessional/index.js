@@ -588,7 +588,6 @@ const RegisterProfessional = () => {
         <form id="professional" onSubmit={formik.handleSubmit}>
           <RegisterProfessionalsData data={formik} />
           <EmploymentContract data={formik} jobs={jobs} optionsCompany_id={optionsCompany_id}/>
-
           <SecondaryText margin="2.5em 0 1.5em 2em">Permissões</SecondaryText>
           <ContainerPermission>
             <PermissionsSpecial permissions={permissions} formik={formik} />
