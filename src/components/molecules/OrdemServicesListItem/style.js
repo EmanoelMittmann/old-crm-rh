@@ -13,8 +13,6 @@ export const OrdemServiceItens = styled.div`
   justify-content: ${(props) => props.content};
   white-space: nowrap;
   align-items: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
   font-family: "Poppins", sans-serif;
   width: ${(props) => props.width};
 
@@ -25,6 +23,11 @@ export const OrdemServiceItens = styled.div`
   }
   #box:focus {
     outline: none;
+  }
+  p{
+    width: 8em;
+    text-overflow:ellipsis;
+    overflow:hidden;
   }
 `;
 export const ContainerSelect = styled.div`
