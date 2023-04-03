@@ -60,7 +60,7 @@ useEffect(()=> {
                     <ModalContainer key={index}>
                         <ModalTitle padding="1.6em">
                             <CloseButton CloseButtonClickHandler={() => ClickHandler()} />
-                            Datalhes do Projeto
+                            Detalhes do Projeto
                         </ModalTitle>
                         <ContaineTitles>
                             <StyleTitleProject>Projeto</StyleTitleProject>
