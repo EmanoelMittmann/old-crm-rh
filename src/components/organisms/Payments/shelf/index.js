@@ -97,7 +97,7 @@ const Shelf = ({ data, uploads }) => {
               })}
         </ContainerNFe>
         <ContainerDatePayment>
-          {formatDate(data.date_payment)}
+          {(data.date_payment.substr(0, 10).split('-').reverse().join('/'))}
         </ContainerDatePayment>
         <ContainerStatus>
           <Badge color={colors} bg={bg} width="80%">

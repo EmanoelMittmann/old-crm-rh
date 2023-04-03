@@ -16,12 +16,12 @@ const ListHeaderInvoice = ({ sortByName }) => {
   return (
       <HeaderContainer>
           <ListHeaderItem>
-              <ListHeaderTitle margin='2.5em'>Item</ListHeaderTitle>
+              <ListHeaderTitle margin='1.5em'>Item</ListHeaderTitle>
               <Arrows onClick={sortByName} />
           </ListHeaderItem>
 
           <ListHeaderData>
-              <ListHeaderTitle margin='2.6em'>Data de Lançamento</ListHeaderTitle>
+              <ListHeaderTitle margin='2em'>Data de Lançamento</ListHeaderTitle>
               <Arrows onClick={sortByName} />
           </ListHeaderData>
 
