@@ -119,7 +119,8 @@ export const SettingsInputs = () => {
                 textColor={selectedOption}
                 onChange={e => setSelectedOption(e.target.value)}
                 placeholder="Status"
-                width="220px"
+                width="45%"
+                lineWidth="100%"
             />
         </SettingsInputsContainer>
     )

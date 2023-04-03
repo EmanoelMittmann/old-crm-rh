@@ -115,14 +115,16 @@ const Projects = () => {
           textColor={selectedTypesOptions}
           onChange={(e) => setSelectedTypesOptions(e.target.value)}
           placeholder="Tipo"
-          width="220px"
+          width="30%"
+          lineWidth="100%"
         />
         <InputSelect
           options={allOptions}
           textColor={selectedStatusOptions}
           onChange={(e) => setSelectedStatusOptions(e.target.value)}
           placeholder="Status"
-          width="230px"
+          width="30%"
+          lineWidth="100%"
         />
       </SearchSection>
       <ProjectsListHeader fnOrder={sortByField} />
