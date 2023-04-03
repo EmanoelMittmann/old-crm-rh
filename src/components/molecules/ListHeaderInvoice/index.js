@@ -16,12 +16,12 @@ const ListHeaderInvoice = ({ sortByName }) => {
   return (
       <HeaderContainer>
           <ListHeaderItem>
-              <ListHeaderTitle margin='3em'>Item</ListHeaderTitle>
+              <ListHeaderTitle margin='1.5em'>Item</ListHeaderTitle>
               <Arrows onClick={sortByName} />
           </ListHeaderItem>
 
           <ListHeaderData>
-              <ListHeaderTitle margin='3em'>Data de Lançamento</ListHeaderTitle>
+              <ListHeaderTitle margin='2em'>Data de Lançamento</ListHeaderTitle>
               <Arrows onClick={sortByName} />
           </ListHeaderData>
 
@@ -31,15 +31,15 @@ const ListHeaderInvoice = ({ sortByName }) => {
           </ListHeaderDataEmission>
 
           <ListHeadeNumberNF>
-              <ListHeaderTitle margin='3em'>Numero da NF</ListHeaderTitle>
+              <ListHeaderTitle margin='4.3em'>Numero da NF</ListHeaderTitle>
 
           </ListHeadeNumberNF>
           <ListHeaderValueNF>
-              <ListHeaderTitle margin='3em'>Valor da NF</ListHeaderTitle>
+              <ListHeaderTitle margin='5.5em'>Valor da NF</ListHeaderTitle>
   
           </ListHeaderValueNF>
           <ArquivoNF>
-              <ListHeaderTitle margin='3em'>Arquivo</ListHeaderTitle>
+              <ListHeaderTitle margin='4.3em'>Arquivo</ListHeaderTitle>
 
           </ArquivoNF>
 

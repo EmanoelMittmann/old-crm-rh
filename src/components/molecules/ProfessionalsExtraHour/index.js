@@ -15,8 +15,7 @@ const ProfessionalsExtraHour = ({extraHour, setExtraHour,  setFieldValue, data})
         setComponentJustRendered(true) 
     }, [data?.job_type])
 
-    
-    
+      
     const overtimeNotAllowed = {
         ...(componentJustRendered && (data === undefined || data?.extra_hour_activated === false) && {checked: true})
     }

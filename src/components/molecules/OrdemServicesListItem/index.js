@@ -32,55 +32,52 @@ const OrdemServiceListItem = ({
   const handleClick = () => {
     const IsExist = checkedProfissional.find(
       (item) => item.professional_id === index.id
-      );
-      if (IsExist) {
-        setCheckedProfissional(
-          checkedProfissional.filter((item) => item.professional_id !== index.id)
-          );
-        } else {
-          const isHaveComission = professionals.find((obj) => obj.id === index.id);
-          
-          if (isHaveComission.commission) {
-            setCheckedProfissional([
-              ...checkedProfissional,
-              { professional_id: index.id, companies_id: idCompanie ?? index.companies.id },
-            ]);
-          } else {
-            setCheckedProfissional([
-              ...checkedProfissional,
-              { professional_id: index.id, commission: 0, companies_id: idCompanie ?? index.companies.id },
-            ]);
-          }
-
-    }
-
-  };
-
-
-  const handleClickCompanies = () => {
-    const obj = checkedProfissional.map((item) => {
-     
-      if (item.professional_id === index.id) {
-        return { ...item, companies_id: idCompanie !== undefined ? idCompanie : index.companies.id };
+    );
+    if (IsExist) {
+      setCheckedProfissional(
+        checkedProfissional.filter((item) => item.professional_id !== index.id)
+        );
       } else {
-        return item;
+        const isHaveComission = professionals.find((obj) => obj.id === index.id);
+        
+        if (isHaveComission.commission) {
+          setCheckedProfissional([
+            ...checkedProfissional,
+            { professional_id: index.id, companies_id: idCompanie ?? index.companies.id },
+          ]);
+        } else {
+          setCheckedProfissional([
+            ...checkedProfissional,
+            { professional_id: index.id, commission: 0, companies_id: idCompanie ?? index.companies.id },
+          ]);
+        }
       }
-    });
-    setCheckedProfissional(obj);
-  }
-
-
-  useEffect(() => {
-    const exist = checkedProfissional.map((item) => item.professional_id);
-    setCheck(exist.includes(index.id));
-  }, [checkedProfissional]);
-
+      
+    };
+    
+    
+    const handleClickCompanies = (id) => {
+      const obj = checkedProfissional.map((item) => {
+        if (item.professional_id === index.id) {
+          return { ...item, companies_id: id };
+        } else {
+          return item;
+        }
+      });
+      setCheckedProfissional(obj);
+    }  
+    
+    useEffect(() => {
+      const exist = checkedProfissional.map((item) => item.professional_id);
+      setCheck(exist.includes(index.id));
+      // if (idCompanie === undefined) setIdCompanie(1)
+    }, [checkedProfissional]);
+    
 
   useEffect(() => {
     deleteProfessionalWithCommission(index);
 
   }, [check]);
-
 
 
   useEffect(() => {
@@ -103,7 +100,7 @@ const OrdemServiceListItem = ({
 
   return (
     <ContainerOrdemServices key={index.id}>
-      <OrdemServiceItens width="27%" content="flex-start">
+      <OrdemServiceItens width="20%" content="flex-start">
         <input
           type="checkbox"
           name="professional"
@@ -119,24 +116,27 @@ const OrdemServiceListItem = ({
       <ContainerSelect>
         <InputSelect
           textColor={companies}
-          lineWidth="12em"
-          placeholder={index.companies?.razao_social}
-          onChange={(e) => setIdCompanie(e.target.value)}
+          lineWidth="10em"
+          placeholder={index.companies.razao_social}
+          onChange={(e) => {
+            const{value}= e.target
+            setIdCompanie(value)
+            handleClickCompanies(value)
+          }}
           options={companies}
           width="100%"
-          onClick={() => handleClickCompanies()}
         />
       </ContainerSelect>
 
-      <OrdemServiceItens width="20%" content="start">
+      <OrdemServiceItens width="22%" content="start">
         {index.professional_data?.cnpj}
       </OrdemServiceItens>
-      <OrdemServiceItens width="20%" content="start">
-        R$ {index?.fixed_payment_value},00
+      <OrdemServiceItens width="18%" content="start">
+        R$ {index.fixed_payment_value},00
       </OrdemServiceItens>
 
       <OrdemServiceItens width="17%" content="flex-start">
-        {index?.value
+        {index.value
           ? ` ${Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.'))).toLocaleString("pt-br", {
             style: "currency",
             currency: "BRL",
@@ -146,7 +146,7 @@ const OrdemServiceListItem = ({
 
       <OrdemServiceItens width="25%" content="flex-start">
         {hourQuantity
-          ? Number(hourQuantity * index?.extra_hour_value).toLocaleString(
+          ? Number(hourQuantity * index.extra_hour_value).toLocaleString(
             "pt-br",
             {
               style: "currency",
@@ -156,7 +156,7 @@ const OrdemServiceListItem = ({
           : "-"}
       </OrdemServiceItens>
       <OrdemServiceItens width="10%" content="flex">
-        {index?.value
+        {index.value
           ? (
             Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.')).toFixed(2)) +
             Number(index.fixed_payment_value) +

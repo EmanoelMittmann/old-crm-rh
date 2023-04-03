@@ -4,3 +4,5 @@ export const formatDate = (dateWithoutFormatting) => {
     const newDate = new Intl.DateTimeFormat('pt-BR').format(date)
     return newDate; 
 }
+
+
