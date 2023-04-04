@@ -84,12 +84,8 @@ export const ProjectRow = ({ project, statusOptions, getProjects,}) => {
         <ProjectsListItemId>{project.id}</ProjectsListItemId>
         <ProjectsListItemProject>{project.name}</ProjectsListItemProject>
         <ProjectsListItemType>{project.project_type?.name}</ProjectsListItemType>
-        <ProjectsListItemBeginning>
-          {formatDate(project.date_start)}
-        </ProjectsListItemBeginning>
-        <ProjectsListItemTime>
-          <ContainerDateFinal>{formatDate(project.date_end)}</ContainerDateFinal>
-        </ProjectsListItemTime>
+        <ProjectsListItemBeginning>{formatDate(project.date_start)}</ProjectsListItemBeginning>
+        <ContainerDateFinal>{formatDate(project.date_end)}</ContainerDateFinal>
         <ProjectsListItemStatus>
           <StatusLabel
             name={project.status.name}

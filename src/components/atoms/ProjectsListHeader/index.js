@@ -26,21 +26,21 @@ const ProjectsListHeader = ({ fnOrder }) => {
             </ListHeaderId>
 
             <ListHeaderProjeto>
-                <ListHeaderTitle onClick={() => fnOrder(fields.NAME)} left='3em'>Projeto</ListHeaderTitle>
+                <ListHeaderTitle onClick={() => fnOrder(fields.NAME)} left='2.6em'>Projeto</ListHeaderTitle>
                 <Arrows onClick={() => fnOrder(fields.NAME)}/>
             </ListHeaderProjeto>
 
             <ListHeaderType>
-                <ListHeaderTitle>Tipo</ListHeaderTitle>
+                <ListHeaderTitle left ="0.8em">Tipo</ListHeaderTitle>
             </ListHeaderType>
 
             <ListHeaderBeginning>
-                <ListHeaderTitle  onClick={()=> fnOrder(fields.DATA_START)}>Início</ListHeaderTitle>
+                <ListHeaderTitle  onClick={()=> fnOrder(fields.DATA_START)} left="0.3em">Início</ListHeaderTitle>
                 <Arrows onClick={() => fnOrder(fields.DATA_START)}/>
             </ListHeaderBeginning>
 
             <ListHeaderTime>
-                <ListHeaderTitle>Data Final</ListHeaderTitle>
+                <ListHeaderTitle left="0.8em">Data Final</ListHeaderTitle>
             </ListHeaderTime>
 
             <ListHeaderStatus>
