@@ -19,9 +19,7 @@ import InputSelect from "../../atoms/InputSelect";
 import { optionsPorte } from "./Porte";
 import { useEffect } from "react";
 import InputSearchCnae from "../../atoms/InputSearchCnae";
-import InputSearchCnaeSecundary from "../../atoms/InputSearchCnaeSecundary";
 import InputNature from "../../atoms/inputCnj";
-import { ErrorMessage } from "../../atoms/InputSelectUf/style";
 
 const RegisterCompany = ({ data, disabled }) => {
   const {
@@ -268,9 +266,8 @@ const RegisterCompany = ({ data, disabled }) => {
         <ContainerRow>
           <InputSearchCnae
             label="Atividade Economica Principal"
-            placeholder={"Codigo e descrição de Atividade Economica Principal"}
+            placeholder="Codigo e descrição de Atividade Economica Principal"
             values={values.main_cnae}
-            handleBlur={setFieldTouched}
             error={errors.main_cnae}
             disabled={disabled}
             name='main_cnae'
@@ -281,17 +278,16 @@ const RegisterCompany = ({ data, disabled }) => {
           />
         </ContainerRow>
         <ContainerRow>
-          <InputSearchCnaeSecundary
-            placeholder={"Codigo e descrição de Atividade Economica Secundaria"}
+        <InputSearchCnae
             label="Atividade Economica Secundaria"
-            value={values.secondary_cnae}
-            handleBlur={setFieldTouched}
+            placeholder="Codigo e descrição de Atividade Economica Secundaria"
+            values={values.secondary_cnae}
             error={errors.secondary_cnae}
             disabled={disabled}
+            name='secondary_cnae'
             touched={touched.secondary_cnae}
             setFieldValue={setFieldValue}
             width="100%"
-            values={values}
             required
           />
         </ContainerRow>

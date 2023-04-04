@@ -22,7 +22,7 @@ export const AddressContact = ({ data, disabled }) => {
                         value={values.cep}
                         onChange={handleChange('cep')}
                         label="CEP"
-                        placeHolder="CPF"
+                        placeHolder="CEP"
                         mask={[/\d/, /\d/, /\d/, /\d/, /\d/, '-',
                             /\d/, /\d/, /\d/]}
                         padding="0em 2em 0 0em"

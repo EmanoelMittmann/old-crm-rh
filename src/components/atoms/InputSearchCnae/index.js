@@ -17,6 +17,7 @@ import {
   Itens,
   ValuesSelected,
 } from "./style.js";
+import { useRef } from "react";
 
 const InputSearchCnae = ({
   inputWidth,
@@ -25,7 +26,6 @@ const InputSearchCnae = ({
   values,
   name,
   disabled,
-  handleBlur,
   label,
   width,
   error,
@@ -36,7 +36,7 @@ const InputSearchCnae = ({
   const [text, setText] = useState("");
   const [value, setValue] = useState([]);
   const [filteredValues, setFilteredValues] = useState([]);
-  const [visible, setVisible] = useState(handleBlur);
+  const [visible, setVisible] = useState(false);
 
   const arrCnaes = async () => {
     try {
@@ -47,6 +47,20 @@ const InputSearchCnae = ({
       console.error(error);
     }
   };
+
+  function ExistValue(id){
+    return values.find(item => item.id === id)
+  }
+  
+  const handleBlur = (e) => {
+      setTimeout(() => {
+        setVisible(false)
+      },100)
+  }
+
+  const handleFocus = () => {
+    setVisible(true)
+  }
 
   const handleFilter = (e) => {
     setText(e.target.value);
@@ -66,7 +80,7 @@ const InputSearchCnae = ({
 
   const handleDelete = (index) => {
     const temp = values.filter((item) => item.id !== index); // para remover.
-    setFieldValue("main_cnae", temp);
+    setFieldValue(name, temp);
   };
 
   useEffect(() => {
@@ -75,7 +89,7 @@ const InputSearchCnae = ({
 
   return (
     <>
-      <InputSearchWithLabel>
+      <InputSearchWithLabel width={width}>
         <InputLine width={width} error={touched && error}>
           <Label focus={true}>
             {label}
@@ -87,7 +101,7 @@ const InputSearchCnae = ({
             disabled={disabled}
             onChange={(e) => handleFilter(e)}
             type="text"
-            onBlur={visible}
+            onFocus={handleFocus}
             placeholder={placeholder}
             width={inputWidth}
             padding="0.3em 0 0 1em"
@@ -104,15 +118,14 @@ const InputSearchCnae = ({
             </ValuesSelected>
           ))}
         </div>
-        {error && touched && (
-          <ErrorMessage visible={error}>{error}</ErrorMessage>
-        )}
+        {error && touched && <ErrorMessage visible={error}>{error}</ErrorMessage>}
       </InputSearchWithLabel>
-      <ListItens visible={visible}>
+      <ListItens visible={visible} onMouseLeave={(e) => handleBlur(e)}>
         {filteredValues.map(({id,descricao},index) => (
           <Itens
             key={index}
-            onClick={() => handleClick(id,descricao)}
+            onClick={() => !ExistValue(id) && handleClick(id,descricao)}
+            selected={ExistValue(id)}
           >
             {id} {descricao}
           </Itens>

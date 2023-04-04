@@ -99,6 +99,7 @@ export const ListItens = styled.div`
 export const Itens = styled.div`
   padding: 2px 0;
   display: block;
+  font-weight: ${props => props.selected ? 700 : 400};
   :hover {
     background-color: #ccc;
     border-radius: 5px;
