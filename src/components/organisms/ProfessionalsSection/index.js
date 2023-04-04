@@ -19,10 +19,6 @@ const ProfessionalsSection = () => {
     const [order, setOrder] = useState("");
     const [jobs, setJobs] = useState([]);
 
-    console.log('jobSelected: ', jobSelected);
-
- 
-
     let params = {};
 
     const handleFilterRequest = (pagesFilter) => {
