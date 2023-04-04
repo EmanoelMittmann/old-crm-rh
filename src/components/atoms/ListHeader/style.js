@@ -2,14 +2,14 @@ import styled from 'styled-components';
 
 export const ListHeaderContainer = styled.div`
   max-width: 100%;
-  height: 40px;
+  height: 50px;
   background-color: #f4f6f8;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: flex-start ;
+  margin-top: 1em;
   margin-bottom: 0.5em;
-  margin-top: 2em;
 
   svg {
     margin-left: 1em;

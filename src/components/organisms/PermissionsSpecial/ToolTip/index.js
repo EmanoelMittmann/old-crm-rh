@@ -7,7 +7,7 @@ export function modulesDescription(id) {
     case 3:
       return { first: "Aprovação de Horas" };
     case 4:
-      return { first: "Lançamento de notas fiscais" };
+      return { first: "Listagem de notas fiscais" };
     case 5:
       return { first: "Exportar Pagamentos" };
     case 6:

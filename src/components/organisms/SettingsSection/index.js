@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useLocation } from "react-router-dom"
 
 import api from '../../../api/api.js'
-import { Container, Main, ContainerFilterJob, SettingsSectionFooterContainer } from './style.js'
+import { Container, Main, ContainerFilterJob } from './style.js'
 import { SettingsInputs } from '../../molecules/SettingsInputs/index.js'
 import SecondaryText from '../../atoms/SecondaryText/style.js'
 import DarkButton from '../../atoms/Buttons/DarkButton/style.js'
@@ -19,7 +19,7 @@ import {
     setStatusList,
     setProjectTypeList,
     settingsPages,
-    setOccupationList
+
 }
 from '../../../redux/actions'
 
@@ -111,7 +111,7 @@ export const SettingsSection = () => {
     return (
         <Container>
             <Main>
-                <SecondaryText margin="2em 0 2em 0">
+                <SecondaryText margin="1em 0 1em 0">
                     {displayTitle(path)}
                 </SecondaryText>
                 <ContainerFilterJob>
@@ -128,7 +128,6 @@ export const SettingsSection = () => {
                 <SettingsListHeader />   
                 <SettingsListItem />
             </Main>
-            <SettingsSectionFooterContainer>
                 <Footer
                     previousPage={previousPage}
                     nextPage={nextPage}
@@ -136,7 +135,7 @@ export const SettingsSection = () => {
                     currentPage={currentPage}
                     firstPage={firstPage}
                 />
-            </SettingsSectionFooterContainer>
+            
             {modelVisibility && location.pathname !== "/projectStatus" && <Modal/>}
             {modelVisibility && location.pathname === "/projectStatus" && <ModalColors/>}
         </Container>

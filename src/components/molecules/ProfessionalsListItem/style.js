@@ -4,7 +4,7 @@ export const ContainerProfessionalsListItem = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
-  height: 60px;
+  height: 50px;
   border-radius: 10px;
 
   &:hover{

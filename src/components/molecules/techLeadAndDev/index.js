@@ -4,8 +4,8 @@ import { ContainerCommission } from "../EmploymentContract/style";
 import { Container } from "./style";
 
 const TechLeadAndDev = ({ formik }) => {
-  const { handleChange, values } = formik;
-
+  const { handleChange, values,setFieldValue } = formik;
+  const name = "function_job"
   return (
     <Container>
       <ContainerCommission>
@@ -15,7 +15,8 @@ const TechLeadAndDev = ({ formik }) => {
           value="Technical Leader"
           id="Technical Leader"
           checked={values.function_job === 'Technical Leader' && true}
-          onChange={handleChange("function_job")}
+          onChange={handleChange(name)}
+          onClick={() => setFieldValue(name,'')}
         />
         <LabelInputRadio for="Technical Leader">Lider Técnico </LabelInputRadio>
       </ContainerCommission>
@@ -26,7 +27,8 @@ const TechLeadAndDev = ({ formik }) => {
           value="Technical Lead and Developer"
           id="Technical Lead and Developer"
           checked={values.function_job === 'Technical Lead and Developer' && true}
-          onChange={handleChange("function_job")}
+          onChange={handleChange(name)}
+          onClick={() => setFieldValue(name,'')}
         />
         <LabelInputRadio for="Technical Lead and Developer">
           Lider Técnico e Desenvolvedor
@@ -39,7 +41,8 @@ const TechLeadAndDev = ({ formik }) => {
           value="Developer"
           id="Developer"
           checked={values.function_job === 'Developer' && true}
-          onChange={handleChange("function_job")}
+          onChange={handleChange(name)}
+          onClick={() => setFieldValue(name,'')}
         />
         <LabelInputRadio for="Developer">Desenvolvedor</LabelInputRadio>
       </ContainerCommission>

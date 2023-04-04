@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import {
-  ListHeaderContainer,
   ListHeaderTitle,
 } from '../../atoms/ListHeader/style';
 import {
   ListHeaderCity,
   ListHeaderCNPJ,
+  ListHeaderCompanyContainer,
   ListHeaderDate,
   ListHeaderRazaoSocial,
   ListHeaderSituation,
@@ -16,7 +16,7 @@ import { ReactComponent as Arrows } from '../../../assets/icons/arrows.svg';
 
 export const CompaniesListHeader = ({OrderForList}) => {
   return (
-    <ListHeaderContainer>
+    <ListHeaderCompanyContainer>
       <ListHeaderRazaoSocial>
         <ListHeaderTitle margin="0">Razão Social</ListHeaderTitle>
         <Arrows onClick={OrderForList} />
@@ -51,6 +51,6 @@ export const CompaniesListHeader = ({OrderForList}) => {
       <ListHeaderSituation>
         <ListHeaderTitle margin="0">Situação Cadastral</ListHeaderTitle>
       </ListHeaderSituation>
-    </ListHeaderContainer>
+    </ListHeaderCompanyContainer>
   );
 };

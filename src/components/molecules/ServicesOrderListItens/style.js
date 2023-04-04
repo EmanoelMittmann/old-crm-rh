@@ -5,7 +5,7 @@ export const ContainerOSListItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
+  height: 50px;
   border-radius:10px;
 
    &:hover{
@@ -15,6 +15,9 @@ export const ContainerOSListItem = styled.div`
 
 export const ProfessionalName = styled.div`
   display: flex;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   width:20%;
   padding-left: 3em;
 `;

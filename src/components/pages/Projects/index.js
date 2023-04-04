@@ -7,6 +7,7 @@ import { SearchSection } from "../../molecules/SearchSection";
 import ProjectsListItem from "../../organisms/ProjectsListItem";
 import Footer from "../../organisms/Footer";
 import { useRef } from "react";
+import { ContainerAbsolute } from "../../atoms/Container/style";
 
 const Projects = () => {
   const [data, setData] = useState([]);
@@ -111,25 +112,29 @@ const Projects = () => {
       <SearchSection fnSearch={setSearch}>
         <InputSelect
           options={typesOptions}
+          textColor={selectedTypesOptions}
           onChange={(e) => setSelectedTypesOptions(e.target.value)}
           placeholder="Tipo"
-          width="220px"
+          width="30%"
+          lineWidth="100%"
         />
         <InputSelect
           options={allOptions}
+          textColor={selectedStatusOptions}
           onChange={(e) => setSelectedStatusOptions(e.target.value)}
           placeholder="Status"
-          width="230px"
+          width="30%"
+          lineWidth="100%"
         />
       </SearchSection>
       <ProjectsListHeader fnOrder={sortByField} />
-      <div className="shelf">
-        <ProjectsListItem
-          data={data}
-          statusOptions={statusOptions}
-          getProjects={getProjects}
-        />
-      </div>
+        <ContainerAbsolute>
+          <ProjectsListItem
+            data={data}
+            statusOptions={statusOptions}
+            getProjects={getProjects}
+          />
+        </ContainerAbsolute>
       <Footer
         previousPage={previousPage}
         nextPage={nextPage}

@@ -3,14 +3,14 @@ import InputSearch from '../../atoms/InputSearch'
 import useDebounce from '../../../hooks/debounce'
 import { Main } from './style.js'
 
-export function SearchSection({ fnSearch, width, children, placeholder }) {
+export function SearchSection({ fnSearch, width, children, placeholder,inputWidth }) {
   const debouncedChange = useDebounce(fnSearch, 400)
 
   return ( 
     <Main width={width || '840px'}>
       <InputSearch 
         setSearchResult={debouncedChange} 
-        lineWidth="280px" 
+        lineWidth={inputWidth} 
         inputWidth="230px"
         placeholder={placeholder}
       />

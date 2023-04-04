@@ -21,6 +21,7 @@ import { formatDate } from "../../utils/formatDate.js";
 import { ReactComponent as OptionsIcon } from "../../../assets/icons/options.svg";
 import { useEffect } from "react";
 import DetaislProjects from "../../molecules/DetailsProjects";
+import { ContainerAbsolute } from "../../atoms/Container/style";
 
 export const ProjectRow = ({ project, statusOptions, getProjects,}) => {
   const history = useHistory();

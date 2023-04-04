@@ -66,7 +66,7 @@ const Shelf = ({ values, index, getHoursPending }) => {
           <Text>{values.project_name}</Text>
         </ContainerProject>
         <ContainerLaunch_date w='17%'>
-          {formatDate(values.launch_date)}
+          {(values.launch_date.substr(0, 10).split('-').reverse().join('/'))}
         </ContainerLaunch_date>
         <ContainerStatus>
           {values.status_id === 1 ? (
@@ -78,18 +78,14 @@ const Shelf = ({ values, index, getHoursPending }) => {
               {values.status_name}
             </Badge>
           ) : values.status_id === 3 ? (
-            <Badge bg="#0066FF26" color="#0066FF" width="200px">
-              {values.status_name}
-            </Badge>
-          ) : values.status_id === 4 ? (
             <Badge bg="#1ECB4F26" color="#1ECB4F" width="200px">
               {values.status_name}
             </Badge>
-          ) : values.status_id === 5 ? (
+          ) : values.status_id === 4 ? (
             <Badge bg="#1ECB4F" color="#FFF" width="200px">
               {values.status_name}
             </Badge>
-          ) : values.status_id === 6 ? (
+          ) : values.status_id === 5 ? (
             <Badge bg="#FF354126" color="#FF3541" width="200px">
               {values.status_name}
             </Badge>

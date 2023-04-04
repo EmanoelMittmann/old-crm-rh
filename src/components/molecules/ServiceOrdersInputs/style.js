@@ -12,10 +12,3 @@ export const ContainerSelectDate = styled.div`
     justify-content: space-between;
   
     `
-export const ContainerStyleOS = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-
-
-    `

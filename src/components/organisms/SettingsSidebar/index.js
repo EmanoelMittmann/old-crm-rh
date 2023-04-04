@@ -5,12 +5,12 @@ import { useSelector } from 'react-redux'
 
 
 import { Sidebar, SettingsOption, LinkSettingsMenu } from './style.js'
-import { resetFilterStatus, setFilterOrder, setFilterStatus, setSearchName} from '../../../redux/actions'
+import { resetFilterStatus, setFilterOrder, setFilterStatus, setSearchName } from '../../../redux/actions'
 import Title from '../../atoms/SettingsMenuTitle/style.js'
 
 const SettingsSidebar = () => {
     const dispatch = useDispatch()
-    const location = useLocation() 
+    const location = useLocation()
 
     const resetFilters = () => {
         dispatch(resetFilterStatus())
@@ -22,39 +22,36 @@ const SettingsSidebar = () => {
 
     return (
         <Sidebar>
-                <Title>Cadastros</Title>
-
+            <Title>Cadastros</Title>
             <LinkSettingsMenu
-                    to="/job"
-                    onClick={() => resetFilters()}
+                to="/job"
+                onClick={() => resetFilters()}
+            >
+                <SettingsOption
+                    clicked={location.pathname === "/job" ? true : false}
                 >
-                    <SettingsOption 
-                        clicked={location.pathname === "/job" ? true : false}
-                    >
-                       Cargos
-                    </SettingsOption>
+                    Cargos
+                </SettingsOption>
             </LinkSettingsMenu>
-
             <LinkSettingsMenu
-                    to="/projectStatus"
-                    onClick={() => resetFilters()}
+                to="/projectStatus"
+                onClick={() => resetFilters()}
+            >
+                <SettingsOption
+                    clicked={location.pathname === "/projectStatus" ? true : false}
                 >
-                    <SettingsOption
-                        clicked={location.pathname === "/projectStatus" ? true : false}
-                    >
-                        Status do projeto
-                    </SettingsOption>
+                    Status do projeto
+                </SettingsOption>
             </LinkSettingsMenu>
-
             <LinkSettingsMenu
-                    to="/projectType"
-                    onClick={() => resetFilters()}
+                to="/projectType"
+                onClick={() => resetFilters()}
+            >
+                <SettingsOption
+                    clicked={location.pathname === "/projectType" ? true : false}
                 >
-                    <SettingsOption
-                        clicked={location.pathname === "/projectType" ? true : false}
-                    >
-                        Tipo de projeto
-                    </SettingsOption>
+                    Tipo de projeto
+                </SettingsOption>
             </LinkSettingsMenu>
 
         </Sidebar>

@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
     max-width: 100%;
-    height: 40px;
+    height: 50px;
     background-color: #F4F6F8;
     border-radius: 8px;
     display: flex;
     align-items: center;
-    margin-top: 2em;
+    margin-top: 1em;
     margin-bottom: 0.5em;
     padding: 1.5em;
     justify-content: space-between;

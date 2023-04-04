@@ -32,7 +32,7 @@ const Reports = () => {
 
   const getReports = async () => {
     handleFilterRequest()
-    const { data } = await api.get('/reports?limit=7', { params })
+    const { data } = await api.get('/reports?limit=5', { params })
     setReports(data.data)
     setReportsMeta(data.meta)
   }
@@ -96,7 +96,9 @@ const Reports = () => {
         search={search}
         companies={companies}
         setCompanyParams={setCompanyParams}
+        statusParams={statusParams}
         setStatusParams={setStatusParams}
+        companyParams={companyParams}
         setSearch={setSearch}
         initialPeriod={initialPeriod}
         setInitialPeriod={setInitialPeriod}

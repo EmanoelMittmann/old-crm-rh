@@ -1,5 +1,21 @@
 import styled from "styled-components";
 
+export const ListHeaderCompanyContainer = styled.div`
+  width: 100%;
+  height: 50px;
+  background-color: #f4f6f8;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+
+  svg {
+    margin-left: 1em;
+    cursor: pointer;
+  }
+`;
+
 export const ListHeaderRazaoSocial = styled.div`
   display: flex;
   align-items: center;

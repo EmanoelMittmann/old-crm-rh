@@ -6,7 +6,8 @@ export const ContainerCompaniesListItem = styled.div`
   align-items: center;
   justify-content: space-between;
   border-radius: 10px;
-  height: 60px;
+  height: 50px;
+  margin-bottom: 0.5em;
   
    &:hover{
     background-color:#f4f6f8;
@@ -18,7 +19,7 @@ export const ContainerCompaniesDetails = styled.div`
   align-items: center;
   justify-content: space-between;
   border-radius: 10px;
-  height: 60px;
+  height: 50px;
   cursor: pointer;
   
    &:hover{

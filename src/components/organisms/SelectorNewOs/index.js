@@ -50,7 +50,6 @@ const NewOrdemService = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-
   let params = {};
 
   const sortByName = () => {
@@ -64,12 +63,12 @@ const NewOrdemService = () => {
       setCheckedProfissional(
         professionals.map((item) => {
           if (item.commission) {
-            return { professional_id: item.id, companies_id: 1 };
+            return { professional_id: item.id, companies_id: item.companies.id };
           } else {
             return {
               professional_id: item.id,
               commission: 0,
-              companies_id: 1,
+              companies_id: item.companies.id 
             };
           }
         })
@@ -79,6 +78,7 @@ const NewOrdemService = () => {
       setCheckedProfissional([]);
     }
   };
+  
   const handleSubmit = async (data) => {
     if (checkedProfissional.length > 0) {
       try {
@@ -289,7 +289,10 @@ const NewOrdemService = () => {
             );
           })}
         </ScrollContainer>
-        <OnPrice {...{ checkedProfissional, companies, professionals }} />
+        <div>
+          <OnPrice {...{ checkedProfissional, companies, professionals }} />
+        </div>
+  
       </Container>
 
     </>

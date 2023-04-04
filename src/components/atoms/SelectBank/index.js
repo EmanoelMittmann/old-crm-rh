@@ -16,6 +16,7 @@ function InputBank({
   error,
   touched,
   translate,
+  listWidth,
   lineWidth,
   padding,
   name,
@@ -72,7 +73,7 @@ function InputBank({
   return (
     <>
       <Father width={width}>
-        <InputLine error={error && touched}>
+        <InputLine error={error && touched} width={lineWidth}>
           {label && (
             <Label focus={label}>
               {label}
@@ -81,16 +82,16 @@ function InputBank({
           )}
           <DefaultInput
             {...attributeValue}
-            width='100%'
+            width={width}
             onChange={(e) => handleChange(e)}
             padding={padding}
             onBlur={handleBlur}
             onFocus={handleFocus}
-            placeholder="Pesquise seu banco"
+            placeholder="Pesquise o banco"
           />
         </InputLine>
         {error && touched && <ErrorMessage>{error}</ErrorMessage>}
-        <Container visible={visible} translate={translate} width={lineWidth}>
+        <Container visible={visible} translate={translate} width={listWidth}>
           {filtered?.map((item) => (
             <InputSelectOption
               key={item?.ispb}

@@ -5,7 +5,7 @@ export const ContainerOrdemServices = styled.div`
   width: 100%;
   align-items: center;
   padding: 1em;
-  height: 4em;
+  height: 50px;
 `;
 
 export const OrdemServiceItens = styled.div`
@@ -24,9 +24,14 @@ export const OrdemServiceItens = styled.div`
   #box:focus {
     outline: none;
   }
+  p{
+    width: 8em;
+    text-overflow:ellipsis;
+    overflow:hidden;
+  }
 `;
 export const ContainerSelect = styled.div`
-    width: 30%;
+    width: 22%;
     display: flex;
     justify-content: center;
 `

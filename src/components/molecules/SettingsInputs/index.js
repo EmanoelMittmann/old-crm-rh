@@ -116,9 +116,11 @@ export const SettingsInputs = () => {
             />
             <InputSelect
                 options={settingsFilterStatusOptions}
+                textColor={selectedOption}
                 onChange={e => setSelectedOption(e.target.value)}
-                placeHolder="Status"
-                width="220px"
+                placeholder="Status"
+                width="45%"
+                lineWidth="100%"
             />
         </SettingsInputsContainer>
     )

@@ -8,11 +8,13 @@ import { ProjectsSectionContainer } from './style.js'
 const ProjectsSection = () => {
 
     return (
-        <ProjectsSectionContainer>
-            <ProjectsInputs/>
-            <ProjectsListHeader/>
-            <ProjectsListItem/>
-        </ProjectsSectionContainer>
+        <>
+            <ProjectsInputs />
+            <ProjectsListHeader />
+            <ProjectsListItem />
+        </>
+
+
     )
 }
 

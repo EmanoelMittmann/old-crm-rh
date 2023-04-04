@@ -145,7 +145,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           avatar: selected.avatar,
           job_: isTechLead ? "Tech Lead" : jobName,
           status: true,
-          isTechLead: isTechLead,
         },
         
       ]);
@@ -154,7 +153,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
     }
     
 
-    addMember(professionalSelected, hoursMonth, overtime, isTechLead, jobName, status, TechLead);
+    addMember(professionalSelected, hoursMonth, overtime, jobName, status);
     resetInputs();
   }
 
@@ -200,6 +199,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
       <SecondaryText margin="0 0 2.5em 0">Vincular Time</SecondaryText>
       <AttachmentForm>
         <InputSelectWithLabel
+          value={professionalSelected}
           onFocus={() =>
             setDataTeam(options.filter((professional) => professional.id !== 0))
           }
@@ -216,10 +216,12 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
         />
         <InputSelect
           onChange={(e) => setJobProject(e.target.value)}
+          value={jobProject}
+          textColor={jobProject}
           options={jobsMember}
           placeholder="Cargo"
-          width="100%"
-          lineWidth="15em"
+          width="30%"
+          lineWidth="100%"
           label="Cargo"
         />
         <InputWithLabel

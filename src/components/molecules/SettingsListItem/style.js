@@ -5,9 +5,8 @@ export const ListItemContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 55px;
+    height: 47px;
     border-radius: 8px;
-    margin-bottom: 0.5em;
 
     &:hover {
         background-color: #F4F6F8;

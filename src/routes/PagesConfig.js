@@ -81,7 +81,7 @@ export const templates = [
     name: "Ordens de serviço",
     hasButton: true,
     buttonText: "Gerar nova O.S.",
-    buttonPath: "/NewOs",
+    buttonPath: "/OrdemServices",
     icon: <ServiceOrdersIcon />,
     isRegisterPage: false,
     path: "/serviceOrders",
@@ -119,7 +119,7 @@ export const templates = [
   },
   {
     id: 11,
-    name: "Lançamento de horas Extra",
+    name: "Lançamento de horas Extras",
     hasButton: true,
     buttonText: "Novo lançamento",
     buttonPath: "/releaseHours",
@@ -127,6 +127,7 @@ export const templates = [
     isRegisterPage: false,
     path: "/timeSending",
   },
+
   {
     id: 12,
     name: "Notas fiscais",

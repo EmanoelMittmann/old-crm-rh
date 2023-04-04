@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
-import { InputLine } from '../../atoms/DefaultInput/style';
-import arrowPointingDown from '../../../assets/icons/arrowPointingDown.svg';
+import React, { useState } from "react";
+import { InputLine } from "../../atoms/DefaultInput/style";
+import arrowPointingDown from "../../../assets/icons/arrowPointingDown.svg";
 import {
-  ErrorMessage, 
-  Label, 
+  ErrorMessage,
+  Label,
   RequiredLabel,
   Img,
   InputSelectContainer,
   InputSelectOption,
   InputSelectOptionPlaceholder,
   Father,
-} from '../DefautInputSelect/style.js';
-
+} from "../DefautInputSelect/style.js";
 
 const InputSelect = ({
   onChange,
@@ -27,7 +26,7 @@ const InputSelect = ({
   onClick,
   label,
   required,
-  textColor
+  textColor,
 }) => {
   const [focus, setFocus] = useState(false);
   const [blur, setBlur] = useState(false);
@@ -39,7 +38,7 @@ const InputSelect = ({
   return (
     <Father width={width}>
       <InputLine width={lineWidth} margin={margin} error={error && touched}>
-        <Label focus={focus || value == ''} blur={blur || value !== ''}>
+        <Label focus={true} blur={true}>
           {label}
           {required && <RequiredLabel>*</RequiredLabel>}
         </Label>
@@ -47,22 +46,22 @@ const InputSelect = ({
         <InputSelectContainer
           {...attributeValue}
           textColor={textColor}
-          width={width}
+          width={lineWidth}
           disabled={disabled}
           onChange={onChange}
-          onClick={onClick}
+        
           placeholder={placeholder}
         >
-          {placeholder && <InputSelectOptionPlaceholder value={placeholder}>{placeholder}</InputSelectOptionPlaceholder>}
+          {placeholder && (
+            <InputSelectOptionPlaceholder value={placeholder}>
+              {placeholder}
+            </InputSelectOptionPlaceholder>
+          )}
           {options?.map((option, index) => (
-            <InputSelectOption
-              key={index}
-              value={option.id}
-            >
+            <InputSelectOption key={index} value={option.id}>
               {option.name || option.razao_social}
             </InputSelectOption>
           ))}
-
         </InputSelectContainer>
         <Img src={arrowPointingDown} alt="Lupa" />
       </InputLine>

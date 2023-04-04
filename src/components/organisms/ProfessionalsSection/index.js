@@ -7,8 +7,8 @@ import ProfessionalsInputs from "../../molecules/ProfessionalsInputs";
 import ProfessionalsListHeader from "../../atoms/ProfessionalsListHeader";
 import ProfessionalsListItem from "../../molecules/ProfessionalsListItem";
 import LoadingCircle from "../../atoms/LoadingCircle";
-import {Container} from "../../atoms/Container";
-import {ContainerAbsolute} from './style';
+import { Container} from "../../atoms/Container";
+import { ContainerAbsolute } from '../../atoms/Container/style';
 
 const ProfessionalsSection = () => {
     const location = useLocation();
@@ -79,6 +79,7 @@ const ProfessionalsSection = () => {
             <ProfessionalsInputs
                 setSearchResult={setSearchResult}
                 setJobSelected={setJobSelected}
+                jobSelected={jobSelected}
             />
             <ProfessionalsListHeader sortByName={sortByName}/>
             {professionals[0] ? (

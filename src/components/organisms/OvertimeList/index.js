@@ -2,18 +2,17 @@ import React from 'react'
 import ListHeaderHoursExtra from '../../molecules/ListHeaderHoursExtra'
 import { OvertimeListItem } from '../../molecules/OvertimeListItem'
 import Footer from '../Footer'
-import { Height } from '../../pages/OvertimeListIstechLead/style'
+import { ContainerAbsolute } from '../../atoms/Container/style'
 
 
 export function OvertimeList({ data, meta, nextPage, previousPage, sortById, status }) {
   return (
     <>
       <ListHeaderHoursExtra sortById={sortById}/>
-      <Height>
+      <ContainerAbsolute>
         {data?.map(item => <OvertimeListItem item={item} status={status} />)}
-      </Height>
+      </ContainerAbsolute>
       <Footer
-        height="5em"
         previousPage={previousPage}
         nextPage={nextPage}
         currentPage={meta?.current_page}

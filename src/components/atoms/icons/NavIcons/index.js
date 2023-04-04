@@ -14,7 +14,6 @@ import { ReactComponent as Company } from "../../../../assets/icons/Vector.svg";
 import { ReactComponent as HoursProfessionals } from "../../../../assets/icons/arrowHours.svg";
 import { ReactComponent as ThrowNotes } from "../../../../assets/icons/throwNotes.svg";
 
-
 //Home Icon
 
 const HomeIconContainer = styled.div`
@@ -93,7 +92,7 @@ const JobIconContainer = styled.div`
 
   svg {
     fill: ${(props) =>
-    props.location === "/professionals" ? "black" : "#B7BDC2"};
+      props.location === "/professionals" ? "black" : "#B7BDC2"};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
@@ -111,7 +110,7 @@ const JobIconContainer = styled.div`
   &:after {
     content: "Profissionais";
     display: ${(props) =>
-    props.location === "/professionals" ? "none" : props.hover};
+      props.location === "/professionals" ? "none" : props.hover};
     width: 100px;
     height: 35px;
     background-color: white;
@@ -131,7 +130,7 @@ const JobIconContainer = styled.div`
   &:before {
     content: "";
     display: ${(props) =>
-    props.location === "/professionals" ? "none" : props.hover};
+      props.location === "/professionals" ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -164,9 +163,9 @@ const ProjectsIconContainer = styled.div`
 
   svg {
     fill: ${(props) =>
-    props.location === "/projects" || props.location === "/project"
-      ? "black"
-      : "#B7BDC2"};
+      props.location === "/projects" || props.location === "/project"
+        ? "black"
+        : "#B7BDC2"};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
@@ -184,9 +183,7 @@ const ProjectsIconContainer = styled.div`
   &:after {
     content: "Projetos";
     display: ${(props) =>
-    props.location === "/projects"
-      ? "none"
-      : props.hover};
+      props.location === "/projects" ? "none" : props.hover};
     width: 70px;
     height: 35px;
     background-color: white;
@@ -207,9 +204,9 @@ const ProjectsIconContainer = styled.div`
   &:before {
     content: "";
     display: ${(props) =>
-    props.location === "/projects" || props.location === "/project"
-      ? "none"
-      : props.hover};
+      props.location === "/projects" || props.location === "/project"
+        ? "none"
+        : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -262,7 +259,7 @@ const OvertimeIconContainer = styled.div`
   &:after {
     content: "Horas extras";
     display: ${(props) =>
-    props.location === "/overtime" ? "none" : props.hover};
+      props.location === "/overtime" ? "none" : props.hover};
     width: 100px;
     height: 35px;
     background-color: white;
@@ -282,7 +279,7 @@ const OvertimeIconContainer = styled.div`
   &:before {
     content: "";
     display: ${(props) =>
-    props.location === "/overtime" ? "none" : props.hover};
+      props.location === "/overtime" ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -335,7 +332,7 @@ const InvoiceIconContainer = styled.div`
   &:after {
     content: "Notas fiscais";
     display: ${(props) =>
-    props.location === "/invoice" ? "none" : props.hover};
+      props.location === "/invoice" ? "none" : props.hover};
     width: 100px;
     height: 35px;
     background-color: white;
@@ -355,7 +352,7 @@ const InvoiceIconContainer = styled.div`
   &:before {
     content: "";
     display: ${(props) =>
-    props.location === "/invoice" ? "none" : props.hover};
+      props.location === "/invoice" ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -407,7 +404,7 @@ const ReportsIconContainer = styled.div`
   &:after {
     content: "Relatórios";
     display: ${(props) =>
-    props.location === "/reports" ? "none" : props.hover};
+      props.location === "/reports" ? "none" : props.hover};
     width: 100px;
     height: 35px;
     background-color: white;
@@ -427,7 +424,7 @@ const ReportsIconContainer = styled.div`
   &:before {
     content: "";
     display: ${(props) =>
-    props.location === "/reports" ? "none" : props.hover};
+      props.location === "/reports" ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -462,16 +459,16 @@ const ServiceOrdersIconContainer = styled.div`
 
   svg {
     fill: ${(props) =>
-    props.location === "/serviceOrders" ? "black" : "#B7BDC2"};
+      props.location === "/serviceOrders" ? "black" : "#B7BDC2"};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
   }
 
   &:hover {
-      background: #f4f6f8;
-      border-radius: 10px;
-  
+    background: #f4f6f8;
+    border-radius: 10px;
+
     svg {
       fill: black;
     }
@@ -480,7 +477,7 @@ const ServiceOrdersIconContainer = styled.div`
   &:after {
     content: "Ordens de serviço";
     display: ${(props) =>
-    props.location === "/serviceOrders" ? "none" : props.hover};
+      props.location === "/serviceOrders" ? "none" : props.hover};
     width: 130px;
     height: 35px;
     background-color: white;
@@ -500,7 +497,7 @@ const ServiceOrdersIconContainer = styled.div`
   &:before {
     content: "";
     display: ${(props) =>
-    props.location === "/serviceOrders" ? "none" : props.hover};
+      props.location === "/serviceOrders" ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -543,8 +540,8 @@ const SettingsIconContainer = styled.div`
   }
 
   &:hover {
-      background: #f4f6f8;
-      border-radius: 10px;
+    background: #f4f6f8;
+    border-radius: 10px;
 
     svg {
       fill: black;
@@ -619,8 +616,8 @@ const CompanyIconContainer = styled.div`
   }
 
   &:hover {
-      background: #f4f6f8;
-      border-radius: 10px;
+    background: #f4f6f8;
+    border-radius: 10px;
 
     svg {
       fill: black;
@@ -630,7 +627,7 @@ const CompanyIconContainer = styled.div`
   &:after {
     content: "Empresas";
     display: ${(props) =>
-    props.location === "/Company" ? "none" : props.hover};
+      props.location === "/Company" ? "none" : props.hover};
     width: 130px;
     height: 35px;
     background-color: white;
@@ -650,7 +647,7 @@ const CompanyIconContainer = styled.div`
   &:before {
     content: "";
     display: ${(props) =>
-    props.location === "/Company" ? "none" : props.hover};
+      props.location === "/Company" ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -680,12 +677,13 @@ const ReleaseHoursIconContainer = styled.div`
   justify-content: center;
   width: 55px;
 
-   svg {
-    fill: ${(props) => (props.location === "/releaseHours" || 
-    props.location === "/timeIstechLead" || 
-    props.location === "/timeSending"  ? 
-    "black" : 
-    "#B7BDC2")};
+  svg {
+    fill: ${(props) =>
+      props.location === "/releaseHours" ||
+      props.location === "/timeIstechLead" ||
+      props.location === "/timeSending"
+        ? "black"
+        : "#B7BDC2"};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
@@ -703,16 +701,16 @@ const ReleaseHoursIconContainer = styled.div`
   &:after {
     content: "Lançamento de Horas Extras";
     display: ${(props) =>
-  props.location === "/releaseHours" ? "none" : props.hover};
+      props.location === "/releaseHours" ? "none" : props.hover};
     width: 200px;
+    height: 34px;
     white-space: nowrap;
-    height: 35px;
     background-color: white;
     box-shadow: 0px 10px 15px -7px rgba(0, 0, 0, 0.2),
       5px 25px 14px -13px rgba(0, 0, 0, 0);
     position: absolute;
     border-radius: 8px;
-    top: 122%;
+    transform: translateY(5.5em);
     color: black;
     font-size: 0.7rem;
     font-weight: 700;
@@ -724,7 +722,7 @@ const ReleaseHoursIconContainer = styled.div`
   &:before {
     content: "";
     display: ${(props) =>
-  props.location === "/releaseHours"  ? "none" : props.hover};
+      props.location === "/releaseHours" ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -748,8 +746,6 @@ export const ReleaseHoursIcon = () => {
   );
 };
 
-
-
 // Icon de lançamento de NF
 
 const RealeseInvoiceIconContainer = styled.div`
@@ -759,7 +755,8 @@ const RealeseInvoiceIconContainer = styled.div`
   width: 55px;
 
   svg {
-    fill: ${(props) => (props.location === "/invoiceSending" ? "black" : "#B7BDC2")};
+    fill: ${(props) =>
+      props.location === "/invoiceSending" ? "black" : "#B7BDC2"};
     cursor: pointer;
     height: 45px;
     transition: 0.4s fill ease-in-out;
@@ -777,7 +774,7 @@ const RealeseInvoiceIconContainer = styled.div`
   &:after {
     content: "Lançamento de Notas fiscais";
     display: ${(props) =>
-    props.location === "/invoiceSending" ? "none" : props.hover};
+      props.location === "/invoiceSending" ? "none" : props.hover};
     width: 200px;
     height: 34px;
     background-color: white;
@@ -797,7 +794,7 @@ const RealeseInvoiceIconContainer = styled.div`
   &:before {
     content: "";
     display: ${(props) =>
-    props.location === "/invoiceSending" ? "none" : props.hover};
+      props.location === "/invoiceSending" ? "none" : props.hover};
     width: 45px;
     height: 20px;
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
@@ -818,6 +815,6 @@ export const ReleaseInvoiceIcon = () => {
       hover={displayDescription}
     >
       <ThrowNotes />
-    </RealeseInvoiceIconContainer >
+    </RealeseInvoiceIconContainer>
   );
 };

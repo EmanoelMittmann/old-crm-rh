@@ -35,7 +35,7 @@ export const InputSelectOption = styled.option`
 
 export const Container = styled.div`
     visibility: ${props => props.visible ? 'visible' : 'hidden'};
-    width: ${props => props.width ? props.width : '34em'};
+    width: ${props => props.width && props.width};
     overflow: hidden;
     overflow-y: scroll;
     height: 10em;

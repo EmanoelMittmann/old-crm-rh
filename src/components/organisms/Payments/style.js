@@ -1,20 +1,12 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-    width: 91.5%;
-    min-height: 75vh;
-    background-color: white;
-    margin: auto;
-    border-radius: 25px;
-    box-shadow: 0px 5px 50px 0px #0000001A;
 
-`
 export const ContainerSearch = styled.div`
     width: 100%;
     display: flex;
     gap: 2em;
     flex-direction: row;
-    padding: 2em 1.5em 0 1.5em;
+   
 `
 export const ContainerListing = styled.div`
     width: 100%;
@@ -22,11 +14,11 @@ export const ContainerListing = styled.div`
     min-height: 30em;
 `
 export const ContainerButtonExcel = styled.div`
-    width: 95.6%;
+    width: 94.1%;
     display:flex;
     align-items: end;
     justify-content:end;
     position: absolute;
-    margin-top: -4.3em;
+    margin-top: -5.6em;
 
 `

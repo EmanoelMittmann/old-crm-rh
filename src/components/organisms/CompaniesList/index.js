@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import Footer from "../Footer";
 import HeaderSearchCompany from "../../molecules/HeaderSearchCompany";
 import { Container } from "../../atoms/Container";
+import { ContainerAbsolute } from "../../atoms/Container/style";
 
 const CompaniesList = () => {
   const location = useLocation();
@@ -22,21 +23,13 @@ const CompaniesList = () => {
   let params = {};
 
   const getCompany = async () => {
-    const { data } = await api({
-      method: "GET",
-      url: `/companies/?limit=5`,
-      params: params,
-    });
+    const { data } = await api.get(`/companies?limit=5`,{params:params});
     setCompanies(data.data);
     setCompanyMeta(data.meta);
   };
 
   const handleFilterCompanies = async () => {
-    const { data } = await api({
-      method: "GET",
-      url: `/findCompanies`,
-      params: params,
-    });
+    const { data } = await api.get(`/findCompanies`,{params:params});
     setCompanies(data.data);
     setCompanyMeta(data.meta);
   };
@@ -73,15 +66,15 @@ const CompaniesList = () => {
       params.page = companyMeta.first_page;
     }
 
-    if(uf !== ""){
+    if (uf !== "") {
       params.uf = uf;
     }
 
-    if(typeCompany !== ""){
+    if (typeCompany !== "") {
       params.type_company = typeCompany;
     }
 
-    if(selectedStatusCompany !== ""){
+    if (selectedStatusCompany !== "") {
       params.status = selectedStatusCompany;
     }
 
@@ -93,11 +86,11 @@ const CompaniesList = () => {
 
     searchResult || uf || selectedStatusCompany || typeCompany
       ? handleFilterCompanies(
-          searchResult,
-          uf,
-          selectedStatusCompany,
-          typeCompany
-        )
+        searchResult,
+        uf,
+        selectedStatusCompany,
+        typeCompany
+      )
       : getCompany();
     location.state && setCompanies(location.state.companies.data);
   }, [order, searchResult, uf, selectedStatusCompany, typeCompany]);
@@ -111,14 +104,16 @@ const CompaniesList = () => {
         setUf={setUf}
         uf={uf}
         setSelectedStatusCompany={setSelectedStatusCompany}
+        selectedStatusCompany={selectedStatusCompany}
       />
-      <CompaniesListHeader OrderForList={OrderForList} order={order}/>
-      <div className="shelf">
+      <CompaniesListHeader OrderForList={OrderForList} order={order} />
+      <ContainerAbsolute>
         {companies?.map((corporation) => (
           <CompaniesListItem corporation={corporation} />
         ))}
-      </div>
+      </ContainerAbsolute>
       <Footer
+        height='15%'
         previousPage={previousPage}
         nextPage={nextPage}
         currentPage={companyMeta.current_page}
