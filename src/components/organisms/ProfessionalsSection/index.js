@@ -17,6 +17,7 @@ const ProfessionalsSection = () => {
     const [searchResult, setSearchResult] = useState("");
     const [professionalMeta, setProfessionalMeta] = useState("");
     const [order, setOrder] = useState("");
+    const [jobs, setJobs] = useState([]);
 
     let params = {};
 
@@ -27,7 +28,8 @@ const ProfessionalsSection = () => {
         if (pagesFilter === "next")
             params.page = `${professionalMeta.current_page++}`;
 
-        if (pagesFilter === undefined) params.page = professionalMeta.current_page;
+        if (pagesFilter === undefined) params.page = professionalMeta.current_page
+
 
         if (searchResult !== "") {
             params.search = searchResult;
@@ -36,6 +38,7 @@ const ProfessionalsSection = () => {
 
         if (jobSelected !== "") {
             params.job_id = jobSelected;
+            params.page = professionalMeta.first_page;
         }
 
         if (order !== "") params.order = order;
@@ -46,6 +49,7 @@ const ProfessionalsSection = () => {
         order === "asc" && setOrder("desc");
         order === "desc" && setOrder("asc");
     };
+
 
     const getProfessionals = async () => {
         handleFilterRequest()
@@ -59,10 +63,7 @@ const ProfessionalsSection = () => {
         setProfessionalMeta(data.meta);
     };
 
-    useEffect(() => {
-        getProfessionals();
-        location.state && setProfessionals(location.state.professionals.data);
-    }, [searchResult, jobSelected, order]);
+
 
     const nextPage = () => {
         handleFilterRequest("next");
@@ -74,12 +75,30 @@ const ProfessionalsSection = () => {
         getProfessionals();
     };
 
+    const getJobs = async () => {
+        const { data } = await api({
+            method: 'get',
+            url: `/job/?limit=1000`,
+        });
+        data.data.push({ id: '', name: 'Todos' });
+        setJobs(data.data);
+    };
+
+
+    useEffect(() => {
+        getProfessionals();
+        getJobs();
+        location.state && setProfessionals(location.state.professionals.data);
+    }, [searchResult, jobSelected, order]);
+
+
     return (
         <Container>
             <ProfessionalsInputs
                 setSearchResult={setSearchResult}
                 setJobSelected={setJobSelected}
                 jobSelected={jobSelected}
+                jobs={jobs}
             />
             <ProfessionalsListHeader sortByName={sortByName}/>
             {professionals[0] ? (

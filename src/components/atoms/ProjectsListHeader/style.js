@@ -7,12 +7,12 @@ export const ListHeaderId = styled.div`
 
 export const ListHeaderProjeto = styled.div`
     display: flex;
-    width: 25%;
+    width: 21%;
 `
 
 export const ListHeaderType = styled.div`
     display: flex;
-    width: 15%;
+    width: 20%;
 `
 
 export const ListHeaderBeginning = styled.div`
@@ -22,7 +22,7 @@ export const ListHeaderBeginning = styled.div`
 
 export const ListHeaderTime = styled.div`
     display: flex;
-    width: 19%;
+    width: 17%;
     
 `
 

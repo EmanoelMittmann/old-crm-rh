@@ -13,6 +13,7 @@ const ProfessionalsExtraHour = ({extraHour, setExtraHour,  setFieldValue, data})
 
     useEffect(() => {
         setComponentJustRendered(true) 
+        if (data?.job_type === "FREELANCER") setFieldValue('extra_hour_activated', false)
     }, [data?.job_type])
 
       
@@ -31,12 +32,12 @@ const ProfessionalsExtraHour = ({extraHour, setExtraHour,  setFieldValue, data})
     if (componentJustRendered && (data === undefined  || data?.extra_hour_activated === false)){
         setExtraHour('extraHourDisabled')
     }
-  
+
 
    return (
         <ContainerRegisterExtraHours>
             <SecondaryText margin="0 0 2.5em 0">Hora extra</SecondaryText>
-            <ContainerRadioButtons onChange={(e) => {
+            <ContainerRadioButtons color={radioColor} onChange={(e) => {
                e.target.value === 'extraHourActivated'? setFieldValue('extra_hour_activated', true) : setFieldValue('extra_hour_activated', false)
               
                 setComponentJustRendered(false)
