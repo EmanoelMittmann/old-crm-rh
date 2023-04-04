@@ -19,7 +19,6 @@ const ProfessionalsSection = () => {
     const [order, setOrder] = useState("");
     const [jobs, setJobs] = useState([]);
 
-
     let params = {};
 
     const handleFilterRequest = (pagesFilter) => {
