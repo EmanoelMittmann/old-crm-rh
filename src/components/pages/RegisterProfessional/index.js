@@ -27,6 +27,7 @@ import InputWithLabel from "../../atoms/InputWithLabel";
 import SecondaryText from "../../atoms/SecondaryText/style";
 import TechLeadAndDev from "../../molecules/techLeadAndDev";
 import { PermissionsSpecial } from "../../organisms/PermissionsSpecial";
+import { formatDate } from "../../utils/formatDate";
 
 const RegisterProfessional = () => {
   const [jobs, setJobs] = useState([]);
@@ -76,7 +77,19 @@ const RegisterProfessional = () => {
     rg: Yup.string()
       .required(messages.required)
       .max(11, "RG deve conter no maximo 11 dígitos"),
-    birth_date: Yup.string().required(messages.required),
+    // birth_date: Yup.string().required(messages.required),
+    birth_date: Yup.string()
+      .required(messages.required)
+      .test('idade', 'Idade deve ser maior que 18 anos.', function (value) {
+        const maxDate = new Date();
+        maxDate.setFullYear(maxDate.getFullYear() - 18);
+        const selectedDate = new Date(value);
+        return selectedDate <= maxDate;
+      })
+      .transform((value, originalValue) => {
+        const date = new Date(originalValue);
+        return formatDate(date, 'yyyy-MM-dd');
+      }),
     cep: Yup.string()
       .required(messages.required)
       .min(4 - 9, "CEP Inválido")
