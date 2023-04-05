@@ -41,6 +41,7 @@ export function OvertimeByPeriod({ data, options }) {
           value={values.hour_quantity}
           onChange={handleChange('hour_quantity')}
           label="Quantidade de horas"
+          placeholder="Informe a quantidade horas"
           widthContainer="25%"
           type="number"
           handleBlur={setFieldTouched}
@@ -54,6 +55,7 @@ export function OvertimeByPeriod({ data, options }) {
           value={values.justification}
           onChange={handleChange('justification')}
           label="Justificativa"
+          placeholder="Justifique aqui o motivo das horas extras"
           widthContainer="100%"
           padding="2em 0"
           handleBlur={setFieldTouched}

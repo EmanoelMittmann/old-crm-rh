@@ -5,7 +5,7 @@ import { formatDate } from "../../utils/formatDate";
 import {
   Main,
   Container,
-  Button,
+  File,
   ContainerId,
   ContainerDateLançamento,
   ContainerNumberNF,
@@ -16,26 +16,25 @@ import {
 
 const admin = (data, downloadFile) =>
   data.map((item, index) => {
+    console.log('item: ', item);
     return (
-      <Main template="1.5fr 1fr 1fr 2fr" key={index}>
-        <Container>
-          <TeamMemberPic
-            margin="0.2em 2em 0 0"
-            width="40px"
-            height="40px"
-            src={item.user.avatar}
-          />
-          {item.name}
-        </Container>
-        <Container>
+      <Main template=".5fr 1fr 2fr 1fr" key={index}>
+        <ContainerId>{item.id}</ContainerId>
+        <ContainerDateLançamento>
           {formatDate(new Date(item.created_at), { timeZone: "UTC" })}
-        </Container>
-        <Container>Dia 25 do mês</Container>
-        <Container>
-          <Button onClick={() => downloadFile(item.file_id, item.file.name)}>
+        </ContainerDateLançamento>
+        <ContainerDateEmissaoNF>
+          {formatDate(new Date(item.file_xml.date_emission_nf), {
+            timeZone: "UTC",
+          })}
+        </ContainerDateEmissaoNF>
+        <ContainerNumberNF>{item.file_xml.number_nf}</ContainerNumberNF>
+        <ContainervalueNF>R$ {item.file_xml.value_nf}</ContainervalueNF>
+        <ContainerArquivo>
+          <File onClick={() => downloadFile(item.file_id, item.file.name)}>
             {item.file.name}
-          </Button>
-        </Container>
+          </File>
+        </ContainerArquivo>
       </Main>
     );
   });
@@ -56,9 +55,9 @@ const professional = (data, downloadFile) =>
         <ContainerNumberNF>{item.file_xml.number_nf}</ContainerNumberNF>
         <ContainervalueNF>R$ {item.file_xml.value_nf}</ContainervalueNF>
         <ContainerArquivo>
-          <Button onClick={() => downloadFile(item.file_id, item.file.name)}>
+          <File onClick={() => downloadFile(item.file_id, item.file.name)}>
             {item.file.name}
-          </Button>
+          </File>
         </ContainerArquivo>
       </Main>
     );
