@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 
 export const InputSelectContainer = styled.select`
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   font-family: 'Poppins', sans-serif;
   width: ${(props) => props.width};
   height: 40px;
@@ -11,7 +11,7 @@ export const InputSelectContainer = styled.select`
   padding: 0.3em 2em 0 1em;
   outline: none;
   border: none;
-  color:${(props) => props.textColor ? "#000" : props.disabled ? 'Black' : "#acb4ba"} !important;
+  color:${(props) => props.textColor ? "#000" : props.disabled ? "#000" : "#acb4ba"} !important;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;

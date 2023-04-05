@@ -176,10 +176,11 @@ const ModalColors = () => {
             onChange={(e) => setValue(e.target.value)}
             value={value}
             width="100%"
+            placeholder="Digite o nome do status"
             widthContainer="85%"
             handleBlur={() => { }}
             justify="center"
-            padding="0 0 0.8em 0"
+            padding="0 0.5em 0.8em 0"
           />
 
           {state.modalFunctionality.edit ? (
@@ -195,7 +196,8 @@ const ModalColors = () => {
               onChange={(e) => setSelectedOption(e.target.value)}
               placeholder="Color"
               width="100%"
-              lineWidth="23em"
+              lineWidth="22.2em"
+              margin="0 2em 0em 2em"
               options={state.statusColors}
             />
           )}
