@@ -3,7 +3,7 @@ import InputSearch from "../../atoms/InputSearch";
 import { CompanyHeaderContainer } from "./style";
 import { optionsUF } from "../../organisms/RegisterProfessionalsData";
 import InputSelect from "../../atoms/InputSelect";
-import { optionsRegistions } from "../../organisms/RegisterCompany/status";
+import { optionsRegistionsfilter } from "../../organisms/RegisterCompany/status";
 import { types } from "../../organisms/CompaniesList/typeCompanies";
 
 const HeaderSearchCompany = ({
@@ -26,7 +26,7 @@ const HeaderSearchCompany = ({
         textColor={selectedStatusCompany} 
         value={selectedStatusCompany}
         width="15%"
-        options={optionsRegistions}
+        options={optionsRegistionsfilter}
         onChange={(e) => setSelectedStatusCompany(e.target.value)}
         placeholder="Situação Cadastral"
       />

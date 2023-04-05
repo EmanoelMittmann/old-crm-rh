@@ -3,7 +3,11 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { InputLine } from "../DefaultInput/style";
 import { DefaultInputCnae, Itens, ListItens } from "../InputSearchCnae/style";
-import { ErrorMessage, Label, RequiredLabel } from "../DefautInputSelect/style.js";
+import {
+  ErrorMessage,
+  Label,
+  RequiredLabel,
+} from "../DefautInputSelect/style.js";
 import { LegalNature } from "./Object/index";
 import { ValuesSelected, InputSearchWithLabel } from "./style";
 
@@ -17,20 +21,31 @@ const InputNature = ({
   label,
   error,
   touched,
-  required
+  required,
 }) => {
   const [id, setId] = useState("");
   const [filteredValues, setFilteredValues] = useState([]);
-  const [blur, setBlur] = useState("");
-  const [focus, setFocus] = useState("");
+  const [visible, setVisible] = useState(false);
 
   const handleFilter = (id) => {
-    const searchCnj = LegalNature.filter((index) => index.id.includes(id));
+    const searchCnj = LegalNature.filter((index) => String(index.id).includes(String(id)));
     setFilteredValues(searchCnj);
   };
 
+  const handleBlur = () => {
+    setTimeout(() => {
+      setVisible(false);
+    }, 100);
+  };
+
+  const handleFocus = () => setVisible(true);
+
+  const ExistValue = (id) => {
+    return value.find((item) => item.id === id);
+  };
+
   const handleDelete = (index) => {
-    const temp = values.code_and_description_of_the_legal_status;
+    const temp = value;
     temp.splice(index, 1);
     setFieldValue("code_and_description_of_the_legal_status", temp);
   };
@@ -44,8 +59,8 @@ const InputNature = ({
   return (
     <>
       <InputSearchWithLabel>
-        <InputLine width={'100%'} error={touched && error}>
-          <Label focus={focus || value == ""} blur={blur || value !== ""}>
+        <InputLine width="100%" error={touched && error}>
+          <Label focus={true}>
             {label}
             {required && <RequiredLabel>*</RequiredLabel>}
           </Label>
@@ -53,13 +68,14 @@ const InputNature = ({
             onChange={(e) => setId(e.target.value)}
             value={id}
             disabled={disabled}
-            type="search"
+            onFocus={handleFocus}
+            type="text"
             placeholder={placeholder}
             width={inputWidth}
             padding="0.3em 0 0 1em"
           />
         </InputLine>
-        {values.code_and_description_of_the_legal_status?.map((index) => (
+        {value?.map((index) => (
           <ValuesSelected
             key={index.id}
             onClick={(index) => handleDelete(index)}
@@ -71,24 +87,22 @@ const InputNature = ({
           <ErrorMessage visible={error}>{error}</ErrorMessage>
         )}
       </InputSearchWithLabel>
-
-      {id >= 1 && (
-        <ListItens>
-          {filteredValues?.map((index) => (
-            <Itens
-              key={index.id}
-              onClick={() => {
-                setFieldValue("code_and_description_of_the_legal_status", [
-                  { id: index.id, name: index.name },
-                ]);
-                setId("");
-              }}
-            >
-              {index.name}
-            </Itens>
-          ))}
-        </ListItens>
-      )}
+      <ListItens visible={visible} onMouseLeave={handleBlur}>
+        {filteredValues?.map((index) => (
+          <Itens
+            key={index.id}
+            onClick={() => {
+              setFieldValue("code_and_description_of_the_legal_status", [
+                { id: index.id, name: index.name },
+              ]);
+              setId("");
+            }}
+            selected={ExistValue(index.id)}
+          >
+            {index.name}
+          </Itens>
+        ))}
+      </ListItens>
     </>
   );
 };

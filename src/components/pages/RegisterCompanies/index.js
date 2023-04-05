@@ -62,13 +62,13 @@ export const RegisterCompanies = () => {
     secondary_cnae: Yup.array()
       .min(1, "Campo obrigatório")
       .required(messages.required),
-      code_and_description_of_the_legal_status: Yup.array()
+    code_and_description_of_the_legal_status: Yup.array()
       .min(1, "Campo obrigatório")
       .required(messages.required),
-      registration_status: Yup.string().required(messages.required),
-      house_number: Yup.number().required(messages.required),
-      neighborhood_name: Yup.string().required(messages.required),
-      phone_number: Yup.string().required(messages.required),
+    registration_status: Yup.string().required(messages.required),
+    house_number: Yup.number().required(messages.required),
+    neighborhood_name: Yup.string().required(messages.required),
+    phone_number: Yup.string().required(messages.required),
     city_name: Yup.string().required(messages.required),
     uf: Yup.string().required(messages.required),
     phone_number: Yup.string().required(messages.required),
@@ -78,11 +78,11 @@ export const RegisterCompanies = () => {
     reason_for_registration_status: Yup.string().required(messages.required),
     type_company: Yup.string().required(messages.required),
     agency: Yup.string().required(messages.required),
-    account_number:Yup.string().required(messages.required),
-    bank:Yup.string().required(messages.required),
-    account_type:Yup.string().required(messages.required)
+    account_number: Yup.string().required(messages.required),
+    bank: Yup.string().required(messages.required),
+    account_type: Yup.string().required(messages.required),
   });
-  
+
   const formik = useFormik({
     initialValues: {
       razao_social: "",
@@ -113,10 +113,10 @@ export const RegisterCompanies = () => {
       date_of_special_situation: "",
       special_situation: "",
       type_company: "",
-      agency:"",
-      account_number:"",
-      bank:"",
-      account_type:""
+      agency: "",
+      account_number: "",
+      bank: "",
+      account_type: "",
     },
     onSubmit: async (values) => {
       await api({
@@ -124,12 +124,11 @@ export const RegisterCompanies = () => {
         url: id ? `/companies/${id}` : "/companies",
         data: id
           ? {
-            ...values,
-          
-          }
+              ...values,
+            }
           : {
-            ...values,
-          },
+              ...values,
+            },
       })
         .then(() => {
           toast.success(<DefaultToast text="Empresa cadastrada." />, {
@@ -147,72 +146,56 @@ export const RegisterCompanies = () => {
           const errors = error.response.data.errors;
           setErrors(handleErrorMessages(errors));
         });
-        
     },
     validationSchema: schema,
     isValidating: false,
     enableReinitialize: true,
   });
 
-  
   const { values, setFieldValue, setFieldError } = formik;
 
   const goBackClickHandler = () => {
     history.push("/Company");
   };
 
-  const getCompanyData = async () =>{
+  const getCompanyData = async () => {
     if (id) {
-      await api({
-        method: "get",
-        url: `/companies/${id}`,
-      })
-        .then((response) => {
-          const data = response.data[0];
-          Object.entries(data).forEach(([property, value]) => {
-            if (property.includes("date_of_registration_status")) {
-              setFieldValue(property, getDate(value));
-            } else if (property.includes("cnpj")) {
-              setFieldValue(
-                property,
-                value.replace(
-                  /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
-                  "$1 $2 $3/$4-$5"
-                )
-              );
-            } else if (property.includes("phone_number")) {
-              setFieldValue(property, value);
-            } else if (property.includes("cep")) {
-              let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
-              setFieldValue(property, data);
-            } else if (property.includes("opening_date")) {
-              setFieldValue(property, getDate(value));
-            }else if (property.includes("type_company")) {
-              setFieldValue(property, value);
-          }else if (property.includes("date_of_special_situation")) {
-              if (value === null) {
-                return null;
-              }
-              setFieldValue(property, getDate(value));
-            } 
-            else {
-              setFieldValue(property, value);
-            }
-          });
-        })
-        .catch((error) => {
-          new Error(error.message);
-        });
+      const { data } = await api.get(`/companies/${id}`);
+      Object.entries(data[0]).forEach(([property, value]) => {
+        if (property.includes("date_of_registration_status")) {
+          setFieldValue(property, getDate(value));
+        } else if (property.includes("cnpj")) {
+          setFieldValue(
+            property,
+            value.replace(
+              /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
+              "$1 $2 $3/$4-$5"
+            )
+          );
+        } else if (property.includes("cep")) {
+          let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
+          setFieldValue(property, data);
+        } else if (property.includes("opening_date")) {
+          setFieldValue(property, getDate(value));
+        } else if (property.includes("date_of_special_situation")) {
+          if (value === null) {
+            return null;
+          }
+          setFieldValue(property, getDate(value));
+        } else {
+          setFieldValue(property, value);
+        }
+      });
     }
+  };
 
-  }
   useEffect(() => {
-    getCompanyData()
+    getCompanyData();
   }, []);
 
   useEffect(() => {
-    setFieldValue('account_number',cleanMask(values.account_number))
-  },[values.account_number])
+    setFieldValue("account_number", cleanMask(values.account_number));
+  }, [values.account_number]);
 
   return (
     <>
@@ -223,7 +206,7 @@ export const RegisterCompanies = () => {
       <RegisterProfessionalContainer>
         <form id="Company" onSubmit={formik.handleSubmit}>
           <RegisterCompany data={formik} disabled={isDisable} />
-          <DataBank data={formik }/>
+          <DataBank data={formik} />
           <AddressContact data={formik} disabled={isDisable} />
           <SituationCadastion data={formik} disabled={isDisable} />
         </form>
@@ -232,7 +215,7 @@ export const RegisterCompanies = () => {
         ) : (
           <RegisterFooter
             cancelButtonHandler={goBackClickHandler}
-            registerButtonHandler={() => { }}
+            registerButtonHandler={() => {}}
             buttonDescription={id ? "Atualizar" : "Cadastrar"}
             type="submit"
             form="Company"

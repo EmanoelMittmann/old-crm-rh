@@ -88,13 +88,15 @@ export const SituationCadastion = ({ data, disabled }) => {
             handleBlur={setFieldTouched}
             name="special_situation"
           />
-          <InputDate
+          <InputWithLabel
             value={values.date_of_special_situation}
             onChange={handleChange('date_of_special_situation')}
             error={errors.date_of_registration_status}
             touched={touched.date_of_special_situation}
             placeholder="Data da Situação Especial"
-            width="40%"
+            type='date'
+            label="Data da Situação Especial"
+            width="100%"
             disabled={disabled}
             widthContainer="35%"
             handleBlur={setFieldTouched}

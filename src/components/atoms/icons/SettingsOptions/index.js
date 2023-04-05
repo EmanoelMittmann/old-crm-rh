@@ -10,8 +10,10 @@ const SettingsOptions = forwardRef(({info, editListItem, toggleStatusOptions, op
     return(
         <div>
             <OptionsContainer 
+            ref={buttonRef}
+            onClick={() => openOptions(info)} 
             color={info.clicked ? "#407BFF" : "#B7BDC2"}>
-                <OptionsIcon onClick={() => openOptions(info)} ref={buttonRef}/>
+                <OptionsIcon/>
                 {info.clicked && 
                     <OptionsMenu ref={modalRef}>
 
