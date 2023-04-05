@@ -41,7 +41,6 @@ const SettingsListItem = () => {
       if (location.pathname === "/projectType")dispatch(setProjectTypeList(data.data));
 
       dispatch(settingsPages(data.meta));
-      console.log('data: ', data.meta);
     } catch (err) {}
   };
 

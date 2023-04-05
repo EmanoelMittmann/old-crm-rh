@@ -16,7 +16,6 @@ import {
 
 const admin = (data, downloadFile) =>
   data.map((item, index) => {
-    console.log('item: ', item);
     return (
       <Main template=".5fr 1fr 2fr 1fr" key={index}>
         <ContainerId>{item.id}</ContainerId>
