@@ -7,7 +7,7 @@ import { BlueButton } from "../../../atoms/Buttons/BlueButton/style.js";
 import InputSelectWithLabel from "../../../atoms/InputSelectWithLabel";
 import InputWithLabel from "../../../atoms/InputWithLabel";
 import SecondaryText from "../../../atoms/SecondaryText/style";
-import Table from '../../../atoms/Table'
+import Table from "../../../atoms/Table";
 import ModalEditAttachment from "../../../molecules/ModalEditAttachment";
 import ModalRed from "../../../molecules/ModalRed";
 
@@ -174,36 +174,10 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
     }
   }
 
-  function handleAddProject() {
-    if (!projectSelected) return;
-    const selected = allOptions.find(
-      (project) => project.id == projectSelected
-    );
-
-    if(!values.job_type){
-      setOnlyError('Selecione tipo de contrato')
-      setOvertimeProjectErr('Selecione tipo de contrato')
-      return;
-    }
-
-    if(values.job_type === "FULLTIME" && hoursMonthProject > '160'){
-      setOnlyError('Hora/Mês não pode ultrapassar 160 horas')
-      return;
-    }else if(values.job_type === "FULLTIME" && overtime > '40'){
-      setOvertimeProjectErr('Hora Extras não pode ultrapassar 40 horas')
-      return;
-    }
-
-    if(values.job_type === "PARTTIME" && hoursMonthProject > '80'){
-      setOnlyError('Hora/Mês não pode ultrapassar 80 horas')
-      return;
-    }else if(values.job_type === "PARTTIME" && overtime > '20'){
-      setOvertimeProjectErr('Hora Extras não pode ultrapassar 20 horas')
-      return;
-    }
-
-    if (hoursMonthProject === "0" || hoursMonthProject === "") {
-      setOnlyError("O Campo Hora/mês deve ser maior que 0");
+  const verifyIntegratyCamps = () => {
+    if (!values.job_type) {
+      setOnlyError("Selecione tipo de contrato");
+      setOvertimeProjectErr("Selecione tipo de contrato");
       return;
     }
 
@@ -213,7 +187,39 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
       );
       return;
     }
-    
+
+    if (values.job_type === "FULLTIME" && hoursMonthProject > values.mounth_hours) {
+      setOnlyError("Hora/Mês não pode ultrapassar 160 horas");
+      return;
+    }
+    if (values.job_type === "FULLTIME" && overtime > values.weekly_hours) {
+      setOvertimeProjectErr("Hora Extras não pode ultrapassar 40 horas");
+      return;
+    }
+
+    if (values.job_type === "PARTTIME" && hoursMonthProject > values.mounth_hours) {
+      setOnlyError("Hora/Mês não pode ultrapassar 80 horas");
+      return;
+    }
+    if (values.job_type === "PARTTIME" && overtime > values.weekly_hours) {
+      setOvertimeProjectErr("Hora Extras não pode ultrapassar 20 horas");
+      return;
+    }
+
+    if (hoursMonthProject === "0" || hoursMonthProject === "") {
+      setOnlyError("O Campo Hora/mês deve ser maior que 0");
+      return;
+    }   
+    setOvertimeProjectErr("")
+    setOnlyError("")
+    handleAddProject()
+  }
+
+  function handleAddProject() {
+    if (!projectSelected) return;
+    const selected = allOptions.find(
+      (project) => project.id == projectSelected
+    );
 
     if (!id) {
       setProjects((oldState) => [
@@ -333,7 +339,7 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
           handleBlur={() => {}}
           placeholder="Horas Extras Estimadas"
         />
-        <BlueButton onClick={() => handleAddProject()} width="14%">
+        <BlueButton onClick={() => verifyIntegratyCamps()} width="14%">
           Vincular
         </BlueButton>
       </AttachmentForm>
