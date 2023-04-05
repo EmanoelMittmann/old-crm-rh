@@ -45,9 +45,11 @@ const SettingsListItem = () => {
     } catch (err) {}
   };
 
+  
   useEffect(() => {
     getSettingsList();
   }, [location.pathname]);
+
 
   const openOptions = (info) => {
     if (location.pathname === "/job") {

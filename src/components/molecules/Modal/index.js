@@ -303,7 +303,8 @@ const Modal = () => {
                         onChange={e=> setInputWithLabelValue(e.target.value)}
                         handleBlur={() => {}}
                         value={inputWithLabelValue}
-                        padding="0em 0em 0em 1.5em"
+                        padding="0em 0em 0em 2em"
+                        placeholder={displayModalInputLabel(location.pathname)}
                         width="85%"
                         justify="center"
                     />
@@ -315,7 +316,7 @@ const Modal = () => {
                     </CancelButton>
                     <SaveButton 
                         onClick={(e) => saveButtonClickHandler(e)} 
-                        margin="1em 3.5em 0 1.7em"
+                        margin="1em 4em 0 2em"
                     > 
                         Salvar 
                     </SaveButton>

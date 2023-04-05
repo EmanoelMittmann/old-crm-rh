@@ -5,4 +5,12 @@ export const formatDate = (dateWithoutFormatting) => {
     return newDate; 
 }
 
+export const formatAgeValidation = (dateWithoutFormatting) => {
+    if (!dateWithoutFormatting) return "-";
+    
+    const date = new Date(dateWithoutFormatting);
+    const isoDate = date.toISOString();
+    const formattedDate = isoDate.substring(0, 10);
 
+    return formattedDate;
+};
