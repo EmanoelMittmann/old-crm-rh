@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 export const ContainerStatusLabel = styled.div`
-    width: 150px;
-    height: 30px;
+    width: 205px;
+    height: 35px;
     display: flex;
-    flex-wrap: nowrap;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
+    padding-left:3.5em;
     font-size: 0.9rem;
     font-weight: 700;
     background-color: ${props => props.buttonColor};

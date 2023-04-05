@@ -16,36 +16,37 @@ export const Container = styled.div`
 export const ContainerId = styled.div`
     display: flex;
     width: 10%;
-    padding-left: 3.3em;
+    padding-left: 3em;
 `
 export const ContainerDateLançamento = styled.div`
     display: flex;
     width: 20%;
+    padding-left: 0.8em;
+    
 `
 export const ContainerDateEmissaoNF = styled.div`
     display: flex;
-    width: 20%;
-    padding-left: 1em;
-    padding-right:4em;
+    width: 19%;
+    margin-left: 5em;
 `
 export const ContainerNumberNF = styled.div`
     display: flex;
-    width:15%;
-        padding-left: 3em;
-        padding-right: 1em;
+    width:19%;
+    padding-left: 6.5em;
+
 `
 export const ContainervalueNF = styled.div`
     display: flex;
-    width: 15%;
-    padding-left: 2.5em;
-    padding-right: 1em;
+    width: 24%;
+    padding-left: 4em;
 `
 export const ContainerArquivo = styled.div`
     display: flex;
     width: 35%;
+    margin-right:4em;
 `
 
-export const Button = styled.button`
+export const File = styled.button`
     border: none;
     background-color: #fff;
     font-family: 'Poppins', sans-serif;
