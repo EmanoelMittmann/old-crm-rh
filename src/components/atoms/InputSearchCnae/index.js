@@ -79,13 +79,19 @@ const InputSearchCnae = ({
   };
 
   const handleDelete = (index) => {
-    const temp = values.filter((item) => item.id !== index); // para remover.
+    const temp = values.filter((item) => item.id !== index); 
     setFieldValue(name, temp);
   };
 
   useEffect(() => {
     arrCnaes();
   }, []);
+
+  useEffect(() => {
+    if(text.trim() === ""){
+      setFilteredValues(value)
+    }
+  },[text])
 
   return (
     <>
