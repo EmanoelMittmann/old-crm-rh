@@ -38,7 +38,7 @@ const InputSelect = ({
   return (
     <Father width={width}>
       <InputLine width={lineWidth} margin={margin} error={error && touched}>
-        <Label focus={true} blur={true}>
+        <Label focus={focus || value == ''} blur={blur || value !== ''}>
           {label}
           {required && <RequiredLabel>*</RequiredLabel>}
         </Label>
