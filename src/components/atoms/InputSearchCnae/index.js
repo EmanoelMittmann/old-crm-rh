@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 import { toast } from "react-toastify";
@@ -35,63 +35,53 @@ const InputSearchCnae = ({
   const url = `https://servicodados.ibge.gov.br/api/v2/cnae/classes/`;
   const [text, setText] = useState("");
   const [value, setValue] = useState([]);
-  const [filteredValues, setFilteredValues] = useState([]);
   const [visible, setVisible] = useState(false);
 
-  const arrCnaes = async () => {
-    try {
-      const { data } = await axios.get(url);
-      setValue(data);
-      setFilteredValues(data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const arrCnaes = useCallback(async() => {
+      try {
+        const { data } = await axios.get(url);
+        setValue(data);
+      } catch (error) {
+        console.error(error);
+      }
+  },[])
 
-  function ExistValue(id){
-    return values.find(item => item.id === id)
+  function ExistValue(id) {
+    return values.find((item) => item.id === id);
   }
-  
+
   const handleBlur = (e) => {
-      setTimeout(() => {
-        setVisible(false)
-      },100)
-  }
+    setTimeout(() => {
+      setVisible(false);
+    }, 100);
+  };
 
   const handleFocus = () => {
-    setVisible(true)
-  }
-
-  const handleFilter = (e) => {
-    setText(e.target.value);
-    const searchCnae = value.filter((prop) => String(prop["id"]).match(text));
-    setFilteredValues(searchCnae);
+    setVisible(true);
   };
 
+  const filtered = useMemo(() => {
+    return value.filter((prop) => String(prop.id).match(text)) ?? value;
+  },[text, value]);
+
   const handleClick = (id, description) => {
-    const isExist = values.find(obj => obj.id === id)
+    const isExist = values.find((obj) => obj.id === id);
     if (isExist) {
       return toast.error(
         <DefaultToast text="Essa atividade ja foi selecionada" />
       );
     }
-    setFieldValue(name, [...values,{id:id, description: description}])
+    setFieldValue(name, [...values, { id: id, description: description }]);
   };
 
   const handleDelete = (index) => {
-    const temp = values.filter((item) => item.id !== index); 
+    const temp = values.filter((item) => item.id !== index);
     setFieldValue(name, temp);
   };
 
   useEffect(() => {
     arrCnaes();
   }, []);
-
-  useEffect(() => {
-    if(text.trim() === ""){
-      setFilteredValues(value)
-    }
-  },[text])
 
   return (
     <>
@@ -105,7 +95,7 @@ const InputSearchCnae = ({
             label={label}
             value={text}
             disabled={disabled}
-            onChange={(e) => handleFilter(e)}
+            onChange={(e) => setText(e.target.value)}
             type="text"
             onFocus={handleFocus}
             placeholder={placeholder}
@@ -124,13 +114,15 @@ const InputSearchCnae = ({
             </ValuesSelected>
           ))}
         </div>
-        {error && touched && <ErrorMessage visible={error}>{error}</ErrorMessage>}
+        {error && touched && (
+          <ErrorMessage visible={error}>{error}</ErrorMessage>
+        )}
       </InputSearchWithLabel>
       <ListItens visible={visible} onMouseLeave={(e) => handleBlur(e)}>
-        {filteredValues.map(({id,descricao},index) => (
+        {filtered.map(({ id, descricao }, index) => (
           <Itens
             key={index}
-            onClick={() => !ExistValue(id) && handleClick(id,descricao)}
+            onClick={() => !ExistValue(id) && handleClick(id, descricao)}
             selected={ExistValue(id)}
           >
             {id} {descricao}
