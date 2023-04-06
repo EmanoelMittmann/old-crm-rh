@@ -10,6 +10,8 @@ import SecondaryText from "../../../atoms/SecondaryText/style";
 import Table from "../../../atoms/Table";
 import ModalEditAttachment from "../../../molecules/ModalEditAttachment";
 import ModalRed from "../../../molecules/ModalRed";
+import { toast } from "react-toastify";
+import { DefaultToast } from "../../../atoms/Toast/DefaultToast";
 
 const AttachmentProject = ({ attachment, allOptions, data }) => {
   const { values, setFieldValue } = data;
@@ -95,7 +97,8 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
     const totalOvertime = allOvertime.reduce(function (acc, overtime) {
       return +acc + +overtime;
     });
-    return setTotalOvertime(totalOvertime);
+    if (totalOvertime > values.weekly_hours)
+      return setTotalOvertime(totalOvertime);
   };
 
   const calcTotalOvertimeExtras = () => {
@@ -188,7 +191,10 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
       return;
     }
 
-    if (values.job_type === "FULLTIME" && hoursMonthProject > values.mounth_hours) {
+    if (
+      values.job_type === "FULLTIME" &&
+      hoursMonthProject > values.mounth_hours
+    ) {
       setOnlyError("Hora/Mês não pode ultrapassar 160 horas");
       return;
     }
@@ -197,7 +203,10 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
       return;
     }
 
-    if (values.job_type === "PARTTIME" && hoursMonthProject > values.mounth_hours) {
+    if (
+      values.job_type === "PARTTIME" &&
+      hoursMonthProject > values.mounth_hours
+    ) {
       setOnlyError("Hora/Mês não pode ultrapassar 80 horas");
       return;
     }
@@ -209,11 +218,16 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
     if (hoursMonthProject === "0" || hoursMonthProject === "") {
       setOnlyError("O Campo Hora/mês deve ser maior que 0");
       return;
-    }   
-    setOvertimeProjectErr("")
-    setOnlyError("")
-    handleAddProject()
-  }
+    }
+
+    if(totalHours + hoursMonthProject > values.mounth_hours){
+      return toast.error(<DefaultToast text={`O total de horas mensais não pode ultrapassar ${values.mounth_hours}`}/>)
+    }
+
+    setOvertimeProjectErr("");
+    setOnlyError("");
+    handleAddProject();
+  };
 
   function handleAddProject() {
     if (!projectSelected) return;
