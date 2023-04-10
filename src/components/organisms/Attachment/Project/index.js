@@ -215,13 +215,22 @@ const AttachmentProject = ({ attachment, allOptions, data }) => {
       return;
     }
 
-    if (hoursMonthProject === "0" || hoursMonthProject === "") {
+    if (
+      hoursMonthProject === "0" ||
+      hoursMonthProject === "" ||
+      hoursMonthProject < 0 ||
+      hoursMonthProject < 0
+    ) {
       setOnlyError("O Campo Hora/mês deve ser maior que 0");
       return;
     }
 
-    if(totalHours + hoursMonthProject > values.mounth_hours){
-      return toast.error(<DefaultToast text={`O total de horas mensais não pode ultrapassar ${values.mounth_hours}`}/>)
+    if (Number(totalHours) + Number(hoursMonthProject) > values.mounth_hours) {
+      return toast.error(
+        <DefaultToast
+          text={`O total de horas mensais não pode ultrapassar ${values.mounth_hours}`}
+        />
+      );
     }
 
     setOvertimeProjectErr("");
