@@ -23,13 +23,13 @@ import { useEffect } from "react";
 import DetaislProjects from "../../molecules/DetailsProjects";
 import { ContainerAbsolute } from "../../atoms/Container/style";
 
-export const ProjectRow = ({ project, statusOptions, getProjects,}) => {
+export const ProjectRow = ({ project, statusOptions, getProjects }) => {
   const history = useHistory();
   const [menuOptionsIsVisible, setMenuOptionsIsVisible] = useState(false);
   const [statusModalIsVisible, setStatusModalIsVisible] = useState(false);
   const [teamModalIsVisible, setTeamModalIsVisible] = useState(false);
-  const [modalDetails, setModalDetails] = useState(false)
-  const [idProjectsDetails, setIdProjectsDetails] = useState(0)
+  const [modalDetails, setModalDetails] = useState(false);
+  const [idProjectsDetails, setIdProjectsDetails] = useState(0);
   const modalRef = useRef();
   const buttonRef = useRef();
 
@@ -65,9 +65,9 @@ export const ProjectRow = ({ project, statusOptions, getProjects,}) => {
   };
 
   const handleDetails = () => {
-    setModalDetails(prev => !prev)
-  }
-  
+    setModalDetails((prev) => !prev);
+  };
+
   useEffect(() => {
     document.addEventListener("mousedown", handlerOutside);
     return () => {
@@ -77,65 +77,70 @@ export const ProjectRow = ({ project, statusOptions, getProjects,}) => {
 
   return (
     <ProjectsListItemContainer key={project.id}>
-        <ProjectsContainer onClick={() => {
-          setIdProjectsDetails(project.id)
-          handleDetails()
-        }}>
+      <ProjectsContainer
+        onClick={() => {
+          setIdProjectsDetails(project.id);
+          handleDetails();
+        }}
+      >
         <ProjectsListItemId>{project.id}</ProjectsListItemId>
         <ProjectsListItemProject>{project.name}</ProjectsListItemProject>
-        <ProjectsListItemType>{project.project_type?.name}</ProjectsListItemType>
-        <ProjectsListItemBeginning>{formatDate(project.date_start)}</ProjectsListItemBeginning>
+        <ProjectsListItemType>
+          {project.project_type?.name}
+        </ProjectsListItemType>
+        <ProjectsListItemBeginning>
+          {formatDate(project.date_start)}
+        </ProjectsListItemBeginning>
         <ContainerDateFinal>{formatDate(project.date_end)}</ContainerDateFinal>
         <ProjectsListItemStatus>
           <StatusLabel
             name={project.status.name}
             textColor={project.status.color.text_color}
-            buttonColor={project.status.color.button_color} />
-        </ProjectsListItemStatus>
-
-        </ProjectsContainer>
-        <ProjectListOptions
-          optionsColor={menuOptionsIsVisible
-            ? "#407BFF"
-            : "#B7BDC2"}
-        >
-          <ContainerIconOptions
             buttonColor={project.status.color.button_color}
           />
+        </ProjectsListItemStatus>
+      </ProjectsContainer>
       <ProjectListOptions
         optionsColor={menuOptionsIsVisible ? "#407BFF" : "#B7BDC2"}
-      />
-        <ContainerIconOptions>
-          <OptionsIcon
-            ref={buttonRef}
-            onClick={() => setMenuOptionsIsVisible(!menuOptionsIsVisible)}
+      >
+        <ContainerIconOptions buttonColor={project.status.color.button_color} />
+        <ProjectListOptions
+          optionsColor={menuOptionsIsVisible ? "#407BFF" : "#B7BDC2"}
+        />
+        <ContainerIconOptions
+          ref={buttonRef}
+          onClick={() => setMenuOptionsIsVisible(!menuOptionsIsVisible)}
+        >
+          <OptionsIcon />
+        </ContainerIconOptions>
+        {menuOptionsIsVisible && (
+          <MenuOptions
+            ref={modalRef}
+            positionMenu="40px"
+            firstChosenOption={editProject}
+            firstOptionDescription="Editar Projeto"
+            secondChosenOption={openModalEditProjectStatus}
+            secondOptionDescription="Editar Status"
+            padding="0.3em 0.5em 0.3em 1.1em"
+            id={project.id}
           />
-          </ContainerIconOptions>
-          {menuOptionsIsVisible && (
-            <MenuOptions
-              ref={modalRef}
-              positionMenu="40px"
-              firstChosenOption={editProject}
-              firstOptionDescription="Editar Projeto"
-              secondChosenOption={openModalEditProjectStatus}
-              secondOptionDescription="Editar Status"
-              padding="0.3em 0.5em 0.3em 1.1em"
-              id={project.id} />
-          )}
-        </ProjectListOptions>
+        )}
+      </ProjectListOptions>
 
-        {statusModalIsVisible && (
-          <ModalProjectStatus
-            CloseButtonClickHandler={closeModalEditProjectStatus}
-            statusId={project.project_status_id}
-            projectId={project.id}
-            options={statusOptions} />
-        )}
-        {teamModalIsVisible && (
-          <ModalProjectTeam
-            CloseButtonClickHandler={closeProjectTeamModal}
-            users={project.users} />
-        )}
+      {statusModalIsVisible && (
+        <ModalProjectStatus
+          CloseButtonClickHandler={closeModalEditProjectStatus}
+          statusId={project.project_status_id}
+          projectId={project.id}
+          options={statusOptions}
+        />
+      )}
+      {teamModalIsVisible && (
+        <ModalProjectTeam
+          CloseButtonClickHandler={closeProjectTeamModal}
+          users={project.users}
+        />
+      )}
       {statusModalIsVisible && (
         <ModalProjectStatus
           CloseButtonClickHandler={closeModalEditProjectStatus}
@@ -154,11 +159,10 @@ export const ProjectRow = ({ project, statusOptions, getProjects,}) => {
       {modalDetails && (
         <DetaislProjects
           id={idProjectsDetails}
-          setModalDetails={setModalDetails} 
-          />
+          setModalDetails={setModalDetails}
+        />
       )}
     </ProjectsListItemContainer>
-
   );
 };
 

@@ -21,7 +21,9 @@ import MenuOptionsOS from "../../../atoms/MenuOptionsOS";
 const Shelf = ({ data, uploads }) => {
   const [menuOptions, setMenuOptions] = useState(false);
   const [detailVisibled, setdetaisVisibled] = useState(false);
-  const [disabled, setDisabled] = useState(data.status_payment=== "Pendente" ? true : false)
+  const [disabled, setDisabled] = useState(
+    data.status_payment === "Pendente" ? true : false
+  );
   const modalRef = useRef();
   const buttonRef = useRef();
 
@@ -32,13 +34,12 @@ const Shelf = ({ data, uploads }) => {
 
   const colors =
     data.status_payment === "Pago"
-    ? "#1ECB4F"
-    : data.status_payment === "Pendente"
-    ? "#FFAE00"
-    : data.status_payment === "Negado"
-    ? "#FF3541"
-    : "#0066FF";
-    
+      ? "#1ECB4F"
+      : data.status_payment === "Pendente"
+      ? "#FFAE00"
+      : data.status_payment === "Negado"
+      ? "#FF3541"
+      : "#0066FF";
 
   const bg =
     data.status_payment === "Pago"
@@ -97,7 +98,7 @@ const Shelf = ({ data, uploads }) => {
               })}
         </ContainerNFe>
         <ContainerDatePayment>
-          {(data.date_payment.substr(0, 10).split('-').reverse().join('/'))}
+          {data.date_payment.substr(0, 10).split("-").reverse().join("/")}
         </ContainerDatePayment>
         <ContainerStatus>
             <Badge color={colors} bg={bg} margin="-0.6em 0 0 0 ">
@@ -106,11 +107,10 @@ const Shelf = ({ data, uploads }) => {
           <ContainerIconOptions
             padding="0em"
             optionsColor={menuOptions ? "#0066ff" : "#B7BDC2"}
+            onClick={() => setMenuOptions(!menuOptions)}
+            ref={buttonRef}
           >
-            <OptionsIcon
-              onClick={() => setMenuOptions(!menuOptions)}
-              ref={buttonRef}
-            />
+            <OptionsIcon />
           </ContainerIconOptions>
           {menuOptions && (
             <MenuOptionsOS

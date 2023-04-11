@@ -361,10 +361,10 @@ const RegisterProfessional = () => {
     handleChange,
   } = formik;
 
-  const getPermissions = async () => {
+  const getPermissions = useCallback(async () => {
     const { data } = await api.get("/permissions");
     setPermissions(data);
-  };
+  },[])
 
   const reloadProjects = useCallback(async () => {
     const { data } = await api({
@@ -473,7 +473,7 @@ const RegisterProfessional = () => {
     }
   }
 
-  const getProfessionalData = async () => {
+  const getProfessionalData = useCallback(async () => {
     if (!jobs.length) optionsJob();
     if (!optionsCompany_id.length) optionsCompanies();
     if (!allProjects.length) getAllProjects();
@@ -525,12 +525,14 @@ const RegisterProfessional = () => {
         setAllProjects([]);
       };
     }
-  };
+  },[jobs,optionsCompany_id,allProjects,id]);
 
   useEffect(() => {
-    getPermissions();
     getProfessionalData();
-  }, [id]);
+    if(!permissions.length){
+      getPermissions();
+    }
+  },[id]);
 
   function maskValueVariabled(values, setFieldValue) {
     setFieldValue(
