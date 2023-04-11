@@ -9,6 +9,9 @@ import ProfessionalsListItem from "../../molecules/ProfessionalsListItem";
 import LoadingCircle from "../../atoms/LoadingCircle";
 import { Container} from "../../atoms/Container";
 import { ContainerAbsolute } from '../../atoms/Container/style';
+import DarkButton from '../../atoms/Buttons/DarkButton/style';
+import { ContainerButton } from './style';
+import { useHistory } from 'react-router-dom';
 
 const ProfessionalsSection = () => {
     const location = useLocation();
@@ -18,6 +21,7 @@ const ProfessionalsSection = () => {
     const [professionalMeta, setProfessionalMeta] = useState("");
     const [order, setOrder] = useState("");
     const [jobs, setJobs] = useState([]);
+    const history = useHistory();
 
     let params = {};
 
@@ -94,36 +98,42 @@ const ProfessionalsSection = () => {
 
     return (
         <Container>
-            <ProfessionalsInputs
-                setSearchResult={setSearchResult}
-                setJobSelected={setJobSelected}
-                jobSelected={jobSelected}
-                jobs={jobs}
-            />
-            <ProfessionalsListHeader sortByName={sortByName}/>
-            {professionals[0] ? (
-                <>
-                    <ContainerAbsolute>
-                        {professionals.map(professional =>
-                            <ProfessionalsListItem
+            <ContainerButton>
+                <DarkButton
+                    onClick={() => history.push("/contractHistory")}
+                    backgroudColor="#0066FF"
+                    width="190px"
+                    height="44px"
+                    margin="0 5% 0 0">
+                    Histórico de Contratos
+                </DarkButton>
+            </ContainerButton>
+                <ProfessionalsInputs
+                    setSearchResult={setSearchResult}
+                    setJobSelected={setJobSelected}
+                    jobSelected={jobSelected}
+                    jobs={jobs} />
+                <ProfessionalsListHeader sortByName={sortByName} />
+                {professionals[0] ? (
+                    <>
+                        <ContainerAbsolute>
+                            {professionals.map(professional => <ProfessionalsListItem
                                 professional={professional}
                                 key={professional.id}
-                                getProfessionals={getProfessionals}
-                            />
-                        )}
-                    </ContainerAbsolute>
-                    <Footer
-                        previousPage={previousPage}
-                        nextPage={nextPage}
-                        currentPage={professionalMeta.current_page}
-                        firstPage={professionalMeta.first_page}
-                        lastPage={professionalMeta.last_page}
-                    />
-                </>
-            ) : (
-                <LoadingCircle/>
-            )}
-        </Container>
+                                getProfessionals={getProfessionals} />
+                            )}
+                        </ContainerAbsolute>
+                        <Footer
+                            previousPage={previousPage}
+                            nextPage={nextPage}
+                            currentPage={professionalMeta.current_page}
+                            firstPage={professionalMeta.first_page}
+                            lastPage={professionalMeta.last_page} />
+                    </>
+                ) : (
+                    <LoadingCircle />
+                )}
+            </Container>
     );
 };
 

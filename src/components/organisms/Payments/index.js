@@ -52,7 +52,7 @@ const Payments = ({
       <ContainerButtonExcel>
         <DarkButton
           onClick={() => handleDownload()}
-          width="151px"
+          width="143px"
           height="44px"
           margin="0 5% 0 0"
         >

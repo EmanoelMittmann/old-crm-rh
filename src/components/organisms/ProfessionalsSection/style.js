@@ -11,5 +11,18 @@ export const ProfessionalsSectionContainer = styled.section`
     width: 95%;
   }
 `;
+export const ContainerButton = styled.div`
+    width:82%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    position: fixed;
+    right: 0;
+    top: 0;
+    margin-top: 5.3em;
+    margin-right: 10em;
+
+
+`
 
 

@@ -23,6 +23,7 @@ import {RegisterCompanies} from '../components/pages/RegisterCompanies';
 import OrdemService from '../components/pages/OrdemServices';
 import DetailsRelease from '../components/organisms/DetailsRelease';
 import OvertimeListIsTechLead from '../components/pages/OvertimeListIstechLead';
+import ContractHistory from '../components/organisms/ContractHistory';
 
 
 const Routes = () => {
@@ -43,6 +44,7 @@ const Routes = () => {
                 <PrivateRoute exact path="/project" component={RegisterProject} id={2}/>
                 <PrivateRoute path="/project/:id" component={RegisterProject} id={2}/>
                 <PrivateRoute exact path="/professional" component={RegisterProfessional} id={1}/>
+                <PrivateRoute exact path="/contractHistory" component={ContractHistory} id={1}/>
                 <PrivateRoute path="/professional/:id" component={RegisterProfessional} id={1}/>
                 <PrivateRoute path="/Company" component={ListCompany} id={8}/>
                 <PrivateRoute exact path="/Companies" component={RegisterCompanies} id={8}/>
