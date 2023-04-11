@@ -101,9 +101,9 @@ const Shelf = ({ data, uploads }) => {
           {data.date_payment.substr(0, 10).split("-").reverse().join("/")}
         </ContainerDatePayment>
         <ContainerStatus>
-          <Badge color={colors} bg={bg} width="80%">
-            {data.status_payment}
-          </Badge>
+            <Badge color={colors} bg={bg} margin="-0.6em 0 0 0 ">
+              {data.status_payment}
+            </Badge>
           <ContainerIconOptions
             padding="0em"
             optionsColor={menuOptions ? "#0066ff" : "#B7BDC2"}

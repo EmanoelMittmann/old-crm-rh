@@ -123,17 +123,17 @@ const RegisterProfessional = () => {
     email: Yup.string().required(messages.required),
     permissions: Yup.array().required(messages.required),
     professional_data: Yup.object().shape({
-      cnpj: Yup.string().min(18, "CNPJ Inválido").nullable(),
-      razao_social: Yup.string().nullable(),
-      type_person: Yup.string().required(messages.required),
-      fantasy_name: Yup.string().nullable(),
-      company_city_name: Yup.string().nullable(),
-      company_street_name: Yup.string().nullable(),
-      company_neighborhood_name: Yup.string().nullable(),
+      cnpj: Yup.string().required(messages.required).min(18, "CNPJ Inválido"),
+      razao_social: Yup.string().required(messages.required).nullable(),
+      type_person: Yup.string().required(messages.required).nullable(),
+      fantasy_name: Yup.string().required(messages.required).nullable(),
+      company_city_name: Yup.string().required(messages.required).nullable(),
+      company_street_name: Yup.string().required(messages.required).nullable(),
+      company_neighborhood_name: Yup.string().required(messages.required).nullable(),
       company_complement: Yup.string().nullable(),
-      company_house_number: Yup.string().nullable(),
-      uf_company: Yup.string().nullable(),
-      company_phone_number: Yup.string().nullable(),
+      company_house_number: Yup.string().required(messages.required).nullable(),
+      uf_company: Yup.string().required(messages.required).nullable(),
+      company_phone_number: Yup.string().required(messages.required).nullable(),
       bank: Yup.string().required(messages.required),
       account_number: Yup.string().required(messages.required),
       agency: Yup.string().required(messages.required).max(5, "Invalido"),
@@ -151,7 +151,7 @@ const RegisterProfessional = () => {
           then: Yup.string().required(messages.required),
         })
         .nullable(),
-      company_email: Yup.string().nullable(),
+      company_email: Yup.string().required(messages.required).nullable(),
       company_cep: Yup.string()
         .min(4 - 9, "CEP Inválido")
         .test("CEP válido", "CEP não encontrado", () => {
@@ -183,7 +183,7 @@ const RegisterProfessional = () => {
           }
           return true;
         })
-        .nullable(),
+        .required(messages.required).nullable(),
     }),
     start_date: Yup.date().required(messages.required),
     job_id: Yup.number().required(messages.required),

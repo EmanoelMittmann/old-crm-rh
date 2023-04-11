@@ -163,6 +163,7 @@ export const AddressContact = ({ data, disabled }) => {
                         type="email"
                         label="E-mail secundário"
                         onChange={handleChange('secondary_email')}
+                        placeholder="E-mail secundário"
                         error={errors.secondary_email}
                         touched={touched.secondary_email}
                         width="100%"

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const ContainerStatusLabel = styled.div`
-    width: 160px;
-    height: 35px;
+    width: ${(props) => props.width ? props.width : '150px'};
+    height: ${(props) => props.height ? props.height : '35px'};
     display: flex;
     align-items: center;
     justify-content: center;

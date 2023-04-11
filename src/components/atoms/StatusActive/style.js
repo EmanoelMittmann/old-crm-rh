@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const StatusActiveContainer = styled.div`
-    width: 90px;
-    height: 30px;
+    width: 100px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -11,6 +11,7 @@ const StatusActiveContainer = styled.div`
     color: #229A16;
     background-color: #E4F8DD;
     border-radius: 15px;
+  
 `
 
 export default StatusActiveContainer;
