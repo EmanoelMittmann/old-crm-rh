@@ -73,7 +73,7 @@ export const CompaniesListOptions = styled.div`
   display: flex;
   justify-content: center;
   position: absolute;
-  left: 90%;
+  left: 92%;
 
   svg {
     fill: ${(props) => props.optionsColor};

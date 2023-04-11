@@ -107,12 +107,12 @@ const CompaniesListItem = ({ corporation }) => {
         </ContainerCompaniesDetails>
 
         <CompaniesListOptions
+          onClick={() => setMenuOptionsisClicked(!menuOptionsisClicked)}
+          ref={buttonRef}
           optionsColor={menuOptionsisClicked ? "#407BFF" : "#B7BDC2"}
         >
           <ContainerIconOptions>
-            <OptionsIcon
-              onClick={() => setMenuOptionsisClicked(!menuOptionsisClicked)}
-              ref={buttonRef} />
+            <OptionsIcon/>
           </ContainerIconOptions>
         </CompaniesListOptions>
         {menuOptionsisClicked && (
