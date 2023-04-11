@@ -91,7 +91,7 @@ export const SituationCadastion = ({ data, disabled }) => {
           <InputWithLabel
             value={values.date_of_special_situation}
             onChange={handleChange('date_of_special_situation')}
-            error={errors.date_of_registration_status}
+            error={errors.date_of_special_situation}
             touched={touched.date_of_special_situation}
             placeholder="Data da Situação Especial"
             type='date'
