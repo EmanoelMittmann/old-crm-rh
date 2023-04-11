@@ -86,7 +86,7 @@ export const CompanyTextStatus = styled.div`
   align-items: center;
   background-color:${props => props.bg};
   width: 150px;
-  height: 30px;
+  height: 35px;
   color:${props => props.text};
   border-radius: 15px;
   font-weight: 700;
