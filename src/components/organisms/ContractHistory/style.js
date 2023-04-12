@@ -7,7 +7,6 @@ export const Container = styled.div`
   background-color: white;
   border-radius: 20px;
   margin: auto;
-  margin-top: 75px;
 
   @media (min-width: 1000px) {
     width: 91.5%;
@@ -46,10 +45,16 @@ export const ContainerButtonGeral = styled.div`
 export const ContainerButtonsHeader = styled.div`
   width: 64%;
   display: flex;
-  margin: 0.8em 0.5em -3em 2em;
+  margin: 0.8em 0em 2em 2em;
 
 `
-export const Title = styled.h3`
-  display: flex;
-  padding: 1.2em 0em 0em 0em;
+export const Title = styled.div`
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 100%;
+  color: #15161A;
+  flex: none;
+  margin-top: 1.5em;
 `
