@@ -49,7 +49,7 @@ const SettingsListHeader = () => {
             url:`${location.pathname}`,
             params: params
         }) 
-
+        
         dispatch(setFilterOrder(paramsOrder))
         if(location.pathname === "/job") dispatch(setJobList(data.data))
         if(location.pathname === "/projectStatus") dispatch(setStatusList(data.data))

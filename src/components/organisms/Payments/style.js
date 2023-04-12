@@ -14,11 +14,14 @@ export const ContainerListing = styled.div`
     min-height: 30em;
 `
 export const ContainerButtonExcel = styled.div`
-    width: 94.1%;
-    display:flex;
-    align-items: end;
-    justify-content:end;
-    position: absolute;
-    margin-top: -5.6em;
+    width:82%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    position: fixed;
+    right: 0;
+    top: 0;
+    margin-top: 5.3em;
+    margin-right: 0.3em;
 
 `

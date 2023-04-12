@@ -8,7 +8,7 @@ const DarkButton = styled.button`
     border-radius: 8px;
     width: ${(props) => props.width};
     height: ${(props) => props.height};
-    background-color: #000000;
+    background-color: ${(props) => props.backgroudColor ? props.backgroudColor : "#000000"};
     color: white;
     border:none;
     cursor: pointer;

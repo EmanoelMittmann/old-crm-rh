@@ -6,7 +6,7 @@ import { ErrorMessage, Img, InputSelectContainer, InputSelectOption } from '../D
 
 const InputSelectEdit = ({optionId, setSelectedOption, width, options, error, touched}) => {
     return (
-        <InputLine width={width}>
+        <InputLine width={width} >
             <InputSelectContainer width={width} onChange={(e) => setSelectedOption(e.target.value)}>
                 {options.map(option => (
                     optionId === option.id &&

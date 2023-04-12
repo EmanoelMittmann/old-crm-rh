@@ -184,20 +184,23 @@ const ModalColors = () => {
           />
 
           {state.modalFunctionality.edit ? (
-            <InputSelectEdit
+            <InputSelect
+              textColor={state.statusColors}
               label="Status"
               optionId={selectedOption}
               setSelectedOption={setSelectedOption}
-              width="85%"
+              width="83%"
+              lineWidth="100%"
+              margin="0em 0em 0em -0.2em"
               options={state.statusColors}
-            ></InputSelectEdit>
+            />
           ) : (
             <InputSelect
               onChange={(e) => setSelectedOption(e.target.value)}
               placeholder="Color"
-              width="100%"
-              lineWidth="22.2em"
-              margin="0 2em 0em 2em"
+              width="83%"
+              lineWidth="100%"
+              margin="0em 0em 0em -0.2em"
               options={state.statusColors}
             />
           )}

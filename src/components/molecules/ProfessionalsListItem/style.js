@@ -50,19 +50,18 @@ export const ProfessionalStatus = styled.div`
 `;
 
 export const Badge = styled.div`
-  width: ${(props) => props.width ? props.width : '150px'};
-  height: ${(props) => props.h};
-  padding: 4px 24px;
-  border-radius: 50px;
-  text-align: center;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-  font-weight: 700;
-  background-color: ${(props) => props.bg};
-  color: ${(props) => props.color};
+    width: ${(props) => props.width ? props.width : '160px'};
+    height: ${(props) => props.height ? props.height : '35px'};
+    margin: ${(props) => props.margin};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 40px;
+    background-color: ${(props) => props.bg};
+    color: ${(props) => props.color};
 `;
 
 export const ProfessionalsListOptions = styled.div`

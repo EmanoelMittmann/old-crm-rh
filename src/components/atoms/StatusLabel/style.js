@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
 export const ContainerStatusLabel = styled.div`
-    width: 150px;
-    height: 30px;
+    width: 160px;
+    height: 35px;
     display: flex;
-    flex-wrap: nowrap;
     align-items: center;
     justify-content: center;
     font-size: 0.9rem;
