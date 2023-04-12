@@ -1,5 +1,5 @@
 import createNumberMask from "text-mask-addons/dist/createNumberMask";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import SecondaryText from "../../atoms/SecondaryText/style.js";
 import InputMasked from "../../atoms/InputMasked";
 import InputSelect from "../../atoms/InputSelect/index.js";
@@ -15,7 +15,6 @@ import {
   CommissionApproval,
 } from "./style";
 import { typeOptions } from "../../pages/RegisterProfessional/optionsType";
-import MultiSelectCompany from "../../atoms/MultiSelectCompany/index.js";
 
 const EmploymentContract = ({ data, jobs, optionsCompany_id }) => {
   const fixedSalaryAmount = createNumberMask({
@@ -69,6 +68,22 @@ const EmploymentContract = ({ data, jobs, optionsCompany_id }) => {
     }
     return true;
   }
+
+  const findCompanyPayment = useCallback(() => {
+    const test = optionsCompany_id.filter(item => values.companies.find(v => v === item.id))
+    return test
+  },[values.companies])
+
+  useEffect(() => {
+    findCompanyPayment()
+  },[findCompanyPayment])
+
+  useEffect(() => {
+    const findIdCompany = values.companies.find(item => item === Number(values.company_id))
+    if(!values.companies.length || !findIdCompany){
+      setFieldValue('company_id','')
+    }
+  },[values.companies])  
 
   return (
     <ContainerEmploymentContract>
@@ -172,12 +187,13 @@ const EmploymentContract = ({ data, jobs, optionsCompany_id }) => {
         name="company_id"
         placeholder="Empresa Pagadora"
         value={values.company_id}
-        options={optionsCompany_id}
+        options={findCompanyPayment()}
         onChange={handleChange('company_id')}
         error={errors.company_id}
         touched={touched.company_id}
         textColor={values.company_id}
         label="Empresa Pagadora"
+        disabled={!values.companies.length}
         required
         />
       </EmploymentContractInputs>
