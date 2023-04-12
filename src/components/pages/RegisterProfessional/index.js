@@ -596,7 +596,7 @@ const RegisterProfessional = () => {
       <RegisterProfessionalTitleContainer>
         <ArrowRegister clickHandler={goBackClickHandler} />
         <SectionTitle>
-          {id ? "Edição de profissional" : "Novo profissional"}
+          {id ? "Edição de profissional" : "Novo profissional" }
         </SectionTitle>
       </RegisterProfessionalTitleContainer>
 
