@@ -330,7 +330,7 @@ const RegisterProfessional = () => {
         .then(() => {
           toast.success(
             <DefaultToast
-              text={id ? "Profissional Atualizado" : "Profissional cadastrado"}
+              text={id ? "Profissional Atualizado e contrato enviado com sucesso!" : "Profissional cadastrado e contrato enviado com sucesso!"}
             />,
             {
               toastId: "post",
