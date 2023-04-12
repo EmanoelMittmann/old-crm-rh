@@ -256,6 +256,7 @@ const RegisterProfessional = () => {
       commission: false,
       permissions: [],
       company_id:"",
+      companies:[],
       professional_data: {
         cnpj: cleanMask(""),
         razao_social: "",
@@ -602,7 +603,7 @@ const RegisterProfessional = () => {
 
       <RegisterProfessionalContainer>
         <form id="professional" onSubmit={formik.handleSubmit}>
-          <RegisterProfessionalsData data={formik} />
+          <RegisterProfessionalsData data={formik} optionsCompany_id={optionsCompany_id}/>
           <EmploymentContract data={formik} jobs={jobs} optionsCompany_id={optionsCompany_id}/>
           <SecondaryText margin="2.5em 0 1.5em 2em">Permissões</SecondaryText>
           <ContainerPermission>

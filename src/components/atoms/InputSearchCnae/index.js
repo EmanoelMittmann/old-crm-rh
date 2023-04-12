@@ -119,7 +119,7 @@ const InputSearchCnae = ({
         )}
       </InputSearchWithLabel>
       <ListItens visible={visible} onMouseLeave={(e) => handleBlur(e)}>
-        {filtered.map(({ id, descricao }, index) => (
+        {filtered?.map(({ id, descricao }, index) => (
           <Itens
             key={index}
             onClick={() => !ExistValue(id) && handleClick(id, descricao)}

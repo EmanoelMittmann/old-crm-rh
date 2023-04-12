@@ -1,11 +1,11 @@
-import createNumberMask from 'text-mask-addons/dist/createNumberMask';
-import React, { useEffect, useState } from 'react';
-import SecondaryText from '../../atoms/SecondaryText/style.js';
-import InputMasked from '../../atoms/InputMasked';
-import InputSelect from '../../atoms/InputSelect/index.js';
-import InputWithLabel from '../../atoms/InputWithLabel';
-import { LabelInputRadio } from '../../atoms/InputRadio/style.js';
-import { InputRadio } from '../../atoms/InputRadio/style.js';
+import createNumberMask from "text-mask-addons/dist/createNumberMask";
+import React, { useEffect, useState } from "react";
+import SecondaryText from "../../atoms/SecondaryText/style.js";
+import InputMasked from "../../atoms/InputMasked";
+import InputSelect from "../../atoms/InputSelect/index.js";
+import InputWithLabel from "../../atoms/InputWithLabel";
+import { LabelInputRadio } from "../../atoms/InputRadio/style.js";
+import { InputRadio } from "../../atoms/InputRadio/style.js";
 import {
   ContainerEmploymentContract,
   EmploymentContractInputs,
@@ -13,17 +13,17 @@ import {
   Commissioncontract,
   FullcCommissionAllowance,
   CommissionApproval,
-} from './style';
-import { typeOptions } from '../../pages/RegisterProfessional/optionsType';
-
+} from "./style";
+import { typeOptions } from "../../pages/RegisterProfessional/optionsType";
+import MultiSelectCompany from "../../atoms/MultiSelectCompany/index.js";
 
 const EmploymentContract = ({ data, jobs, optionsCompany_id }) => {
   const fixedSalaryAmount = createNumberMask({
-    prefix: 'R$',
-    suffix: ',00',
-    thousandsSeparatorSymbol: '.',
+    prefix: "R$",
+    suffix: ",00",
+    thousandsSeparatorSymbol: ".",
   });
-  
+
   const {
     values,
     handleChange,
@@ -47,36 +47,35 @@ const EmploymentContract = ({ data, jobs, optionsCompany_id }) => {
   const limitNotAllowed = {
     ...(componentJustRenderedCommission &&
       (values === undefined || values.commission === false) && {
-      checked: true,
-    }),
+        checked: true,
+      }),
   };
 
   function handleType(e) {
-    if (e.target.value === 'FULLTIME') {
-      setFieldValue('job_type', e.target.value);
-      setFieldValue('weekly_hours', 40);
-      setFieldValue('mounth_hours', 160);
+    if (e.target.value === "FULLTIME") {
+      setFieldValue("job_type", e.target.value);
+      setFieldValue("weekly_hours", 40);
+      setFieldValue("mounth_hours", 160);
     }
-    if (e.target.value === 'PARTTIME') {
-      setFieldValue('job_type', e.target.value);
-      setFieldValue('weekly_hours', 20);
-      setFieldValue('mounth_hours', 80);
+    if (e.target.value === "PARTTIME") {
+      setFieldValue("job_type", e.target.value);
+      setFieldValue("weekly_hours", 20);
+      setFieldValue("mounth_hours", 80);
     }
-    if (e.target.value === 'FREELANCER') {
-      setFieldValue('job_type', e.target.value);
-      setFieldValue('weekly_hours', 0);
-      setFieldValue('mounth_hours', 0);
+    if (e.target.value === "FREELANCER") {
+      setFieldValue("job_type", e.target.value);
+      setFieldValue("weekly_hours", 0);
+      setFieldValue("mounth_hours", 0);
     }
     return true;
   }
-
 
   return (
     <ContainerEmploymentContract>
       <SecondaryText margin="0 0 2.5em 0">Contrato de trabalho</SecondaryText>
       <EmploymentContractInputs>
         <InputWithLabel
-          onChange={handleChange('start_date')}
+          onChange={handleChange("start_date")}
           type="date"
           label="Data Início"
           padding="0 2em 0 0"
@@ -92,7 +91,7 @@ const EmploymentContract = ({ data, jobs, optionsCompany_id }) => {
         />
         <InputSelect
           textColor={values.job_}
-          onChange={handleChange('job_id')}
+          onChange={handleChange("job_id")}
           value={values.job_id}
           options={jobs}
           label="Cargo"
@@ -120,10 +119,10 @@ const EmploymentContract = ({ data, jobs, optionsCompany_id }) => {
           required
         />
         <InputWithLabel
-          onChange={handleChange('weekly_hours')}
+          onChange={handleChange("weekly_hours")}
           value={values.weekly_hours}
           widthContainer="35%"
-          width='100%'
+          width="100%"
           label="Horas/semana"
           type="number"
           error={errors.weekly_hours}
@@ -135,7 +134,7 @@ const EmploymentContract = ({ data, jobs, optionsCompany_id }) => {
           required
         />
         <InputWithLabel
-          onChange={handleChange('mounth_hours')}
+          onChange={handleChange("mounth_hours")}
           value={values.mounth_hours}
           width="100%"
           label="Horas/mês"
@@ -155,7 +154,7 @@ const EmploymentContract = ({ data, jobs, optionsCompany_id }) => {
           id="fixed_payment_value"
           name="fixed_payment_value"
           value={values.fixed_payment_value}
-          onChange={handleChange('fixed_payment_value')}
+          onChange={handleChange("fixed_payment_value")}
           error={errors.fixed_payment_value}
           touched={touched.fixed_payment_value}
           width="100%"
@@ -186,9 +185,9 @@ const EmploymentContract = ({ data, jobs, optionsCompany_id }) => {
       <Commissioncontract>Comissão</Commissioncontract>
       <FullcCommissionAllowance
         onChange={(e) => {
-          e.target.value === 'limitComission'
-            ? setFieldValue('commission', true)
-            : setFieldValue('commission', false);
+          e.target.value === "limitComission"
+            ? setFieldValue("commission", true)
+            : setFieldValue("commission", false);
           setComponentJustRenderedComission(false);
         }}
       >
