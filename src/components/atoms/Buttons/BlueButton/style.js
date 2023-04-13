@@ -11,6 +11,7 @@ export const BlueButton = styled.button`
     box-shadow: 0px 8px 16px #0000003D;
     border-radius: 8px;
     text-align: center;
+    cursor: pointer;
     color: #FFFFFF;
     border: none;
 
