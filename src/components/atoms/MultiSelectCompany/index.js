@@ -25,11 +25,11 @@ const MultiSelectCompany = ({
   const [arrWaiting, setArrWaiting] = useState([]);
 
   const findValues = useCallback(() => {
-    const backendValue = options.filter((item) =>
+    const companies = options.filter((item) =>
       value.find((v) => v === item.id)
     );
     setArrWaiting(
-      backendValue.map((item) => ({
+      companies.map((item) => ({
         id: item.id,
         description: item.razao_social,
       }))
@@ -66,7 +66,6 @@ const MultiSelectCompany = ({
     findValues();
   }, [findValues]);
 
-  /**<Values onClick={() => handleDelete(index)} key={item.id}>{item.description}</Values> */
   return (
     <>
       <Father width={width}>
@@ -92,7 +91,6 @@ const MultiSelectCompany = ({
             onClick={() => setFieldValue(name, arrWaiting.map(item => item.id))}
             type="button"
           >
-            {" "}
             Adicionar
           </BlueButton>
         </Container>
