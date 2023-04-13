@@ -74,7 +74,6 @@ const optionsPixKeyType = [
 ];
 
 const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
-  const [optionsUFCountry, setOptionsUFCountry] = useState([]);
   const {
     values,
     handleChange,
@@ -148,16 +147,6 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
       : values.professional_data.pix_key_type === "E-mail"
       ? [/[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/]
       : [];
-
-  useEffect(() => {
-    if (values.country === "") return;
-    const countries = Country.getAllCountries();
-    const filtro = countries.find(
-      (item) => item.name === values.country
-    ).isoCode;
-    const states = State.getStatesOfCountry(filtro);
-    setOptionsUFCountry(states);
-  }, [values.country]);
 
   useEffect(() => {
     values.professional_data.type_of_transfer === "PIX"
@@ -396,7 +385,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
             textColor={values?.uf}
             value={values?.uf}
             onChange={handleChange("uf")}
-            options={optionsUFCountry}
+            options={optionsUF}
             placeholder="UF"
             width="230px"
             touched={touched?.uf}
