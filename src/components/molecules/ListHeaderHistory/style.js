@@ -10,7 +10,7 @@ export const HeaderContainer = styled.div`
     border-radius: 10px;
 
    svg {
-        margin-left: 1em;
+        margin-left: 0.5em;
         cursor: pointer;
   }
   @media (min-width: 1000px) {
@@ -21,21 +21,20 @@ export const HeaderContainer = styled.div`
 export const Title = styled.h5`
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
-    padding: 0 0.3em 0 3em;
+    padding: 0 0.3em 0 0;
 `;
 
 
 export const Styles = styled.div`
   table {
-    width: 98%;
-    border-spacing: 0;
+    width: 100%;
+    border-spacing: 1.5em;
   }
 `;
 
 export const Column = styled.th`
   color: black;
   width: ${(props) => props.width};
-  padding-left:  ${(props) => props.padding};
   padding: 0.1rem;
   text-align: left;
 `;

@@ -4,6 +4,7 @@ import ArrowRegister from "../../atoms/ArrowRegister";
 import { ContainerAbsolute } from "../../atoms/Container/style";
 import HistoryInput from "../../molecules/HistoryInputs";
 import ListHeaderHistory from "../../molecules/ListHeaderHistory";
+import ContractListItem from "../ContractListItem";
 import Footer from "../Footer";
 import { ContainerIconModal } from "../SelectorNewOs/style";
 import { Container, ContainerButtonGeral, ContainerButtonsHeader, Title } from "./style";
@@ -12,7 +13,7 @@ const ContractHistory = () => {
     const [searchResult, setSearchResult] = useState("");
     const history = useHistory();
 
-    const goBackClickHandler = () => {
+    const goBackHandler = () => {
         history.push("/professionals");
     };
 
@@ -21,7 +22,7 @@ const ContractHistory = () => {
             <ContainerButtonGeral>
                 <ContainerButtonsHeader>
                     <ContainerIconModal>
-                        <ArrowRegister clickHandler={goBackClickHandler} />
+                        <ArrowRegister clickHandler={goBackHandler} />
                     </ContainerIconModal>
                     <Title>Histórico de Contratos</Title>
                 </ContainerButtonsHeader>
@@ -33,6 +34,7 @@ const ContractHistory = () => {
                 <ListHeaderHistory/>
 
                 <ContainerAbsolute>
+                    <ContractListItem/>
 
                 </ContainerAbsolute>
 
