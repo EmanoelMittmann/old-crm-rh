@@ -21,25 +21,21 @@ export const HeaderContainer = styled.div`
 export const Title = styled.h5`
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
-    padding: 0 0.5em 0 3em;
+    padding: 0 0.3em 0 3em;
 `;
 
 
 export const Styles = styled.div`
-    tr{
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-    }
+  table {
+    width: 98%;
+    border-spacing: 0;
+  }
 `;
 
-export const Column = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
-    padding-left:  ${(props) => props.padding};
-    width: ${(props) => props.width};
+export const Column = styled.th`
+  color: black;
+  width: ${(props) => props.width};
+  padding-left:  ${(props) => props.padding};
+  padding: 0.1rem;
+  text-align: left;
 `;
-
