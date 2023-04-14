@@ -5,7 +5,8 @@ export const HeaderContainer = styled.div`
     display: flex;
     height: 50px;
     align-items: center;
-    margin-top: 2em;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
     background-color: #F4F6F8;
     border-radius: 10px;
 
