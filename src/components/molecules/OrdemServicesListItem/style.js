@@ -33,5 +33,5 @@ export const OrdemServiceItens = styled.div`
 export const ContainerSelect = styled.div`
     width: 22%;
     display: flex;
-    justify-content: center;
+    justify-content: start;
 `

@@ -29,7 +29,7 @@ const Shelf = ({ professional, handleDelete, AddOrUpdate }) => {
     <>
       <ContainerWap>
         <ContainerLabelProfessional key={professional.id}>
-          {professional.name}
+          <div className="name_professional">{professional.name}</div>
           <IconButton onClick={() => handleDelete(professional)}>
             <Trash />
           </IconButton>
