@@ -99,7 +99,7 @@ const OrdemServiceListItem = ({
 
   return (
     <ContainerOrdemServices key={index.id}>
-      <OrdemServiceItens width="20%" content="flex-start">
+      <OrdemServiceItens width="27%" content="flex-start">
         <input
           type="checkbox"
           name="professional"
@@ -115,8 +115,8 @@ const OrdemServiceListItem = ({
       <ContainerSelect>
         <InputSelect
           textColor={companies}
-          lineWidth="10em"
-          placeholder={index.companies.razao_social}
+          lineWidth="78%"
+          placeholder={index?.companies?.razao_social}
           onChange={(e) => {
             const{value}= e.target
             setIdCompanie(value)
@@ -130,11 +130,11 @@ const OrdemServiceListItem = ({
       <OrdemServiceItens width="22%" content="start">
         {index.professional_data?.cnpj}
       </OrdemServiceItens>
-      <OrdemServiceItens width="18%" content="start">
+      <OrdemServiceItens width="19%" content="start">
         R$ {index.fixed_payment_value},00
       </OrdemServiceItens>
 
-      <OrdemServiceItens width="17%" content="flex-start">
+      <OrdemServiceItens width="18%" content="flex-start">
         {index.value
           ? ` ${Number(parseFloat(index.value.replace(/[^0-9,]*/g, '').replace(',', '.'))).toLocaleString("pt-br", {
             style: "currency",
