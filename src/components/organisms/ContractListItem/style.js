@@ -10,6 +10,10 @@ export const ContainerContractListItem = styled.div`
   &:hover{
      background-color: #F4F6F8;
   }
+    @media screen and (min-width: 640px) and (max-width: 1024px) {
+    width: 100%;
+  }
+
 `;
 
 export const ContractListItems = styled.div`
@@ -68,12 +72,19 @@ export const HistorySubscribeContract = styled.p`
 `
 export const HistoryDateFinishContract = styled.p`
   display: flex;
-  width: 13%;
+  width: 14%;
   padding-left: 2.5em;
 
 `
 export const StatusContract = styled.div`
   display: flex;
-  width: 14%;
-  padding-left: 4em;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+  font-weight: 700;
+  width: 12%;
+  height: 35px;
+  background-color:${props => props.colorBg};
+  color:${props => props.colortext};
+
 `

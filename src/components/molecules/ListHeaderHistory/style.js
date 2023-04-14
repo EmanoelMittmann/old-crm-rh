@@ -14,10 +14,11 @@ export const HeaderContainer = styled.div`
         margin-left: 0.5em;
         cursor: pointer;
   }
-  @media (min-width: 1000px) {
+  @media screen and (min-width: 640px) and (max-width: 1024px) {
     width: 100%;
   }
-`
+
+`;
 
 export const Title = styled.h5`
     font-family: 'Poppins', sans-serif;
