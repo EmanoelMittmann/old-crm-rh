@@ -114,16 +114,17 @@ const OrdemServiceListItem = ({
       </OrdemServiceItens>
       <ContainerSelect>
         <InputSelect
+          value={index.companies_id}
           textColor={companies}
-          lineWidth="78%"
+          lineWidth="100%"
           placeholder={index?.companies?.razao_social}
           onChange={(e) => {
             const{value}= e.target
             setIdCompanie(value)
             handleClickCompanies(value)
           }}
-          options={companies}
-          width="100%"
+          options={index.userCompanies}
+          width="80%"
         />
       </ContainerSelect>
 

@@ -30,6 +30,12 @@ export const ContainerLabelProfessional = styled.div`
         cursor: pointer;
 
     }
+    .name_professional{
+        width: 80%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
 `
 export const ModalContainerProfessional = styled.div` 
     right:100%;
