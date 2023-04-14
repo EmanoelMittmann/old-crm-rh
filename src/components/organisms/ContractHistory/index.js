@@ -19,18 +19,18 @@ const ContractHistory = () => {
     let params = {};
     
     
-    const getContractsHistory = async () => {
-        const { data } = await api({
-            method: 'get',
-            url: "/mockDataContract",
-            params: params,
-        });
-        setContracstHistory(data)
-    }
-    useEffect(() => {
+    // const getContractsHistory = async () => {
+    //     const { data } = await api({
+    //         method: 'get',
+    //         url: "/mockDataContract",
+    //         params: params,
+    //     });
+    //     setContracstHistory(data)
+    // }
+    // useEffect(() => {
 
-        getContractsHistory()
-    }, [])
+    //     getContractsHistory()
+    // }, [])
 
     const goBackHandler = () => {
         history.push("/professionals");
@@ -55,12 +55,12 @@ const ContractHistory = () => {
                     <>
                     
                         <ContainerAbsolute> 
-                            {contracstHistory.map(contractHistory =>
+                            {/* {contracstHistory.map(contractHistory =>
                                 <ContractListItem
                                     key={contractHistory.id}
                                     contractHistory={contractHistory}
                                     getContractsHistory={getContractsHistory} />
-                                )}
+                                )} */}
                                 
                         </ContainerAbsolute>
 
