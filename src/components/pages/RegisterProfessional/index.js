@@ -516,7 +516,12 @@ const RegisterProfessional = () => {
             property,
             value.map((item) => item.id)
           );
-        } else {
+        } else if (property.includes('userCompanies')){
+          setFieldValue(
+            'companies',
+            value.map(item => item.id)
+          )
+        }else {
           setFieldValue(property, value);
         }
       });
