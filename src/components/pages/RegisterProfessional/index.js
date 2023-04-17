@@ -122,6 +122,7 @@ const RegisterProfessional = () => {
     telephone_number: Yup.string().required(messages.required),
     email: Yup.string().required(messages.required),
     permissions: Yup.array().required(messages.required),
+    companies: Yup.array().min(1,messages.required),
     professional_data: Yup.object().shape({
       cnpj: Yup.string().required(messages.required).min(18, "CNPJ Inválido"),
       razao_social: Yup.string().required(messages.required).nullable(),
@@ -455,6 +456,8 @@ const RegisterProfessional = () => {
       );
     }
   }
+
+  console.log(formik.errors);
 
   async function editProject(project, workload, extra_hours_limit) {
     try {
