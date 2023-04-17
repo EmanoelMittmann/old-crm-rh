@@ -1,18 +1,38 @@
+import { useEffect } from "react";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import api from "../../../api/api";
 import ArrowRegister from "../../atoms/ArrowRegister";
 import { ContainerAbsolute } from "../../atoms/Container/style";
+import LoadingCircle from "../../atoms/LoadingCircle";
 import HistoryInput from "../../molecules/HistoryInputs";
 import ListHeaderHistory from "../../molecules/ListHeaderHistory";
+import ContractListItem from "../ContractListItem";
 import Footer from "../Footer";
 import { ContainerIconModal } from "../SelectorNewOs/style";
 import { Container, ContainerButtonGeral, ContainerButtonsHeader, Title } from "./style";
 
 const ContractHistory = () => {
     const [searchResult, setSearchResult] = useState("");
+    const [contracstHistory, setContracstHistory] = useState([])
     const history = useHistory();
+    let params = {};
+    
+    
+    // const getContractsHistory = async () => {
+    //     const { data } = await api({
+    //         method: 'get',
+    //         url: "/mockDataContract",
+    //         params: params,
+    //     });
+    //     setContracstHistory(data)
+    // }
+    // useEffect(() => {
 
-    const goBackClickHandler = () => {
+    //     getContractsHistory()
+    // }, [])
+
+    const goBackHandler = () => {
         history.push("/professionals");
     };
 
@@ -21,7 +41,7 @@ const ContractHistory = () => {
             <ContainerButtonGeral>
                 <ContainerButtonsHeader>
                     <ContainerIconModal>
-                        <ArrowRegister clickHandler={goBackClickHandler} />
+                        <ArrowRegister clickHandler={goBackHandler} />
                     </ContainerIconModal>
                     <Title>Histórico de Contratos</Title>
                 </ContainerButtonsHeader>
@@ -30,13 +50,26 @@ const ContractHistory = () => {
                 <HistoryInput
                     setSearchResult={setSearchResult}
                 />
-                <ListHeaderHistory/>
+                <ListHeaderHistory />
+                {contracstHistory[0] ? (
+                    <>
+                    
+                        <ContainerAbsolute> 
+                            {/* {contracstHistory.map(contractHistory =>
+                                <ContractListItem
+                                    key={contractHistory.id}
+                                    contractHistory={contractHistory}
+                                    getContractsHistory={getContractsHistory} />
+                                )} */}
+                                
+                        </ContainerAbsolute>
 
-                <ContainerAbsolute>
+                        <Footer />
+                    </>
+                ) : (
+                    <LoadingCircle />
+                )}
 
-                </ContainerAbsolute>
-
-                <Footer />
             </Container>
         </>
     )
