@@ -1,6 +1,6 @@
 import React from "react";
 import { DefaultInput, InputLine } from "../DefaultInput/style";
-import { Label, RequiredLabel } from "../DefautInputSelect/style";
+import { ErrorMessage, Label, RequiredLabel } from "../DefautInputSelect/style";
 import { useState } from "react";
 import { Container, Father, ListOptions, Options, Values } from "./style";
 import { BlueButton } from "../Buttons/BlueButton/style";
@@ -19,6 +19,8 @@ const MultiSelectCompany = ({
   options,
   placeholder,
   name,
+  error,
+  touched
 }) => {
   const [text, setText] = useState("");
   const [visible, setVisible] = useState(false);
@@ -62,15 +64,21 @@ const MultiSelectCompany = ({
 
   const handleFocus = () => setVisible(true);
 
+  const handleBlur = () => {
+    setTimeout(() => {
+      setVisible(false)
+    }, 100);
+  }
+
   useEffect(() => {
     findValues();
   }, [findValues]);
 
   return (
     <>
-      <Father width={width}>
+      <Father width={width} onMouseLeave={handleBlur}>
         <Container>
-          <InputLine width={width}>
+          <InputLine width={width} error={error && touched}>
             {label && (
               <Label focus={label}>
                 {label}
@@ -94,12 +102,13 @@ const MultiSelectCompany = ({
             Adicionar
           </BlueButton>
         </Container>
+        {error && touched && <ErrorMessage visible={error}>{error}</ErrorMessage>}
         <Container>
           {value.length === arrWaiting.length && arrWaiting.map((item) => (
             <Values onClick={() => handleDelete(item.id)} key={item.id}>{item.description}</Values>
           ))}
         </Container>
-        <ListOptions visible={visible} onMouseLeave={() => setVisible(false)}>
+        <ListOptions visible={visible} onMouseLeave={handleBlur}>
           {filtered.map((opts) => (
             <Options
               key={opts.id}

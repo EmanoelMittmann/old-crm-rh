@@ -635,6 +635,8 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
           </ContainerRow>
           <ContainerRow>
             <MultiSelectCompany
+              error={errors?.companies}
+              touched={touched?.companies}
               setFieldValue={setFieldValue}
               label={"Empresa Ubistart"}
               required={true}
