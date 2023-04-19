@@ -23,10 +23,13 @@ import { useSelector } from "react-redux";
 import { handleCEP } from "../../utils/validateCep";
 import DataBank from "../../molecules/DataBank";
 import ArrowRegister from "../../atoms/ArrowRegister";
+import { useCallback } from "react";
+import { useMemo } from "react";
 
 export const RegisterCompanies = () => {
   const { id } = useParams();
   const [uniqueCEP, setUniqueCEP] = useState();
+  const [director, setDirector] = useState([]);
   const [errors, setErrors] = useState();
   const history = useHistory();
   const isDisable = useSelector((state) => state.disableEditor);
@@ -96,6 +99,8 @@ export const RegisterCompanies = () => {
       main_cnae: [],
       secondary_cnae: [],
       code_and_description_of_the_legal_status: [],
+      director: "",
+      witnesses: [],
       cep: cleanMask(""),
       street_name: "",
       house_number: "",
@@ -158,7 +163,22 @@ export const RegisterCompanies = () => {
     history.push("/Company");
   };
 
-  const getCompanyData = async () => {
+  const getProfessionals = useCallback(async () => {
+    const { data } = await api.get("/professionals?limit=50");
+    setDirector(
+      data.data
+        .filter((witness) => witness.job.name.substring(0, 7) === "Diretor")
+        .map((witness) => ({ id: witness.id, name: witness.name }))
+    );
+  }, []);
+
+
+
+  const selectedDirector = () => {
+    return director.filter((user) => !values.witnesses.includes(String(user.id)))
+  };
+
+  const getCompanyData = useCallback(async () => {
     if (id) {
       const { data } = await api.get(`/companies/${id}`);
       Object.entries(data[0]).forEach(([property, value]) => {
@@ -187,11 +207,19 @@ export const RegisterCompanies = () => {
         }
       });
     }
-  };
+  }, [id]);
+
+  useEffect(() => {
+    selectedDirector();
+  }, [values.witnesses]);
 
   useEffect(() => {
     getCompanyData();
-  }, []);
+  }, [getCompanyData]);
+
+  useEffect(() => {
+    getProfessionals();
+  }, [getProfessionals]);
 
   useEffect(() => {
     setFieldValue("account_number", cleanMask(values.account_number));
@@ -205,7 +233,12 @@ export const RegisterCompanies = () => {
       </RegisterProfessionalTitleContainer>
       <RegisterProfessionalContainer>
         <form id="Company" onSubmit={formik.handleSubmit}>
-          <RegisterCompany data={formik} disabled={isDisable} />
+          <RegisterCompany
+            data={formik}
+            disabled={isDisable}
+            // notFoundDirector={selectedDirector()}
+            diretor={director}
+          />
           <DataBank data={formik} />
           <AddressContact data={formik} disabled={isDisable} />
           <SituationCadastion data={formik} disabled={isDisable} />

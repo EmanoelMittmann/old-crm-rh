@@ -10,7 +10,7 @@ import {
   ContainerTypecompany,
   ContainerRadiosCompany,
 } from "./style";
-import { BorderTop, ContainerRow } from "../RegisterProfessionalsData/style";
+import { ContainerRow } from "../RegisterProfessionalsData/style";
 import InputWithLabel from "../../atoms/InputWithLabel/index";
 import InputMasked from "../../atoms/InputMasked/index";
 import SecondaryText from "../../atoms/SecondaryText/style";
@@ -21,7 +21,7 @@ import { useEffect } from "react";
 import InputSearchCnae from "../../atoms/InputSearchCnae";
 import InputNature from "../../atoms/inputCnj";
 
-const RegisterCompany = ({ data, disabled }) => {
+const RegisterCompany = ({ data, disabled, diretor }) => {
   const {
     values,
     handleChange,
@@ -34,10 +34,7 @@ const RegisterCompany = ({ data, disabled }) => {
     useState(false);
   const [typeCompany, setTypeCompany] = useState("");
 
-  useEffect(() => {
-    setComponentJustRenderedComission(true);
-    handleTypeCompany();
-  }, [typeCompany]);
+  let arr = [];
 
   const allowMatriz = {
     ...(componentJustRenderedCommission &&
@@ -50,13 +47,18 @@ const RegisterCompany = ({ data, disabled }) => {
         checked: true,
       }),
   };
-  
+
   function handleTypeCompany(e) {
     setFieldValue("type_company", typeCompany);
   }
+  useEffect(() => {
+    setComponentJustRenderedComission(true);
+    handleTypeCompany();
+  }, [typeCompany]);
+
+  console.log(values.director)
   return (
     <ContainerRegisterCompanyData>
-     
       <SecondaryText margin="0 0 2.5em 0">Dados da empresa</SecondaryText>
       <ContainerTypecompany>
         <Typecompany>
@@ -87,7 +89,7 @@ const RegisterCompany = ({ data, disabled }) => {
             />
             <LabelInputRadio for="typeCompany"> Cliente </LabelInputRadio>
           </ContainerRadiosCompany>
-          <ContainerRadiosCompany style={{marginBottom:"2em"}}>
+          <ContainerRadiosCompany style={{ marginBottom: "2em" }}>
             <InputRadio
               type="radio"
               error={errors.type_company && touched.type_company}
@@ -100,7 +102,6 @@ const RegisterCompany = ({ data, disabled }) => {
             />
             <LabelInputRadio for="typeCompany"> Fornecedor </LabelInputRadio>
           </ContainerRadiosCompany>
-
         </Typecompany>
       </ContainerTypecompany>
       <RegisterCompanyForm>
@@ -264,13 +265,53 @@ const RegisterCompany = ({ data, disabled }) => {
           />
         </ContainerRow>
         <ContainerRow>
+          <InputSelect
+            label="Assinatura"
+            placeholder="Assinatura"
+            value={values.director}
+            lineWidth="100%"
+            width="50%"
+            onChange={handleChange("director")}
+            error={errors.director}
+            touched={touched.director}
+            options={diretor}
+            required
+          />
+          <InputSelect
+            label="Testemunha 1"
+            placeholder="Testemunha 1"
+            value={values.witnesses[0]}
+            lineWidth="100%"
+            width="25%"
+            onChange={(e) => {
+              handleChange("witnesses[0]");
+            }}
+            error={errors.witnesses}
+            touched={touched.witnesses}
+            options={diretor}
+            required
+          />
+          <InputSelect
+            label="Testemunha 2"
+            placeholder="Testemunha 2"
+            value={values.witnesses[1]}
+            lineWidth="100%"
+            width="25%"
+            onChange={() => handleChange("witnesses[1]")}
+            error={errors.witnesses}
+            touched={touched.witnesses}
+            options={diretor}
+            required
+          />
+        </ContainerRow>
+        <ContainerRow>
           <InputSearchCnae
             label="Atividade Economica Principal"
             placeholder="Codigo e descrição de Atividade Economica Principal"
             values={values.main_cnae}
             error={errors.main_cnae}
             disabled={disabled}
-            name='main_cnae'
+            name="main_cnae"
             touched={touched.main_cnae}
             setFieldValue={setFieldValue}
             width="100%"
@@ -278,13 +319,13 @@ const RegisterCompany = ({ data, disabled }) => {
           />
         </ContainerRow>
         <ContainerRow>
-        <InputSearchCnae
+          <InputSearchCnae
             label="Atividade Economica Secundaria"
             placeholder="Codigo e descrição de Atividade Economica Secundaria"
             values={values.secondary_cnae}
             error={errors.secondary_cnae}
             disabled={disabled}
-            name='secondary_cnae'
+            name="secondary_cnae"
             touched={touched.secondary_cnae}
             setFieldValue={setFieldValue}
             width="100%"
@@ -299,6 +340,7 @@ const RegisterCompany = ({ data, disabled }) => {
             error={errors.code_and_description_of_the_legal_status}
             touched={touched.code_and_description_of_the_legal_status}
             inputWidth="50%"
+            name="code_and_description_of_the_legal_status"
             disabled={disabled}
             label="Natureza Jurídica"
             setFieldValue={setFieldValue}

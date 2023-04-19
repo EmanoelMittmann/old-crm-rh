@@ -16,6 +16,7 @@ const InputNature = ({
   inputWidth,
   setFieldValue,
   values,
+  name,
   value,
   disabled,
   label,
@@ -47,7 +48,7 @@ const InputNature = ({
   const handleDelete = (index) => {
     const temp = value;
     temp.splice(index, 1);
-    setFieldValue("code_and_description_of_the_legal_status", temp);
+    setFieldValue(name, temp);
   };
 
   useEffect(() => {
@@ -92,7 +93,7 @@ const InputNature = ({
           <Itens
             key={index.id}
             onClick={() => {
-              setFieldValue("code_and_description_of_the_legal_status", [
+              setFieldValue(name, [
                 { id: index.id, name: index.name },
               ]);
               setId("");

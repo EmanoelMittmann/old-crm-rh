@@ -70,8 +70,7 @@ const EmploymentContract = ({ data, jobs, optionsCompany_id }) => {
   }
 
   const findCompanyPayment = useCallback(() => {
-    const test = optionsCompany_id.filter(item => values.companies.find(v => v === item.id))
-    return test
+    return optionsCompany_id.filter(item => values.companies.find(v => v === item.id))
   },[values.companies])
 
   useEffect(() => {

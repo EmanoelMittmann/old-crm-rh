@@ -48,8 +48,7 @@ const InputSelect = ({
           textColor={textColor}
           width={lineWidth}
           disabled={disabled}
-          onChange={onChange}
-        
+          onChange={onChange} 
           placeholder={placeholder}
         >
           {placeholder && (
