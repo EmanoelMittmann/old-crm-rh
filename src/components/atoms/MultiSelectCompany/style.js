@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const Father = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1em;
   width: ${(props) => props.width};
   height: 4em;
 `;
@@ -48,14 +47,16 @@ export const Container = styled.div`
 
 export const Values = styled.div`
   padding: 1em;
+  margin-top: 1em;
   width: 12em;
-  height: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   white-space: nowrap;
   box-shadow: 1px 0px 10px #aaa;
   background-color: #407bff;
   color: #fff;
   border-radius: 4px;
-  text-align: center;
   font-weight: 600;
   font-size: 10px;
 `;
