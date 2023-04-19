@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import api from "../../../api/api";
 import ArrowRegister from "../../atoms/ArrowRegister";
-import { ContainerAbsolute, Main } from "../../atoms/Container/style";
+import {ContainerAbsolute} from "../../atoms/Container/style";
 import LoadingCircle from "../../atoms/LoadingCircle";
 import HistoryInput from "../../molecules/HistoryInputs";
 import ListHeaderHistory from "../../molecules/ListHeaderHistory";

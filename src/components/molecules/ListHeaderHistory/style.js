@@ -39,4 +39,5 @@ export const Column = styled.th`
   width: ${(props) => props.width};
   padding: 0.1rem;
   text-align: left;
+  cursor: pointer;
 `;
