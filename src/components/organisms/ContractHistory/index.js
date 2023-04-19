@@ -14,13 +14,36 @@ import { Container, ContainerButtonGeral, ContainerButtonsHeader, Title } from "
 
 const ContractHistory = () => {
     const [searchResult, setSearchResult] = useState("");
+    const [statusSelected, setStatusSelected] = useState("")
+    const [signature, setSignature] = useState("")
+    const [finish, setFinish] = useState("")
     const [contracstHistory, setContracstHistory] = useState([])
-    const [status, setStatus]=useState('')
     const [order, setOrder] = useState({ order: "", field: "" });
-    const [metaHistory, setMetaHistory]=useState({})
+    const [metaHistory, setMetaHistory] = useState({})
     const history = useHistory();
-    let params = {};
-    
+
+    let params = {
+        page: metaHistory,
+        order: order.order,
+        orderField: order.orderField,
+        search: searchResult,
+        initialDate: signature,
+        finalDate: finish,
+    }
+
+    const handleFilterRequest = (pagesFilter) => {
+        params.orderField = order.orderField;
+        params.order = order.order;
+        params.search = searchResult;
+        params.status = statusSelected;
+        params.initialDate = signature;
+        params.finalDate = finish;
+        params.page = metaHistory.first_page;
+
+        if (pagesFilter === "previous") params.page = metaHistory.current_page - 1;
+        if (pagesFilter === "next") params.page = metaHistory.current_page + 1;
+    };
+
     const sortByField = (field) => {
         const sortOrder = order.order === "" ? "desc" : order.order === "desc" ? "asc" : "desc";
         setOrder({
@@ -28,34 +51,14 @@ const ContractHistory = () => {
             orderField: field,
         });
     };
-    
-    
-    const handleFilterRequest = (pagesFilter) => {
-        
-        if (pagesFilter === "previous") params.page = `${metaHistory.current_page -1}`;
-        
-        
-        if (pagesFilter === "next") params.page = `${metaHistory.current_page +1}`;
-        
-        
-        if (order.order !== "") {
-            params.orderField = order.orderField;
-            params.order = order.order;
-        }
-    };
-   
+
     const getContractsHistory = async () => {
-        handleFilterRequest()
-        const { data } = await api({
-            method: 'get',
-            url: "/contractHistory?limit=5",
-            params: params,
-        });
+        const { data } = await api.get("contractHistory?limit=5", { params: params })
         setContracstHistory(data.data)
         setMetaHistory(data.meta)
     }
 
- 
+
     const nextPage = () => {
         handleFilterRequest("next");
         getContractsHistory()
@@ -67,8 +70,9 @@ const ContractHistory = () => {
     };
 
     useEffect(() => {
+        handleFilterRequest()
         getContractsHistory()
-    }, [order])
+    }, [order, searchResult, statusSelected, finish, signature])
 
     const goBackHandler = () => {
         history.push("/professionals");
@@ -83,12 +87,17 @@ const ContractHistory = () => {
                 </ContainerButtonsHeader>
             </ContainerButtonGeral>
             <Container>
-
                 <HistoryInput
+                    statusSelected={statusSelected}
+                    setStatusSelected={setStatusSelected}
+                    finish={finish}
+                    setFinish={setFinish}
+                    signature={signature}
+                    setSignature={setSignature}
+                    searchResult={searchResult}
                     setSearchResult={setSearchResult}
                 />
-
-                <ListHeaderHistory fnOrder={sortByField}/>
+                <ListHeaderHistory fnOrder={sortByField} />
 
                 {contracstHistory[0] ? (
                     <>
@@ -101,7 +110,7 @@ const ContractHistory = () => {
                                 />
                             )}
                         </ContainerAbsolute>
-                        <Footer 
+                        <Footer
                             previousPage={previousPage}
                             nextPage={nextPage}
                             lastPage={metaHistory?.last_page}
@@ -110,7 +119,7 @@ const ContractHistory = () => {
                         />
                     </>
                 ) : (
-                    <LoadingCircle />     
+                    <LoadingCircle /> && <p>Nenhum arquivo encontrado...</p>
                 )}
             </Container>
         </>
