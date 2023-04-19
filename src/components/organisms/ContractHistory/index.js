@@ -36,8 +36,6 @@ const ContractHistory = () => {
         
         
         if (pagesFilter === "next") params.page = `${metaHistory.current_page +1}`;
-
-     
         
         
         if (order.order !== "") {
@@ -45,8 +43,6 @@ const ContractHistory = () => {
             params.order = order.order;
         }
     };
-    
-    console.log('pagina: ', metaHistory.current_page);
    
     const getContractsHistory = async () => {
         handleFilterRequest()
