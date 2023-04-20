@@ -1,35 +1,44 @@
 import { formatDate } from "../../utils/formatDate";
-import { ContainerContractListItem, HistoryCompany, HistoryDateSend, HistoryJob, Img, ContractListItems, HistorySubscribeContract, HistoryDateFinishContract, StatusContract } from "./style";
+import { 
+    ContainerContractListItem, 
+    HistoryCompany, 
+    HistoryDateSend, 
+    HistoryJob, Img, 
+    ContractListItems, 
+    HistorySubscribeContract, 
+    HistoryDateFinishContract, 
+    StatusContract } 
+from "./style";
 
 const ContractListItem = ({ contractHistory }) => {
 
-    // const StatusColor = contractHistory.status_contract === 'ENVIADO' ? 'Enviado'  
-    //     : contractHistory.status_contract === 'PENDENTE' ? 'Pendente'
-    //         : contractHistory.status_contract === 'ASSINADO' ? 'Assinado'
-    //             : 'Encerrado'
-    // const colorBg = contractHistory.status_contract === 'ENVIADO' ? '#BED9FF' 
-    //     : contractHistory.status_contract === 'ASSINADO' ? '#E4F8DD'
-    //         : contractHistory.status_contract === 'PENDENTE' ? '#FFF5D7' :
-    //             '#FFE2E1'
+    const StatusColor = contractHistory.status === 'Enviado' ? 'Enviado'  
+        : contractHistory.status === 'Pendente' ? 'Pendente'
+            : contractHistory.status === 'Assinado' ? 'Assinado'
+                : 'Encerrado'
+    const colorBg = contractHistory.status === 'Enviado' ? '#FFF5D7' 
+        : contractHistory.status === 'Pendente' ? '#FFE2E1' 
+            : contractHistory.status === 'Assinado' ? '#E4F8DD' :
+                '#BB2B3F'
 
-    // const colortext = contractHistory.status_contract === 'ENVIADO' ? '#0066FF' 
-    //     : contractHistory.status_contract === 'PENDENTE' ? '#FFAE00'
-    //         : contractHistory.status_contract === 'ASSINADO' ? '#1ECB4F'  :
-    //             '#BB2B3F'
+    const colortext = contractHistory.status === 'Enviado' ? '#FFAE00' 
+        : contractHistory.status === 'Pendente' ? '#BB2B3F'
+            : contractHistory.status === 'Assinado' ? '#229A16'  :
+                '#FFFFFF'
 
 
     return (
         <ContainerContractListItem>
-            {/* <ContractListItems margin="0.5em">
-                <Img src={"https://www.fiscalti.com.br/wp-content/uploads/2021/02/default-user-image.png"} />
-                <p>{contractHistory.name}</p>
+            <ContractListItems margin="0.5em">
+                <Img src={contractHistory.avatar_profissional} />
+                <p>{contractHistory.name_profissional}</p>
             </ContractListItems>
-            <HistoryJob>{contractHistory.job}</HistoryJob>
-            <HistoryCompany>{contractHistory.company}</HistoryCompany>
-            <HistoryDateSend>{formatDate(contractHistory.data_send)}</HistoryDateSend>
-            <HistorySubscribeContract>{formatDate(contractHistory.data_subscribe_contract)}</HistorySubscribeContract>
-            <HistoryDateFinishContract> {formatDate(contractHistory.data_finish_contract)} </HistoryDateFinishContract>
-            <StatusContract colorBg={colorBg} colortext={colortext}>{StatusColor}</StatusContract> */}
+            <HistoryJob>{contractHistory.job_profissional}</HistoryJob>
+            <HistoryCompany>{contractHistory.company_profissional}</HistoryCompany>
+            <HistoryDateSend>{formatDate(contractHistory.date_sent_contract)}</HistoryDateSend>
+            <HistorySubscribeContract>{formatDate(contractHistory.date_signature_contract)}</HistorySubscribeContract>
+            <HistoryDateFinishContract> {formatDate(contractHistory.date_finish_contract)} </HistoryDateFinishContract>
+            <StatusContract colorBg={colorBg} colortext={colortext}>{StatusColor}</StatusContract>
         </ContainerContractListItem>
 
     )
