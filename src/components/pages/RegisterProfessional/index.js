@@ -457,8 +457,6 @@ const RegisterProfessional = () => {
     }
   }
 
-  console.log(formik.errors);
-
   async function editProject(project, workload, extra_hours_limit) {
     try {
       await api.put(`/userProjects/user/${id}`, {

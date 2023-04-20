@@ -28,8 +28,8 @@ const InputSelect = ({
   required,
   textColor,
 }) => {
-  const [focus, setFocus] = useState(false);
-  const [blur, setBlur] = useState(false);
+  const [focus, setFocus] = useState(true);
+  const [blur, setBlur] = useState(true);
 
   const attributeValue = {
     ...(value && { value: value }),
@@ -48,8 +48,7 @@ const InputSelect = ({
           textColor={textColor}
           width={lineWidth}
           disabled={disabled}
-          onChange={onChange}
-        
+          onChange={onChange} 
           placeholder={placeholder}
         >
           {placeholder && (
