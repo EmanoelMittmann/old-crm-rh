@@ -58,6 +58,8 @@ export const RegisterCompanies = () => {
         return true;
       }),
     size: Yup.string().required(messages.required),
+    director: Yup.string().required(messages.required),
+    witnesses: Yup.array().min(2,messages.required),
     street_name: Yup.string().required(messages.required),
     main_cnae: Yup.array()
       .min(1, "Campo obrigatório")
@@ -168,15 +170,9 @@ export const RegisterCompanies = () => {
     setDirector(
       data.data
         .filter((witness) => witness.job.name.substring(0, 7) === "Diretor")
-        .map((witness) => ({ id: witness.id, name: witness.name }))
+        .map((witness) => ({ id: witness.id, name: witness.name}))
     );
   }, []);
-
-
-
-  const selectedDirector = () => {
-    return director.filter((user) => !values.witnesses.includes(String(user.id)))
-  };
 
   const getCompanyData = useCallback(async () => {
     if (id) {
@@ -210,10 +206,6 @@ export const RegisterCompanies = () => {
   }, [id]);
 
   useEffect(() => {
-    selectedDirector();
-  }, [values.witnesses]);
-
-  useEffect(() => {
     getCompanyData();
   }, [getCompanyData]);
 
@@ -236,7 +228,6 @@ export const RegisterCompanies = () => {
           <RegisterCompany
             data={formik}
             disabled={isDisable}
-            // notFoundDirector={selectedDirector()}
             diretor={director}
           />
           <DataBank data={formik} />

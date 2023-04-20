@@ -34,7 +34,9 @@ const RegisterCompany = ({ data, disabled, diretor }) => {
     useState(false);
   const [typeCompany, setTypeCompany] = useState("");
 
-  let arr = [];
+  const availableDirector = (compare1, compare2) => {
+    return diretor.filter(user => String(user.id) !== compare1 && String(user.id) !== compare2)
+  };
 
   const allowMatriz = {
     ...(componentJustRenderedCommission &&
@@ -56,7 +58,6 @@ const RegisterCompany = ({ data, disabled, diretor }) => {
     handleTypeCompany();
   }, [typeCompany]);
 
-  console.log(values.director)
   return (
     <ContainerRegisterCompanyData>
       <SecondaryText margin="0 0 2.5em 0">Dados da empresa</SecondaryText>
@@ -269,38 +270,39 @@ const RegisterCompany = ({ data, disabled, diretor }) => {
             label="Assinatura"
             placeholder="Assinatura"
             value={values.director}
+            textColor={values.director}
             lineWidth="100%"
             width="50%"
             onChange={handleChange("director")}
             error={errors.director}
             touched={touched.director}
-            options={diretor}
+            options={availableDirector(values.witnesses[0],values.witnesses[1])}
             required
           />
           <InputSelect
             label="Testemunha 1"
             placeholder="Testemunha 1"
             value={values.witnesses[0]}
+            textColor={values.witnesses[0]}
             lineWidth="100%"
             width="25%"
-            onChange={(e) => {
-              handleChange("witnesses[0]");
-            }}
+            onChange={handleChange("witnesses[0]")}
             error={errors.witnesses}
             touched={touched.witnesses}
-            options={diretor}
+            options={availableDirector(values.director,values.witnesses[1])}
             required
           />
           <InputSelect
             label="Testemunha 2"
             placeholder="Testemunha 2"
             value={values.witnesses[1]}
+            textColor={values.witnesses[1]}
             lineWidth="100%"
             width="25%"
-            onChange={() => handleChange("witnesses[1]")}
+            onChange={handleChange("witnesses[1]")}
             error={errors.witnesses}
             touched={touched.witnesses}
-            options={diretor}
+            options={availableDirector(values.director,values.witnesses[0])}
             required
           />
         </ContainerRow>
