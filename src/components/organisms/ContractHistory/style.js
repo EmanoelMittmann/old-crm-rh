@@ -8,8 +8,8 @@ export const Container = styled.div`
   border-radius: 20px;
   margin: auto;
 
-  @media (min-width: 1000px) {
-    width: 91.5%;
+  @media screen and (min-width: 640px) and (max-width: 1024px) {
+    width: 100%;
   }
 
   .header{
