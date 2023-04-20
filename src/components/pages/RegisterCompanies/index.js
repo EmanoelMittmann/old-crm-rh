@@ -76,9 +76,7 @@ export const RegisterCompanies = () => {
     phone_number: Yup.string().required(messages.required),
     city_name: Yup.string().required(messages.required),
     uf: Yup.string().required(messages.required),
-    phone_number: Yup.string().required(messages.required),
     main_email: Yup.string().required(messages.required),
-    registration_status: Yup.string().required(messages.required),
     date_of_registration_status: Yup.string().required(messages.required),
     reason_for_registration_status: Yup.string().required(messages.required),
     type_company: Yup.string().required(messages.required),
@@ -126,6 +124,11 @@ export const RegisterCompanies = () => {
       account_type: "",
     },
     onSubmit: async (values) => {
+      
+      if(values.witnesses.includes(values.director) || values.witnesses[0] === values.witnesses[1]){
+        return toast.error(<DefaultToast text='Assinantes e Testemunhas devem ser Diferentes'/>)
+      }
+
       await api({
         method: id ? "put" : "post",
         url: id ? `/companies/${id}` : "/companies",
@@ -177,7 +180,7 @@ export const RegisterCompanies = () => {
   const getCompanyData = useCallback(async () => {
     if (id) {
       const { data } = await api.get(`/companies/${id}`);
-      Object.entries(data[0]).forEach(([property, value]) => {
+      Object.entries(data).forEach(([property, value]) => {
         if (property.includes("date_of_registration_status")) {
           setFieldValue(property, getDate(value));
         } else if (property.includes("cnpj")) {
@@ -198,7 +201,10 @@ export const RegisterCompanies = () => {
             return null;
           }
           setFieldValue(property, getDate(value));
-        } else {
+        } else if (property.includes("userCompanies")){
+          setFieldValue('witnesses',value.filter(user => user.type_of_subscribes === 'WITNESSES').map(prop => prop.id))
+          setFieldValue('director',value.filter(user => user.type_of_subscribes === 'DIRECTOR').map(prop => prop.id)[0])
+        }else {
           setFieldValue(property, value);
         }
       });

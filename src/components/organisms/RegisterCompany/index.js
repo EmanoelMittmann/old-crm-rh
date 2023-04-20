@@ -34,10 +34,6 @@ const RegisterCompany = ({ data, disabled, diretor }) => {
     useState(false);
   const [typeCompany, setTypeCompany] = useState("");
 
-  const availableDirector = (compare1, compare2) => {
-    return diretor.filter(user => String(user.id) !== compare1 && String(user.id) !== compare2)
-  };
-
   const allowMatriz = {
     ...(componentJustRenderedCommission &&
       values.is_matriz === true && { checked: true }),
@@ -57,6 +53,8 @@ const RegisterCompany = ({ data, disabled, diretor }) => {
     setComponentJustRenderedComission(true);
     handleTypeCompany();
   }, [typeCompany]);
+
+  console.log(values.witnesses);
 
   return (
     <ContainerRegisterCompanyData>
@@ -276,7 +274,7 @@ const RegisterCompany = ({ data, disabled, diretor }) => {
             onChange={handleChange("director")}
             error={errors.director}
             touched={touched.director}
-            options={availableDirector(values.witnesses[0],values.witnesses[1])}
+            options={diretor}
             required
           />
           <InputSelect
@@ -289,7 +287,7 @@ const RegisterCompany = ({ data, disabled, diretor }) => {
             onChange={handleChange("witnesses[0]")}
             error={errors.witnesses}
             touched={touched.witnesses}
-            options={availableDirector(values.director,values.witnesses[1])}
+            options={diretor}
             required
           />
           <InputSelect
@@ -302,7 +300,7 @@ const RegisterCompany = ({ data, disabled, diretor }) => {
             onChange={handleChange("witnesses[1]")}
             error={errors.witnesses}
             touched={touched.witnesses}
-            options={availableDirector(values.director,values.witnesses[0])}
+            options={diretor}
             required
           />
         </ContainerRow>
