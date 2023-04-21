@@ -14,6 +14,7 @@ const ListHeaderHistory = ({ fnOrder }) => {
         STATUS: 'status',
     }
 
+
     return (
         <HeaderContainer>
             <Styles>
