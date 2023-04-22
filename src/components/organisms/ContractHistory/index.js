@@ -30,9 +30,7 @@ const ContractHistory = () => {
         initialDate: signature,
         finalDate: finish,
     }
-function required(){
 
-}
     const handleFilterRequest = (pagesFilter) => {
         params.orderField = order.orderField;
         params.order = order.order;
@@ -100,7 +98,6 @@ function required(){
                     setSearchResult={setSearchResult}
                 />
                 <ListHeaderHistory fnOrder={sortByField} />
-
                 {contracstHistory[0] ? (
                     <>
                         <ContainerAbsolute>
