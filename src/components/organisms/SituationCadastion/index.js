@@ -20,7 +20,7 @@ export const SituationCadastion = ({ data, disabled }) => {
             touched={touched.registration_status}
             options={optionsRegistions}
             disabled={disabled}
-            placeHolder="Situação Cadastral"
+            placeholder="Situação Cadastral"
             name="Situação Cadastral"
             handleBlur={setFieldTouched}
             width="300px"

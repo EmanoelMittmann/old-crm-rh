@@ -23,10 +23,13 @@ import { useSelector } from "react-redux";
 import { handleCEP } from "../../utils/validateCep";
 import DataBank from "../../molecules/DataBank";
 import ArrowRegister from "../../atoms/ArrowRegister";
+import { useCallback } from "react";
+import { useMemo } from "react";
 
 export const RegisterCompanies = () => {
   const { id } = useParams();
   const [uniqueCEP, setUniqueCEP] = useState();
+  const [director, setDirector] = useState([]);
   const [errors, setErrors] = useState();
   const history = useHistory();
   const isDisable = useSelector((state) => state.disableEditor);
@@ -55,6 +58,8 @@ export const RegisterCompanies = () => {
         return true;
       }),
     size: Yup.string().required(messages.required),
+    director: Yup.string().required(messages.required),
+    witnesses: Yup.array().min(2,messages.required),
     street_name: Yup.string().required(messages.required),
     main_cnae: Yup.array()
       .min(1, "Campo obrigatório")
@@ -71,9 +76,7 @@ export const RegisterCompanies = () => {
     phone_number: Yup.string().required(messages.required),
     city_name: Yup.string().required(messages.required),
     uf: Yup.string().required(messages.required),
-    phone_number: Yup.string().required(messages.required),
     main_email: Yup.string().required(messages.required),
-    registration_status: Yup.string().required(messages.required),
     date_of_registration_status: Yup.string().required(messages.required),
     reason_for_registration_status: Yup.string().required(messages.required),
     type_company: Yup.string().required(messages.required),
@@ -96,6 +99,8 @@ export const RegisterCompanies = () => {
       main_cnae: [],
       secondary_cnae: [],
       code_and_description_of_the_legal_status: [],
+      director: "",
+      witnesses: [],
       cep: cleanMask(""),
       street_name: "",
       house_number: "",
@@ -119,6 +124,11 @@ export const RegisterCompanies = () => {
       account_type: "",
     },
     onSubmit: async (values) => {
+      
+      if(values.witnesses.includes(values.director) || values.witnesses[0] === values.witnesses[1]){
+        return toast.error(<DefaultToast text='Assinantes e Testemunhas devem ser Diferentes'/>)
+      }
+
       await api({
         method: id ? "put" : "post",
         url: id ? `/companies/${id}` : "/companies",
@@ -158,10 +168,19 @@ export const RegisterCompanies = () => {
     history.push("/Company");
   };
 
-  const getCompanyData = async () => {
+  const getProfessionals = useCallback(async () => {
+    const { data } = await api.get("/professionals?limit=50");
+    setDirector(
+      data.data
+        .filter((witness) => witness.job.name.substring(0, 7) === "Diretor")
+        .map((witness) => ({ id: witness.id, name: witness.name}))
+    );
+  }, []);
+
+  const getCompanyData = useCallback(async () => {
     if (id) {
       const { data } = await api.get(`/companies/${id}`);
-      Object.entries(data[0]).forEach(([property, value]) => {
+      Object.entries(data).forEach(([property, value]) => {
         if (property.includes("date_of_registration_status")) {
           setFieldValue(property, getDate(value));
         } else if (property.includes("cnpj")) {
@@ -182,16 +201,23 @@ export const RegisterCompanies = () => {
             return null;
           }
           setFieldValue(property, getDate(value));
-        } else {
+        } else if (property.includes("userCompanies")){
+          setFieldValue('witnesses',value.filter(user => user.type_of_subscribes === 'WITNESSES').map(prop => prop.id))
+          setFieldValue('director',value.filter(user => user.type_of_subscribes === 'DIRECTOR').map(prop => prop.id)[0])
+        }else {
           setFieldValue(property, value);
         }
       });
     }
-  };
+  }, [id]);
 
   useEffect(() => {
     getCompanyData();
-  }, []);
+  }, [getCompanyData]);
+
+  useEffect(() => {
+    getProfessionals();
+  }, [getProfessionals]);
 
   useEffect(() => {
     setFieldValue("account_number", cleanMask(values.account_number));
@@ -205,7 +231,11 @@ export const RegisterCompanies = () => {
       </RegisterProfessionalTitleContainer>
       <RegisterProfessionalContainer>
         <form id="Company" onSubmit={formik.handleSubmit}>
-          <RegisterCompany data={formik} disabled={isDisable} />
+          <RegisterCompany
+            data={formik}
+            disabled={isDisable}
+            diretor={director}
+          />
           <DataBank data={formik} />
           <AddressContact data={formik} disabled={isDisable} />
           <SituationCadastion data={formik} disabled={isDisable} />
