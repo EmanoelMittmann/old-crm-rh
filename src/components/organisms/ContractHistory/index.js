@@ -98,7 +98,6 @@ const ContractHistory = () => {
                     setSearchResult={setSearchResult}
                 />
                 <ListHeaderHistory fnOrder={sortByField} />
-
                 {contracstHistory[0] ? (
                     <>
                         <ContainerAbsolute>
