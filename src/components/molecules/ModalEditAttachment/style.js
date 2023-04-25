@@ -18,6 +18,7 @@ export const ContainerInputs = styled.div`
     flex-direction: row;
     gap: 1em;
     padding: 1em;
+    padding-bottom: 1em;
     margin-top: 10px;
 `
 export const ProfessionalData = styled.div`
@@ -45,10 +46,10 @@ export const DivHours = styled.div`
 
 `
 export const ContainerInputsSelect = styled.div`
-    width: 80%;
+    width: 93.5%;
     display: flex;
     flex-direction: row;
-    padding: 0em 0em 1em 1.6em;
+    padding: 0em 0em 1em 1.7em;
     gap: 1em;
 `
 

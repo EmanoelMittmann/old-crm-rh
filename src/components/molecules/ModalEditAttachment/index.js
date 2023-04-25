@@ -76,20 +76,15 @@ const ModalEditAttachment = (
                         value={changeEstimatedTime}
                         onChange={e => setChangeEstimatedTime(e.target.value)}
                         type="number"
-                        label="Horas Mensais"
+                        label="Horas mensais"
                         widthContainer="45%"
-                        padding="0em 0 1em 0"
-                        handleBlur={() => { }}
-                        error={() => { }}
                     />
                     <InputWithLabel
                         value={changeEstimatedOvertime}
                         onChange={e => setChangeEstimatedOvertime(e.target.value)}
                         type="number"
-                        label="Horas extras"
+                        label="Horas extras" 
                         widthContainer="45%"
-                        handleBlur={() => { }}
-                        error={() => { }}
                     />
                 </ContainerInputs>
                 <ContainerInputsSelect>
@@ -97,14 +92,17 @@ const ModalEditAttachment = (
                         onChange={(e) => setNewJob(e.target.value)}
                         options={jobsMember}
                         placeholder={jobSelected}
-                        width="175px"
+                        width="330px"
+                        lineWidth="100%"
                         label="Cargo"
                     />
                     <InputSelect
                         onChange={(e) => setNewStatus(e.target.value)}
                         options={optionStatus}
                         placeholder={status}
-                        width="175px"
+                        width="330px"
+                        lineWidth="100%"
+                        label="Status"
                     />
                 </ContainerInputsSelect>
                 <ContainerButtons>
