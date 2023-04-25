@@ -11,7 +11,6 @@ export const HeaderContainer = styled.div`
     border-radius: 10px;
 
    svg {
-        margin-left: 0.5em;
         cursor: pointer;
   }
   @media screen and (min-width: 640px) and (max-width: 1024px) {
@@ -20,24 +19,24 @@ export const HeaderContainer = styled.div`
 
 `;
 
-export const Title = styled.h5`
+export const Title = styled.h4`
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
-    padding: 0 0.3em 0 0;
 `;
 
 
 export const Styles = styled.div`
   table {
+    display: flex;
     width: 100%;
-    border-spacing: 1.5em;
+    border-spacing: 1.2em;
+ 
   }
 `;
 
 export const Column = styled.th`
   color: black;
   width: ${(props) => props.width};
-  padding: 0.1rem;
   text-align: left;
   cursor: pointer;
 `;

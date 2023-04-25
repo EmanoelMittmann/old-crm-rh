@@ -51,7 +51,7 @@ export const HistoryJob = styled.p`
 
 export const HistoryCompany = styled.p`
   display: flex;
-  width: 13%;
+  width: 14%;
   padding-left: 3em;
   text-overflow:ellipsis;
   overflow:hidden;
@@ -60,20 +60,20 @@ export const HistoryCompany = styled.p`
 
 export const HistoryDateSend = styled.p`
   display: flex;
-  width: 14.5%;
-  padding-left: 2.5em;
+  width: 13.3%;
+  padding-left: 2em;
 
 `
 export const HistorySubscribeContract = styled.p`
   display: flex;
-  width: 16.5%;
-  padding-left: 2.5em;
+  width: 15%;
+  padding-left: 2em;
 
 `
 export const HistoryDateFinishContract = styled.p`
   display: flex;
-  width: 14%;
-  padding-left: 2.5em;
+  width: 15%;
+  padding-left: 2em;
 
 `
 export const StatusContract = styled.div`
@@ -82,7 +82,7 @@ export const StatusContract = styled.div`
   align-items: center;
   border-radius: 40px;
   font-weight: 700;
-  width: 12%;
+  width: 10%;
   height: 35px;
   background-color:${props => props.colorBg};
   color:${props => props.colortext};
