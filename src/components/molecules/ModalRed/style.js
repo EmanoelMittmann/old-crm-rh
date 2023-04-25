@@ -29,7 +29,7 @@ export const ModalContainerButtons = styled.div`
     width: 100%;
     height: 35%;
     border-radius: 0 0 15px 15px;
-    margin-top: 2em;
+    margin-top: 1em;
     border-top: 1.5px solid #919EAB52;
 `
 
