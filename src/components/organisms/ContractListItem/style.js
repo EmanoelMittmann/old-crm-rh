@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ContainerContractListItem = styled.div`
-  width: 100%;
+  width: 91.5%;
   display: flex;
   align-items: center;
   height: 50px;
@@ -42,7 +42,7 @@ export const Img = styled.img`
 
 export const HistoryJob = styled.p`
   display: flex;
-  width: 10%;
+  width: 11%;
   padding-left: 3em;
   text-overflow:ellipsis;
   overflow:hidden;
@@ -51,7 +51,7 @@ export const HistoryJob = styled.p`
 
 export const HistoryCompany = styled.p`
   display: flex;
-  width: 14%;
+  width: 15%;
   padding-left: 3em;
   text-overflow:ellipsis;
   overflow:hidden;
@@ -60,19 +60,19 @@ export const HistoryCompany = styled.p`
 
 export const HistoryDateSend = styled.p`
   display: flex;
-  width: 13.3%;
+  width: 15%;
   padding-left: 2em;
 
 `
 export const HistorySubscribeContract = styled.p`
   display: flex;
-  width: 15%;
+  width: 16%;
   padding-left: 2em;
 
 `
 export const HistoryDateFinishContract = styled.p`
   display: flex;
-  width: 15%;
+  width: 17%;
   padding-left: 2em;
 
 `
