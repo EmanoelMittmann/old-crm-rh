@@ -58,3 +58,14 @@ export const Title = styled.div`
   flex: none;
   margin-top: 1.5em;
 `
+
+export const ContainerOptions = styled.div`
+ display: flex;
+  justify-content: center;
+  position: absolute;
+  left: 92%;
+
+  svg {
+    fill: ${(props) => props.optionsColor};
+  }
+`

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { ContainerIconOptions } from "../../molecules/ProfessionalsListItem/style";
 import {
   CompanyCity,
@@ -14,13 +14,11 @@ import {
   ContainerCompaniesDetails,
 } from './style';
 import { ReactComponent as OptionsIcon } from '../../../assets/icons/options.svg';
-import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { formatDate } from '../../utils/formatDate';
 import MenuOptions from '../../atoms/MenuOptions';
 import { useDispatch } from 'react-redux';
 import { showEnableDisable } from '../../../redux/actions';
-import { useRef } from "react";
 import DetaislCompanies from "../../molecules/DetailsCompanies";
 
 const CompaniesListItem = ({ corporation }) => {
