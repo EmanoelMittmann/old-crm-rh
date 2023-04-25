@@ -16,6 +16,7 @@ import { useHistory } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import ModalRed from "../../molecules/ModalRed";
 import api from "../../../api/api";
+import ModalGreen from "../ModalGreen";
 const ProfessionalsListItem = ({professional, getProfessionals}) => {
     const history = useHistory();
     const [menuOptionsisVisible, setMenuOptionsisVisible] = useState(false);
@@ -35,7 +36,8 @@ const ProfessionalsListItem = ({professional, getProfessionals}) => {
       setMenuOptionsisVisible(false);
   
       const status = professional.is_active ? "inativar" : "ativar";
-      setModalMessage(`Deseja realmente ${status} ${professional.name}?`);
+      setModalMessage(`Deseja realmente ${status} ${professional.name}?
+      Isto ira gerar o cancelamento do contrato do mesmo.`);
     };
   
     const disableProfessional = async () => {
@@ -115,11 +117,20 @@ const ProfessionalsListItem = ({professional, getProfessionals}) => {
               id={professional.id}
             />
           }
-          {openModal && (
-            <ModalRed
+          {!professional.is_active && openModal && (
+            <ModalGreen
               CloseButtonClickHandler={() => setOpenModal(false)}
               redButtonClickHandler={() => disableProfessional()}
               title={professional.is_active === 1 ? "Inativar" : "Ativar"}
+              message={`Deseja realmente ativar o profissional ${professional.name}`}
+            />
+          )}
+
+          {professional.is_active && openModal && (
+            <ModalRed
+              CloseButtonClickHandler={() => setOpenModal(false)}
+              redButtonClickHandler={() => disableProfessional()}
+              title={professional.is_active === 1 ? "Ativar" : "Inativar"}
               message={modalMessage}
             />
           )}

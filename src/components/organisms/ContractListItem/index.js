@@ -1,4 +1,4 @@
-import { formatDate } from "../../utils/formatDate";
+import {formatDate } from "../../utils/formatDate";
 import { 
     ContainerContractListItem, 
     HistoryCompany, 
@@ -35,7 +35,7 @@ const ContractListItem = ({ contractHistory }) => {
             </ContractListItems>
             <HistoryJob>{contractHistory.job_profissional}</HistoryJob>
             <HistoryCompany>{contractHistory.company_profissional}</HistoryCompany>
-            <HistoryDateSend>{formatDate(contractHistory.date_sent_contract)}</HistoryDateSend>
+            <HistoryDateSend>{(contractHistory.date_sent_contract.substr(0, 10).split("-").reverse().join("/"))}</HistoryDateSend>
             <HistorySubscribeContract>{formatDate(contractHistory.date_signature_contract)}</HistorySubscribeContract>
             <HistoryDateFinishContract> {formatDate(contractHistory.date_finish_contract)} </HistoryDateFinishContract>
             <StatusContract colorBg={colorBg} colortext={colortext}>{StatusColor}</StatusContract>

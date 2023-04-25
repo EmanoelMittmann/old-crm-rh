@@ -47,7 +47,7 @@ const InputWithLabel = ({
       reset={reset}
     >
       <InputLine width={width} error={touched && error}>
-        <Label focus={focus || value == ''} blur={blur || value !== ''}>
+        <Label focus={focus || value !== ''} blur={blur || value !== ''}>
           {label}
           {required && <RequiredLabel>*</RequiredLabel>}
         </Label>
