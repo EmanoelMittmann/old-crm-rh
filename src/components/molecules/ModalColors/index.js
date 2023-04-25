@@ -187,8 +187,8 @@ const ModalColors = () => {
             <InputSelect
               textColor={state.statusColors}
               label="Status"
-              optionId={selectedOption}
-              setSelectedOption={setSelectedOption}
+              value={selectedOption}
+              onChange={(e) => setSelectedOption(e.target.value)}
               width="83%"
               lineWidth="100%"
               margin="0em 0em 0em -0.2em"
@@ -196,6 +196,7 @@ const ModalColors = () => {
             />
           ) : (
             <InputSelect
+              textColor={selectedOption}
               onChange={(e) => setSelectedOption(e.target.value)}
               placeholder="Color"
               width="83%"
