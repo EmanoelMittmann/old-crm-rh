@@ -211,6 +211,7 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
           options={[{ id: "", name: "Selecionar time" }, ...dataTeam]} // adiciona um item vazio no início da lista
           placeholder="Time"
           lineWidth="25%"
+          width="100%"
           label="Selecionar time"
           reset={reset}
         />
@@ -266,27 +267,27 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
             </div>
           </ProfessionalInfo>
           <ProfessionalHours>{member?.hours_estimed || 0}</ProfessionalHours>
-          <ProfessionalOvertime width="19.5em">
+          <ProfessionalOvertime>
             {member?.hours_perfomed || 0}
           </ProfessionalOvertime>
 
-          <ProfessionalPercent w="7.5em">
+          <ProfessionalPercent>
             {member.hours_perfomed
               ? (
-                (member?.hours_estimed / member?.hours_perfomed) *
-                100
-              ).toFixed(1)
+                  (member?.hours_estimed / member?.hours_perfomed) *
+                  100
+                ).toFixed(1)
               : 0}
             %
           </ProfessionalPercent>
 
-          <ProfessionalOvertime width="18em">
+          <ProfessionalOvertime>
             {member?.extrasHours_estimed || 0}
           </ProfessionalOvertime>
-          <ProfessionalOvertime width="18.5em">
+          <ProfessionalOvertime>
             {member?.extrasHours_performed || 0}
           </ProfessionalOvertime>
-          <ProfessionalPercent w="6em">
+          <ProfessionalPercent>
             {member.extrasHours_performed
               ? (
                 (member?.extrasHours_estimed /
@@ -300,6 +301,12 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
             <Badge
               status={member?.status === true ? status.ATIVO : status.INATIVO}
             />
+            <ContainerIcon>
+              <BsThreeDotsVertical
+                color="#919EAB"
+                onClick={() => professionalClickHandler(member.id)}
+              />
+            </ContainerIcon>
           </ProfessionalStatus>
 
           {modalIsVisible && (
@@ -311,12 +318,6 @@ const AttachmentTeam = ({ attachment, allOptions }) => {
               message="Tem certeza que deseja remover profissional?"
             />
           )}
-          <ContainerIcon>
-            <BsThreeDotsVertical
-              color="#919EAB"
-              onClick={() => professionalClickHandler(member.id)}
-            />
-          </ContainerIcon>
           {menuOptionsIsVisible && member?.id === professionalClicked && (
             <MenuOptions
               height="50px"

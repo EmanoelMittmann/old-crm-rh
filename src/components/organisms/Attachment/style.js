@@ -13,11 +13,14 @@ export const AttachmentForm = styled.div`
 `
 
 export const AttachmentTableLine = styled.div`
-    display: flex;
-    width: 100%;
-    min-height: 50px;   
-    margin-top:0.5em;
-    border-radius:10px;
+  display: grid;
+  width: 100%;
+  min-height: 50px;
+  margin-top: 0.5em;
+  align-items: center;
+  text-align: left;
+  padding: 1em;
+  grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 
     &:hover{
         background-color:#f4f6f8;
