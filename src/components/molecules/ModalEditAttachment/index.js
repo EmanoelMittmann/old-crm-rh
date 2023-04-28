@@ -91,6 +91,7 @@ const ModalEditAttachment = (
                     <InputSelect
                         onChange={(e) => setNewJob(e.target.value)}
                         options={jobsMember}
+                        textColor={jobSelected}
                         placeholder={jobSelected}
                         width="330px"
                         lineWidth="100%"
@@ -100,6 +101,7 @@ const ModalEditAttachment = (
                         onChange={(e) => setNewStatus(e.target.value)}
                         options={optionStatus}
                         placeholder={status}
+                        textColor={status}
                         width="330px"
                         lineWidth="100%"
                         label="Status"
