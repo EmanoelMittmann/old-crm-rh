@@ -37,7 +37,7 @@ const ProfessionalsListItem = ({professional, getProfessionals}) => {
   
       const status = professional.is_active ? "inativar" : "ativar";
       setModalMessage(`Deseja realmente ${status} ${professional.name}?
-      Isto ira gerar o cancelamento do contrato do mesmo.`);
+      Esta ação encerrará o contrato do mesmo.`);
     };
   
     const disableProfessional = async () => {
