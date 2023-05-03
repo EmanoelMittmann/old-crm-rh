@@ -110,7 +110,7 @@ const RegisterProject = () => {
           }
         })
         .catch((error) => {
-          toast.error(<DefaultToast text={error.response.data.message} />);
+          toast.error(<DefaultToast text='Há erros de validação' />);
           const errors = error.response.data.errors;
           setErrors(handleErrorMessages(errors));
         });
