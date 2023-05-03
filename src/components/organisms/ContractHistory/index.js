@@ -55,9 +55,15 @@ const ContractHistory = () => {
     const getContractsHistory = async () => {
         const { data } = await api.get("contractHistory?limit=5", { params: params })
         setContracstHistory(data.data)
+        console.log('data: ', data.file_id);
         setMetaHistory(data.meta)
     }
+    
+const getFileContract = async(id) => {
+    const { data } = await api.get(`contractHistory/${id}`)
+    console.log(data)
 
+}
 
     const nextPage = () => {
         handleFilterRequest("next");
@@ -105,7 +111,7 @@ const ContractHistory = () => {
                                 <ContractListItem
                                     key={contractHistory.id}
                                     contractHistory={contractHistory}
-                                    getContractsHistory={getContractsHistory}
+                                    getFileContract={getFileContract}
                                 />
                             )}
                         </ContainerAbsolute>

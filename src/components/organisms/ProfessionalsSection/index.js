@@ -131,7 +131,7 @@ const ProfessionalsSection = () => {
                             lastPage={professionalMeta.last_page} />
                     </>
                 ) : (
-                    <LoadingCircle />
+                    <LoadingCircle /> && <p>Nenhum profissional encontrado...</p>
                 )}
             </Container>
     );

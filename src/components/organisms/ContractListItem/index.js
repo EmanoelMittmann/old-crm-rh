@@ -16,7 +16,7 @@ import {
 } from "./style";
 
 
-const ContractListItem = ({ contractHistory }) => {
+const ContractListItem = ({ contractHistory, getFileContract }) => {
     const [menuOptions, setMenuOptions] = useState(false)
     const modalRef = useRef(null);
     const buttonRef = useRef(null);
@@ -82,7 +82,7 @@ const ContractListItem = ({ contractHistory }) => {
                     ref={modalRef}
                     positionMenu="15px"
                     firstOptionDescription="Visualizar PDF"
-                    firstChosenOption={() => { }}
+                    firstChosenOption={()=> getFileContract(contractHistory.id)}
                     secondOptionDescription="Baixar PDF"
                     secondChosenOption={() => { }}
                     padding="0.5em 0.5em 0.4em 0.7em"
