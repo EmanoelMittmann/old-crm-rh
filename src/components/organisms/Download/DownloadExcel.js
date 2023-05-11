@@ -27,8 +27,6 @@ const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
     const [companyCode, setCompanyCode] = useState('')
     const [onlyError, setOnlyError] = useState("")
 
-    console.log('payingCompany: ', payingCompany);
-
     const download = async () => {
         try {
             const { data } = await api.get(`/generateExcelPayment?companies_id=${companyCode}`, { responseType: 'blob' })
