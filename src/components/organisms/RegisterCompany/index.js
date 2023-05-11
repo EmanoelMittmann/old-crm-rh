@@ -54,8 +54,6 @@ const RegisterCompany = ({ data, disabled, diretor }) => {
     handleTypeCompany();
   }, [typeCompany]);
 
-  console.log(values.witnesses);
-
   return (
     <ContainerRegisterCompanyData>
       <SecondaryText margin="0 0 2.5em 0">Dados da empresa</SecondaryText>

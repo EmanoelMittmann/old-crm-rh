@@ -28,6 +28,7 @@ import SecondaryText from "../../atoms/SecondaryText/style";
 import TechLeadAndDev from "../../molecules/techLeadAndDev";
 import { PermissionsSpecial } from "../../organisms/PermissionsSpecial";
 import { formatAgeValidation } from "../../utils/formatDate";
+import { useLayoutEffect } from "react";
 
 const RegisterProfessional = () => {
   const [jobs, setJobs] = useState([]);
@@ -62,16 +63,16 @@ const RegisterProfessional = () => {
           try {
             const {data} = await api.post("/user/validateCpf", {
               id:id,
-              cpf: values.cpf,
-            });
-           if(data){
-            return true
-           }
+              cpf: values.cpf,   
+            })  
+            return data
+ 
           }catch(error){
             setCpfmessage(error.response.data.msg)
             return false
-          }         
+          } 
         }
+ 
       }),
 
     rg: Yup.string()
@@ -493,23 +494,7 @@ const RegisterProfessional = () => {
               "$1 $2 $3/$4-$5"
             )
           );
-        } else if (property.includes("fixed_payment_value")) {
-          setFieldValue(property, `R$${value},00`);
-        } else if (property.includes("cep")) {
-          let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
-          setUniqueCEP(data);
-          setFieldValue(property, data);
-        } else if (property.includes("company_cep")) {
-          let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
-          setAnotherCEP(data);
-          setFieldValue(property, data);
-        } else if (property.includes("cpf")) {
-          let data = value.replace(
-            /(\d{3})(\d{3})(\d{3})(\d{2})/,
-            "$1.$2.$3-$4"
-          );
-          setUniqueCpf(data);
-          setFieldValue(property, data);
+        
         } else if (property.includes("extra_hour_value")) {
           setFieldValue(property, String(value).replace(".", ","));
         } else if (property.includes("permissions")) {
@@ -517,12 +502,29 @@ const RegisterProfessional = () => {
             property,
             value.map((item) => item.id)
           );
-        } else if (property.includes('userCompanies')){
+        } else if (property.includes('userCompanies')) {
           setFieldValue(
             'companies',
             value.map(item => item.id)
           )
-        }else {
+      } else if (property.includes("fixed_payment_value")) {
+        setFieldValue(property, `R$${value},00`);
+      } else if (property.includes("cep")) {
+        let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
+        setUniqueCEP(data);
+        setFieldValue(property, data);
+      } else if (property.includes("company_cep")) {
+        let data = value.replace(/^(\d{5})(\d{3})+?$/, "$1-$2");
+        setAnotherCEP(data);
+        setFieldValue(property, data);
+      } else if (property.includes("cpf")) {
+        let data = value.replace(
+          /(\d{3})(\d{3})(\d{3})(\d{2})/,
+          "$1.$2.$3-$4"
+        );
+        setUniqueCpf(data);
+        setFieldValue(property, data);
+        } else {
           setFieldValue(property, value);
         }
       });
@@ -540,6 +542,7 @@ const RegisterProfessional = () => {
       getPermissions();
     }
   },[id]);
+
 
   function maskValueVariabled(values, setFieldValue) {
     setFieldValue(

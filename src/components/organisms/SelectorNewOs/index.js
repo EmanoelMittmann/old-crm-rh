@@ -13,6 +13,7 @@ import {
   ContainerButtonsHeader,
   ContainerButtonGeral,
   ContainerFlex,
+  ContainerFlexLoanding,
 } from "./style";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
@@ -30,6 +31,7 @@ import {
 } from "../../../redux/actions";
 import ArrowRegister from "../../atoms/ArrowRegister";
 import OnPrice from "../../utils/onPrice";
+import LoadingCircle from "../../atoms/LoadingCircle";
 
 const NewOrdemService = () => {
   const [searchResult, setSearchResult] = useState("");
@@ -47,9 +49,9 @@ const NewOrdemService = () => {
   const Modal = useSelector((state) => state.modalVisibility);
   const currentPage = haveCommissionMeta?.current_page;
   const totalpages = Math.ceil(haveCommissionMeta?.total / 5);
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-
   let params = {};
 
   const sortByName = () => {
@@ -228,21 +230,28 @@ const NewOrdemService = () => {
           >
             Cancelar
           </CancelButton>
-          <BlueButton
-            width="108px"
-            height="40px"
-            onClick={() => {
-              if (checkedProfissional.length > 0) {
-                handleSubmit(checkedProfissional);
-              } else {
-                return toast.error(
-                  <DefaultToast text={"Selecione os Profissionais!"} />
-                );
-              }
-            }}
-          >
-            Confirmar
-          </BlueButton>
+
+          {isLoading ? (<ContainerFlexLoanding><LoadingCircle /> </ContainerFlexLoanding>) : 
+
+          (
+            <BlueButton
+              width="108px"
+              height="40px"
+              onClick={() => {
+                if (checkedProfissional.length > 0) {
+                  handleSubmit(checkedProfissional);
+                } else {
+                  return toast.error(
+                    <DefaultToast text={"Selecione os Profissionais!"} />
+                  );
+                }
+                setIsLoading(true);
+              }}
+            >
+              Confirmar
+            </BlueButton>
+          )}
+      
           {Modal && (
             <ModalOrdemServices
               checkedProfissional={checkedProfissional}
@@ -256,6 +265,7 @@ const NewOrdemService = () => {
               setNewId={setNewId}
               haveCommissionMeta={haveCommissionMeta}
               setHaveCommissionMeta={setHaveCommissionMeta}
+              setIsLoading={setIsLoading}
             />
           )}
         </ContainerButtons>
