@@ -5,7 +5,7 @@ import InputWithLabel from "../../atoms/InputWithLabel";
 import HeaderPayments from "../../molecules/HeaderPayments";
 import Footer from "../Footer";
 import Shelf from "./shelf";
-import { ContainerButtonExcel, ContainerListing, ContainerSearch } from "./style";
+import { ContainerButtonExcel, ContainerSearch } from "./style";
 import { Status } from "../../pages/Reports/Status";
 import DownloadExcel from "../Download/DownloadExcel";
 import DarkButton from "../../atoms/Buttons/DarkButton/style";

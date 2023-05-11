@@ -18,7 +18,7 @@ export const ContainerButtonExcel = styled.div`
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
-    position: fixed;
+   position: absolute;
     right: 0;
     top: 0;
     margin-top: 5.3em;
