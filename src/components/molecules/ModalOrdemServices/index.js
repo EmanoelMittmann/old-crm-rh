@@ -30,6 +30,8 @@ export const ModalOrdemServices = ({
   checkedProfissional,
   setNewId,
   setIsLoading,
+  setBottonDisabled,
+  bottonDisabled,
 }) => {
   const state = useSelector((state) => state.valueOfCommission);
   const [valuesCommission, setValuesCommission] = useState(state);
@@ -84,8 +86,10 @@ export const ModalOrdemServices = ({
         <CloseButtonCircle
           CloseButtonClickHandler={() => {
             setIsLoading(false)
+            setBottonDisabled(false)
             dispatch(closeModal({ type: "CLOSEMODAL" }))
           }}
+          disabled={bottonDisabled}
         />
         <ContainerAbsolute>
           <ModalTitle padding="1em">Confirmar Comissões</ModalTitle>
@@ -114,10 +118,9 @@ export const ModalOrdemServices = ({
           <CancelButton
             onClick={() => {
               setIsLoading(false)
-              dispatch(closeModal({ type: "CLOSEMODAL" }))
-            }
-            }
-
+              setBottonDisabled(false)
+              dispatch(closeModal({ type: "CLOSEMODAL" })) 
+            }}  
           >
             Cancelar
           </CancelButton>
@@ -143,7 +146,8 @@ export const ModalOrdemServices = ({
                 );
               }
               setIsLoading(false)
-            }}
+              setBottonDisabled(false)
+            }}          
           >
             confirmar
           </SaveButton>

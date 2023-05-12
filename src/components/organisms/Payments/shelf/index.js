@@ -23,7 +23,7 @@ const Shelf = ({ data, uploads }) => {
   const [detailVisibled, setdetaisVisibled] = useState(false);
   const [disabled, setDisabled] = useState(
     data.status_payment === "Pendente" ? true : false
-  );
+    );
   const modalRef = useRef();
   const buttonRef = useRef();
 

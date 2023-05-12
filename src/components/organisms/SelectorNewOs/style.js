@@ -130,11 +130,11 @@ export const Some = styled.span`
 export const ContainerFlexLoanding = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
   flex-direction: row;
-  position: relative;
-  top:0;
-  margin-top:-6em;
-  width: 26.9%;
+  position: absolute;
+  top: 0;
+  margin-top: 1.3em;
+  margin-left: 3em;
+  width: 25%;
 `
 

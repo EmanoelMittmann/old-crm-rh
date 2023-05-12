@@ -12,7 +12,6 @@ import {
   TitleOS,
   ContainerButtonsHeader,
   ContainerButtonGeral,
-  ContainerFlex,
   ContainerFlexLoanding,
 } from "./style";
 import { useEffect } from "react";
@@ -31,7 +30,7 @@ import {
 } from "../../../redux/actions";
 import ArrowRegister from "../../atoms/ArrowRegister";
 import OnPrice from "../../utils/onPrice";
-import LoadingCircle from "../../atoms/LoadingCircle";
+import { BoxLoading } from "../../atoms/LoadingCircle/style";
 
 const NewOrdemService = () => {
   const [searchResult, setSearchResult] = useState("");
@@ -50,6 +49,7 @@ const NewOrdemService = () => {
   const currentPage = haveCommissionMeta?.current_page;
   const totalpages = Math.ceil(haveCommissionMeta?.total / 5);
   const [isLoading, setIsLoading] = useState(false);
+  const [bottonDisabled, setBottonDisabled] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   let params = {};
@@ -70,7 +70,7 @@ const NewOrdemService = () => {
             return {
               professional_id: item.id,
               commission: 0,
-              companies_id: item.companies.id 
+              companies_id: item.companies.id
             };
           }
         })
@@ -80,7 +80,7 @@ const NewOrdemService = () => {
       setCheckedProfissional([]);
     }
   };
-  
+
   const handleSubmit = async (data) => {
     if (checkedProfissional.length > 0) {
       try {
@@ -230,28 +230,31 @@ const NewOrdemService = () => {
           >
             Cancelar
           </CancelButton>
+          <BlueButton
+            width="108px"
+            height="40px"
+            onClick={() => {
+              if (checkedProfissional.length > 0) {
+                handleSubmit(checkedProfissional);
+              } else {
+                return toast.error(
+                  <DefaultToast text={"Selecione os Profissionais!"} />
+                );
+              }
+              setIsLoading(true);
+              setBottonDisabled(true);
+            }}
+            disabled={isLoading || bottonDisabled}
+          >
+            {isLoading ?
+              <ContainerFlexLoanding>
+                <BoxLoading width="20px" height="20px" />
+              </ContainerFlexLoanding>
+              :
+              "Confirmar"
+            }
+          </BlueButton>
 
-          {isLoading ? (<ContainerFlexLoanding><LoadingCircle /> </ContainerFlexLoanding>) : 
-
-          (
-            <BlueButton
-              width="108px"
-              height="40px"
-              onClick={() => {
-                if (checkedProfissional.length > 0) {
-                  handleSubmit(checkedProfissional);
-                } else {
-                  return toast.error(
-                    <DefaultToast text={"Selecione os Profissionais!"} />
-                  );
-                }
-                setIsLoading(true);
-              }}
-            >
-              Confirmar
-            </BlueButton>
-          )}
-      
           {Modal && (
             <ModalOrdemServices
               checkedProfissional={checkedProfissional}
@@ -266,6 +269,8 @@ const NewOrdemService = () => {
               haveCommissionMeta={haveCommissionMeta}
               setHaveCommissionMeta={setHaveCommissionMeta}
               setIsLoading={setIsLoading}
+              setBottonDisabled={setBottonDisabled}
+              bottonDisabled={bottonDisabled}
             />
           )}
         </ContainerButtons>
@@ -302,7 +307,7 @@ const NewOrdemService = () => {
         <div>
           <OnPrice {...{ checkedProfissional, companies, professionals }} />
         </div>
-  
+
       </Container>
 
     </>

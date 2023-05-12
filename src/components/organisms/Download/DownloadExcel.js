@@ -16,8 +16,6 @@ import { saveAs } from 'file-saver'
 import { toast } from 'react-toastify'
 import { DefaultToast } from '../../atoms/Toast/DefaultToast.js'
 import ModalGreen from '../../molecules/ModalGreen/index.js'
-import InputSelectWithLabel from '../../atoms/InputSelectWithLabel/index.js'
-import InputSelectSetValue from '../../atoms/InputSelectSetValue/index.js'
 
 
 const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
@@ -26,6 +24,9 @@ const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
     const [payingCompany, setPayingCompany] = useState([])
     const [companyCode, setCompanyCode] = useState('')
     const [onlyError, setOnlyError] = useState("")
+    
+    console.log('payingCompany: ', payingCompany);
+    console.log('relatório Excel: ', companyCode);
 
     const download = async () => {
         try {
@@ -33,6 +34,7 @@ const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
             saveAs(data, 'Relatório de Pagamento') &&
                 toast.success(<DefaultToast text="Downlaod efetuado com sucesso!" />)
         } catch (error) {
+
             return toast.warn(<DefaultToast text={'Nenhum relatório para pagamento encontrado!'} />)
         }
 
@@ -52,13 +54,20 @@ const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
         }
     };
 
+
+    // const handleClicked = () => {
+    //     if (companyCode.trim() === "") {
+    //         setOnlyError("Selecine uma empresa")
+    //     } else {
+    //         setModalIsVisible(prev => !prev)
+    //     }
+    // }
     const handleClicked = () => {
-        if (companyCode.trim() === "") {
-           setOnlyError("Nenhum relatório de pagamento encontrado esta empresa!")
-        } else {
+        if (payingCompany){ 
             setModalIsVisible(prev => !prev)
         }
     }
+
 
     const ModalClick = () => {
         setModalIsVisibleExcel(prev => !prev)
