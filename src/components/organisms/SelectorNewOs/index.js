@@ -49,7 +49,7 @@ const NewOrdemService = () => {
   const currentPage = haveCommissionMeta?.current_page;
   const totalpages = Math.ceil(haveCommissionMeta?.total / 5);
   const [isLoading, setIsLoading] = useState(false);
-  const [bottonDisabled, setBottonDisabled] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
   let params = {};
@@ -242,9 +242,9 @@ const NewOrdemService = () => {
                 );
               }
               setIsLoading(true);
-              setBottonDisabled(true);
+              setButtonDisabled(true);
             }}
-            disabled={isLoading || bottonDisabled}
+            disabled={isLoading || buttonDisabled}
           >
             {isLoading ?
               <ContainerFlexLoanding>
@@ -269,8 +269,8 @@ const NewOrdemService = () => {
               haveCommissionMeta={haveCommissionMeta}
               setHaveCommissionMeta={setHaveCommissionMeta}
               setIsLoading={setIsLoading}
-              setBottonDisabled={setBottonDisabled}
-              bottonDisabled={bottonDisabled}
+              setButtonDisabled={setButtonDisabled}
+              buttonDisabled={buttonDisabled}
             />
           )}
         </ContainerButtons>
