@@ -25,16 +25,12 @@ const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
     const [companyCode, setCompanyCode] = useState('')
     const [onlyError, setOnlyError] = useState("")
     
-    console.log('payingCompany: ', payingCompany);
-    console.log('relatório Excel: ', companyCode);
-
     const download = async () => {
         try {
             const { data } = await api.get(`/generateExcelPayment?companies_id=${companyCode}`, { responseType: 'blob' })
             saveAs(data, 'Relatório de Pagamento') &&
                 toast.success(<DefaultToast text="Downlaod efetuado com sucesso!" />)
         } catch (error) {
-
             return toast.warn(<DefaultToast text={'Nenhum relatório para pagamento encontrado!'} />)
         }
 
