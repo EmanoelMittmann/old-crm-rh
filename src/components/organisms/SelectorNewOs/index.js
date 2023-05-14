@@ -12,7 +12,7 @@ import {
   TitleOS,
   ContainerButtonsHeader,
   ContainerButtonGeral,
-  ContainerFlex,
+  ContainerFlexLoanding,
 } from "./style";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
@@ -30,6 +30,7 @@ import {
 } from "../../../redux/actions";
 import ArrowRegister from "../../atoms/ArrowRegister";
 import OnPrice from "../../utils/onPrice";
+import { BoxLoading } from "../../atoms/LoadingCircle/style";
 
 const NewOrdemService = () => {
   const [searchResult, setSearchResult] = useState("");
@@ -47,9 +48,10 @@ const NewOrdemService = () => {
   const Modal = useSelector((state) => state.modalVisibility);
   const currentPage = haveCommissionMeta?.current_page;
   const totalpages = Math.ceil(haveCommissionMeta?.total / 5);
+  const [isLoading, setIsLoading] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-
   let params = {};
 
   const sortByName = () => {
@@ -68,7 +70,7 @@ const NewOrdemService = () => {
             return {
               professional_id: item.id,
               commission: 0,
-              companies_id: item.companies.id 
+              companies_id: item.companies.id
             };
           }
         })
@@ -78,7 +80,7 @@ const NewOrdemService = () => {
       setCheckedProfissional([]);
     }
   };
-  
+
   const handleSubmit = async (data) => {
     if (checkedProfissional.length > 0) {
       try {
@@ -239,10 +241,20 @@ const NewOrdemService = () => {
                   <DefaultToast text={"Selecione os Profissionais!"} />
                 );
               }
+              setIsLoading(true);
+              setButtonDisabled(true);
             }}
+            disabled={isLoading || buttonDisabled}
           >
-            Confirmar
+            {isLoading ?
+              <ContainerFlexLoanding>
+                <BoxLoading width="20px" height="20px" />
+              </ContainerFlexLoanding>
+              :
+              "Confirmar"
+            }
           </BlueButton>
+
           {Modal && (
             <ModalOrdemServices
               checkedProfissional={checkedProfissional}
@@ -256,6 +268,9 @@ const NewOrdemService = () => {
               setNewId={setNewId}
               haveCommissionMeta={haveCommissionMeta}
               setHaveCommissionMeta={setHaveCommissionMeta}
+              setIsLoading={setIsLoading}
+              setButtonDisabled={setButtonDisabled}
+              buttonDisabled={buttonDisabled}
             />
           )}
         </ContainerButtons>
@@ -292,7 +307,7 @@ const NewOrdemService = () => {
         <div>
           <OnPrice {...{ checkedProfissional, companies, professionals }} />
         </div>
-  
+
       </Container>
 
     </>

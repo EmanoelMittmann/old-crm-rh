@@ -24,16 +24,16 @@ const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
     const [payingCompany, setPayingCompany] = useState([])
     const [companyCode, setCompanyCode] = useState('')
     const [onlyError, setOnlyError] = useState("")
-
+    
     const download = async () => {
         try {
             const { data } = await api.get(`/generateExcelPayment?companies_id=${companyCode}`, { responseType: 'blob' })
             saveAs(data, 'Relatório de Pagamento') &&
                 toast.success(<DefaultToast text="Downlaod efetuado com sucesso!" />)
         } catch (error) {
-
             return toast.warn(<DefaultToast text={'Nenhum relatório para pagamento encontrado!'} />)
         }
+
         getReports()
     }
 
@@ -42,7 +42,7 @@ const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
             const { data } = await api({
                 method: "GET",
                 url: `/companies`,
-                razao_social: payingCompany
+                params: { razao_social: payingCompany }
             });
             setPayingCompany(data.data);
         } catch (error) {
@@ -50,13 +50,20 @@ const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
         }
     };
 
+
+    // const handleClicked = () => {
+    //     if (companyCode.trim() === "") {
+    //         setOnlyError("Selecine uma empresa")
+    //     } else {
+    //         setModalIsVisible(prev => !prev)
+    //     }
+    // }
     const handleClicked = () => {
-        if (companyCode.trim() === '') {
-            return setOnlyError("Selecione uma empresa")
-        } else {
+        if (payingCompany){ 
             setModalIsVisible(prev => !prev)
         }
     }
+
 
     const ModalClick = () => {
         setModalIsVisibleExcel(prev => !prev)
@@ -79,7 +86,6 @@ const DownloadExcel = ({ setModalIsVisibleExcel, getReports }) => {
                             setCompanyCode(e.target.value)
                         }}
                         options={payingCompany}
-                        placeholder="Empresa Pagadora"
                         width="94%"
                         lineWidth="100%"
                         label="Empresa Pagadora"

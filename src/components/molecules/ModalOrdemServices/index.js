@@ -19,7 +19,6 @@ import { toast } from "react-toastify";
 import { DefaultToast } from "../../atoms/Toast/DefaultToast";
 
 
-
 export const ModalOrdemServices = ({
   haveCommission,
   haveCommissionMeta,
@@ -27,6 +26,9 @@ export const ModalOrdemServices = ({
   page,
   checkedProfissional,
   setNewId,
+  setIsLoading,
+  setButtonDisabled,
+  buttonDisabled,
 }) => {
   const state = useSelector((state) => state.valueOfCommission);
   const [valuesCommission, setValuesCommission] = useState(state);
@@ -51,7 +53,7 @@ export const ModalOrdemServices = ({
     }
     return setPage(page + 1);
   };
- 
+
   const previousPage = () => {
     if (page === "") {
       return setPage(page - 1);
@@ -72,14 +74,19 @@ export const ModalOrdemServices = ({
       valuesCommission.filter(
         (item) => item.id !== professional.id
       )
-      );  
-    };
+    );
+  };
 
   return (
     <>
       <ModalContainerProfessional>
         <CloseButtonCircle
-          CloseButtonClickHandler={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
+          CloseButtonClickHandler={() => {
+            setIsLoading(false)
+            setButtonDisabled(false)
+            dispatch(closeModal({ type: "CLOSEMODAL" }))
+          }}
+          disabled={buttonDisabled}
         />
         <ContainerAbsolute>
           <ModalTitle padding="1em">Confirmar Comissões</ModalTitle>
@@ -104,10 +111,13 @@ export const ModalOrdemServices = ({
           currentPage={haveCommissionMeta?.current_page}
           firstPage={haveCommissionMeta?.first_page}
         />
-
         <ModalContainerButtons>
           <CancelButton
-            onClick={() => dispatch(closeModal({ type: "CLOSEMODAL" }))}
+            onClick={() => {
+              setIsLoading(false)
+              setButtonDisabled(false)
+              dispatch(closeModal({ type: "CLOSEMODAL" })) 
+            }}  
           >
             Cancelar
           </CancelButton>
@@ -122,18 +132,21 @@ export const ModalOrdemServices = ({
               if (valuesCommission.length === filterHaveCommission.length && !isEmptyCommision) {
                 dispatch(valueOfCommission(valuesCommission));
                 dispatch(closeModal({ type: "CLOSEMODAL" }));
+                setIsLoading(false)
               } else {
                 return toast.error(
                   <DefaultToast
                     text={
                       "Há campos vazios ou com valor negativo!"
                     }
-                  />
+                  />,
                 );
               }
-            }}
+              setIsLoading(false)
+              setButtonDisabled(false)
+            }}          
           >
-            Confirmar
+            confirmar
           </SaveButton>
         </ModalContainerButtons>
       </ModalContainerProfessional>

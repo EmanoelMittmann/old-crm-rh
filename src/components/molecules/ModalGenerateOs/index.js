@@ -5,7 +5,6 @@ import CancelButton from "../../atoms/Buttons/CancelButton/style";
 import SaveButton from "../../atoms/Buttons/SaveButton/style";
 import FooterModais from "../../organisms/FooterModais";
 import { ModalOverlay, ModalTitle } from "../Modal/style";
-import CloseButtonCircle from "../../atoms/Buttons/CloseButtonCircle";
 import {
   ContainerAbsolute,
   ModalContainerButtons,
@@ -15,7 +14,6 @@ import Shelf from "./shelf";
 import { useEffect } from "react";
 import ModalCancelOS from "../ModalCancelOS";
 import { useState } from "react";
-import ModalCompanies from "../ModalCompanies";
 
 const ModalGenerateOs = ({
   ModalProfessional,

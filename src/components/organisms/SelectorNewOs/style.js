@@ -126,3 +126,15 @@ export const Some = styled.span`
     font-size: 14px;
     font-weight: 300;
 `
+
+export const ContainerFlexLoanding = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  position: absolute;
+  top: 0;
+  margin-top: 1.3em;
+  margin-left: 3em;
+  width: 25%;
+`
+
