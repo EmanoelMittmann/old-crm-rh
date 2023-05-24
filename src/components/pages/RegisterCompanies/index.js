@@ -78,7 +78,7 @@ export const RegisterCompanies = () => {
     uf: Yup.string().required(messages.required),
     main_email: Yup.string().required(messages.required),
     date_of_registration_status: Yup.string().required(messages.required),
-    reason_for_registration_status: Yup.string().required(messages.required),
+    reason_for_registration_status: Yup.string(),
     type_company: Yup.string().required(messages.required),
     agency: Yup.string().required(messages.required),
     account_number: Yup.string().required(messages.required),
