@@ -16,8 +16,8 @@ import {
   ListItens,
   Itens,
   ValuesSelected,
+  Container,
 } from "./style.js";
-import { useRef } from "react";
 
 const InputSearchCnae = ({
   inputWidth,
@@ -104,7 +104,7 @@ const InputSearchCnae = ({
             required={required}
           />
         </InputLine>
-        <div className="div1">
+        <Container>
           {values?.map((index) => (
             <ValuesSelected
               key={index.id}
@@ -113,7 +113,7 @@ const InputSearchCnae = ({
               {index.description}
             </ValuesSelected>
           ))}
-        </div>
+        </Container>
         {error && touched && (
           <ErrorMessage visible={error}>{error}</ErrorMessage>
         )}
