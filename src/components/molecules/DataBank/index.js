@@ -23,7 +23,7 @@ const DataBank = ({ data }) => {
 
       <ContainerRow>
         <SelectBank
-          value={values.bank}
+          value={values?.bank}
           onChange={handleChange("bank")}
           padding="0em 1.5em 0 1.5em"
           placeHolder="Banco"
@@ -36,10 +36,9 @@ const DataBank = ({ data }) => {
           setFieldValue={setFieldValue}
           translate={"translate(0,3em)"}
           name="bank"
-          required
         />
         <InputSelect
-          textColor={values.account_type}
+          textColor={values?.account_type}
           value={values.account_type}
           label="Tipo da conta"
           onChange={handleChange("account_type")}
@@ -51,12 +50,11 @@ const DataBank = ({ data }) => {
           width="70%"
           lineWidth="100%"
           name="account_type"
-          required
         />
       </ContainerRow>
       <ContainerRow>
         <InputMasked
-          value={values.agency}
+          value={values?.agency}
           placeHolder="Agência"
           padding="0 2em 0 0"
           mask={[/\d/, /\d/, /\d/, /\d/, /\d/]}
@@ -69,10 +67,9 @@ const DataBank = ({ data }) => {
           handleBlur={setFieldTouched}
           name="agency"
           type="number"
-          required
         />
         <InputMasked
-          value={values.account_number}
+          value={values?.account_number}
           onChange={handleChange("account_number")}
           mask={[
             /\d/,
@@ -96,7 +93,6 @@ const DataBank = ({ data }) => {
           name="account_number"
           placeHolder="Número da conta"
           type="number"
-          required
         />
       </ContainerRow>
     </ContainerRegisterCompanyData>

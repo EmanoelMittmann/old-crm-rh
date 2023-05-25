@@ -565,11 +565,14 @@ const RegisterProfessional = () => {
     }
   }
   useEffect(() => {
-    setFieldValue(
-      "professional_data.account_number",
-      values.professional_data.account_number.replace("-", "")
-    );
-  }, [values.professional_data.account_number]);
+    if(values.professional_data){
+      setFieldValue(
+        "professional_data.account_number",
+        values.professional_data.account_number.replace("-", "")
+      );
+    }
+    return
+  }, [values?.professional_data?.account_number]);
 
   function resetPixKeyIfNecessary(
     values,
@@ -577,11 +580,8 @@ const RegisterProfessional = () => {
     setFieldValue,
     setOldValue
   ) {
-    const verified =
-      oldValue?.professional_data?.pix_key_type ===
-        values.professional_data.pix_key_type &&
-      oldValue?.professional_data?.type_of_transfer ===
-        values.professional_data.type_of_transfer;
+    const verified = oldValue?.professional_data?.pix_key_type === values.professional_data.pix_key_type &&
+      oldValue?.professional_data?.type_of_transfer === values.professional_data.type_of_transfer;
     if (!verified) {
       setFieldValue("professional_data.pix_key", "");
     }
@@ -594,10 +594,13 @@ const RegisterProfessional = () => {
   }, [values.variable1, values.variable2, values.fixed_payment_value]);
 
   useEffect(() => {
-    resetPixKeyIfNecessary(values, oldValue, setFieldValue, setOldValue);
+    if(values.professional_data){
+      resetPixKeyIfNecessary(values, oldValue, setFieldValue, setOldValue);
+    }
+    return;
   }, [
-    values.professional_data.pix_key_type,
-    values.professional_data.type_of_transfer,
+    values.professional_data?.pix_key_type,
+    values.professional_data?.type_of_transfer,
   ]);
 
 
