@@ -87,7 +87,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
   const [disabled, setDisabled] = useState(true);
 
   const masks =
-    values.professional_data.pix_key_type === "CPF"
+    values.professional_data?.pix_key_type === "CPF"
       ? [
           /\d/,
           /\d/,
@@ -104,7 +104,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
           /\d/,
           /\d/,
         ]
-      : values.professional_data.pix_key_type === "CNPJ"
+      : values.professional_data?.pix_key_type === "CNPJ"
       ? [
           /\d/,
           /\d/,
@@ -125,7 +125,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
           /\d/,
           /\d/,
         ]
-      : values.professional_data.pix_key_type === "Phone"
+      : values.professional_data?.pix_key_type === "Phone"
       ? [
           "(",
           /[1-9]/,
@@ -144,19 +144,19 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
           /\d/,
           /\d/,
         ]
-      : values.professional_data.pix_key_type === "E-mail"
+      : values.professional_data?.pix_key_type === "E-mail"
       ? [/[a-zA-Z0-9]+@+[a-zA-Z0-9]+.+[A-z]/]
       : [];
 
   useEffect(() => {
-    values.professional_data.type_of_transfer === "PIX"
+    values.professional_data?.type_of_transfer === "PIX"
       ? setIsDisabled(false)
       : setIsDisabled(true);
     errors?.cep === setFieldError("CEP não encontrado!")
       ? setDisabled(!disabled)
       : setDisabled(disabled);
   }, [
-    values.professional_data.type_of_transfer,
+    values.professional_data?.type_of_transfer,
     errors.cep,
     values?.professional_data?.pix_key,
   ]);
@@ -418,7 +418,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
           <ContainerRow>
             <InputMasked
               onChange={handleChange("professional_data.cnpj")}
-              value={values.professional_data.cnpj}
+              value={values.professional_data?.cnpj}
               mask={[
                 /[0-9]/,
                 /\d/,
@@ -452,7 +452,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
             />
             <InputWithLabel
               onChange={handleChange("professional_data.razao_social")}
-              value={values.professional_data.razao_social}
+              value={values.professional_data?.razao_social}
               label="Razão Social"
               width="100%"
               widthContainer="70%"
@@ -466,7 +466,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
           </ContainerRow>
           <ContainerRow>
             <InputWithLabel
-              value={values.professional_data.fantasy_name}
+              value={values.professional_data?.fantasy_name}
               onChange={handleChange("professional_data.fantasy_name")}
               label="Nome fantasia"
               width="100%"
@@ -479,7 +479,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
               required
             />
             <InputMasked
-              value={values.professional_data.company_phone_number}
+              value={values.professional_data?.company_phone_number}
               mask={[
                 "(",
                 /[1-9]/,
@@ -512,7 +512,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
           </ContainerRow>
           <ContainerRow>
             <InputMasked
-              value={values.professional_data.company_cep}
+              value={values.professional_data?.company_cep}
               onChange={handleChange("professional_data.company_cep")}
               label="CEP"
               mask={[/\d/, /\d/, /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/]}
@@ -528,7 +528,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
             />
             <InputWithLabel
               onChange={handleChange("professional_data.company_street_name")}
-              value={values.professional_data.company_street_name}
+              value={values.professional_data?.company_street_name}
               label="Rua"
               width="100%"
               widthContainer="40%"
@@ -543,9 +543,9 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
             <InputWithLabel
               onChange={handleChange("professional_data.company_house_number")}
               value={
-                values.professional_data.company_house_number === 0
+                values.professional_data?.company_house_number === 0
                   ? ""
-                  : values.professional_data.company_house_number
+                  : values.professional_data?.company_house_number
               }
               label="Número"
               type="number"
@@ -561,7 +561,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
             />
             <InputWithLabel
               onChange={handleChange("professional_data.company_complement")}
-              value={values.professional_data.company_complement}
+              value={values.professional_data?.company_complement}
               label="Complemento"
               width="100%"
               widthContainer="19%"
@@ -577,7 +577,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
               onChange={handleChange(
                 "professional_data.company_neighborhood_name"
               )}
-              value={values.professional_data.company_neighborhood_name}
+              value={values.professional_data?.company_neighborhood_name}
               label="Bairro"
               width="100%"
               widthContainer="60%"
@@ -590,7 +590,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
               required
             />
             <InputWithLabel
-              value={values.professional_data.company_city_name}
+              value={values.professional_data?.company_city_name}
               onChange={handleChange("professional_data.company_city_name")}
               label="Cidade"
               width="100%"
@@ -605,8 +605,8 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
               required
             />
             <InputSelect
-              textColor={values.professional_data.uf_company}
-              value={values.professional_data.uf_company}
+              textColor={values.professional_data?.uf_company}
+              value={values.professional_data?.uf_company}
               onChange={handleChange("professional_data.uf_company")}
               options={optionsUF}
               label="UF"
@@ -627,7 +627,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
               width="100%"
               widthContainer="100%"
               label="E-mail"
-              value={values.professional_data.company_email}
+              value={values.professional_data?.company_email}
               type="email"
               placeholder="E-mail"
               required
@@ -653,13 +653,13 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
         <SecondaryText margin="0 0 2em 0">Dados Bancários</SecondaryText>
         <ContainerRow>
           <InputSelect
-            textColor={values?.professional_data.type_person}
+            textColor={values?.professional_data?.type_person}
             placeholder="Tipo de pessoa"
             width="64%"
             lineWidth="100%"
             name="type_person"
             options={optionsTypePerson}
-            value={values?.professional_data.type_person}
+            value={values?.professional_data?.type_person}
             onChange={handleChange("professional_data.type_person")}
             error={errors?.professional_data?.type_person}
             touched={touched?.professional_data?.type_person}
@@ -667,8 +667,8 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
             required
           />
           <SelectBank
-            textColor={values.professional_data.bank}
-            value={values.professional_data.bank}
+            textColor={values.professional_data?.bank}
+            value={values.professional_data?.bank}
             onChange={handleChange("professional_data.bank")}
             padding="0em 2em 0 1em"
             placeholder="Banco"
@@ -684,8 +684,8 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
             required
           />
           <InputSelect
-            textColor={values.professional_data.account_type}
-            value={values.professional_data.account_type}
+            textColor={values.professional_data?.account_type}
+            value={values.professional_data?.account_type}
             onChange={handleChange("professional_data.account_type")}
             options={optionsBank}
             placeholder="Tipo da conta"
@@ -701,7 +701,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
         </ContainerRow>
         <ContainerRow>
           <InputMasked
-            value={values.professional_data.agency}
+            value={values.professional_data?.agency}
             padding="0 1em 0 0"
             mask={[/\d/, /\d/, /\d/, /\d/, /\d/]}
             onChange={handleChange("professional_data.agency")}
@@ -717,7 +717,7 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
             required
           />
           <InputMasked
-            value={values.professional_data.account_number}
+            value={values.professional_data?.account_number}
             onChange={handleChange("professional_data.account_number")}
             mask={[
               /\d/,
@@ -775,16 +775,16 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
             name="professional_data.pix_key_type"
             disabled={isDisabled}
             label={
-              values.professional_data.type_of_transfer == "PIX"
+              values.professional_data?.type_of_transfer == "PIX"
                 ? "Tipo de chave PIX"
                 : ""
             }
             required={
-              values.professional_data.type_of_transfer == "PIX" ? "*" : ""
+              values.professional_data?.type_of_transfer == "PIX" ? "*" : ""
             }
           />
-          {values.professional_data.pix_key_type === "E-mail" ||
-          values.professional_data.pix_key_type === "RandomKey" ? (
+          {values.professional_data?.pix_key_type === "E-mail" ||
+          values.professional_data?.pix_key_type === "RandomKey" ? (
             <InputText
               name="professional_data.pix_key "
               error={errors?.professional_data?.pix_key}
@@ -798,12 +798,12 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
               disabled={isDisabled}
               placeholder="Chave PIX"
               label={
-                values.professional_data.type_of_transfer == "PIX"
+                values.professional_data?.type_of_transfer == "PIX"
                   ? "Chave PIX"
                   : ""
               }
               required={
-                values.professional_data.type_of_transfer == "PIX" ? "*" : ""
+                values.professional_data?.type_of_transfer == "PIX" ? "*" : ""
               }
             />
           ) : (
@@ -816,16 +816,16 @@ const RegisterProfessionalsData = ({ data, optionsCompany_id }) => {
               onChange={handleChange("professional_data.pix_key")}
               width="100%"
               widthContainer="100%"
-              value={values.professional_data.pix_key}
+              value={values.professional_data?.pix_key}
               disabled={isDisabled}
               placeHolder="Chave PIX"
               label={
-                values.professional_data.type_of_transfer == "PIX"
+                values.professional_data?.type_of_transfer == "PIX"
                   ? "Chave PIX"
                   : ""
               }
               required={
-                values.professional_data.type_of_transfer == "PIX" ? "*" : ""
+                values.professional_data?.type_of_transfer == "PIX" ? "*" : ""
               }
             />
           )}

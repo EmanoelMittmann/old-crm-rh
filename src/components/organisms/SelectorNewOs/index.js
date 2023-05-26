@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import api from "../../../api/api";
 import InputSearch from "../../atoms/InputSearch";
+import useDebounce from '../../../hooks/debounce'
 import OrdemServiceHeader from "../../molecules/OrdemServiceListHeader";
 import OrdemServiceListItem from "../../molecules/OrdemServicesListItem";
 import {
@@ -52,7 +53,12 @@ const NewOrdemService = () => {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
-  let params = {};
+
+  let params = {
+    limit: '5',
+    search: searchResult,
+    order: order
+  };
 
   const sortByName = () => {
     order === "" && setOrder("desc");
@@ -81,28 +87,22 @@ const NewOrdemService = () => {
     }
   };
 
-  const handleSubmit = async (data) => {
+  const handleSubmit = async (dataUser) => {
     if (checkedProfissional.length > 0) {
       try {
-        await api({
-          method: "POST",
-          url: `/findProfessionalCommissionOrCreateOrderOfService`,
-          data: data,
-          params: params,
-        }).then((res) => {
-          if (res.data.msg === "successfully generated report") {
-            dispatch(closeModal({ type: "CLOSEMODAL" }));
-            history.push("/serviceOrders");
-            dispatch(valueOfCommission([]));
-            return toast.success(
-              <DefaultToast text={"Ordem de serviço gerada com sucesso!"} />
-            );
-          } else {
-            dispatch(openModal({ type: "OPENMODAL" }));
-            setHaveCommission(res.data.data);
-            setHaveCommissionMeta(res.data.meta);
-          }
-        });
+        const { data } = await api.post(`/findProfessionalCommissionOrCreateOrderOfService`, dataUser)
+        if (data.msg === "successfully generated report") {
+          dispatch(closeModal({ type: "CLOSEMODAL" }));
+          history.push("/serviceOrders");
+          dispatch(valueOfCommission([]));
+          return toast.success(
+            <DefaultToast text={"Ordem de serviço gerada com sucesso!"} />
+          );
+        }
+        dispatch(openModal({ type: "OPENMODAL" }));
+        setHaveCommission(data.data);
+        setHaveCommissionMeta(data.meta);
+
       } catch (err) { }
     }
   };
@@ -138,11 +138,7 @@ const NewOrdemService = () => {
 
   const getCompanies = async () => {
     try {
-      const { data } = await api({
-        method: "GET",
-        url: "/companies",
-        razao_social: companies
-      });
+      const { data } = await api.get("/companies");
       setCompanies(data.data);
     } catch (error) {
       console.error(error)
@@ -150,11 +146,8 @@ const NewOrdemService = () => {
   };
 
   const getProfessionals = async () => {
-    const { data } = await api({
-      method: "get",
-      url: `/professionals/?limit=20&search=${searchResult}`,
-    });
-    setProfessionals(data.data.filter(person => person.professional_data.cnpj !== null));
+    const { data } = await api.get(`/professionals`, { params: params });
+    setProfessionals(data.data.filter(person => person.professional_data !== null));
   };
 
   useEffect(() => {

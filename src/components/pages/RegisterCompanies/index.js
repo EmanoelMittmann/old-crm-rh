@@ -78,12 +78,12 @@ export const RegisterCompanies = () => {
     uf: Yup.string().required(messages.required),
     main_email: Yup.string().required(messages.required),
     date_of_registration_status: Yup.string().required(messages.required),
-    reason_for_registration_status: Yup.string().required(messages.required),
+    reason_for_registration_status: Yup.string().nullable(),
     type_company: Yup.string().required(messages.required),
-    agency: Yup.string().required(messages.required),
-    account_number: Yup.string().required(messages.required),
-    bank: Yup.string().required(messages.required),
-    account_type: Yup.string().required(messages.required),
+    agency: Yup.string().nullable(),
+    account_number: Yup.string().nullable(),
+    bank: Yup.string().nullable(),
+    account_type: Yup.string().nullable(),
   });
 
   const formik = useFormik({
@@ -124,9 +124,9 @@ export const RegisterCompanies = () => {
       account_type: "",
     },
     onSubmit: async (values) => {
-      
-      if(values.witnesses.includes(values.director) || values.witnesses[0] === values.witnesses[1]){
-        return toast.error(<DefaultToast text='Assinantes e Testemunhas devem ser Diferentes'/>)
+
+      if (values.witnesses.includes(values.director) || values.witnesses[0] === values.witnesses[1]) {
+        return toast.error(<DefaultToast text='Assinantes e Testemunhas devem ser Diferentes' />)
       }
 
       await api({
@@ -134,11 +134,11 @@ export const RegisterCompanies = () => {
         url: id ? `/companies/${id}` : "/companies",
         data: id
           ? {
-              ...values,
-            }
+            ...values,
+          }
           : {
-              ...values,
-            },
+            ...values,
+          },
       })
         .then(() => {
           toast.success(<DefaultToast text="Empresa cadastrada." />, {
@@ -173,7 +173,7 @@ export const RegisterCompanies = () => {
     setDirector(
       data.data
         .filter((witness) => witness.job.name.substring(0, 7) === "Diretor")
-        .map((witness) => ({ id: witness.id, name: witness.name}))
+        .map((witness) => ({ id: witness.id, name: witness.name }))
     );
   }, []);
 
@@ -201,10 +201,10 @@ export const RegisterCompanies = () => {
             return null;
           }
           setFieldValue(property, getDate(value));
-        } else if (property.includes("userCompanies")){
-          setFieldValue('witnesses',value.filter(user => user.type_of_subscribes === 'WITNESSES').map(prop => prop.id))
-          setFieldValue('director',value.filter(user => user.type_of_subscribes === 'DIRECTOR').map(prop => prop.id)[0])
-        }else {
+        } else if (property.includes("userCompanies")) {
+          setFieldValue('witnesses', value.filter(user => user.type_of_subscribes === 'WITNESSES').map(prop => prop.id))
+          setFieldValue('director', value.filter(user => user.type_of_subscribes === 'DIRECTOR').map(prop => prop.id)[0])
+        } else {
           setFieldValue(property, value);
         }
       });
@@ -220,8 +220,11 @@ export const RegisterCompanies = () => {
   }, [getProfessionals]);
 
   useEffect(() => {
-    setFieldValue("account_number", cleanMask(values.account_number));
-  }, [values.account_number]);
+    if (values?.account_number) {
+      setFieldValue("account_number", cleanMask(values.account_number));
+    }
+    return
+  }, [values?.account_number]);
 
   return (
     <>

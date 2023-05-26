@@ -1,22 +1,12 @@
 import styled from 'styled-components';
 
 export const InputSearchWithLabel = styled.div`
-  margin-right: 23px;
-  height: 45px;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: ${(props) => (props.width ? props.width : '90%')};
   margin-bottom: 1em;
-
-  .div1 {
-    display: flex;
-    width: 100%;
-    gap: 5px;
-    flex-flow: row nowrap;
-    position: relative;
-  }
 `;
 
 export const DefaultInputCnae = styled.input`
@@ -111,8 +101,18 @@ export const ValuesSelected = styled.div`
   background-color: #fff;
   border-radius: 8px;
   font-size: 10px;
-  padding: 5px;
-  margin: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
   box-shadow: 1px 2px 5px #ccc;
   cursor: pointer;
 `;
+
+export const Container = styled.div`
+  margin-top: 0.5em;
+  display: flex;
+  width: 100%;
+  gap: 5px;
+  flex-wrap: wrap;
+`

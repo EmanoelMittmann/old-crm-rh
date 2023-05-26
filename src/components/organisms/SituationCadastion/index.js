@@ -56,7 +56,6 @@ export const SituationCadastion = ({ data, disabled }) => {
             handleBlur={setFieldTouched}
             name="reason_for_registration_status"
             placeholder="Motivo da situação cadastral"
-            required
           />
         </ContainerRow>
         <ContainerRow>

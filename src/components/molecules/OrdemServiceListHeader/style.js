@@ -21,6 +21,10 @@ export const ListHeaderProfessional = styled.div`
   align-items: center;
   width: 23.5%;
 
+  svg{
+    cursor: pointer;
+  }
+
 `;
 export const ListHeaderCompanies = styled.div`
   display: flex;
