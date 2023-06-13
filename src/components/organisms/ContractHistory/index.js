@@ -73,7 +73,6 @@ const ContractHistory = () => {
         }
     }
 
-
     const nextPage = () => {
         handleFilterRequest("next");
         getContractsHistory()
