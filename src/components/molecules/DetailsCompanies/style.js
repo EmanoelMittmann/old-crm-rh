@@ -101,7 +101,9 @@ export const StyleTipe = styled.p`
     color: #5A646E;
 `
 export const StyleTipeBank = styled.p`
-    width: 31%;
+    width: 30%;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
     font-family: 'Poppins';
     color: #5A646E;
 `

@@ -30,30 +30,31 @@ import { useEffect } from 'react';
 
 const DetaislCompanies = ({ id, setModalDetailsCompanies }) => {
     const [listCompanie, setListCompanie] = useState()
-
+    
     const ClickHandlerDetais = () => {
         setModalDetailsCompanies(prev => !prev)
     };
-
+    
     const getCompaniesDetails = async () => {
-
+        
         const { data } = await api({
             method: "get",
             url: `/companies/${id}`,
         });
         setListCompanie(data);
     };
-
-
+    
     useEffect(() => {
         getCompaniesDetails(id)
     }, [id])
+    
+
 
     return (
         <>
-            {listCompanie?.map((item, index) => (
+
                 <div>
-                    <ModalContainer key={index}>
+                    <ModalContainer>
                         <ModalTitle padding="1em 2em ">
                             <CloseButton CloseButtonClickHandler={() => ClickHandlerDetais()} />
                             Detalhes da Empresa
@@ -63,8 +64,8 @@ const DetaislCompanies = ({ id, setModalDetailsCompanies }) => {
                             <StyleTitle>Data de abertura</StyleTitle>
                         </ContaineTitles>
                         <ContainerData>
-                            <StyleName>{item.type_company}</StyleName>
-                            <StyleTip>{formatDate(item.opening_date.substring(0, 10))}</StyleTip>
+                            <StyleName>{listCompanie?.type_company}</StyleName>
+                            <StyleTip>{formatDate(listCompanie?.opening_date.substring(0, 10))}</StyleTip>
                         </ContainerData>
                         <ContainerAbsolute>
                             <ContainerTime>
@@ -74,9 +75,9 @@ const DetaislCompanies = ({ id, setModalDetailsCompanies }) => {
                                     <StyleTitle>Nome fantasia</StyleTitle>
                                 </ContainerTitles>
                                 <ContainerTitles>
-                                    <StyleTipe>{item.cnpj}</StyleTipe>
-                                    <StyleName>{item.razao_social}</StyleName>
-                                    <StyleName>{item.fantasy_name}</StyleName>
+                                <StyleTipe>{listCompanie?.cnpj}</StyleTipe>
+                                <StyleName>{listCompanie?.razao_social}</StyleName>
+                                <StyleName>{listCompanie?.fantasy_name}</StyleName>
                                 </ContainerTitles>
                             </ContainerTime>
                             <ContainerTime>
@@ -86,9 +87,9 @@ const DetaislCompanies = ({ id, setModalDetailsCompanies }) => {
                                     <StyleTitle>Porte</StyleTitle>
                                 </ContainerTitles>
                                 <ContainerTitles>
-                                    <StyleTipe>{item.state_registration}</StyleTipe>
-                                    <StyleName>{item.municipal_registration}</StyleName>
-                                    <StyleName>{item.size}</StyleName>
+                                <StyleTipe>{listCompanie?.state_registration}</StyleTipe>
+                                <StyleName>{listCompanie?.municipal_registration}</StyleName>
+                                <StyleName>{listCompanie?.size}</StyleName>
                                 </ContainerTitles>
                             </ContainerTime>
                             <ContainerTime>
@@ -96,7 +97,7 @@ const DetaislCompanies = ({ id, setModalDetailsCompanies }) => {
                                     <StyleTitleProject>Atividade Principal</StyleTitleProject>
                                 </ContainerTitles>
                                 <ContainerTitles>
-                                    {item.main_cnae.map(data => (
+                                {listCompanie?.main_cnae.map(data => (
                                         <StyleCnae>{data.description}</StyleCnae>
                                     ))}
                                 </ContainerTitles>
@@ -106,7 +107,7 @@ const DetaislCompanies = ({ id, setModalDetailsCompanies }) => {
                                     <StyleTitle>Atividade Secundária</StyleTitle>
                                 </ContainerTitles>
                                 <ContainerTitles>
-                                    {item.secondary_cnae.map(cnae => (
+                                {listCompanie?.secondary_cnae.map(cnae => (
                                         <StyleCnae>{cnae.description}</StyleCnae>
                                     ))}
                                 </ContainerTitles>
@@ -116,7 +117,7 @@ const DetaislCompanies = ({ id, setModalDetailsCompanies }) => {
                                     <StyleTitle>Natureza jurídica</StyleTitle>
                                 </ContainerTitles>
                                 <ContainerTitles>
-                                    {item.code_and_description_of_the_legal_status
+                                {listCompanie?.code_and_description_of_the_legal_status
                                         .map(code => (
                                             <StyleCnae>{code.name}</StyleCnae>
                                         ))}
@@ -132,10 +133,10 @@ const DetaislCompanies = ({ id, setModalDetailsCompanies }) => {
                                         <StyleTitle>Tipo da conta</StyleTitle>
                                     </ContainerTitles>
                                     <ContainerTitles>
-                                        <StyleTipe>{item.agency}</StyleTipe>
-                                        <StyleName>{item.account_number}</StyleName>
-                                        <StyleName>{item.bank}</StyleName>
-                                        <StyleName>{item.account_type}</StyleName>
+                                    <StyleTipe>{listCompanie?.agency}</StyleTipe>
+                                    <StyleName>{listCompanie?.account_number}</StyleName>
+                                    <StyleName>{listCompanie?.bank}</StyleName>
+                                    <StyleName>{listCompanie?.account_type}</StyleName>
                                     </ContainerTitles>
                                 </ContainerBank>
                             </ContainerDataBank>
@@ -149,10 +150,10 @@ const DetaislCompanies = ({ id, setModalDetailsCompanies }) => {
                                         <StyleTitle>Complemento</StyleTitle>
                                     </ContainerTitles>
                                     <ContainerTitles>
-                                        <StyleTipe>{item.street_name}</StyleTipe>
-                                        <StyleName>{item.house_number}</StyleName>
-                                        <StyleName>{item.neighborhood_name}</StyleName>
-                                        <StyleName>{item.complement}</StyleName>
+                                    <StyleTipe>{listCompanie?.street_name}</StyleTipe>
+                                    <StyleName>{listCompanie?.house_number}</StyleName>
+                                    <StyleName>{listCompanie?.neighborhood_name}</StyleName>
+                                    <StyleName>{listCompanie?.complement}</StyleName>
                                     </ContainerTitles>
                                     <ContainerTitles>
                                         <StyleTitleBanks>CEP</StyleTitleBanks>
@@ -160,17 +161,17 @@ const DetaislCompanies = ({ id, setModalDetailsCompanies }) => {
                                         <StyleTitle>Estado</StyleTitle>
                                     </ContainerTitles>
                                     <ContainerTitles>
-                                        <StyleTipeBank>{item.cep}</StyleTipeBank>
-                                        <StyleNameBank>{item.city_name}</StyleNameBank>
-                                        <StyleName>{item.uf}</StyleName>
+                                    <StyleTipeBank>{listCompanie?.cep}</StyleTipeBank>
+                                    <StyleNameBank>{listCompanie?.city_name}</StyleNameBank>
+                                    <StyleName>{listCompanie?.uf}</StyleName>
                                     </ContainerTitles>
                                     <ContainerTitles>
                                         <StyleTitleBanks>E-mail</StyleTitleBanks>
                                         <StyleTitle>Telefone</StyleTitle>
                                     </ContainerTitles>
                                     <ContainerTitles>
-                                        <StyleTipeBank>{item.main_email}</StyleTipeBank>
-                                        <StyleName>{item.phone_number}</StyleName>
+                                    <StyleTipeBank>{listCompanie?.main_email}</StyleTipeBank>
+                                    <StyleName>{listCompanie?.phone_number}</StyleName>
                                     </ContainerTitles>
                                 </ContainerBank>
                             </ContainerDataBank>
@@ -178,7 +179,6 @@ const DetaislCompanies = ({ id, setModalDetailsCompanies }) => {
                     </ModalContainer>
                     <ModalOverlay />
                 </div>
-            ))}
         </>
 
     )
