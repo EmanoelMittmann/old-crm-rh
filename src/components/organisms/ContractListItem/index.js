@@ -20,8 +20,6 @@ const ContractListItem = ({ contractHistory, getFileContract}) => {
     const [menuOptions, setMenuOptions] = useState(false)
     const modalRef = useRef(null);
     const buttonRef = useRef(null);
-    
-    console.log('contractHistory: ', contractHistory.id);
 
     function handleOutside(e) {
         if (
