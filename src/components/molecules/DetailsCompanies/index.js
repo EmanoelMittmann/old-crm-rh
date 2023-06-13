@@ -52,8 +52,7 @@ const DetaislCompanies = ({ id, setModalDetailsCompanies }) => {
 
     return (
         <>
-
-                <div>
+          <div>
                     <ModalContainer>
                         <ModalTitle padding="1em 2em ">
                             <CloseButton CloseButtonClickHandler={() => ClickHandlerDetais()} />
