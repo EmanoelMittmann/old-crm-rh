@@ -16,11 +16,10 @@ import {
 } from "./style";
 
 
-const ContractListItem = ({ contractHistory, getFileContract }) => {
+const ContractListItem = ({ contractHistory, getFileContract}) => {
     const [menuOptions, setMenuOptions] = useState(false)
     const modalRef = useRef(null);
     const buttonRef = useRef(null);
-    
 
     function handleOutside(e) {
         if (
@@ -84,7 +83,7 @@ const ContractListItem = ({ contractHistory, getFileContract }) => {
                     firstOptionDescription="Visualizar PDF"
                     firstChosenOption={()=> getFileContract(contractHistory.id)}
                     secondOptionDescription="Baixar PDF"
-                    secondChosenOption={() => { }}
+                    secondChosenOption={() => getFileContract(contractHistory.id)}
                     padding="0.5em 0.5em 0.4em 0.7em"
                     id={contractHistory.id}
                 />

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import api from "../../../api/api";
 import ArrowRegister from "../../atoms/ArrowRegister";
-import {ContainerAbsolute} from "../../atoms/Container/style";
+import { ContainerAbsolute } from "../../atoms/Container/style";
 import LoadingCircle from "../../atoms/LoadingCircle";
 import HistoryInput from "../../molecules/HistoryInputs";
 import ListHeaderHistory from "../../molecules/ListHeaderHistory";
@@ -11,13 +11,16 @@ import ContractListItem from "../ContractListItem";
 import Footer from "../Footer";
 import { ContainerIconModal } from "../SelectorNewOs/style";
 import { Container, ContainerButtonGeral, ContainerButtonsHeader, Title } from "./style";
-
+import { saveAs } from 'file-saver'
+import { toast } from 'react-toastify'
+import { DefaultToast } from "../../atoms/Toast/DefaultToast";
 const ContractHistory = () => {
     const [searchResult, setSearchResult] = useState("");
     const [statusSelected, setStatusSelected] = useState("")
     const [signature, setSignature] = useState("")
     const [finish, setFinish] = useState("")
     const [contracstHistory, setContracstHistory] = useState([])
+    const [document, setDocument] = useState(null)
     const [order, setOrder] = useState({ order: "", field: "" });
     const [metaHistory, setMetaHistory] = useState({})
     const history = useHistory();
@@ -57,11 +60,18 @@ const ContractHistory = () => {
         setContracstHistory(data.data)
         setMetaHistory(data.meta)
     }
-    
-const getFileContract = async(id) => {
-    const { data } = await api.get(`contractHistory/${id}`)
 
-}
+    const getFileContract = async (id) => {
+        try {
+            const { data } = await api.get(`contractHistory/${id}`, { responseType: 'blob' });
+            saveAs(data, "Contrato de Prestação de Serviço");
+            toast.success(<DefaultToast text="Documento localizado com sucesso!" />)
+            return;
+
+        } catch (error) {
+            return toast.warn(<DefaultToast text={'Erro ao buscar documento!'} />)
+        }
+    }
 
     const nextPage = () => {
         handleFilterRequest("next");
