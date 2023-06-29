@@ -15,28 +15,28 @@ import { requestCheckDataInvalid } from "../../utils/requestCheckDataInvalid";
 
 function InvoiceUpload() {
   const history = useHistory();
-  const [fileData, setFileData] = useState(null);
-  const [fileXml, setFileXml] = useState(null);
+  const [filePDF, setFilePDF] = useState(null);
+  const [fileXML, setFileXML] = useState(null);
   const [modalIsVisible, setModalIsVisible] = useState(false);
 
-  function handleUpload(file) {
+  function handleFileChange(file) {
     const data = {
       file,
       fileSize: filesize(file[0].size),
     };
-    return setFileData(data);
+    return setFilePDF(data);
   }
 
-  function handleUploadXML(file) {
+  function handleXmlChange(file) {
     const data = {
       file,
       filesize: fileSize(file[0].size),
     };
-    return setFileXml(data);
+    return setFileXML(data);
   }
 
   const processUpload = () => {
-    if (fileData === null || fileXml === null) {
+    if (filePDF === null || fileXML === null) {
       return toast.warn(
         <DefaultToast text="Arraste ou selecione o arquivo primeiro." />,
         {
@@ -45,34 +45,74 @@ function InvoiceUpload() {
       );
     }
 
-    const data = new FormData();
-    data.append("param_name_file", fileData.file[0]);
-    data.append("param_name_xml", fileXml.file[0]);
+    const uploadFile = async (file, url) => {
+      try {
+        const response = await fetch(url, {
+          method: 'PUT',
+          body: file,
+        });
 
-    api
-      .post("fiscalNotesProfissionals", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((response) => {
-        if (response.data.error) {
-          requestCheckDataInvalid(response);
+        if (response.ok) {
+          console.log('Arquivo enviado com sucesso!');
         } else {
-          toast.success(<DefaultToast text="Nota fiscal enviada!" />);
-          return history.push("/invoiceSending");
+          console.error('Erro ao enviar arquivo:', response.statusText);
         }
+      } catch (error) {
+        console.error('Erro ao enviar arquivo:', error);
+      }
+    };
+
+    const pdfUrl = 'https://ubi-labs-development.s3.amazonaws.com/uploads/85/pdf/2/MatheusTesteDaSilva.pdf?AWSAccessKeyId=AKIAYABDEGGGLHNOL454&Expires=1687193476&Signature=efYCI1HNzEtg7Tpj8OGvafWUFvw%3D';
+    const xmlUrl = 'https://ubi-labs-development.s3.amazonaws.com/uploads/85/xml/2/MatheusTesteDaSilva.xml?AWSAccessKeyId=AKIAYABDEGGGLHNOL454&Expires=1687193476&Signature=tmihB%2FMI1SurMJ5BhrqebTVORaY%3D';
+
+    const pdfFile = filePDF.file[0];
+    const xmlFile = fileXML.file[0];
+
+    Promise.all([
+      uploadFile(pdfFile, pdfUrl),
+      console.log(pdfFile, pdfUrl),
+      uploadFile(xmlFile, xmlUrl),
+    ])
+      .then(() => {
+        const data = new FormData();
+        data.append("param_name_file", filePDF[0]);
+        data.append("param_name_xml", fileXML[0]);
+
+        api
+          .post("fiscalNotesProfissionals", data, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          })
+
+          .then((response) => {
+            if (response.data.error) {
+              requestCheckDataInvalid(response);
+            }
+            if (response.data.error && response.data.error.length > 0) {
+              const errorMessage = response.data.error[0];
+              toast.error(<DefaultToast text={errorMessage} />)
+            } else {
+              toast.success(<DefaultToast text="Nota fiscal enviada!" />);
+              return history.push("/invoiceSending");
+            }
+          })
+          .catch((err) => {
+            return toast.error(
+              <DefaultToast text="Não foi possível completar o upload!" />
+            );
+          });
       })
-      .catch((err) => {
-        return toast.error(
-          <DefaultToast text="Não foi possível completar o upload!" />
-        );
+      .catch((error) => {
+        console.error('Erro ao enviar arquivo:', error);
       });
   };
 
   function cancelUpload() {
-    !fileData ? history.push("/invoiceSending") : setModalIsVisible(true);
+    !filePDF ? history.push("/invoiceSending") : setModalIsVisible(true);
   }
+
+
 
   return (
     <>
@@ -93,13 +133,13 @@ function InvoiceUpload() {
         <AlertInvoice text="O envio das NF devem ser feitas até o dia 25 de cada mês." />
         <Text>Upload Nota Fiscal</Text>
         <DropZone
-          onUpload={handleUpload}
-          data={fileData}
+          onUpload={handleFileChange}
+          data={filePDF}
           type="application/pdf"
         />
         <DropZone
-          onUpload={handleUploadXML}
-          data={fileXml}
+          onUpload={handleXmlChange}
+          data={fileXML}
           type="text/xml"
           xml="xml"
         />
